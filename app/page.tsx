@@ -1,88 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-// ─── Mock recipe data (will be replaced by Spoonacular API) ───────────────────
-const RECIPES = [
-  {
-    id: 1,
-    title: "Creamy Tuscan Garlic Pasta",
-    source: "BBC Good Food",
-    time: "25 min",
-    calories: 480,
-    tags: ["pasta", "italian", "quick"],
-    category: "Pasta",
-    emoji: "🍝",
-    gradient: "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
-    rating: 4.8,
-    saves: 2341,
-  },
-  {
-    id: 2,
-    title: "Thai Green Curry with Jasmine Rice",
-    source: "Serious Eats",
-    time: "35 min",
-    calories: 520,
-    tags: ["thai", "curry", "spicy"],
-    category: "Asian",
-    emoji: "🍛",
-    gradient: "linear-gradient(135deg, #10b981 0%, #065f46 100%)",
-    rating: 4.9,
-    saves: 1872,
-  },
-  {
-    id: 3,
-    title: "Classic Avocado Toast with Poached Egg",
-    source: "Minimalist Baker",
-    time: "15 min",
-    calories: 320,
-    tags: ["breakfast", "healthy", "quick"],
-    category: "Breakfast",
-    emoji: "🥑",
-    gradient: "linear-gradient(135deg, #84cc16 0%, #15803d 100%)",
-    rating: 4.6,
-    saves: 3104,
-  },
-  {
-    id: 4,
-    title: "Slow-Roasted Salmon with Lemon Herbs",
-    source: "Bon Appétit",
-    time: "40 min",
-    calories: 390,
-    tags: ["seafood", "healthy", "dinner"],
-    category: "Seafood",
-    emoji: "🐟",
-    gradient: "linear-gradient(135deg, #f97316 0%, #dc2626 100%)",
-    rating: 4.7,
-    saves: 1456,
-  },
-  {
-    id: 5,
-    title: "Homemade Margherita Pizza",
-    source: "Chefkoch",
-    time: "45 min",
-    calories: 560,
-    tags: ["pizza", "italian", "weekend"],
-    category: "Pizza",
-    emoji: "🍕",
-    gradient: "linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)",
-    rating: 4.8,
-    saves: 4210,
-  },
-  {
-    id: 6,
-    title: "Chocolate Lava Cake",
-    source: "Eatsmarter",
-    time: "20 min",
-    calories: 410,
-    tags: ["dessert", "chocolate", "quick"],
-    category: "Dessert",
-    emoji: "🍫",
-    gradient: "linear-gradient(135deg, #78350f 0%, #1c1917 100%)",
-    rating: 4.9,
-    saves: 5621,
-  },
+// ─── Types ────────────────────────────────────────────────────────────────────
+interface Recipe {
+  id: number;
+  title: string;
+  image: string | null;
+  source: string;
+  sourceUrl: string;
+  time: string;
+  servings: number | null;
+  rating: number | null;
+}
+
+// ─── Fallback gradients for cards without images ──────────────────────────────
+const GRADIENTS = [
+  "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
+  "linear-gradient(135deg, #10b981 0%, #065f46 100%)",
+  "linear-gradient(135deg, #84cc16 0%, #15803d 100%)",
+  "linear-gradient(135deg, #f97316 0%, #dc2626 100%)",
+  "linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)",
+  "linear-gradient(135deg, #78350f 0%, #1c1917 100%)",
 ];
+const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", "🥘", "🍲"];
 
 const CATEGORIES = ["All", "Pasta", "Asian", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
 
@@ -110,7 +51,6 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
         <a href="/" className="flex items-center gap-2">
           <span className="text-2xl">🍳</span>
           <span className="text-xl font-bold text-gray-900">
@@ -118,19 +58,14 @@ function Navbar() {
           </span>
         </a>
 
-        {/* Nav links */}
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
           <a href="#discover" className="hover:text-orange-500 transition-colors">Discover</a>
           <a href="#how-it-works" className="hover:text-orange-500 transition-colors">How it Works</a>
-          <a href="#" className="hover:text-orange-500 transition-colors">Trending</a>
+          <a href="#discover" className="hover:text-orange-500 transition-colors">Trending</a>
         </div>
 
-        {/* CTA */}
         <div className="flex items-center gap-3">
-          <a
-            href="#"
-            className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-          >
+          <a href="#" className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
             Log in
           </a>
           <a
@@ -148,38 +83,36 @@ function Navbar() {
   );
 }
 
-function Hero({ search, setSearch }: { search: string; setSearch: (v: string) => void }) {
+function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
   return (
     <section className="hero-gradient py-20 sm:py-28 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        {/* Badge */}
         <div className="inline-flex items-center gap-2 text-sm font-medium text-orange-600 bg-orange-100 rounded-full px-4 py-1.5 mb-6">
           <span>✨</span>
           <span>Personalized recipe discovery — like Spotify, but for food</span>
         </div>
 
-        {/* Headline */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
           Find recipes you'll{" "}
           <span style={{ color: "#f97316" }}>actually love.</span>
         </h1>
 
-        {/* Sub */}
         <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-xl mx-auto leading-relaxed">
           Culinse aggregates millions of recipes from the world's best food sites and shows you a personalized feed — no ads, no noise.
         </p>
 
-        {/* Search bar */}
         <div className="flex items-center gap-3 bg-white rounded-2xl shadow-lg p-2 max-w-xl mx-auto border border-gray-100">
           <span className="pl-2 text-gray-400 text-xl">🔍</span>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && onSearch()}
             placeholder="Search any recipe, ingredient, or cuisine..."
             className="search-input flex-1 text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
           />
           <button
+            onClick={onSearch}
             className="flex-shrink-0 px-5 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
             style={{ background: "#f97316" }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
@@ -189,13 +122,12 @@ function Hero({ search, setSearch }: { search: string; setSearch: (v: string) =>
           </button>
         </div>
 
-        {/* Quick suggestions */}
         <div className="flex flex-wrap justify-center gap-2 mt-5 text-sm text-gray-500">
           <span>Try:</span>
           {["Pasta carbonara", "Avocado toast", "Thai curry", "Chocolate cake"].map((s) => (
             <button
               key={s}
-              onClick={() => setSearch(s)}
+              onClick={() => { setSearch(s); onSearch(); }}
               className="text-orange-500 hover:text-orange-700 hover:underline transition-colors"
             >
               {s}
@@ -207,15 +139,9 @@ function Hero({ search, setSearch }: { search: string; setSearch: (v: string) =>
   );
 }
 
-function CategoryChips({
-  active,
-  setActive,
-}: {
-  active: string;
-  setActive: (v: string) => void;
-}) {
+function CategoryChips({ active, setActive }: { active: string; setActive: (v: string) => void }) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+    <div className="flex gap-2 overflow-x-auto pb-2">
       {CATEGORIES.map((cat) => (
         <button
           key={cat}
@@ -234,21 +160,38 @@ function CategoryChips({
   );
 }
 
-function RecipeCard({ recipe }: { recipe: (typeof RECIPES)[0] }) {
+function RecipeCard({ recipe, index }: { recipe: Recipe; index: number }) {
   const [saved, setSaved] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const gradient = GRADIENTS[index % GRADIENTS.length];
+  const emoji = EMOJIS[index % EMOJIS.length];
 
   return (
-    <div className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col">
-      {/* Gradient placeholder with emoji (real images come from Spoonacular API) */}
-      <div
-        className="relative h-44 flex items-center justify-center"
-        style={{ background: recipe.gradient }}
-      >
-        <span className="text-6xl drop-shadow-lg">{recipe.emoji}</span>
+    <a
+      href={recipe.sourceUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
+    >
+      {/* Image or gradient fallback */}
+      <div className="relative h-44">
+        {recipe.image && !imgError ? (
+          <img
+            src={recipe.image}
+            alt={recipe.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center" style={{ background: gradient }}>
+            <span className="text-6xl drop-shadow-lg">{emoji}</span>
+          </div>
+        )}
 
         {/* Save button */}
         <button
-          onClick={() => setSaved(!saved)}
+          onClick={(e) => { e.preventDefault(); setSaved(!saved); }}
           className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${
             saved ? "bg-white text-orange-500" : "bg-white/80 text-gray-400 hover:text-orange-400"
           }`}
@@ -266,15 +209,14 @@ function RecipeCard({ recipe }: { recipe: (typeof RECIPES)[0] }) {
       <div className="p-4 flex flex-col gap-2 flex-1">
         <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
 
-        {/* Meta */}
         <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
-          <span>⏱ {recipe.time}</span>
-          <span>🔥 {recipe.calories} kcal</span>
-          <span>⭐ {recipe.rating}</span>
+          {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
+          {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
+          {recipe.rating && <span>⭐ {recipe.rating}</span>}
           <span className="ml-auto text-orange-500 font-medium">↗ Recipe</span>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -287,14 +229,31 @@ function DiscoverSection({
   category: string;
   setCategory: (v: string) => void;
 }) {
-  const filtered = RECIPES.filter((r) => {
-    const matchCat = category === "All" || r.category === category;
-    const matchSearch =
-      !search ||
-      r.title.toLowerCase().includes(search.toLowerCase()) ||
-      r.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
-    return matchCat && matchSearch;
-  });
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const fetchRecipes = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    try {
+      const params = new URLSearchParams();
+      if (search) params.set("query", search);
+      if (category && category !== "All") params.set("category", category);
+      const res = await fetch(`/api/recipes?${params}`);
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setRecipes(data.recipes || []);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, [search, category]);
+
+  useEffect(() => {
+    fetchRecipes();
+  }, [fetchRecipes]);
 
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -304,7 +263,7 @@ function DiscoverSection({
             {search ? `Results for "${search}"` : "Trending Today"}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            {filtered.length} recipes found from the world's best food sites
+            {loading ? "Loading recipes…" : `${recipes.length} recipes from the world's best food sites`}
           </p>
         </div>
         <button className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block">
@@ -312,16 +271,26 @@ function DiscoverSection({
         </button>
       </div>
 
-      {/* Category chips */}
       <div className="mb-6">
         <CategoryChips active={category} setActive={setCategory} />
       </div>
 
-      {/* Grid */}
-      {filtered.length > 0 ? (
+      {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filtered.map((r) => (
-            <RecipeCard key={r.id} recipe={r} />
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="bg-gray-100 rounded-2xl h-64 animate-pulse" />
+          ))}
+        </div>
+      ) : error ? (
+        <div className="text-center py-16 text-gray-400">
+          <div className="text-5xl mb-3">⚠️</div>
+          <p className="text-lg font-medium">Could not load recipes</p>
+          <button onClick={fetchRecipes} className="text-sm text-orange-500 mt-2 hover:underline">Try again</button>
+        </div>
+      ) : recipes.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {recipes.map((r, i) => (
+            <RecipeCard key={r.id} recipe={r} index={i} />
           ))}
         </div>
       ) : (
@@ -455,14 +424,21 @@ function Footer() {
 
 export default function Home() {
   const [search, setSearch] = useState("");
+  const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
+
+  const handleSearch = () => {
+    setActiveSearch(search);
+    setCategory("All");
+    document.getElementById("discover")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <>
       <Navbar />
       <main className="flex-1">
-        <Hero search={search} setSearch={setSearch} />
-        <DiscoverSection search={search} category={category} setCategory={setCategory} />
+        <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
+        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} />
         <HowItWorks />
         <Sources />
         <CTA />
