@@ -76,9 +76,9 @@ function Navbar({ user }: { user: User | null }) {
         <div className="flex items-center gap-3">
           {user ? (
             <>
-              <span className="hidden sm:block text-sm text-gray-500 truncate max-w-[160px]">
-                {user.email}
-              </span>
+              <a href="/saved" className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
+                ♥ My Recipes
+              </a>
               <button
                 onClick={handleLogout}
                 className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
