@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Recipe {
@@ -47,7 +49,14 @@ const HOW_IT_WORKS = [
 
 // ─── Components ───────────────────────────────────────────────────────────────
 
-function Navbar() {
+function Navbar({ user }: { user: User | null }) {
+  const supabase = createClient();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.reload();
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
@@ -65,18 +74,34 @@ function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <a href="#" className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-            Log in
-          </a>
-          <a
-            href="#"
-            className="inline-flex items-center gap-1 text-sm font-semibold px-4 py-2 rounded-full text-white transition-colors"
-            style={{ background: "#f97316" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
-          >
-            Get Started →
-          </a>
+          {user ? (
+            <>
+              <span className="hidden sm:block text-sm text-gray-500 truncate max-w-[160px]">
+                {user.email}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Log out
+              </button>
+            </>
+          ) : (
+            <>
+              <a href="/login" className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Log in
+              </a>
+              <a
+                href="/login"
+                className="inline-flex items-center gap-1 text-sm font-semibold px-4 py-2 rounded-full text-white transition-colors"
+                style={{ background: "#f97316" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
+              >
+                Get Started →
+              </a>
+            </>
+          )}
         </div>
       </div>
     </nav>
@@ -160,11 +185,35 @@ function CategoryChips({ active, setActive }: { active: string; setActive: (v: s
   );
 }
 
-function RecipeCard({ recipe, index }: { recipe: Recipe; index: number }) {
+function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null }) {
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
+  const supabase = createClient();
+
+  const handleSave = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!user) {
+      window.location.href = "/login";
+      return;
+    }
+    if (saved) {
+      await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
+      setSaved(false);
+    } else {
+      await supabase.from("saved_recipes").insert({
+        user_id: user.id,
+        recipe_id: recipe.id,
+        title: recipe.title,
+        image: recipe.image,
+        source: recipe.source,
+        source_url: recipe.sourceUrl,
+        time: recipe.time,
+      });
+      setSaved(true);
+    }
+  };
 
   return (
     <a
@@ -173,7 +222,6 @@ function RecipeCard({ recipe, index }: { recipe: Recipe; index: number }) {
       rel="noopener noreferrer"
       className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
     >
-      {/* Image or gradient fallback */}
       <div className="relative h-44">
         {recipe.image && !imgError ? (
           <img
@@ -189,9 +237,9 @@ function RecipeCard({ recipe, index }: { recipe: Recipe; index: number }) {
           </div>
         )}
 
-        {/* Save button */}
         <button
-          onClick={(e) => { e.preventDefault(); setSaved(!saved); }}
+          onClick={handleSave}
+          title={user ? (saved ? "Remove from saved" : "Save recipe") : "Log in to save"}
           className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${
             saved ? "bg-white text-orange-500" : "bg-white/80 text-gray-400 hover:text-orange-400"
           }`}
@@ -199,16 +247,13 @@ function RecipeCard({ recipe, index }: { recipe: Recipe; index: number }) {
           {saved ? "♥" : "♡"}
         </button>
 
-        {/* Source badge */}
         <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
           {recipe.source}
         </div>
       </div>
 
-      {/* Content */}
       <div className="p-4 flex flex-col gap-2 flex-1">
         <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
-
         <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
           {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
           {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
@@ -224,10 +269,12 @@ function DiscoverSection({
   search,
   category,
   setCategory,
+  user,
 }: {
   search: string;
   category: string;
   setCategory: (v: string) => void;
+  user: User | null;
 }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -290,7 +337,7 @@ function DiscoverSection({
       ) : recipes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {recipes.map((r, i) => (
-            <RecipeCard key={r.id} recipe={r} index={i} />
+            <RecipeCard key={r.id} recipe={r} index={i} user={user} />
           ))}
         </div>
       ) : (
@@ -425,6 +472,16 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
 
   const handleSearch = () => {
     setActiveSearch(search);
@@ -434,10 +491,10 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
+      <Navbar user={user} />
       <main className="flex-1">
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
-        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} />
+        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
         <HowItWorks />
         <Sources />
         <CTA />
