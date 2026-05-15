@@ -404,11 +404,10 @@ function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a href="#" className="hover:text-white transition-colors">About</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Impressum</a>
-            <a href="#" className="hover:text-white transition-colors">Contact</a>
+            <a href="#how-it-works" className="hover:text-white transition-colors">About</a>
+            <a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a>
+            <a href="/impressum" className="hover:text-white transition-colors">Impressum</a>
+            <a href="mailto:peter@hoelzer.xyz" className="hover:text-white transition-colors">Contact</a>
           </div>
 
           <p className="text-xs text-gray-600">
