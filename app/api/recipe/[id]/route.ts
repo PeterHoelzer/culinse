@@ -9,11 +9,67 @@ const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
 const EDAMAM_APP_KEY = process.env.EDAMAM_APP_KEY;
 const EDAMAM_BASE = "https://api.edamam.com/api/recipes/v2";
 
+const TASTY_KEY = process.env.TASTY_API_KEY;
+const TASTY_BASE = "https://tasty.p.rapidapi.com";
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+
+  // ── Tasty recipe ───────────────────────────────────────────────────────────
+  if (id.startsWith("tasty_")) {
+    const tastyId = id.replace("tasty_", "");
+    try {
+      const res = await fetch(`${TASTY_BASE}/recipes/get-more-info?id=${tastyId}`, {
+        headers: {
+          "x-rapidapi-host": "tasty.p.rapidapi.com",
+          "x-rapidapi-key": TASTY_KEY || "",
+        },
+        next: { revalidate: 86400 },
+      });
+      if (!res.ok) return NextResponse.json({ error: "Not found" }, { status: 404 });
+      const r = await res.json();
+      if (!r.id) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+      const ingredients = (r.sections || []).flatMap(
+        (sec: Record<string, unknown>) =>
+          ((sec.components || []) as Record<string, unknown>[]).map((c, i: number) => ({
+            id: i,
+            name: (c.ingredient as Record<string, unknown>)?.name || c.raw_text || "",
+            amount: (c.measurements as Record<string, unknown>[])?.[0]?.quantity || 0,
+            unit: ((c.measurements as Record<string, unknown>[])?.[0]?.unit as Record<string, unknown>)?.abbreviation || "",
+            original: c.raw_text || "",
+          }))
+      );
+
+      const instructions = ((r.instructions || []) as Record<string, unknown>[]).map((step, i: number) => ({
+        number: i + 1,
+        step: step.display_text as string || "",
+      }));
+
+      const recipe = {
+        id,
+        title: r.name,
+        image: r.thumbnail_url || null,
+        videoUrl: r.video_url || null,
+        source: "Tasty",
+        sourceUrl: r.original_video_url || "#",
+        time: r.total_time_minutes ? `${r.total_time_minutes} min` : null,
+        servings: r.yields || null,
+        summary: r.description || null,
+        ingredients,
+        instructions,
+        diets: (r.tags || []).filter((t: Record<string, unknown>) => t.type === "dietary").map((t: Record<string, unknown>) => t.display_name),
+        dishTypes: (r.tags || []).filter((t: Record<string, unknown>) => t.type === "meal").map((t: Record<string, unknown>) => t.display_name),
+      };
+      return NextResponse.json({ recipe });
+    } catch (err) {
+      console.error(err);
+      return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
+    }
+  }
 
   // ── Edamam recipe ──────────────────────────────────────────────────────────
   if (id.startsWith("edamam_")) {

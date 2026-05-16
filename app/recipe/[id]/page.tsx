@@ -21,9 +21,10 @@ interface Step {
 }
 
 interface Recipe {
-  id: number;
+  id: number | string;
   title: string;
   image: string | null;
+  videoUrl?: string | null;
   source: string;
   sourceUrl: string;
   time: string | null;
@@ -216,8 +217,16 @@ export default function RecipePage() {
             </div>
           </div>
 
-          {/* Image */}
-          {recipe.image && !imgError ? (
+          {/* Video (Tasty) or Image */}
+          {recipe.videoUrl ? (
+            <video
+              src={recipe.videoUrl}
+              controls
+              playsInline
+              poster={recipe.image || undefined}
+              className="w-full h-56 sm:h-80 object-cover rounded-2xl mb-8 bg-black"
+            />
+          ) : recipe.image && !imgError ? (
             <img
               src={recipe.image}
               alt={recipe.title}

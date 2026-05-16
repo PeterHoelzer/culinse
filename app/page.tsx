@@ -665,6 +665,88 @@ function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLo
   );
 }
 
+interface VideoRecipe {
+  id: string;
+  title: string;
+  image: string;
+  videoUrl: string;
+  time: string | null;
+  servings: string | null;
+}
+
+function VideoSection() {
+  const [videos, setVideos] = useState<VideoRecipe[]>([]);
+  const [playing, setPlaying] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/videos?size=6")
+      .then(r => r.json())
+      .then(d => setVideos(d.videos || []));
+  }, []);
+
+  if (videos.length === 0) return null;
+
+  return (
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            🎬 Video Recipes
+          </h2>
+          <p className="text-sm text-gray-500 mt-1">Watch &amp; cook — step by step videos</p>
+        </div>
+        <a href="/videos" className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block">
+          See all →
+        </a>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {videos.map((v) => (
+          <div key={v.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+            <div className="relative h-44 bg-black cursor-pointer group" onClick={() => setPlaying(playing === v.id ? null : v.id)}>
+              {playing === v.id ? (
+                <video
+                  src={v.videoUrl}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  controls
+                  playsInline
+                />
+              ) : (
+                <>
+                  <img src={v.image} alt={v.title} className="w-full h-full object-cover group-hover:opacity-80 transition-opacity" loading="lazy" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <span className="text-2xl ml-1">▶</span>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
+                    Tasty
+                  </div>
+                  {v.time && (
+                    <div className="absolute bottom-3 right-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
+                      ⏱ {v.time}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+            <div className="p-4">
+              <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2 mb-2">{v.title}</h3>
+              <a
+                href={`/recipe/${v.id}`}
+                className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors"
+              >
+                Full Recipe →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-gray-50 py-16 px-4">
@@ -776,6 +858,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
         <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
+        <VideoSection />
         <HowItWorks />
         <CTA />
       </main>
