@@ -6,13 +6,11 @@ const TASTY_BASE = "https://tasty.p.rapidapi.com";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query") || "";
-  const size = Math.min(Number(searchParams.get("size") || 9), 20);
+  const size = Math.min(Number(searchParams.get("size") || 6), 12);
 
   try {
-    const params = new URLSearchParams({
-      from: "0",
-      size: String(size),
-    });
+    // Request 40 to have enough with videos after filtering
+    const params = new URLSearchParams({ from: "0", size: "40" });
     if (query) params.set("q", query);
 
     const res = await fetch(`${TASTY_BASE}/recipes/list?${params}`, {
@@ -29,6 +27,7 @@ export async function GET(req: NextRequest) {
     const videos = (data.results || [])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((r: any) => (r.original_video_url || r.video_url) && r.thumbnail_url && r.name)
+      .slice(0, size)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((r: any) => ({
         id: `tasty_${r.id}`,
