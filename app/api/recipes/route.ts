@@ -206,7 +206,7 @@ export async function GET(req: NextRequest) {
         const emergencyQueries = ["chicken", "pasta", "beef", "salmon", "lamb"];
         const dayQuery = emergencyQueries[Math.floor(Date.now() / 86400000) % emergencyQueries.length];
         const emergency = await fetchMDB(dayQuery, "");
-        fallback = [...fallback, ...emergency.filter(Boolean)];
+        fallback = [...fallback, ...(emergency.filter(Boolean) as NonNullable<ReturnType<typeof normalizeMDB>>[])];
       }
       return NextResponse.json({ recipes: fallback.slice(0, number) }, {
         headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" },
