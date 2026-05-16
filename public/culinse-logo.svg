@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <circle cx="200" cy="200" r="200" fill="#f97316"/>
+  <text x="200" y="248"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="180"
+    font-weight="400"
+    fill="white"
+    text-anchor="middle">C</text>
+  <circle cx="247" cy="158" r="9" fill="white" opacity="0.9"/>
+</svg>
