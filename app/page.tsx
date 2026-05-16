@@ -394,6 +394,35 @@ function DiscoverSection({
 
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+
+      {/* Profile CTA — shown when logged in but no preferences set */}
+      {user && !userPrefs && (
+        <a
+          href="/profile"
+          className="flex items-center justify-between gap-4 mb-6 px-5 py-4 rounded-2xl border border-orange-200 bg-orange-50 hover:bg-orange-100 transition-colors group"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">👤</span>
+            <div>
+              <p className="text-sm font-semibold text-orange-800">Set up your food profile</p>
+              <p className="text-xs text-orange-600">Tell us your diet & allergens — we'll filter recipes automatically for you.</p>
+            </div>
+          </div>
+          <span className="text-orange-400 group-hover:translate-x-1 transition-transform text-sm">→</span>
+        </a>
+      )}
+
+      {/* Profile active badge */}
+      {user && userPrefs && (userPrefs.diet || userPrefs.intolerances?.length > 0) && (
+        <a
+          href="/profile"
+          className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-green-50 border border-green-200 text-xs font-medium text-green-700 hover:bg-green-100 transition-colors"
+        >
+          ✓ Personalized for you
+          <span className="text-green-400">· Edit profile →</span>
+        </a>
+      )}
+
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
