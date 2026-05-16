@@ -50,6 +50,7 @@ const HOW_IT_WORKS = [
 // ─── Components ───────────────────────────────────────────────────────────────
 
 function Navbar({ user }: { user: User | null }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const supabase = createClient();
 
   const handleLogout = async () => {
@@ -58,8 +59,9 @@ function Navbar({ user }: { user: User | null }) {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        {/* Logo */}
         <a href="/" className="flex items-center gap-2">
           <span className="text-2xl">🍳</span>
           <span className="text-xl font-bold text-gray-900">
@@ -67,43 +69,64 @@ function Navbar({ user }: { user: User | null }) {
           </span>
         </a>
 
+        {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
           <a href="#discover" className="hover:text-orange-500 transition-colors">Discover</a>
           <a href="#how-it-works" className="hover:text-orange-500 transition-colors">How it Works</a>
-          <a href="#discover" className="hover:text-orange-500 transition-colors">Trending</a>
+          {user && <a href="/saved" className="hover:text-orange-500 transition-colors">♥ My Recipes</a>}
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Desktop auth */}
+        <div className="hidden md:flex items-center gap-3">
           {user ? (
-            <>
-              <a href="/saved" className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-                ♥ My Recipes
-              </a>
-              <button
-                onClick={handleLogout}
-                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Log out
-              </button>
-            </>
+            <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              Log out
+            </button>
           ) : (
             <>
-              <a href="/login" className="hidden sm:inline-flex text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-                Log in
-              </a>
-              <a
-                href="/login"
-                className="inline-flex items-center gap-1 text-sm font-semibold px-4 py-2 rounded-full text-white transition-colors"
-                style={{ background: "#f97316" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
-              >
+              <a href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Log in</a>
+              <a href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
                 Get Started →
               </a>
             </>
           )}
         </div>
+
+        {/* Mobile: right side */}
+        <div className="flex md:hidden items-center gap-2">
+          {!user && (
+            <a href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
+              Join
+            </a>
+          )}
+          {/* Hamburger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </button>
+        </div>
       </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-3">
+          <a href="#discover" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">🔍 Discover</a>
+          <a href="#how-it-works" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">⚙️ How it Works</a>
+          {user && <a href="/saved" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ My Recipes</a>}
+          <div className="h-px bg-gray-100" />
+          {user ? (
+            <button onClick={handleLogout} className="text-sm font-medium text-gray-500 py-2 text-left hover:text-gray-900 transition-colors">
+              Log out
+            </button>
+          ) : (
+            <a href="/login" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">Log in</a>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
@@ -112,33 +135,34 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
   return (
     <section className="hero-gradient py-20 sm:py-28 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 text-sm font-medium text-orange-600 bg-orange-100 rounded-full px-4 py-1.5 mb-6">
+        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-orange-600 bg-orange-100 rounded-full px-3 sm:px-4 py-1.5 mb-6">
           <span>✨</span>
-          <span>Personalized recipe discovery — like Spotify, but for food</span>
+          <span className="hidden sm:inline">Personalized recipe discovery — like Spotify, but for food</span>
+          <span className="sm:hidden">Like Spotify, but for food</span>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
           Find recipes you'll{" "}
           <span style={{ color: "#f97316" }}>actually love.</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-gray-600 mb-10 max-w-xl mx-auto leading-relaxed">
-          Culinse aggregates millions of recipes from the world's best food sites and shows you a personalized feed — no ads, no noise.
+        <p className="text-base sm:text-xl text-gray-600 mb-8 max-w-xl mx-auto leading-relaxed px-2">
+          Culinse aggregates millions of recipes from the world's best food sites — personalized for you.
         </p>
 
-        <div className="flex items-center gap-3 bg-white rounded-2xl shadow-lg p-2 max-w-xl mx-auto border border-gray-100">
-          <span className="pl-2 text-gray-400 text-xl">🔍</span>
+        <div className="flex items-center gap-2 bg-white rounded-2xl shadow-lg p-2 max-w-xl mx-auto border border-gray-100">
+          <span className="pl-1 text-gray-400 text-xl flex-shrink-0">🔍</span>
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && onSearch()}
-            placeholder="Search any recipe, ingredient, or cuisine..."
-            className="search-input flex-1 text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
+            placeholder="Search recipes..."
+            className="search-input flex-1 min-w-0 text-sm sm:text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
           />
           <button
             onClick={onSearch}
-            className="flex-shrink-0 px-5 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
+            className="flex-shrink-0 px-4 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
             style={{ background: "#f97316" }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
