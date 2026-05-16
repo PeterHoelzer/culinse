@@ -43,6 +43,18 @@ export default function RecipePage() {
   const [saved, setSaved] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [imgError, setImgError] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    if (navigator.share) {
+      await navigator.share({ title: recipe?.title || "Recipe", url });
+    } else {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   const supabase = createClient();
 
@@ -195,6 +207,12 @@ export default function RecipePage() {
               >
                 ↗ View Original
               </a>
+              <button
+                onClick={handleShare}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
+              >
+                {copied ? "✓ Copied!" : "↑ Share"}
+              </button>
             </div>
           </div>
 
