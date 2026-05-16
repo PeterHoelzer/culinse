@@ -416,39 +416,6 @@ function HowItWorks() {
   );
 }
 
-function Sources() {
-  const sources = [
-    { name: "BBC Good Food", flag: "🇬🇧" },
-    { name: "Bon Appétit", flag: "🇺🇸" },
-    { name: "Chefkoch", flag: "🇩🇪" },
-    { name: "Eatsmarter", flag: "🇩🇪" },
-    { name: "Serious Eats", flag: "🇺🇸" },
-    { name: "Minimalist Baker", flag: "🇺🇸" },
-    { name: "Cookpad", flag: "🌍" },
-    { name: "Marmiton", flag: "🇫🇷" },
-  ];
-
-  return (
-    <section className="py-14 px-4 border-t border-gray-100">
-      <div className="max-w-5xl mx-auto text-center">
-        <p className="text-sm font-medium text-gray-400 uppercase tracking-widest mb-8">
-          Recipes from the world's best food sites
-        </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          {sources.map((s) => (
-            <div
-              key={s.name}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-100 text-sm text-gray-600 font-medium"
-            >
-              <span>{s.flag}</span>
-              <span>{s.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function CTA() {
   return (
@@ -534,7 +501,6 @@ export default function Home() {
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
         <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
         <HowItWorks />
-        <Sources />
         <CTA />
       </main>
       <Footer />
