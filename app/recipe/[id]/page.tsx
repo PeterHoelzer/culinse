@@ -1,0 +1,267 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
+import Link from "next/link";
+
+interface Ingredient {
+  id: number;
+  name: string;
+  amount: number;
+  unit: string;
+  original: string;
+}
+
+interface Step {
+  number: number;
+  step: string;
+}
+
+interface Recipe {
+  id: number;
+  title: string;
+  image: string | null;
+  source: string;
+  sourceUrl: string;
+  time: string | null;
+  servings: number | null;
+  summary: string | null;
+  ingredients: Ingredient[];
+  instructions: Step[];
+  diets: string[];
+  dishTypes: string[];
+}
+
+export default function RecipePage() {
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [imgError, setImgError] = useState(false);
+
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+  }, []);
+
+  useEffect(() => {
+    fetch(`/api/recipe/${id}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.recipe) setRecipe(data.recipe);
+        else setError(true);
+      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  useEffect(() => {
+    if (!user || !id) return;
+    supabase
+      .from("saved_recipes")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("recipe_id", id)
+      .single()
+      .then(({ data }) => setSaved(!!data));
+  }, [user, id]);
+
+  const handleSave = async () => {
+    if (!user) { window.location.href = "/login"; return; }
+    if (!recipe) return;
+
+    if (saved) {
+      await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
+      setSaved(false);
+    } else {
+      await supabase.from("saved_recipes").insert({
+        user_id: user.id,
+        recipe_id: recipe.id,
+        title: recipe.title,
+        image: recipe.image,
+        source: recipe.source,
+        source_url: recipe.sourceUrl,
+        time: recipe.time,
+      });
+      setSaved(true);
+    }
+  };
+
+  // Strip HTML from summary
+  const cleanSummary = recipe?.summary
+    ? recipe.summary.replace(/<[^>]+>/g, "").split(".").slice(0, 3).join(".") + "."
+    : null;
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Navbar */}
+      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl">🍳</span>
+            <span className="text-xl font-bold text-gray-900">
+              culi<span style={{ color: "#f97316" }}>nse</span>
+            </span>
+          </Link>
+          <Link href="/" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
+            ← Back
+          </Link>
+        </div>
+      </nav>
+
+      {/* Loading */}
+      {loading && (
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <div className="h-72 bg-gray-100 rounded-2xl animate-pulse mb-6" />
+          <div className="h-8 bg-gray-100 rounded-xl w-2/3 animate-pulse mb-4" />
+          <div className="h-4 bg-gray-100 rounded-xl w-full animate-pulse mb-2" />
+          <div className="h-4 bg-gray-100 rounded-xl w-5/6 animate-pulse" />
+        </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <div className="max-w-4xl mx-auto px-4 py-24 text-center text-gray-400">
+          <div className="text-5xl mb-3">⚠️</div>
+          <p className="text-lg font-medium">Recipe not found</p>
+          <Link href="/" className="text-orange-500 text-sm mt-2 hover:underline block">← Back to home</Link>
+        </div>
+      )}
+
+      {/* Recipe */}
+      {recipe && !loading && (
+        <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+          {/* Header */}
+          <div className="mb-6">
+            {/* Tags */}
+            {recipe.diets.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-3">
+                {recipe.diets.slice(0, 4).map((d) => (
+                  <span key={d} className="text-xs font-medium px-2.5 py-1 bg-orange-50 text-orange-600 rounded-full capitalize">
+                    {d}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
+              {recipe.title}
+            </h1>
+
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
+              {recipe.time && <span className="flex items-center gap-1">⏱ {recipe.time}</span>}
+              {recipe.servings && <span className="flex items-center gap-1">🍽 {recipe.servings} servings</span>}
+              <span className="flex items-center gap-1">📖 {recipe.source}</span>
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleSave}
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all ${
+                  saved
+                    ? "bg-orange-500 text-white border-orange-500"
+                    : "bg-white text-gray-700 border-gray-200 hover:border-orange-300"
+                }`}
+              >
+                {saved ? "♥ Saved" : "♡ Save Recipe"}
+              </button>
+              <a
+                href={recipe.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ background: "#f97316" }}
+              >
+                ↗ View Original
+              </a>
+            </div>
+          </div>
+
+          {/* Image */}
+          {recipe.image && !imgError ? (
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-56 sm:h-80 object-cover rounded-2xl mb-8"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-full h-56 sm:h-72 rounded-2xl mb-8 flex items-center justify-center text-8xl"
+              style={{ background: "linear-gradient(135deg, #fed7aa 0%, #fde68a 100%)" }}>
+              🍳
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Ingredients */}
+            <div className="md:col-span-1">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">
+                Ingredients
+                {recipe.servings && (
+                  <span className="text-sm font-normal text-gray-400 ml-2">({recipe.servings} servings)</span>
+                )}
+              </h2>
+              <ul className="space-y-2">
+                {recipe.ingredients.map((ing, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-gray-700 py-2 border-b border-gray-50">
+                    <span className="text-orange-400 mt-0.5 flex-shrink-0">•</span>
+                    <span>{ing.original}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Instructions */}
+            <div className="md:col-span-2">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Instructions</h2>
+
+              {recipe.instructions.length > 0 ? (
+                <ol className="space-y-5">
+                  {recipe.instructions.map((step) => (
+                    <li key={step.number} className="flex gap-4">
+                      <span
+                        className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white mt-0.5"
+                        style={{ background: "#f97316" }}
+                      >
+                        {step.number}
+                      </span>
+                      <p className="text-gray-700 text-sm leading-relaxed pt-0.5">{step.step}</p>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <div className="bg-gray-50 rounded-2xl p-6 text-center">
+                  <p className="text-gray-500 text-sm mb-3">Full instructions are on the original site.</p>
+                  <a
+                    href={recipe.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
+                    style={{ background: "#f97316" }}
+                  >
+                    ↗ View Full Recipe
+                  </a>
+                </div>
+              )}
+
+              {/* Summary */}
+              {cleanSummary && (
+                <div className="mt-8 bg-orange-50 rounded-2xl p-5">
+                  <h3 className="font-semibold text-gray-900 mb-2">About this recipe</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{cleanSummary}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </main>
+      )}
+    </div>
+  );
+}

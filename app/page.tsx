@@ -241,9 +241,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
 
   return (
     <a
-      href={recipe.sourceUrl}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={`/recipe/${recipe.id}`}
       className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
     >
       <div className="relative h-44">
@@ -282,7 +280,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
           {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
           {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
           {recipe.rating && <span>⭐ {recipe.rating}</span>}
-          <span className="ml-auto text-orange-500 font-medium">↗ Recipe</span>
+          <span className="ml-auto text-orange-500 font-medium">Details →</span>
         </div>
       </div>
     </a>
