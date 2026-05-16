@@ -695,8 +695,8 @@ function VideoSection() {
           </h2>
           <p className="text-sm text-gray-500 mt-1">Watch &amp; cook — step by step videos</p>
         </div>
-        <a href="/videos" className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block">
-          See all →
+        <a href="https://tasty.co" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block">
+          More on Tasty →
         </a>
       </div>
 
