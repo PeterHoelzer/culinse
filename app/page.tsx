@@ -27,7 +27,7 @@ const GRADIENTS = [
 ];
 const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", "🥘", "🍲"];
 
-const CATEGORIES = ["All", "Pasta", "Asian", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
+const CATEGORIES = ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
 
 const HOW_IT_WORKS = [
   {
@@ -287,6 +287,29 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
   );
 }
 
+const TIME_FILTERS = [
+  { label: "Any time", value: "" },
+  { label: "≤ 15 min", value: "15" },
+  { label: "≤ 30 min", value: "30" },
+  { label: "≤ 60 min", value: "60" },
+];
+
+const DIET_FILTERS = [
+  { label: "All diets", value: "" },
+  { label: "Vegetarian", value: "vegetarian" },
+  { label: "Vegan", value: "vegan" },
+  { label: "Gluten-free", value: "gluten free" },
+];
+
+const TREND_FILTERS = [
+  { label: "🔥 Trending", value: "", type: "none" },
+  { label: "💪 High Protein", value: "30", type: "minProtein" },
+  { label: "⚡ Low Carb", value: "20", type: "maxCarbs" },
+  { label: "🥑 Keto", value: "ketogenic", type: "diet" },
+  { label: "🥛 Dairy-free", value: "dairy", type: "intolerances" },
+  { label: "🫒 Mediterranean", value: "mediterranean", type: "cuisine" },
+];
+
 function DiscoverSection({
   search,
   category,
@@ -303,6 +326,9 @@ function DiscoverSection({
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
   const [count, setCount] = useState(6);
+  const [maxTime, setMaxTime] = useState("");
+  const [diet, setDiet] = useState("");
+  const [trend, setTrend] = useState("");
 
   const fetchRecipes = useCallback(async (num = 6) => {
     if (num === 6) setLoading(true);
@@ -312,6 +338,17 @@ function DiscoverSection({
       const params = new URLSearchParams();
       if (search) params.set("query", search);
       if (category && category !== "All") params.set("category", category);
+      if (maxTime) params.set("maxTime", maxTime);
+      if (diet) params.set("diet", diet);
+      // Apply trend filter
+      const activeTrend = TREND_FILTERS.find(f => f.value === trend && f.value !== "");
+      if (activeTrend) {
+        if (activeTrend.type === "minProtein") params.set("minProtein", activeTrend.value);
+        if (activeTrend.type === "maxCarbs") params.set("maxCarbs", activeTrend.value);
+        if (activeTrend.type === "diet") params.set("diet", activeTrend.value);
+        if (activeTrend.type === "intolerances") params.set("intolerances", activeTrend.value);
+        if (activeTrend.type === "cuisine") params.set("cuisine", activeTrend.value);
+      }
       params.set("number", String(num));
       const res = await fetch(`/api/recipes?${params}`);
       if (!res.ok) throw new Error();
@@ -323,7 +360,7 @@ function DiscoverSection({
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [search, category]);
+  }, [search, category, maxTime, diet, trend]);
 
   const handleLoadMore = () => {
     const newCount = count + 6;
@@ -356,8 +393,63 @@ function DiscoverSection({
         </button>
       </div>
 
-      <div className="mb-6">
+      {/* Trend filters */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {TREND_FILTERS.map((f) => (
+          <button
+            key={f.value}
+            onClick={() => { setTrend(f.value); setCount(6); }}
+            className={`text-sm font-medium px-4 py-2 rounded-full border transition-all ${
+              trend === f.value
+                ? "text-white border-transparent"
+                : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
+            }`}
+            style={trend === f.value ? { background: "#f97316", borderColor: "#f97316" } : {}}
+          >
+            {f.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="mb-4">
         <CategoryChips active={category} setActive={setCategory} />
+      </div>
+
+      {/* Filters */}
+      <div className="flex flex-wrap gap-3 mb-6">
+        {/* Time filter */}
+        <div className="flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
+          {TIME_FILTERS.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => { setMaxTime(f.value); setCount(6); }}
+              className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
+                maxTime === f.value
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Diet filter */}
+        <div className="flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
+          {DIET_FILTERS.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => { setDiet(f.value); setCount(6); }}
+              className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
+                diet === f.value
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
