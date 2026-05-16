@@ -7,13 +7,13 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
 const DIET_OPTIONS = [
-  { value: "", label: "No preference", emoji: "🍽" },
-  { value: "vegetarian", label: "Vegetarian", emoji: "🥦" },
-  { value: "vegan", label: "Vegan", emoji: "🌱" },
-  { value: "ketogenic", label: "Keto", emoji: "🥑" },
-  { value: "paleo", label: "Paleo", emoji: "🍖" },
-  { value: "gluten free", label: "Gluten-free", emoji: "🌾" },
-  { value: "whole30", label: "Whole30", emoji: "✅" },
+  { value: "", label: "No preference", emoji: "🍽", desc: "Show me everything" },
+  { value: "vegetarian", label: "Vegetarian", emoji: "🥦", desc: "No meat or fish" },
+  { value: "vegan", label: "Vegan", emoji: "🌱", desc: "Plant-based only" },
+  { value: "ketogenic", label: "Keto", emoji: "🥑", desc: "Low carb, high fat" },
+  { value: "paleo", label: "Paleo", emoji: "🍖", desc: "Back to basics" },
+  { value: "gluten free", label: "Gluten-free", emoji: "🌾", desc: "No gluten" },
+  { value: "whole30", label: "Whole30", emoji: "✅", desc: "Clean eating" },
 ];
 
 const INTOLERANCE_OPTIONS = [
@@ -30,10 +30,10 @@ const INTOLERANCE_OPTIONS = [
 ];
 
 const TIME_OPTIONS = [
-  { value: 0, label: "No limit" },
-  { value: 15, label: "≤ 15 min" },
-  { value: 30, label: "≤ 30 min" },
-  { value: 60, label: "≤ 60 min" },
+  { value: 0, label: "No limit", emoji: "♾️" },
+  { value: 15, label: "≤ 15 min", emoji: "⚡" },
+  { value: 30, label: "≤ 30 min", emoji: "🕐" },
+  { value: 60, label: "≤ 60 min", emoji: "🕑" },
 ];
 
 export default function ProfilePage() {
@@ -51,7 +51,6 @@ export default function ProfilePage() {
     supabase.auth.getUser().then(({ data }) => {
       if (!data.user) { window.location.href = "/login"; return; }
       setUser(data.user);
-      // Load existing preferences
       supabase
         .from("user_preferences")
         .select("*")
@@ -86,16 +85,19 @@ export default function ProfilePage() {
     }, { onConflict: "user_id" });
     setSaving(false);
     setSavedState(true);
-    setTimeout(() => setSavedState(false), 2000);
+    setTimeout(() => setSavedState(false), 2500);
   };
+
+  // Completion score
+  const completed = [diet !== "", intolerances.length > 0, maxTime > 0].filter(Boolean).length;
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gray-50">
         <Navbar />
         <div className="max-w-2xl mx-auto px-4 py-16 space-y-4">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-16 bg-gray-100 rounded-2xl animate-pulse" />
+            <div key={i} className="h-20 bg-gray-100 rounded-2xl animate-pulse" />
           ))}
         </div>
       </div>
@@ -103,110 +105,151 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="max-w-2xl mx-auto px-4 py-10 sm:py-16">
-        {/* Header */}
-        <div className="mb-10">
-          <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-4 bg-orange-50">
-            👤
+      {/* Hero header */}
+      <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pb-16 pt-10 px-4">
+        <div className="max-w-2xl mx-auto">
+          {/* Avatar */}
+          <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-bold text-white mb-4 border-4 border-white/30">
+            {user?.email?.[0]?.toUpperCase() ?? "👤"}
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-1">Your Food Profile</h1>
-          <p className="text-gray-500 text-sm">
-            Set your preferences once — Culinse automatically filters recipes for you.
+          <h1 className="text-3xl font-bold text-white mb-1">Your Food Profile</h1>
+          <p className="text-orange-100 text-sm mb-4">{user?.email}</p>
+
+          {/* Completion bar */}
+          <div className="bg-white/20 rounded-full h-2 w-48 mb-1">
+            <div
+              className="bg-white rounded-full h-2 transition-all duration-500"
+              style={{ width: `${(completed / 3) * 100}%` }}
+            />
+          </div>
+          <p className="text-orange-100 text-xs">
+            {completed === 0 && "Set your preferences to get personalized recipes"}
+            {completed === 1 && "Good start — 2 more steps"}
+            {completed === 2 && "Almost there — 1 more step"}
+            {completed === 3 && "✓ Profile complete — For You is active!"}
           </p>
-          {user && (
-            <p className="text-xs text-gray-400 mt-1">{user.email}</p>
-          )}
         </div>
+      </div>
+
+      <main className="max-w-2xl mx-auto px-4 -mt-6 pb-24">
 
         {/* Diet */}
-        <section className="mb-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">Diet</h2>
-          <p className="text-sm text-gray-400 mb-4">We'll only show recipes that match your diet.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-xl">🥗</span>
+            <h2 className="text-lg font-bold text-gray-900">Diet</h2>
+            {diet && <span className="ml-auto text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">Active</span>}
+          </div>
+          <p className="text-sm text-gray-400 mb-5">Only show recipes that match your lifestyle.</p>
+          <div className="grid grid-cols-2 gap-3">
             {DIET_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => setDiet(opt.value)}
-                className={`flex flex-col items-center gap-2 p-4 rounded-2xl border-2 transition-all ${
+                className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
                   diet === opt.value
                     ? "border-orange-400 bg-orange-50"
-                    : "border-gray-100 hover:border-gray-200 bg-white"
+                    : "border-gray-100 hover:border-orange-200 bg-gray-50"
                 }`}
               >
-                <span className="text-2xl">{opt.emoji}</span>
-                <span className={`text-xs font-medium ${diet === opt.value ? "text-orange-600" : "text-gray-700"}`}>
-                  {opt.label}
-                </span>
+                <span className="text-2xl flex-shrink-0">{opt.emoji}</span>
+                <div>
+                  <p className={`text-sm font-semibold ${diet === opt.value ? "text-orange-600" : "text-gray-800"}`}>
+                    {opt.label}
+                  </p>
+                  <p className="text-xs text-gray-400">{opt.desc}</p>
+                </div>
+                {diet === opt.value && (
+                  <span className="ml-auto text-orange-400 flex-shrink-0">✓</span>
+                )}
               </button>
             ))}
           </div>
-        </section>
+        </div>
 
         {/* Allergens */}
-        <section className="mb-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">Allergens & Intolerances</h2>
-          <p className="text-sm text-gray-400 mb-4">Select everything you want to avoid. Recipes containing these will be filtered out.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-xl">🚫</span>
+            <h2 className="text-lg font-bold text-gray-900">Allergens & Intolerances</h2>
+            {intolerances.length > 0 && (
+              <span className="ml-auto text-xs font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full">
+                {intolerances.length} active
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-gray-400 mb-5">Tap to exclude ingredients from your feed.</p>
+          <div className="grid grid-cols-2 gap-3">
             {INTOLERANCE_OPTIONS.map((opt) => {
               const active = intolerances.includes(opt.value);
               return (
                 <button
                   key={opt.value}
                   onClick={() => toggleIntolerance(opt.value)}
-                  className={`flex items-center gap-3 p-3.5 rounded-2xl border-2 transition-all text-left ${
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border-2 transition-all text-left ${
                     active
                       ? "border-red-300 bg-red-50"
-                      : "border-gray-100 hover:border-gray-200 bg-white"
+                      : "border-gray-100 hover:border-red-200 bg-gray-50"
                   }`}
                 >
                   <span className="text-xl">{opt.emoji}</span>
-                  <span className={`text-sm font-medium ${active ? "text-red-600" : "text-gray-700"}`}>
+                  <span className={`text-sm font-medium flex-1 ${active ? "text-red-600" : "text-gray-700"}`}>
                     {opt.label}
                   </span>
-                  {active && <span className="ml-auto text-red-400 text-xs">✕</span>}
+                  {active && <span className="text-red-400 text-xs font-bold">✕</span>}
                 </button>
               );
             })}
           </div>
-        </section>
+        </div>
 
         {/* Time */}
-        <section className="mb-10">
-          <h2 className="text-lg font-bold text-gray-900 mb-1">Max. Cooking Time</h2>
-          <p className="text-sm text-gray-400 mb-4">Only show recipes you can actually make.</p>
-          <div className="flex flex-wrap gap-3">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
+          <div className="flex items-center gap-3 mb-1">
+            <span className="text-xl">⏱</span>
+            <h2 className="text-lg font-bold text-gray-900">Max. Cooking Time</h2>
+            {maxTime > 0 && <span className="ml-auto text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">Active</span>}
+          </div>
+          <p className="text-sm text-gray-400 mb-5">Only show recipes you can actually make.</p>
+          <div className="grid grid-cols-2 gap-3">
             {TIME_OPTIONS.map((opt) => (
               <button
                 key={opt.value}
                 onClick={() => setMaxTime(opt.value)}
-                className={`px-5 py-2.5 rounded-full border-2 text-sm font-medium transition-all ${
+                className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
                   maxTime === opt.value
-                    ? "border-orange-400 bg-orange-50 text-orange-600"
-                    : "border-gray-100 text-gray-600 hover:border-gray-200"
+                    ? "border-orange-400 bg-orange-50"
+                    : "border-gray-100 hover:border-orange-200 bg-gray-50"
                 }`}
               >
-                {opt.label}
+                <span className="text-xl">{opt.emoji}</span>
+                <span className={`text-sm font-semibold ${maxTime === opt.value ? "text-orange-600" : "text-gray-700"}`}>
+                  {opt.label}
+                </span>
+                {maxTime === opt.value && <span className="ml-auto text-orange-400">✓</span>}
               </button>
             ))}
           </div>
-        </section>
+        </div>
 
-        {/* Save */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="px-8 py-3.5 rounded-full text-white font-semibold transition-all disabled:opacity-60 hover:opacity-90"
-            style={{ background: "#f97316" }}
-          >
-            {saving ? "Saving…" : saved ? "✓ Saved!" : "Save Preferences"}
-          </button>
-          <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
-            Back to recipes →
-          </Link>
+        {/* Sticky save bar */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-4 flex items-center gap-4 z-40">
+          <div className="max-w-2xl mx-auto w-full flex items-center gap-4">
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="flex-1 py-3.5 rounded-full text-white font-semibold transition-all disabled:opacity-60 hover:opacity-90 text-center"
+              style={{ background: saved ? "#22c55e" : "#f97316" }}
+            >
+              {saving ? "Saving…" : saved ? "✓ Saved!" : "Save Preferences"}
+            </button>
+            <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 transition-colors whitespace-nowrap">
+              ← Back
+            </Link>
+          </div>
         </div>
       </main>
     </div>
