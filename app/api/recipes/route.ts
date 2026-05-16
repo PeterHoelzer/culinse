@@ -44,8 +44,8 @@ export async function GET(req: NextRequest) {
 
     const data = await res.json();
 
-    // Normalize both endpoints to same shape
-    const recipes = (data.results ?? data.recipes ?? []).map((r: Record<string, unknown>) => ({
+    // Normalize both endpoints to same shape — only recipes with images
+    const recipes = (data.results ?? data.recipes ?? []).filter((r: Record<string, unknown>) => r.image).map((r: Record<string, unknown>) => ({
       id: r.id,
       title: r.title,
       image: r.image || null,

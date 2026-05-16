@@ -370,7 +370,7 @@ function DiscoverSection({
         <div className="text-center py-16 text-gray-400">
           <div className="text-5xl mb-3">⚠️</div>
           <p className="text-lg font-medium">Could not load recipes</p>
-          <button onClick={fetchRecipes} className="text-sm text-orange-500 mt-2 hover:underline">Try again</button>
+          <button onClick={() => fetchRecipes(count)} className="text-sm text-orange-500 mt-2 hover:underline">Try again</button>
         </div>
       ) : recipes.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
