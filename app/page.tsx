@@ -300,15 +300,19 @@ function DiscoverSection({
 }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
+  const [count, setCount] = useState(6);
 
-  const fetchRecipes = useCallback(async () => {
-    setLoading(true);
+  const fetchRecipes = useCallback(async (num = 6) => {
+    if (num === 6) setLoading(true);
+    else setLoadingMore(true);
     setError(false);
     try {
       const params = new URLSearchParams();
       if (search) params.set("query", search);
       if (category && category !== "All") params.set("category", category);
+      params.set("number", String(num));
       const res = await fetch(`/api/recipes?${params}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
@@ -317,11 +321,19 @@ function DiscoverSection({
       setError(true);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }, [search, category]);
 
+  const handleLoadMore = () => {
+    const newCount = count + 6;
+    setCount(newCount);
+    fetchRecipes(newCount);
+  };
+
   useEffect(() => {
-    fetchRecipes();
+    setCount(6);
+    fetchRecipes(6);
   }, [fetchRecipes]);
 
   return (
@@ -335,8 +347,12 @@ function DiscoverSection({
             {loading ? "Loading recipes…" : `${recipes.length} recipes from the world's best food sites`}
           </p>
         </div>
-        <button className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block">
-          View all →
+        <button
+          onClick={handleLoadMore}
+          disabled={loadingMore}
+          className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block disabled:opacity-50"
+        >
+          {loadingMore ? "Loading…" : "Load more →"}
         </button>
       </div>
 

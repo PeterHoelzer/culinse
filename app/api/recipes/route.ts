@@ -7,15 +7,14 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query") || "";
   const category = searchParams.get("category") || "";
+  const number = Math.min(Number(searchParams.get("number") || 6), 24);
 
   try {
     let url: string;
 
     if (query) {
-      // Search mode
-      url = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(query)}&number=6&addRecipeInformation=true&fillIngredients=false&apiKey=${API_KEY}`;
+      url = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(query)}&number=${number}&addRecipeInformation=true&fillIngredients=false&apiKey=${API_KEY}`;
     } else if (category && category !== "All") {
-      // Category filter (map to cuisine or meal type)
       const cuisineMap: Record<string, string> = {
         Asian: "asian",
         Italian: "italian",
@@ -30,15 +29,14 @@ export async function GET(req: NextRequest) {
       };
 
       if (mealTypeMap[category]) {
-        url = `${BASE}/recipes/complexSearch?type=${mealTypeMap[category]}&number=6&addRecipeInformation=true&apiKey=${API_KEY}`;
+        url = `${BASE}/recipes/complexSearch?type=${mealTypeMap[category]}&number=${number}&addRecipeInformation=true&apiKey=${API_KEY}`;
       } else if (cuisineMap[category]) {
-        url = `${BASE}/recipes/complexSearch?cuisine=${cuisineMap[category]}&number=6&addRecipeInformation=true&apiKey=${API_KEY}`;
+        url = `${BASE}/recipes/complexSearch?cuisine=${cuisineMap[category]}&number=${number}&addRecipeInformation=true&apiKey=${API_KEY}`;
       } else {
-        url = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(category)}&number=6&addRecipeInformation=true&apiKey=${API_KEY}`;
+        url = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(category)}&number=${number}&addRecipeInformation=true&apiKey=${API_KEY}`;
       }
     } else {
-      // Default: trending (random)
-      url = `${BASE}/recipes/random?number=6&apiKey=${API_KEY}`;
+      url = `${BASE}/recipes/random?number=${number}&apiKey=${API_KEY}`;
     }
 
     const res = await fetch(url, { next: { revalidate: 3600 } }); // cache 1h
