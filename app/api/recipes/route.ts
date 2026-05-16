@@ -197,8 +197,17 @@ export async function GET(req: NextRequest) {
 
     // 402 = quota exceeded — degrade gracefully instead of crashing
     if (spoonRes.status === 402) {
-      const fallback = [...(mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[]).filter(Boolean),
-                        ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean)];
+      let fallback = [
+        ...(mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[]).filter(Boolean),
+        ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean),
+      ];
+      // For default view MDB/Edamam return [] — fetch emergency fallback recipes
+      if (fallback.length < number) {
+        const emergencyQueries = ["chicken", "pasta", "beef", "salmon", "lamb"];
+        const dayQuery = emergencyQueries[Math.floor(Date.now() / 86400000) % emergencyQueries.length];
+        const emergency = await fetchMDB(dayQuery, "");
+        fallback = [...fallback, ...emergency.filter(Boolean)];
+      }
       return NextResponse.json({ recipes: fallback.slice(0, number) }, {
         headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" },
       });
