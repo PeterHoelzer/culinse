@@ -358,11 +358,13 @@ function DiscoverSection({
   category,
   setCategory,
   user,
+  excludeIds,
 }: {
   search: string;
   category: string;
   setCategory: (v: string) => void;
   user: User | null;
+  excludeIds: number[];
 }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -419,14 +421,15 @@ function DiscoverSection({
       const res = await fetch(`/api/recipes?${params}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setRecipes(data.recipes || []);
+      const filtered = (data.recipes || []).filter((r: Recipe) => !excludeIds.includes(r.id));
+      setRecipes(filtered);
     } catch {
       setError(true);
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [search, category, maxTime, diet, trend, userPrefs]);
+  }, [search, category, maxTime, diet, trend, userPrefs, excludeIds]);
 
   const handleLoadMore = () => {
     const newCount = count + 6;
@@ -589,7 +592,7 @@ function DiscoverSection({
   );
 }
 
-function ForYouSection({ user }: { user: User | null }) {
+function ForYouSection({ user, onLoaded }: { user: User | null; onLoaded: (ids: number[]) => void }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasPrefs, setHasPrefs] = useState(false);
@@ -615,7 +618,9 @@ function ForYouSection({ user }: { user: User | null }) {
         params.set("number", "6");
         const res = await fetch(`/api/recipes?${params}`);
         const data = await res.json();
-        setRecipes(data.recipes || []);
+        const loaded = data.recipes || [];
+        setRecipes(loaded);
+        onLoaded(loaded.map((r: Recipe) => r.id));
         setLoading(false);
       });
   }, [user]);
@@ -744,6 +749,7 @@ export default function Home() {
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [user, setUser] = useState<User | null>(null);
+  const [forYouIds, setForYouIds] = useState<number[]>([]);
 
   useEffect(() => {
     const supabase = createClient();
@@ -765,8 +771,8 @@ export default function Home() {
       <Navbar user={user} />
       <main className="flex-1">
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
-        <ForYouSection user={user} />
-        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
+        <ForYouSection user={user} onLoaded={setForYouIds} />
+        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} excludeIds={forYouIds} />
         <HowItWorks />
         <CTA />
       </main>
