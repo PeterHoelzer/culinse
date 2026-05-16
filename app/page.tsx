@@ -358,13 +358,11 @@ function DiscoverSection({
   category,
   setCategory,
   user,
-  excludeIds,
 }: {
   search: string;
   category: string;
   setCategory: (v: string) => void;
   user: User | null | undefined;
-  excludeIds: (number | string)[];
 }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -374,29 +372,19 @@ function DiscoverSection({
   const [maxTime, setMaxTime] = useState("");
   const [diet, setDiet] = useState("");
   const [trend, setTrend] = useState("");
+  const [forYouActive, setForYouActive] = useState(false);
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
-  // Prevents first fetch from happening before auth + prefs are resolved
-  // undefined = auth not resolved yet, null = not logged in, User = logged in
-  const [prefsLoaded, setPrefsLoaded] = useState(false);
 
-  // Load user preferences and pre-fill filters
+  // Load user preferences (for "For You" button — not auto-applied)
   useEffect(() => {
-    if (user === undefined) return; // auth still loading — wait
-    if (user === null) { setPrefsLoaded(true); return; } // not logged in — fetch immediately
+    if (!user) return;
     const supabase = createClient();
     supabase
       .from("user_preferences")
       .select("*")
       .eq("user_id", user.id)
       .single()
-      .then(({ data }) => {
-        if (data) {
-          setUserPrefs(data);
-          if (data.diet) setDiet(data.diet);
-          if (data.max_time) setMaxTime(String(data.max_time));
-        }
-        setPrefsLoaded(true);
-      });
+      .then(({ data }) => { if (data) setUserPrefs(data); });
   }, [user]);
 
   const fetchRecipes = useCallback(async (num = 6) => {
@@ -407,12 +395,15 @@ function DiscoverSection({
       const params = new URLSearchParams();
       if (search) params.set("query", search);
       if (category && category !== "All") params.set("category", category);
-      // Apply user preferences (unless user has manually set filters)
-      const effectiveDiet = diet || userPrefs?.diet || "";
-      const effectiveTime = maxTime || (userPrefs?.max_time ? String(userPrefs.max_time) : "");
-      if (effectiveTime) params.set("maxTime", effectiveTime);
-      if (effectiveDiet) params.set("diet", effectiveDiet);
-      if (userPrefs?.intolerances?.length) params.set("intolerances", userPrefs.intolerances.join(","));
+      // Apply manual filters
+      if (maxTime) params.set("maxTime", maxTime);
+      if (diet) params.set("diet", diet);
+      // Apply "For You" prefs on top
+      if (forYouActive && userPrefs) {
+        if (!diet && userPrefs.diet) params.set("diet", userPrefs.diet);
+        if (!maxTime && userPrefs.max_time) params.set("maxTime", String(userPrefs.max_time));
+        if (userPrefs.intolerances?.length) params.set("intolerances", userPrefs.intolerances.join(","));
+      }
       // Apply trend filter
       const activeTrend = TREND_FILTERS.find(f => f.value === trend && f.value !== "");
       if (activeTrend) {
@@ -426,19 +417,14 @@ function DiscoverSection({
       const res = await fetch(`/api/recipes?${params}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
-      const all = data.recipes || [];
-      // Only exclude if we still have enough recipes left (compare as strings to handle Edamam string IDs)
-      const excludeSet = new Set(excludeIds.map(String));
-      const filtered = excludeIds.length > 0 ? all.filter((r: Recipe) => !excludeSet.has(String(r.id))) : all;
-      setRecipes(filtered.length >= 3 ? filtered : all);
-
+      setRecipes(data.recipes || []);
     } catch {
       setError(true);
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [search, category, maxTime, diet, trend, userPrefs]);
+  }, [search, category, maxTime, diet, trend, forYouActive, userPrefs]);
 
   const handleLoadMore = () => {
     const newCount = count + 6;
@@ -447,10 +433,9 @@ function DiscoverSection({
   };
 
   useEffect(() => {
-    if (!prefsLoaded) return;
     setCount(6);
     fetchRecipes(6);
-  }, [fetchRecipes, prefsLoaded]);
+  }, [fetchRecipes]);
 
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -465,21 +450,10 @@ function DiscoverSection({
             <span className="text-2xl">👤</span>
             <div>
               <p className="text-sm font-semibold text-orange-800">Set up your food profile</p>
-              <p className="text-xs text-orange-600">Tell us your diet & allergens — we'll filter recipes automatically for you.</p>
+              <p className="text-xs text-orange-600">Tell us your diet & allergens — get a personalized feed.</p>
             </div>
           </div>
           <span className="text-orange-400 group-hover:translate-x-1 transition-transform text-sm">→</span>
-        </a>
-      )}
-
-      {/* Profile active badge */}
-      {user && userPrefs && (userPrefs.diet || userPrefs.intolerances?.length > 0) && (
-        <a
-          href="/profile"
-          className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-green-50 border border-green-200 text-xs font-medium text-green-700 hover:bg-green-100 transition-colors"
-        >
-          ✓ Personalized for you
-          <span className="text-green-400">· Edit profile →</span>
         </a>
       )}
 
@@ -503,6 +477,20 @@ function DiscoverSection({
 
       {/* Trend filters */}
       <div className="flex flex-wrap gap-2 mb-4">
+        {/* For You button — only for users with a profile */}
+        {user && userPrefs && (userPrefs.diet || (userPrefs.intolerances?.length ?? 0) > 0 || userPrefs.max_time) && (
+          <button
+            onClick={() => { setForYouActive(v => !v); setCount(6); }}
+            className={`text-sm font-medium px-4 py-2 rounded-full border transition-all ${
+              forYouActive
+                ? "text-white border-transparent"
+                : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
+            }`}
+            style={forYouActive ? { background: "#f97316", borderColor: "#f97316" } : {}}
+          >
+            ✨ For You
+          </button>
+        )}
         {TREND_FILTERS.map((f) => (
           <button
             key={f.value}
@@ -562,8 +550,8 @@ function DiscoverSection({
           ))}
         </div>
 
-        {/* Allergen indicator */}
-        {(userPrefs?.intolerances?.length ?? 0) > 0 && (
+        {/* Allergen indicator — only when For You is active */}
+        {forYouActive && (userPrefs?.intolerances?.length ?? 0) > 0 && (
           <a
             href="/profile"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-medium text-red-600 hover:bg-red-100 transition-colors"
@@ -760,7 +748,6 @@ export default function Home() {
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [forYouIds, setForYouIds] = useState<(number | string)[]>([]);
 
   useEffect(() => {
     const supabase = createClient();
@@ -782,8 +769,7 @@ export default function Home() {
       <Navbar user={user} />
       <main className="flex-1">
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
-        <ForYouSection user={user} onLoaded={setForYouIds} />
-        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} excludeIds={forYouIds} />
+        <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
         <HowItWorks />
         <CTA />
       </main>
