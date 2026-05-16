@@ -421,15 +421,18 @@ function DiscoverSection({
       const res = await fetch(`/api/recipes?${params}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
-      const filtered = (data.recipes || []).filter((r: Recipe) => !excludeIds.includes(r.id));
-      setRecipes(filtered);
+      const all = data.recipes || [];
+      // Only exclude if we still have enough recipes left
+      const filtered = excludeIds.length > 0 ? all.filter((r: Recipe) => !excludeIds.includes(r.id)) : all;
+      setRecipes(filtered.length >= 3 ? filtered : all);
+
     } catch {
       setError(true);
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [search, category, maxTime, diet, trend, userPrefs, excludeIds]);
+  }, [search, category, maxTime, diet, trend, userPrefs]);
 
   const handleLoadMore = () => {
     const newCount = count + 6;
