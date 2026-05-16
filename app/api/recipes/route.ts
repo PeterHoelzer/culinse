@@ -225,7 +225,12 @@ export async function GET(req: NextRequest) {
       if (ei < uniqueEdamam.length && merged.length < number) merged.push(uniqueEdamam[ei++]);
     }
 
-    return NextResponse.json({ recipes: merged.slice(0, number) });
+    return NextResponse.json({ recipes: merged.slice(0, number) }, {
+      headers: {
+        // Cache on Vercel CDN: 1h fresh, serve stale for 24h while revalidating
+        "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+      },
+    });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "Failed to fetch recipes" }, { status: 500 });

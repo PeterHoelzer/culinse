@@ -64,7 +64,9 @@ export async function GET(
         diets: (r.tags || []).filter((t: Record<string, unknown>) => t.type === "dietary").map((t: Record<string, unknown>) => t.display_name),
         dishTypes: (r.tags || []).filter((t: Record<string, unknown>) => t.type === "meal").map((t: Record<string, unknown>) => t.display_name),
       };
-      return NextResponse.json({ recipe });
+      return NextResponse.json({ recipe }, {
+        headers: { "Cache-Control": "s-maxage=86400, stale-while-revalidate=604800" },
+      });
     } catch (err) {
       console.error(err);
       return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
@@ -106,7 +108,9 @@ export async function GET(
         diets: r.dietLabels || [],
         dishTypes: r.dishType || [],
       };
-      return NextResponse.json({ recipe });
+      return NextResponse.json({ recipe }, {
+        headers: { "Cache-Control": "s-maxage=86400, stale-while-revalidate=604800" },
+      });
     } catch (err) {
       console.error(err);
       return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
@@ -150,7 +154,9 @@ export async function GET(
         diets: [],
         dishTypes: [m.strCategory || ""],
       };
-      return NextResponse.json({ recipe });
+      return NextResponse.json({ recipe }, {
+        headers: { "Cache-Control": "s-maxage=86400, stale-while-revalidate=604800" },
+      });
     } catch (err) {
       console.error(err);
       return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
@@ -189,7 +195,9 @@ export async function GET(
       diets: data.diets || [],
       dishTypes: data.dishTypes || [],
     };
-    return NextResponse.json({ recipe });
+    return NextResponse.json({ recipe }, {
+      headers: { "Cache-Control": "s-maxage=86400, stale-while-revalidate=604800" },
+    });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
