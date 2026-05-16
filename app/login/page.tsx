@@ -57,6 +57,43 @@ export default function LoginPage() {
     setLoading(false);
   };
 
+  // Full-screen email confirmation state
+  if (message) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        <nav className="bg-white border-b border-gray-100 px-4 py-4">
+          <div className="max-w-3xl mx-auto">
+            <Link href="/" className="flex items-center gap-2 w-fit">
+              <span className="text-2xl">🍳</span>
+              <span className="text-xl font-bold text-gray-900">
+                culi<span style={{ color: "#f97316" }}>nse</span>
+              </span>
+            </Link>
+          </div>
+        </nav>
+        <div className="flex-1 flex items-center justify-center px-4">
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 w-full max-w-md text-center">
+            <div className="text-6xl mb-6">📬</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">Check your inbox!</h2>
+            <p className="text-gray-500 text-sm mb-2">
+              We sent a confirmation link to
+            </p>
+            <p className="font-semibold text-gray-900 text-sm mb-6">{email}</p>
+            <p className="text-gray-400 text-xs mb-8">
+              Click the link in the email to activate your account. Check your spam folder if you don't see it.
+            </p>
+            <button
+              onClick={() => setMessage("")}
+              className="text-sm text-orange-500 hover:underline"
+            >
+              ← Back to login
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* Navbar */}
