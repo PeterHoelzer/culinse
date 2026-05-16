@@ -44,24 +44,18 @@ async function fetchMDB(query: string, category: string): Promise<ReturnType<typ
       url = `${MDB}/search.php?s=${encodeURIComponent(query)}`;
     } else if (category && category !== "All" && mdbCategoryMap[category]) {
       url = `${MDB}/filter.php?c=${mdbCategoryMap[category]}`;
-    } else if (category && mdbAreaMap[category]) {
+    } else if (category && category !== "All" && mdbAreaMap[category]) {
       url = `${MDB}/filter.php?a=${mdbAreaMap[category]}`;
     } else {
-      // Fetch multiple randoms
-      const results = await Promise.all(
-        Array.from({ length: 3 }, () =>
-          fetch(`${MDB}/random.php`, { next: { revalidate: 3600 } }).then(r => r.json())
-        )
-      );
-      return results
-        .flatMap(d => d.meals || [])
-        .map(normalizeMDB)
-        .filter(Boolean) as ReturnType<typeof normalizeMDB>[];
+      // No query/category — skip MDB for default view (avoid duplicate randoms due to caching)
+      return [];
     }
 
     const res = await fetch(url, { next: { revalidate: 3600 } });
     const data = await res.json();
+    const seenIds = new Set<string>();
     return ((data.meals || []) as any[])
+      .filter((m: any) => { if (seenIds.has(m.idMeal)) return false; seenIds.add(m.idMeal); return true; })
       .slice(0, 4)
       .map(normalizeMDB)
       .filter(Boolean) as ReturnType<typeof normalizeMDB>[];
