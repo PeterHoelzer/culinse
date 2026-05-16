@@ -92,6 +92,24 @@ export default function RecipePage() {
     }
   };
 
+  // Schema.org structured data for Google Rich Results
+  const schemaData = recipe ? {
+    "@context": "https://schema.org",
+    "@type": "Recipe",
+    name: recipe.title,
+    image: recipe.image ? [recipe.image] : [],
+    author: { "@type": "Organization", name: recipe.source },
+    description: recipe.summary?.replace(/<[^>]+>/g, "").slice(0, 200) || "",
+    prepTime: recipe.time ? `PT${recipe.time.replace(" min", "")}M` : undefined,
+    recipeYield: recipe.servings ? `${recipe.servings} servings` : undefined,
+    recipeIngredient: recipe.ingredients.map((i) => i.original),
+    recipeInstructions: recipe.instructions.map((s) => ({
+      "@type": "HowToStep",
+      text: s.step,
+    })),
+    url: `https://culinse.com/recipe/${recipe.id}`,
+  } : null;
+
   // Strip HTML from summary
   const cleanSummary = recipe?.summary
     ? recipe.summary.replace(/<[^>]+>/g, "").split(".").slice(0, 3).join(".") + "."
@@ -99,6 +117,14 @@ export default function RecipePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Schema.org structured data */}
+      {schemaData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+        />
+      )}
+
       {/* Navbar */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">

@@ -8,16 +8,42 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Culinse – Discover Recipes You'll Love",
+  title: {
+    default: "Culinse – Discover Recipes You'll Love",
+    template: "%s | Culinse",
+  },
   description:
-    "Your personal recipe feed. Culinse aggregates the best recipes from around the web and learns your taste — so you always find something worth cooking.",
+    "Culinse aggregates millions of recipes from BBC Good Food, Bon Appétit, Chefkoch and more. Get a personalized recipe feed — free, no subscription.",
+  keywords: [
+    "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
+    "recipe aggregator", "BBC Good Food", "Chefkoch", "healthy recipes", "easy recipes",
+  ],
+  authors: [{ name: "Culinse" }],
+  creator: "Culinse",
+  metadataBase: new URL("https://culinse.com"),
   openGraph: {
     title: "Culinse – Discover Recipes You'll Love",
-    description: "Your personal recipe feed, powered by the world's best food sites.",
+    description: "Millions of recipes from the world's best food sites. Personalized for you.",
     url: "https://culinse.com",
     siteName: "Culinse",
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Culinse – Discover Recipes You'll Love",
+    description: "Millions of recipes from the world's best food sites. Personalized for you.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
