@@ -35,15 +35,19 @@ export default function Navbar() {
           <Link href="/" className="hover:text-orange-500 transition-colors">Discover</Link>
           <Link href="/about" className="hover:text-orange-500 transition-colors">About</Link>
           {user && <Link href="/saved" className="hover:text-orange-500 transition-colors">♥ My Recipes</Link>}
-          {user && <Link href="/profile" className="hover:text-orange-500 transition-colors">👤 Profile</Link>}
         </div>
 
         {/* Desktop auth */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
-            <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              Log out
-            </button>
+            <>
+              <Link href="/profile" className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white hover:opacity-80 transition-opacity" style={{ background: "#f97316" }} title="My Profile">
+                {user.email?.[0]?.toUpperCase() ?? "👤"}
+              </Link>
+              <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Log out
+              </button>
+            </>
           ) : (
             <>
               <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Log in</Link>
