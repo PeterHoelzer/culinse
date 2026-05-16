@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 
 interface Ingredient {
   id: number;
@@ -125,20 +126,7 @@ export default function RecipePage() {
         />
       )}
 
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">🍳</span>
-            <span className="text-xl font-bold text-gray-900">
-              culi<span style={{ color: "#f97316" }}>nse</span>
-            </span>
-          </Link>
-          <Link href="/" className="text-sm text-gray-500 hover:text-gray-900 transition-colors">
-            ← Back
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Loading */}
       {loading && (
