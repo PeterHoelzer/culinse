@@ -28,15 +28,15 @@ export async function GET(req: NextRequest) {
 
     const videos = (data.results || [])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .filter((r: any) => r.video_url && r.thumbnail_url && r.name)
+      .filter((r: any) => (r.original_video_url || r.video_url) && r.thumbnail_url && r.name)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .map((r: any) => ({
         id: `tasty_${r.id}`,
         title: r.name,
         image: r.thumbnail_url,
-        videoUrl: r.video_url,
+        videoUrl: r.original_video_url || r.video_url, // MP4 first, HLS fallback
         source: "Tasty",
-        sourceUrl: r.original_video_url || "#",
+        sourceUrl: `https://tasty.co/recipe/${r.slug || r.id}`,
         time: r.total_time_minutes ? `${r.total_time_minutes} min` : null,
         servings: r.yields || null,
       }));
