@@ -35,6 +35,7 @@ export default function Navbar() {
           <Link href="/" className="hover:text-orange-500 transition-colors">Discover</Link>
           <Link href="/about" className="hover:text-orange-500 transition-colors">About</Link>
           {user && <Link href="/saved" className="hover:text-orange-500 transition-colors">♥ My Recipes</Link>}
+          {user && <Link href="/profile" className="hover:text-orange-500 transition-colors">👤 Profile</Link>}
         </div>
 
         {/* Desktop auth */}
@@ -78,6 +79,9 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👋 About</Link>
           {user && (
             <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ My Recipes</Link>
+          )}
+          {user && (
+            <Link href="/profile" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👤 Profile</Link>
           )}
           <div className="h-px bg-gray-100" />
           {user ? (

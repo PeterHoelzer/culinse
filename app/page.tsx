@@ -329,6 +329,21 @@ function DiscoverSection({
   const [maxTime, setMaxTime] = useState("");
   const [diet, setDiet] = useState("");
   const [trend, setTrend] = useState("");
+  const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
+
+  // Load user preferences
+  useEffect(() => {
+    if (!user) return;
+    const supabase = createClient();
+    supabase
+      .from("user_preferences")
+      .select("*")
+      .eq("user_id", user.id)
+      .single()
+      .then(({ data }) => {
+        if (data) setUserPrefs(data);
+      });
+  }, [user]);
 
   const fetchRecipes = useCallback(async (num = 6) => {
     if (num === 6) setLoading(true);
@@ -338,8 +353,12 @@ function DiscoverSection({
       const params = new URLSearchParams();
       if (search) params.set("query", search);
       if (category && category !== "All") params.set("category", category);
-      if (maxTime) params.set("maxTime", maxTime);
-      if (diet) params.set("diet", diet);
+      // Apply user preferences (unless user has manually set filters)
+      const effectiveDiet = diet || userPrefs?.diet || "";
+      const effectiveTime = maxTime || (userPrefs?.max_time ? String(userPrefs.max_time) : "");
+      if (effectiveTime) params.set("maxTime", effectiveTime);
+      if (effectiveDiet) params.set("diet", effectiveDiet);
+      if (userPrefs?.intolerances?.length) params.set("intolerances", userPrefs.intolerances.join(","));
       // Apply trend filter
       const activeTrend = TREND_FILTERS.find(f => f.value === trend && f.value !== "");
       if (activeTrend) {
@@ -360,7 +379,7 @@ function DiscoverSection({
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [search, category, maxTime, diet, trend]);
+  }, [search, category, maxTime, diet, trend, userPrefs]);
 
   const handleLoadMore = () => {
     const newCount = count + 6;
