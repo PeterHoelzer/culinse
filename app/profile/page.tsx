@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
@@ -38,8 +37,7 @@ const TIME_OPTIONS = [
 ];
 
 export default function ProfilePage() {
-  const searchParams = useSearchParams();
-  const isWelcome = searchParams.get("welcome") === "1";
+  const [isWelcome, setIsWelcome] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [diet, setDiet] = useState("");
   const [intolerances, setIntolerances] = useState<string[]>([]);
@@ -49,6 +47,10 @@ export default function ProfilePage() {
   const [saved, setSavedState] = useState(false);
 
   const supabase = createClient();
+
+  useEffect(() => {
+    setIsWelcome(new URLSearchParams(window.location.search).get("welcome") === "1");
+  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
