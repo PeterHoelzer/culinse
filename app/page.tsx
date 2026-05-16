@@ -331,7 +331,7 @@ function DiscoverSection({
   const [trend, setTrend] = useState("");
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
 
-  // Load user preferences
+  // Load user preferences and pre-fill filters
   useEffect(() => {
     if (!user) return;
     const supabase = createClient();
@@ -341,7 +341,11 @@ function DiscoverSection({
       .eq("user_id", user.id)
       .single()
       .then(({ data }) => {
-        if (data) setUserPrefs(data);
+        if (data) {
+          setUserPrefs(data);
+          if (data.diet) setDiet(data.diet);
+          if (data.max_time) setMaxTime(String(data.max_time));
+        }
       });
   }, [user]);
 
@@ -495,9 +499,22 @@ function DiscoverSection({
               }`}
             >
               {f.label}
+              {userPrefs?.diet === f.value && f.value !== "" && (
+                <span className="ml-1 text-orange-400">●</span>
+              )}
             </button>
           ))}
         </div>
+
+        {/* Allergen indicator */}
+        {userPrefs?.intolerances?.length > 0 && (
+          <a
+            href="/profile"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-medium text-red-600 hover:bg-red-100 transition-colors"
+          >
+            🚫 {userPrefs.intolerances.length} allergen{userPrefs.intolerances.length > 1 ? "s" : ""} filtered
+          </a>
+        )}
       </div>
 
       {loading ? (
