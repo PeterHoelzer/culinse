@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
@@ -132,6 +132,29 @@ function Navbar({ user }: { user: User | null }) {
 }
 
 function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleChange = (val: string) => {
+    setSearch(val);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (val.length < 2) { setSuggestions([]); return; }
+    debounceRef.current = setTimeout(async () => {
+      const res = await fetch(`/api/autocomplete?query=${encodeURIComponent(val)}`);
+      const data = await res.json();
+      setSuggestions(data.suggestions || []);
+      setShowSuggestions(true);
+    }, 250);
+  };
+
+  const handleSelect = (s: string) => {
+    setSearch(s);
+    setSuggestions([]);
+    setShowSuggestions(false);
+    onSearch();
+  };
+
   return (
     <section className="hero-gradient py-20 sm:py-28 px-4">
       <div className="max-w-3xl mx-auto text-center">
@@ -150,25 +173,45 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
           Culinse aggregates millions of recipes from the world's best food sites — personalized for you.
         </p>
 
-        <div className="flex items-center gap-2 bg-white rounded-2xl shadow-lg p-2 max-w-xl mx-auto border border-gray-100">
-          <span className="pl-1 text-gray-400 text-xl flex-shrink-0">🔍</span>
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && onSearch()}
-            placeholder="Search recipes..."
-            className="search-input flex-1 min-w-0 text-sm sm:text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
-          />
-          <button
-            onClick={onSearch}
-            className="flex-shrink-0 px-4 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
-            style={{ background: "#f97316" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
-          >
-            Search
-          </button>
+        <div className="relative max-w-xl mx-auto">
+          <div className="flex items-center gap-2 bg-white rounded-2xl shadow-lg p-2 border border-gray-100">
+            <span className="pl-1 text-gray-400 text-xl flex-shrink-0">🔍</span>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => handleChange(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") { setShowSuggestions(false); onSearch(); } }}
+              onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+              placeholder="Search recipes..."
+              className="search-input flex-1 min-w-0 text-sm sm:text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
+            />
+            <button
+              onClick={() => { setShowSuggestions(false); onSearch(); }}
+              className="flex-shrink-0 px-4 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
+              style={{ background: "#f97316" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
+            >
+              Search
+            </button>
+          </div>
+
+          {/* Suggestions dropdown */}
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-50">
+              {suggestions.map((s, i) => (
+                <button
+                  key={i}
+                  onMouseDown={() => handleSelect(s)}
+                  className="w-full text-left px-5 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors flex items-center gap-3"
+                >
+                  <span className="text-gray-300">🔍</span>
+                  {s}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 mt-5 text-sm text-gray-500">
@@ -176,7 +219,7 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
           {["Pasta carbonara", "Avocado toast", "Thai curry", "Chocolate cake"].map((s) => (
             <button
               key={s}
-              onClick={() => { setSearch(s); onSearch(); }}
+              onClick={() => handleSelect(s)}
               className="text-orange-500 hover:text-orange-700 hover:underline transition-colors"
             >
               {s}
