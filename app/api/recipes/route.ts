@@ -14,11 +14,15 @@ const EDAMAM_BASE = "https://api.edamam.com/api/recipes/v2";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function normalizeMDB(m: any) {
   if (!m || !m.strMealThumb) return null;
+  const area = m.strArea?.trim();
+  const category = m.strCategory?.trim();
+  const source = area ? `${area} Cuisine` : category || null;
+  if (!source) return null; // skip uncategorized recipes
   return {
     id: MDB_OFFSET + Number(m.idMeal),
     title: m.strMeal,
     image: m.strMealThumb,
-    source: m.strArea ? `${m.strArea} Cuisine` : "TheMealDB",
+    source,
     sourceUrl: m.strSource || m.strYoutube || "#",
     time: "—",
     servings: null,
@@ -195,27 +199,16 @@ export async function GET(req: NextRequest) {
       hasFilters ? Promise.resolve([]) : fetchEdamam(query, category),
     ]);
 
-    // 402 = quota exceeded — degrade gracefully instead of crashing
+    // 402 = quota exceeded — return whatever MDB/Edamam already fetched (or empty)
     if (spoonRes.status === 402) {
-      let fallback = [
+      const fallback = [
         ...(mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[]).filter(Boolean),
         ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean),
       ];
-      // For default view MDB/Edamam return [] — fetch diverse emergency fallback
-      if (fallback.length < number) {
-        const [r1, r2, r3] = await Promise.all([
-          fetchMDB("chicken", ""),
-          fetchMDB("pasta", ""),
-          fetchMDB("beef", ""),
-        ]);
-        const combined = [...r1, ...r2, ...r3].filter(Boolean) as NonNullable<ReturnType<typeof normalizeMDB>>[];
-        // Shuffle so it's not always the same order
-        combined.sort(() => Math.random() - 0.5);
-        fallback = [...fallback, ...combined];
-      }
-      return NextResponse.json({ recipes: fallback.slice(0, number) }, {
-        headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" },
-      });
+      return NextResponse.json(
+        { recipes: fallback.slice(0, number), quota_exceeded: true },
+        { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
+      );
     }
     if (!spoonRes.ok) throw new Error(`Spoonacular error: ${spoonRes.status}`);
     const spoonData = await spoonRes.json();

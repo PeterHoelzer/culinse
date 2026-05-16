@@ -398,6 +398,7 @@ function DiscoverSection({
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
+  const [quotaExceeded, setQuotaExceeded] = useState(false);
   const [count, setCount] = useState(6);
   const [maxTime, setMaxTime] = useState("");
   const [diet, setDiet] = useState("");
@@ -448,6 +449,7 @@ function DiscoverSection({
       if (!res.ok) throw new Error();
       const data = await res.json();
       setRecipes(data.recipes || []);
+      setQuotaExceeded(!!data.quota_exceeded);
     } catch {
       setError(true);
     } finally {
@@ -590,6 +592,13 @@ function DiscoverSection({
           </a>
         )}
       </div>
+
+      {quotaExceeded && !loading && (
+        <div className="mb-5 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700 flex items-center gap-2">
+          <span>⏳</span>
+          <span>We&apos;re refreshing our recipe catalog — full results back shortly.</span>
+        </div>
+      )}
 
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
