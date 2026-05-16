@@ -49,7 +49,7 @@ const HOW_IT_WORKS = [
 
 // ─── Components ───────────────────────────────────────────────────────────────
 
-function Navbar({ user }: { user: User | null }) {
+function Navbar({ user }: { user: User | null | undefined }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const supabase = createClient();
 
@@ -252,7 +252,7 @@ function CategoryChips({ active, setActive }: { active: string; setActive: (v: s
   );
 }
 
-function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null }) {
+function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
@@ -363,7 +363,7 @@ function DiscoverSection({
   search: string;
   category: string;
   setCategory: (v: string) => void;
-  user: User | null;
+  user: User | null | undefined;
   excludeIds: (number | string)[];
 }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -375,12 +375,14 @@ function DiscoverSection({
   const [diet, setDiet] = useState("");
   const [trend, setTrend] = useState("");
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
-  // Prevents first fetch from happening before user prefs are loaded
-  const [prefsLoaded, setPrefsLoaded] = useState(!user);
+  // Prevents first fetch from happening before auth + prefs are resolved
+  // undefined = auth not resolved yet, null = not logged in, User = logged in
+  const [prefsLoaded, setPrefsLoaded] = useState(false);
 
   // Load user preferences and pre-fill filters
   useEffect(() => {
-    if (!user) { setPrefsLoaded(true); return; }
+    if (user === undefined) return; // auth still loading — wait
+    if (user === null) { setPrefsLoaded(true); return; } // not logged in — fetch immediately
     const supabase = createClient();
     supabase
       .from("user_preferences")
@@ -600,12 +602,13 @@ function DiscoverSection({
   );
 }
 
-function ForYouSection({ user, onLoaded }: { user: User | null; onLoaded: (ids: number[]) => void }) {
+function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLoaded: (ids: (number | string)[]) => void }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasPrefs, setHasPrefs] = useState(false);
 
   useEffect(() => {
+    if (user === undefined) return; // auth not resolved yet
     if (!user) { setLoading(false); return; }
     const supabase = createClient();
     supabase
@@ -756,7 +759,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
   const [forYouIds, setForYouIds] = useState<(number | string)[]>([]);
 
   useEffect(() => {
