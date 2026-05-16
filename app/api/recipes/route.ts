@@ -201,12 +201,17 @@ export async function GET(req: NextRequest) {
         ...(mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[]).filter(Boolean),
         ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean),
       ];
-      // For default view MDB/Edamam return [] — fetch emergency fallback recipes
+      // For default view MDB/Edamam return [] — fetch diverse emergency fallback
       if (fallback.length < number) {
-        const emergencyQueries = ["chicken", "pasta", "beef", "salmon", "lamb"];
-        const dayQuery = emergencyQueries[Math.floor(Date.now() / 86400000) % emergencyQueries.length];
-        const emergency = await fetchMDB(dayQuery, "");
-        fallback = [...fallback, ...(emergency.filter(Boolean) as NonNullable<ReturnType<typeof normalizeMDB>>[])];
+        const [r1, r2, r3] = await Promise.all([
+          fetchMDB("chicken", ""),
+          fetchMDB("pasta", ""),
+          fetchMDB("beef", ""),
+        ]);
+        const combined = [...r1, ...r2, ...r3].filter(Boolean) as NonNullable<ReturnType<typeof normalizeMDB>>[];
+        // Shuffle so it's not always the same order
+        combined.sort(() => Math.random() - 0.5);
+        fallback = [...fallback, ...combined];
       }
       return NextResponse.json({ recipes: fallback.slice(0, number) }, {
         headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" },
