@@ -456,7 +456,7 @@ function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a href="#how-it-works" className="hover:text-white transition-colors">About</a>
+            <a href="/about" className="hover:text-white transition-colors">About</a>
             <a href="/impressum" className="hover:text-white transition-colors">Impressum</a>
             <a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a>
             <a href="mailto:peter@hoelzer.xyz" className="hover:text-white transition-colors">Contact</a>
