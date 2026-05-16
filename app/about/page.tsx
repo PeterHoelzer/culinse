@@ -35,13 +35,13 @@ export default function AboutPage() {
             </div>
             <div>
               <p className="font-bold text-gray-900">Peter</p>
-              <p className="text-sm text-gray-400">Head Chef · Fleischermeister · Founder</p>
+              <p className="text-sm text-gray-400">Head Chef · Master Butcher · Founder</p>
             </div>
           </div>
 
           <div className="space-y-5 text-gray-700 leading-relaxed text-base">
             <p>
-              I spent <strong>10 years as a head chef</strong> in restaurants across Germany. Before that, I trained as a butcher — and in 2024, I became a certified <strong>Fleischermeister</strong>. Food isn't something I do on the side. It's everything.
+              I spent <strong>10 years as a head chef</strong> in restaurants across Germany. Before that, I trained as a butcher — and in 2024, I earned the title of <strong>Fleischermeister</strong> (German Master Butcher), the highest professional qualification in the craft. Food isn't something I do on the side. It's everything.
             </p>
             <p>
               But even with all that background, the everyday problem was the same: finding the right recipe meant juggling a dozen browser tabs, clicking past cookie banners, and scrolling through life stories before getting to the actual ingredients. For something that's supposed to be enjoyable, it was exhausting.

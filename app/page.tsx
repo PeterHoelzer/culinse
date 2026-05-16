@@ -168,7 +168,7 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
         {/* Credibility badge */}
         <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-orange-700 bg-white/70 border border-orange-200 rounded-full px-4 py-1.5 mb-6 shadow-sm">
           <span>👨‍🍳</span>
-          <span>Built by a chef &amp; Fleischermeister</span>
+          <span>Built by a Master Butcher &amp; Head Chef</span>
         </div>
 
         {/* Headline */}
