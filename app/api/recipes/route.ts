@@ -225,10 +225,10 @@ export async function GET(req: NextRequest) {
     const merged: typeof spoonRecipes = [];
     let si = 0, mi = 0, ei = 0;
     while (merged.length < number && (si < spoonRecipes.length || mi < uniqueMDB.length || ei < uniqueEdamam.length)) {
-      if (si < spoonRecipes.length) merged.push(spoonRecipes[si++]);
-      if (si < spoonRecipes.length) merged.push(spoonRecipes[si++]);
-      if (mi < uniqueMDB.length) merged.push(uniqueMDB[mi++]);
-      if (ei < uniqueEdamam.length) merged.push(uniqueEdamam[ei++]);
+      if (si < spoonRecipes.length && merged.length < number) merged.push(spoonRecipes[si++]);
+      if (si < spoonRecipes.length && merged.length < number) merged.push(spoonRecipes[si++]);
+      if (mi < uniqueMDB.length && merged.length < number) merged.push(uniqueMDB[mi++]);
+      if (ei < uniqueEdamam.length && merged.length < number) merged.push(uniqueEdamam[ei++]);
     }
 
     return NextResponse.json({ recipes: merged.slice(0, number) });

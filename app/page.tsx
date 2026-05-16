@@ -6,7 +6,7 @@ import type { User } from "@supabase/supabase-js";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Recipe {
-  id: number;
+  id: number | string;
   title: string;
   image: string | null;
   source: string;
@@ -364,7 +364,7 @@ function DiscoverSection({
   category: string;
   setCategory: (v: string) => void;
   user: User | null;
-  excludeIds: number[];
+  excludeIds: (number | string)[];
 }) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -375,10 +375,12 @@ function DiscoverSection({
   const [diet, setDiet] = useState("");
   const [trend, setTrend] = useState("");
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
+  // Prevents first fetch from happening before user prefs are loaded
+  const [prefsLoaded, setPrefsLoaded] = useState(!user);
 
   // Load user preferences and pre-fill filters
   useEffect(() => {
-    if (!user) return;
+    if (!user) { setPrefsLoaded(true); return; }
     const supabase = createClient();
     supabase
       .from("user_preferences")
@@ -391,6 +393,7 @@ function DiscoverSection({
           if (data.diet) setDiet(data.diet);
           if (data.max_time) setMaxTime(String(data.max_time));
         }
+        setPrefsLoaded(true);
       });
   }, [user]);
 
@@ -422,8 +425,9 @@ function DiscoverSection({
       if (!res.ok) throw new Error();
       const data = await res.json();
       const all = data.recipes || [];
-      // Only exclude if we still have enough recipes left
-      const filtered = excludeIds.length > 0 ? all.filter((r: Recipe) => !excludeIds.includes(r.id)) : all;
+      // Only exclude if we still have enough recipes left (compare as strings to handle Edamam string IDs)
+      const excludeSet = new Set(excludeIds.map(String));
+      const filtered = excludeIds.length > 0 ? all.filter((r: Recipe) => !excludeSet.has(String(r.id))) : all;
       setRecipes(filtered.length >= 3 ? filtered : all);
 
     } catch {
@@ -441,9 +445,10 @@ function DiscoverSection({
   };
 
   useEffect(() => {
+    if (!prefsLoaded) return;
     setCount(6);
     fetchRecipes(6);
-  }, [fetchRecipes]);
+  }, [fetchRecipes, prefsLoaded]);
 
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -752,7 +757,7 @@ export default function Home() {
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [user, setUser] = useState<User | null>(null);
-  const [forYouIds, setForYouIds] = useState<number[]>([]);
+  const [forYouIds, setForYouIds] = useState<(number | string)[]>([]);
 
   useEffect(() => {
     const supabase = createClient();
