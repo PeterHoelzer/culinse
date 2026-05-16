@@ -153,10 +153,13 @@ export async function GET(req: NextRequest) {
       cuisine ? `cuisine=${encodeURIComponent(cuisine)}` : "",
     ].filter(Boolean).join("&");
 
+    // Quality params applied to all Spoonacular requests
+    const QUALITY = "sort=meta-score&minPopularity=30&instructionsRequired=true";
+
     let spoonUrl: string;
 
     if (query) {
-      spoonUrl = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(query)}&number=${number}&addRecipeInformation=true&fillIngredients=false${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
+      spoonUrl = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(query)}&number=${number}&addRecipeInformation=true&fillIngredients=false&${QUALITY}${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
     } else if (category && category !== "All") {
       const cuisineMap: Record<string, string> = {
         Asian: "asian",
@@ -170,16 +173,19 @@ export async function GET(req: NextRequest) {
         Soup: "soup",
       };
       if (mealTypeMap[category]) {
-        spoonUrl = `${BASE}/recipes/complexSearch?type=${mealTypeMap[category]}&number=${number}&addRecipeInformation=true${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
+        spoonUrl = `${BASE}/recipes/complexSearch?type=${mealTypeMap[category]}&number=${number}&addRecipeInformation=true&${QUALITY}${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
       } else if (cuisineMap[category]) {
-        spoonUrl = `${BASE}/recipes/complexSearch?cuisine=${cuisineMap[category]}&number=${number}&addRecipeInformation=true${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
+        spoonUrl = `${BASE}/recipes/complexSearch?cuisine=${cuisineMap[category]}&number=${number}&addRecipeInformation=true&${QUALITY}${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
       } else {
-        spoonUrl = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(category)}&number=${number}&addRecipeInformation=true${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
+        spoonUrl = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(category)}&number=${number}&addRecipeInformation=true&${QUALITY}${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
       }
     } else if (extras) {
-      spoonUrl = `${BASE}/recipes/complexSearch?number=${number}&addRecipeInformation=true&${extras}&apiKey=${API_KEY}`;
+      spoonUrl = `${BASE}/recipes/complexSearch?number=${number}&addRecipeInformation=true&${QUALITY}&${extras}&apiKey=${API_KEY}`;
     } else {
-      spoonUrl = `${BASE}/recipes/random?number=${number}&apiKey=${API_KEY}`;
+      // Default trending: sort by popularity, rotate daily so users see fresh content
+      // offset cycles through 15 sets (one per day) — stays cacheable within a day
+      const dailyOffset = (Math.floor(Date.now() / 86400000) % 15) * number;
+      spoonUrl = `${BASE}/recipes/complexSearch?number=${number}&addRecipeInformation=true&sort=popularity&minPopularity=50&instructionsRequired=true&offset=${dailyOffset}&apiKey=${API_KEY}`;
     }
 
     // Fetch Spoonacular + TheMealDB + Edamam in parallel
