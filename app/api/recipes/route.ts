@@ -195,6 +195,14 @@ export async function GET(req: NextRequest) {
       hasFilters ? Promise.resolve([]) : fetchEdamam(query, category),
     ]);
 
+    // 402 = quota exceeded — degrade gracefully instead of crashing
+    if (spoonRes.status === 402) {
+      const fallback = [...(mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[]).filter(Boolean),
+                        ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean)];
+      return NextResponse.json({ recipes: fallback.slice(0, number) }, {
+        headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" },
+      });
+    }
     if (!spoonRes.ok) throw new Error(`Spoonacular error: ${spoonRes.status}`);
     const spoonData = await spoonRes.json();
 
