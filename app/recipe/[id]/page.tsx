@@ -129,8 +129,19 @@ export default function RecipePage() {
     ? recipe.summary.replace(/<[^>]+>/g, "").split(".").slice(0, 3).join(".") + "."
     : null;
 
+  const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
+
+  const toggleIngredient = (i: number) => {
+    setCheckedIngredients(prev => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       {/* Schema.org structured data */}
       {schemaData && (
         <script
@@ -143,10 +154,11 @@ export default function RecipePage() {
 
       {/* Loading */}
       {loading && (
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          <div className="h-72 bg-gray-100 rounded-2xl animate-pulse mb-6" />
-          <div className="h-8 bg-gray-100 rounded-xl w-2/3 animate-pulse mb-4" />
-          <div className="h-4 bg-gray-100 rounded-xl w-full animate-pulse mb-2" />
+        <div className="max-w-4xl mx-auto px-4 py-12 space-y-4">
+          <div className="h-5 bg-gray-100 rounded w-32 animate-pulse" />
+          <div className="h-72 bg-gray-100 rounded-2xl animate-pulse" />
+          <div className="h-8 bg-gray-100 rounded-xl w-2/3 animate-pulse" />
+          <div className="h-4 bg-gray-100 rounded-xl w-full animate-pulse" />
           <div className="h-4 bg-gray-100 rounded-xl w-5/6 animate-pulse" />
         </div>
       )}
@@ -162,10 +174,46 @@ export default function RecipePage() {
 
       {/* Recipe */}
       {recipe && !loading && (
-        <main className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
-          {/* Header */}
-          <div className="mb-6">
-            {/* Tags */}
+        <main className="max-w-4xl mx-auto px-4 pb-16 pt-6">
+
+          {/* Breadcrumb */}
+          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-5">
+            ← Discover
+          </Link>
+
+          {/* Hero Image / Video */}
+          <div className="relative mb-6 rounded-2xl overflow-hidden shadow-sm">
+            {recipe.videoUrl ? (
+              <video
+                src={recipe.videoUrl}
+                controls
+                playsInline
+                poster={recipe.image || undefined}
+                className="w-full h-64 sm:h-96 object-cover bg-black"
+              />
+            ) : recipe.image && !imgError ? (
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full h-64 sm:h-96 object-cover"
+                onError={() => setImgError(true)}
+              />
+            ) : (
+              <div className="w-full h-64 sm:h-80 flex items-center justify-center text-8xl"
+                style={{ background: "linear-gradient(135deg, #fed7aa 0%, #fde68a 100%)" }}>
+                🍳
+              </div>
+            )}
+
+            {/* Source badge on image */}
+            <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full">
+              📖 {recipe.source}
+            </div>
+          </div>
+
+          {/* Title + meta + actions */}
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-5">
+            {/* Diet tags */}
             {recipe.diets.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-3">
                 {recipe.diets.slice(0, 4).map((d) => (
@@ -176,22 +224,53 @@ export default function RecipePage() {
               </div>
             )}
 
-            <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 leading-tight mb-4">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight mb-4">
               {recipe.title}
             </h1>
 
-            {/* Meta row */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-4">
-              {recipe.time && <span className="flex items-center gap-1">⏱ {recipe.time}</span>}
-              {recipe.servings && <span className="flex items-center gap-1">🍽 {recipe.servings} servings</span>}
-              <span className="flex items-center gap-1">📖 {recipe.source}</span>
+            {/* Summary below title */}
+            {cleanSummary && (
+              <p className="text-sm text-gray-500 leading-relaxed mb-4 border-b border-gray-50 pb-4">
+                {cleanSummary}
+              </p>
+            )}
+
+            {/* Stats row */}
+            <div className="flex flex-wrap gap-4 mb-5">
+              {recipe.time && (
+                <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
+                  <span>⏱</span>
+                  <div>
+                    <p className="text-xs text-gray-400">Cook time</p>
+                    <p className="text-sm font-semibold text-gray-800">{recipe.time}</p>
+                  </div>
+                </div>
+              )}
+              {recipe.servings && (
+                <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
+                  <span>🍽</span>
+                  <div>
+                    <p className="text-xs text-gray-400">Servings</p>
+                    <p className="text-sm font-semibold text-gray-800">{recipe.servings}</p>
+                  </div>
+                </div>
+              )}
+              {recipe.ingredients.length > 0 && (
+                <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
+                  <span>🧂</span>
+                  <div>
+                    <p className="text-xs text-gray-400">Ingredients</p>
+                    <p className="text-sm font-semibold text-gray-800">{recipe.ingredients.length}</p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Action buttons */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleSave}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all ${
+                className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all ${
                   saved
                     ? "bg-orange-500 text-white border-orange-500"
                     : "bg-white text-gray-700 border-gray-200 hover:border-orange-300"
@@ -203,102 +282,106 @@ export default function RecipePage() {
                 href={recipe.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 style={{ background: "#f97316" }}
               >
                 ↗ View Original
               </a>
               <button
                 onClick={handleShare}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
               >
                 {copied ? "✓ Copied!" : "↑ Share"}
               </button>
             </div>
           </div>
 
-          {/* Video (Tasty) or Image */}
-          {recipe.videoUrl ? (
-            <video
-              src={recipe.videoUrl}
-              controls
-              playsInline
-              poster={recipe.image || undefined}
-              className="w-full h-56 sm:h-80 object-cover rounded-2xl mb-8 bg-black"
-            />
-          ) : recipe.image && !imgError ? (
-            <img
-              src={recipe.image}
-              alt={recipe.title}
-              className="w-full h-56 sm:h-80 object-cover rounded-2xl mb-8"
-              onError={() => setImgError(true)}
-            />
-          ) : (
-            <div className="w-full h-56 sm:h-72 rounded-2xl mb-8 flex items-center justify-center text-8xl"
-              style={{ background: "linear-gradient(135deg, #fed7aa 0%, #fde68a 100%)" }}>
-              🍳
-            </div>
-          )}
+          {/* Ingredients + Instructions */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Ingredients */}
+            {/* Ingredients — sticky on desktop */}
             <div className="md:col-span-1">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">
-                Ingredients
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:sticky md:top-20">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-bold text-gray-900">
+                    Ingredients
+                  </h2>
+                  {checkedIngredients.size > 0 && (
+                    <button
+                      onClick={() => setCheckedIngredients(new Set())}
+                      className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                      Reset
+                    </button>
+                  )}
+                </div>
                 {recipe.servings && (
-                  <span className="text-sm font-normal text-gray-400 ml-2">({recipe.servings} servings)</span>
+                  <p className="text-xs text-gray-400 mb-3">For {recipe.servings} servings</p>
                 )}
-              </h2>
-              <ul className="space-y-2">
-                {recipe.ingredients.map((ing, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-gray-700 py-2 border-b border-gray-50">
-                    <span className="text-orange-400 mt-0.5 flex-shrink-0">•</span>
-                    <span>{ing.original}</span>
-                  </li>
-                ))}
-              </ul>
+                <ul className="space-y-1">
+                  {recipe.ingredients.map((ing, i) => (
+                    <li key={i}>
+                      <button
+                        onClick={() => toggleIngredient(i)}
+                        className={`w-full flex items-start gap-3 py-2.5 px-1 rounded-xl text-left transition-colors hover:bg-gray-50 group ${
+                          checkedIngredients.has(i) ? "opacity-50" : ""
+                        }`}
+                      >
+                        <span className={`flex-shrink-0 w-5 h-5 mt-0.5 rounded-full border-2 flex items-center justify-center transition-all ${
+                          checkedIngredients.has(i)
+                            ? "border-orange-400 bg-orange-400"
+                            : "border-gray-200 group-hover:border-orange-300"
+                        }`}>
+                          {checkedIngredients.has(i) && (
+                            <span className="text-white text-xs font-bold">✓</span>
+                          )}
+                        </span>
+                        <span className={`text-sm text-gray-700 leading-snug ${
+                          checkedIngredients.has(i) ? "line-through text-gray-400" : ""
+                        }`}>
+                          {ing.original}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             {/* Instructions */}
             <div className="md:col-span-2">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Instructions</h2>
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+                <h2 className="text-lg font-bold text-gray-900 mb-5">Instructions</h2>
 
-              {recipe.instructions.length > 0 ? (
-                <ol className="space-y-5">
-                  {recipe.instructions.map((step) => (
-                    <li key={step.number} className="flex gap-4">
-                      <span
-                        className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white mt-0.5"
-                        style={{ background: "#f97316" }}
-                      >
-                        {step.number}
-                      </span>
-                      <p className="text-gray-700 text-sm leading-relaxed pt-0.5">{step.step}</p>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <div className="bg-gray-50 rounded-2xl p-6 text-center">
-                  <p className="text-gray-500 text-sm mb-3">Full instructions are on the original site.</p>
-                  <a
-                    href={recipe.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
-                    style={{ background: "#f97316" }}
-                  >
-                    ↗ View Full Recipe
-                  </a>
-                </div>
-              )}
-
-              {/* Summary */}
-              {cleanSummary && (
-                <div className="mt-8 bg-orange-50 rounded-2xl p-5">
-                  <h3 className="font-semibold text-gray-900 mb-2">About this recipe</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{cleanSummary}</p>
-                </div>
-              )}
+                {recipe.instructions.length > 0 ? (
+                  <ol className="space-y-5">
+                    {recipe.instructions.map((step) => (
+                      <li key={step.number} className="flex gap-4">
+                        <span
+                          className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white mt-0.5"
+                          style={{ background: "#f97316" }}
+                        >
+                          {step.number}
+                        </span>
+                        <p className="text-gray-700 text-sm leading-relaxed pt-0.5">{step.step}</p>
+                      </li>
+                    ))}
+                  </ol>
+                ) : (
+                  <div className="bg-gray-50 rounded-2xl p-6 text-center">
+                    <p className="text-gray-500 text-sm mb-3">Full instructions are on the original site.</p>
+                    <a
+                      href={recipe.sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
+                      style={{ background: "#f97316" }}
+                    >
+                      ↗ View Full Recipe
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </main>

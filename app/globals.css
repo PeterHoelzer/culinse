@@ -47,7 +47,7 @@ html {
 
 /* Gradient hero */
 .hero-gradient {
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 40%, #fed7aa 100%);
+  background: linear-gradient(160deg, #fff7ed 0%, #ffedd5 50%, #fcd9a8 100%);
 }
 
 /* Category chip active */

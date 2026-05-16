@@ -164,23 +164,27 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
   return (
     <section className="hero-gradient py-20 sm:py-28 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-medium text-orange-600 bg-orange-100 rounded-full px-3 sm:px-4 py-1.5 mb-6">
-          <span>✨</span>
-          <span className="hidden sm:inline">Personalized recipe discovery — like Spotify, but for food</span>
-          <span className="sm:hidden">Like Spotify, but for food</span>
+
+        {/* Credibility badge */}
+        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-orange-700 bg-white/70 border border-orange-200 rounded-full px-4 py-1.5 mb-6 shadow-sm">
+          <span>👨‍🍳</span>
+          <span>Built by a chef &amp; Fleischermeister</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-4">
-          Find recipes you'll{" "}
-          <span style={{ color: "#f97316" }}>actually love.</span>
+        {/* Headline */}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-5">
+          One place for every<br />
+          <span style={{ color: "#f97316" }}>recipe you&apos;ll love.</span>
         </h1>
 
-        <p className="text-base sm:text-xl text-gray-600 mb-8 max-w-xl mx-auto leading-relaxed px-2">
-          Culinse aggregates millions of recipes from the world's best food sites — personalized for you.
+        {/* Subline */}
+        <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
+          Culinse aggregates recipes from multiple top sources — filtered to your diet and allergies, with no ads and no paywalls.
         </p>
 
+        {/* Search bar */}
         <div className="relative max-w-xl mx-auto">
-          <div className="flex items-center gap-2 bg-white rounded-2xl shadow-lg p-2 border border-gray-100">
+          <div className="flex items-center gap-2 bg-white rounded-2xl shadow-lg p-2 border border-orange-100">
             <span className="pl-1 text-gray-400 text-xl flex-shrink-0">🔍</span>
             <input
               type="text"
@@ -189,12 +193,12 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
               onKeyDown={(e) => { if (e.key === "Enter") { setShowSuggestions(false); onSearch(); } }}
               onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-              placeholder="Search recipes..."
+              placeholder="Pasta, curry, steak…"
               className="search-input flex-1 min-w-0 text-sm sm:text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
             />
             <button
               onClick={() => { setShowSuggestions(false); onSearch(); }}
-              className="flex-shrink-0 px-4 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
+              className="flex-shrink-0 px-5 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
               style={{ background: "#f97316" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
@@ -220,9 +224,10 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
           )}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2 mt-5 text-sm text-gray-500">
+        {/* Quick picks */}
+        <div className="flex flex-wrap justify-center gap-2 mt-4 text-sm text-gray-500">
           <span>Try:</span>
-          {["Pasta carbonara", "Avocado toast", "Thai curry", "Chocolate cake"].map((s) => (
+          {["Pasta carbonara", "Beef steak", "Thai curry", "Chocolate cake"].map((s) => (
             <button
               key={s}
               onClick={() => handleSelect(s)}
@@ -231,6 +236,25 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
               {s}
             </button>
           ))}
+        </div>
+
+        {/* Source trust row */}
+        <div className="mt-8 text-xs text-gray-400">
+          {/* Mobile: compact version */}
+          <div className="sm:hidden flex flex-wrap justify-center items-center gap-2">
+            <span>From Spoonacular, MealDB, Edamam &amp; Tasty</span>
+            <span className="text-gray-300">·</span>
+            <span>Free · No ads</span>
+          </div>
+          {/* Desktop: badge version */}
+          <div className="hidden sm:flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
+            <span>Sources:</span>
+            {["Spoonacular", "MealDB", "Edamam", "Tasty"].map((src) => (
+              <span key={src} className="font-medium text-gray-500 bg-white/60 border border-gray-200 px-2.5 py-1 rounded-full">{src}</span>
+            ))}
+            <span className="text-gray-300">·</span>
+            <span>Free forever · No ads</span>
+          </div>
         </div>
       </div>
     </section>
@@ -481,13 +505,13 @@ function DiscoverSection({
         </button>
       </div>
 
-      {/* Trend filters */}
-      <div className="flex flex-wrap gap-2 mb-4">
+      {/* Trend filters — horizontal scroll on mobile */}
+      <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
         {/* For You button — only for users with a profile */}
         {user && userPrefs && (userPrefs.diet || (userPrefs.intolerances?.length ?? 0) > 0 || userPrefs.max_time) && (
           <button
             onClick={() => { setForYouActive(v => !v); setCount(6); }}
-            className={`text-sm font-medium px-4 py-2 rounded-full border transition-all ${
+            className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
               forYouActive
                 ? "text-white border-transparent"
                 : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
@@ -501,7 +525,7 @@ function DiscoverSection({
           <button
             key={f.value}
             onClick={() => { setTrend(f.value); setCount(6); }}
-            className={`text-sm font-medium px-4 py-2 rounded-full border transition-all ${
+            className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
               trend === f.value
                 ? "text-white border-transparent"
                 : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
@@ -517,10 +541,10 @@ function DiscoverSection({
         <CategoryChips active={category} setActive={setCategory} />
       </div>
 
-      {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      {/* Filters — horizontal scroll on mobile */}
+      <div className="flex gap-3 mb-6 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
         {/* Time filter */}
-        <div className="flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
+        <div className="flex-shrink-0 flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
           {TIME_FILTERS.map((f) => (
             <button
               key={f.value}
@@ -537,7 +561,7 @@ function DiscoverSection({
         </div>
 
         {/* Diet filter */}
-        <div className="flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
+        <div className="flex-shrink-0 flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
           {DIET_FILTERS.map((f) => (
             <button
               key={f.value}
