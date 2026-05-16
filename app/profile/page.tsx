@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
@@ -37,6 +38,8 @@ const TIME_OPTIONS = [
 ];
 
 export default function ProfilePage() {
+  const searchParams = useSearchParams();
+  const isWelcome = searchParams.get("welcome") === "1";
   const [user, setUser] = useState<User | null>(null);
   const [diet, setDiet] = useState("");
   const [intolerances, setIntolerances] = useState<string[]>([]);
@@ -107,6 +110,15 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
+
+      {/* Welcome banner for new users */}
+      {isWelcome && (
+        <div className="bg-green-50 border-b border-green-100 px-4 py-3 text-center">
+          <p className="text-sm font-medium text-green-700">
+            🎉 Welcome to Culinse! Set up your food profile to get personalized recipes.
+          </p>
+        </div>
+      )}
 
       {/* Hero header */}
       <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pb-16 pt-10 px-4">
