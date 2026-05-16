@@ -5,6 +5,10 @@ const BASE = "https://api.spoonacular.com";
 const MDB = "https://www.themealdb.com/api/json/v1/1";
 const MDB_OFFSET = 9_000_000; // prevents ID collision with Spoonacular
 
+const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
+const EDAMAM_APP_KEY = process.env.EDAMAM_APP_KEY;
+const EDAMAM_BASE = "https://api.edamam.com/api/recipes/v2";
+
 // ─── TheMealDB helpers ────────────────────────────────────────────────────────
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,6 +70,68 @@ async function fetchMDB(query: string, category: string): Promise<ReturnType<typ
   }
 }
 
+// ─── Edamam helpers ───────────────────────────────────────────────────────────
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function normalizeEdamam(hit: any) {
+  const r = hit?.recipe;
+  if (!r || !r.image) return null;
+  const rawId = r.uri?.split("#recipe_")[1];
+  if (!rawId) return null;
+  return {
+    id: `edamam_${rawId}`,
+    title: r.label,
+    image: r.image,
+    source: r.source || "Edamam",
+    sourceUrl: r.url || "#",
+    time: r.totalTime ? `${Math.round(r.totalTime)} min` : "—",
+    servings: r.yield ? Math.round(r.yield) : null,
+    rating: null,
+  };
+}
+
+async function fetchEdamam(query: string, category: string): Promise<ReturnType<typeof normalizeEdamam>[]> {
+  if (!EDAMAM_APP_ID || !EDAMAM_APP_KEY) return [];
+  try {
+    const mealTypeMap: Record<string, string> = {
+      Breakfast: "breakfast",
+      Dessert: "dessert",
+      Soup: "soup",
+    };
+
+    const params = new URLSearchParams({
+      type: "public",
+      app_id: EDAMAM_APP_ID,
+      app_key: EDAMAM_APP_KEY,
+    });
+
+    if (query) {
+      params.set("q", query);
+    } else if (category && category !== "All" && mealTypeMap[category]) {
+      params.set("mealType", mealTypeMap[category]);
+      params.set("q", category);
+    } else if (category && category !== "All") {
+      params.set("q", category);
+    } else {
+      // Skip Edamam for default random view (save API quota)
+      return [];
+    }
+
+    const res = await fetch(`${EDAMAM_BASE}?${params}`, {
+      next: { revalidate: 3600 },
+      headers: { Accept: "application/json" },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return ((data.hits || []) as any[])
+      .slice(0, 3)
+      .map(normalizeEdamam)
+      .filter(Boolean) as ReturnType<typeof normalizeEdamam>[];
+  } catch {
+    return [];
+  }
+}
+
 // ─── Main route ───────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
@@ -80,7 +146,7 @@ export async function GET(req: NextRequest) {
   const intolerances = searchParams.get("intolerances") || "";
   const cuisine = searchParams.get("cuisine") || "";
 
-  // Only fetch MDB when no advanced filters active (MDB doesn't support them)
+  // Only fetch MDB/Edamam when no advanced filters active (they don't support them)
   const hasFilters = !!(maxTime || diet || minProtein || maxCarbs || intolerances || cuisine);
 
   try {
@@ -122,10 +188,11 @@ export async function GET(req: NextRequest) {
       spoonUrl = `${BASE}/recipes/random?number=${number}&apiKey=${API_KEY}`;
     }
 
-    // Fetch Spoonacular + TheMealDB in parallel
-    const [spoonRes, mdbRecipes] = await Promise.all([
+    // Fetch Spoonacular + TheMealDB + Edamam in parallel
+    const [spoonRes, mdbRecipes, edamamRecipes] = await Promise.all([
       fetch(spoonUrl, { next: { revalidate: 3600 } }),
       hasFilters ? Promise.resolve([]) : fetchMDB(query, category),
+      hasFilters ? Promise.resolve([]) : fetchEdamam(query, category),
     ]);
 
     if (!spoonRes.ok) throw new Error(`Spoonacular error: ${spoonRes.status}`);
@@ -146,16 +213,22 @@ export async function GET(req: NextRequest) {
 
     // Merge & deduplicate by title
     const titles = new Set(spoonRecipes.map((r: { title: string }) => r.title.toLowerCase()));
+
     const uniqueMDB = (mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[])
       .filter(r => r && !titles.has(r.title.toLowerCase()));
+    uniqueMDB.forEach(r => r && titles.add(r.title.toLowerCase()));
 
-    // Interleave: 2 Spoonacular, 1 MDB pattern
+    const uniqueEdamam = (edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[])
+      .filter(r => r && !titles.has(r.title.toLowerCase()));
+
+    // Interleave: 2 Spoonacular, 1 MDB, 1 Edamam pattern
     const merged: typeof spoonRecipes = [];
-    let si = 0, mi = 0;
-    while (merged.length < number && (si < spoonRecipes.length || mi < uniqueMDB.length)) {
+    let si = 0, mi = 0, ei = 0;
+    while (merged.length < number && (si < spoonRecipes.length || mi < uniqueMDB.length || ei < uniqueEdamam.length)) {
       if (si < spoonRecipes.length) merged.push(spoonRecipes[si++]);
       if (si < spoonRecipes.length) merged.push(spoonRecipes[si++]);
       if (mi < uniqueMDB.length) merged.push(uniqueMDB[mi++]);
+      if (ei < uniqueEdamam.length) merged.push(uniqueEdamam[ei++]);
     }
 
     return NextResponse.json({ recipes: merged.slice(0, number) });

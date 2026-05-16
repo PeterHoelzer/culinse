@@ -5,11 +5,58 @@ const BASE = "https://api.spoonacular.com";
 const MDB = "https://www.themealdb.com/api/json/v1/1";
 const MDB_OFFSET = 9_000_000;
 
+const EDAMAM_APP_ID = process.env.EDAMAM_APP_ID;
+const EDAMAM_APP_KEY = process.env.EDAMAM_APP_KEY;
+const EDAMAM_BASE = "https://api.edamam.com/api/recipes/v2";
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+
+  // ── Edamam recipe ──────────────────────────────────────────────────────────
+  if (id.startsWith("edamam_")) {
+    const edamamId = id.replace("edamam_", "");
+    try {
+      const res = await fetch(
+        `${EDAMAM_BASE}/${edamamId}?type=public&app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_APP_KEY}`,
+        { next: { revalidate: 86400 }, headers: { Accept: "application/json" } }
+      );
+      if (!res.ok) return NextResponse.json({ error: "Not found" }, { status: 404 });
+      const data = await res.json();
+      const r = data.recipe;
+      if (!r) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+      const ingredients = (r.ingredients || []).map((ing: Record<string, unknown>, i: number) => ({
+        id: i,
+        name: ing.food as string,
+        amount: ing.quantity as number || 0,
+        unit: ing.measure as string || "",
+        original: ing.text as string || `${ing.quantity} ${ing.measure} ${ing.food}`.trim(),
+      }));
+
+      const recipe = {
+        id,
+        title: r.label,
+        image: r.image || null,
+        source: r.source || "Edamam",
+        sourceUrl: r.url || "#",
+        time: r.totalTime ? `${Math.round(r.totalTime)} min` : null,
+        servings: r.yield ? Math.round(r.yield) : null,
+        summary: null,
+        ingredients,
+        instructions: [], // Edamam free tier doesn't provide step-by-step instructions
+        diets: r.dietLabels || [],
+        dishTypes: r.dishType || [],
+      };
+      return NextResponse.json({ recipe });
+    } catch (err) {
+      console.error(err);
+      return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
+    }
+  }
+
   const numId = Number(id);
 
   // TheMealDB recipe
