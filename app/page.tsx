@@ -79,9 +79,14 @@ function Navbar({ user }: { user: User | null | undefined }) {
         {/* Desktop auth */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
-            <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              Log out
-            </button>
+            <>
+              <a href="/profile" className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white transition-opacity hover:opacity-80" style={{ background: "#f97316" }} title="My Profile">
+                {user.email?.[0]?.toUpperCase() ?? "👤"}
+              </a>
+              <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+                Log out
+              </button>
+            </>
           ) : (
             <>
               <a href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Log in</a>
@@ -117,6 +122,7 @@ function Navbar({ user }: { user: User | null | undefined }) {
           <a href="#discover" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">🔍 Discover</a>
           <a href="#how-it-works" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">⚙️ How it Works</a>
           {user && <a href="/saved" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ My Recipes</a>}
+          {user && <a href="/profile" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👤 My Profile</a>}
           <div className="h-px bg-gray-100" />
           {user ? (
             <button onClick={handleLogout} className="text-sm font-medium text-gray-500 py-2 text-left hover:text-gray-900 transition-colors">
