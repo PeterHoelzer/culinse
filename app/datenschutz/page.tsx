@@ -103,6 +103,22 @@ export default function Datenschutz() {
           </p>
         </section>
 
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">Amazon Associates / Affiliate-Links</h2>
+          <p className="text-gray-600 leading-relaxed mb-3">
+            Diese Website nimmt am Amazon Services LLC Associates Program und am Ninja Kitchen Affiliate-Programm teil. Wenn Sie auf einen mit „Ad" oder „Affiliate link" gekennzeichneten Link klicken und anschließend ein Produkt kaufen, erhalten wir eine kleine Provision.
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-3">
+            Bei Klick auf Amazon-Links setzt Amazon.com, Inc. (410 Terry Ave N, Seattle, WA 98109, USA) einen Cookie mit einer Laufzeit von 24 Stunden, um den Kauf Ihrem Besuch zuzuordnen. Dabei werden Daten in die USA übertragen. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Monetarisierung des Angebots).
+          </p>
+          <p className="text-gray-600 leading-relaxed">
+            Sie können das Setzen von Cookies in Ihrem Browser jederzeit deaktivieren. Weitere Informationen zum Datenschutz bei Amazon finden Sie unter:{" "}
+            <a href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010" target="_blank" rel="noopener noreferrer" className="text-orange-500 hover:underline">
+              amazon.de/datenschutz
+            </a>.
+          </p>
+        </section>
+
         <div className="pt-6 border-t border-gray-100 flex gap-6">
           <Link href="/" className="text-orange-500 hover:underline text-sm">
             ← Zurück zur Startseite

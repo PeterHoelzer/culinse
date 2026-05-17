@@ -7,6 +7,7 @@ import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import { AffiliateBox } from "@/components/AffiliateBox";
 
 interface Ingredient {
   id: number;
@@ -361,6 +362,13 @@ export default function RecipePageClient() {
                   ))}
                 </ul>
               </div>
+
+              {/* Affiliate Box */}
+              <AffiliateBox
+                dishTypes={recipe.dishTypes}
+                ingredientNames={recipe.ingredients.map(i => i.name)}
+                recipeTitle={recipe.title}
+              />
             </div>
 
             <div className="md:col-span-2">

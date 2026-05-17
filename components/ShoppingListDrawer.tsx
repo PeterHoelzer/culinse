@@ -249,6 +249,21 @@ export default function ShoppingListDrawer({
           )}
         </div>
 
+        {/* Amazon grocery button */}
+        {!loading && totalItems > 0 && (
+          <div className="px-5 pt-3 pb-1 flex-shrink-0">
+            <a
+              href={`https://www.amazon.de/s?k=lebensmittel+online&tag=${process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || "culinse-21"}`}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-orange-200 text-orange-600 text-sm font-semibold hover:bg-orange-50 transition-all"
+            >
+              🛒 Order groceries on Amazon
+            </a>
+            <p className="text-xs text-gray-300 text-center mt-1.5">Affiliate link — no extra cost for you</p>
+          </div>
+        )}
+
         {/* Footer */}
         {!loading && totalItems > 0 && checkedCount === totalItems && (
           <div className="px-5 py-4 border-t border-gray-100 flex-shrink-0">
