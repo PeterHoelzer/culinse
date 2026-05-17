@@ -76,7 +76,9 @@ export async function POST(req: NextRequest) {
     case "invoice.payment_succeeded": {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
-      const rawSub = invoice.subscription;
+      // `subscription` field exists at runtime but was removed from Stripe's typings in v17
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const rawSub = (invoice as any).subscription as string | Stripe.Subscription | null | undefined;
       const subscriptionId = typeof rawSub === "string" ? rawSub : rawSub?.id ?? null;
       if (!subscriptionId) break;
 
