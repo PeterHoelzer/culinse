@@ -36,6 +36,14 @@ const TIME_OPTIONS = [
   { value: 60, label: "≤ 60 min", emoji: "🕑" },
 ];
 
+const PRO_FEATURES = [
+  { icon: "📚", label: "Unlimited Collections" },
+  { icon: "📅", label: "Weekly Meal Planner" },
+  { icon: "🛒", label: "Smart Shopping List" },
+  { icon: "🌍", label: "Share Plans & Collections" },
+  { icon: "⚡", label: "Priority new features" },
+];
+
 export default function ProfilePage() {
   const [isWelcome, setIsWelcome] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -45,6 +53,9 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSavedState] = useState(false);
+  const [isPro, setIsPro] = useState(false);
+  const [proExpiry, setProExpiry] = useState<string | null>(null);
+  const [billingLoading, setBillingLoading] = useState(false);
 
   const supabase = createClient();
 
@@ -53,24 +64,44 @@ export default function ProfilePage() {
   }, []);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) { window.location.href = "/login"; return; }
       setUser(data.user);
-      supabase
-        .from("user_preferences")
-        .select("*")
-        .eq("user_id", data.user.id)
-        .single()
-        .then(({ data: prefs }) => {
-          if (prefs) {
-            setDiet(prefs.diet || "");
-            setIntolerances(prefs.intolerances || []);
-            setMaxTime(prefs.max_time || 0);
-          }
-          setLoading(false);
-        });
+
+      const [{ data: prefs }, { data: profile }] = await Promise.all([
+        supabase.from("user_preferences").select("*").eq("user_id", data.user.id).single(),
+        supabase.from("profiles").select("is_pro, pro_expires_at").eq("id", data.user.id).single(),
+      ]);
+
+      if (prefs) {
+        setDiet(prefs.diet || "");
+        setIntolerances(prefs.intolerances || []);
+        setMaxTime(prefs.max_time || 0);
+      }
+      if (profile) {
+        setIsPro(profile.is_pro ?? false);
+        setProExpiry(profile.pro_expires_at ?? null);
+      }
+      setLoading(false);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleUpgrade = async () => {
+    setBillingLoading(true);
+    const res = await fetch("/api/stripe/checkout", { method: "POST" });
+    const { url } = await res.json();
+    if (url) window.location.href = url;
+    else setBillingLoading(false);
+  };
+
+  const handleManageBilling = async () => {
+    setBillingLoading(true);
+    const res = await fetch("/api/stripe/portal", { method: "POST" });
+    const { url } = await res.json();
+    if (url) window.location.href = url;
+    else setBillingLoading(false);
+  };
 
   const toggleIntolerance = (value: string) => {
     setIntolerances(prev =>
@@ -149,6 +180,57 @@ export default function ProfilePage() {
       </div>
 
       <main className="max-w-2xl mx-auto px-4 -mt-6 pb-24">
+
+        {/* Subscription */}
+        <div className={`rounded-2xl shadow-sm border p-6 mb-4 ${isPro ? "bg-gradient-to-br from-orange-50 to-amber-50 border-orange-200" : "bg-white border-gray-100"}`}>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <span className="text-xl">{isPro ? "⭐" : "🔓"}</span>
+              <div>
+                <h2 className="text-lg font-bold text-gray-900">
+                  {isPro ? "Culinse Pro" : "Free Plan"}
+                </h2>
+                {isPro && proExpiry && (
+                  <p className="text-xs text-gray-400">
+                    Renews {new Date(proExpiry).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
+                  </p>
+                )}
+              </div>
+            </div>
+            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${isPro ? "bg-orange-500 text-white" : "bg-gray-100 text-gray-500"}`}>
+              {isPro ? "✓ Active" : "Free"}
+            </span>
+          </div>
+
+          <div className="space-y-2 mb-5">
+            {PRO_FEATURES.map((f) => (
+              <div key={f.label} className="flex items-center gap-3">
+                <span className="text-base">{f.icon}</span>
+                <span className={`text-sm ${isPro ? "text-gray-700" : "text-gray-400"}`}>{f.label}</span>
+                {!isPro && <span className="ml-auto text-gray-300 text-xs">🔒</span>}
+              </div>
+            ))}
+          </div>
+
+          {isPro ? (
+            <button
+              onClick={handleManageBilling}
+              disabled={billingLoading}
+              className="w-full py-3 rounded-full border-2 border-orange-300 text-orange-600 font-semibold text-sm hover:bg-orange-50 transition-all disabled:opacity-60"
+            >
+              {billingLoading ? "Loading…" : "Manage subscription"}
+            </button>
+          ) : (
+            <button
+              onClick={handleUpgrade}
+              disabled={billingLoading}
+              className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all disabled:opacity-60 hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+            >
+              {billingLoading ? "Loading…" : "Upgrade to Pro — €4.99 / month"}
+            </button>
+          )}
+        </div>
 
         {/* Diet */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
