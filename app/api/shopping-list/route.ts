@@ -73,27 +73,93 @@ interface ShoppingItem {
   categoryEmoji: string;
 }
 
+// Words to strip when building the dedup key (adjectives, cooking states, etc.)
+const STRIP_WORDS = new Set([
+  "fresh", "dried", "frozen", "canned", "raw", "cooked", "whole", "halved",
+  "chopped", "minced", "diced", "sliced", "grated", "shredded", "crushed",
+  "ground", "toasted", "roasted", "peeled", "deveined", "trimmed", "rinsed",
+  "large", "medium", "small", "extra", "fine", "coarse", "thick", "thin",
+  "organic", "boneless", "skinless", "lean", "low-fat", "unsalted", "salted",
+  "sweetened", "unsweetened", "plain", "pure", "natural",
+]);
+
+// Names that are NOT real ingredients
+const BLOCKED_NAMES = new Set([
+  "serving", "servings", "portion", "portions", "yield", "yields",
+  "or", "and", "to taste", "as needed", "as required", "to garnish",
+  "optional", "for garnish", "for serving", "for topping",
+]);
+
+function isBlocked(name: string): boolean {
+  const n = name.toLowerCase().trim();
+  if (!n || n.length < 2) return true;
+  if (BLOCKED_NAMES.has(n)) return true;
+  // Single word that is just "or" / a conjunction
+  if (/^(or|and|the|a|an)$/i.test(n)) return true;
+  // Looks like a serving description: "4 servings", "serves 2", etc.
+  if (/\b(serving|serves?|portion|yield)\b/i.test(n)) return true;
+  // Contains " or " as separator → "salt or pepper" → skip ambiguous
+  if (/ or /i.test(n)) return true;
+  // Just a number
+  if (/^\d+(\.\d+)?$/.test(n)) return true;
+  return false;
+}
+
 function normalizeUnit(u: string): string {
   return u.toLowerCase().trim()
     .replace(/tablespoons?/, "EL")
     .replace(/teaspoons?/, "TL")
     .replace(/cups?/, "Tasse")
     .replace(/ounces?|oz/, "oz")
-    .replace(/pounds?|lbs?/, "g") // rough
+    .replace(/pounds?|lbs?/, "g")
     .replace(/grams?/, "g")
     .replace(/kilograms?|kg/, "kg")
     .replace(/milliliters?|ml/, "ml")
-    .replace(/liters?|l/, "L");
+    .replace(/liters?/, "L");
+}
+
+// Build a dedup key by stripping adjectives and normalising spelling
+function dedupKey(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    // Remove parenthetical notes like "(grated)" or "(optional)"
+    .replace(/\(.*?\)/g, "")
+    // Remove leading/trailing punctuation
+    .replace(/[,;:.!?]+$/, "")
+    .trim()
+    // Split into words, drop strip-words
+    .split(/\s+/)
+    .filter(w => !STRIP_WORDS.has(w))
+    .join(" ")
+    .trim()
+    // Common spelling variants → canonical form
+    .replace(/parmigiano.*/,  "parmesan")
+    .replace(/parmesan.*/,    "parmesan")
+    .replace(/chilli/,        "chili")
+    .replace(/bell pepper/,   "paprika")
+    .replace(/black pepper/,  "pepper")
+    .replace(/white pepper/,  "pepper")
+    .replace(/sea salt/,      "salt")
+    .replace(/kosher salt/,   "salt")
+    .replace(/table salt/,    "salt")
+    .replace(/olive oil.*/,   "olive oil")
+    .replace(/vegetable oil.*/, "oil")
+    .replace(/canola oil.*/,  "oil")
+    .replace(/spring onion/, "green onion")
+    .replace(/scallion/,      "green onion");
 }
 
 function aggregateIngredients(raws: RawIngredient[]): ShoppingItem[] {
-  // key = "name||unit"
+  // key = "dedupName||normalizedUnit"
   const map = new Map<string, ShoppingItem>();
 
   for (const ing of raws) {
-    const name = ing.name.toLowerCase().trim();
-    const unit = normalizeUnit(ing.unit || "");
-    const key = `${name}||${unit}`;
+    if (!ing.name?.trim()) continue;
+    if (isBlocked(ing.name)) continue;
+
+    const unit    = normalizeUnit(ing.unit || "");
+    const key     = `${dedupKey(ing.name)}||${unit}`;
     const { label, emoji } = resolveCategory(ing.aisle);
 
     if (map.has(key)) {
@@ -103,6 +169,7 @@ function aggregateIngredients(raws: RawIngredient[]): ShoppingItem[] {
       }
     } else {
       map.set(key, {
+        // Use shortest / cleanest display name seen so far
         name: ing.name.trim(),
         amount: ing.amount || null,
         unit,
