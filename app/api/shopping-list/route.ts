@@ -75,12 +75,20 @@ interface ShoppingItem {
 
 // Words to strip when building the dedup key (adjectives, cooking states, etc.)
 const STRIP_WORDS = new Set([
+  // Freshness / prep state
   "fresh", "dried", "frozen", "canned", "raw", "cooked", "whole", "halved",
   "chopped", "minced", "diced", "sliced", "grated", "shredded", "crushed",
   "ground", "toasted", "roasted", "peeled", "deveined", "trimmed", "rinsed",
+  "pureed", "mashed", "boiled", "steamed", "fried", "baked", "aged", "herbed",
+  // Size
   "large", "medium", "small", "extra", "fine", "coarse", "thick", "thin",
-  "organic", "boneless", "skinless", "lean", "low-fat", "unsalted", "salted",
-  "sweetened", "unsweetened", "plain", "pure", "natural",
+  "big", "mini", "giant",
+  // Quality / marketing
+  "organic", "natural", "pure", "plain", "regular", "premium", "additional",
+  "equivalent", "boneless", "skinless", "lean", "low-fat", "full-fat",
+  "unsalted", "salted", "sweetened", "unsweetened", "unbleached",
+  // Colour (usually not the primary dedup dimension)
+  "black", "white", "red", "green", "yellow",
 ]);
 
 // Names that are NOT real ingredients
@@ -90,18 +98,40 @@ const BLOCKED_NAMES = new Set([
   "optional", "for garnish", "for serving", "for topping",
 ]);
 
-function isBlocked(name: string): boolean {
+// Units that indicate broken/non-ingredient data
+const BLOCKED_UNITS = new Set([
+  "serving", "servings", "portion", "portions", "yield", "yields",
+  "recipe", "recipes", "batch", "batches",
+]);
+
+function isBlocked(name: string, unit?: string): boolean {
   const n = name.toLowerCase().trim();
   if (!n || n.length < 2) return true;
   if (BLOCKED_NAMES.has(n)) return true;
-  // Single word that is just "or" / a conjunction
+
+  // Block if unit is a serving/yield descriptor
+  if (unit) {
+    const u = unit.toLowerCase().trim();
+    if (BLOCKED_UNITS.has(u)) return true;
+    if (/serving/i.test(u)) return true;
+  }
+
+  // Single word conjunction
   if (/^(or|and|the|a|an)$/i.test(n)) return true;
-  // Looks like a serving description: "4 servings", "serves 2", etc.
+  // Serving description in name: "4 servings", "serves 2"
   if (/\b(serving|serves?|portion|yield)\b/i.test(n)) return true;
-  // Contains " or " as separator → "salt or pepper" → skip ambiguous
+  // Contains " or " → ambiguous compound
   if (/ or /i.test(n)) return true;
+  // Contains " and " → compound like "salt and pepper" — split handled below
+  // (filter here if > 2 real words after "and", i.e. it's a description)
+  if (/ and /i.test(n) && n.split(/\s+/).length > 4) return true;
   // Just a number
   if (/^\d+(\.\d+)?$/.test(n)) return true;
+  // Too many words → likely a description, not an ingredient (> 6 words)
+  if (n.split(/\s+/).length > 6) return true;
+  // Starts with "additional", "equivalent", "extra" → filler words in descriptions
+  if (/^(additional|equivalent|optional|extra large|extra small)/i.test(n)) return true;
+
   return false;
 }
 
@@ -150,33 +180,57 @@ function dedupKey(name: string): string {
     .replace(/scallion/,      "green onion");
 }
 
+// Split "X and Y" compound names into individual ingredients
+function splitCompound(ing: RawIngredient): RawIngredient[] {
+  const n = ing.name.toLowerCase();
+  // Only split simple 2-part compounds like "salt and pepper"
+  if (/ and /i.test(n) && n.split(/\s+/).length <= 4) {
+    return n.split(/ and /i).map(part => ({
+      ...ing,
+      name: part.trim(),
+      amount: 0,   // amount is ambiguous when split
+      unit: "",
+    }));
+  }
+  return [ing];
+}
+
 function aggregateIngredients(raws: RawIngredient[]): ShoppingItem[] {
-  // key = "dedupName||normalizedUnit"
+  // Dedup key = normalised name only (ignore unit to merge "1 tbs parmesan" + "0.8 Tasse parmesan")
   const map = new Map<string, ShoppingItem>();
 
-  for (const ing of raws) {
-    if (!ing.name?.trim()) continue;
-    if (isBlocked(ing.name)) continue;
+  for (const raw of raws) {
+    // Expand compound "X and Y" ingredients
+    const expanded = splitCompound(raw);
 
-    const unit    = normalizeUnit(ing.unit || "");
-    const key     = `${dedupKey(ing.name)}||${unit}`;
-    const { label, emoji } = resolveCategory(ing.aisle);
+    for (const ing of expanded) {
+      if (!ing.name?.trim()) continue;
+      if (isBlocked(ing.name, ing.unit)) continue;
 
-    if (map.has(key)) {
-      const existing = map.get(key)!;
-      if (existing.amount !== null && ing.amount) {
-        existing.amount = Math.round((existing.amount + ing.amount) * 100) / 100;
+      const unit = normalizeUnit(ing.unit || "");
+      const key  = dedupKey(ing.name);            // unit NOT in key
+      const { label, emoji } = resolveCategory(ing.aisle);
+
+      if (map.has(key)) {
+        const existing = map.get(key)!;
+        // Only add amounts when units match
+        if (existing.unit === unit && existing.amount !== null && ing.amount) {
+          existing.amount = Math.round((existing.amount + ing.amount) * 100) / 100;
+        }
+        // Prefer the shorter, cleaner display name
+        if (ing.name.trim().length < existing.name.length) {
+          existing.name = ing.name.trim();
+        }
+      } else {
+        map.set(key, {
+          name: ing.name.trim(),
+          amount: ing.amount || null,
+          unit,
+          original: ing.original || ing.name,
+          category: label,
+          categoryEmoji: emoji,
+        });
       }
-    } else {
-      map.set(key, {
-        // Use shortest / cleanest display name seen so far
-        name: ing.name.trim(),
-        amount: ing.amount || null,
-        unit,
-        original: ing.original || ing.name,
-        category: label,
-        categoryEmoji: emoji,
-      });
     }
   }
 
