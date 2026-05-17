@@ -135,17 +135,136 @@ function isBlocked(name: string, unit?: string): boolean {
   return false;
 }
 
+// ── Unit conversion to grams ──────────────────────────────────────────────────
+
+// Grams per cup for common ingredients (key = dedupKey fragment)
+const GRAMS_PER_CUP: Record<string, number> = {
+  // Flours & powders
+  flour: 120, "all-purpose flour": 120, "bread flour": 120,
+  "whole wheat flour": 120, "almond flour": 96, "cornstarch": 120,
+  "cornmeal": 122, "oats": 90, "rolled oats": 90, "cocoa powder": 85,
+  "cocoa": 85, "baking powder": 230, "baking soda": 230, "powdered sugar": 120,
+  "icing sugar": 120, "breadcrumbs": 108,
+  // Sugars
+  sugar: 200, "white sugar": 200, "brown sugar": 220, "caster sugar": 200,
+  "powdered sugar": 120, "honey": 340, "maple syrup": 322, "molasses": 337,
+  // Dairy & fats
+  butter: 227, "cream cheese": 232, "ricotta": 246, "yogurt": 245,
+  milk: 245, "whole milk": 245, "skim milk": 245, "buttermilk": 245,
+  cream: 238, "heavy cream": 238, "sour cream": 230, "whipped cream": 120,
+  "half and half": 242,
+  // Cheese (grated/shredded)
+  parmesan: 100, "parmesan cheese": 100, "mozzarella": 113,
+  "cheddar": 113, "gruyere": 100, "feta": 150, cheese: 113,
+  // Oils & liquids
+  oil: 218, "olive oil": 216, "vegetable oil": 218, "coconut oil": 218,
+  water: 240, "chicken broth": 240, "beef broth": 240, "vegetable broth": 240,
+  "broth": 240, "stock": 240, "wine": 240, "vinegar": 240,
+  "tomato sauce": 245, "tomato paste": 262, "ketchup": 272,
+  "soy sauce": 255, "fish sauce": 255,
+  // Rice, grains, pasta
+  rice: 185, "uncooked rice": 185, "arborio rice": 195, "quinoa": 170,
+  "lentils": 192, "chickpeas": 200, pasta: 100, "couscous": 175,
+  "barley": 184,
+  // Nuts & seeds
+  "almonds": 143, "walnuts": 120, "cashews": 130, "peanuts": 145,
+  "pecans": 100, "pine nuts": 135, "sesame seeds": 144, "sunflower seeds": 140,
+  "pumpkin seeds": 130, nuts: 120,
+  // Vegetables (chopped)
+  onion: 160, "onions": 160, tomato: 180, "tomatoes": 180,
+  spinach: 30, "baby spinach": 30, "kale": 67, "lettuce": 47,
+  "mushrooms": 70, "bell pepper": 149, "corn": 154, "peas": 145,
+  "green beans": 110, "broccoli": 91, "cauliflower": 107,
+  // Fruit
+  "blueberries": 148, "strawberries": 152, "raspberries": 123,
+  "grapes": 151, "raisins": 165, "cranberries": 100,
+  // Default fallbacks
+  default: 130,
+};
+
+// Grams per tablespoon
+const GRAMS_PER_TBSP: Record<string, number> = {
+  butter: 14, oil: 14, "olive oil": 14, flour: 8, sugar: 13,
+  salt: 18, honey: 21, milk: 15, cream: 15, parmesan: 5,
+  "tomato paste": 16, "soy sauce": 16, vinegar: 15, "cream cheese": 15,
+  cornstarch: 8, "baking powder": 12, "cocoa powder": 6,
+  "peanut butter": 16, tahini: 15, default: 12,
+};
+
+// Grams per teaspoon
+const GRAMS_PER_TSP: Record<string, number> = {
+  salt: 6, sugar: 4, "baking powder": 4, "baking soda": 6,
+  yeast: 3, pepper: 2, "black pepper": 2, cumin: 2,
+  paprika: 2, cinnamon: 3, "garlic powder": 3, "onion powder": 2,
+  turmeric: 3, oregano: 1, thyme: 1, basil: 1, rosemary: 1,
+  oil: 5, "vanilla extract": 4, "almond extract": 4,
+  "red pepper flakes": 2, "chili powder": 3, "curry powder": 3,
+  default: 4,
+};
+
+function lookupDensity(table: Record<string, number>, ingredientName: string): number {
+  const name = ingredientName.toLowerCase().trim();
+  if (table[name]) return table[name];
+  // Partial match
+  for (const [key, val] of Object.entries(table)) {
+    if (key !== "default" && name.includes(key)) return val;
+  }
+  return table.default ?? 15;
+}
+
+interface Converted { amount: number; unit: string }
+
+function convertToWeight(amount: number, rawUnit: string, ingredientName: string): Converted {
+  if (!amount || amount <= 0) return { amount: 0, unit: "" };
+  const u = rawUnit.toLowerCase().trim();
+
+  // Already metric weight
+  if (/^g$|^gram/.test(u))  return { amount: Math.round(amount), unit: "g" };
+  if (/^kg$|^kilogram/.test(u)) return { amount: Math.round(amount * 10) / 10, unit: "kg" };
+
+  // Weight: oz → g
+  if (/^oz$|^ounce/.test(u)) return { amount: Math.round(amount * 28.35), unit: "g" };
+
+  // Weight: lb → g
+  if (/^lb|^pound/.test(u)) return { amount: Math.round(amount * 453.6), unit: "g" };
+
+  // Liquid: ml stays ml, convert to L if large
+  if (/^ml$|^milliliter/.test(u)) {
+    const ml = Math.round(amount);
+    return ml >= 1000 ? { amount: Math.round(ml / 100) / 10, unit: "L" } : { amount: ml, unit: "ml" };
+  }
+  if (/^l$|^liter/.test(u)) return { amount: Math.round(amount * 10) / 10, unit: "L" };
+
+  // Cup → g
+  if (/^cup|^tasse/.test(u)) {
+    const g = Math.round(amount * lookupDensity(GRAMS_PER_CUP, ingredientName));
+    return g >= 1000 ? { amount: Math.round(g / 100) / 10, unit: "kg" } : { amount: g, unit: "g" };
+  }
+
+  // Tablespoon → g
+  if (/^tablespoon|^tbsp|^tbs$|^el$/.test(u)) {
+    const g = Math.round(amount * lookupDensity(GRAMS_PER_TBSP, ingredientName));
+    return { amount: g, unit: "g" };
+  }
+
+  // Teaspoon → g
+  if (/^teaspoon|^tsp$|^tl$/.test(u)) {
+    const g = Math.round(amount * lookupDensity(GRAMS_PER_TSP, ingredientName));
+    return { amount: Math.max(g, 1), unit: "g" };
+  }
+
+  // Piece-like units — keep as Stück
+  if (/^piece|^stück|^whole|^clove|^slice|^stalk|^sprig|^leaf|^leaves|^can|^tin|^bottle|^package|^pack|^bunch/.test(u)) {
+    return { amount: Math.round(amount), unit: u.replace(/s$/, "") };
+  }
+
+  // Unknown unit — return as-is
+  return { amount: Math.round(amount * 10) / 10, unit: rawUnit };
+}
+
 function normalizeUnit(u: string): string {
-  return u.toLowerCase().trim()
-    .replace(/tablespoons?/, "EL")
-    .replace(/teaspoons?/, "TL")
-    .replace(/cups?/, "Tasse")
-    .replace(/ounces?|oz/, "oz")
-    .replace(/pounds?|lbs?/, "g")
-    .replace(/grams?/, "g")
-    .replace(/kilograms?|kg/, "kg")
-    .replace(/milliliters?|ml/, "ml")
-    .replace(/liters?/, "L");
+  // Kept for legacy callers — just lowercase + trim
+  return u.toLowerCase().trim();
 }
 
 // Build a dedup key by stripping adjectives and normalising spelling
@@ -207,25 +326,33 @@ function aggregateIngredients(raws: RawIngredient[]): ShoppingItem[] {
       if (!ing.name?.trim()) continue;
       if (isBlocked(ing.name, ing.unit)) continue;
 
-      const unit = normalizeUnit(ing.unit || "");
-      const key  = dedupKey(ing.name);            // unit NOT in key
+      // Convert to weight/metric
+      const converted = ing.amount
+        ? convertToWeight(ing.amount, ing.unit || "", ing.name)
+        : { amount: 0, unit: normalizeUnit(ing.unit || "") };
+
+      const key = dedupKey(ing.name);
       const { label, emoji } = resolveCategory(ing.aisle);
 
       if (map.has(key)) {
         const existing = map.get(key)!;
-        // Only add amounts when units match
-        if (existing.unit === unit && existing.amount !== null && ing.amount) {
-          existing.amount = Math.round((existing.amount + ing.amount) * 100) / 100;
+        // Add amounts when same unit (both converted to same metric)
+        if (existing.unit === converted.unit && existing.amount !== null && converted.amount > 0) {
+          existing.amount = Math.round((existing.amount + converted.amount) * 10) / 10;
+          // Upgrade to kg if over 1000g
+          if (existing.unit === "g" && existing.amount >= 1000) {
+            existing.amount = Math.round(existing.amount / 100) / 10;
+            existing.unit = "kg";
+          }
         }
-        // Prefer the shorter, cleaner display name
         if (ing.name.trim().length < existing.name.length) {
           existing.name = ing.name.trim();
         }
       } else {
         map.set(key, {
           name: ing.name.trim(),
-          amount: ing.amount || null,
-          unit,
+          amount: converted.amount || null,
+          unit: converted.unit,
           original: ing.original || ing.name,
           category: label,
           categoryEmoji: emoji,

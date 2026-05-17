@@ -42,7 +42,28 @@ const CATEGORY_ORDER = [
 ];
 
 function formatAmount(amount: number | null, unit: string): string {
-  if (!amount) return unit || "";
+  if (!amount || amount <= 0) return unit || "";
+  // Round nicely
+  let display: string;
+  if (unit === "g") {
+    // Round to nearest 5g for readability
+    const rounded = Math.round(amount / 5) * 5;
+    display = rounded >= 1000
+      ? `${(Math.round(rounded / 100) / 10).toString().replace(".", ",")} kg`
+      : `${rounded} g`;
+    return display;
+  }
+  if (unit === "kg") {
+    display = amount.toString().replace(".", ",");
+    return `${display} kg`;
+  }
+  if (unit === "ml") {
+    const rounded = Math.round(amount / 10) * 10;
+    return rounded >= 1000
+      ? `${(Math.round(rounded / 100) / 10).toString().replace(".", ",")} L`
+      : `${rounded} ml`;
+  }
+  if (unit === "L") return `${amount.toString().replace(".", ",")} L`;
   const amt = amount % 1 === 0 ? amount.toString() : amount.toFixed(1).replace(/\.0$/, "");
   return unit ? `${amt} ${unit}` : amt;
 }
