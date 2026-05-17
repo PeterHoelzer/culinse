@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import PlanRecipePickerModal from "@/components/PlanRecipePickerModal";
 
 interface Plan {
   id: string;
@@ -22,12 +23,17 @@ interface Entry {
   recipe_time: number | null;
 }
 
-const DAYS = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+interface PickerTarget {
+  dayIndex: number;
+  slot: "breakfast" | "lunch" | "dinner";
+}
+
+const DAYS_FULL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 const DAYS_SHORT = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 const SLOTS = [
-  { value: "breakfast", label: "Frühstück", emoji: "🌅" },
-  { value: "lunch",     label: "Mittagessen", emoji: "☀️" },
-  { value: "dinner",    label: "Abendessen", emoji: "🌙" },
+  { value: "breakfast" as const, label: "Frühstück",  emoji: "🌅" },
+  { value: "lunch"     as const, label: "Mittagessen", emoji: "☀️" },
+  { value: "dinner"    as const, label: "Abendessen",  emoji: "🌙" },
 ];
 const FREE_PLAN_LIMIT = 1;
 
@@ -44,6 +50,7 @@ export default function WochenplanerPage() {
   const [newPlanName, setNewPlanName] = useState("");
   const [deletingEntry, setDeletingEntry] = useState<string | null>(null);
   const [showProModal, setShowProModal] = useState(false);
+  const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
 
   const loadEntries = useCallback(async (planId: string) => {
     if (!planId) return;
@@ -52,7 +59,8 @@ export default function WochenplanerPage() {
       .select("*")
       .eq("plan_id", planId);
     setEntries(data || []);
-  }, [supabase]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -69,7 +77,6 @@ export default function WochenplanerPage() {
 
       let list: Plan[] = plansData || [];
 
-      // Auto-create default plan if none exists
       if (list.length === 0) {
         const { data: created } = await supabase
           .from("meal_plans")
@@ -98,17 +105,11 @@ export default function WochenplanerPage() {
     if (!newPlanName.trim()) return;
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-
     const { data } = await supabase
       .from("meal_plans")
       .insert({ user_id: user.id, name: newPlanName.trim(), is_active: false })
       .select().single();
-
-    if (data) {
-      setPlans(prev => [...prev, data]);
-      setActivePlanId(data.id);
-      setEntries([]);
-    }
+    if (data) { setPlans(prev => [...prev, data]); setActivePlanId(data.id); setEntries([]); }
     setCreatingPlan(false);
     setNewPlanName("");
   };
@@ -121,7 +122,7 @@ export default function WochenplanerPage() {
   };
 
   const handleDeletePlan = async (planId: string) => {
-    if (plans.length <= 1) return; // keep at least one
+    if (plans.length <= 1) return;
     if (!confirm("Plan löschen? Alle Einträge gehen verloren.")) return;
     await supabase.from("meal_plans").delete().eq("id", planId);
     const remaining = plans.filter(p => p.id !== planId);
@@ -139,11 +140,23 @@ export default function WochenplanerPage() {
     setDeletingEntry(null);
   };
 
+  const handleEntryAdded = (entry: Omit<Entry, "id"> & { id?: string }) => {
+    setEntries(prev => {
+      const filtered = prev.filter(
+        e => !(e.day_index === entry.day_index && e.meal_slot === entry.meal_slot)
+      );
+      return [...filtered, { ...entry, id: entry.id ?? crypto.randomUUID() }];
+    });
+  };
+
   const getEntry = (dayIndex: number, slot: string) =>
     entries.find(e => e.day_index === dayIndex && e.meal_slot === slot);
 
   const totalEntries = entries.length;
-  const totalSlots = 7 * 3;
+
+  const openPicker = (dayIndex: number, slot: "breakfast" | "lunch" | "dinner") => {
+    setPickerTarget({ dayIndex, slot });
+  };
 
   if (loading) {
     return (
@@ -166,16 +179,15 @@ export default function WochenplanerPage() {
       <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pb-14 pt-10 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-white mb-1">📅 Wochenplaner</h1>
-          <p className="text-orange-100 text-sm mb-4">Plane deine Mahlzeiten für die ganze Woche.</p>
-          {/* Progress bar */}
+          <p className="text-orange-100 text-sm mb-4">Tippe auf einen Slot, um ein Rezept aus deinen Sammlungen zu wählen.</p>
           <div className="flex items-center gap-3">
             <div className="bg-white/20 rounded-full h-1.5 w-36">
               <div
                 className="bg-white rounded-full h-1.5 transition-all duration-500"
-                style={{ width: `${(totalEntries / totalSlots) * 100}%` }}
+                style={{ width: `${(totalEntries / 21) * 100}%` }}
               />
             </div>
-            <p className="text-orange-100 text-xs">{totalEntries}/{totalSlots} Mahlzeiten geplant</p>
+            <p className="text-orange-100 text-xs">{totalEntries}/21 Mahlzeiten geplant</p>
           </div>
         </div>
       </div>
@@ -216,13 +228,11 @@ export default function WochenplanerPage() {
                     <button
                       onClick={() => { setRenamingPlan(plan.id); setRenameValue(plan.name); }}
                       className="text-white/70 hover:text-white text-xs px-1"
-                      title="Umbenennen"
                     >✏️</button>
                     {plans.length > 1 && (
                       <button
                         onClick={() => handleDeletePlan(plan.id)}
                         className="text-white/60 hover:text-white text-xs px-1"
-                        title="Plan löschen"
                       >🗑</button>
                     )}
                   </div>
@@ -230,7 +240,6 @@ export default function WochenplanerPage() {
               </div>
             ))}
 
-            {/* New plan */}
             {creatingPlan ? (
               <div className="flex items-center gap-1">
                 <input
@@ -250,34 +259,36 @@ export default function WochenplanerPage() {
                   if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
                   setCreatingPlan(true);
                 }}
-                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap flex items-center gap-1"
+                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap"
               >
-                {!isPro && plans.length >= FREE_PLAN_LIMIT ? "✦ Pro" : "+ Neuer Plan"}
+                {!isPro && plans.length >= FREE_PLAN_LIMIT ? "✦ Pro — mehr Pläne" : "+ Neuer Plan"}
               </button>
             )}
           </div>
         </div>
 
-        {/* Desktop grid */}
+        {/* ── Desktop Grid ── */}
         <div className="hidden md:block">
-          <div className="grid grid-cols-7 gap-3 mb-2">
-            {DAYS.map((d, i) => (
+          {/* Day headers */}
+          <div className="grid grid-cols-7 gap-3 mb-1 px-0">
+            {DAYS_FULL.map((d, i) => (
               <div key={i} className="text-center text-xs font-bold text-gray-500 uppercase tracking-wide py-1">{d}</div>
             ))}
           </div>
           {SLOTS.map(slot => (
-            <div key={slot.value} className="mb-3">
+            <div key={slot.value} className="mb-4">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-base">{slot.emoji}</span>
-                <span className="text-xs font-semibold text-gray-500">{slot.label}</span>
+                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{slot.label}</span>
               </div>
               <div className="grid grid-cols-7 gap-3">
-                {DAYS.map((_, dayIdx) => {
+                {DAYS_FULL.map((_, dayIdx) => {
                   const entry = getEntry(dayIdx, slot.value);
                   return (
-                    <Cell
+                    <DesktopSlot
                       key={dayIdx}
                       entry={entry ?? null}
+                      onOpen={() => openPicker(dayIdx, slot.value)}
                       onRemove={handleRemoveEntry}
                       deleting={deletingEntry}
                     />
@@ -288,20 +299,19 @@ export default function WochenplanerPage() {
           ))}
         </div>
 
-        {/* Mobile: day-by-day */}
+        {/* ── Mobile: day-by-day ── */}
         <div className="md:hidden space-y-4">
-          {DAYS.map((day, dayIdx) => (
+          {DAYS_FULL.map((day, dayIdx) => (
             <div key={dayIdx} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="px-4 py-3 border-b border-gray-50 flex items-center gap-2">
+              <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/50">
                 <span className="text-sm font-bold text-gray-800">{day}</span>
-                <span className="text-xs text-gray-400">{DAYS_SHORT[dayIdx]}</span>
               </div>
               <div className="divide-y divide-gray-50">
                 {SLOTS.map(slot => {
                   const entry = getEntry(dayIdx, slot.value);
                   return (
-                    <div key={slot.value} className="px-4 py-3 flex items-center gap-3">
-                      <div className="w-8 text-center flex-shrink-0">
+                    <div key={slot.value} className="flex items-center gap-3 px-4 py-3">
+                      <div className="w-7 text-center flex-shrink-0">
                         <span className="text-lg">{slot.emoji}</span>
                       </div>
                       <div className="flex-1 min-w-0">
@@ -311,7 +321,7 @@ export default function WochenplanerPage() {
                               <img src={entry.recipe_image} alt="" className="w-10 h-10 rounded-lg object-cover flex-shrink-0" />
                             )}
                             <div className="flex-1 min-w-0">
-                              <Link href={`/recipe/${entry.recipe_id}`} className="text-sm font-medium text-gray-800 line-clamp-1 hover:text-orange-500 transition-colors">
+                              <Link href={`/recipe/${entry.recipe_id}`} className="text-sm font-semibold text-gray-800 line-clamp-1 hover:text-orange-500 transition-colors">
                                 {entry.recipe_title}
                               </Link>
                               {entry.recipe_time && <p className="text-xs text-gray-400">⏱ {entry.recipe_time} min</p>}
@@ -319,15 +329,26 @@ export default function WochenplanerPage() {
                             <button
                               onClick={() => handleRemoveEntry(entry.id)}
                               disabled={deletingEntry === entry.id}
-                              className="text-gray-300 hover:text-red-400 transition-colors text-lg flex-shrink-0"
-                            >
-                              ×
-                            </button>
+                              className="w-7 h-7 rounded-full flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all flex-shrink-0 text-lg"
+                            >×</button>
                           </div>
                         ) : (
-                          <p className="text-sm text-gray-300 italic">Kein Rezept geplant</p>
+                          <button
+                            onClick={() => openPicker(dayIdx, slot.value)}
+                            className="flex items-center gap-2 text-sm text-gray-300 hover:text-orange-400 transition-colors"
+                          >
+                            <span className="w-6 h-6 rounded-full border-2 border-dashed border-gray-200 hover:border-orange-300 flex items-center justify-center text-xs transition-colors">+</span>
+                            <span className="italic">Rezept hinzufügen</span>
+                          </button>
                         )}
                       </div>
+                      {entry && (
+                        <button
+                          onClick={() => openPicker(dayIdx, slot.value)}
+                          className="text-xs text-gray-300 hover:text-orange-400 flex-shrink-0 transition-colors"
+                          title="Ersetzen"
+                        >↻</button>
+                      )}
                     </div>
                   );
                 })}
@@ -337,15 +358,35 @@ export default function WochenplanerPage() {
         </div>
 
         {/* Hint */}
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-400">
-            Tippe auf 📅 bei einem Rezept, um es hier einzutragen.
-          </p>
-          <Link href="/" className="inline-block mt-2 text-sm text-orange-500 font-semibold hover:text-orange-600">
-            → Rezepte entdecken
-          </Link>
-        </div>
+        {totalEntries === 0 && (
+          <div className="mt-8 text-center py-10">
+            <p className="text-4xl mb-3">📅</p>
+            <p className="text-gray-600 font-semibold mb-1">Dein Plan ist noch leer</p>
+            <p className="text-sm text-gray-400 mb-4">Tippe auf einen Slot um ein Rezept aus deinen Sammlungen zu wählen.</p>
+            <div className="flex justify-center gap-3">
+              <Link href="/saved" className="text-sm font-semibold text-orange-500 hover:text-orange-600 border border-orange-200 px-4 py-2 rounded-full hover:bg-orange-50 transition-all">
+                ♥ My Recipes
+              </Link>
+              <Link href="/collections" className="text-sm font-semibold text-orange-500 hover:text-orange-600 border border-orange-200 px-4 py-2 rounded-full hover:bg-orange-50 transition-all">
+                📚 Collections
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* Recipe Picker Modal */}
+      {pickerTarget && activePlanId && (
+        <PlanRecipePickerModal
+          planId={activePlanId}
+          dayIndex={pickerTarget.dayIndex}
+          slot={pickerTarget.slot}
+          dayLabel={DAYS_FULL[pickerTarget.dayIndex]}
+          slotLabel={SLOTS.find(s => s.value === pickerTarget.slot)?.label ?? ""}
+          onClose={() => setPickerTarget(null)}
+          onAdded={handleEntryAdded}
+        />
+      )}
 
       {/* Pro modal */}
       {showProModal && (
@@ -371,23 +412,30 @@ export default function WochenplanerPage() {
   );
 }
 
-// --- Desktop Cell Component ---
-function Cell({
+// ── Desktop Slot Cell ──────────────────────────────────────────────────────────
+function DesktopSlot({
   entry,
+  onOpen,
   onRemove,
   deleting,
 }: {
   entry: Entry | null;
+  onOpen: () => void;
   onRemove: (id: string) => void;
   deleting: string | null;
 }) {
   if (!entry) {
     return (
-      <div className="h-20 rounded-xl border-2 border-dashed border-gray-100 flex items-center justify-center">
-        <span className="text-gray-200 text-xs">—</span>
-      </div>
+      <button
+        onClick={onOpen}
+        className="h-20 w-full rounded-xl border-2 border-dashed border-gray-150 hover:border-orange-300 hover:bg-orange-50/50 flex items-center justify-center transition-all group"
+        style={{ borderColor: "#e5e7eb" }}
+      >
+        <span className="text-gray-300 group-hover:text-orange-400 text-xl transition-colors">+</span>
+      </button>
     );
   }
+
   return (
     <div className="h-20 rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden relative group">
       {entry.recipe_image ? (
@@ -395,22 +443,26 @@ function Cell({
       ) : (
         <div className="absolute inset-0 bg-orange-50" />
       )}
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-      <div className="absolute bottom-1.5 left-2 right-6 z-10">
+      <div className="absolute bottom-1.5 left-2 right-8 z-10">
         <Link href={`/recipe/${entry.recipe_id}`}>
           <p className="text-white text-xs font-semibold line-clamp-2 leading-tight hover:text-orange-200 transition-colors">
             {entry.recipe_title}
           </p>
         </Link>
       </div>
+      {/* Replace button */}
+      <button
+        onClick={onOpen}
+        className="absolute top-1 left-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-orange-500"
+        title="Ersetzen"
+      >↻</button>
+      {/* Remove button */}
       <button
         onClick={() => onRemove(entry.id)}
         disabled={deleting === entry.id}
         className="absolute top-1 right-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-      >
-        ×
-      </button>
+      >×</button>
     </div>
   );
 }

@@ -7,7 +7,6 @@ import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
-import AddToPlanModal from "@/components/AddToPlanModal";
 
 interface Ingredient {
   id: number;
@@ -48,7 +47,6 @@ export default function RecipePage() {
   const [imgError, setImgError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
-  const [showPlanModal, setShowPlanModal] = useState(false);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -176,19 +174,6 @@ export default function RecipePage() {
         </div>
       )}
 
-      {/* Add to Plan Modal */}
-      {showPlanModal && recipe && (
-        <AddToPlanModal
-          recipe={{
-            id: String(recipe.id),
-            title: recipe.title,
-            image: recipe.image ?? undefined,
-            readyInMinutes: typeof recipe.time === "number" ? recipe.time : undefined,
-          }}
-          onClose={() => setShowPlanModal(false)}
-        />
-      )}
-
       {/* Add to Collection Modal */}
       {showCollectionModal && recipe && (
         <AddToCollectionModal
@@ -310,14 +295,6 @@ export default function RecipePage() {
               >
                 {saved ? "♥ Saved" : "♡ Save Recipe"}
               </button>
-              {user && (
-                <button
-                  onClick={() => setShowPlanModal(true)}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-                >
-                  📅 Wochenplan
-                </button>
-              )}
               {user && (
                 <button
                   onClick={() => setShowCollectionModal(true)}
