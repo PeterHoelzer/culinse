@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Recipe {
@@ -285,16 +286,14 @@ function CategoryChips({ active, setActive }: { active: string; setActive: (v: s
 function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [showCollectionModal, setShowCollectionModal] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
   const supabase = createClient();
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!user) {
-      window.location.href = "/login";
-      return;
-    }
+    if (!user) { window.location.href = "/login"; return; }
     if (saved) {
       await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
       setSaved(false);
@@ -312,51 +311,85 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
     }
   };
 
+  const handleCollectionClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!user) { window.location.href = "/login"; return; }
+    setShowCollectionModal(true);
+  };
+
   return (
-    <a
-      href={`/recipe/${recipe.id}`}
-      className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
-    >
-      <div className="relative h-44">
-        {recipe.image && !imgError ? (
-          <img
-            src={recipe.image}
-            alt={recipe.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center" style={{ background: gradient }}>
-            <span className="text-6xl drop-shadow-lg">{emoji}</span>
+    <Fragment>
+      <a
+        href={`/recipe/${recipe.id}`}
+        className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
+      >
+        <div className="relative h-44">
+          {recipe.image && !imgError ? (
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center" style={{ background: gradient }}>
+              <span className="text-6xl drop-shadow-lg">{emoji}</span>
+            </div>
+          )}
+
+          {/* Action buttons — top right */}
+          <div className="absolute top-3 right-3 flex gap-1.5">
+            {/* Add to collection */}
+            <button
+              onClick={handleCollectionClick}
+              title="Add to collection"
+              className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-orange-500 flex items-center justify-center text-sm transition-all shadow-sm"
+            >
+              📚
+            </button>
+            {/* Save / Heart */}
+            <button
+              onClick={handleSave}
+              title={user ? (saved ? "Remove from saved" : "Save recipe") : "Log in to save"}
+              className={`w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all shadow-sm ${
+                saved ? "bg-white text-orange-500" : "bg-white/80 text-gray-400 hover:text-orange-400 hover:bg-white"
+              }`}
+            >
+              {saved ? "♥" : "♡"}
+            </button>
           </div>
-        )}
 
-        <button
-          onClick={handleSave}
-          title={user ? (saved ? "Remove from saved" : "Save recipe") : "Log in to save"}
-          className={`absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all ${
-            saved ? "bg-white text-orange-500" : "bg-white/80 text-gray-400 hover:text-orange-400"
-          }`}
-        >
-          {saved ? "♥" : "♡"}
-        </button>
-
-        <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
-          {recipe.source}
+          <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
+            {recipe.source}
+          </div>
         </div>
-      </div>
 
-      <div className="p-4 flex flex-col gap-2 flex-1">
-        <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
-        <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
-          {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
-          {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
-          {recipe.rating && <span>⭐ {recipe.rating}</span>}
-          <span className="ml-auto text-orange-500 font-medium">Details →</span>
+        <div className="p-4 flex flex-col gap-2 flex-1">
+          <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
+          <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
+            {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
+            {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
+            {recipe.rating && <span>⭐ {recipe.rating}</span>}
+            <span className="ml-auto text-orange-500 font-medium">Details →</span>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+
+      {showCollectionModal && (
+        <AddToCollectionModal
+          recipe={{
+            id: recipe.id,
+            title: recipe.title,
+            image: recipe.image,
+            source: recipe.source,
+            sourceUrl: recipe.sourceUrl,
+            time: recipe.time,
+          }}
+          onClose={() => setShowCollectionModal(false)}
+        />
+      )}
+    </Fragment>
   );
 }
 

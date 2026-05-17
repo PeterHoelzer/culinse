@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 
 interface SavedRecipe {
   id: string;
@@ -29,40 +30,67 @@ const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", 
 
 function SavedCard({ recipe, index, onRemove }: { recipe: SavedRecipe; index: number; onRemove: (id: string) => void }) {
   const [imgError, setImgError] = useState(false);
+  const [showCollectionModal, setShowCollectionModal] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:-translate-y-1 hover:shadow-md transition-all duration-200">
-      <Link href={`/recipe/${recipe.recipe_id}`} className="relative h-44 block">
-        {recipe.image && !imgError ? (
-          <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" onError={() => setImgError(true)} />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center" style={{ background: gradient }}>
-            <span className="text-6xl drop-shadow-lg">{emoji}</span>
+    <Fragment>
+      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <Link href={`/recipe/${recipe.recipe_id}`} className="relative h-44 block">
+          {recipe.image && !imgError ? (
+            <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" onError={() => setImgError(true)} />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center" style={{ background: gradient }}>
+              <span className="text-6xl drop-shadow-lg">{emoji}</span>
+            </div>
+          )}
+          {/* Action buttons */}
+          <div className="absolute top-3 right-3 flex gap-1.5">
+            <button
+              onClick={(e) => { e.preventDefault(); setShowCollectionModal(true); }}
+              title="Add to collection"
+              className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-orange-500 flex items-center justify-center text-sm transition-all shadow-sm"
+            >
+              📚
+            </button>
+            <button
+              onClick={(e) => { e.preventDefault(); onRemove(recipe.id); }}
+              title="Remove from saved"
+              className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center text-sm hover:bg-red-50 hover:text-red-400 transition-colors shadow-sm"
+            >
+              ♥
+            </button>
           </div>
-        )}
-        <button
-          onClick={(e) => { e.preventDefault(); onRemove(recipe.id); }}
-          title="Remove from saved"
-          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center text-sm hover:bg-red-50 hover:text-red-400 transition-colors shadow-sm"
-        >
-          ♥
-        </button>
-        <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
-          {recipe.source}
-        </div>
-      </Link>
-      <div className="p-4 flex flex-col gap-2 flex-1">
-        <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
-        <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
-          {recipe.time && recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
-          <Link href={`/recipe/${recipe.recipe_id}`} className="ml-auto text-orange-500 font-medium hover:text-orange-700 transition-colors">
-            Details →
-          </Link>
+          <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
+            {recipe.source}
+          </div>
+        </Link>
+        <div className="p-4 flex flex-col gap-2 flex-1">
+          <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
+          <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
+            {recipe.time && recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
+            <Link href={`/recipe/${recipe.recipe_id}`} className="ml-auto text-orange-500 font-medium hover:text-orange-700 transition-colors">
+              Details →
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+
+      {showCollectionModal && (
+        <AddToCollectionModal
+          recipe={{
+            id: recipe.recipe_id,
+            title: recipe.title,
+            image: recipe.image,
+            source: recipe.source,
+            sourceUrl: recipe.source_url,
+            time: recipe.time,
+          }}
+          onClose={() => setShowCollectionModal(false)}
+        />
+      )}
+    </Fragment>
   );
 }
 
