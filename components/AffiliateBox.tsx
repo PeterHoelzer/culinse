@@ -31,7 +31,7 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnl
       <div className="space-y-1.5">
         {products.map((p) => (
           <a
-            key={p.asin}
+            key={p.search}
             href={getAffiliateUrl(p)}
             target="_blank"
             rel="noopener noreferrer sponsored"
