@@ -104,13 +104,18 @@ export default function MealPlannerPage() {
   const handleCreatePlan = async () => {
     if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
     if (!newPlanName.trim()) return;
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-    const { data } = await supabase
-      .from("meal_plans")
-      .insert({ user_id: user.id, name: newPlanName.trim(), is_active: false })
-      .select().single();
-    if (data) { setPlans(prev => [...prev, data]); setActivePlanId(data.id); setEntries([]); }
+
+    const res = await fetch("/api/meal-plans", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: newPlanName.trim(), is_active: false }),
+    });
+
+    if (res.status === 403) { setShowProModal(true); setCreatingPlan(false); setNewPlanName(""); return; }
+    if (!res.ok) return;
+
+    const { plan } = await res.json();
+    if (plan) { setPlans(prev => [...prev, plan]); setActivePlanId(plan.id); setEntries([]); }
     setCreatingPlan(false);
     setNewPlanName("");
   };
