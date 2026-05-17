@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import PlanRecipePickerModal from "@/components/PlanRecipePickerModal";
+import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 
 interface Plan {
   id: string;
@@ -51,6 +52,7 @@ export default function WochenplanerPage() {
   const [deletingEntry, setDeletingEntry] = useState<string | null>(null);
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
+  const [showShoppingList, setShowShoppingList] = useState(false);
 
   const loadEntries = useCallback(async (planId: string) => {
     if (!planId) return;
@@ -180,14 +182,24 @@ export default function WochenplanerPage() {
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold text-white mb-1">📅 Wochenplaner</h1>
           <p className="text-orange-100 text-sm mb-4">Tippe auf einen Slot, um ein Rezept aus deinen Sammlungen zu wählen.</p>
-          <div className="flex items-center gap-3">
-            <div className="bg-white/20 rounded-full h-1.5 w-36">
-              <div
-                className="bg-white rounded-full h-1.5 transition-all duration-500"
-                style={{ width: `${(totalEntries / 21) * 100}%` }}
-              />
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <div className="bg-white/20 rounded-full h-1.5 w-36">
+                <div
+                  className="bg-white rounded-full h-1.5 transition-all duration-500"
+                  style={{ width: `${(totalEntries / 21) * 100}%` }}
+                />
+              </div>
+              <p className="text-orange-100 text-xs">{totalEntries}/21 Mahlzeiten geplant</p>
             </div>
-            <p className="text-orange-100 text-xs">{totalEntries}/21 Mahlzeiten geplant</p>
+            {totalEntries > 0 && (
+              <button
+                onClick={() => setShowShoppingList(true)}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-orange-600 text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105"
+              >
+                🛒 Einkaufsliste
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -385,6 +397,16 @@ export default function WochenplanerPage() {
           slotLabel={SLOTS.find(s => s.value === pickerTarget.slot)?.label ?? ""}
           onClose={() => setPickerTarget(null)}
           onAdded={handleEntryAdded}
+        />
+      )}
+
+      {/* Shopping List Drawer */}
+      {showShoppingList && (
+        <ShoppingListDrawer
+          recipeIds={entries.map(e => e.recipe_id)}
+          recipeTitles={entries.map(e => e.recipe_title)}
+          planName={plans.find(p => p.id === activePlanId)?.name ?? "Wochenplan"}
+          onClose={() => setShowShoppingList(false)}
         />
       )}
 
