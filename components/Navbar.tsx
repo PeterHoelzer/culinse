@@ -34,7 +34,8 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
           <Link href="/" className="hover:text-orange-500 transition-colors">Discover</Link>
           <Link href="/about" className="hover:text-orange-500 transition-colors">About</Link>
-          {user && <Link href="/saved" className="hover:text-orange-500 transition-colors">♥ My Recipes</Link>}
+          {user && <Link href="/collections" className="hover:text-orange-500 transition-colors">📚 Collections</Link>}
+          {user && <Link href="/saved" className="hover:text-orange-500 transition-colors">♥ Saved</Link>}
         </div>
 
         {/* Desktop auth */}
@@ -82,7 +83,10 @@ export default function Navbar() {
           <Link href="/" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">🔍 Discover</Link>
           <Link href="/about" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👋 About</Link>
           {user && (
-            <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ My Recipes</Link>
+            <Link href="/collections" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">📚 Collections</Link>
+          )}
+          {user && (
+            <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ Saved</Link>
           )}
           {user && (
             <Link href="/profile" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👤 Profile</Link>
