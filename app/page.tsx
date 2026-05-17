@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import AddToPlanModal from "@/components/AddToPlanModal";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Recipe {
@@ -287,6 +288,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
+  const [showPlanModal, setShowPlanModal] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
   const supabase = createClient();
@@ -317,6 +319,12 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
     setShowCollectionModal(true);
   };
 
+  const handlePlanClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!user) { window.location.href = "/login"; return; }
+    setShowPlanModal(true);
+  };
+
   return (
     <Fragment>
       <a
@@ -340,6 +348,14 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
 
           {/* Action buttons — top right */}
           <div className="absolute top-3 right-3 flex gap-1.5">
+            {/* Add to plan */}
+            <button
+              onClick={handlePlanClick}
+              title="Zum Wochenplan"
+              className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-orange-500 flex items-center justify-center text-sm transition-all shadow-sm"
+            >
+              📅
+            </button>
             {/* Add to collection */}
             <button
               onClick={handleCollectionClick}
@@ -387,6 +403,16 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
             time: recipe.time,
           }}
           onClose={() => setShowCollectionModal(false)}
+        />
+      )}
+      {showPlanModal && (
+        <AddToPlanModal
+          recipe={{
+            id: String(recipe.id),
+            title: recipe.title,
+            image: recipe.image ?? undefined,
+          }}
+          onClose={() => setShowPlanModal(false)}
         />
       )}
     </Fragment>

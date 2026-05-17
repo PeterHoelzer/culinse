@@ -6,6 +6,7 @@ import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import AddToPlanModal from "@/components/AddToPlanModal";
 
 interface SavedRecipe {
   id: string;
@@ -31,6 +32,7 @@ const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", 
 function SavedCard({ recipe, index, onRemove }: { recipe: SavedRecipe; index: number; onRemove: (id: string) => void }) {
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
+  const [showPlanModal, setShowPlanModal] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
 
@@ -47,6 +49,13 @@ function SavedCard({ recipe, index, onRemove }: { recipe: SavedRecipe; index: nu
           )}
           {/* Action buttons */}
           <div className="absolute top-3 right-3 flex gap-1.5">
+            <button
+              onClick={(e) => { e.preventDefault(); setShowPlanModal(true); }}
+              title="Zum Wochenplan"
+              className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-orange-500 flex items-center justify-center text-sm transition-all shadow-sm"
+            >
+              📅
+            </button>
             <button
               onClick={(e) => { e.preventDefault(); setShowCollectionModal(true); }}
               title="Add to collection"
@@ -88,6 +97,16 @@ function SavedCard({ recipe, index, onRemove }: { recipe: SavedRecipe; index: nu
             time: recipe.time,
           }}
           onClose={() => setShowCollectionModal(false)}
+        />
+      )}
+      {showPlanModal && (
+        <AddToPlanModal
+          recipe={{
+            id: String(recipe.recipe_id),
+            title: recipe.title,
+            image: recipe.image ?? undefined,
+          }}
+          onClose={() => setShowPlanModal(false)}
         />
       )}
     </Fragment>
