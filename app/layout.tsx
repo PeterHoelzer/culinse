@@ -22,6 +22,15 @@ export const metadata: Metadata = {
   authors: [{ name: "Culinse" }],
   creator: "Culinse",
   metadataBase: new URL("https://culinse.com"),
+  icons: {
+    icon: [
+      { url: "/icon", type: "image/png", sizes: "32x32" },
+    ],
+    shortcut: "/icon",
+    apple: [
+      { url: "/apple-icon", type: "image/png", sizes: "180x180" },
+    ],
+  },
   openGraph: {
     title: "Culinse – Discover Recipes You'll Love",
     description: "Millions of recipes from the world's best food sites. Personalized for you.",
