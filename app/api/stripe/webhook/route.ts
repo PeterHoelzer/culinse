@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     // ── Payment succeeded → activate Pro ─────────────────────────────────────
     case "checkout.session.completed": {
-      const session = event.data.object as Stripe.CheckoutSession;
+      const session = event.data.object as Stripe.Checkout.Session;
       if (session.mode !== "subscription") break;
 
       const customerId = session.customer as string;
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     case "invoice.payment_succeeded": {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
-      const subscriptionId = (invoice as Stripe.Invoice & { subscription?: string }).subscription ?? null;
+      const subscriptionId = (invoice.subscription as string | null) ?? null;
       if (!subscriptionId) break;
 
       const userId = await getUserId(customerId);
