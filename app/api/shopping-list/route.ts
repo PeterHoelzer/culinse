@@ -143,11 +143,10 @@ const GRAMS_PER_CUP: Record<string, number> = {
   flour: 120, "all-purpose flour": 120, "bread flour": 120,
   "whole wheat flour": 120, "almond flour": 96, "cornstarch": 120,
   "cornmeal": 122, "oats": 90, "rolled oats": 90, "cocoa powder": 85,
-  "cocoa": 85, "baking powder": 230, "baking soda": 230, "powdered sugar": 120,
-  "icing sugar": 120, "breadcrumbs": 108,
+  "cocoa": 85, "baking powder": 230, "baking soda": 230, "breadcrumbs": 108,
   // Sugars
   sugar: 200, "white sugar": 200, "brown sugar": 220, "caster sugar": 200,
-  "icing sugar": 120, "honey": 340, "maple syrup": 322, "molasses": 337,
+  "powdered sugar": 120, "icing sugar": 120, "honey": 340, "maple syrup": 322, "molasses": 337,
   // Dairy & fats
   butter: 227, "cream cheese": 232, "ricotta": 246, "yogurt": 245,
   milk: 245, "whole milk": 245, "skim milk": 245, "buttermilk": 245,
