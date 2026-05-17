@@ -35,6 +35,12 @@ export async function POST(req: NextRequest) {
     return data?.id ?? null;
   };
 
+  // Helper: get period end from subscription items (new Stripe API)
+  const getPeriodEnd = (sub: Stripe.Subscription): string | null => {
+    const end = sub.items?.data?.[0]?.current_period_end;
+    return end ? new Date(end * 1000).toISOString() : null;
+  };
+
   switch (event.type) {
     // ── Payment succeeded → activate Pro ─────────────────────────────────────
     case "checkout.session.completed": {
@@ -46,9 +52,10 @@ export async function POST(req: NextRequest) {
       const userId = await getUserId(customerId);
       if (!userId) break;
 
-      // Get period end from subscription
-      const sub = await stripe.subscriptions.retrieve(subscriptionId);
-      const periodEnd = new Date(sub.current_period_end * 1000).toISOString();
+      const sub = await stripe.subscriptions.retrieve(subscriptionId, {
+        expand: ["items"],
+      });
+      const periodEnd = getPeriodEnd(sub as Stripe.Subscription);
 
       await supabaseAdmin.from("profiles").upsert({
         id: userId,
@@ -71,8 +78,10 @@ export async function POST(req: NextRequest) {
       const userId = await getUserId(customerId);
       if (!userId) break;
 
-      const sub = await stripe.subscriptions.retrieve(subscriptionId);
-      const periodEnd = new Date(sub.current_period_end * 1000).toISOString();
+      const sub = await stripe.subscriptions.retrieve(subscriptionId, {
+        expand: ["items"],
+      });
+      const periodEnd = getPeriodEnd(sub as Stripe.Subscription);
 
       await supabaseAdmin.from("profiles").upsert({
         id: userId,
@@ -92,7 +101,7 @@ export async function POST(req: NextRequest) {
       if (!userId) break;
 
       const isActive = sub.status === "active" || sub.status === "trialing";
-      const periodEnd = new Date(sub.current_period_end * 1000).toISOString();
+      const periodEnd = getPeriodEnd(sub);
 
       await supabaseAdmin.from("profiles").upsert({
         id: userId,
