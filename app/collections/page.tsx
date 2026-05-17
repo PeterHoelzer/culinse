@@ -138,6 +138,50 @@ function CollectionCard({
   );
 }
 
+// ─── Pro Upgrade Modal ────────────────────────────────────────────────────────
+
+function ProUpgradeModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+      <div
+        className="relative bg-white rounded-3xl shadow-2xl p-8 w-full max-w-sm text-center"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="text-5xl mb-4">📚</div>
+        <div className="inline-flex items-center gap-1.5 bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full mb-4">
+          ✦ Culinse Pro
+        </div>
+        <h2 className="text-xl font-bold text-gray-900 mb-2">
+          Unlimited Collections
+        </h2>
+        <p className="text-sm text-gray-500 mb-2 leading-relaxed">
+          Free plan includes <strong>1 collection</strong> with up to{" "}
+          <strong>10 recipes</strong>. Upgrade to Pro for unlimited everything.
+        </p>
+        <p className="text-2xl font-bold text-gray-900 mb-6">
+          €4.99<span className="text-sm font-normal text-gray-400"> / month</span>
+        </p>
+        <div className="space-y-3">
+          <a
+            href="/pro"
+            className="block w-full py-3 rounded-xl text-white font-bold text-sm hover:opacity-90 transition-opacity"
+            style={{ background: "#f97316" }}
+          >
+            Upgrade to Pro →
+          </a>
+          <button
+            onClick={onClose}
+            className="block w-full py-3 rounded-xl border border-gray-200 text-gray-500 text-sm hover:bg-gray-50 transition-colors"
+          >
+            Maybe later
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── New Collection Modal ─────────────────────────────────────────────────────
 
 function NewCollectionModal({
@@ -300,11 +344,15 @@ function NewCollectionModal({
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
+const FREE_COLLECTION_LIMIT = 1;
+
 export default function CollectionsPage() {
   const [user, setUser] = useState<User | null>(null);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isPro, setIsPro] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
@@ -314,6 +362,14 @@ export default function CollectionsPage() {
         return;
       }
       setUser(data.user);
+
+      // Check Pro status
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_pro")
+        .eq("id", data.user.id)
+        .single();
+      setIsPro(profile?.is_pro ?? false);
 
       const { data: cols } = await supabase
         .from("collections")
@@ -365,6 +421,14 @@ export default function CollectionsPage() {
     ]);
   };
 
+  const handleNewCollectionClick = () => {
+    if (!isPro && collections.length >= FREE_COLLECTION_LIMIT) {
+      setShowUpgradeModal(true);
+    } else {
+      setShowModal(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -390,7 +454,7 @@ export default function CollectionsPage() {
             </p>
           </div>
           <button
-            onClick={() => setShowModal(true)}
+            onClick={handleNewCollectionClick}
             className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-orange-500 text-sm font-semibold hover:bg-orange-50 transition-colors shadow-sm"
           >
             + New
@@ -419,11 +483,10 @@ export default function CollectionsPage() {
               No collections yet
             </p>
             <p className="text-sm text-gray-500 mb-8 max-w-xs mx-auto">
-              Group your favorite recipes into collections — like playlists for
-              food.
+              Group your favorite recipes into collections — like playlists for food.
             </p>
             <button
-              onClick={() => setShowModal(true)}
+              onClick={handleNewCollectionClick}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               style={{ background: "#f97316" }}
             >
@@ -441,14 +504,14 @@ export default function CollectionsPage() {
 
             {/* "Add new" card */}
             <button
-              onClick={() => setShowModal(true)}
+              onClick={handleNewCollectionClick}
               className="bg-white rounded-2xl border-2 border-dashed border-gray-200 h-48 flex flex-col items-center justify-center gap-3 hover:border-orange-300 hover:bg-orange-50/30 transition-all group"
             >
               <span className="text-3xl text-gray-300 group-hover:text-orange-400 transition-colors">
-                +
+                {!isPro && collections.length >= FREE_COLLECTION_LIMIT ? "✦" : "+"}
               </span>
               <span className="text-sm font-medium text-gray-400 group-hover:text-orange-500 transition-colors">
-                New Collection
+                {!isPro && collections.length >= FREE_COLLECTION_LIMIT ? "Upgrade to Pro" : "New Collection"}
               </span>
             </button>
           </div>
@@ -462,7 +525,10 @@ export default function CollectionsPage() {
         />
       )}
 
-      {/* Suppress unused variable warning */}
+      {showUpgradeModal && (
+        <ProUpgradeModal onClose={() => setShowUpgradeModal(false)} />
+      )}
+
       {user && null}
     </div>
   );

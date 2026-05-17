@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
+const FREE_RECIPE_LIMIT = 10;
+
 interface Collection {
   id: string;
   name: string;
   emoji: string;
   has_recipe?: boolean;
+  recipe_count?: number;
 }
 
 interface Recipe {
@@ -32,6 +35,7 @@ export function AddToCollectionModal({
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
+  const [isPro, setIsPro] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmoji, setNewEmoji] = useState("📚");
   const [creating, setCreating] = useState(false);
@@ -51,6 +55,14 @@ export function AddToCollectionModal({
       return;
     }
 
+    // Check Pro status
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("is_pro")
+      .eq("id", user.id)
+      .single();
+    setIsPro(profile?.is_pro ?? false);
+
     const { data: cols } = await supabase
       .from("collections")
       .select("id, name, emoji")
@@ -64,16 +76,22 @@ export function AddToCollectionModal({
 
     const recipeIdStr = String(recipe.id);
 
-    // Check which collections already contain this recipe
+    // Check which collections already contain this recipe + get recipe count
     const checked = await Promise.all(
       cols.map(async (col) => {
-        const { data } = await supabase
-          .from("collection_recipes")
-          .select("id")
-          .eq("collection_id", col.id)
-          .eq("recipe_id", recipeIdStr)
-          .maybeSingle();
-        return { ...col, has_recipe: !!data };
+        const [{ data: existing }, { count }] = await Promise.all([
+          supabase
+            .from("collection_recipes")
+            .select("id")
+            .eq("collection_id", col.id)
+            .eq("recipe_id", recipeIdStr)
+            .maybeSingle(),
+          supabase
+            .from("collection_recipes")
+            .select("id", { count: "exact", head: true })
+            .eq("collection_id", col.id),
+        ]);
+        return { ...col, has_recipe: !!existing, recipe_count: count ?? 0 };
       })
     );
 
@@ -82,6 +100,12 @@ export function AddToCollectionModal({
   };
 
   const handleToggle = async (col: Collection) => {
+    // Enforce free limit: max 10 recipes per collection
+    if (!col.has_recipe && !isPro && (col.recipe_count ?? 0) >= FREE_RECIPE_LIMIT) {
+      window.location.href = "/pro";
+      return;
+    }
+
     setAdding(col.id);
     const recipeIdStr = String(recipe.id);
 
@@ -190,30 +214,40 @@ export function AddToCollectionModal({
               <p className="text-xs text-gray-300">Create one below</p>
             </div>
           ) : (
-            collections.map((col) => (
-              <button
-                key={col.id}
-                onClick={() => handleToggle(col)}
-                disabled={adding === col.id}
-                className="w-full flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50 transition-colors text-left disabled:opacity-60"
-              >
-                <span className="text-2xl flex-shrink-0">{col.emoji}</span>
-                <span className="text-sm font-medium text-gray-800 flex-1">
-                  {col.name}
-                </span>
-                <span
-                  className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                    col.has_recipe
-                      ? "border-orange-400 bg-orange-400"
-                      : "border-gray-200"
-                  }`}
+            collections.map((col) => {
+              const atLimit = !isPro && !col.has_recipe && (col.recipe_count ?? 0) >= FREE_RECIPE_LIMIT;
+              return (
+                <button
+                  key={col.id}
+                  onClick={() => handleToggle(col)}
+                  disabled={adding === col.id}
+                  className="w-full flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50 transition-colors text-left disabled:opacity-60"
                 >
-                  {col.has_recipe && (
-                    <span className="text-white text-xs font-bold">✓</span>
+                  <span className="text-2xl flex-shrink-0">{col.emoji}</span>
+                  <div className="flex-1 min-w-0">
+                    <span className="text-sm font-medium text-gray-800 block">{col.name}</span>
+                    {atLimit && (
+                      <span className="text-xs text-orange-500">Full — upgrade for more</span>
+                    )}
+                  </div>
+                  {atLimit ? (
+                    <span className="flex-shrink-0 text-orange-400 text-sm">✦</span>
+                  ) : (
+                    <span
+                      className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                        col.has_recipe
+                          ? "border-orange-400 bg-orange-400"
+                          : "border-gray-200"
+                      }`}
+                    >
+                      {col.has_recipe && (
+                        <span className="text-white text-xs font-bold">✓</span>
+                      )}
+                    </span>
                   )}
-                </span>
-              </button>
-            ))
+                </button>
+              );
+            })
           )}
         </div>
 
