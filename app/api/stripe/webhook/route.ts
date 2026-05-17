@@ -11,7 +11,10 @@ const supabaseAdmin = createClient(
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
-  const sig = req.headers.get("stripe-signature")!;
+  const sig = req.headers.get("stripe-signature");
+  if (!sig) {
+    return NextResponse.json({ error: "Missing stripe-signature header" }, { status: 400 });
+  }
 
   const stripe = getStripe();
   let event: Stripe.Event;
@@ -73,8 +76,8 @@ export async function POST(req: NextRequest) {
     case "invoice.payment_succeeded": {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const subscriptionId = ((invoice as any).subscription as string | null) ?? null;
+      const rawSub = invoice.subscription;
+      const subscriptionId = typeof rawSub === "string" ? rawSub : rawSub?.id ?? null;
       if (!subscriptionId) break;
 
       const userId = await getUserId(customerId);

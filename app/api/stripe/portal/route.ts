@@ -23,10 +23,14 @@ export async function POST() {
   }
 
   const stripe = getStripe();
-  const session = await stripe.billingPortal.sessions.create({
-    customer: profile.stripe_customer_id,
-    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/profile`,
-  });
-
-  return NextResponse.json({ url: session.url });
+  try {
+    const session = await stripe.billingPortal.sessions.create({
+      customer: profile.stripe_customer_id,
+      return_url: `${process.env.NEXT_PUBLIC_APP_URL}/profile`,
+    });
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    console.error("Billing portal error:", err);
+    return NextResponse.json({ error: "Could not open billing portal" }, { status: 500 });
+  }
 }

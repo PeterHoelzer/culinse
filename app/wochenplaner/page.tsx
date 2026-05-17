@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
@@ -155,6 +155,7 @@ export default function WochenplanerPage() {
     entries.find(e => e.day_index === dayIndex && e.meal_slot === slot);
 
   const totalEntries = entries.length;
+  const shoppingRecipeIds = useMemo(() => entries.map(e => e.recipe_id), [entries]);
 
   const openPicker = (dayIndex: number, slot: "breakfast" | "lunch" | "dinner") => {
     setPickerTarget({ dayIndex, slot });
@@ -403,7 +404,7 @@ export default function WochenplanerPage() {
       {/* Shopping List Drawer */}
       {showShoppingList && (
         <ShoppingListDrawer
-          recipeIds={entries.map(e => e.recipe_id)}
+          recipeIds={shoppingRecipeIds}
           recipeTitles={entries.map(e => e.recipe_title)}
           planName={plans.find(p => p.id === activePlanId)?.name ?? "Wochenplan"}
           onClose={() => setShowShoppingList(false)}

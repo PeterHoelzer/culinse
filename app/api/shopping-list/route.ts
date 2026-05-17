@@ -401,7 +401,8 @@ async function fetchMealDBIngredients(ids: string[]): Promise<RawIngredient[]> {
         const measure = meal[`strMeasure${n}`];
         if (!name?.trim()) break;
         const parts = (measure || "").trim().split(" ");
-        const amount = parseFloat(parts[0]) || 0;
+        const parsed = parseFloat(parts[0]);
+        const amount = isNaN(parsed) ? 0 : parsed;
         const unit = parts.slice(1).join(" ");
         results.push({ name, amount, unit, aisle: undefined, original: `${measure} ${name}`.trim() });
       }
@@ -468,9 +469,8 @@ export async function POST(req: NextRequest) {
   }
 
   // Partition by source
-  const spoonIds  = recipeIds.filter(id => /^\d+$/.test(id));
   const mealdbIds = recipeIds.filter(id => /^\d+$/.test(id) && parseInt(id) >= MDB_OFFSET);
-  const spoonOnly = spoonIds.filter(id => parseInt(id) < MDB_OFFSET);
+  const spoonOnly = recipeIds.filter(id => /^\d+$/.test(id) && parseInt(id) < MDB_OFFSET);
   const edamamIds = recipeIds.filter(id => id.startsWith("edamam_"));
   const tastyIds  = recipeIds.filter(id => id.startsWith("tasty_"));
 

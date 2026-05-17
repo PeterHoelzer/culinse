@@ -12,16 +12,19 @@ export default function Navbar() {
   const supabase = createClient();
 
   useEffect(() => {
+    let mounted = true;
     supabase.auth.getUser().then(async ({ data }) => {
-      if (!data.user) return;
+      if (!mounted || !data.user) return;
       setUser(data.user);
       const { data: profile } = await supabase
         .from("profiles")
         .select("is_pro")
         .eq("id", data.user.id)
         .single();
+      if (!mounted) return;
       setIsPro(profile?.is_pro ?? false);
-    });
+    }).catch(() => { /* silently ignore — isPro stays false */ });
+    return () => { mounted = false; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -106,7 +106,7 @@ export default function PlanRecipePickerModal({
   const handlePick = async (recipe: PickerRecipe) => {
     setSaving(recipe.id);
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    if (!user) { setSaving(null); return; }
 
     const timeNum = typeof recipe.time === "number"
       ? recipe.time
@@ -114,7 +114,7 @@ export default function PlanRecipePickerModal({
         ? parseInt(recipe.time) || null
         : null;
 
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("meal_plan_entries")
       .upsert({
         plan_id: planId,
@@ -130,6 +130,7 @@ export default function PlanRecipePickerModal({
       .single();
 
     setSaving(null);
+    if (error) { console.error("Plan entry save failed:", error); return; }
     onAdded({
       id: data?.id,
       day_index: dayIndex,

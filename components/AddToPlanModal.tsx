@@ -69,9 +69,9 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
     setSaving(true);
 
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    if (!user) { setSaving(false); return; }
 
-    await supabase.from("meal_plan_entries").upsert({
+    const { error } = await supabase.from("meal_plan_entries").upsert({
       plan_id: selectedPlan,
       user_id: user.id,
       day_index: selectedDay,
@@ -83,6 +83,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
     }, { onConflict: "plan_id,day_index,meal_slot" });
 
     setSaving(false);
+    if (error) { console.error("Plan save failed:", error); return; }
     setSaved(true);
     setTimeout(() => onClose(), 1200);
   };
