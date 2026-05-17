@@ -17,6 +17,44 @@ export function getAmazonSearchUrl(query: string): string {
   return `https://www.amazon.de/s?k=${encodeURIComponent(query)}&tag=${TAG}`;
 }
 
+// ─── Keyword → ASIN Mapping für Zutaten ─────────────────────────────────────
+// Nur für Zutaten wo wir ein wirklich gutes Produkt kennen.
+// Kein Match = kein Link (besser als schlechte Suchergebnisse).
+
+const INGREDIENT_MAP: { keywords: string[]; asin: string }[] = [
+  { keywords: ["olive oil", "olivenöl", "oliven öl"],                                  asin: "B07P7MNQMH" },
+  { keywords: ["pasta", "spaghetti", "penne", "rigatoni", "fusilli", "farfalle"],       asin: "B0747R8VXQ" },
+  { keywords: ["rice", "basmati", "jasmine rice", "long grain"],                        asin: "B07WQMXP2Q" },
+  { keywords: ["salt", "sea salt", "kosher salt", "fleur de sel"],                      asin: "B003YHHGRM" },
+  { keywords: ["coconut oil", "kokosöl"],                                               asin: "B00DS842HS" },
+  { keywords: ["soy sauce", "sojasauce", "tamari"],                                     asin: "B00J3X97MA" },
+  { keywords: ["parmesan", "parmigiano"],                                               asin: "B07BVQCZXD" },
+  { keywords: ["canned tomatoes", "crushed tomatoes", "diced tomatoes", "tomato sauce", "passata"], asin: "B07WRMXWDX" },
+  { keywords: ["coconut milk", "kokosmilch"],                                           asin: "B00ELBLQDM" },
+  { keywords: ["flour", "all-purpose flour", "mehl", "bread flour"],                   asin: "B00BI1HKNE" },
+  { keywords: ["breadcrumbs", "panko", "semmelbrösel"],                                 asin: "B01N3XEKRM" },
+  { keywords: ["honey", "honig"],                                                       asin: "B07CWLB3JT" },
+  { keywords: ["butter"],                                                               asin: "B09FSDZ3G8" },
+  { keywords: ["paprika", "smoked paprika", "sweet paprika"],                           asin: "B08CXZFSDM" },
+  { keywords: ["cumin", "kreuzkümmel"],                                                 asin: "B08CXZFSDM" },
+  { keywords: ["turmeric", "kurkuma"],                                                  asin: "B08CXZFSDM" },
+  { keywords: ["oregano", "thyme", "rosemary", "basil", "herbs"],                       asin: "B08CXZFSDM" },
+];
+
+/**
+ * Gibt eine direkte Amazon-Produkt-URL zurück wenn wir ein gutes Match haben.
+ * Gibt null zurück wenn kein Match — dann kein Link anzeigen.
+ */
+export function getIngredientAffiliateUrl(ingredientName: string): string | null {
+  const name = ingredientName.toLowerCase();
+  for (const entry of INGREDIENT_MAP) {
+    if (entry.keywords.some(kw => name.includes(kw))) {
+      return `https://www.amazon.de/dp/${entry.asin}?tag=${TAG}`;
+    }
+  }
+  return null;
+}
+
 // ─── Produkte ────────────────────────────────────────────────────────────────
 
 export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [

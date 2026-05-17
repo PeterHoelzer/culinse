@@ -8,7 +8,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import { AffiliateBox } from "@/components/AffiliateBox";
-import { getAmazonSearchUrl } from "@/lib/affiliateProducts";
+import { getIngredientAffiliateUrl } from "@/lib/affiliateProducts";
 
 interface Ingredient {
   id: number;
@@ -359,15 +359,20 @@ export default function RecipePageClient() {
                           {ing.original}
                         </span>
                       </button>
-                      <a
-                        href={getAmazonSearchUrl(ing.name)}
-                        target="_blank"
-                        rel="noopener noreferrer sponsored"
-                        title={`Buy ${ing.name} on Amazon`}
-                        className="flex-shrink-0 w-7 h-7 mt-1.5 rounded-lg flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 transition-all"
-                      >
-                        🛒
-                      </a>
+                      {(() => {
+                        const url = getIngredientAffiliateUrl(ing.name);
+                        return url ? (
+                          <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer sponsored"
+                            title={`Buy ${ing.name} on Amazon`}
+                            className="flex-shrink-0 w-7 h-7 mt-1.5 rounded-lg flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 transition-all"
+                          >
+                            🛒
+                          </a>
+                        ) : null;
+                      })()}
                     </li>
                   ))}
                 </ul>
