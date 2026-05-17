@@ -147,7 +147,7 @@ const GRAMS_PER_CUP: Record<string, number> = {
   "icing sugar": 120, "breadcrumbs": 108,
   // Sugars
   sugar: 200, "white sugar": 200, "brown sugar": 220, "caster sugar": 200,
-  "powdered sugar": 120, "honey": 340, "maple syrup": 322, "molasses": 337,
+  "icing sugar": 120, "honey": 340, "maple syrup": 322, "molasses": 337,
   // Dairy & fats
   butter: 227, "cream cheese": 232, "ricotta": 246, "yogurt": 245,
   milk: 245, "whole milk": 245, "skim milk": 245, "buttermilk": 245,
