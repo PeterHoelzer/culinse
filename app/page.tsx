@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import SharedNavbar from "@/components/Navbar";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Recipe {
@@ -49,94 +50,6 @@ const HOW_IT_WORKS = [
 ];
 
 // ─── Components ───────────────────────────────────────────────────────────────
-
-function Navbar({ user }: { user: User | null | undefined }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const supabase = createClient();
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.reload();
-  };
-
-  return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <span className="text-2xl">🍳</span>
-          <span className="text-xl font-bold text-gray-900">
-            culi<span style={{ color: "#f97316" }}>nse</span>
-          </span>
-        </a>
-
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-          <a href="#discover" className="hover:text-orange-500 transition-colors">Discover</a>
-          <a href="#how-it-works" className="hover:text-orange-500 transition-colors">How it Works</a>
-          {user && <a href="/saved" className="hover:text-orange-500 transition-colors">♥ My Recipes</a>}
-        </div>
-
-        {/* Desktop auth */}
-        <div className="hidden md:flex items-center gap-3">
-          {user ? (
-            <>
-              <a href="/profile" className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white transition-opacity hover:opacity-80" style={{ background: "#f97316" }} title="My Profile">
-                {user.email?.[0]?.toUpperCase() ?? "👤"}
-              </a>
-              <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-                Log out
-              </button>
-            </>
-          ) : (
-            <>
-              <a href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Log in</a>
-              <a href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
-                Get Started →
-              </a>
-            </>
-          )}
-        </div>
-
-        {/* Mobile: right side */}
-        <div className="flex md:hidden items-center gap-2">
-          {!user && (
-            <a href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
-              Join
-            </a>
-          )}
-          {/* Hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-3">
-          <a href="#discover" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">🔍 Discover</a>
-          <a href="#how-it-works" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">⚙️ How it Works</a>
-          {user && <a href="/saved" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ My Recipes</a>}
-          {user && <a href="/profile" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👤 My Profile</a>}
-          <div className="h-px bg-gray-100" />
-          {user ? (
-            <button onClick={handleLogout} className="text-sm font-medium text-gray-500 py-2 text-left hover:text-gray-900 transition-colors">
-              Log out
-            </button>
-          ) : (
-            <a href="/login" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">Log in</a>
-          )}
-        </div>
-      )}
-    </nav>
-  );
-}
 
 function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -920,7 +833,7 @@ export default function Home() {
 
   return (
     <>
-      <Navbar user={user} />
+      <SharedNavbar />
       <main className="flex-1">
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
         <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
