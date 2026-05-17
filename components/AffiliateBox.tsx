@@ -1,17 +1,18 @@
 "use client";
 
 import { useMemo } from "react";
-import { getAffiliateUrl, getProductsForRecipe } from "@/lib/affiliateProducts";
+import { getAffiliateUrl, getToolsForRecipe } from "@/lib/affiliateProducts";
 
 interface Props {
   dishTypes: string[];
   ingredientNames: string[];
   recipeTitle?: string;
+  toolsOnly?: boolean;
 }
 
-export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle }: Props) {
+export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnly }: Props) {
   const products = useMemo(
-    () => getProductsForRecipe(dishTypes, ingredientNames, recipeTitle),
+    () => getToolsForRecipe(dishTypes, ingredientNames, recipeTitle),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [recipeTitle]
   );
@@ -21,7 +22,9 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle }: Props)
   return (
     <div className="mt-4 border-t border-gray-100 pt-4">
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Shop</p>
+        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+          {toolsOnly ? "Kitchen Tools" : "Shop"}
+        </p>
         <span className="text-xs text-gray-300 border border-gray-200 rounded px-1.5 py-0.5">Ad</span>
       </div>
 
@@ -46,9 +49,7 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle }: Props)
         ))}
       </div>
 
-      <p className="text-xs text-gray-300 mt-3 text-center">
-        * Affiliate links
-      </p>
+      <p className="text-xs text-gray-300 mt-3 text-center">* Affiliate links</p>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import { AffiliateBox } from "@/components/AffiliateBox";
+import { getAmazonSearchUrl } from "@/lib/affiliateProducts";
 
 interface Ingredient {
   id: number;
@@ -336,10 +337,10 @@ export default function RecipePageClient() {
                 )}
                 <ul className="space-y-1">
                   {recipe.ingredients.map((ing, i) => (
-                    <li key={i}>
+                    <li key={i} className="flex items-start gap-1">
                       <button
                         onClick={() => toggleIngredient(i)}
-                        className={`w-full flex items-start gap-3 py-2.5 px-1 rounded-xl text-left transition-colors hover:bg-gray-50 group ${
+                        className={`flex-1 flex items-start gap-3 py-2.5 px-1 rounded-xl text-left transition-colors hover:bg-gray-50 group ${
                           checkedIngredients.has(i) ? "opacity-50" : ""
                         }`}
                       >
@@ -358,15 +359,25 @@ export default function RecipePageClient() {
                           {ing.original}
                         </span>
                       </button>
+                      <a
+                        href={getAmazonSearchUrl(ing.name)}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        title={`Buy ${ing.name} on Amazon`}
+                        className="flex-shrink-0 w-7 h-7 mt-1.5 rounded-lg flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 transition-all"
+                      >
+                        🛒
+                      </a>
                     </li>
                   ))}
                 </ul>
 
-              {/* Affiliate Box — inside sticky panel */}
+              {/* Affiliate Box — kitchen tools only */}
               <AffiliateBox
                 dishTypes={recipe.dishTypes}
                 ingredientNames={recipe.ingredients.map(i => i.name)}
                 recipeTitle={recipe.title}
+                toolsOnly
               />
               </div>
             </div>
