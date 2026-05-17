@@ -80,6 +80,10 @@ const STRIP_WORDS = new Set([
   "chopped", "minced", "diced", "sliced", "grated", "shredded", "crushed",
   "ground", "toasted", "roasted", "peeled", "deveined", "trimmed", "rinsed",
   "pureed", "mashed", "boiled", "steamed", "fried", "baked", "aged", "herbed",
+  "cracked", "packed", "heaping", "leveled", "sifted", "melted", "softened",
+  // Adverbs of preparation
+  "freshly", "finely", "roughly", "coarsely", "thinly", "thickly",
+  "lightly", "heavily",
   // Size
   "large", "medium", "small", "extra", "fine", "coarse", "thick", "thin",
   "big", "mini", "giant",
@@ -124,7 +128,7 @@ function isBlocked(name: string, unit?: string): boolean {
   if (/ or /i.test(n)) return true;
   // Contains " and " → compound like "salt and pepper" — split handled below
   // (filter here if > 2 real words after "and", i.e. it's a description)
-  if (/ and /i.test(n) && n.split(/\s+/).length > 4) return true;
+  if (/ and /i.test(n) && n.split(/\s+/).length > 6) return true;
   // Just a number
   if (/^\d+(\.\d+)?$/.test(n)) return true;
   // Too many words → likely a description, not an ingredient (> 6 words)
@@ -268,41 +272,53 @@ function normalizeUnit(u: string): string {
 
 // Build a dedup key by stripping adjectives and normalising spelling
 function dedupKey(name: string): string {
-  return name
+  const key = name
     .toLowerCase()
     .trim()
     // Remove parenthetical notes like "(grated)" or "(optional)"
     .replace(/\(.*?\)/g, "")
     // Remove leading/trailing punctuation
     .replace(/[,;:.!?]+$/, "")
+    // Remove common phrase suffixes that aren't part of the ingredient name
+    .replace(/\b(to taste|as needed|as required|to garnish|for garnish|for serving|for topping|or to taste)\b/g, "")
     .trim()
     // Split into words, drop strip-words
     .split(/\s+/)
-    .filter(w => !STRIP_WORDS.has(w))
+    .filter(w => w.length > 0 && !STRIP_WORDS.has(w))
     .join(" ")
     .trim()
     // Common spelling variants → canonical form
-    .replace(/parmigiano.*/,  "parmesan")
-    .replace(/parmesan.*/,    "parmesan")
-    .replace(/chilli/,        "chili")
-    .replace(/bell pepper/,   "paprika")
-    .replace(/black pepper/,  "pepper")
-    .replace(/white pepper/,  "pepper")
-    .replace(/sea salt/,      "salt")
-    .replace(/kosher salt/,   "salt")
-    .replace(/table salt/,    "salt")
-    .replace(/olive oil.*/,   "olive oil")
+    .replace(/parmigiano.*/,    "parmesan")
+    .replace(/parmesan.*/,      "parmesan")
+    .replace(/chilli/,          "chili")
+    .replace(/bell pepper/,     "paprika")
+    .replace(/black pepper/,    "pepper")
+    .replace(/white pepper/,    "pepper")
+    .replace(/cracked pepper/,  "pepper")
+    .replace(/ground pepper/,   "pepper")
+    .replace(/sea salt/,        "salt")
+    .replace(/kosher salt/,     "salt")
+    .replace(/table salt/,      "salt")
+    .replace(/rock salt/,       "salt")
+    .replace(/olive oil.*/,     "olive oil")
     .replace(/vegetable oil.*/, "oil")
-    .replace(/canola oil.*/,  "oil")
-    .replace(/spring onion/, "green onion")
-    .replace(/scallion/,      "green onion");
+    .replace(/canola oil.*/,    "oil")
+    .replace(/sunflower oil.*/, "oil")
+    .replace(/spring onion/,    "green onion")
+    .replace(/scallion/,        "green onion");
+
+  // Plural normalisation (eggs→egg, onions→onion, tomatoes→tomato)
+  return key
+    .replace(/oes$/, "o")                // tomatoes→tomato, potatoes→potato
+    .replace(/ies$/, "y")                // berries→berry, cherries→cherry
+    .replace(/(?<![su])s$/, "");         // onions→onion, eggs→egg (not asparagus/hummus)
 }
 
 // Split "X and Y" compound names into individual ingredients
 function splitCompound(ing: RawIngredient): RawIngredient[] {
   const n = ing.name.toLowerCase();
-  // Only split simple 2-part compounds like "salt and pepper"
-  if (/ and /i.test(n) && n.split(/\s+/).length <= 4) {
+  // Split 2-part compounds like "salt and pepper" or "salt and pepper to taste"
+  if (/ and /i.test(n) && n.split(/\s+/).length <= 6) {
     return n.split(/ and /i).map(part => ({
       ...ing,
       name: part.trim(),
@@ -363,6 +379,40 @@ function aggregateIngredients(raws: RawIngredient[]): ShoppingItem[] {
   return Array.from(map.values());
 }
 
+// ── Fraction parser (handles "1/2", "¼", "½", "1 1/2", etc.) ─────────────────
+
+const UNICODE_FRACTIONS: Record<string, number> = {
+  "¼": 0.25, "½": 0.5, "¾": 0.75,
+  "⅓": 1 / 3, "⅔": 2 / 3,
+  "⅛": 0.125, "⅜": 0.375, "⅝": 0.625, "⅞": 0.875,
+};
+
+function parseFraction(str: string): number {
+  let s = str.trim();
+
+  // Replace unicode fractions first
+  for (const [frac, val] of Object.entries(UNICODE_FRACTIONS)) {
+    if (s.includes(frac)) {
+      const whole = parseFloat(s.replace(frac, "").trim()) || 0;
+      return whole + val;
+    }
+  }
+
+  // Mixed number: "1 1/2"
+  const mixedMatch = s.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixedMatch) {
+    return parseInt(mixedMatch[1]) + parseInt(mixedMatch[2]) / parseInt(mixedMatch[3]);
+  }
+
+  // Simple fraction: "1/2"
+  const slashMatch = s.match(/^(\d+)\/(\d+)$/);
+  if (slashMatch) {
+    return parseInt(slashMatch[1]) / parseInt(slashMatch[2]);
+  }
+
+  return parseFloat(s);
+}
+
 // ── Fetchers ───────────────────────────────────────────────────────────────────
 
 async function fetchSpoonacularIngredients(ids: string[]): Promise<RawIngredient[]> {
@@ -400,10 +450,16 @@ async function fetchMealDBIngredients(ids: string[]): Promise<RawIngredient[]> {
         const name = meal[`strIngredient${n}`];
         const measure = meal[`strMeasure${n}`];
         if (!name?.trim()) break;
-        const parts = (measure || "").trim().split(" ");
-        const parsed = parseFloat(parts[0]);
-        const amount = isNaN(parsed) ? 0 : parsed;
-        const unit = parts.slice(1).join(" ");
+
+        // MealDB often uses fractions: "1/2 tbs", "¼ cup", "1 1/2 tsp"
+        const measureStr = (measure || "").trim();
+        // Match leading number/fraction token(s), rest is unit
+        const fracMatch = measureStr.match(/^([\d\s¼½¾⅓⅔⅛⅜⅝⅞\/]+)\s*(.*)/);
+        const rawNum  = fracMatch ? fracMatch[1].trim() : "";
+        const unit    = fracMatch ? fracMatch[2].trim() : measureStr;
+        const parsed  = rawNum ? parseFraction(rawNum) : NaN;
+        const amount  = isNaN(parsed) ? 0 : parsed;
+
         results.push({ name, amount, unit, aisle: undefined, original: `${measure} ${name}`.trim() });
       }
     } catch { continue; }
