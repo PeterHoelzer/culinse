@@ -361,14 +361,14 @@ export default function RecipePageClient() {
                     </li>
                   ))}
                 </ul>
-              </div>
 
-              {/* Affiliate Box */}
+              {/* Affiliate Box — inside sticky panel */}
               <AffiliateBox
                 dishTypes={recipe.dishTypes}
                 ingredientNames={recipe.ingredients.map(i => i.name)}
                 recipeTitle={recipe.title}
               />
+              </div>
             </div>
 
             <div className="md:col-span-2">
