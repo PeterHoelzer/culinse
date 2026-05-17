@@ -7,11 +7,22 @@ import type { User } from "@supabase/supabase-js";
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
+  const [isPro, setIsPro] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+    supabase.auth.getUser().then(async ({ data }) => {
+      if (!data.user) return;
+      setUser(data.user);
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_pro")
+        .eq("id", data.user.id)
+        .single();
+      setIsPro(profile?.is_pro ?? false);
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleLogout = async () => {
@@ -22,8 +33,9 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <span className="text-2xl">🍳</span>
           <span className="text-xl font-bold text-gray-900">
             culi<span style={{ color: "#f97316" }}>nse</span>
@@ -31,22 +43,85 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600">
-          <Link href="/" className="hover:text-orange-500 transition-colors">Discover</Link>
-          <Link href="/about" className="hover:text-orange-500 transition-colors">About</Link>
-          {user && <Link href="/wochenplaner" className="hover:text-orange-500 transition-colors">📅 Wochenplaner</Link>}
-          {user && <Link href="/collections" className="hover:text-orange-500 transition-colors">📚 Collections</Link>}
-          {user && <Link href="/saved" className="hover:text-orange-500 transition-colors">♥ Saved</Link>}
+        <div className="hidden md:flex items-center gap-2">
+          <Link href="/" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
+            Discover
+          </Link>
+          <Link href="/about" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
+            About
+          </Link>
+
+          {user && (
+            <>
+              {/* Divider */}
+              <div className="w-px h-5 bg-gray-200 mx-1" />
+
+              {/* Wochenplaner */}
+              {isPro ? (
+                <Link
+                  href="/wochenplaner"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
+                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", color: "white" }}
+                >
+                  📅 Wochenplaner
+                </Link>
+              ) : (
+                <Link
+                  href="/pro"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-dashed border-orange-200 text-orange-400 hover:bg-orange-50 transition-all"
+                >
+                  🔒 Wochenplaner
+                </Link>
+              )}
+
+              {/* Collections */}
+              {isPro ? (
+                <Link
+                  href="/collections"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
+                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", color: "white" }}
+                >
+                  📚 Collections
+                </Link>
+              ) : (
+                <Link
+                  href="/pro"
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-dashed border-orange-200 text-orange-400 hover:bg-orange-50 transition-all"
+                >
+                  🔒 Collections
+                </Link>
+              )}
+
+              <div className="w-px h-5 bg-gray-200 mx-1" />
+
+              <Link href="/saved" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
+                ♥ Saved
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Desktop auth */}
         <div className="hidden md:flex items-center gap-3">
           {user ? (
             <>
-              <Link href="/profile" className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white hover:opacity-80 transition-opacity" style={{ background: "#f97316" }} title="My Profile">
+              {!isPro && (
+                <Link
+                  href="/pro"
+                  className="text-xs font-bold px-3 py-1.5 rounded-full border border-orange-300 text-orange-500 hover:bg-orange-50 transition-all"
+                >
+                  ✦ Upgrade
+                </Link>
+              )}
+              <Link
+                href="/profile"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white hover:opacity-80 transition-opacity"
+                style={{ background: isPro ? "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" : "#9ca3af" }}
+                title="My Profile"
+              >
                 {user.email?.[0]?.toUpperCase() ?? "👤"}
               </Link>
-              <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
+              <button onClick={handleLogout} className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
                 Log out
               </button>
             </>
@@ -80,24 +155,77 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-3">
-          <Link href="/" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">🔍 Discover</Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👋 About</Link>
+        <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-1">
+          <Link href="/" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
+            🔍 Discover
+          </Link>
+          <Link href="/about" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
+            👋 About
+          </Link>
+
           {user && (
-            <Link href="/wochenplaner" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">📅 Wochenplaner</Link>
+            <>
+              <div className="h-px bg-gray-100 my-1" />
+
+              {/* Wochenplaner */}
+              {isPro ? (
+                <Link
+                  href="/wochenplaner"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
+                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+                >
+                  📅 Wochenplaner
+                  <span className="ml-auto text-xs bg-white/20 px-2 py-0.5 rounded-full">Pro</span>
+                </Link>
+              ) : (
+                <Link
+                  href="/pro"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-dashed border-orange-200 text-orange-400"
+                >
+                  🔒 Wochenplaner
+                  <span className="ml-auto text-xs text-orange-300">Upgrade →</span>
+                </Link>
+              )}
+
+              {/* Collections */}
+              {isPro ? (
+                <Link
+                  href="/collections"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
+                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+                >
+                  📚 Collections
+                  <span className="ml-auto text-xs bg-white/20 px-2 py-0.5 rounded-full">Pro</span>
+                </Link>
+              ) : (
+                <Link
+                  href="/pro"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-dashed border-orange-200 text-orange-400"
+                >
+                  🔒 Collections
+                  <span className="ml-auto text-xs text-orange-300">Upgrade →</span>
+                </Link>
+              )}
+
+              <div className="h-px bg-gray-100 my-1" />
+
+              <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
+                ♥ Saved
+              </Link>
+              <Link href="/profile" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
+                👤 Profile {isPro && <span className="text-xs text-orange-400 ml-1">✦ Pro</span>}
+              </Link>
+            </>
           )}
-          {user && (
-            <Link href="/collections" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">📚 Collections</Link>
-          )}
-          {user && (
-            <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">♥ Saved</Link>
-          )}
-          {user && (
-            <Link href="/profile" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">👤 Profile</Link>
-          )}
-          <div className="h-px bg-gray-100" />
+
+          <div className="h-px bg-gray-100 my-1" />
+
           {user ? (
-            <button onClick={handleLogout} className="text-sm font-medium text-gray-500 py-2 text-left hover:text-gray-900 transition-colors">
+            <button onClick={handleLogout} className="text-sm font-medium text-gray-500 py-2.5 text-left hover:text-gray-900 transition-colors">
               Log out
             </button>
           ) : (
