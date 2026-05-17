@@ -72,7 +72,8 @@ export async function POST(req: NextRequest) {
     case "invoice.payment_succeeded": {
       const invoice = event.data.object as Stripe.Invoice;
       const customerId = invoice.customer as string;
-      const subscriptionId = (invoice.subscription as string | null) ?? null;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const subscriptionId = ((invoice as any).subscription as string | null) ?? null;
       if (!subscriptionId) break;
 
       const userId = await getUserId(customerId);
