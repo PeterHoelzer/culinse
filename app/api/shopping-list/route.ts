@@ -8,51 +8,51 @@ const MDB_OFFSET      = 9_000_000;
 
 // ── Category mapping (English aisle → German) ─────────────────────────────────
 const AISLE_MAP: Record<string, { label: string; emoji: string }> = {
-  "produce":                        { label: "Gemüse & Obst",      emoji: "🥦" },
-  "vegetables":                     { label: "Gemüse & Obst",      emoji: "🥦" },
-  "fruit":                          { label: "Gemüse & Obst",      emoji: "🥦" },
-  "fresh vegetables":               { label: "Gemüse & Obst",      emoji: "🥦" },
-  "fresh fruits":                   { label: "Gemüse & Obst",      emoji: "🥦" },
-  "meat":                           { label: "Fleisch & Fisch",     emoji: "🥩" },
-  "meat counter":                   { label: "Fleisch & Fisch",     emoji: "🥩" },
-  "poultry counter":                { label: "Fleisch & Fisch",     emoji: "🥩" },
-  "seafood":                        { label: "Fleisch & Fisch",     emoji: "🥩" },
-  "fish":                           { label: "Fleisch & Fisch",     emoji: "🥩" },
-  "dairy":                          { label: "Milchprodukte",       emoji: "🧀" },
-  "cheese":                         { label: "Milchprodukte",       emoji: "🧀" },
-  "milk, eggs, other dairy":        { label: "Milchprodukte",       emoji: "🧀" },
-  "eggs":                           { label: "Milchprodukte",       emoji: "🧀" },
-  "bakery/bread":                   { label: "Brot & Backwaren",    emoji: "🍞" },
-  "bread":                          { label: "Brot & Backwaren",    emoji: "🍞" },
-  "pasta and rice":                 { label: "Pasta, Reis & Körner",emoji: "🍝" },
-  "pasta":                          { label: "Pasta, Reis & Körner",emoji: "🍝" },
-  "rice":                           { label: "Pasta, Reis & Körner",emoji: "🍝" },
-  "grains":                         { label: "Pasta, Reis & Körner",emoji: "🍝" },
-  "cereal":                         { label: "Pasta, Reis & Körner",emoji: "🍝" },
-  "canned and jarred":              { label: "Konserven",           emoji: "🥫" },
-  "canned":                         { label: "Konserven",           emoji: "🥫" },
-  "baking":                         { label: "Backen & Süßes",      emoji: "🧁" },
-  "baking ingredients":             { label: "Backen & Süßes",      emoji: "🧁" },
-  "sweet":                          { label: "Backen & Süßes",      emoji: "🧁" },
-  "spices and seasonings":          { label: "Gewürze & Kräuter",   emoji: "🌶" },
-  "spices":                         { label: "Gewürze & Kräuter",   emoji: "🌶" },
-  "herbs":                          { label: "Gewürze & Kräuter",   emoji: "🌶" },
-  "condiments":                     { label: "Saucen & Öle",        emoji: "🫙" },
-  "oil, vinegar, salad dressing":   { label: "Saucen & Öle",        emoji: "🫙" },
-  "oil":                            { label: "Saucen & Öle",        emoji: "🫙" },
-  "sauce":                          { label: "Saucen & Öle",        emoji: "🫙" },
-  "frozen":                         { label: "Tiefkühl",            emoji: "🧊" },
-  "beverages":                      { label: "Getränke",            emoji: "🥤" },
-  "drinks":                         { label: "Getränke",            emoji: "🥤" },
+  "produce":                        { label: "Produce",             emoji: "🥦" },
+  "vegetables":                     { label: "Produce",             emoji: "🥦" },
+  "fruit":                          { label: "Produce",             emoji: "🥦" },
+  "fresh vegetables":               { label: "Produce",             emoji: "🥦" },
+  "fresh fruits":                   { label: "Produce",             emoji: "🥦" },
+  "meat":                           { label: "Meat & Fish",         emoji: "🥩" },
+  "meat counter":                   { label: "Meat & Fish",         emoji: "🥩" },
+  "poultry counter":                { label: "Meat & Fish",         emoji: "🥩" },
+  "seafood":                        { label: "Meat & Fish",         emoji: "🥩" },
+  "fish":                           { label: "Meat & Fish",         emoji: "🥩" },
+  "dairy":                          { label: "Dairy",               emoji: "🧀" },
+  "cheese":                         { label: "Dairy",               emoji: "🧀" },
+  "milk, eggs, other dairy":        { label: "Dairy",               emoji: "🧀" },
+  "eggs":                           { label: "Dairy",               emoji: "🧀" },
+  "bakery/bread":                   { label: "Bread & Bakery",      emoji: "🍞" },
+  "bread":                          { label: "Bread & Bakery",      emoji: "🍞" },
+  "pasta and rice":                 { label: "Pasta, Rice & Grains",emoji: "🍝" },
+  "pasta":                          { label: "Pasta, Rice & Grains",emoji: "🍝" },
+  "rice":                           { label: "Pasta, Rice & Grains",emoji: "🍝" },
+  "grains":                         { label: "Pasta, Rice & Grains",emoji: "🍝" },
+  "cereal":                         { label: "Pasta, Rice & Grains",emoji: "🍝" },
+  "canned and jarred":              { label: "Canned Goods",        emoji: "🥫" },
+  "canned":                         { label: "Canned Goods",        emoji: "🥫" },
+  "baking":                         { label: "Baking & Sweets",     emoji: "🧁" },
+  "baking ingredients":             { label: "Baking & Sweets",     emoji: "🧁" },
+  "sweet":                          { label: "Baking & Sweets",     emoji: "🧁" },
+  "spices and seasonings":          { label: "Spices & Herbs",      emoji: "🌶" },
+  "spices":                         { label: "Spices & Herbs",      emoji: "🌶" },
+  "herbs":                          { label: "Spices & Herbs",      emoji: "🌶" },
+  "condiments":                     { label: "Sauces & Oils",       emoji: "🫙" },
+  "oil, vinegar, salad dressing":   { label: "Sauces & Oils",       emoji: "🫙" },
+  "oil":                            { label: "Sauces & Oils",       emoji: "🫙" },
+  "sauce":                          { label: "Sauces & Oils",       emoji: "🫙" },
+  "frozen":                         { label: "Frozen",              emoji: "🧊" },
+  "beverages":                      { label: "Beverages",           emoji: "🥤" },
+  "drinks":                         { label: "Beverages",           emoji: "🥤" },
 };
 
 function resolveCategory(aisle?: string): { label: string; emoji: string } {
-  if (!aisle) return { label: "Sonstiges", emoji: "🛒" };
+  if (!aisle) return { label: "Other", emoji: "🛒" };
   const key = aisle.toLowerCase().split(";")[0].trim();
   for (const [pattern, cat] of Object.entries(AISLE_MAP)) {
     if (key.includes(pattern)) return cat;
   }
-  return { label: "Sonstiges", emoji: "🛒" };
+  return { label: "Other", emoji: "🛒" };
 }
 
 // ── Ingredient normalisation ───────────────────────────────────────────────────

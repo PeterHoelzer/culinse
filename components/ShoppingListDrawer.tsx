@@ -27,18 +27,18 @@ interface ShoppingListDrawerProps {
 
 // Category sort order
 const CATEGORY_ORDER = [
-  "Gemüse & Obst",
-  "Fleisch & Fisch",
-  "Milchprodukte",
-  "Brot & Backwaren",
-  "Pasta, Reis & Körner",
-  "Konserven",
-  "Backen & Süßes",
-  "Gewürze & Kräuter",
-  "Saucen & Öle",
-  "Tiefkühl",
-  "Getränke",
-  "Sonstiges",
+  "Produce",
+  "Meat & Fish",
+  "Dairy",
+  "Bread & Bakery",
+  "Pasta, Rice & Grains",
+  "Canned Goods",
+  "Baking & Sweets",
+  "Spices & Herbs",
+  "Sauces & Oils",
+  "Frozen",
+  "Beverages",
+  "Other",
 ];
 
 function formatAmount(amount: number | null, unit: string): string {
@@ -127,8 +127,8 @@ export default function ShoppingListDrawer({
         <div className="px-5 pt-2 pb-4 border-b border-gray-100 flex-shrink-0">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold text-gray-900">🛒 Einkaufsliste</h2>
-              <p className="text-xs text-gray-400 mt-0.5">{planName} · {recipeTitles.length} Rezepte</p>
+              <h2 className="text-lg font-bold text-gray-900">🛒 Shopping List</h2>
+              <p className="text-xs text-gray-400 mt-0.5">{planName} · {recipeTitles.length} recipes</p>
             </div>
             <button onClick={onClose} className="text-gray-300 hover:text-gray-500 text-2xl leading-none mt-0.5">×</button>
           </div>
@@ -143,7 +143,7 @@ export default function ShoppingListDrawer({
                 />
               </div>
               <span className="text-xs text-gray-500 flex-shrink-0">
-                {checkedCount}/{totalItems} erledigt
+                {checkedCount}/{totalItems} done
               </span>
               {checkedCount > 0 && (
                 <button
@@ -173,18 +173,18 @@ export default function ShoppingListDrawer({
           ) : error ? (
             <div className="px-5 py-12 text-center">
               <p className="text-3xl mb-2">😕</p>
-              <p className="text-sm text-gray-500">Zutaten konnten nicht geladen werden.</p>
+              <p className="text-sm text-gray-500">Couldn't load ingredients.</p>
             </div>
           ) : recipeIds.length === 0 ? (
             <div className="px-5 py-12 text-center">
               <p className="text-3xl mb-2">📭</p>
-              <p className="text-sm font-medium text-gray-600">Keine Rezepte im Plan</p>
-              <p className="text-xs text-gray-400 mt-1">Füge zuerst Rezepte zu deinem Wochenplan hinzu.</p>
+              <p className="text-sm font-medium text-gray-600">No recipes in plan</p>
+              <p className="text-xs text-gray-400 mt-1">Add recipes to your meal plan first.</p>
             </div>
           ) : totalItems === 0 ? (
             <div className="px-5 py-12 text-center">
               <p className="text-3xl mb-2">🤷</p>
-              <p className="text-sm text-gray-500">Keine Zutaten gefunden — manche Quellen unterstützen keine Zutatenliste.</p>
+              <p className="text-sm text-gray-500">No ingredients found — some sources don't support ingredient lists.</p>
             </div>
           ) : (
             <div className="px-5 py-4 pb-8 space-y-6">
@@ -255,8 +255,8 @@ export default function ShoppingListDrawer({
             <div className="flex items-center gap-3 bg-green-50 rounded-xl px-4 py-3">
               <span className="text-2xl">🎉</span>
               <div>
-                <p className="text-sm font-bold text-green-700">Alles erledigt!</p>
-                <p className="text-xs text-green-600">Du hast alle Zutaten eingekauft.</p>
+                <p className="text-sm font-bold text-green-700">All done!</p>
+                <p className="text-xs text-green-600">You've bought all the ingredients.</p>
               </div>
             </div>
           </div>

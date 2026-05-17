@@ -21,12 +21,12 @@ interface AddToPlanModalProps {
   onClose: () => void;
 }
 
-const DAYS = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
-const DAYS_FULL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const DAYS_FULL = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const SLOTS = [
-  { value: "breakfast", label: "Frühstück", emoji: "🌅" },
-  { value: "lunch",     label: "Mittagessen", emoji: "☀️" },
-  { value: "dinner",    label: "Abendessen", emoji: "🌙" },
+  { value: "breakfast", label: "Breakfast", emoji: "🌅" },
+  { value: "lunch",     label: "Lunch",     emoji: "☀️" },
+  { value: "dinner",    label: "Dinner",    emoji: "🌙" },
 ];
 
 export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps) {
@@ -120,7 +120,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
               <img src={recipe.image} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
             )}
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-gray-400 mb-0.5">Zum Wochenplan hinzufügen</p>
+              <p className="text-xs text-gray-400 mb-0.5">Add to Meal Plan</p>
               <p className="text-sm font-semibold text-gray-900 line-clamp-2">{recipe.title}</p>
             </div>
             <button onClick={onClose} className="text-gray-300 hover:text-gray-500 flex-shrink-0 text-xl leading-none">×</button>
@@ -128,13 +128,14 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
         </div>
 
         {loading ? (
-          <div className="px-5 py-8 text-center text-gray-400 text-sm">Lädt…</div>
+          <div className="px-5 py-8 text-center text-gray-400 text-sm">Loading…</div>
         ) : (
           <div className="px-5 py-4 space-y-4">
 
             {/* Plan selector */}
             <div>
               <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Plan</p>
+
               <div className="flex flex-wrap gap-2">
                 {plans.map(p => (
                   <button
@@ -158,7 +159,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                         value={newPlanName}
                         onChange={e => setNewPlanName(e.target.value)}
                         onKeyDown={e => e.key === "Enter" && handleCreatePlan()}
-                        placeholder="Plan benennen…"
+                        placeholder="Name your plan…"
                         className="text-sm border border-orange-300 rounded-full px-3 py-1.5 outline-none w-32"
                       />
                       <button onClick={handleCreatePlan} className="text-orange-500 text-sm font-semibold px-2">✓</button>
@@ -169,7 +170,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                       onClick={() => setCreatingPlan(true)}
                       className="px-3 py-1.5 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all"
                     >
-                      + Neuer Plan
+                      + New Plan
                     </button>
                   )
                 ) : plans.length >= 1 && (
@@ -177,7 +178,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                     onClick={() => window.location.href = "/pro"}
                     className="px-3 py-1.5 rounded-full text-sm border border-dashed border-orange-200 text-orange-400"
                   >
-                    ✦ Pro — mehr Pläne
+                    ✦ Pro — more plans
                   </button>
                 )}
               </div>
@@ -185,7 +186,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
 
             {/* Day selector */}
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Tag</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Day</p>
               <div className="grid grid-cols-7 gap-1">
                 {DAYS.map((d, i) => (
                   <button
@@ -205,7 +206,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
 
             {/* Slot selector */}
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Mahlzeit</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Meal</p>
               <div className="grid grid-cols-3 gap-2">
                 {SLOTS.map(s => (
                   <button
@@ -231,9 +232,9 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
               className="w-full py-3.5 rounded-full text-white font-semibold text-sm transition-all disabled:opacity-60"
               style={{ background: saved ? "#22c55e" : "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
             >
-              {saving ? "Speichern…" : saved
+              {saving ? "Saving…" : saved
                 ? `✓ ${DAYS_FULL[selectedDay]} — ${SLOTS.find(s => s.value === selectedSlot)?.label}`
-                : "Zum Plan hinzufügen"}
+                : "Add to Plan"}
             </button>
           </div>
         )}

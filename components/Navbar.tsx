@@ -62,18 +62,18 @@ export default function Navbar() {
               {/* Wochenplaner */}
               {isPro ? (
                 <Link
-                  href="/wochenplaner"
+                  href="/meal-planner"
                   className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
                   style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", color: "white" }}
                 >
-                  📅 Wochenplaner
+                  📅 Meal Planner
                 </Link>
               ) : (
                 <Link
                   href="/pro"
                   className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-dashed border-orange-200 text-orange-400 hover:bg-orange-50 transition-all"
                 >
-                  🔒 Wochenplaner
+                  🔒 Meal Planner
                 </Link>
               )}
 
@@ -173,12 +173,12 @@ export default function Navbar() {
               {/* Wochenplaner */}
               {isPro ? (
                 <Link
-                  href="/wochenplaner"
+                  href="/meal-planner"
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
                   style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
                 >
-                  📅 Wochenplaner
+                  📅 Meal Planner
                   <span className="ml-auto text-xs bg-white/20 px-2 py-0.5 rounded-full">Pro</span>
                 </Link>
               ) : (
@@ -187,7 +187,7 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-dashed border-orange-200 text-orange-400"
                 >
-                  🔒 Wochenplaner
+                  🔒 Meal Planner
                   <span className="ml-auto text-xs text-orange-300">Upgrade →</span>
                 </Link>
               )}
