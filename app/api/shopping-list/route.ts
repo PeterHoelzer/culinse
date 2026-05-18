@@ -157,7 +157,9 @@ const LIQUID_KEYWORDS = new Set([
 function isLiquid(ingredientName: string): boolean {
   const n = ingredientName.toLowerCase().trim();
   for (const kw of LIQUID_KEYWORDS) {
-    if (n.includes(kw)) return true;
+    // Match keyword only if NOT followed by a hyphen (avoids "water-packed", "oil-cured")
+    const re = new RegExp(`\\b${kw.replace(/[-]/g, "\\-")}(?!-)`, "i");
+    if (re.test(n)) return true;
   }
   return false;
 }
@@ -295,9 +297,16 @@ function convertToMetric(amount: number, rawUnit: string, ingredientName: string
     return { amount: Math.max(g, 1), unit: "g" };
   }
 
-  // Piece-like units — keep as-is
-  if (/^(piece|stück|whole|clove|slice|stalk|sprig|leaf|leaves|can|tin|bottle|package|pack|bunch|pinch|dash|handful|head|ear)s?$/.test(u)) {
-    return { amount: Math.round(amount), unit: u.replace(/s$/, "") };
+  // Piece-like units — keep as-is (handle both singular and plural, incl. -es endings)
+  const pieceBase = u.replace(/ches$/, "ch").replace(/ves$/, "f").replace(/es$/, "").replace(/s$/, "");
+  const pieceUnits = new Set(["piece","stück","whole","clove","slice","stalk","sprig","leaf","can","tin","bottle","package","pack","bunch","pinch","dash","handful","head","ear","fillet","sheet"]);
+  if (pieceUnits.has(u) || pieceUnits.has(pieceBase)) {
+    return { amount: Math.round(amount), unit: pieceBase || u };
+  }
+
+  // Size-as-unit: "large", "small", "medium", "extra-large" → treat as count
+  if (/^(large|small|medium|extra.large|extra.small|big|mini)$/i.test(u)) {
+    return { amount: Math.round(amount), unit: "pc" };
   }
 
   // Unknown — return as-is
