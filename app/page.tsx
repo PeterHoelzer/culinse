@@ -660,30 +660,48 @@ interface VideoRecipe {
 function VideoSection() {
   const [videos, setVideos] = useState<VideoRecipe[]>([]);
   const [playing, setPlaying] = useState<string | null>(null);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [offset, setOffset] = useState(6);
 
   useEffect(() => {
-    fetch("/api/videos?size=6")
+    fetch("/api/videos?size=6&from=0")
       .then(r => r.json())
       .then(d => setVideos(d.videos || []));
   }, []);
 
+  const loadMore = async () => {
+    setLoadingMore(true);
+    try {
+      const res = await fetch(`/api/videos?size=6&from=${offset}`);
+      const d = await res.json();
+      setVideos(prev => [...prev, ...(d.videos || [])]);
+      setOffset(o => o + 6);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
   if (videos.length === 0) return null;
 
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-12">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            🎬 Video Recipes
-          </h2>
-          <p className="text-sm text-gray-500 mt-1">Watch &amp; cook — step by step videos</p>
-        </div>
+    <section className="pb-12" style={{ background: "linear-gradient(180deg, #111827 0%, #1f2937 100%)" }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-2">
+        <h2 className="text-2xl font-bold text-white flex items-center gap-2 mb-1">
+          🎬 Video Recipes
+        </h2>
+        <p className="text-sm text-gray-400 mb-6">Watch &amp; cook — step by step</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {videos.map((v) => (
-          <div key={v.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-            <div className="relative h-44 bg-black cursor-pointer group" onClick={() => setPlaying(playing === v.id ? null : v.id)}>
+      {/* Mobile: horizontal scroll · Desktop: grid */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex gap-3 overflow-x-auto pb-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+          {videos.map((v) => (
+            <div
+              key={v.id}
+              className="flex-shrink-0 w-44 sm:w-auto relative rounded-2xl overflow-hidden cursor-pointer group"
+              style={{ aspectRatio: "9/16" }}
+              onClick={() => setPlaying(playing === v.id ? null : v.id)}
+            >
               {playing === v.id ? (
                 <video
                   src={v.videoUrl}
@@ -691,37 +709,56 @@ function VideoSection() {
                   autoPlay
                   controls
                   playsInline
+                  onClick={e => e.stopPropagation()}
                 />
               ) : (
                 <>
-                  <img src={v.image} alt={v.title} className="w-full h-full object-cover group-hover:opacity-80 transition-opacity" loading="lazy" />
+                  <img
+                    src={v.image}
+                    alt={v.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                  {/* Dark gradient bottom */}
+                  <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)" }} />
+                  {/* Play button */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <span className="text-2xl ml-1">▶</span>
+                    <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <span className="text-white text-lg ml-0.5">▶</span>
                     </div>
                   </div>
-                  <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
-                    Tasty
-                  </div>
+                  {/* Time badge */}
                   {v.time && (
-                    <div className="absolute bottom-3 right-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
+                    <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
                       ⏱ {v.time}
                     </div>
                   )}
+                  {/* Title + link at bottom */}
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <p className="text-white text-sm font-semibold leading-snug line-clamp-2 mb-2">{v.title}</p>
+                    <a
+                      href={`/recipe/${v.id}`}
+                      onClick={e => e.stopPropagation()}
+                      className="inline-flex items-center gap-1 text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors"
+                    >
+                      Full Recipe →
+                    </a>
+                  </div>
                 </>
               )}
             </div>
-            <div className="p-4">
-              <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2 mb-2">{v.title}</h3>
-              <a
-                href={`/recipe/${v.id}`}
-                className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors"
-              >
-                Full Recipe →
-              </a>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={loadMore}
+            disabled={loadingMore}
+            className="px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all disabled:opacity-50"
+          >
+            {loadingMore ? "Loading…" : "Load more videos"}
+          </button>
+        </div>
       </div>
     </section>
   );

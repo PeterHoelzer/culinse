@@ -7,10 +7,11 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query") || "";
   const size = Math.min(Number(searchParams.get("size") || 6), 12);
+  const from = Number(searchParams.get("from") || 0);
 
   try {
-    // Request 40 to have enough with videos after filtering
-    const params = new URLSearchParams({ from: "0", size: "40" });
+    // Request extra to have enough with videos after filtering
+    const params = new URLSearchParams({ from: String(from), size: "40" });
     if (query) params.set("q", query);
 
     const res = await fetch(`${TASTY_BASE}/recipes/list?${params}`, {
