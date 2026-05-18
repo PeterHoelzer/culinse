@@ -667,7 +667,22 @@ function VideoSection() {
   useEffect(() => {
     fetch("/api/videos?size=40&from=0")
       .then(r => r.json())
-      .then(d => setAllVideos(d.videos || []));
+      .then(d => {
+        const videos: VideoRecipe[] = d.videos || [];
+        // Seeded shuffle based on today's date — different every day
+        const today = new Date();
+        let seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+        const seededRandom = () => {
+          seed = (seed * 1664525 + 1013904223) & 0xffffffff;
+          return (seed >>> 0) / 0xffffffff;
+        };
+        const shuffled = [...videos];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(seededRandom() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        setAllVideos(shuffled);
+      });
   }, []);
 
   const videos = allVideos.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
