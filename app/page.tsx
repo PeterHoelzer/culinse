@@ -658,28 +658,27 @@ interface VideoRecipe {
 }
 
 function VideoSection() {
-  const [videos, setVideos] = useState<VideoRecipe[]>([]);
+  const [allVideos, setAllVideos] = useState<VideoRecipe[]>([]);
+  const [page, setPage] = useState(0);
   const [playing, setPlaying] = useState<string | null>(null);
   const [loadingMore, setLoadingMore] = useState(false);
-  const [offset, setOffset] = useState(6);
+  const PAGE_SIZE = 6;
 
   useEffect(() => {
-    fetch("/api/videos?size=6&from=0")
+    fetch("/api/videos?size=40&from=0")
       .then(r => r.json())
-      .then(d => setVideos(d.videos || []));
+      .then(d => setAllVideos(d.videos || []));
   }, []);
 
-  const loadMore = async () => {
+  const videos = allVideos.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
+
+  const loadMore = () => {
     setLoadingMore(true);
     setPlaying(null);
-    try {
-      const res = await fetch(`/api/videos?size=6&from=${offset}`);
-      const d = await res.json();
-      setVideos(d.videos || []);
-      setOffset(o => o + 6);
-    } finally {
-      setLoadingMore(false);
-    }
+    const next = page + 1;
+    const maxPage = Math.floor((allVideos.length - 1) / PAGE_SIZE);
+    setPage(next > maxPage ? 0 : next);
+    setTimeout(() => setLoadingMore(false), 200);
   };
 
   if (videos.length === 0) return null;
