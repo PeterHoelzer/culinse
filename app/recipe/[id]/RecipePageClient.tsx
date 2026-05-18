@@ -382,17 +382,15 @@ export default function RecipePageClient() {
                   📚 Collections
                 </button>
               )}
-              {recipe.source !== "Tasty" && (
-                <a
-                  href={recipe.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                  style={{ background: "#f97316" }}
-                >
-                  ↗ View Original
-                </a>
-              )}
+              <a
+                href={recipe.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ background: "#f97316" }}
+              >
+                ↗ View Original
+              </a>
               <button
                 onClick={handleShare}
                 className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"

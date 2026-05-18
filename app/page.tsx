@@ -678,9 +678,6 @@ function VideoSection() {
           </h2>
           <p className="text-sm text-gray-500 mt-1">Watch &amp; cook — step by step videos</p>
         </div>
-        <a href="https://tasty.co" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block">
-          More on Tasty →
-        </a>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
