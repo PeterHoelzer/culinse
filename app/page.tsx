@@ -671,10 +671,11 @@ function VideoSection() {
 
   const loadMore = async () => {
     setLoadingMore(true);
+    setPlaying(null);
     try {
       const res = await fetch(`/api/videos?size=6&from=${offset}`);
       const d = await res.json();
-      setVideos(prev => [...prev, ...(d.videos || [])]);
+      setVideos(d.videos || []);
       setOffset(o => o + 6);
     } finally {
       setLoadingMore(false);
