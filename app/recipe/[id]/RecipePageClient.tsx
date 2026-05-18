@@ -134,6 +134,30 @@ export default function RecipePageClient() {
     : null;
 
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
+  const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
+  const [moreVideos, setMoreVideos] = useState<{ id: string; title: string; thumbnail: string | null; videoUrl: string; time: string | null }[]>([]);
+  const [loadingVideos, setLoadingVideos] = useState(false);
+  const [videosLoaded, setVideosLoaded] = useState(false);
+
+  useEffect(() => {
+    if (recipe?.videoUrl) setActiveVideoUrl(recipe.videoUrl);
+  }, [recipe?.videoUrl]);
+
+  const loadMoreVideos = async () => {
+    if (!recipe || videosLoaded) return;
+    setLoadingVideos(true);
+    const tags = recipe.dishTypes?.slice(0, 2).join(",") || "";
+    const excludeId = String(recipe.id).replace("tasty_", "");
+    try {
+      const res = await fetch(`/api/tasty-related?tags=${encodeURIComponent(tags)}&exclude=${excludeId}`);
+      const data = await res.json();
+      setMoreVideos(data.videos || []);
+    } catch { /* silently fail */ }
+    finally {
+      setLoadingVideos(false);
+      setVideosLoaded(true);
+    }
+  };
 
   const toggleIngredient = (i: number) => {
     setCheckedIngredients(prev => {
@@ -201,12 +225,14 @@ export default function RecipePageClient() {
           </Link>
 
           {/* Hero Image / Video */}
-          <div className="relative mb-6 rounded-2xl overflow-hidden shadow-sm">
-            {recipe.videoUrl ? (
+          <div className="relative mb-2 rounded-2xl overflow-hidden shadow-sm">
+            {activeVideoUrl ? (
               <video
-                src={recipe.videoUrl}
+                key={activeVideoUrl}
+                src={activeVideoUrl}
                 controls
                 playsInline
+                autoPlay={activeVideoUrl !== recipe.videoUrl}
                 poster={recipe.image || undefined}
                 className="w-full h-64 sm:h-96 object-cover bg-black"
               />
@@ -227,6 +253,63 @@ export default function RecipePageClient() {
               📖 {recipe.source}
             </div>
           </div>
+
+          {/* More Videos — only for Tasty recipes with video */}
+          {recipe.source === "Tasty" && recipe.videoUrl && (
+            <div className="mb-6">
+              {!videosLoaded ? (
+                <button
+                  onClick={loadMoreVideos}
+                  disabled={loadingVideos}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-gray-500 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all border border-gray-100 bg-white"
+                >
+                  {loadingVideos ? (
+                    <><span className="animate-spin">⏳</span> Loading videos...</>
+                  ) : (
+                    <>▶ More Videos</>
+                  )}
+                </button>
+              ) : moreVideos.length > 0 ? (
+                <div>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 px-1">More Videos</p>
+                  <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+                    {moreVideos.map((v) => (
+                      <button
+                        key={v.id}
+                        onClick={() => setActiveVideoUrl(v.videoUrl)}
+                        className={`flex-shrink-0 w-40 rounded-xl overflow-hidden border-2 transition-all text-left ${
+                          activeVideoUrl === v.videoUrl
+                            ? "border-orange-400 shadow-md"
+                            : "border-transparent hover:border-orange-200"
+                        }`}
+                      >
+                        <div className="relative">
+                          {v.thumbnail ? (
+                            <img src={v.thumbnail} alt={v.title} className="w-full h-24 object-cover bg-gray-100" />
+                          ) : (
+                            <div className="w-full h-24 bg-gray-100 flex items-center justify-center text-2xl">🎬</div>
+                          )}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center">
+                              <span className="text-white text-xs ml-0.5">▶</span>
+                            </div>
+                          </div>
+                          {v.time && (
+                            <span className="absolute bottom-1 right-1 text-white text-xs bg-black/60 px-1.5 py-0.5 rounded">
+                              {v.time}
+                            </span>
+                          )}
+                        </div>
+                        <div className="p-2 bg-white">
+                          <p className="text-xs font-medium text-gray-700 line-clamp-2 leading-snug">{v.title}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          )}
 
           {/* Title + meta + actions */}
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-5">

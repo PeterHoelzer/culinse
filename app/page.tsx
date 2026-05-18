@@ -444,13 +444,6 @@ function DiscoverSection({
             {loading ? "Loading recipes…" : `${recipes.length} recipes from the world's best food sites`}
           </p>
         </div>
-        <button
-          onClick={handleLoadMore}
-          disabled={loadingMore}
-          className="text-sm font-medium text-orange-500 hover:text-orange-700 transition-colors hidden sm:block disabled:opacity-50"
-        >
-          {loadingMore ? "Loading…" : "Load more →"}
-        </button>
       </div>
 
       {/* Trend filters — horizontal scroll on mobile */}
@@ -559,11 +552,22 @@ function DiscoverSection({
           <button onClick={() => fetchRecipes(count)} className="text-sm text-orange-500 mt-2 hover:underline">Try again</button>
         </div>
       ) : recipes.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {recipes.map((r, i) => (
-            <RecipeCard key={r.id} recipe={r} index={i} user={user} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {recipes.map((r, i) => (
+              <RecipeCard key={r.id} recipe={r} index={i} user={user} />
+            ))}
+          </div>
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={handleLoadMore}
+              disabled={loadingMore}
+              className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loadingMore ? "Loading…" : "Load more"}
+            </button>
+          </div>
+        </>
       ) : (
         <div className="text-center py-16 text-gray-400">
           <div className="text-5xl mb-3">🍳</div>
