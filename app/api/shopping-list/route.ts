@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
 
 const SPOONACULAR_KEY = process.env.SPOONACULAR_API_KEY;
 const EDAMAM_APP_ID   = process.env.EDAMAM_APP_ID;
@@ -565,8 +566,16 @@ async function fetchTastyIngredients(ids: string[]): Promise<RawIngredient[]> {
 // ── Main handler ───────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  // Auth check — only logged-in users may call this endpoint
+  const supabase = await createClient();
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const body = await req.json();
-  const recipeIds: string[] = body.recipeIds || [];
+  // Limit to max 21 recipe IDs (7 days × 3 meals) to prevent API quota abuse
+  const recipeIds: string[] = (body.recipeIds || []).slice(0, 21);
 
   if (recipeIds.length === 0) {
     return NextResponse.json({ items: [], grouped: {} });

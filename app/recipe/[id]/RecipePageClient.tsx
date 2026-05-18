@@ -45,6 +45,7 @@ export default function RecipePageClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [imgError, setImgError] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -91,22 +92,26 @@ export default function RecipePageClient() {
 
   const handleSave = async () => {
     if (!user) { window.location.href = "/login"; return; }
-    if (!recipe) return;
-
-    if (saved) {
-      await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
-      setSaved(false);
-    } else {
-      await supabase.from("saved_recipes").insert({
-        user_id: user.id,
-        recipe_id: recipe.id,
-        title: recipe.title,
-        image: recipe.image,
-        source: recipe.source,
-        source_url: recipe.sourceUrl,
-        time: recipe.time,
-      });
-      setSaved(true);
+    if (!recipe || saving) return;
+    setSaving(true);
+    try {
+      if (saved) {
+        await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
+        setSaved(false);
+      } else {
+        await supabase.from("saved_recipes").insert({
+          user_id: user.id,
+          recipe_id: recipe.id,
+          title: recipe.title,
+          image: recipe.image,
+          source: recipe.source,
+          source_url: recipe.sourceUrl,
+          time: recipe.time,
+        });
+        setSaved(true);
+      }
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -174,7 +179,12 @@ export default function RecipePageClient() {
       {schemaData && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schemaData)
+              .replace(/</g, "\\u003c")
+              .replace(/>/g, "\\u003e")
+              .replace(/&/g, "\\u0026"),
+          }}
         />
       )}
 
@@ -366,13 +376,14 @@ export default function RecipePageClient() {
             <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
               <button
                 onClick={handleSave}
-                className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all ${
+                disabled={saving}
+                className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all disabled:opacity-60 disabled:cursor-not-allowed ${
                   saved
                     ? "bg-orange-500 text-white border-orange-500"
                     : "bg-white text-gray-700 border-gray-200 hover:border-orange-300"
                 }`}
               >
-                {saved ? "♥ Saved" : "♡ Save Recipe"}
+                {saving ? "…" : saved ? "♥ Saved" : "♡ Save Recipe"}
               </button>
               {user && (
                 <button

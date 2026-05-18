@@ -822,7 +822,7 @@ function CTA() {
           Free forever. No subscription. Just great food, personalized for you.
         </p>
         <a
-          href="#"
+          href="/login"
           className="inline-flex items-center gap-2 bg-white font-semibold px-8 py-3.5 rounded-full text-base transition-opacity hover:opacity-90"
           style={{ color: "#f97316" }}
         >
