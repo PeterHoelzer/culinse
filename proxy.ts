@@ -1,6 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const PROTECTED_ROUTES = [
+  "/collections",
+  "/meal-planner",
+  "/wochenplaner",
+  "/saved",
+  "/profile",
+];
+
 async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
@@ -25,7 +33,19 @@ async function proxy(request: NextRequest) {
     }
   );
 
-  await supabase.auth.getUser();
+  // Refresh session (keeps Supabase cookies alive)
+  const { data: { session } } = await supabase.auth.getSession();
+
+  // Redirect unauthenticated users away from protected routes
+  const isProtected = PROTECTED_ROUTES.some((path) =>
+    request.nextUrl.pathname.startsWith(path)
+  );
+
+  if (isProtected && !session) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("redirectTo", request.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
+  }
 
   return supabaseResponse;
 }
