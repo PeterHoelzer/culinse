@@ -293,7 +293,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Die Zeitinvestition zahlt sich jeden einzelnen Tag aus — keine „Was gibt's zum Abendessen?"-Entscheidungsmüdigkeit mehr, keine vergessenen Zutaten mehr und deutlich weniger Lebensmittelverschwendung, weil du kaufst, was du wirklich verbrauchst.",
+          "Die Zeitinvestition zahlt sich jeden einzelnen Tag aus — keine „Was gibt’s zum Abendessen?\"-Entscheidungsmüdigkeit mehr, keine vergessenen Zutaten mehr und deutlich weniger Lebensmittelverschwendung, weil du kaufst, was du wirklich verbrauchst.",
       },
     ],
   },
