@@ -12,7 +12,7 @@ export const blogPostsDe: BlogPost[] = [
     sections: [
       {
         content:
-          "Meal Prep klingt nach viel Aufwand — bis du es wirklich ausprobierst. Dann wird es zu einer jener Gewohnheiten, ohne die du dir nicht mehr vorstellen kannst, wie du früher gelebt hast. Du verbringst ein paar Stunden am Sonntag, und plötzlich passieren Mittag- und Abendessen unter der Woche einfach so — kein Herumsuchen, kein „Was soll ich heute Abend bloß kochen?", kein Essen bestellen, weil du zu müde zum Nachdenken bist.",
+          "Meal Prep klingt nach viel Aufwand — bis du es wirklich ausprobierst. Dann wird es zu einer jener Gewohnheiten, ohne die du dir nicht mehr vorstellen kannst, wie du früher gelebt hast. Du verbringst ein paar Stunden am Sonntag, und plötzlich passieren Mittag- und Abendessen unter der Woche einfach so — kein Herumsuchen, kein „Was soll ich heute Abend bloß kochen?\", kein Essen bestellen, weil du zu müde zum Nachdenken bist.",
       },
       {
         content:
