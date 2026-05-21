@@ -1,57 +1,43 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
+import { blogPostsDe } from "@/lib/blog-posts-de";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://culinse.com";
+  const locales = ["en", "de"] as const;
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/pro`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/login`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    ...blogPosts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.publishedAt),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
-    {
-      url: `${baseUrl}/impressum`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.1,
-    },
-    {
-      url: `${baseUrl}/datenschutz`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.1,
-    },
+  const staticPages = [
+    { path: "", changeFrequency: "daily" as const, priority: 1 },
+    { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
+    { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
+    { path: "/login", changeFrequency: "monthly" as const, priority: 0.3 },
+    { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
+    { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
+    { path: "/datenschutz", changeFrequency: "yearly" as const, priority: 0.1 },
   ];
+
+  const staticEntries = locales.flatMap((locale) =>
+    staticPages.map(({ path, changeFrequency, priority }) => ({
+      url: `${baseUrl}/${locale}${path}`,
+      lastModified: new Date(),
+      changeFrequency,
+      priority,
+    }))
+  );
+
+  const enBlogEntries = blogPosts.map((post) => ({
+    url: `${baseUrl}/en/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const deBlogEntries = blogPostsDe.map((post) => ({
+    url: `${baseUrl}/de/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...enBlogEntries, ...deBlogEntries];
 }

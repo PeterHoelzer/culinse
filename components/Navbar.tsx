@@ -2,8 +2,40 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+
+function LocaleSwitcher() {
+  const pathname = usePathname();
+
+  // Detect current locale from URL prefix
+  const locale = pathname.startsWith("/de") ? "de" : "en";
+
+  const switchTo = (newLocale: string) => {
+    // Replace locale prefix in pathname: /en/about → /de/about, /de → /en
+    const withoutLocale = pathname.replace(/^\/(en|de)(\/|$)/, "/");
+    const newPath = `/${newLocale}${withoutLocale === "/" ? "" : withoutLocale}`;
+    window.location.href = newPath;
+  };
+
+  return (
+    <div className="flex items-center gap-0.5 text-xs font-semibold border border-gray-200 rounded-full px-1 py-0.5">
+      <button
+        onClick={() => switchTo("en")}
+        className={`px-2 py-1 rounded-full transition-all ${locale === "en" ? "bg-orange-500 text-white" : "text-gray-400 hover:text-gray-700"}`}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => switchTo("de")}
+        className={`px-2 py-1 rounded-full transition-all ${locale === "de" ? "bg-orange-500 text-white" : "text-gray-400 hover:text-gray-700"}`}
+      >
+        DE
+      </button>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
@@ -59,10 +91,8 @@ export default function Navbar() {
 
           {user && (
             <>
-              {/* Divider */}
               <div className="w-px h-5 bg-gray-200 mx-1" />
 
-              {/* Wochenplaner */}
               {isPro ? (
                 <Link
                   href="/meal-planner"
@@ -80,7 +110,6 @@ export default function Navbar() {
                 </Link>
               )}
 
-              {/* Collections */}
               {isPro ? (
                 <Link
                   href="/collections"
@@ -107,8 +136,10 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Desktop auth */}
+        {/* Desktop auth + locale switcher */}
         <div className="hidden md:flex items-center gap-3">
+          <LocaleSwitcher />
+
           {user ? (
             <>
               {!isPro && (
@@ -143,6 +174,7 @@ export default function Navbar() {
 
         {/* Mobile: right side */}
         <div className="flex md:hidden items-center gap-2">
+          <LocaleSwitcher />
           {!user && (
             <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
               Join
@@ -176,7 +208,6 @@ export default function Navbar() {
             <>
               <div className="h-px bg-gray-100 my-1" />
 
-              {/* Wochenplaner */}
               {isPro ? (
                 <Link
                   href="/meal-planner"
@@ -198,7 +229,6 @@ export default function Navbar() {
                 </Link>
               )}
 
-              {/* Collections */}
               {isPro ? (
                 <Link
                   href="/collections"

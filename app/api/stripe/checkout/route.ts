@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getStripe, STRIPE_PRICE_ID } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {
@@ -40,11 +40,12 @@ export async function POST() {
       .upsert({ id: user.id, stripe_customer_id: customerId });
   }
 
+  const { getStripePriceId } = await import("@/lib/stripe");
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: "subscription",
     payment_method_types: ["card"],
-    line_items: [{ price: STRIPE_PRICE_ID, quantity: 1 }],
+    line_items: [{ price: getStripePriceId(), quantity: 1 }],
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/pro/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pro`,
     allow_promotion_codes: true,

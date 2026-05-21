@@ -133,6 +133,10 @@ async function fetchEdamam(query: string, category: string): Promise<ReturnType<
 // ─── Main route ───────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
+  if (!API_KEY) {
+    return NextResponse.json({ error: "Spoonacular API key not configured" }, { status: 503 });
+  }
+
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query") || "";
   const category = searchParams.get("category") || "";

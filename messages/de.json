@@ -1,0 +1,241 @@
+{
+  "nav": {
+    "discover": "Entdecken",
+    "about": "Über uns",
+    "blog": "Blog",
+    "mealPlanner": "Wochenplaner",
+    "collections": "Sammlungen",
+    "saved": "Gespeichert",
+    "profile": "Profil",
+    "login": "Anmelden",
+    "getStarted": "Loslegen →",
+    "join": "Mitmachen",
+    "logout": "Abmelden",
+    "upgrade": "✦ Upgrade"
+  },
+  "hero": {
+    "badge": "Entwickelt von einem Fleischermeister & Küchenchef",
+    "headline1": "Ein Ort für jedes",
+    "headline2": "Rezept, das du liebst.",
+    "subline": "Culinse bündelt Rezepte aus den besten Quellen — gefiltert nach deiner Ernährung und Allergien, ohne Werbung und ohne Bezahlschranken.",
+    "searchPlaceholder": "Pasta, Curry, Steak…",
+    "searchButton": "Suchen",
+    "tryLabel": "Versuche:",
+    "quickPicks": ["Pasta Carbonara", "Rindersteak", "Thai Curry", "Schokoladenkuchen"],
+    "sourcesMobile": "Von Spoonacular, MealDB, Edamam & Tasty",
+    "sourcesDesktop": "Quellen:",
+    "freeLabel": "Für immer kostenlos · Keine Werbung"
+  },
+  "categories": ["Alle", "Pasta", "Asiatisch", "Koreanisch", "Frühstück", "Meeresfrüchte", "Pizza", "Dessert", "Salat", "Suppe"],
+  "trendFilters": {
+    "trending": "🔥 Trending",
+    "highProtein": "💪 Viel Protein",
+    "lowCarb": "⚡ Low Carb",
+    "keto": "🥑 Keto",
+    "dairyFree": "🥛 Laktosefrei",
+    "mediterranean": "🫒 Mediterran",
+    "forYou": "✨ Für dich"
+  },
+  "timeFilters": {
+    "any": "Beliebig",
+    "15": "≤ 15 min",
+    "30": "≤ 30 min",
+    "60": "≤ 60 min"
+  },
+  "dietFilters": {
+    "all": "Alle Diäten",
+    "vegetarian": "Vegetarisch",
+    "vegan": "Vegan",
+    "glutenFree": "Glutenfrei"
+  },
+  "discover": {
+    "title": "Heute im Trend",
+    "resultsFor": "Ergebnisse für \"{query}\"",
+    "loading": "Rezepte werden geladen…",
+    "recipesFound": "{count} Rezepte aus den besten Food-Seiten der Welt",
+    "loadMore": "Mehr laden",
+    "loadingMore": "Lädt…",
+    "noRecipes": "Keine Rezepte gefunden",
+    "noRecipesSub": "Versuche eine andere Suche oder Kategorie",
+    "error": "Rezepte konnten nicht geladen werden",
+    "tryAgain": "Erneut versuchen",
+    "quotaWarning": "Wir aktualisieren unseren Rezeptkatalog — vollständige Ergebnisse bald wieder verfügbar.",
+    "allergenFiltered": "{count} Allergen gefiltert",
+    "allergensFiltered": "{count} Allergene gefiltert",
+    "profileCta": "Richte dein Ernährungsprofil ein",
+    "profileCtaSub": "Sag uns deine Ernährung & Allergene — erhalte einen personalisierten Feed."
+  },
+  "recipeCard": {
+    "servings": "{count} Portionen",
+    "details": "Details →",
+    "addToCollection": "Zur Sammlung hinzufügen",
+    "save": "Rezept speichern",
+    "removeSave": "Aus Gespeicherten entfernen",
+    "loginToSave": "Anmelden zum Speichern"
+  },
+  "forYou": {
+    "title": "✨ Für dich",
+    "subtitle": "Personalisiert basierend auf deinem Ernährungsprofil",
+    "editProfile": "Profil bearbeiten →"
+  },
+  "videoSection": {
+    "title": "🎬 Video-Rezepte",
+    "subtitle": "Zuschauen & kochen — Schritt für Schritt",
+    "fullRecipe": "Zum Rezept →",
+    "loadMore": "Mehr Videos laden",
+    "loading": "Lädt…"
+  },
+  "howItWorks": {
+    "title": "So funktioniert Culinse",
+    "subtitle": "Wir bringen dir die besten Rezepte aus dem Internet — personalisiert, durchsuchbar und einkaufbar.",
+    "steps": [
+      {
+        "icon": "🔍",
+        "title": "Suchen & Entdecken",
+        "desc": "Suche in Millionen von Rezepten aus den besten Food-Seiten weltweit — alles an einem Ort."
+      },
+      {
+        "icon": "❤️",
+        "title": "Speichern & Personalisieren",
+        "desc": "Speichere Rezepte, die du liebst. Culinse lernt deinen Geschmack und zeigt dir mehr davon."
+      },
+      {
+        "icon": "🛒",
+        "title": "Sofort einkaufen",
+        "desc": "Füge alle Zutaten mit einem Klick zu deinem Einkauf hinzu. Direkt nach Hause geliefert."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Entdecke jetzt Rezepte.",
+    "subtitle": "Für immer kostenlos. Kein Abo. Einfach großartiges Essen, personalisiert für dich.",
+    "button": "Kostenloses Konto erstellen →"
+  },
+  "footer": {
+    "about": "Über uns",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "contact": "Kontakt",
+    "copyright": "© {year} Culinse. Alle Rechte vorbehalten."
+  },
+  "about": {
+    "ourStory": "Unsere Geschichte",
+    "heroTitle1": "Von einem Koch gebaut.",
+    "heroTitle2": "Für alle, die kochen.",
+    "heroSubtitle": "Culinse entstand aus echter Frustration — 20 Minuten lang Seite für Seite besuchen, nur um ein vernünftiges Rezept fürs Abendessen zu finden.",
+    "founderRole": "Küchenchef · Fleischermeister · Gründer",
+    "whereWeGoing": "Wohin wir gehen",
+    "visionTitle": "Die universelle Rezeptplattform",
+    "values": [
+      { "icon": "🍖", "title": "Handwerk", "desc": "Entwickelt von jemandem, der jahrelang am Herd und am Tresen gestanden hat." },
+      { "icon": "❤️", "title": "Leidenschaft", "desc": "Essen ist mehr als Kraftstoff. Culinse ist für Menschen, die wirklich gerne kochen." },
+      { "icon": "✨", "title": "Einfachheit", "desc": "Keine Werbung, keine Abos, kein Durcheinander. Nur Rezepte, die du kochen möchtest." }
+    ],
+    "visionItems": [
+      { "icon": "📅", "title": "Wöchentlicher Mahlzeitenplaner", "desc": "Plane deine ganze Woche in Minuten. Culinse wählt Rezepte passend zu deiner Ernährung, deinem Zeitplan und dem, was du schon im Kühlschrank hast." },
+      { "icon": "🛒", "title": "Intelligente Einkaufslisten", "desc": "Erstelle automatisch eine Einkaufsliste aus deinem Wochenplan — oder sende sie direkt an deinen Lieblingslieferdienst." },
+      { "icon": "📚", "title": "Rezept-Alben", "desc": "Erstelle deine eigenen Sammlungen und teile sie mit Freunden, Familie oder der ganzen Welt." },
+      { "icon": "🌍", "title": "Alles an einem Ort", "desc": "Eine Plattform. Jedes Rezept. Keine Browser-Tabs mehr. Von schnellen Wochentag-Abendessen bis zu ambitionierten Wochendend-Projekten." }
+    ],
+    "discoverCta": "Rezepte entdecken →",
+    "feedbackLabel": "Fragen oder Feedback?"
+  },
+  "login": {
+    "title": "Bei Culinse anmelden",
+    "subtitle": "Speichere Rezepte, plane Mahlzeiten und erhalte personalisierte Empfehlungen.",
+    "emailLabel": "E-Mail-Adresse",
+    "emailPlaceholder": "deine@email.com",
+    "magicLinkButton": "Magic Link senden",
+    "sending": "Wird gesendet…",
+    "checkEmail": "Sieh in dein E-Mail-Postfach — Link wurde gesendet!",
+    "orContinueWith": "oder weiter mit",
+    "googleButton": "Mit Google fortfahren",
+    "noAccount": "Kein Konto nötig — die Registrierung erfolgt automatisch.",
+    "errorLinkExpired": "Dieser Link ist abgelaufen. Bitte fordere einen neuen an."
+  },
+  "profile": {
+    "title": "Dein Profil",
+    "dietLabel": "Ernährungspräferenz",
+    "intolerancesLabel": "Allergene / Unverträglichkeiten",
+    "maxTimeLabel": "Maximale Kochzeit",
+    "saveButton": "Einstellungen speichern",
+    "saving": "Wird gespeichert…",
+    "saved": "Gespeichert ✓",
+    "proTitle": "Pro-Plan",
+    "proManage": "Abo verwalten →",
+    "upgradeTitle": "Auf Pro upgraden",
+    "upgradeButton": "Auf Pro upgraden →"
+  },
+  "saved": {
+    "title": "Gespeicherte Rezepte",
+    "empty": "Noch keine gespeicherten Rezepte",
+    "emptySub": "Speichere Rezepte, die du liebst, und sie erscheinen hier.",
+    "discover": "Rezepte entdecken →"
+  },
+  "collections": {
+    "title": "Meine Sammlungen",
+    "newCollection": "Neue Sammlung",
+    "empty": "Noch keine Sammlungen",
+    "emptySub": "Erstelle deine erste Sammlung, um deine Lieblingsrezepte zu organisieren.",
+    "deleteConfirm": "Diese Sammlung löschen?",
+    "delete": "Löschen",
+    "cancel": "Abbrechen"
+  },
+  "mealPlanner": {
+    "title": "Wochenplaner",
+    "days": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
+    "meals": ["Frühstück", "Mittagessen", "Abendessen"],
+    "addRecipe": "+ Rezept hinzufügen",
+    "shoppingList": "🛒 Einkaufsliste",
+    "clearWeek": "Woche leeren",
+    "thisWeek": "Diese Woche"
+  },
+  "shoppingList": {
+    "title": "Einkaufsliste",
+    "empty": "Füge Rezepte zu deinem Wochenplan hinzu, um eine Einkaufsliste zu erstellen.",
+    "checkAll": "Alle abhaken",
+    "uncheckAll": "Alle abhaken aufheben",
+    "close": "Schließen"
+  },
+  "recipe": {
+    "cookTime": "Kochzeit",
+    "servings": "Portionen",
+    "ingredients": "Zutaten",
+    "instructions": "Zubereitung",
+    "saveRecipe": "♡ Rezept speichern",
+    "savedRecipe": "♥ Gespeichert",
+    "saving": "…",
+    "viewOriginal": "Original ansehen ↗",
+    "addToPlan": "Zum Wochenplan hinzufügen",
+    "backToDiscover": "← Zurück",
+    "notFound": "Rezept nicht gefunden",
+    "source": "Quelle"
+  },
+  "pro": {
+    "title": "Culinse Pro",
+    "subtitle": "Schalte das vollständige Culinse-Erlebnis frei.",
+    "price": "€4,99 / Monat",
+    "features": [
+      "Vollständiger 7-Tage-Wochenplaner",
+      "Automatische Einkaufsliste mit zusammengefassten Mengen",
+      "Unbegrenzte Rezeptsammlungen",
+      "Priorisierter Support"
+    ],
+    "upgradeButton": "Auf Pro upgraden →",
+    "processing": "Wird verarbeitet…",
+    "currentPlan": "Dein aktueller Plan: Pro ✦",
+    "manageButton": "Abo verwalten →"
+  },
+  "blog": {
+    "title": "Culinse Blog",
+    "subtitle": "Tipps, Anleitungen und Ideen für intelligenteres Kochen.",
+    "readMore": "Weiterlesen →",
+    "backToBlog": "← Zurück zum Blog",
+    "minRead": "Min. Lesezeit"
+  },
+  "error": {
+    "notFound": "Seite nicht gefunden",
+    "notFoundSub": "Die gesuchte Seite existiert nicht.",
+    "backHome": "Zurück zur Startseite"
+  }
+}

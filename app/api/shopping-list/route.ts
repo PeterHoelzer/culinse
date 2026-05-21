@@ -573,9 +573,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await req.json();
+  let body: { recipeIds?: unknown };
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
   // Limit to max 21 recipe IDs (7 days × 3 meals) to prevent API quota abuse
-  const recipeIds: string[] = (body.recipeIds || []).slice(0, 21);
+  const recipeIds: string[] = (Array.isArray(body.recipeIds) ? body.recipeIds : []).slice(0, 21);
 
   if (recipeIds.length === 0) {
     return NextResponse.json({ items: [], grouped: {} });
