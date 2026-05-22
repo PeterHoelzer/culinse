@@ -4,13 +4,14 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 
+// Middleware redirects /blog/[slug] → /en/blog/[slug]. Skip static prerender
+// to avoid useTranslations (Navbar) failing without NextIntlClientProvider.
+export const dynamic = "force-dynamic";
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ slug: post.slug }));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

@@ -3,6 +3,10 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { blogPosts } from "@/lib/blog-posts";
 
+// Middleware redirects /blog → /en/blog. Skip static prerender to avoid
+// useTranslations (Navbar) failing without a NextIntlClientProvider.
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Blog – Meal Planning Tips & Guides",
   description:
