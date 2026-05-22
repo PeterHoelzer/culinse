@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef, Fragment } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
@@ -18,7 +19,7 @@ interface Recipe {
   rating: number | null;
 }
 
-// ─── Fallback gradients for cards without images ──────────────────────────────
+// ─── Static constants (not translated) ───────────────────────────────────────
 const GRADIENTS = [
   "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
   "linear-gradient(135deg, #10b981 0%, #065f46 100%)",
@@ -29,29 +30,22 @@ const GRADIENTS = [
 ];
 const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", "🥘", "🍲"];
 
-const CATEGORIES = ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
+// English category values for API calls (order must match messages json)
+const EN_CATEGORIES = ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
 
-const HOW_IT_WORKS = [
-  {
-    icon: "🔍",
-    title: "Search & Discover",
-    desc: "Search millions of recipes from top food sites worldwide — all in one place.",
-  },
-  {
-    icon: "❤️",
-    title: "Save & Personalize",
-    desc: "Save recipes you love. Culinse learns your taste and shows you more of what you like.",
-  },
-  {
-    icon: "🛒",
-    title: "Shop Instantly",
-    desc: "Add all ingredients to your cart with one click. Delivered to your door.",
-  },
+// Trend filter definitions (values are for API, keys are for t())
+const TREND_FILTER_DEFS = [
+  { key: "trending",     value: "",              type: "none" },
+  { key: "highProtein",  value: "30",            type: "minProtein" },
+  { key: "lowCarb",      value: "20",            type: "maxCarbs" },
+  { key: "keto",         value: "ketogenic",     type: "diet" },
+  { key: "dairyFree",    value: "dairy",         type: "intolerances" },
+  { key: "mediterranean",value: "mediterranean", type: "cuisine" },
 ];
 
-// ─── Components ───────────────────────────────────────────────────────────────
-
+// ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
+  const t = useTranslations();
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -75,6 +69,8 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
     onSearch();
   };
 
+  const quickPicks = t.raw("hero.quickPicks") as string[];
+
   return (
     <section className="hero-gradient py-20 sm:py-28 px-4">
       <div className="max-w-3xl mx-auto text-center">
@@ -82,18 +78,18 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
         {/* Credibility badge */}
         <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-orange-700 bg-white/70 border border-orange-200 rounded-full px-4 py-1.5 mb-6 shadow-sm">
           <span>👨‍🍳</span>
-          <span>Built by a Master Butcher &amp; Head Chef</span>
+          <span>{t("hero.badge")}</span>
         </div>
 
         {/* Headline */}
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-5">
-          One place for every<br />
-          <span style={{ color: "#f97316" }}>recipe you&apos;ll love.</span>
+          {t("hero.headline1")}<br />
+          <span style={{ color: "#f97316" }}>{t("hero.headline2")}</span>
         </h1>
 
         {/* Subline */}
         <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
-          Culinse aggregates recipes from multiple top sources — filtered to your diet and allergies, with no ads and no paywalls.
+          {t("hero.subline")}
         </p>
 
         {/* Search bar */}
@@ -107,7 +103,7 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
               onKeyDown={(e) => { if (e.key === "Enter") { setShowSuggestions(false); onSearch(); } }}
               onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
               onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-              placeholder="Pasta, curry, steak…"
+              placeholder={t("hero.searchPlaceholder")}
               className="search-input flex-1 min-w-0 text-sm sm:text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
             />
             <button
@@ -117,7 +113,7 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
               onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
             >
-              Search
+              {t("hero.searchButton")}
             </button>
           </div>
 
@@ -140,8 +136,8 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
 
         {/* Quick picks */}
         <div className="flex flex-wrap justify-center gap-2 mt-4 text-sm text-gray-500">
-          <span>Try:</span>
-          {["Pasta carbonara", "Beef steak", "Thai curry", "Chocolate cake"].map((s) => (
+          <span>{t("hero.tryLabel")}</span>
+          {quickPicks.map((s) => (
             <button
               key={s}
               onClick={() => handleSelect(s)}
@@ -156,18 +152,18 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
         <div className="mt-8 text-xs text-gray-400">
           {/* Mobile: compact version */}
           <div className="sm:hidden flex flex-wrap justify-center items-center gap-2">
-            <span>From Spoonacular, MealDB, Edamam &amp; Tasty</span>
+            <span>{t("hero.sourcesMobile")}</span>
             <span className="text-gray-300">·</span>
-            <span>Free · No ads</span>
+            <span>{t("hero.freeLabel")}</span>
           </div>
           {/* Desktop: badge version */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
-            <span>Sources:</span>
+            <span>{t("hero.sourcesDesktop")}</span>
             {["Spoonacular", "MealDB", "Edamam", "Tasty"].map((src) => (
               <span key={src} className="font-medium text-gray-500 bg-white/60 border border-gray-200 px-2.5 py-1 rounded-full">{src}</span>
             ))}
             <span className="text-gray-300">·</span>
-            <span>Free forever · No ads</span>
+            <span>{t("hero.freeLabel")}</span>
           </div>
         </div>
       </div>
@@ -175,28 +171,37 @@ function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: 
   );
 }
 
+// ─── Category Chips ───────────────────────────────────────────────────────────
 function CategoryChips({ active, setActive }: { active: string; setActive: (v: string) => void }) {
+  const t = useTranslations();
+  const categories = t.raw("categories") as string[];
+
   return (
     <div className="flex gap-2 overflow-x-auto pb-2">
-      {CATEGORIES.map((cat) => (
-        <button
-          key={cat}
-          onClick={() => setActive(cat)}
-          className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
-            active === cat
-              ? "text-white border-transparent"
-              : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
-          }`}
-          style={active === cat ? { background: "#f97316", borderColor: "#f97316" } : {}}
-        >
-          {cat}
-        </button>
-      ))}
+      {categories.map((cat, i) => {
+        const enVal = EN_CATEGORIES[i] ?? cat;
+        return (
+          <button
+            key={enVal}
+            onClick={() => setActive(enVal)}
+            className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border transition-all ${
+              active === enVal
+                ? "text-white border-transparent"
+                : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
+            }`}
+            style={active === enVal ? { background: "#f97316", borderColor: "#f97316" } : {}}
+          >
+            {cat}
+          </button>
+        );
+      })}
     </div>
   );
 }
 
+// ─── Recipe Card ──────────────────────────────────────────────────────────────
 function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
+  const t = useTranslations();
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
@@ -230,7 +235,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
     setShowCollectionModal(true);
   };
 
-return (
+  return (
     <Fragment>
       <a
         href={`/recipe/${recipe.id}`}
@@ -253,18 +258,16 @@ return (
 
           {/* Action buttons — top right */}
           <div className="absolute top-3 right-3 flex gap-1.5">
-            {/* Add to collection */}
             <button
               onClick={handleCollectionClick}
-              title="Add to collection"
+              title={t("recipeCard.addToCollection")}
               className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-orange-500 flex items-center justify-center text-sm transition-all shadow-sm"
             >
               📚
             </button>
-            {/* Save / Heart */}
             <button
               onClick={handleSave}
-              title={user ? (saved ? "Remove from saved" : "Save recipe") : "Log in to save"}
+              title={user ? (saved ? t("recipeCard.removeSave") : t("recipeCard.save")) : t("recipeCard.loginToSave")}
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm transition-all shadow-sm ${
                 saved ? "bg-white text-orange-500" : "bg-white/80 text-gray-400 hover:text-orange-400 hover:bg-white"
               }`}
@@ -282,9 +285,9 @@ return (
           <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
           <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
             {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
-            {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
+            {recipe.servings && <span>🍽 {t("recipeCard.servings", { count: recipe.servings })}</span>}
             {recipe.rating && <span>⭐ {recipe.rating}</span>}
-            <span className="ml-auto text-orange-500 font-medium">Details →</span>
+            <span className="ml-auto text-orange-500 font-medium">{t("recipeCard.details")}</span>
           </div>
         </div>
       </a>
@@ -306,29 +309,7 @@ return (
   );
 }
 
-const TIME_FILTERS = [
-  { label: "Any time", value: "" },
-  { label: "≤ 15 min", value: "15" },
-  { label: "≤ 30 min", value: "30" },
-  { label: "≤ 60 min", value: "60" },
-];
-
-const DIET_FILTERS = [
-  { label: "All diets", value: "" },
-  { label: "Vegetarian", value: "vegetarian" },
-  { label: "Vegan", value: "vegan" },
-  { label: "Gluten-free", value: "gluten free" },
-];
-
-const TREND_FILTERS = [
-  { label: "🔥 Trending", value: "", type: "none" },
-  { label: "💪 High Protein", value: "30", type: "minProtein" },
-  { label: "⚡ Low Carb", value: "20", type: "maxCarbs" },
-  { label: "🥑 Keto", value: "ketogenic", type: "diet" },
-  { label: "🥛 Dairy-free", value: "dairy", type: "intolerances" },
-  { label: "🫒 Mediterranean", value: "mediterranean", type: "cuisine" },
-];
-
+// ─── Discover Section ─────────────────────────────────────────────────────────
 function DiscoverSection({
   search,
   category,
@@ -340,6 +321,27 @@ function DiscoverSection({
   setCategory: (v: string) => void;
   user: User | null | undefined;
 }) {
+  const t = useTranslations();
+
+  const TIME_FILTERS = [
+    { label: t("timeFilters.any"), value: "" },
+    { label: t("timeFilters.15"),  value: "15" },
+    { label: t("timeFilters.30"),  value: "30" },
+    { label: t("timeFilters.60"),  value: "60" },
+  ];
+
+  const DIET_FILTERS = [
+    { label: t("dietFilters.all"),         value: "" },
+    { label: t("dietFilters.vegetarian"),  value: "vegetarian" },
+    { label: t("dietFilters.vegan"),       value: "vegan" },
+    { label: t("dietFilters.glutenFree"),  value: "gluten free" },
+  ];
+
+  const TREND_FILTERS = TREND_FILTER_DEFS.map((d) => ({
+    ...d,
+    label: t(`trendFilters.${d.key}` as Parameters<typeof t>[0]),
+  }));
+
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -378,7 +380,7 @@ function DiscoverSection({
         if (!maxTime && userPrefs.max_time) params.set("maxTime", String(userPrefs.max_time));
         if (userPrefs.intolerances?.length) params.set("intolerances", userPrefs.intolerances.join(","));
       }
-      const activeTrend = TREND_FILTERS.find(f => f.value === trend && f.value !== "");
+      const activeTrend = TREND_FILTER_DEFS.find(f => f.value === trend && f.value !== "");
       if (activeTrend) {
         if (activeTrend.type === "minProtein") params.set("minProtein", activeTrend.value);
         if (activeTrend.type === "maxCarbs") params.set("maxCarbs", activeTrend.value);
@@ -398,6 +400,7 @@ function DiscoverSection({
       setLoading(false);
       setLoadingMore(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, category, maxTime, diet, trend, forYouActive, userPrefs]);
 
   const handleLoadMore = () => {
@@ -422,8 +425,8 @@ function DiscoverSection({
           <div className="flex items-center gap-3">
             <span className="text-2xl">👤</span>
             <div>
-              <p className="text-sm font-semibold text-orange-800">Set up your food profile</p>
-              <p className="text-xs text-orange-600">Tell us your diet & allergens — get a personalized feed.</p>
+              <p className="text-sm font-semibold text-orange-800">{t("discover.profileCta")}</p>
+              <p className="text-xs text-orange-600">{t("discover.profileCtaSub")}</p>
             </div>
           </div>
           <span className="text-orange-400 group-hover:translate-x-1 transition-transform text-sm">→</span>
@@ -433,10 +436,12 @@ function DiscoverSection({
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
-            {search ? `Results for "${search}"` : "Trending Today"}
+            {search ? t("discover.resultsFor", { query: search }) : t("discover.title")}
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            {loading ? "Loading recipes…" : `${recipes.length} recipes from the world's best food sites`}
+            {loading
+              ? t("discover.loading")
+              : t("discover.recipesFound", { count: recipes.length })}
           </p>
         </div>
       </div>
@@ -452,7 +457,7 @@ function DiscoverSection({
             }`}
             style={forYouActive ? { background: "#f97316", borderColor: "#f97316" } : {}}
           >
-            ✨ For You
+            {t("trendFilters.forYou")}
           </button>
         )}
         {TREND_FILTERS.map((f) => (
@@ -516,7 +521,9 @@ function DiscoverSection({
             href="/profile"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-medium text-red-600 hover:bg-red-100 transition-colors"
           >
-            🚫 {userPrefs?.intolerances?.length} allergen{(userPrefs?.intolerances?.length ?? 0) > 1 ? "s" : ""} filtered
+            🚫 {(userPrefs?.intolerances?.length ?? 0) === 1
+              ? t("discover.allergenFiltered", { count: userPrefs?.intolerances?.length ?? 0 })
+              : t("discover.allergensFiltered", { count: userPrefs?.intolerances?.length ?? 0 })}
           </a>
         )}
       </div>
@@ -524,7 +531,7 @@ function DiscoverSection({
       {quotaExceeded && !loading && (
         <div className="mb-5 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700 flex items-center gap-2">
           <span>⏳</span>
-          <span>We&apos;re refreshing our recipe catalog — full results back shortly.</span>
+          <span>{t("discover.quotaWarning")}</span>
         </div>
       )}
 
@@ -537,8 +544,10 @@ function DiscoverSection({
       ) : error ? (
         <div className="text-center py-16 text-gray-400">
           <div className="text-5xl mb-3">⚠️</div>
-          <p className="text-lg font-medium">Could not load recipes</p>
-          <button onClick={() => fetchRecipes(count)} className="text-sm text-orange-500 mt-2 hover:underline">Try again</button>
+          <p className="text-lg font-medium">{t("discover.error")}</p>
+          <button onClick={() => fetchRecipes(count)} className="text-sm text-orange-500 mt-2 hover:underline">
+            {t("discover.tryAgain")}
+          </button>
         </div>
       ) : recipes.length > 0 ? (
         <>
@@ -547,28 +556,31 @@ function DiscoverSection({
               <RecipeCard key={r.id} recipe={r} index={i} user={user} />
             ))}
           </div>
+
           <div className="mt-8 flex justify-center">
             <button
               onClick={handleLoadMore}
               disabled={loadingMore}
               className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loadingMore ? "Loading…" : "Load more"}
+              {loadingMore ? t("discover.loadingMore") : t("discover.loadMore")}
             </button>
           </div>
         </>
       ) : (
         <div className="text-center py-16 text-gray-400">
           <div className="text-5xl mb-3">🍳</div>
-          <p className="text-lg font-medium">No recipes found</p>
-          <p className="text-sm mt-1">Try a different search or category</p>
+          <p className="text-lg font-medium">{t("discover.noRecipes")}</p>
+          <p className="text-sm mt-1">{t("discover.noRecipesSub")}</p>
         </div>
       )}
     </section>
   );
 }
 
+// ─── For You Section ──────────────────────────────────────────────────────────
 function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLoaded: (ids: (number | string)[]) => void }) {
+  const t = useTranslations();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasPrefs, setHasPrefs] = useState(false);
@@ -600,6 +612,7 @@ function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLo
         onLoaded(loaded.map((r: Recipe) => r.id));
         setLoading(false);
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   if (!user || !hasPrefs) return null;
@@ -609,12 +622,12 @@ function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLo
       <div className="flex items-center justify-between mb-5">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            ✨ For You
+            {t("forYou.title")}
           </h2>
-          <p className="text-sm text-gray-500 mt-1">Personalized based on your food profile</p>
+          <p className="text-sm text-gray-500 mt-1">{t("forYou.subtitle")}</p>
         </div>
         <a href="/profile" className="text-sm text-orange-500 hover:text-orange-700 transition-colors">
-          Edit profile →
+          {t("forYou.editProfile")}
         </a>
       </div>
 
@@ -637,6 +650,7 @@ function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLo
   );
 }
 
+// ─── Video Section ────────────────────────────────────────────────────────────
 interface VideoRecipe {
   id: string;
   title: string;
@@ -647,6 +661,7 @@ interface VideoRecipe {
 }
 
 function VideoSection() {
+  const t = useTranslations();
   const [allVideos, setAllVideos] = useState<VideoRecipe[]>([]);
   const [page, setPage] = useState(0);
   const [playing, setPlaying] = useState<string | null>(null);
@@ -690,9 +705,9 @@ function VideoSection() {
     <section className="pb-12" style={{ background: "linear-gradient(180deg, #111827 0%, #1f2937 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 pb-2">
         <h2 className="text-2xl font-bold text-white flex items-center gap-2 mb-1">
-          🎬 Video Recipes
+          {t("videoSection.title")}
         </h2>
-        <p className="text-sm text-gray-400 mb-6">Watch &amp; cook — step by step</p>
+        <p className="text-sm text-gray-400 mb-6">{t("videoSection.subtitle")}</p>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -739,7 +754,7 @@ function VideoSection() {
                       onClick={e => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors"
                     >
-                      Full Recipe →
+                      {t("videoSection.fullRecipe")}
                     </a>
                   </div>
                 </>
@@ -754,7 +769,7 @@ function VideoSection() {
             disabled={loadingMore}
             className="px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all disabled:opacity-50"
           >
-            {loadingMore ? "Loading…" : "Load more videos"}
+            {loadingMore ? t("videoSection.loading") : t("videoSection.loadMore")}
           </button>
         </div>
       </div>
@@ -762,19 +777,23 @@ function VideoSection() {
   );
 }
 
+// ─── How It Works ─────────────────────────────────────────────────────────────
 function HowItWorks() {
+  const t = useTranslations();
+  const steps = t.raw("howItWorks.steps") as Array<{ icon: string; title: string; desc: string }>;
+
   return (
     <section id="how-it-works" className="bg-gray-50 py-16 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-3">How Culinse Works</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">{t("howItWorks.title")}</h2>
           <p className="text-gray-500 text-lg max-w-xl mx-auto">
-            We bring the internet's best recipes to you — personalized, searchable, and shoppable.
+            {t("howItWorks.subtitle")}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {HOW_IT_WORKS.map((step, i) => (
+          {steps.map((step, i) => (
             <div key={i} className="text-center">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 bg-orange-50">
                 {step.icon}
@@ -789,7 +808,10 @@ function HowItWorks() {
   );
 }
 
+// ─── CTA ──────────────────────────────────────────────────────────────────────
 function CTA() {
+  const t = useTranslations();
+
   return (
     <section
       className="py-20 px-4 text-white text-center"
@@ -798,24 +820,27 @@ function CTA() {
       <div className="max-w-2xl mx-auto">
         <div className="text-5xl mb-4">🍽️</div>
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-          Start discovering recipes today.
+          {t("cta.title")}
         </h2>
         <p className="text-orange-100 text-lg mb-8 max-w-lg mx-auto">
-          Free forever. No subscription. Just great food, personalized for you.
+          {t("cta.subtitle")}
         </p>
         <a
           href="/login"
           className="inline-flex items-center gap-2 bg-white font-semibold px-8 py-3.5 rounded-full text-base transition-opacity hover:opacity-90"
           style={{ color: "#f97316" }}
         >
-          Create Free Account →
+          {t("cta.button")}
         </a>
       </div>
     </section>
   );
 }
 
+// ─── Footer ───────────────────────────────────────────────────────────────────
 function Footer() {
+  const t = useTranslations();
+
   return (
     <footer className="bg-gray-900 text-gray-400 py-10 px-4">
       <div className="max-w-6xl mx-auto">
@@ -828,14 +853,14 @@ function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a href="/about" className="hover:text-white transition-colors">About</a>
-            <a href="/impressum" className="hover:text-white transition-colors">Impressum</a>
-            <a href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</a>
-            <a href="mailto:peter@hoelzer.xyz" className="hover:text-white transition-colors">Contact</a>
+            <a href="/about" className="hover:text-white transition-colors">{t("footer.about")}</a>
+            <a href="/impressum" className="hover:text-white transition-colors">{t("footer.impressum")}</a>
+            <a href="/datenschutz" className="hover:text-white transition-colors">{t("footer.datenschutz")}</a>
+            <a href="mailto:peter@hoelzer.xyz" className="hover:text-white transition-colors">{t("footer.contact")}</a>
           </div>
 
           <p className="text-xs text-gray-600">
-            © {new Date().getFullYear()} Culinse. All rights reserved.
+            {t("footer.copyright", { year: new Date().getFullYear() })}
           </p>
         </div>
       </div>
@@ -844,7 +869,6 @@ function Footer() {
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-
 export default function Home() {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
@@ -866,11 +890,15 @@ export default function Home() {
     document.getElementById("discover")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleForYouLoaded = (_ids: (number | string)[]) => {};
+
   return (
     <>
       <SharedNavbar />
       <main className="flex-1">
         <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
+        <ForYouSection user={user} onLoaded={handleForYouLoaded} />
         <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
         <VideoSection />
         <HowItWorks />
