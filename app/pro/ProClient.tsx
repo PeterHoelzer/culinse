@@ -1,27 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
-const FREE_FEATURES = [
-  "Recipes from 4 top sources",
-  "Search & filter by diet, time, cuisine",
-  "Save recipes (♡)",
-  "1 Collection (up to 10 recipes)",
-];
-
-const PRO_FEATURES = [
-  { icon: "📚", label: "Unlimited Collections", sub: "Organize your favorites exactly how you want" },
-  { icon: "📅", label: "Weekly Meal Planner", sub: "Plan breakfast, lunch & dinner for the whole week" },
-  { icon: "🛒", label: "Smart Shopping List", sub: "Auto-generated from your plan, sorted by category" },
-  { icon: "🌍", label: "Share Plans & Collections", sub: "Send a link — anyone can view your collection" },
-  { icon: "⚡", label: "Priority features", sub: "First access to everything we build next" },
-];
-
 export default function ProPage() {
+  const t = useTranslations("pro");
+  const freeFeatures = t.raw("freeFeatures") as string[];
+  const proFeatures = t.raw("proFeatures") as { icon: string; label: string; sub: string }[];
+  const faqItems = t.raw("faqItems") as { q: string; a: string }[];
+
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const [isPro, setIsPro] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -73,15 +64,17 @@ export default function ProPage() {
             ✦ Culinse Pro
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">
-            Your kitchen,<br />fully organized.
+            {t("heroTitle").split("\n").map((line, i) => (
+              <span key={i}>{line}{i === 0 && <br />}</span>
+            ))}
           </h1>
           <p className="text-orange-100 text-lg mb-8 max-w-md mx-auto">
-            Plan your week, build your shopping list, and organize every recipe you love — all in one place.
+            {t("heroSubtitle")}
           </p>
 
           {isPro ? (
             <div className="inline-flex items-center gap-2 bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base">
-              ✓ You&apos;re already Pro!
+              {t("alreadyPro")}
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3">
@@ -90,9 +83,9 @@ export default function ProPage() {
                 disabled={loading}
                 className="bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base hover:bg-orange-50 transition-colors shadow-lg disabled:opacity-60"
               >
-                {loading ? "Loading…" : "Start for €4.99 / month →"}
+                {loading ? t("processing") : t("startButton")}
               </button>
-              <p className="text-orange-200 text-xs">Cancel anytime · No contracts</p>
+              <p className="text-orange-200 text-xs">{t("cancelNote")}</p>
             </div>
           )}
         </div>
@@ -105,10 +98,10 @@ export default function ProPage() {
 
           {/* Free */}
           <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Free</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">{t("freeLabel")}</p>
             <p className="text-2xl font-bold text-gray-900 mb-4">€0</p>
             <ul className="space-y-2.5">
-              {FREE_FEATURES.map((f) => (
+              {freeFeatures.map((f) => (
                 <li key={f} className="flex items-start gap-2.5 text-sm text-gray-600">
                   <span className="text-gray-300 flex-shrink-0 mt-0.5">✓</span>
                   {f}
@@ -125,14 +118,13 @@ export default function ProPage() {
             <div className="absolute top-4 right-4 bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">
               PRO
             </div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-1">Pro</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-1">{t("proLabel")}</p>
             <div className="flex items-baseline gap-1 mb-1">
-              <p className="text-2xl font-bold text-gray-900">€4.99</p>
-              <span className="text-sm text-gray-500">/ month</span>
+              <p className="text-2xl font-bold text-gray-900">{t("price")}</p>
             </div>
-            <p className="text-xs text-gray-400 mb-4">Everything in Free, plus:</p>
+            <p className="text-xs text-gray-400 mb-4">{t("everythingInFree")}</p>
             <ul className="space-y-3">
-              {PRO_FEATURES.map((f) => (
+              {proFeatures.map((f) => (
                 <li key={f.label} className="flex items-start gap-3">
                   <span className="text-xl flex-shrink-0">{f.icon}</span>
                   <div>
@@ -149,13 +141,13 @@ export default function ProPage() {
         <div className="text-center mb-10">
           {isPro ? (
             <div className="space-y-3">
-              <p className="text-sm text-gray-500">You&apos;re on Culinse Pro 🎉</p>
+              <p className="text-sm text-gray-500">{t("activeNote")}</p>
               <button
                 onClick={handlePortal}
                 disabled={loading}
                 className="px-6 py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-60"
               >
-                {loading ? "Loading…" : "Manage subscription →"}
+                {loading ? t("processing") : t("manageButton")}
               </button>
             </div>
           ) : (
@@ -166,36 +158,17 @@ export default function ProPage() {
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-bold text-base hover:opacity-90 transition-opacity shadow-md disabled:opacity-60"
                 style={{ background: "#f97316" }}
               >
-                {loading ? "Loading…" : "Upgrade to Pro →"}
+                {loading ? t("processing") : t("upgradeButton")}
               </button>
-              <p className="text-xs text-gray-400">
-                Secure payment via Stripe · Cancel anytime in your profile
-              </p>
+              <p className="text-xs text-gray-400">{t("cancelNote")}</p>
             </div>
           )}
         </div>
 
         {/* FAQ */}
         <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-5">
-          <h2 className="text-lg font-bold text-gray-900">FAQ</h2>
-          {[
-            {
-              q: "Can I cancel at any time?",
-              a: "Yes, cancel anytime from your profile. You keep Pro access until the end of your billing period.",
-            },
-            {
-              q: "Which payment methods are accepted?",
-              a: "All major credit and debit cards via Stripe. Safe, encrypted, PCI compliant.",
-            },
-            {
-              q: "What happens to my Collections if I cancel?",
-              a: "Your collections stay saved. You just won't be able to create new ones beyond the free limit.",
-            },
-            {
-              q: "Is there a free trial?",
-              a: "Not yet — but with Collections free you can already try the core features before upgrading.",
-            },
-          ].map(({ q, a }) => (
+          <h2 className="text-lg font-bold text-gray-900">{t("faqTitle")}</h2>
+          {faqItems.map(({ q, a }) => (
             <div key={q} className="border-b border-gray-50 last:border-0 pb-4 last:pb-0">
               <p className="text-sm font-semibold text-gray-800 mb-1">{q}</p>
               <p className="text-sm text-gray-500 leading-relaxed">{a}</p>
@@ -205,7 +178,7 @@ export default function ProPage() {
 
         {/* Footer note */}
         <p className="text-center text-xs text-gray-400 mt-8">
-          Questions?{" "}
+          {t("questions")}{" "}
           <a href="mailto:peter@hoelzer.xyz" className="text-orange-500 hover:underline">
             peter@hoelzer.xyz
           </a>

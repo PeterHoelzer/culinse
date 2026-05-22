@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const t = useTranslations("login");
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,9 +19,7 @@ export default function LoginPage() {
   const handleGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
+      options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
   };
 
@@ -33,30 +33,20 @@ export default function LoginPage() {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
-        },
+        options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
       });
-      if (error) {
-        setError(error.message);
-      } else if (data.session) {
-        window.location.href = "/";
-      } else {
-        setMessage("Check your email to confirm your account!");
-      }
+      if (error) setError(error.message);
+      else if (data.session) window.location.href = "/";
+      else setMessage("confirm");
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        setError(error.message);
-      } else {
-        window.location.href = "/";
-      }
+      if (error) setError(error.message);
+      else window.location.href = "/";
     }
-
     setLoading(false);
   };
 
-  if (message) {
+  if (message === "confirm") {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <nav className="bg-white border-b border-gray-100 px-4 py-4">
@@ -72,14 +62,12 @@ export default function LoginPage() {
         <div className="flex-1 flex items-center justify-center px-4">
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-10 w-full max-w-md text-center">
             <div className="text-6xl mb-6">📬</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">Check your inbox!</h2>
-            <p className="text-gray-500 text-sm mb-2">We sent a confirmation link to</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">{t("checkInbox")}</h2>
+            <p className="text-gray-500 text-sm mb-2">{t("sentTo")}</p>
             <p className="font-semibold text-gray-900 text-sm mb-6">{email}</p>
-            <p className="text-gray-400 text-xs mb-8">
-              Click the link in the email to activate your account. Check your spam folder if you don&apos;t see it.
-            </p>
+            <p className="text-gray-400 text-xs mb-8">{t("spamNote")}</p>
             <button onClick={() => setMessage("")} className="text-sm text-orange-500 hover:underline">
-              ← Back to login
+              {t("backToLogin")}
             </button>
           </div>
         </div>
@@ -102,52 +90,52 @@ export default function LoginPage() {
 
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-md">
+
+          {/* Tabs */}
           <div className="flex rounded-xl bg-gray-100 p-1 mb-8">
             <button
               onClick={() => setMode("login")}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${mode === "login" ? "bg-white shadow-sm text-gray-900" : "text-gray-500"}`}
             >
-              Log in
+              {t("logIn")}
             </button>
             <button
               onClick={() => setMode("signup")}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${mode === "signup" ? "bg-white shadow-sm text-gray-900" : "text-gray-500"}`}
             >
-              Sign up
+              {t("signUp")}
             </button>
           </div>
 
           <h1 className="text-2xl font-bold text-gray-900 mb-1">
-            {mode === "login" ? "Welcome back" : "Create your account"}
+            {mode === "login" ? t("welcomeBack") : t("createAccount")}
           </h1>
           <p className="text-gray-500 text-sm mb-6">
-            {mode === "login"
-              ? "Log in to save recipes and get your personal feed."
-              : "Free forever. No credit card required."}
+            {mode === "login" ? t("loginSub") : t("signupSub")}
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t("emailLabel")}</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="you@example.com"
+                placeholder={t("emailPlaceholder")}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent"
                 style={{ "--tw-ring-color": "#f97316" } as React.CSSProperties}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t("passwordLabel")}</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                placeholder="Min. 6 characters"
+                placeholder={t("passwordPlaceholder")}
                 minLength={6}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:border-transparent"
               />
@@ -158,7 +146,7 @@ export default function LoginPage() {
             {mode === "login" && (
               <div className="text-right -mt-2">
                 <a href="/reset-password" className="text-xs text-gray-400 hover:text-orange-500 transition-colors">
-                  Forgot password?
+                  {t("forgotPassword")}
                 </a>
               </div>
             )}
@@ -169,13 +157,13 @@ export default function LoginPage() {
               className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-60"
               style={{ background: "#f97316" }}
             >
-              {loading ? "Loading…" : mode === "login" ? "Log in →" : "Create account →"}
+              {loading ? t("loading") : mode === "login" ? t("loginButton") : t("createButton")}
             </button>
           </form>
 
           <div className="flex items-center gap-3 mt-2">
             <div className="flex-1 h-px bg-gray-100" />
-            <span className="text-xs text-gray-400">or</span>
+            <span className="text-xs text-gray-400">{t("or")}</span>
             <div className="flex-1 h-px bg-gray-100" />
           </div>
 
@@ -190,12 +178,12 @@ export default function LoginPage() {
               <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
               <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
             </svg>
-            Continue with Google
+            {t("googleButton")}
           </button>
 
           <p className="text-xs text-gray-400 text-center mt-6">
-            By continuing, you agree to our{" "}
-            <Link href="/datenschutz" className="underline hover:text-gray-600">Privacy Policy</Link>.
+            {t("privacyNote")}{" "}
+            <Link href="/datenschutz" className="underline hover:text-gray-600">{t("privacyLink")}</Link>.
           </p>
         </div>
       </div>

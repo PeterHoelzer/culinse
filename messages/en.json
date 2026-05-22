@@ -21,12 +21,28 @@
     "searchPlaceholder": "Pasta, curry, steak…",
     "searchButton": "Search",
     "tryLabel": "Try:",
-    "quickPicks": ["Pasta carbonara", "Beef steak", "Thai curry", "Chocolate cake"],
+    "quickPicks": [
+      "Pasta carbonara",
+      "Beef steak",
+      "Thai curry",
+      "Chocolate cake"
+    ],
     "sourcesMobile": "From Spoonacular, MealDB, Edamam & Tasty",
     "sourcesDesktop": "Sources:",
     "freeLabel": "Free forever · No ads"
   },
-  "categories": ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"],
+  "categories": [
+    "All",
+    "Pasta",
+    "Asian",
+    "Korean",
+    "Breakfast",
+    "Seafood",
+    "Pizza",
+    "Dessert",
+    "Salad",
+    "Soup"
+  ],
   "trendFilters": {
     "trending": "🔥 Trending",
     "highProtein": "💪 High Protein",
@@ -127,18 +143,51 @@
     "whereWeGoing": "Where We're Going",
     "visionTitle": "The universal recipe platform",
     "values": [
-      { "icon": "🍖", "title": "Craft", "desc": "Built by someone who has spent years behind the stove and the counter." },
-      { "icon": "❤️", "title": "Passion", "desc": "Food is more than fuel. Culinse is for people who actually love to cook." },
-      { "icon": "✨", "title": "Simplicity", "desc": "No ads, no subscriptions, no clutter. Just recipes you'll want to make." }
+      {
+        "icon": "🍖",
+        "title": "Craft",
+        "desc": "Built by someone who has spent years behind the stove and the counter."
+      },
+      {
+        "icon": "❤️",
+        "title": "Passion",
+        "desc": "Food is more than fuel. Culinse is for people who actually love to cook."
+      },
+      {
+        "icon": "✨",
+        "title": "Simplicity",
+        "desc": "No ads, no subscriptions, no clutter. Just recipes you'll want to make."
+      }
     ],
     "visionItems": [
-      { "icon": "📅", "title": "Weekly Meal Planner", "desc": "Plan your whole week in minutes. Culinse picks recipes that match your diet, schedule, and what's already in your fridge." },
-      { "icon": "🛒", "title": "Smart Shopping Lists", "desc": "Auto-generate a shopping list from your weekly plan — or send it directly to your favorite grocery delivery service." },
-      { "icon": "📚", "title": "Recipe Albums", "desc": "Curate your own collections and share them with friends, family, or the world." },
-      { "icon": "🌍", "title": "Everything in One Place", "desc": "One platform. Every recipe. No more browser tabs. From quick weeknight dinners to ambitious weekend projects." }
+      {
+        "icon": "📅",
+        "title": "Weekly Meal Planner",
+        "desc": "Plan your whole week in minutes. Culinse picks recipes that match your diet, schedule, and what's already in your fridge."
+      },
+      {
+        "icon": "🛒",
+        "title": "Smart Shopping Lists",
+        "desc": "Auto-generate a shopping list from your weekly plan — or send it directly to your favorite grocery delivery service."
+      },
+      {
+        "icon": "📚",
+        "title": "Recipe Albums",
+        "desc": "Curate your own collections and share them with friends, family, or the world."
+      },
+      {
+        "icon": "🌍",
+        "title": "Everything in One Place",
+        "desc": "One platform. Every recipe. No more browser tabs. From quick weeknight dinners to ambitious weekend projects."
+      }
     ],
     "discoverCta": "Discover Recipes →",
-    "feedbackLabel": "Questions or feedback?"
+    "feedbackLabel": "Questions or feedback?",
+    "story1": "I spent 10 years as a head chef in restaurants across Germany. Before that, I trained as a butcher — and in 2024, I earned the title of Fleischermeister (German Master Butcher), the highest professional qualification in the craft. Food isn't something I do on the side. It's everything.",
+    "story2": "But even with all that background, the everyday problem was the same: finding the right recipe meant juggling a dozen browser tabs, clicking past cookie banners, and scrolling through life stories before getting to the actual ingredients. For something that's supposed to be enjoyable, it was exhausting.",
+    "story3": "I kept thinking — why doesn't a platform exist that just works? One place, great recipes, no noise. The way music discovery works, but for food. So I built it.",
+    "story4": "That's Culinse.",
+    "name": "Peter"
   },
   "login": {
     "title": "Sign in to Culinse",
@@ -151,7 +200,26 @@
     "orContinueWith": "or continue with",
     "googleButton": "Continue with Google",
     "noAccount": "No account needed — signing up is automatic.",
-    "errorLinkExpired": "This link has expired. Please request a new one."
+    "errorLinkExpired": "This link has expired. Please request a new one.",
+    "logIn": "Log in",
+    "signUp": "Sign up",
+    "welcomeBack": "Welcome back",
+    "createAccount": "Create your account",
+    "loginSub": "Log in to save recipes and get your personal feed.",
+    "signupSub": "Free forever. No credit card required.",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Min. 6 characters",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Log in →",
+    "createButton": "Create account →",
+    "checkInbox": "Check your inbox!",
+    "sentTo": "We sent a confirmation link to",
+    "spamNote": "Click the link in the email to activate your account. Check your spam folder if you don't see it.",
+    "backToLogin": "← Back to login",
+    "or": "or",
+    "privacyNote": "By continuing, you agree to our",
+    "privacyLink": "Privacy Policy",
+    "loading": "Loading…"
   },
   "profile": {
     "title": "Your Profile",
@@ -183,8 +251,20 @@
   },
   "mealPlanner": {
     "title": "Meal Planner",
-    "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    "meals": ["Breakfast", "Lunch", "Dinner"],
+    "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun"
+    ],
+    "meals": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
     "addRecipe": "+ Add recipe",
     "shoppingList": "🛒 Shopping List",
     "clearWeek": "Clear week",
@@ -224,7 +304,69 @@
     "upgradeButton": "Upgrade to Pro →",
     "processing": "Processing…",
     "currentPlan": "Your current plan: Pro ✦",
-    "manageButton": "Manage subscription →"
+    "manageButton": "Manage subscription →",
+    "heroTitle": "Your kitchen,\nfully organized.",
+    "heroSubtitle": "Plan your week, build your shopping list, and organize every recipe you love — all in one place.",
+    "alreadyPro": "✓ You're already Pro!",
+    "startButton": "Start for €4.99 / month →",
+    "cancelNote": "Cancel anytime · No contracts",
+    "activeNote": "You're on Culinse Pro 🎉",
+    "freeLabel": "Free",
+    "proLabel": "Pro",
+    "everythingInFree": "Everything in Free, plus:",
+    "faqTitle": "FAQ",
+    "faqItems": [
+      {
+        "q": "Can I cancel at any time?",
+        "a": "Yes, cancel anytime from your profile. You keep Pro access until the end of your billing period."
+      },
+      {
+        "q": "Which payment methods are accepted?",
+        "a": "All major credit and debit cards via Stripe. Safe, encrypted, PCI compliant."
+      },
+      {
+        "q": "What happens to my Collections if I cancel?",
+        "a": "Your collections stay saved. You just won't be able to create new ones beyond the free limit."
+      },
+      {
+        "q": "Is there a free trial?",
+        "a": "Not yet — but with Collections free you can already try the core features before upgrading."
+      }
+    ],
+    "freeFeatures": [
+      "Recipes from 4 top sources",
+      "Search & filter by diet, time, cuisine",
+      "Save recipes (♡)",
+      "1 Collection (up to 10 recipes)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Unlimited Collections",
+        "sub": "Organize your favorites exactly how you want"
+      },
+      {
+        "icon": "📅",
+        "label": "Weekly Meal Planner",
+        "sub": "Plan breakfast, lunch & dinner for the whole week"
+      },
+      {
+        "icon": "🛒",
+        "label": "Smart Shopping List",
+        "sub": "Auto-generated from your plan, sorted by category"
+      },
+      {
+        "icon": "🌍",
+        "label": "Share Plans & Collections",
+        "sub": "Send a link — anyone can view your collection"
+      },
+      {
+        "icon": "⚡",
+        "label": "Priority features",
+        "sub": "First access to everything we build next"
+      }
+    ],
+    "questions": "Questions?"
   },
   "blog": {
     "title": "Culinse Blog",

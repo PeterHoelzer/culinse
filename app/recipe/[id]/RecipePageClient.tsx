@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -42,6 +43,9 @@ interface Recipe {
 export default function RecipePageClient() {
   const { id } = useParams();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const t = useTranslations("recipe");
+  const tCard = useTranslations("recipeCard");
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -205,8 +209,8 @@ export default function RecipePageClient() {
       {error && (
         <div className="max-w-4xl mx-auto px-4 py-24 text-center text-gray-400">
           <div className="text-5xl mb-3">⚠️</div>
-          <p className="text-lg font-medium">Recipe not found</p>
-          <Link href="/" className="text-orange-500 text-sm mt-2 hover:underline block">← Back to home</Link>
+          <p className="text-lg font-medium">{t("notFound")}</p>
+          <Link href="/" className="text-orange-500 text-sm mt-2 hover:underline block">{t("backToDiscover")}</Link>
         </div>
       )}
 
@@ -231,7 +235,7 @@ export default function RecipePageClient() {
 
           {/* Breadcrumb */}
           <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-5">
-            ← Discover
+            {t("backToDiscover")}
           </Link>
 
           {/* Hero Image / Video */}
@@ -383,7 +387,7 @@ export default function RecipePageClient() {
                     : "bg-white text-gray-700 border-gray-200 hover:border-orange-300"
                 }`}
               >
-                {saving ? "…" : saved ? "♥ Saved" : "♡ Save Recipe"}
+                {saving ? t("saving") : saved ? t("savedRecipe") : t("saveRecipe")}
               </button>
               {user && (
                 <button
@@ -400,7 +404,7 @@ export default function RecipePageClient() {
                 className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 style={{ background: "#f97316" }}
               >
-                ↗ View Original
+                {t("viewOriginal")}
               </a>
               <button
                 onClick={handleShare}
@@ -416,7 +420,7 @@ export default function RecipePageClient() {
             <div className="md:col-span-1">
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:sticky md:top-20">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold text-gray-900">Ingredients</h2>
+                  <h2 className="text-lg font-bold text-gray-900">{t("ingredients")}</h2>
                   {checkedIngredients.size > 0 && (
                     <button
                       onClick={() => setCheckedIngredients(new Set())}
@@ -483,7 +487,7 @@ export default function RecipePageClient() {
 
             <div className="md:col-span-2">
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                <h2 className="text-lg font-bold text-gray-900 mb-5">Instructions</h2>
+                <h2 className="text-lg font-bold text-gray-900 mb-5">{t("instructions")}</h2>
                 {recipe.instructions.length > 0 ? (
                   <ol className="space-y-5">
                     {recipe.instructions.map((step) => (

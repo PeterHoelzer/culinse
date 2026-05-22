@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, Fragment } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -95,6 +96,7 @@ function SavedCard({ recipe, index, onRemove }: { recipe: SavedRecipe; index: nu
 }
 
 export default function SavedPage() {
+  const t = useTranslations("saved");
   const [user, setUser] = useState<User | null>(null);
   const [recipes, setRecipes] = useState<SavedRecipe[]>([]);
   const [loading, setLoading] = useState(true);
@@ -128,9 +130,9 @@ export default function SavedPage() {
       {/* Header */}
       <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="py-10 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-1">♥ My Saved Recipes</h1>
+          <h1 className="text-3xl font-bold text-white mb-1">♥ {t("title")}</h1>
           <p className="text-orange-100 text-sm">
-            {loading ? "Loading…" : recipes.length === 0 ? "No recipes saved yet" : `${recipes.length} recipe${recipes.length !== 1 ? "s" : ""} in your collection`}
+            {loading ? "…" : recipes.length === 0 ? t("empty") : `${recipes.length} Rezepte`}
           </p>
         </div>
       </div>
@@ -149,14 +151,14 @@ export default function SavedPage() {
         {!loading && recipes.length === 0 && (
           <div className="text-center py-24">
             <div className="text-6xl mb-4">♡</div>
-            <p className="text-xl font-semibold text-gray-800 mb-2">Your cookbook is empty</p>
-            <p className="text-sm text-gray-500 mb-8">Click the ♡ on any recipe to save it here.</p>
+            <p className="text-xl font-semibold text-gray-800 mb-2">{t("empty")}</p>
+            <p className="text-sm text-gray-500 mb-8">{t("emptySub")}</p>
             <Link
               href="/"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               style={{ background: "#f97316" }}
             >
-              Discover Recipes →
+              {t("discover")}
             </Link>
           </div>
         )}

@@ -21,12 +21,28 @@
     "searchPlaceholder": "Pasta, Curry, Steak…",
     "searchButton": "Suchen",
     "tryLabel": "Versuche:",
-    "quickPicks": ["Pasta Carbonara", "Rindersteak", "Thai Curry", "Schokoladenkuchen"],
+    "quickPicks": [
+      "Pasta Carbonara",
+      "Rindersteak",
+      "Thai Curry",
+      "Schokoladenkuchen"
+    ],
     "sourcesMobile": "Von Spoonacular, MealDB, Edamam & Tasty",
     "sourcesDesktop": "Quellen:",
     "freeLabel": "Für immer kostenlos · Keine Werbung"
   },
-  "categories": ["Alle", "Pasta", "Asiatisch", "Koreanisch", "Frühstück", "Meeresfrüchte", "Pizza", "Dessert", "Salat", "Suppe"],
+  "categories": [
+    "Alle",
+    "Pasta",
+    "Asiatisch",
+    "Koreanisch",
+    "Frühstück",
+    "Meeresfrüchte",
+    "Pizza",
+    "Dessert",
+    "Salat",
+    "Suppe"
+  ],
   "trendFilters": {
     "trending": "🔥 Trending",
     "highProtein": "💪 Viel Protein",
@@ -127,18 +143,51 @@
     "whereWeGoing": "Wohin wir gehen",
     "visionTitle": "Die universelle Rezeptplattform",
     "values": [
-      { "icon": "🍖", "title": "Handwerk", "desc": "Entwickelt von jemandem, der jahrelang am Herd und am Tresen gestanden hat." },
-      { "icon": "❤️", "title": "Leidenschaft", "desc": "Essen ist mehr als Kraftstoff. Culinse ist für Menschen, die wirklich gerne kochen." },
-      { "icon": "✨", "title": "Einfachheit", "desc": "Keine Werbung, keine Abos, kein Durcheinander. Nur Rezepte, die du kochen möchtest." }
+      {
+        "icon": "🍖",
+        "title": "Handwerk",
+        "desc": "Entwickelt von jemandem, der jahrelang am Herd und am Tresen gestanden hat."
+      },
+      {
+        "icon": "❤️",
+        "title": "Leidenschaft",
+        "desc": "Essen ist mehr als Kraftstoff. Culinse ist für Menschen, die wirklich gerne kochen."
+      },
+      {
+        "icon": "✨",
+        "title": "Einfachheit",
+        "desc": "Keine Werbung, keine Abos, kein Durcheinander. Nur Rezepte, die du kochen möchtest."
+      }
     ],
     "visionItems": [
-      { "icon": "📅", "title": "Wöchentlicher Mahlzeitenplaner", "desc": "Plane deine ganze Woche in Minuten. Culinse wählt Rezepte passend zu deiner Ernährung, deinem Zeitplan und dem, was du schon im Kühlschrank hast." },
-      { "icon": "🛒", "title": "Intelligente Einkaufslisten", "desc": "Erstelle automatisch eine Einkaufsliste aus deinem Wochenplan — oder sende sie direkt an deinen Lieblingslieferdienst." },
-      { "icon": "📚", "title": "Rezept-Alben", "desc": "Erstelle deine eigenen Sammlungen und teile sie mit Freunden, Familie oder der ganzen Welt." },
-      { "icon": "🌍", "title": "Alles an einem Ort", "desc": "Eine Plattform. Jedes Rezept. Keine Browser-Tabs mehr. Von schnellen Wochentag-Abendessen bis zu ambitionierten Wochendend-Projekten." }
+      {
+        "icon": "📅",
+        "title": "Wöchentlicher Mahlzeitenplaner",
+        "desc": "Plane deine ganze Woche in Minuten. Culinse wählt Rezepte passend zu deiner Ernährung, deinem Zeitplan und dem, was du schon im Kühlschrank hast."
+      },
+      {
+        "icon": "🛒",
+        "title": "Intelligente Einkaufslisten",
+        "desc": "Erstelle automatisch eine Einkaufsliste aus deinem Wochenplan — oder sende sie direkt an deinen Lieblingslieferdienst."
+      },
+      {
+        "icon": "📚",
+        "title": "Rezept-Alben",
+        "desc": "Erstelle deine eigenen Sammlungen und teile sie mit Freunden, Familie oder der ganzen Welt."
+      },
+      {
+        "icon": "🌍",
+        "title": "Alles an einem Ort",
+        "desc": "Eine Plattform. Jedes Rezept. Keine Browser-Tabs mehr. Von schnellen Wochentag-Abendessen bis zu ambitionierten Wochendend-Projekten."
+      }
     ],
     "discoverCta": "Rezepte entdecken →",
-    "feedbackLabel": "Fragen oder Feedback?"
+    "feedbackLabel": "Fragen oder Feedback?",
+    "story1": "Ich habe 10 Jahre als Küchenchef in Restaurants in ganz Deutschland gearbeitet. Davor absolvierte ich eine Ausbildung als Metzger — und 2024 erlangte ich den Titel Fleischermeister, die höchste berufliche Qualifikation im Handwerk. Essen ist für mich keine Nebenbeschäftigung. Es ist alles.",
+    "story2": "Aber auch mit diesem Hintergrund war das alltägliche Problem dasselbe: Das richtige Rezept zu finden bedeutete, mit einem Dutzend Browser-Tabs zu jonglieren, Cookie-Banner wegzuklicken und durch Lebensgeschichten zu scrollen, bevor man zu den eigentlichen Zutaten kam. Für etwas, das Freude bereiten sollte, war es einfach erschöpfend.",
+    "story3": "Ich dachte immer: Warum gibt es keine Plattform, die einfach funktioniert? Ein Ort, tolle Rezepte, kein Lärm. So wie Musikentdeckung funktioniert — nur für Essen. Also habe ich sie gebaut.",
+    "story4": "Das ist Culinse.",
+    "name": "Peter"
   },
   "login": {
     "title": "Bei Culinse anmelden",
@@ -151,7 +200,26 @@
     "orContinueWith": "oder weiter mit",
     "googleButton": "Mit Google fortfahren",
     "noAccount": "Kein Konto nötig — die Registrierung erfolgt automatisch.",
-    "errorLinkExpired": "Dieser Link ist abgelaufen. Bitte fordere einen neuen an."
+    "errorLinkExpired": "Dieser Link ist abgelaufen. Bitte fordere einen neuen an.",
+    "logIn": "Anmelden",
+    "signUp": "Registrieren",
+    "welcomeBack": "Willkommen zurück",
+    "createAccount": "Konto erstellen",
+    "loginSub": "Melde dich an, um Rezepte zu speichern und deinen persönlichen Feed zu erhalten.",
+    "signupSub": "Für immer kostenlos. Keine Kreditkarte erforderlich.",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Min. 6 Zeichen",
+    "forgotPassword": "Passwort vergessen?",
+    "loginButton": "Anmelden →",
+    "createButton": "Konto erstellen →",
+    "checkInbox": "Sieh in dein Postfach!",
+    "sentTo": "Wir haben einen Bestätigungslink gesendet an",
+    "spamNote": "Klicke auf den Link in der E-Mail, um dein Konto zu aktivieren. Schau auch im Spam-Ordner nach.",
+    "backToLogin": "← Zurück zur Anmeldung",
+    "or": "oder",
+    "privacyNote": "Durch Fortfahren stimmst du unserer",
+    "privacyLink": "Datenschutzerklärung",
+    "loading": "Lädt…"
   },
   "profile": {
     "title": "Dein Profil",
@@ -183,8 +251,20 @@
   },
   "mealPlanner": {
     "title": "Wochenplaner",
-    "days": ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"],
-    "meals": ["Frühstück", "Mittagessen", "Abendessen"],
+    "days": [
+      "Mo",
+      "Di",
+      "Mi",
+      "Do",
+      "Fr",
+      "Sa",
+      "So"
+    ],
+    "meals": [
+      "Frühstück",
+      "Mittagessen",
+      "Abendessen"
+    ],
     "addRecipe": "+ Rezept hinzufügen",
     "shoppingList": "🛒 Einkaufsliste",
     "clearWeek": "Woche leeren",
@@ -224,7 +304,69 @@
     "upgradeButton": "Auf Pro upgraden →",
     "processing": "Wird verarbeitet…",
     "currentPlan": "Dein aktueller Plan: Pro ✦",
-    "manageButton": "Abo verwalten →"
+    "manageButton": "Abo verwalten →",
+    "heroTitle": "Deine Küche,\nvollständig organisiert.",
+    "heroSubtitle": "Plane deine Woche, erstelle deine Einkaufsliste und organisiere jedes Rezept, das du liebst — alles an einem Ort.",
+    "alreadyPro": "✓ Du bist bereits Pro!",
+    "startButton": "Für €4,99 / Monat starten →",
+    "cancelNote": "Jederzeit kündbar · Keine Verträge",
+    "activeNote": "Du nutzt Culinse Pro 🎉",
+    "freeLabel": "Kostenlos",
+    "proLabel": "Pro",
+    "everythingInFree": "Alles aus Kostenlos, plus:",
+    "faqTitle": "FAQ",
+    "faqItems": [
+      {
+        "q": "Kann ich jederzeit kündigen?",
+        "a": "Ja, jederzeit über dein Profil kündbar. Du behältst Pro-Zugang bis zum Ende deines Abrechnungszeitraums."
+      },
+      {
+        "q": "Welche Zahlungsmethoden werden akzeptiert?",
+        "a": "Alle gängigen Kredit- und Debitkarten über Stripe. Sicher, verschlüsselt, PCI-konform."
+      },
+      {
+        "q": "Was passiert mit meinen Sammlungen wenn ich kündige?",
+        "a": "Deine Sammlungen bleiben gespeichert. Du kannst nur keine neuen mehr über das kostenlose Limit hinaus erstellen."
+      },
+      {
+        "q": "Gibt es eine kostenlose Testphase?",
+        "a": "Noch nicht — aber mit der kostenlosen Sammlung kannst du die Kernfunktionen bereits vor einem Upgrade ausprobieren."
+      }
+    ],
+    "freeFeatures": [
+      "Rezepte aus 4 Top-Quellen",
+      "Suche & Filter nach Ernährung, Zeit, Küche",
+      "Rezepte speichern (♡)",
+      "1 Sammlung (bis zu 10 Rezepte)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Unbegrenzte Sammlungen",
+        "sub": "Organisiere deine Favoriten genau so, wie du es möchtest"
+      },
+      {
+        "icon": "📅",
+        "label": "Wöchentlicher Mahlzeitenplaner",
+        "sub": "Plane Frühstück, Mittagessen & Abendessen für die ganze Woche"
+      },
+      {
+        "icon": "🛒",
+        "label": "Intelligente Einkaufsliste",
+        "sub": "Automatisch aus deinem Plan erstellt, nach Kategorie sortiert"
+      },
+      {
+        "icon": "🌍",
+        "label": "Pläne & Sammlungen teilen",
+        "sub": "Link senden — jeder kann deine Sammlung ansehen"
+      },
+      {
+        "icon": "⚡",
+        "label": "Priorität bei neuen Features",
+        "sub": "Erster Zugang zu allem, was wir als nächstes bauen"
+      }
+    ],
+    "questions": "Fragen?"
   },
   "blog": {
     "title": "Culinse Blog",
