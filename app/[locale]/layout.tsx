@@ -86,7 +86,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <link rel="alternate" hrefLang="x-default" href="https://culinse.com/en" />
       </head>
       <body className="min-h-full flex flex-col bg-white text-gray-900">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
         <Analytics />
