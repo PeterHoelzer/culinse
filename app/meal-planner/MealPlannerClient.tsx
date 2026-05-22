@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
@@ -29,15 +30,10 @@ interface PickerTarget {
   slot: "breakfast" | "lunch" | "dinner";
 }
 
-const DAYS_FULL = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-const SLOTS = [
-  { value: "breakfast" as const, label: "Breakfast", emoji: "🌅" },
-  { value: "lunch"     as const, label: "Lunch",     emoji: "☀️" },
-  { value: "dinner"    as const, label: "Dinner",    emoji: "🌙" },
-];
 const FREE_PLAN_LIMIT = 1;
 
 export default function MealPlannerPage() {
+  const t = useTranslations("mealPlanner");
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [isPro, setIsPro] = useState(false);
@@ -52,6 +48,14 @@ export default function MealPlannerPage() {
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
+
+  const DAYS_FULL = t.raw("daysFull") as string[];
+  const MEAL_LABELS = t.raw("meals") as string[];
+  const SLOTS = [
+    { value: "breakfast" as const, label: MEAL_LABELS[0], emoji: "🌅" },
+    { value: "lunch"     as const, label: MEAL_LABELS[1], emoji: "☀️" },
+    { value: "dinner"    as const, label: MEAL_LABELS[2], emoji: "🌙" },
+  ];
 
   const loadEntries = useCallback(async (planId: string) => {
     if (!planId) return;
@@ -81,7 +85,7 @@ export default function MealPlannerPage() {
       if (list.length === 0) {
         const { data: created } = await supabase
           .from("meal_plans")
-          .insert({ user_id: user.id, name: "My Meal Plan", is_active: true })
+          .insert({ user_id: user.id, name: t("planName"), is_active: true })
           .select()
           .single();
         if (created) list = [created];
@@ -129,7 +133,7 @@ export default function MealPlannerPage() {
 
   const handleDeletePlan = async (planId: string) => {
     if (plans.length <= 1) return;
-    if (!confirm("Delete plan? All entries will be lost.")) return;
+    if (!confirm(t("deletePlanConfirm"))) return;
     await supabase.from("meal_plans").delete().eq("id", planId);
     const remaining = plans.filter(p => p.id !== planId);
     setPlans(remaining);
@@ -185,8 +189,8 @@ export default function MealPlannerPage() {
       {/* Hero */}
       <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pb-14 pt-10 px-4">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-1">📅 Meal Planner</h1>
-          <p className="text-orange-100 text-sm mb-4">Tap a slot to add a recipe from your collections.</p>
+          <h1 className="text-3xl font-bold text-white mb-1">📅 {t("title")}</h1>
+          <p className="text-orange-100 text-sm mb-4">{t("tapToAdd")}</p>
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-3">
               <div className="bg-white/20 rounded-full h-1.5 w-36">
@@ -195,14 +199,14 @@ export default function MealPlannerPage() {
                   style={{ width: `${(totalEntries / 21) * 100}%` }}
                 />
               </div>
-              <p className="text-orange-100 text-xs">{totalEntries}/21 meals planned</p>
+              <p className="text-orange-100 text-xs">{t("mealsPlanned", { n: totalEntries })}</p>
             </div>
             {totalEntries > 0 && (
               <button
                 onClick={() => setShowShoppingList(true)}
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-orange-600 text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105"
               >
-                🛒 Shopping List
+                {t("shoppingList")}
               </button>
             )}
           </div>
@@ -264,7 +268,7 @@ export default function MealPlannerPage() {
                   value={newPlanName}
                   onChange={e => setNewPlanName(e.target.value)}
                   onKeyDown={e => { if (e.key === "Enter") handleCreatePlan(); if (e.key === "Escape") setCreatingPlan(false); }}
-                  placeholder="Name your plan…"
+                  placeholder={t("namePlanPlaceholder")}
                   className="text-sm border border-orange-300 rounded-full px-3 py-1.5 outline-none w-36"
                 />
                 <button onClick={handleCreatePlan} className="text-orange-500 font-semibold text-sm">✓</button>
@@ -278,7 +282,7 @@ export default function MealPlannerPage() {
                 }}
                 className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap"
               >
-                {!isPro && plans.length >= FREE_PLAN_LIMIT ? "✦ Pro — more plans" : "+ New Plan"}
+                {!isPro && plans.length >= FREE_PLAN_LIMIT ? t("proMorePlans") : t("newPlan")}
               </button>
             )}
           </div>
@@ -355,7 +359,7 @@ export default function MealPlannerPage() {
                             className="flex items-center gap-2 text-sm text-gray-300 hover:text-orange-400 transition-colors"
                           >
                             <span className="w-6 h-6 rounded-full border-2 border-dashed border-gray-200 hover:border-orange-300 flex items-center justify-center text-xs transition-colors">+</span>
-                            <span className="italic">Add recipe</span>
+                            <span className="italic">{t("addRecipe")}</span>
                           </button>
                         )}
                       </div>
@@ -378,14 +382,14 @@ export default function MealPlannerPage() {
         {totalEntries === 0 && (
           <div className="mt-8 text-center py-10">
             <p className="text-4xl mb-3">📅</p>
-            <p className="text-gray-600 font-semibold mb-1">Your plan is empty</p>
-            <p className="text-sm text-gray-400 mb-4">Tap a slot to add a recipe from your collections.</p>
+            <p className="text-gray-600 font-semibold mb-1">{t("emptyTitle")}</p>
+            <p className="text-sm text-gray-400 mb-4">{t("emptySub")}</p>
             <div className="flex justify-center gap-3">
               <Link href="/saved" className="text-sm font-semibold text-orange-500 hover:text-orange-600 border border-orange-200 px-4 py-2 rounded-full hover:bg-orange-50 transition-all">
-                ♥ My Recipes
+                {t("myRecipes")}
               </Link>
               <Link href="/collections" className="text-sm font-semibold text-orange-500 hover:text-orange-600 border border-orange-200 px-4 py-2 rounded-full hover:bg-orange-50 transition-all">
-                📚 Collections
+                {t("collections")}
               </Link>
             </div>
           </div>
@@ -410,7 +414,7 @@ export default function MealPlannerPage() {
         <ShoppingListDrawer
           recipeIds={shoppingRecipeIds}
           recipeTitles={entries.map(e => e.recipe_title)}
-          planName={plans.find(p => p.id === activePlanId)?.name ?? "Meal Plan"}
+          planName={plans.find(p => p.id === activePlanId)?.name ?? t("planName")}
           onClose={() => setShowShoppingList(false)}
         />
       )}
@@ -421,17 +425,17 @@ export default function MealPlannerPage() {
           <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
             <div className="text-center mb-4">
               <div className="text-4xl mb-2">✦</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-1">More Plans with Pro</h2>
-              <p className="text-sm text-gray-500">With Culinse Pro, you can create unlimited meal plans.</p>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">{t("proModalTitle")}</h2>
+              <p className="text-sm text-gray-500">{t("proModalSub")}</p>
             </div>
             <Link
               href="/pro"
               className="block w-full py-3.5 rounded-full text-white font-semibold text-center text-sm"
               style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
             >
-              Upgrade to Pro — €4.99 / month
+              {t("proModalButton")}
             </Link>
-            <button onClick={() => setShowProModal(false)} className="w-full mt-3 py-2 text-sm text-gray-400 hover:text-gray-600">Cancel</button>
+            <button onClick={() => setShowProModal(false)} className="w-full mt-3 py-2 text-sm text-gray-400 hover:text-gray-600">{t("cancel")}</button>
           </div>
         </div>
       )}

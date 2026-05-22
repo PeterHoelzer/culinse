@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -40,6 +41,7 @@ function CollectionCard({
   collection: Collection;
   index: number;
 }) {
+  const t = useTranslations("collections");
   const images = collection.preview_images ?? [];
   const gradient = CARD_GRADIENTS[index % CARD_GRADIENTS.length];
 
@@ -117,8 +119,7 @@ function CollectionCard({
                 {collection.name}
               </h3>
               <p className="text-white/70 text-xs">
-                {collection.recipe_count ?? 0} recipe
-                {(collection.recipe_count ?? 0) !== 1 ? "s" : ""}
+                {t("recipeCount", { count: collection.recipe_count ?? 0 })}
               </p>
             </div>
           </div>
@@ -141,6 +142,8 @@ function CollectionCard({
 // ─── Pro Upgrade Modal ────────────────────────────────────────────────────────
 
 function ProUpgradeModal({ onClose }: { onClose: () => void }) {
+  const t = useTranslations("collections");
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
@@ -153,14 +156,10 @@ function ProUpgradeModal({ onClose }: { onClose: () => void }) {
           ✦ Culinse Pro
         </div>
         <h2 className="text-xl font-bold text-gray-900 mb-2">
-          Unlimited Collections
+          {t("upgradeTitle")}
         </h2>
-        <p className="text-sm text-gray-500 mb-2 leading-relaxed">
-          Free plan includes <strong>1 collection</strong> with up to{" "}
-          <strong>10 recipes</strong>. Upgrade to Pro for unlimited everything.
-        </p>
-        <p className="text-2xl font-bold text-gray-900 mb-6">
-          €4.99<span className="text-sm font-normal text-gray-400"> / month</span>
+        <p className="text-sm text-gray-500 mb-6 leading-relaxed">
+          {t("upgradeSubtext")}
         </p>
         <div className="space-y-3">
           <a
@@ -168,13 +167,13 @@ function ProUpgradeModal({ onClose }: { onClose: () => void }) {
             className="block w-full py-3 rounded-xl text-white font-bold text-sm hover:opacity-90 transition-opacity"
             style={{ background: "#f97316" }}
           >
-            Upgrade to Pro →
+            {t("upgradeButton")}
           </a>
           <button
             onClick={onClose}
             className="block w-full py-3 rounded-xl border border-gray-200 text-gray-500 text-sm hover:bg-gray-50 transition-colors"
           >
-            Maybe later
+            {t("cancel")}
           </button>
         </div>
       </div>
@@ -191,6 +190,7 @@ function NewCollectionModal({
   onClose: () => void;
   onCreated: (c: Collection) => void;
 }) {
+  const t = useTranslations("collections");
   const [name, setName] = useState("");
   const [emoji, setEmoji] = useState("📚");
   const [description, setDescription] = useState("");
@@ -240,13 +240,13 @@ function NewCollectionModal({
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-xl font-bold text-gray-900 mb-5">
-          New Collection
+          {t("newCollectionTitle")}
         </h2>
 
         {/* Emoji picker */}
         <div className="mb-4">
           <p className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
-            Icon
+            {t("iconLabel")}
           </p>
           <div className="flex flex-wrap gap-2">
             {EMOJI_OPTIONS.map((e) => (
@@ -268,13 +268,13 @@ function NewCollectionModal({
         {/* Name */}
         <div className="mb-4">
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5 block">
-            Name
+            {t("nameLabel")}
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="e.g. Italian Favorites"
+            placeholder={t("namePlaceholder")}
             className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
             onKeyDown={(e) => e.key === "Enter" && handleCreate()}
             autoFocus
@@ -284,16 +284,16 @@ function NewCollectionModal({
         {/* Description */}
         <div className="mb-4">
           <label className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5 block">
-            Description{" "}
+            {t("descLabel")}{" "}
             <span className="normal-case font-normal text-gray-300">
-              (optional)
+              {t("descOptional")}
             </span>
           </label>
           <input
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="A short description…"
+            placeholder={t("descPlaceholder")}
             className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
           />
         </div>
@@ -301,9 +301,9 @@ function NewCollectionModal({
         {/* Public toggle */}
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-gray-700">Make public</p>
+            <p className="text-sm font-medium text-gray-700">{t("publicLabel")}</p>
             <p className="text-xs text-gray-400">
-              Anyone with the link can view
+              {t("publicSub")}
             </p>
           </div>
           <button
@@ -326,7 +326,7 @@ function NewCollectionModal({
             onClick={onClose}
             className="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
           >
-            Cancel
+            {t("cancel")}
           </button>
           <button
             onClick={handleCreate}
@@ -334,7 +334,7 @@ function NewCollectionModal({
             className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-40"
             style={{ background: "#f97316" }}
           >
-            {loading ? "Creating…" : "Create Collection"}
+            {loading ? t("creating") : t("create")}
           </button>
         </div>
       </div>
@@ -347,6 +347,7 @@ function NewCollectionModal({
 const FREE_COLLECTION_LIMIT = 1;
 
 export default function CollectionsPage() {
+  const t = useTranslations("collections");
   const [user, setUser] = useState<User | null>(null);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [loading, setLoading] = useState(true);
@@ -443,21 +444,19 @@ export default function CollectionsPage() {
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-white mb-1">
-              📚 My Collections
+              📚 {t("title")}
             </h1>
             <p className="text-orange-100 text-sm">
               {loading
-                ? "Loading…"
-                : `${collections.length} collection${
-                    collections.length !== 1 ? "s" : ""
-                  }`}
+                ? t("loading")
+                : t("counter", { count: collections.length })}
             </p>
           </div>
           <button
             onClick={handleNewCollectionClick}
             className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-orange-500 text-sm font-semibold hover:bg-orange-50 transition-colors shadow-sm"
           >
-            + New
+            {t("newButton")}
           </button>
         </div>
       </div>
@@ -480,17 +479,17 @@ export default function CollectionsPage() {
           <div className="text-center py-24">
             <div className="text-6xl mb-4">📚</div>
             <p className="text-xl font-semibold text-gray-800 mb-2">
-              No collections yet
+              {t("empty")}
             </p>
             <p className="text-sm text-gray-500 mb-8 max-w-xs mx-auto">
-              Group your favorite recipes into collections — like playlists for food.
+              {t("groupDesc")}
             </p>
             <button
               onClick={handleNewCollectionClick}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               style={{ background: "#f97316" }}
             >
-              + Create your first collection
+              {t("createFirst")}
             </button>
           </div>
         )}
@@ -511,7 +510,9 @@ export default function CollectionsPage() {
                 {!isPro && collections.length >= FREE_COLLECTION_LIMIT ? "✦" : "+"}
               </span>
               <span className="text-sm font-medium text-gray-400 group-hover:text-orange-500 transition-colors">
-                {!isPro && collections.length >= FREE_COLLECTION_LIMIT ? "Upgrade to Pro" : "New Collection"}
+                {!isPro && collections.length >= FREE_COLLECTION_LIMIT
+                  ? t("upgradePro")
+                  : t("newCollection")}
               </span>
             </button>
           </div>
