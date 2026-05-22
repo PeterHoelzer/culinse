@@ -2,6 +2,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 
+// This route is never served — middleware redirects /about → /en/about.
+// force-dynamic prevents Next.js from prerendering it (which would fail
+// because Navbar uses useTranslations but there's no NextIntlClientProvider here).
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "About",
   description: "Culinse was built by a head chef and Fleischermeister who was tired of searching a hundred sites for the perfect recipe.",
