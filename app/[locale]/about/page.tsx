@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function AboutPage({ params }: Props) {
-  await params;
-  const t = await getTranslations("about");
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
 
   const values = t.raw("values") as { icon: string; title: string; desc: string }[];
   const visionItems = t.raw("visionItems") as { icon: string; title: string; desc: string }[];

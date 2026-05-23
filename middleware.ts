@@ -22,18 +22,39 @@ async function proxy(request: NextRequest) {
   const isApiRoute = pathname.startsWith("/api/");
   const isStaticFile = /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff|woff2)$/.test(pathname);
 
+  // ─── next-intl: run first, capture headers it sets ──────────────────────────
+  let intlHeaders: Headers | null = null;
   if (!isApiRoute && !isStaticFile) {
-    // Run intl middleware first (handles locale redirect + sets locale cookie)
     const intlResponse = intlMiddleware(request);
-
-    // If intl middleware issued a redirect (e.g. / → /en), return it immediately
+    // If it's a redirect (e.g. / → /en), return immediately
     if (intlResponse.status !== 200) {
       return intlResponse;
     }
+    // Save the response headers so we can forward them.
+    // intlMiddleware sets x-next-intl-locale (and cookies) that server
+    // components need to determine the locale via getTranslations().
+    intlHeaders = intlResponse.headers;
   }
 
   // ─── Supabase auth / session ────────────────────────────────────────────────
-  let supabaseResponse = NextResponse.next({ request });
+  // Build enriched request headers: copy intl headers (x-next-intl-locale etc.)
+  // so that getTranslations() in server components can read the locale via
+  // headers() from next/headers.
+  const requestHeaders = new Headers(request.headers);
+  if (intlHeaders) {
+    intlHeaders.forEach((value, key) => {
+      requestHeaders.set(key, value);
+    });
+  }
+
+  let supabaseResponse = NextResponse.next({ request: { headers: requestHeaders } });
+
+  // Also forward intl headers on the response side (belt-and-suspenders)
+  if (intlHeaders) {
+    intlHeaders.forEach((value, key) => {
+      supabaseResponse.headers.set(key, value);
+    });
+  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -47,7 +68,13 @@ async function proxy(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
-          supabaseResponse = NextResponse.next({ request });
+          supabaseResponse = NextResponse.next({ request: { headers: requestHeaders } });
+          // Re-forward intl headers whenever supabaseResponse is recreated
+          if (intlHeaders) {
+            intlHeaders.forEach((value, key) => {
+              supabaseResponse.headers.set(key, value);
+            });
+          }
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           );

@@ -222,17 +222,96 @@
     "loading": "Lädt…"
   },
   "profile": {
-    "title": "Dein Profil",
-    "dietLabel": "Ernährungspräferenz",
-    "intolerancesLabel": "Allergene / Unverträglichkeiten",
-    "maxTimeLabel": "Maximale Kochzeit",
-    "saveButton": "Einstellungen speichern",
-    "saving": "Wird gespeichert…",
-    "saved": "Gespeichert ✓",
-    "proTitle": "Pro-Plan",
-    "proManage": "Abo verwalten →",
-    "upgradeTitle": "Auf Pro upgraden",
-    "upgradeButton": "Auf Pro upgraden →"
+    "title": "Profil",
+    "pageTitle": "Dein Ernährungsprofil",
+    "welcomeBanner": "🎉 Willkommen bei Culinse! Richte dein Ernährungsprofil ein und erhalte personalisierte Rezepte.",
+    "progress0": "Lege deine Präferenzen fest, um personalisierte Rezepte zu erhalten",
+    "progress1": "Guter Start — noch 2 Schritte",
+    "progress2": "Fast fertig — noch 1 Schritt",
+    "progress3": "✓ Profil vollständig — Für dich ist aktiv!",
+    "planPro": "Culinse Pro",
+    "planFree": "Kostenloser Plan",
+    "renews": "Verlängert sich am {date}",
+    "active": "✓ Aktiv",
+    "free": "Kostenlos",
+    "proFeatures": [
+      "Unbegrenzte Sammlungen",
+      "Wöchentlicher Mahlzeitenplan",
+      "Smarte Einkaufsliste",
+      "Pläne & Sammlungen teilen",
+      "Bevorzugte neue Funktionen"
+    ],
+    "loading": "Lädt…",
+    "manageSubscription": "Abonnement verwalten",
+    "upgradeButton": "Auf Pro upgraden — €4,99 / Monat",
+    "dietTitle": "Ernährung",
+    "dietSub": "Nur Rezepte anzeigen, die zu deinem Lebensstil passen.",
+    "activeLabel": "Aktiv",
+    "nActive": "{n} aktiv",
+    "allergenTitle": "Allergene & Unverträglichkeiten",
+    "allergenSub": "Antippen, um Zutaten aus deinem Feed auszuschließen.",
+    "timeTitle": "Maximale Kochzeit",
+    "timeSub": "Nur Rezepte anzeigen, die du wirklich kochen kannst.",
+    "saving": "Speichert…",
+    "saved": "✓ Gespeichert!",
+    "saveButton": "Präferenzen speichern",
+    "back": "← Zurück",
+    "dietOptions": [
+      {
+        "label": "Keine Präferenz",
+        "desc": "Alles anzeigen"
+      },
+      {
+        "label": "Vegetarisch",
+        "desc": "Kein Fleisch oder Fisch"
+      },
+      {
+        "label": "Vegan",
+        "desc": "Nur pflanzlich"
+      },
+      {
+        "label": "Keto",
+        "desc": "Wenig Kohlenhydrate, viel Fett"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Zurück zu den Ursprüngen"
+      },
+      {
+        "label": "Glutenfrei",
+        "desc": "Kein Gluten"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Sauberes Essen"
+      }
+    ],
+    "intoleranceOptions": [
+      "Milch",
+      "Eier",
+      "Gluten",
+      "Erdnüsse",
+      "Nüsse",
+      "Soja",
+      "Meeresfrüchte",
+      "Schalentiere",
+      "Weizen",
+      "Sulfite"
+    ],
+    "timeOptions": [
+      {
+        "label": "Kein Limit"
+      },
+      {
+        "label": "≤ 15 Min."
+      },
+      {
+        "label": "≤ 30 Min."
+      },
+      {
+        "label": "≤ 60 Min."
+      }
+    ]
   },
   "saved": {
     "title": "Gespeicherte Rezepte",

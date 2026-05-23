@@ -222,17 +222,96 @@
     "loading": "Loading…"
   },
   "profile": {
-    "title": "Your Profile",
-    "dietLabel": "Dietary preference",
-    "intolerancesLabel": "Allergens / Intolerances",
-    "maxTimeLabel": "Max cooking time",
-    "saveButton": "Save preferences",
+    "title": "Profile",
+    "pageTitle": "Your Food Profile",
+    "welcomeBanner": "🎉 Welcome to Culinse! Set up your food profile to get personalized recipes.",
+    "progress0": "Set your preferences to get personalized recipes",
+    "progress1": "Good start — 2 more steps",
+    "progress2": "Almost there — 1 more step",
+    "progress3": "✓ Profile complete — For You is active!",
+    "planPro": "Culinse Pro",
+    "planFree": "Free Plan",
+    "renews": "Renews {date}",
+    "active": "✓ Active",
+    "free": "Free",
+    "proFeatures": [
+      "Unlimited Collections",
+      "Weekly Meal Planner",
+      "Smart Shopping List",
+      "Share Plans & Collections",
+      "Priority new features"
+    ],
+    "loading": "Loading…",
+    "manageSubscription": "Manage subscription",
+    "upgradeButton": "Upgrade to Pro — €4.99 / month",
+    "dietTitle": "Diet",
+    "dietSub": "Only show recipes that match your lifestyle.",
+    "activeLabel": "Active",
+    "nActive": "{n} active",
+    "allergenTitle": "Allergens & Intolerances",
+    "allergenSub": "Tap to exclude ingredients from your feed.",
+    "timeTitle": "Max. Cooking Time",
+    "timeSub": "Only show recipes you can actually make.",
     "saving": "Saving…",
-    "saved": "Saved ✓",
-    "proTitle": "Pro Plan",
-    "proManage": "Manage subscription →",
-    "upgradeTitle": "Upgrade to Pro",
-    "upgradeButton": "Upgrade to Pro →"
+    "saved": "✓ Saved!",
+    "saveButton": "Save Preferences",
+    "back": "← Back",
+    "dietOptions": [
+      {
+        "label": "No preference",
+        "desc": "Show me everything"
+      },
+      {
+        "label": "Vegetarian",
+        "desc": "No meat or fish"
+      },
+      {
+        "label": "Vegan",
+        "desc": "Plant-based only"
+      },
+      {
+        "label": "Keto",
+        "desc": "Low carb, high fat"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Back to basics"
+      },
+      {
+        "label": "Gluten-free",
+        "desc": "No gluten"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Clean eating"
+      }
+    ],
+    "intoleranceOptions": [
+      "Dairy",
+      "Eggs",
+      "Gluten",
+      "Peanuts",
+      "Tree Nuts",
+      "Soy",
+      "Seafood",
+      "Shellfish",
+      "Wheat",
+      "Sulfites"
+    ],
+    "timeOptions": [
+      {
+        "label": "No limit"
+      },
+      {
+        "label": "≤ 15 min"
+      },
+      {
+        "label": "≤ 30 min"
+      },
+      {
+        "label": "≤ 60 min"
+      }
+    ]
   },
   "saved": {
     "title": "Saved Recipes",

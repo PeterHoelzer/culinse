@@ -1,50 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 
-const DIET_OPTIONS = [
-  { value: "", label: "No preference", emoji: "🍽", desc: "Show me everything" },
-  { value: "vegetarian", label: "Vegetarian", emoji: "🥦", desc: "No meat or fish" },
-  { value: "vegan", label: "Vegan", emoji: "🌱", desc: "Plant-based only" },
-  { value: "ketogenic", label: "Keto", emoji: "🥑", desc: "Low carb, high fat" },
-  { value: "paleo", label: "Paleo", emoji: "🍖", desc: "Back to basics" },
-  { value: "gluten free", label: "Gluten-free", emoji: "🌾", desc: "No gluten" },
-  { value: "whole30", label: "Whole30", emoji: "✅", desc: "Clean eating" },
-];
+const DIET_VALUES = ["", "vegetarian", "vegan", "ketogenic", "paleo", "gluten free", "whole30"];
+const DIET_EMOJIS = ["🍽", "🥦", "🌱", "🥑", "🍖", "🌾", "✅"];
 
-const INTOLERANCE_OPTIONS = [
-  { value: "dairy", label: "Dairy", emoji: "🥛" },
-  { value: "egg", label: "Eggs", emoji: "🥚" },
-  { value: "gluten", label: "Gluten", emoji: "🍞" },
-  { value: "peanut", label: "Peanuts", emoji: "🥜" },
-  { value: "tree nut", label: "Tree Nuts", emoji: "🌰" },
-  { value: "soy", label: "Soy", emoji: "🫘" },
-  { value: "seafood", label: "Seafood", emoji: "🦐" },
-  { value: "shellfish", label: "Shellfish", emoji: "🦞" },
-  { value: "wheat", label: "Wheat", emoji: "🌾" },
-  { value: "sulfite", label: "Sulfites", emoji: "🍷" },
-];
+const INTOLERANCE_VALUES = ["dairy", "egg", "gluten", "peanut", "tree nut", "soy", "seafood", "shellfish", "wheat", "sulfite"];
+const INTOLERANCE_EMOJIS = ["🥛", "🥚", "🍞", "🥜", "🌰", "🫘", "🦐", "🦞", "🌾", "🍷"];
 
-const TIME_OPTIONS = [
-  { value: 0, label: "No limit", emoji: "♾️" },
-  { value: 15, label: "≤ 15 min", emoji: "⚡" },
-  { value: 30, label: "≤ 30 min", emoji: "🕐" },
-  { value: 60, label: "≤ 60 min", emoji: "🕑" },
-];
+const TIME_VALUES = [0, 15, 30, 60];
+const TIME_EMOJIS = ["♾️", "⚡", "🕐", "🕑"];
 
-const PRO_FEATURES = [
-  { icon: "📚", label: "Unlimited Collections" },
-  { icon: "📅", label: "Weekly Meal Planner" },
-  { icon: "🛒", label: "Smart Shopping List" },
-  { icon: "🌍", label: "Share Plans & Collections" },
-  { icon: "⚡", label: "Priority new features" },
-];
+const PRO_FEATURE_ICONS = ["📚", "📅", "🛒", "🌍", "⚡"];
 
 export default function ProfilePage() {
+  const t = useTranslations("profile");
+  const dietOptions = t.raw("dietOptions") as { label: string; desc: string }[];
+  const intoleranceOptions = t.raw("intoleranceOptions") as string[];
+  const timeOptions = t.raw("timeOptions") as { label: string }[];
+  const proFeatures = t.raw("proFeatures") as string[];
+
   const [isWelcome, setIsWelcome] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [diet, setDiet] = useState("");
@@ -52,7 +32,7 @@ export default function ProfilePage() {
   const [maxTime, setMaxTime] = useState(0);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [saved, setSavedState] = useState(false);
+  const [savedState, setSavedState] = useState(false);
   const [isPro, setIsPro] = useState(false);
   const [proExpiry, setProExpiry] = useState<string | null>(null);
   const [billingLoading, setBillingLoading] = useState(false);
@@ -124,8 +104,14 @@ export default function ProfilePage() {
     setTimeout(() => setSavedState(false), 2500);
   };
 
-  // Completion score
   const completed = [diet !== "", intolerances.length > 0, maxTime > 0].filter(Boolean).length;
+
+  const progressMsg = [
+    t("progress0"),
+    t("progress1"),
+    t("progress2"),
+    t("progress3"),
+  ][completed];
 
   if (loading) {
     return (
@@ -144,11 +130,11 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Welcome banner for new users */}
+      {/* Welcome banner */}
       {isWelcome && (
         <div className="bg-green-50 border-b border-green-100 px-4 py-3 text-center">
           <p className="text-sm font-medium text-green-700">
-            🎉 Welcome to Culinse! Set up your food profile to get personalized recipes.
+            {t("welcomeBanner")}
           </p>
         </div>
       )}
@@ -156,26 +142,19 @@ export default function ProfilePage() {
       {/* Hero header */}
       <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pb-16 pt-10 px-4">
         <div className="max-w-2xl mx-auto">
-          {/* Avatar */}
           <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-bold text-white mb-4 border-4 border-white/30">
             {user?.email?.[0]?.toUpperCase() ?? "👤"}
           </div>
-          <h1 className="text-3xl font-bold text-white mb-1">Your Food Profile</h1>
+          <h1 className="text-3xl font-bold text-white mb-1">{t("pageTitle")}</h1>
           <p className="text-orange-100 text-sm mb-4">{user?.email}</p>
 
-          {/* Completion bar */}
           <div className="bg-white/20 rounded-full h-2 w-48 mb-1">
             <div
               className="bg-white rounded-full h-2 transition-all duration-500"
               style={{ width: `${(completed / 3) * 100}%` }}
             />
           </div>
-          <p className="text-orange-100 text-xs">
-            {completed === 0 && "Set your preferences to get personalized recipes"}
-            {completed === 1 && "Good start — 2 more steps"}
-            {completed === 2 && "Almost there — 1 more step"}
-            {completed === 3 && "✓ Profile complete — For You is active!"}
-          </p>
+          <p className="text-orange-100 text-xs">{progressMsg}</p>
         </div>
       </div>
 
@@ -188,25 +167,25 @@ export default function ProfilePage() {
               <span className="text-xl">{isPro ? "⭐" : "🔓"}</span>
               <div>
                 <h2 className="text-lg font-bold text-gray-900">
-                  {isPro ? "Culinse Pro" : "Free Plan"}
+                  {isPro ? t("planPro") : t("planFree")}
                 </h2>
                 {isPro && proExpiry && (
                   <p className="text-xs text-gray-400">
-                    Renews {new Date(proExpiry).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
+                    {t("renews", { date: new Date(proExpiry).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }) })}
                   </p>
                 )}
               </div>
             </div>
             <span className={`text-xs font-semibold px-3 py-1 rounded-full ${isPro ? "bg-orange-500 text-white" : "bg-gray-100 text-gray-500"}`}>
-              {isPro ? "✓ Active" : "Free"}
+              {isPro ? t("active") : t("free")}
             </span>
           </div>
 
           <div className="space-y-2 mb-5">
-            {PRO_FEATURES.map((f) => (
-              <div key={f.label} className="flex items-center gap-3">
-                <span className="text-base">{f.icon}</span>
-                <span className={`text-sm ${isPro ? "text-gray-700" : "text-gray-400"}`}>{f.label}</span>
+            {proFeatures.map((label, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <span className="text-base">{PRO_FEATURE_ICONS[i]}</span>
+                <span className={`text-sm ${isPro ? "text-gray-700" : "text-gray-400"}`}>{label}</span>
                 {!isPro && <span className="ml-auto text-gray-300 text-xs">🔒</span>}
               </div>
             ))}
@@ -218,7 +197,7 @@ export default function ProfilePage() {
               disabled={billingLoading}
               className="w-full py-3 rounded-full border-2 border-orange-300 text-orange-600 font-semibold text-sm hover:bg-orange-50 transition-all disabled:opacity-60"
             >
-              {billingLoading ? "Loading…" : "Manage subscription"}
+              {billingLoading ? t("loading") : t("manageSubscription")}
             </button>
           ) : (
             <button
@@ -227,7 +206,7 @@ export default function ProfilePage() {
               className="w-full py-3 rounded-full text-white font-semibold text-sm transition-all disabled:opacity-60 hover:opacity-90"
               style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
             >
-              {billingLoading ? "Loading…" : "Upgrade to Pro — €4.99 / month"}
+              {billingLoading ? t("loading") : t("upgradeButton")}
             </button>
           )}
         </div>
@@ -236,29 +215,29 @@ export default function ProfilePage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-xl">🥗</span>
-            <h2 className="text-lg font-bold text-gray-900">Diet</h2>
-            {diet && <span className="ml-auto text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">Active</span>}
+            <h2 className="text-lg font-bold text-gray-900">{t("dietTitle")}</h2>
+            {diet && <span className="ml-auto text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">{t("activeLabel")}</span>}
           </div>
-          <p className="text-sm text-gray-400 mb-5">Only show recipes that match your lifestyle.</p>
+          <p className="text-sm text-gray-400 mb-5">{t("dietSub")}</p>
           <div className="grid grid-cols-2 gap-3">
-            {DIET_OPTIONS.map((opt) => (
+            {dietOptions.map((opt, i) => (
               <button
-                key={opt.value}
-                onClick={() => setDiet(opt.value)}
+                key={DIET_VALUES[i]}
+                onClick={() => setDiet(DIET_VALUES[i])}
                 className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
-                  diet === opt.value
+                  diet === DIET_VALUES[i]
                     ? "border-orange-400 bg-orange-50"
                     : "border-gray-100 hover:border-orange-200 bg-gray-50"
                 }`}
               >
-                <span className="text-2xl flex-shrink-0">{opt.emoji}</span>
+                <span className="text-2xl flex-shrink-0">{DIET_EMOJIS[i]}</span>
                 <div>
-                  <p className={`text-sm font-semibold ${diet === opt.value ? "text-orange-600" : "text-gray-800"}`}>
+                  <p className={`text-sm font-semibold ${diet === DIET_VALUES[i] ? "text-orange-600" : "text-gray-800"}`}>
                     {opt.label}
                   </p>
                   <p className="text-xs text-gray-400">{opt.desc}</p>
                 </div>
-                {diet === opt.value && (
+                {diet === DIET_VALUES[i] && (
                   <span className="ml-auto text-orange-400 flex-shrink-0">✓</span>
                 )}
               </button>
@@ -270,30 +249,30 @@ export default function ProfilePage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-4">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-xl">🚫</span>
-            <h2 className="text-lg font-bold text-gray-900">Allergens & Intolerances</h2>
+            <h2 className="text-lg font-bold text-gray-900">{t("allergenTitle")}</h2>
             {intolerances.length > 0 && (
               <span className="ml-auto text-xs font-medium text-red-500 bg-red-50 px-2 py-0.5 rounded-full">
-                {intolerances.length} active
+                {t("nActive", { n: intolerances.length })}
               </span>
             )}
           </div>
-          <p className="text-sm text-gray-400 mb-5">Tap to exclude ingredients from your feed.</p>
+          <p className="text-sm text-gray-400 mb-5">{t("allergenSub")}</p>
           <div className="grid grid-cols-2 gap-3">
-            {INTOLERANCE_OPTIONS.map((opt) => {
-              const active = intolerances.includes(opt.value);
+            {intoleranceOptions.map((label, i) => {
+              const active = intolerances.includes(INTOLERANCE_VALUES[i]);
               return (
                 <button
-                  key={opt.value}
-                  onClick={() => toggleIntolerance(opt.value)}
+                  key={INTOLERANCE_VALUES[i]}
+                  onClick={() => toggleIntolerance(INTOLERANCE_VALUES[i])}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border-2 transition-all text-left ${
                     active
                       ? "border-red-300 bg-red-50"
                       : "border-gray-100 hover:border-red-200 bg-gray-50"
                   }`}
                 >
-                  <span className="text-xl">{opt.emoji}</span>
+                  <span className="text-xl">{INTOLERANCE_EMOJIS[i]}</span>
                   <span className={`text-sm font-medium flex-1 ${active ? "text-red-600" : "text-gray-700"}`}>
-                    {opt.label}
+                    {label}
                   </span>
                   {active && <span className="text-red-400 text-xs font-bold">✕</span>}
                 </button>
@@ -306,26 +285,26 @@ export default function ProfilePage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
           <div className="flex items-center gap-3 mb-1">
             <span className="text-xl">⏱</span>
-            <h2 className="text-lg font-bold text-gray-900">Max. Cooking Time</h2>
-            {maxTime > 0 && <span className="ml-auto text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">Active</span>}
+            <h2 className="text-lg font-bold text-gray-900">{t("timeTitle")}</h2>
+            {maxTime > 0 && <span className="ml-auto text-xs font-medium text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">{t("activeLabel")}</span>}
           </div>
-          <p className="text-sm text-gray-400 mb-5">Only show recipes you can actually make.</p>
+          <p className="text-sm text-gray-400 mb-5">{t("timeSub")}</p>
           <div className="grid grid-cols-2 gap-3">
-            {TIME_OPTIONS.map((opt) => (
+            {timeOptions.map((opt, i) => (
               <button
-                key={opt.value}
-                onClick={() => setMaxTime(opt.value)}
+                key={TIME_VALUES[i]}
+                onClick={() => setMaxTime(TIME_VALUES[i])}
                 className={`flex items-center gap-3 p-4 rounded-xl border-2 text-left transition-all ${
-                  maxTime === opt.value
+                  maxTime === TIME_VALUES[i]
                     ? "border-orange-400 bg-orange-50"
                     : "border-gray-100 hover:border-orange-200 bg-gray-50"
                 }`}
               >
-                <span className="text-xl">{opt.emoji}</span>
-                <span className={`text-sm font-semibold ${maxTime === opt.value ? "text-orange-600" : "text-gray-700"}`}>
+                <span className="text-xl">{TIME_EMOJIS[i]}</span>
+                <span className={`text-sm font-semibold ${maxTime === TIME_VALUES[i] ? "text-orange-600" : "text-gray-700"}`}>
                   {opt.label}
                 </span>
-                {maxTime === opt.value && <span className="ml-auto text-orange-400">✓</span>}
+                {maxTime === TIME_VALUES[i] && <span className="ml-auto text-orange-400">✓</span>}
               </button>
             ))}
           </div>
@@ -338,12 +317,12 @@ export default function ProfilePage() {
               onClick={handleSave}
               disabled={saving}
               className="flex-1 py-3.5 rounded-full text-white font-semibold transition-all disabled:opacity-60 hover:opacity-90 text-center"
-              style={{ background: saved ? "#22c55e" : "#f97316" }}
+              style={{ background: savedState ? "#22c55e" : "#f97316" }}
             >
-              {saving ? "Saving…" : saved ? "✓ Saved!" : "Save Preferences"}
+              {saving ? t("saving") : savedState ? t("saved") : t("saveButton")}
             </button>
             <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 transition-colors whitespace-nowrap">
-              ← Back
+              {t("back")}
             </Link>
           </div>
         </div>
