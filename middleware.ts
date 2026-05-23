@@ -21,10 +21,12 @@ async function proxy(request: NextRequest) {
   // Skip locale middleware for API routes and static files
   const isApiRoute = pathname.startsWith("/api/");
   const isStaticFile = /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff|woff2)$/.test(pathname);
+  // Skip locale middleware for SEO files (sitemap, robots) — must stay at root
+  const isSeoFile = pathname === "/sitemap.xml" || pathname === "/robots.txt";
 
   // ─── next-intl: run first, capture headers it sets ──────────────────────────
   let intlHeaders: Headers | null = null;
-  if (!isApiRoute && !isStaticFile) {
+  if (!isApiRoute && !isStaticFile && !isSeoFile) {
     const intlResponse = intlMiddleware(request);
     // If it's a redirect (e.g. / → /en), return immediately
     if (intlResponse.status !== 200) {
