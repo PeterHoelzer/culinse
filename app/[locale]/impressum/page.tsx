@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Impressum – Culinse",
+  title: "Impressum",
   description: "Impressum von Culinse gemäß § 5 TMG",
 };
 

@@ -103,7 +103,7 @@
   },
   "howItWorks": {
     "title": "So funktioniert Culinse",
-    "subtitle": "Wir bringen dir die besten Rezepte aus dem Internet — personalisiert, durchsuchbar und einkaufbar.",
+    "subtitle": "Wir bringen dir die besten Rezepte aus dem Internet — personalisiert, durchsuchbar, und bald auch shoppable.",
     "steps": [
       {
         "icon": "🔍",
@@ -118,7 +118,7 @@
       {
         "icon": "🛒",
         "title": "Sofort einkaufen",
-        "desc": "Füge alle Zutaten mit einem Klick zu deinem Einkauf hinzu. Direkt nach Hause geliefert."
+        "desc": "Demnächst — alle Zutaten mit einem Klick in den Warenkorb, direkt nach Hause geliefert."
       }
     ]
   },
@@ -219,6 +219,7 @@
     "or": "oder",
     "privacyNote": "Durch Fortfahren stimmst du unserer",
     "privacyLink": "Datenschutzerklärung",
+    "privacySuffix": " zu",
     "loading": "Lädt…"
   },
   "profile": {

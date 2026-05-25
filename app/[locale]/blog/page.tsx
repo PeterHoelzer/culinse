@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { Link } from "@/lib/navigation";
 import { blogPosts } from "@/lib/blog-posts";
 import { blogPostsDe } from "@/lib/blog-posts-de";
 

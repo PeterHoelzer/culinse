@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung – Culinse",
+  title: "Datenschutzerklärung",
   description: "Datenschutzerklärung von Culinse gemäß DSGVO",
 };
 
@@ -36,7 +36,7 @@ export default function Datenschutz() {
         <section className="mb-8">
           <h2 className="text-lg font-semibold text-gray-800 mb-3">2. Welche Daten wir erheben</h2>
           <p className="text-gray-600 leading-relaxed mb-4">
-            Culinse erhebt derzeit keine personenbezogenen Daten von Nutzern. Es gibt keine Nutzerkonten, keine Registrierung und keine Anmeldung. Die Plattform ist vollständig ohne Account nutzbar.
+            Culinse kann ohne Konto genutzt werden. Wer sich registriert, erstellt ein Nutzerkonto mit E-Mail-Adresse und Passwort (oder über Google OAuth). Die Authentifizierung erfolgt über Supabase Auth (siehe Abschnitt 3a). Im Rahmen des Kontos werden gespeicherte Rezepte, Sammlungen und Ernährungspräferenzen des Nutzers in einer Supabase-Datenbank gespeichert.
           </p>
           <p className="text-gray-600 leading-relaxed">
             Beim Besuch der Website werden technisch notwendige Daten durch den Hosting-Anbieter Vercel Inc. verarbeitet (siehe Abschnitt 4). Diese Daten umfassen insbesondere die IP-Adresse des anfragenden Geräts sowie Datum und Uhrzeit des Zugriffs.
@@ -44,23 +44,34 @@ export default function Datenschutz() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">3. Rezeptdaten (Spoonacular API)</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">3. Nutzerkonto &amp; Authentifizierung (Supabase)</h2>
+          <p className="text-gray-600 leading-relaxed mb-4">
+            Die Nutzer­authentifizierung und Datenspeicherung erfolgt über Supabase (Supabase Inc., San Francisco, CA, USA). Beim Erstellen eines Kontos werden E-Mail-Adresse und – bei Google-Login – grundlegende Profildaten (Name, Profilbild) verarbeitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
+          </p>
           <p className="text-gray-600 leading-relaxed">
-            Rezeptinhalte, Bilder und Metadaten werden über die Spoonacular API bereitgestellt. Bei der Anzeige von Rezepten wird eine serverseitige Anfrage an Spoonacular gestellt. Dabei werden keine personenbezogenen Nutzerdaten übermittelt.
+            Nutzer können ihr Konto jederzeit löschen. Dabei werden alle personenbezogenen Daten (gespeicherte Rezepte, Sammlungen, Präferenzen) unwiderruflich gelöscht.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">3a. Rezeptdaten (externe APIs)</h2>
+          <p className="text-gray-600 leading-relaxed">
+            Rezeptinhalte, Bilder und Metadaten werden über externe APIs bezogen: <strong>Spoonacular</strong>, <strong>MealDB</strong>, <strong>Edamam</strong> und <strong>Tasty</strong>. Anfragen an diese Dienste erfolgen serverseitig. Dabei werden keine personenbezogenen Nutzerdaten übermittelt.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-lg font-semibold text-gray-800 mb-3">4. Hosting (Vercel)</h2>
+
           <p className="text-gray-600 leading-relaxed">
             Diese Website wird gehostet von Vercel Inc., 340 Pine Street, Suite 701, San Francisco, CA 94104, USA. Beim Aufruf der Website verarbeitet Vercel technische Zugriffsdaten (sog. Server-Logs) auf Basis von Art. 6 Abs. 1 lit. f DSGVO.
           </p>
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">5. Cookies</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">5. Cookies &amp; Session</h2>
           <p className="text-gray-600 leading-relaxed">
-            Culinse verwendet derzeit keine Cookies und kein Tracking. Es werden keine Analyse- oder Marketing-Tools eingesetzt.
+            Culinse verwendet keine Analyse- oder Marketing-Cookies. Für eingeloggte Nutzer setzt Supabase ein Session-Cookie (technisch notwendig, Art. 6 Abs. 1 lit. f DSGVO). Es werden keine Tracking- oder Werbecookies eingesetzt.
           </p>
         </section>
 

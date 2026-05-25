@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import SharedNavbar from "@/components/Navbar";
+import { Link, useRouter } from "@/lib/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface Recipe {
@@ -202,6 +203,7 @@ function CategoryChips({ active, setActive }: { active: string; setActive: (v: s
 // ─── Recipe Card ──────────────────────────────────────────────────────────────
 function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const t = useTranslations();
+  const router = useRouter();
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
@@ -211,7 +213,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!user) { window.location.href = "/login"; return; }
+    if (!user) { router.push("/login"); return; }
     if (saved) {
       await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
       setSaved(false);
@@ -231,13 +233,13 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
 
   const handleCollectionClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!user) { window.location.href = "/login"; return; }
+    if (!user) { router.push("/login"); return; }
     setShowCollectionModal(true);
   };
 
   return (
     <Fragment>
-      <a
+      <Link
         href={`/recipe/${recipe.id}`}
         className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
       >
@@ -290,7 +292,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
             <span className="ml-auto text-orange-500 font-medium">{t("recipeCard.details")}</span>
           </div>
         </div>
-      </a>
+      </Link>
 
       {showCollectionModal && (
         <AddToCollectionModal
@@ -418,7 +420,7 @@ function DiscoverSection({
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
 
       {user && !userPrefs && (
-        <a
+        <Link
           href="/profile"
           className="flex items-center justify-between gap-4 mb-6 px-5 py-4 rounded-2xl border border-orange-200 bg-orange-50 hover:bg-orange-100 transition-colors group"
         >
@@ -430,7 +432,7 @@ function DiscoverSection({
             </div>
           </div>
           <span className="text-orange-400 group-hover:translate-x-1 transition-transform text-sm">→</span>
-        </a>
+        </Link>
       )}
 
       <div className="flex items-center justify-between mb-6">
@@ -626,9 +628,9 @@ function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLo
           </h2>
           <p className="text-sm text-gray-500 mt-1">{t("forYou.subtitle")}</p>
         </div>
-        <a href="/profile" className="text-sm text-orange-500 hover:text-orange-700 transition-colors">
+        <Link href="/profile" className="text-sm text-orange-500 hover:text-orange-700 transition-colors">
           {t("forYou.editProfile")}
-        </a>
+        </Link>
       </div>
 
       {loading ? (
@@ -749,13 +751,13 @@ function VideoSection() {
                   )}
                   <div className="absolute bottom-0 left-0 right-0 p-3">
                     <p className="text-white text-sm font-semibold leading-snug line-clamp-2 mb-2">{v.title}</p>
-                    <a
+                    <Link
                       href={`/recipe/${v.id}`}
                       onClick={e => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors"
                     >
                       {t("videoSection.fullRecipe")}
-                    </a>
+                    </Link>
                   </div>
                 </>
               )}
@@ -825,13 +827,13 @@ function CTA() {
         <p className="text-orange-100 text-lg mb-8 max-w-lg mx-auto">
           {t("cta.subtitle")}
         </p>
-        <a
+        <Link
           href="/login"
           className="inline-flex items-center gap-2 bg-white font-semibold px-8 py-3.5 rounded-full text-base transition-opacity hover:opacity-90"
           style={{ color: "#f97316" }}
         >
           {t("cta.button")}
-        </a>
+        </Link>
       </div>
     </section>
   );
@@ -853,9 +855,9 @@ function Footer() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <a href="/about" className="hover:text-white transition-colors">{t("footer.about")}</a>
-            <a href="/impressum" className="hover:text-white transition-colors">{t("footer.impressum")}</a>
-            <a href="/datenschutz" className="hover:text-white transition-colors">{t("footer.datenschutz")}</a>
+            <Link href="/about" className="hover:text-white transition-colors">{t("footer.about")}</Link>
+            <Link href="/impressum" className="hover:text-white transition-colors">{t("footer.impressum")}</Link>
+            <Link href="/datenschutz" className="hover:text-white transition-colors">{t("footer.datenschutz")}</Link>
             <a href="mailto:peter@hoelzer.xyz" className="hover:text-white transition-colors">{t("footer.contact")}</a>
           </div>
 

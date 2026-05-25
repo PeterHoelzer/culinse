@@ -103,7 +103,7 @@
   },
   "howItWorks": {
     "title": "How Culinse Works",
-    "subtitle": "We bring the internet's best recipes to you — personalized, searchable, and shoppable.",
+    "subtitle": "We bring the internet's best recipes to you — personalized, searchable, and with shopping coming soon.",
     "steps": [
       {
         "icon": "🔍",
@@ -118,7 +118,7 @@
       {
         "icon": "🛒",
         "title": "Shop Instantly",
-        "desc": "Add all ingredients to your cart with one click. Delivered to your door."
+        "desc": "Coming soon — add all ingredients to your cart with one click and get them delivered to your door."
       }
     ]
   },
@@ -129,8 +129,8 @@
   },
   "footer": {
     "about": "About",
-    "impressum": "Impressum",
-    "datenschutz": "Datenschutz",
+    "impressum": "Legal Notice",
+    "datenschutz": "Privacy Policy",
     "contact": "Contact",
     "copyright": "© {year} Culinse. All rights reserved."
   },
@@ -219,6 +219,7 @@
     "or": "or",
     "privacyNote": "By continuing, you agree to our",
     "privacyLink": "Privacy Policy",
+    "privacySuffix": "",
     "loading": "Loading…"
   },
   "profile": {

@@ -11,41 +11,14 @@ const geist = Geist({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Culinse – Discover Recipes You'll Love",
-    template: "%s | Culinse",
-  },
-  description:
-    "Culinse aggregates millions of recipes from BBC Good Food, Bon Appétit, Chefkoch and more. Get a personalized recipe feed — free, no subscription.",
-  keywords: [
-    "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
-    "recipe aggregator", "BBC Good Food", "Chefkoch", "healthy recipes", "easy recipes",
-  ],
+const sharedMeta = {
   authors: [{ name: "Culinse" }],
   creator: "Culinse",
   metadataBase: new URL("https://culinse.com"),
   icons: {
-    icon: [
-      { url: "/icon", type: "image/png", sizes: "32x32" },
-    ],
+    icon: [{ url: "/icon", type: "image/png", sizes: "32x32" }],
     shortcut: "/icon",
-    apple: [
-      { url: "/apple-icon", type: "image/png", sizes: "180x180" },
-    ],
-  },
-  openGraph: {
-    title: "Culinse – Discover Recipes You'll Love",
-    description: "Millions of recipes from the world's best food sites. Personalized for you.",
-    url: "https://culinse.com",
-    siteName: "Culinse",
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Culinse – Discover Recipes You'll Love",
-    description: "Millions of recipes from the world's best food sites. Personalized for you.",
+    apple: [{ url: "/apple-icon", type: "image/png", sizes: "180x180" }],
   },
   robots: {
     index: true,
@@ -53,12 +26,72 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
+      "max-video-preview": -1 as const,
+      "max-image-preview": "large" as const,
       "max-snippet": -1,
     },
   },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+
+  if (locale === "de") {
+    return {
+      ...sharedMeta,
+      title: {
+        default: "Culinse – Rezepte entdecken, die du lieben wirst",
+        template: "%s | Culinse",
+      },
+      description:
+        "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos und ohne Abo.",
+      keywords: [
+        "Rezepte", "Rezepte entdecken", "personalisierte Rezepte", "Kochen", "Essen",
+        "Rezeptaggregator", "Chefkoch", "gesunde Rezepte", "schnelle Rezepte",
+      ],
+      openGraph: {
+        title: "Culinse – Rezepte entdecken, die du lieben wirst",
+        description: "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich.",
+        url: "https://culinse.com/de",
+        siteName: "Culinse",
+        locale: "de_DE",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "Culinse – Rezepte entdecken, die du lieben wirst",
+        description: "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich.",
+      },
+    };
+  }
+
+  return {
+    ...sharedMeta,
+    title: {
+      default: "Culinse – Discover Recipes You'll Love",
+      template: "%s | Culinse",
+    },
+    description:
+      "Culinse aggregates millions of recipes from BBC Good Food, Bon Appétit, Chefkoch and more. Get a personalized recipe feed — free, no subscription.",
+    keywords: [
+      "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
+      "recipe aggregator", "BBC Good Food", "Chefkoch", "healthy recipes", "easy recipes",
+    ],
+    openGraph: {
+      title: "Culinse – Discover Recipes You'll Love",
+      description: "Millions of recipes from the world's best food sites. Personalized for you.",
+      url: "https://culinse.com/en",
+      siteName: "Culinse",
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Culinse – Discover Recipes You'll Love",
+      description: "Millions of recipes from the world's best food sites. Personalized for you.",
+    },
+  };
+}
 
 type Props = {
   children: React.ReactNode;

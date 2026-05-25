@@ -1,23 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { Link, usePathname, useRouter } from "@/lib/navigation";
 
 function LocaleSwitcher() {
-  const pathname = usePathname();
-
-  // Detect current locale from URL prefix
-  const locale = pathname.startsWith("/de") ? "de" : "en";
+  const pathname = usePathname(); // path WITHOUT locale prefix, e.g. "/about"
+  const locale = useLocale();     // "de" | "en"
+  const router = useRouter();
 
   const switchTo = (newLocale: string) => {
-    // Replace locale prefix in pathname: /en/about → /de/about, /de → /en
-    const withoutLocale = pathname.replace(/^\/(en|de)(\/|$)/, "/");
-    const newPath = `/${newLocale}${withoutLocale === "/" ? "" : withoutLocale}`;
-    window.location.href = newPath;
+    router.replace(pathname as "/", { locale: newLocale });
   };
 
   return (
@@ -40,6 +35,7 @@ function LocaleSwitcher() {
 
 export default function Navbar() {
   const t = useTranslations("nav");
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [isPro, setIsPro] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,7 +60,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.href = "/";
+    router.push("/");
   };
 
   return (
