@@ -44,7 +44,7 @@ export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     name: "Ninja Woodfire Grill",
     asin: "B0CXDTMM28",
     search: "Ninja Woodfire Outdoor Grill BBQ Smoker",
-    price: "ab €299", emoji: "🔥",
+    price: "ab €429", emoji: "🔥",
     tags: ["grill", "bbq", "barbecue", "grilled", "burger", "ribs", "brisket", "smoky"],
   },
   {
@@ -167,7 +167,7 @@ interface IngredientEntry {
 const INGREDIENT_MAP: IngredientEntry[] = [
 
   // ── Öle & Fette ─────────────────────────────────────────────────────────────
-  { keywords: ["olive oil", "olivenöl"],                          asin: "B08ZK875YC", search: "Bertolli Olivenöl extra vergine",      label: "Olivenöl" },
+  { keywords: ["olive oil", "olivenöl"],                          asin: "B075P28BLK", search: "Bertolli Extra Vergine Olivenöl 750ml", label: "Olivenöl" },
   { keywords: ["coconut oil", "kokosöl"],                                              search: "Bio Kokosöl nativ 1000ml",             label: "Kokosöl" },
   { keywords: ["sesame oil", "sesamöl"],                                               search: "Kikkoman Sesamöl geröstet",            label: "Sesamöl" },
   { keywords: ["vegetable oil", "sunflower oil", "sonnenblumenöl"],                    search: "Rapunzel Sonnenblumenöl nativ",        label: "Pflanzenöl" },
@@ -186,7 +186,7 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["mustard", "senf", "dijon"],                                            search: "Maille Dijon Senf",                 label: "Dijon-Senf" },
   { keywords: ["tomato paste", "tomatenmark"],                    asin: "B08L4DJHVP", search: "Mutti Tomatenkonzentrat 200g",       label: "Tomatenmark" },
   { keywords: ["canned tomatoes", "crushed tomatoes", "diced tomatoes", "passata", "tomato sauce"], search: "Mutti Polpa Tomatenstücke 400g", label: "Dosentomaten" },
-  { keywords: ["coconut milk", "kokosmilch"],                     asin: "B0042FRIHM", search: "Aroy-D Kokosmilch 400ml",           label: "Kokosmilch" },
+  { keywords: ["coconut milk", "kokosmilch"],                     asin: "B0071JPZHQ", search: "Aroy-D Kokosmilch 400ml",           label: "Kokosmilch" },
   { keywords: ["cream of coconut", "coconut cream"],                                   search: "Chaokoah Coconut Cream 400ml",      label: "Kokosnusscreme" },
   { keywords: ["chicken broth", "chicken stock", "vegetable broth", "vegetable stock", "beef broth", "brühe", "stock"], search: "Knorr Gemüsebrühe Pulver 500g", label: "Brühe" },
 
