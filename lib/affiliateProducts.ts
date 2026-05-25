@@ -299,6 +299,16 @@ const INGREDIENT_MAP: IngredientEntry[] = [
  */
 export function getIngredientAffiliateUrl(ingredientName: string): string | null {
   const name = ingredientName.toLowerCase();
+
+  // Don't link fresh herbs — they can't be shipped and dried is not a substitute in context.
+  // e.g. "fresh oregano leaves" should NOT link to dried oregano.
+  const freshHerbs = ["oregano", "thyme", "thymian", "rosemary", "rosmarin", "basil", "basilikum",
+    "parsley", "petersilie", "cilantro", "koriander", "mint", "minze", "dill", "sage", "salbei",
+    "chives", "schnittlauch", "tarragon", "estragon"];
+  if (name.includes("fresh ") && freshHerbs.some(h => name.includes(h))) {
+    return null;
+  }
+
   for (const entry of INGREDIENT_MAP) {
     if (entry.keywords.some(kw => name.includes(kw))) {
       if (entry.asin) {
