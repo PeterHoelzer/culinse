@@ -14,7 +14,7 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnl
   const products = useMemo(
     () => getToolsForRecipe(dishTypes, ingredientNames, recipeTitle),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [recipeTitle]
+    [recipeTitle, dishTypes.join(","), ingredientNames.slice(0, 10).join(",")]
   );
 
   if (products.length === 0) return null;
