@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Block user-specific pages (no SEO value)
+Disallow: /*/saved
+Disallow: /*/collections
+Disallow: /*/meal-planner
+Disallow: /*/profile
+Disallow: /*/pro/success
+Disallow: /*/login
+Disallow: /*/reset-password
+Disallow: /*/update-password
+
+# Block API routes
+Disallow: /api/
+
+Sitemap: https://culinse.com/sitemap.xml
