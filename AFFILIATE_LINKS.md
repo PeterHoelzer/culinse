@@ -1,7 +1,7 @@
 # Culinse — Amazon Affiliate Links
 
 Tag: `culinse-21`  
-Letzter vollständiger Check: **26. Mai 2026**  
+Letzter vollständiger Check: **27. Mai 2026**  
 Alle Links: `https://www.amazon.de/dp/{ASIN}?tag=culinse-21`
 
 ---
@@ -49,6 +49,72 @@ Alle anderen nutzen eine Suche-URL als Fallback.
 | 34 | gochujang | **B07YQ91R81** | Sempio Gochujang Rote Pfefferpaste 500g | ~€7 | ✅ | 26.05.26 |
 | 35 | oat milk, hafermilch | **B0CJK658DF** | Oatly Barista Haferdrink 1L | ~€13 | ✅ | 26.05.26 |
 | 36 | peanut butter, erdnussbutter | **B0GN94C9WY** | Whole Earth Crunchy Bio Erdnussbutter 340g | ~€4 | ✅ | 26.05.26 |
+| 37 | vegetable oil, sunflower oil | **B0038GY8PQ** | Rapunzel Sonnenblumenöl nativ 500ml | ~€8 | ✅ | 27.05.26 |
+| 38 | cream of coconut, coconut cream | **B00AMXKK2S** | Mae Ploy Kokosnusscreme 400ml | ~€4 | ✅ | 27.05.26 |
+| 39 | chicken broth, vegetable broth, stock | **B07H496H22** | Knorr Gemüsegold Bouillon | ~€5 | ✅ | 27.05.26 |
+| 40 | penne | **B003R7KQQQ** | Barilla Penne Rigate 500g | ~€2 | ✅ | 27.05.26 |
+| 41 | fusilli | **B01518B4LY** | Barilla Fusilli 500g | ~€2 | ✅ | 27.05.26 |
+| 42 | rigatoni | **B003OVQFU6** | De Cecco Rigatoni 500g | ~€2 | ✅ | 27.05.26 |
+| 43 | jasmine rice, jasminreis | **B004L5DBPQ** | Aroy-D Jasminreis 2kg | ~€8 | ✅ | 27.05.26 |
+| 44 | arborio, risotto rice | **B0CG9R48T8** | by Amazon Arborio Risottoreis 500g | ~€2 | ✅ | 27.05.26 |
+| 45 | couscous | **B082VMCB9D** | DOYAL Couscous 500g | ~€2 | ✅ | 27.05.26 |
+| 46 | quinoa | **B07JBXHN5Y** | Alnatura Bio Quinoa 500g | ~€4 | ✅ | 27.05.26 |
+| 47 | flour, all-purpose flour, mehl | **B001ANS4X6** | Aurora Weizenmehl Type 405 1kg | ~€1 | ✅ | 27.05.26 |
+| 48 | bread flour, type 550 | **B003UCO59M** | Bauckhof Weizenmehl Type 550 1kg | ~€3 | ✅ | 27.05.26 |
+| 49 | chickpeas, kichererbsen | **B092K41DDK** | Alnatura Kichererbsen 400g | ~€1 | ✅ | 27.05.26 |
+| 50 | lentils, linsen | **B0FM41BDRS** | Alnatura Rote Linsen 400g | ~€2 | ✅ | 27.05.26 |
+| 51 | kidney beans, bohnen | **B0DGKQZK75** | Alnatura Kidneybohnen 400g | ~€2 | ✅ | 27.05.26 |
+| 52 | oats, rolled oats, haferflocken | **B08HT8NS9D** | Alnatura Haferflocken zart 400g | ~€1 | ✅ | 27.05.26 |
+| 53 | paprika, smoked paprika | **B0CD2K52K9** | Kotányi Paprika geräuchert 80ml | ~€2 | ✅ | 27.05.26 |
+| 54 | cumin, kreuzkümmel | **B0GP7RRJ9T** | Kotányi Kreuzkümmel gemahlen | ~€2 | ✅ | 27.05.26 |
+| 55 | turmeric, kurkuma | **B01N4UHGUI** | Alnatura Kurkuma gemahlen Bio 60g | ~€2 | ✅ | 27.05.26 |
+| 56 | coriander, koriander | **B0GK31BKJR** | Kotányi Koriander gemahlen | ~€5 | ✅ | 27.05.26 |
+| 57 | cinnamon, zimt | **B01JPFG10S** | Ankerkraut Zimt gemahlen 75g | ~€5 | ✅ | 27.05.26 |
+| 58 | thyme, thymian | **B0B9BHD6LZ** | Kotányi Thymian getrocknet 80ml | ~€2 | ✅ | 27.05.26 |
+| 59 | rosemary, rosmarin | **B0B9BHF862** | Kotányi Rosmarin getrocknet 80ml | ~€2 | ✅ | 27.05.26 |
+| 60 | cayenne | **B0FN4STFDD** | Alpi Nature Cayennepfeffer 125g | ~€6 | ✅ | 27.05.26 |
+| 61 | chili flakes, red pepper flakes | **B09WLWWQQN** | Alpi Nature Chiliflocken 250g | ~€7 | ✅ | 27.05.26 |
+| 62 | ginger powder, ingwer | **B0B9BJP3KB** | Kotányi Ingwer gemahlen 80ml | ~€2 | ✅ | 27.05.26 |
+| 63 | garlic powder, knoblauchpulver | **B0B9BL1TYS** | Kotányi Knoblauch Granulat 52g | ~€2 | ✅ | 27.05.26 |
+| 64 | onion powder, zwiebelpulver | **B0FD1NWK6H** | by Amazon Zwiebelpulver 45g | ~€2 | ✅ | 27.05.26 |
+| 65 | bay leaf, lorbeer | **B082VNQSRR** | Ostmann Lorbeerblätter 5g | ~€2 | ✅ | 27.05.26 |
+| 66 | cardamom, kardamom | **B084H84C18** | Alpi Nature Kardamom gemahlen 100g | ~€9 | ✅ | 27.05.26 |
+| 67 | za'atar, zaatar | **B087CY9JGC** | Za'atar Gewürzmischung 100g | ~€7 | ✅ | 27.05.26 |
+| 68 | garam masala | **B0D4223QGB** | Ostmann Garam Masala 30g | ~€2 | ✅ | 27.05.26 |
+| 69 | curry powder, currypulver | **B00COMCA82** | Ankerkraut Madras Curry 60g | ~€6 | ✅ | 27.05.26 |
+| 70 | five spice, fünf-gewürze | **B0B9W1NT99** | Fuchs Fünf-Gewürze 40g | ~€4 | ✅ | 27.05.26 |
+| 71 | sumac, sumach | **B0GTWGMNS4** | Grocer Planet Sumach 150g | ~€6 | ✅ | 27.05.26 |
+| 72 | sugar, zucker | **B01M3VDM76** | Alnatura Bio Rohrohrzucker 1kg | ~€3 | ✅ | 27.05.26 |
+| 73 | brown sugar, brauner zucker | **B003EG8WYS** | MauiSu Dark Muscovado 500g | ~€5 | ✅ | 27.05.26 |
+| 74 | powdered sugar, puderzucker | **B01GJHR5BE** | Südzucker Puderzucker Mühle 250g | ~€2 | ✅ | 27.05.26 |
+| 75 | dark chocolate, schokolade | **B09H1P8GW3** | Tony's Chocolonely 70% 180g | ~€5 | ✅ | 27.05.26 |
+| 76 | chocolate chips, schokoladentropfen | **B0794ZBTZY** | Callebaut Schokoladentropfen 70% 400g | ~€13 | ✅ | 27.05.26 |
+| 77 | baking powder, backpulver | **B00U8ISLXW** | Dr. Oetker Backpulver 10x3er | ~€4 | ✅ | 27.05.26 |
+| 78 | baking soda, natron | **B0CDCDYFJH** | ARM & HAMMER Natron 454g | ~€2 | ✅ | 27.05.26 |
+| 79 | yeast, dry yeast, hefe | **B083FXYGM9** | CAPUTO Lievito Secco Trockenhefe | ~€8 | ✅ | 27.05.26 |
+| 80 | cream of tartar, weinstein | **B0995TP2RB** | FunCakes Weinstein 80g | ~€5 | ✅ | 27.05.26 |
+| 81 | harissa | **B0F636FJJX** | Fuchs Harissa 100g | ~€3 | ✅ | 27.05.26 |
+| 82 | pesto | **B09R5165CJ** | Barilla Pesto alla Genovese 190g | ~€3 | ✅ | 27.05.26 |
+| 83 | sun-dried tomatoes, getrocknete tomaten | **B071S2986D** | DELIGREECE Getrocknete Tomaten 270g | ~€10 | ✅ | 27.05.26 |
+| 84 | capers, kapern | **B01M69GSN0** | Alnatura Bio Kapern 150g | ~€3 | ✅ | 27.05.26 |
+| 85 | anchovy, anchovies, sardellen | **B0CB1WPXJ8** | by Amazon MSC Sardellenfillets 6x50g | ~€11 | ✅ | 27.05.26 |
+| 86 | truffle oil, trüffelöl | **B005451N2K** | TruffleHunter Schwarzes Trüffelöl | ~€12 | ✅ | 27.05.26 |
+| 87 | rose water, rosenwasser | **B0F21T65YF** | Orientalisches Rosenwasser 250ml | ~€7 | ✅ | 27.05.26 |
+| 88 | pomegranate molasses, granatapfelsirup | **B0FDXDP5Z9** | Chtoura Garden Granatapfelmelasse 250ml | ~€7 | ✅ | 27.05.26 |
+| 89 | almonds, mandeln | **B01M9GF8GL** | Alnatura Bio Mandeln ganz 200g | ~€4 | ✅ | 27.05.26 |
+| 90 | walnuts, walnüsse | **B01MQ230OK** | Alnatura Bio Walnusskerne 150g | ~€4 | ✅ | 27.05.26 |
+| 91 | pine nuts, pinienkerne | **B0G59DCJZK** | Maryland Pinienkerne 100g | ~€5 | ✅ | 27.05.26 |
+| 92 | sesame seeds, sesam | **B0FN7WXTP6** | Alpi Nature Sesamkörner BIO geschält 200g | ~€5 | ✅ | 27.05.26 |
+| 93 | chia seeds, chiasamen | **B00TY7S4C6** | Bio Chia Samen 500g | ~€8 | ✅ | 27.05.26 |
+| 94 | flaxseed, leinsamen | **B0D1CSKPQY** | Alnatura Bio Leinsamen Geschrotet 400g | ~€4 | ✅ | 27.05.26 |
+| 95 | almond flour, mandelmehl | **B0GN346C38** | Mandelmehl entölt 200g | ~€6 | ✅ | 27.05.26 |
+| 96 | almond milk, mandelmilch | **B00O8PIRNA** | Alpro Mandeldrink Ohne Zucker | ~€14 | ✅ | 27.05.26 |
+| 97 | white wine, weißwein | **B087JZJ67S** | Kloster Eberbach Riesling Trocken 0.75l | ~€9 | ✅ | 27.05.26 |
+| 98 | red wine, rotwein | **B08DPMYF3V** | Andeluna Merlot 1300 0.75l | ~€12 | ✅ | 27.05.26 |
+| 99 | mirin | **B003WVBF80** | Marukin Mirin 500ml | ~€7 | ✅ | 27.05.26 |
+| 100 | sake | **B0B59WD9TM** | Umami Japanischer Kochsake 500ml | ~€9 | ✅ | 27.05.26 |
+
+**Ohne ASIN (search-only):** butter (Frischware), coconut yogurt (Frischware), parmesan (Frischware)
 
 **Alle anderen Zutaten** → Amazon-Suchseite (kein ASIN, kein falsches Produkt)
 
