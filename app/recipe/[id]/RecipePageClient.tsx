@@ -8,6 +8,7 @@ import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import LoginPromptModal from "@/components/LoginPromptModal";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import { getIngredientAffiliateUrl } from "@/lib/affiliateProducts";
 
@@ -54,6 +55,7 @@ export default function RecipePageClient() {
   const [imgError, setImgError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -95,7 +97,7 @@ export default function RecipePageClient() {
   }, [user, id]);
 
   const handleSave = async () => {
-    if (!user) { window.location.href = "/login"; return; }
+    if (!user) { setShowLoginPrompt(true); return; }
     if (!recipe || saving) return;
     setSaving(true);
     try {
@@ -227,6 +229,11 @@ export default function RecipePageClient() {
           }}
           onClose={() => setShowCollectionModal(false)}
         />
+      )}
+
+      {/* Login Prompt Modal */}
+      {showLoginPrompt && (
+        <LoginPromptModal onClose={() => setShowLoginPrompt(false)} />
       )}
 
       {/* Recipe */}
@@ -389,14 +396,12 @@ export default function RecipePageClient() {
               >
                 {saving ? t("saving") : saved ? t("savedRecipe") : t("saveRecipe")}
               </button>
-              {user && (
-                <button
-                  onClick={() => setShowCollectionModal(true)}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-                >
-                  📚 Collections
-                </button>
-              )}
+              <button
+                onClick={() => user ? setShowCollectionModal(true) : setShowLoginPrompt(true)}
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
+              >
+                📚 Collections
+              </button>
               <a
                 href={recipe.sourceUrl}
                 target="_blank"
