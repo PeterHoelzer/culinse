@@ -311,8 +311,6 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
-];
-
   {
     slug: "easy-dinner-ideas-for-busy-weeknights",
     title: "15 Easy Dinner Ideas for Busy Weeknights (Ready in 30 Minutes or Less)",

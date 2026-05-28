@@ -297,8 +297,6 @@ export const blogPostsDe: BlogPost[] = [
       },
     ],
   },
-];
-
   {
     slug: "schnelle-abendessen-ideen-unter-30-minuten",
     title: "15 schnelle Abendessen-Ideen für unter der Woche (in 30 Minuten oder weniger)",
