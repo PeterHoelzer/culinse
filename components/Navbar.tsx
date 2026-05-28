@@ -68,11 +68,8 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-          <span className="text-2xl">🍳</span>
-          <span className="text-xl font-bold text-gray-900">
-            culi<span style={{ color: "#f97316" }}>nse</span>
-          </span>
+        <Link href="/" className="flex items-center flex-shrink-0">
+          <img src="/culinse-logo.png" alt="culinse" height={28} style={{ height: "28px", width: "auto" }} />
         </Link>
 
         {/* Desktop nav */}
