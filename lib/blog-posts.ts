@@ -313,6 +313,145 @@ export const blogPosts: BlogPost[] = [
   },
 ];
 
+  {
+    slug: "easy-dinner-ideas-for-busy-weeknights",
+    title: "15 Easy Dinner Ideas for Busy Weeknights (Ready in 30 Minutes or Less)",
+    description:
+      "Stuck on what to cook tonight? These easy dinner ideas come together in 30 minutes or less — no complicated steps, no obscure ingredients, just real food that actually works on busy weeknights.",
+    publishedAt: "2026-05-28",
+    readingTime: "6 min read",
+    category: "Dinner Ideas",
+    sections: [
+      {
+        content:
+          "It's 6 pm. You just got home, everyone's hungry, and your brain is completely empty. This is when dinner planning either pays off or falls apart. If you planned ahead, you pull something together in 30 minutes. If you didn't, you're staring into the fridge wondering if cheese and crackers counts as dinner.",
+      },
+      {
+        content:
+          "These 15 easy dinner ideas are the kind of weeknight meals that actually work — fast, filling, and made from things you can keep on hand. No elaborate prep, no 45-minute recipes dressed up as 'quick', just straightforward food that gets dinner on the table.",
+      },
+      {
+        heading: "10–15 Minute Dinners",
+        content:
+          "When time is really tight, these come together almost faster than ordering takeout:",
+        list: [
+          "Fried rice: leftover rice, eggs, soy sauce, any vegetables you have. 10 minutes.",
+          "Scrambled eggs with toast and a side salad: underrated as a dinner, fast, protein-rich.",
+          "Quesadillas: tortilla, cheese, beans or leftover chicken, 5 minutes per side.",
+          "Pasta aglio e olio: spaghetti, garlic, olive oil, chili flakes, parmesan. 15 minutes from dry pasta.",
+          "Tuna salad wraps: canned tuna, mayo, celery, lettuce, wrap it up.",
+        ],
+      },
+      {
+        heading: "20–30 Minute Dinners",
+        content:
+          "The sweet spot for weeknight cooking — enough time to make something that actually feels like a meal:",
+        list: [
+          "Sheet pan chicken thighs with roasted vegetables: everything on one pan at 220°C, 25 minutes.",
+          "Stir-fried noodles: noodles, protein of choice, vegetables, soy sauce, sesame oil. Faster than it sounds.",
+          "Black bean tacos: canned black beans seasoned with cumin and chili, avocado, lime, 15 minutes.",
+          "One-pan salmon with green beans: season salmon, add beans to the pan, done in 20 minutes.",
+          "Turkey or chicken meatballs with pasta: pre-formed, bake while pasta cooks.",
+          "Chickpea curry: canned chickpeas, canned tomatoes, coconut milk, curry paste. 20 minutes, genuinely good.",
+          "Halloumi with couscous and roasted peppers: couscous is done in 5 minutes, halloumi fries fast.",
+          "Greek-style ground beef with pita: seasoned beef, cucumber, tomato, yogurt sauce.",
+          "Lentil soup: red lentils cook in 20 minutes, no soaking. Onion, cumin, garlic, vegetable stock.",
+          "Flatbread pizza: store-bought flatbread, tomato sauce, mozzarella, whatever toppings. 12 minutes at 200°C.",
+        ],
+      },
+      {
+        heading: "The Real Secret: Keeping the Right Things Stocked",
+        content:
+          "Most of these recipes work because they rely on pantry staples and freezer basics. If you consistently have these on hand, you can always put something together:",
+        list: [
+          "Canned: chickpeas, black beans, diced tomatoes, coconut milk, tuna",
+          "Dry: pasta, rice, couscous, red lentils, noodles",
+          "Freezer: chicken thighs, ground meat, edamame, frozen vegetables",
+          "Fridge constants: eggs, parmesan, Greek yogurt, a block of halloumi or feta",
+          "Condiments: soy sauce, olive oil, curry paste, hot sauce",
+        ],
+      },
+      {
+        content:
+          "When you have these basics, you can make something out of almost nothing. The recipes above are just starting points — most of them work with whatever protein or vegetable you have on hand.",
+      },
+      {
+        heading: "Plan Once, Cook All Week",
+        content:
+          "The biggest time-saver isn't faster recipes — it's not having to decide what to cook every day. If you spend 10 minutes on Sunday planning your week and generating a single shopping list, you eliminate the '6 pm empty brain' problem entirely.",
+      },
+      {
+        content:
+          "Culinse lets you plan your week in a simple grid, pick recipes from a large library, and generates a combined shopping list automatically — sorted by category, with correct amounts. Free at culinse.com.",
+      },
+    ],
+  },
+  {
+    slug: "quick-dinner-recipes-under-30-minutes",
+    title: "Quick Dinner Recipes Under 30 Minutes: What Actually Works",
+    description:
+      "Most '30-minute recipes' secretly take 45. Here are quick dinner recipes that genuinely come together fast — with tips on how to make weeknight cooking reliably quick every time.",
+    publishedAt: "2026-05-28",
+    readingTime: "5 min read",
+    category: "Dinner Ideas",
+    sections: [
+      {
+        content:
+          "You've probably been burned by the 30-minute recipe myth. The prep alone takes 20 minutes, and somewhere between 'quickly dice the onion' and 'reduce the sauce until glossy' the clock hits 55 minutes and you're eating at 8 pm.",
+      },
+      {
+        content:
+          "Genuinely quick dinner recipes share a few characteristics that have nothing to do with how they're marketed. Here's what to look for — and a set of recipes that actually deliver.",
+      },
+      {
+        heading: "What Makes a Recipe Actually Fast",
+        content:
+          "The bottleneck is almost never cooking time — it's prep. A recipe is fast when:",
+        list: [
+          "It uses minimal knife work: canned beans and tomatoes are already 'prepped'.",
+          "Cooking happens in one pan: fewer dishes, no parallel timing to manage.",
+          "Protein is naturally quick: eggs, shrimp, fish fillets, canned legumes all cook in under 10 minutes.",
+          "It doesn't require deglazing, reducing, or emulsifying: those steps sound easy but add 10–15 minutes.",
+        ],
+      },
+      {
+        heading: "Recipes That Genuinely Take Under 30 Minutes",
+        content: "These hold up even when you're tired and moving slowly:",
+        list: [
+          "Shrimp stir-fry with rice (use pre-cooked or microwave rice): shrimp cook in 3–4 minutes, sauce comes together in 2.",
+          "Frittata: whisk eggs, pour into oven-safe pan with whatever vegetables/cheese you have, 12 minutes at 200°C.",
+          "White bean and spinach soup: canned beans, vegetable stock, garlic, lemon. Ready in 15 minutes.",
+          "Pesto pasta with cherry tomatoes: pasta cooks, toss with jarred pesto and halved tomatoes. 15 minutes.",
+          "Fish tacos: white fish fillets take 8 minutes in a pan, build the taco while they cook.",
+          "Caprese chicken: flatten chicken breasts, pan-fry 7 minutes per side, top with mozzarella and tomato.",
+          "Turkish eggs (çilbir): poach eggs in spiced yogurt, finish with brown butter. Sounds impressive, takes 12 minutes.",
+          "Soba noodle salad: cook noodles 4 minutes, toss with soy-sesame dressing, sliced cucumber, edamame.",
+        ],
+      },
+      {
+        heading: "The Prep Shortcuts That Change Everything",
+        content:
+          "Beyond choosing the right recipes, a few prep habits cut weeknight cooking time significantly:",
+        list: [
+          "Keep pre-cooked grains in the fridge: cook a big batch of rice or quinoa on Sunday. Reheats in 2 minutes.",
+          "Use canned and frozen: canned beans, frozen edamame, frozen spinach — no prep at all.",
+          "Buy pre-cut vegetables when it matters: frozen stir-fry mixes, pre-shredded cabbage for slaws.",
+          "Mise en place before you heat the pan: 3 minutes of prep before cooking makes everything go faster and less stressful.",
+        ],
+      },
+      {
+        heading: "Why Planning Beats Speed",
+        content:
+          "Even the fastest recipe requires a trip to the store if you're missing ingredients. The real speed hack for weeknight dinners isn't finding faster recipes — it's planning 3–4 meals ahead of time and shopping once for all of them.",
+      },
+      {
+        content:
+          "When you have the right ingredients at home, you can cook any of these in under 30 minutes without thinking. Culinse helps you plan the week and generates the shopping list automatically — so the ingredients are there when you need them. Free at culinse.com.",
+      },
+    ],
+  },
+];
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);
 }

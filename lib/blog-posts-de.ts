@@ -299,6 +299,150 @@ export const blogPostsDe: BlogPost[] = [
   },
 ];
 
+  {
+    slug: "schnelle-abendessen-ideen-unter-30-minuten",
+    title: "15 schnelle Abendessen-Ideen für unter der Woche (in 30 Minuten oder weniger)",
+    description:
+      "Was koche ich heute Abend? Diese schnellen Abendessen-Ideen sind in 30 Minuten fertig — keine komplizierten Schritte, keine exotischen Zutaten, einfach echtes Essen das unter der Woche wirklich funktioniert.",
+    publishedAt: "2026-05-28",
+    readingTime: "6 Min. Lesezeit",
+    category: "Abendessen-Ideen",
+    sections: [
+      {
+        content:
+          "Es ist 18 Uhr. Du bist gerade nach Hause gekommen, alle haben Hunger, und dein Kopf ist völlig leer. Genau in diesem Moment entscheidet sich, ob deine Abendessplanung aufgeht oder zusammenbricht. Wer vorher geplant hat, kocht in 30 Minuten etwas Vernünftiges. Wer nicht geplant hat, starrt in den Kühlschrank und fragt sich, ob Käse und Cracker als Abendessen durchgehen.",
+      },
+      {
+        content:
+          "Diese 15 schnellen Abendessen-Ideen sind genau das, was unter der Woche wirklich funktioniert — schnell, sättigend und aus Dingen, die man griffbereit haben kann. Keine ausgefeilten Vorbereitungen, keine als 'schnell' verkleideten 45-Minuten-Rezepte, einfach unkompliziertes Essen, das pünktlich auf dem Tisch steht.",
+      },
+      {
+        heading: "10–15 Minuten",
+        content:
+          "Wenn wirklich wenig Zeit bleibt, gehen diese Gerichte fast schneller als eine Bestellung:",
+        list: [
+          "Gebratener Reis: Rest-Reis, Eier, Sojasoße, was auch immer an Gemüse da ist. 10 Minuten.",
+          "Rührei mit Toast und kleinem Salat: als Abendessen unterschätzt, schnell, proteinreich.",
+          "Quesadillas: Tortilla, Käse, Bohnen oder Resthähnchen, 5 Minuten pro Seite.",
+          "Pasta aglio e olio: Spaghetti, Knoblauch, Olivenöl, Chiliflocken, Parmesan. 15 Minuten ab trockenen Nudeln.",
+          "Thunfisch-Wraps: Thunfisch aus der Dose, Mayo, Sellerie, Salat, einwickeln.",
+        ],
+      },
+      {
+        heading: "20–30 Minuten",
+        content:
+          "Der goldene Bereich für Abendessen unter der Woche — genug Zeit für etwas, das sich wirklich nach einer Mahlzeit anfühlt:",
+        list: [
+          "Blechofenhähnchen mit geröstetem Gemüse: alles auf ein Blech bei 220°C, 25 Minuten.",
+          "Gebratene Nudeln: Nudeln, Protein nach Wahl, Gemüse, Sojasoße, Sesamöl. Geht schneller als gedacht.",
+          "Schwarze-Bohnen-Tacos: Dosenbohnen mit Kreuzkümmel und Chili gewürzt, Avocado, Limette, 15 Minuten.",
+          "Lachs mit grünen Bohnen in einer Pfanne: Lachs würzen, Bohnen in die Pfanne, fertig in 20 Minuten.",
+          "Kichererbsen-Curry: Kichererbsen aus der Dose, Dosentomaten, Kokosmilch, Currypaste. 20 Minuten, wirklich lecker.",
+          "Halloumi mit Couscous und gebratenen Paprika: Couscous ist in 5 Minuten fertig, Halloumi brät schnell.",
+          "Hackfleisch griechischer Art mit Pita: gewürztes Hackfleisch, Gurke, Tomate, Joghurtsauce.",
+          "Linsensuppe: rote Linsen brauchen 20 Minuten, kein Einweichen. Zwiebel, Kreuzkümmel, Knoblauch, Gemüsebrühe.",
+          "Fladenbrot-Pizza: fertiges Fladenbrot, Tomatensauce, Mozzarella, Lieblingsbelag. 12 Minuten bei 200°C.",
+          "Garnelen-Pfanne mit Reisnudeln: Garnelen garen in 3–4 Minuten, Soße in 2 Minuten.",
+        ],
+      },
+      {
+        heading: "Das eigentliche Geheimnis: die richtigen Vorräte",
+        content:
+          "Die meisten dieser Rezepte funktionieren, weil sie auf Vorratskammer-Basics und Tiefkühlware setzen. Wer diese Dinge regelmäßig zu Hause hat, kann immer etwas auf den Tisch bringen:",
+        list: [
+          "Dosen: Kichererbsen, schwarze Bohnen, gewürfelte Tomaten, Kokosmilch, Thunfisch",
+          "Trockenvorrat: Nudeln, Reis, Couscous, rote Linsen",
+          "Tiefkühl: Hähnchenschenkel, Hackfleisch, Edamame, Tiefkühlgemüse",
+          "Kühlschrank-Konstanten: Eier, Parmesan, griechischer Joghurt, Halloumi oder Feta",
+          "Würzmittel: Sojasoße, Olivenöl, Currypaste, scharfe Sauce",
+        ],
+      },
+      {
+        content:
+          "Wenn man diese Basics hat, lässt sich aus fast nichts etwas machen. Die Rezepte oben sind nur Ausgangspunkte — die meisten funktionieren mit dem Protein oder Gemüse, das gerade da ist.",
+      },
+      {
+        heading: "Einmal planen, die ganze Woche kochen",
+        content:
+          "Die größte Zeitersparnis sind nicht schnellere Rezepte — es geht darum, nicht jeden Tag neu entscheiden zu müssen, was auf den Tisch kommt. Wer am Sonntag 10 Minuten investiert, seinen Plan für die Woche aufstellt und eine einzige Einkaufsliste generiert, eliminiert das „18-Uhr-Blackout"-Problem völlig.",
+      },
+      {
+        content:
+          "Mit Culinse planst du deine Woche in einem einfachen Raster, wählst Rezepte aus einer großen Bibliothek aus und bekommst automatisch eine kombinierte Einkaufsliste — nach Kategorien sortiert, mit den richtigen Mengen. Kostenlos auf culinse.com.",
+      },
+    ],
+  },
+  {
+    slug: "was-koche-ich-heute-abend-ideen-fuer-die-woche",
+    title: "Was koche ich heute Abend? Ideen für jeden Wochentag",
+    description:
+      "Die ewige Frage: Was koche ich heute? Hier findest du konkrete Abendessen-Ideen für jeden Tag der Woche — plus einen einfachen Plan, damit du dir diese Frage seltener stellst.",
+    publishedAt: "2026-05-28",
+    readingTime: "5 Min. Lesezeit",
+    category: "Abendessen-Ideen",
+    sections: [
+      {
+        content:
+          "\"Was koche ich heute Abend?\" ist eine der häufigsten Suchanfragen überhaupt — und das aus gutem Grund. Die Entscheidung, was man kocht, fühlt sich nach einem langen Tag nach unverhältnismäßig viel Aufwand an. Nicht das Kochen selbst, sondern das Entscheiden davor kostet die Energie.",
+      },
+      {
+        content:
+          "Dieser Artikel gibt dir konkrete Ideen für jeden Wochentag — und erklärt, warum die beste Lösung für die tägliche Frage ist, sie gar nicht mehr täglich zu stellen.",
+      },
+      {
+        heading: "Ideen für jeden Tag der Woche",
+        content:
+          "Ein bewährtes Wochenraster, das sich in vielen Haushalten bewährt hat:",
+        list: [
+          "Montag — Nudelgericht: Pasta mit Tomatensauce, Pesto oder Sahnesauce. Einfach, schnell, kein großes Nachdenken.",
+          "Dienstag — Hähnchen: Ofen-Hähnchen, Hähnchen-Pfanne, Hähnchen-Wrap. Vielseitig und schnell.",
+          "Mittwoch — Vegetarisch: Linsensuppe, Gemüsecurry, Quiche oder eine große Gemüsepfanne.",
+          "Donnerstag — Fisch: Lachsfilet, Thunfisch-Pasta, Fischstäbchen mit Kartoffeln — leichter Teller zur Wochenmitte.",
+          "Freitag — Freestyle: Pizza, Burger, oder das Lieblingsessen der Woche. Freitag darf entspannt sein.",
+          "Samstag — Aufwendigeres: Risotto, Schmorgerichte, oder ein neues Rezept ausprobieren.",
+          "Sonntag — Klassiker: Braten, Suppe, oder Meal Prep für die kommende Woche.",
+        ],
+      },
+      {
+        heading: "Das Wochentag-Themen-System",
+        content:
+          "Das sogenannte 'Themen-System' klingt spielerisch, hat aber einen echten Vorteil: Es reduziert die Entscheidungsfreiheit auf das Nötigste. Du weißt bereits, was der Abend grob werden soll, und entscheidest nur noch über die Details.",
+        list: [
+          "Montag = Nudeln → Welche Soße? Welches Protein?",
+          "Dienstag = Geflügel → Pfanne, Ofen, oder Wrap?",
+          "Mittwoch = vegetarisch → Was ist noch im Kühlschrank?",
+          "Donnerstag = Fisch → Lachs, Kabeljau oder etwas Geräuchertes?",
+          "Freitag = Comfort Food → Raus aus dem Kochplan, rein ins Wohlfühlessen",
+        ],
+      },
+      {
+        content:
+          "Das System muss nicht starr sein. Es gibt dir einen Ausgangspunkt statt einem leeren Blatt.",
+      },
+      {
+        heading: "Die eigentliche Lösung: Einmal pro Woche planen",
+        content:
+          "Wer sich die Frage 'Was koche ich heute Abend?' nicht mehr täglich stellen möchte, plant einmal pro Woche vor. Das klingt aufwendiger als es ist: 10 Minuten am Sonntag, fünf Rezepte ausgewählt, Einkaufsliste erstellt, eingekauft. Die ganze Woche läuft danach auf Autopilot.",
+        list: [
+          "Du weißt jeden Abend, was gekocht wird — keine Energie mehr für die Entscheidung.",
+          "Dein Kühlschrank enthält genau das, was du brauchst — kein täglicher Mini-Einkauf.",
+          "Weniger Lebensmittelverschwendung, weil du kaufst, was du wirklich verarbeitest.",
+          "Deutlich seltener bestellt, weil das Abendessen-Problem gelöst ist, bevor der Hunger kommt.",
+        ],
+      },
+      {
+        heading: "Wie Culinse dabei hilft",
+        content:
+          "Culinse ist ein kostenloser Mahlzeitenplaner, der genau diesen Prozess vereinfacht. Du planst deine Woche in einem 7×3-Raster (Frühstück, Mittagessen, Abendessen), wählst Rezepte aus einer großen Bibliothek — oder gibst eigene ein — und bekommst automatisch eine kombinierte Einkaufsliste, nach Supermarkt-Kategorien sortiert, mit den richtigen Mengen.",
+      },
+      {
+        content:
+          "Das Ergebnis: Statt jeden Abend neu zu entscheiden, was du kochst, hast du einen Plan. Die Frage 'Was koche ich heute?' stellt sich dann kaum noch. Einfach kostenlos testen auf culinse.com.",
+      },
+    ],
+  },
+];
+
 export function getBlogPostDe(slug: string): BlogPost | undefined {
   return blogPostsDe.find((p) => p.slug === slug);
 }
