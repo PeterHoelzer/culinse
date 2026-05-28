@@ -37,7 +37,7 @@ export default function LoginClient() {
         options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
       });
       if (error) setError(error.message);
-      else if (data.session) router.push("/");
+      else if (data.session) router.push("/profile?welcome=1");
       else setMessage("confirm");
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
