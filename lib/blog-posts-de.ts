@@ -362,7 +362,7 @@ export const blogPostsDe: BlogPost[] = [
       {
         heading: "Einmal planen, die ganze Woche kochen",
         content:
-          "Die größte Zeitersparnis sind nicht schnellere Rezepte — es geht darum, nicht jeden Tag neu entscheiden zu müssen, was auf den Tisch kommt. Wer am Sonntag 10 Minuten investiert, seinen Plan für die Woche aufstellt und eine einzige Einkaufsliste generiert, eliminiert das „18-Uhr-Blackout"-Problem völlig.",
+          "Die größte Zeitersparnis sind nicht schnellere Rezepte — es geht darum, nicht jeden Tag neu entscheiden zu müssen, was auf den Tisch kommt. Wer am Sonntag 10 Minuten investiert, seinen Plan für die Woche aufstellt und eine einzige Einkaufsliste generiert, eliminiert das sogenannte 18-Uhr-Blackout-Problem völlig.",
       },
       {
         content:
