@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
 import { blogPostsDe } from "@/lib/blog-posts-de";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://culinse.com";
   const locales = ["en", "de"] as const;
 
@@ -39,5 +39,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...enBlogEntries, ...deBlogEntries];
+  // Fetch top-50 popular recipe IDs from Spoonacular for sitemap
+  let recipeEntries: MetadataRoute.Sitemap = [];
+  try {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/complexSearch?number=50&sort=popularity&minPopularity=50&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_API_KEY}`,
+      { next: { revalidate: 86400 } }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      const ids: number[] = (data.results ?? []).map((r: { id: number }) => r.id);
+      recipeEntries = ids.flatMap((id) => [
+        { url: `${baseUrl}/en/recipe/${id}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
+        { url: `${baseUrl}/de/recipe/${id}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6 },
+      ]);
+    }
+  } catch {
+    // Silently fail — don't break the build if Spoonacular is unavailable
+  }
+
+  return [...staticEntries, ...enBlogEntries, ...deBlogEntries, ...recipeEntries];
 }
