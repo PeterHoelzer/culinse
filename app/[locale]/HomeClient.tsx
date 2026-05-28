@@ -856,11 +856,8 @@ function Footer() {
     <footer className="bg-gray-900 text-gray-400 py-10 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🍳</span>
-            <span className="text-white font-bold text-lg">
-              culi<span style={{ color: "#f97316" }}>nse</span>
-            </span>
+          <div className="flex items-center">
+            <img src="/culinse-logo.png" alt="culinse" style={{ height: "22px", width: "auto", filter: "brightness(0) invert(1)" }} />
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 text-sm">

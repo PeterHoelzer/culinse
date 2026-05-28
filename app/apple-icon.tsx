@@ -11,25 +11,23 @@ export default function AppleIcon() {
           width: 180,
           height: 180,
           borderRadius: "40px",
-          background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
+          background: "#f97316",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 4,
         }}
       >
-        <div style={{ fontSize: 90, lineHeight: 1 }}>🍳</div>
         <div
           style={{
-            fontSize: 28,
-            fontWeight: 800,
+            fontSize: 100,
+            fontWeight: 900,
             color: "white",
-            letterSpacing: "-0.5px",
             fontFamily: "sans-serif",
+            letterSpacing: "-4px",
+            lineHeight: 1,
           }}
         >
-          culinse
+          c
         </div>
       </div>
     ),

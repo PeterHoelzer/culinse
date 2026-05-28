@@ -36,11 +36,8 @@ export default function UpdatePasswordPage() {
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <nav className="bg-white border-b border-gray-100 px-4 py-4">
         <div className="max-w-3xl mx-auto">
-          <Link href="/" className="flex items-center gap-2 w-fit">
-            <span className="text-2xl">🍳</span>
-            <span className="text-xl font-bold text-gray-900">
-              culi<span style={{ color: "#f97316" }}>nse</span>
-            </span>
+          <Link href="/" className="flex items-center w-fit">
+            <img src="/culinse-logo.png" alt="culinse" style={{ height: "24px", width: "auto" }} />
           </Link>
         </div>
       </nav>

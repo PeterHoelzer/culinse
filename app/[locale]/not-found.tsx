@@ -14,11 +14,8 @@ export default async function NotFound() {
     <div className="min-h-screen bg-white flex flex-col">
       <nav className="border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl">🍳</span>
-            <span className="text-xl font-bold text-gray-900">
-              culi<span style={{ color: "#f97316" }}>nse</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <img src="/culinse-logo.png" alt="culinse" style={{ height: "24px", width: "auto" }} />
           </Link>
         </div>
       </nav>
