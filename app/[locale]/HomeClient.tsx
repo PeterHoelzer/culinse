@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import LoginPromptModal from "@/components/LoginPromptModal";
+import NewsletterBanner from "@/components/NewsletterBanner";
 import SharedNavbar from "@/components/Navbar";
 import { Link, useRouter } from "@/lib/navigation";
 
@@ -203,17 +205,17 @@ function CategoryChips({ active, setActive }: { active: string; setActive: (v: s
 // ─── Recipe Card ──────────────────────────────────────────────────────────────
 function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const t = useTranslations();
-  const router = useRouter();
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
   const supabase = createClient();
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!user) { router.push("/login"); return; }
+    if (!user) { setShowLoginPrompt(true); return; }
     if (saved) {
       await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
       setSaved(false);
@@ -233,7 +235,7 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
 
   const handleCollectionClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!user) { router.push("/login"); return; }
+    if (!user) { setShowLoginPrompt(true); return; }
     setShowCollectionModal(true);
   };
 
@@ -305,6 +307,13 @@ function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; us
             time: recipe.time,
           }}
           onClose={() => setShowCollectionModal(false)}
+        />
+      )}
+
+      {showLoginPrompt && (
+        <LoginPromptModal
+          onClose={() => setShowLoginPrompt(false)}
+          redirectTo="/login"
         />
       )}
     </Fragment>
@@ -904,6 +913,7 @@ export default function Home() {
         <DiscoverSection search={activeSearch} category={category} setCategory={setCategory} user={user} />
         <VideoSection />
         <HowItWorks />
+        <NewsletterBanner />
         <CTA />
       </main>
       <Footer />

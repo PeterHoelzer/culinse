@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -40,12 +40,18 @@ export async function POST() {
       .upsert({ id: user.id, stripe_customer_id: customerId });
   }
 
-  const { getStripePriceId } = await import("@/lib/stripe");
+  // Determine which plan was requested (default: monthly)
+  const body = await req.json().catch(() => ({}));
+  const plan = body?.plan === "annual" ? "annual" : "monthly";
+
+  const { getStripePriceId, getStripeAnnualPriceId } = await import("@/lib/stripe");
+  const priceId = plan === "annual" ? getStripeAnnualPriceId() : getStripePriceId();
+
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: "subscription",
     payment_method_types: ["card"],
-    line_items: [{ price: getStripePriceId(), quantity: 1 }],
+    line_items: [{ price: priceId, quantity: 1 }],
     success_url: `${process.env.NEXT_PUBLIC_APP_URL}/pro/success`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pro`,
     allow_promotion_codes: true,

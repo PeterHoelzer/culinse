@@ -27,5 +27,15 @@ export function getStripePriceId(): string {
   return priceId;
 }
 
+export function getStripeAnnualPriceId(): string {
+  const priceId = process.env.STRIPE_ANNUAL_PRICE_ID;
+  if (!priceId) {
+    throw new Error(
+      "Missing env var: STRIPE_ANNUAL_PRICE_ID. Add it to .env.local and Vercel environment variables."
+    );
+  }
+  return priceId;
+}
+
 /** @deprecated Use getStripePriceId() instead */
 export const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID!;

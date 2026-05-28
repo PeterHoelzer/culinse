@@ -16,6 +16,7 @@ export default function ProPage() {
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const [isPro, setIsPro] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [plan, setPlan] = useState<"monthly" | "annual">("annual");
   const supabase = createClient();
 
   useEffect(() => {
@@ -36,7 +37,11 @@ export default function ProPage() {
   const handleUpgrade = async () => {
     if (!user) { window.location.href = "/login?next=/pro"; return; }
     setLoading(true);
-    const res = await fetch("/api/stripe/checkout", { method: "POST" });
+    const res = await fetch("/api/stripe/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan }),
+    });
     const { url } = await res.json();
     if (url) window.location.href = url;
     else setLoading(false);
@@ -77,13 +82,40 @@ export default function ProPage() {
               {t("alreadyPro")}
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-col items-center gap-4">
+              {/* Plan toggle */}
+              <div className="inline-flex bg-white/20 rounded-full p-1 gap-1">
+                <button
+                  onClick={() => setPlan("monthly")}
+                  className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
+                    plan === "monthly"
+                      ? "bg-white text-orange-500 shadow"
+                      : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {t("monthlyLabel")}
+                </button>
+                <button
+                  onClick={() => setPlan("annual")}
+                  className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
+                    plan === "annual"
+                      ? "bg-white text-orange-500 shadow"
+                      : "text-white/80 hover:text-white"
+                  }`}
+                >
+                  {t("annualLabel")}
+                  <span className="text-xs bg-green-400 text-white px-1.5 py-0.5 rounded-full font-bold">
+                    {t("annualSave")}
+                  </span>
+                </button>
+              </div>
+
               <button
                 onClick={handleUpgrade}
                 disabled={loading}
                 className="bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base hover:bg-orange-50 transition-colors shadow-lg disabled:opacity-60"
               >
-                {loading ? t("processing") : t("startButton")}
+                {loading ? t("processing") : plan === "annual" ? t("annualStartButton") : t("startButton")}
               </button>
               <p className="text-orange-200 text-xs">{t("cancelNote")}</p>
             </div>
@@ -119,10 +151,17 @@ export default function ProPage() {
               PRO
             </div>
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-1">{t("proLabel")}</p>
-            <div className="flex items-baseline gap-1 mb-1">
-              <p className="text-2xl font-bold text-gray-900">{t("price")}</p>
+            <div className="flex items-baseline gap-1 mb-0.5">
+              <p className="text-2xl font-bold text-gray-900">
+                {plan === "annual" ? t("annualPrice") : t("monthlyPrice")}
+              </p>
             </div>
-            <p className="text-xs text-gray-400 mb-4">{t("everythingInFree")}</p>
+            {plan === "annual" && (
+              <p className="text-xs text-green-600 font-semibold mb-0.5">{t("annualTotal")}</p>
+            )}
+            <p className="text-xs text-gray-400 mb-4">
+              {plan === "annual" ? t("billedAnnually") : t("billedMonthly")}
+            </p>
             <ul className="space-y-3">
               {proFeatures.map((f) => (
                 <li key={f.label} className="flex items-start gap-3">
@@ -158,7 +197,7 @@ export default function ProPage() {
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-bold text-base hover:opacity-90 transition-opacity shadow-md disabled:opacity-60"
                 style={{ background: "#f97316" }}
               >
-                {loading ? t("processing") : t("upgradeButton")}
+                {loading ? t("processing") : plan === "annual" ? t("annualStartButton") : t("upgradeButton")}
               </button>
               <p className="text-xs text-gray-400">{t("cancelNote")}</p>
             </div>

@@ -493,7 +493,16 @@
         "sub": "Erster Zugang zu allem, was wir als nächstes bauen"
       }
     ],
-    "questions": "Fragen?"
+    "questions": "Fragen?",
+    "annualLabel": "Jährlich",
+    "monthlyLabel": "Monatlich",
+    "annualSave": "35% sparen",
+    "annualPrice": "€3,24 / Monat",
+    "annualTotal": "€38,88 / Jahr",
+    "monthlyPrice": "€4,99 / Monat",
+    "annualStartButton": "Für €38,88 / Jahr starten →",
+    "billedAnnually": "Jährlich abgerechnet",
+    "billedMonthly": "Monatlich abgerechnet"
   },
   "blog": {
     "title": "Culinse Blog",
@@ -506,5 +515,22 @@
     "notFound": "Seite nicht gefunden",
     "notFoundSub": "Die gesuchte Seite existiert nicht.",
     "backHome": "Zurück zur Startseite"
+  },
+  "newsletter": {
+    "title": "Wöchentliche Rezeptideen",
+    "subtitle": "Die besten Rezepte der Woche – direkt in dein Postfach. Kein Spam, jederzeit abmeldbar.",
+    "placeholder": "deine@email.de",
+    "button": "Anmelden",
+    "success": "🎉 Danke! Du bekommst bald Post von uns.",
+    "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "already": "Diese E-Mail ist bereits eingetragen.",
+    "sending": "Wird eingetragen…"
+  },
+  "loginPrompt": {
+    "title": "Rezept speichern",
+    "subtitle": "Erstelle einen kostenlosen Account um Rezepte zu speichern und wiederzufinden.",
+    "login": "Anmelden",
+    "signup": "Kostenlos registrieren",
+    "cancel": "Abbrechen"
   }
 }

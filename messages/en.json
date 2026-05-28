@@ -493,7 +493,16 @@
         "sub": "First access to everything we build next"
       }
     ],
-    "questions": "Questions?"
+    "questions": "Questions?",
+    "annualLabel": "Annual",
+    "monthlyLabel": "Monthly",
+    "annualSave": "Save 35%",
+    "annualPrice": "€3.24 / month",
+    "annualTotal": "€38.88 / year",
+    "monthlyPrice": "€4.99 / month",
+    "annualStartButton": "Start for €38.88 / year →",
+    "billedAnnually": "Billed annually",
+    "billedMonthly": "Billed monthly"
   },
   "blog": {
     "title": "Culinse Blog",
@@ -506,5 +515,22 @@
     "notFound": "Page not found",
     "notFoundSub": "The page you're looking for doesn't exist.",
     "backHome": "Back to Home"
+  },
+  "newsletter": {
+    "title": "Weekly Recipe Ideas",
+    "subtitle": "The best recipes of the week — straight to your inbox. No spam, unsubscribe anytime.",
+    "placeholder": "your@email.com",
+    "button": "Subscribe",
+    "success": "🎉 Thanks! You’ll hear from us soon.",
+    "error": "Something went wrong. Please try again.",
+    "already": "This email is already subscribed.",
+    "sending": "Subscribing…"
+  },
+  "loginPrompt": {
+    "title": "Save this recipe",
+    "subtitle": "Create a free account to save recipes and find them again anytime.",
+    "login": "Log in",
+    "signup": "Sign up for free",
+    "cancel": "Cancel"
   }
 }
