@@ -29,3 +29,11 @@ export const TREND_FILTER_DEFS = [
   { key: "comfort",   value: "comfort",   icon: "🍲", type: "cuisine" },
   { key: "asian",     value: "asian",     icon: "🍜", type: "cuisine" },
 ];
+
+export interface VideoRecipe {
+  id: string;
+  title: string;
+  image: string;
+  videoUrl: string;
+  time?: string;
+}

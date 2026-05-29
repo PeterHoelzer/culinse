@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
+import { VideoRecipe } from "./home-types";
 import Image from "next/image";
 
 export default function VideoSection() {
