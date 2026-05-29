@@ -4,6 +4,15 @@ import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 
 interface Props {
+
+export const dynamic = "force-static";
+export const revalidate = 86400; // 24h
+
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "de" }];
+}
+
+
   params: Promise<{ locale: string }>;
 }
 

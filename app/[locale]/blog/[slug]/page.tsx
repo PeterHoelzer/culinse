@@ -20,9 +20,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = locale === "de" ? getBlogPostDe(slug) : getBlogPost(slug);
   if (!post) return {};
 
+  // hreflang: link EN ↔ DE versions
+  const enSlug = locale === "de" ? (getBlogPost(slug)?.slug ?? slug) : slug;
+  const deSlug = locale === "en" ? (getBlogPostDe(slug)?.slug ?? slug) : slug;
+
   return {
     title: post.title,
     description: post.description,
+    alternates: {
+      canonical: `https://culinse.com/${locale}/blog/${post.slug}`,
+      languages: {
+        "en": `https://culinse.com/en/blog/${enSlug}`,
+        "de": `https://culinse.com/de/blog/${deSlug}`,
+      },
+    },
     openGraph: {
       title: post.title,
       description: post.description,
