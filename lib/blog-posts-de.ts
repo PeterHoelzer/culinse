@@ -439,7 +439,6 @@ export const blogPostsDe: BlogPost[] = [
       },
     ],
   },
-,
   {
     slug: "proteinreiche-mahlzeiten-muskelaufbau",
     title: "Proteinreiche Mahlzeiten für den Muskelaufbau: 10 einfache Rezepte",

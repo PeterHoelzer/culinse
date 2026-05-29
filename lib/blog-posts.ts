@@ -448,7 +448,6 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
-,
   {
     slug: "high-protein-meals-for-muscle-building",
     title: "High Protein Meals for Muscle Building: 10 Easy Recipes",
