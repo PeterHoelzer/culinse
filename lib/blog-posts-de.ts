@@ -444,3 +444,219 @@ export const blogPostsDe: BlogPost[] = [
 export function getBlogPostDe(slug: string): BlogPost | undefined {
   return blogPostsDe.find((p) => p.slug === slug);
 }
+,
+  {
+    slug: "proteinreiche-mahlzeiten-muskelaufbau",
+    title: "Proteinreiche Mahlzeiten für den Muskelaufbau: 10 einfache Rezepte",
+    description: "Baue Muskeln mit diesen proteinreichen Mahlzeiten auf. Einfache, leckere Rezepte mit viel Protein — ideal für alle, die gezielt trainieren und besser essen wollen.",
+    publishedAt: "2026-05-28",
+    readingTime: "6 Min. Lesezeit",
+    category: "Ernährung",
+    sections: [
+      {
+        content: "Wenn du regelmäßig trainierst aber keine sichtbaren Fortschritte machst, liegt das Problem meistens nicht am Training — sondern an der Ernährung. Protein ist der wichtigste Makronährstoff für Muskelaufbau und -reparatur. Die meisten Menschen unterschätzen dabei dramatisch, wie viel sie tatsächlich brauchen.",
+      },
+      {
+        content: "Wer aktiv Muskeln aufbauen möchte, braucht in der Regel 1,6 bis 2,2 Gramm Protein pro Kilogramm Körpergewicht täglich. Bei 75 kg sind das 120 bis 165 Gramm — das erfordert Planung, muss aber nicht kompliziert sein.",
+      },
+      {
+        heading: "Die besten proteinreichen Lebensmittel",
+        content: "Diese Zutaten solltest du regelmäßig vorrätig haben:",
+        list: [
+          "Hühnerbrust (31g Protein pro 100g) — der Klassiker aus gutem Grund",
+          "Griechischer Joghurt (10g pro 100g) — für Frühstück, Saucen und Snacks",
+          "Eier (6g pro Stück) — günstig, vielseitig und schnell zubereitet",
+          "Thunfisch aus der Dose (25g pro 100g) — kein Kochen nötig",
+          "Hüttenkäse (12g pro 100g) — unterschätzt und sättigend",
+          "Linsen (9g pro 100g gekocht) — hervorragende pflanzliche Quelle",
+          "Tofu (8g pro 100g) — nimmt Aromen wunderbar auf",
+        ],
+      },
+      {
+        heading: "10 proteinreiche Mahlzeiten-Ideen",
+        content: "Diese Gerichte sind schnell, sättigend und wirklich lecker:",
+        list: [
+          "Hähnchen-Reis-Bowl mit Teriyaki-Sauce und Edamame",
+          "Griechischer Joghurt-Frühstücksbowl mit Beeren und Hanfsamen",
+          "Thunfisch-Pasta mit Olivenöl, Kapern und Kirschtomaten",
+          "Ei-Gemüse-Scramble mit eingerührtem Hüttenkäse",
+          "Linsen-Spinat-Suppe mit Sauerteigbrot",
+          "Gegrillter Lachs mit Quinoa und geröstetem Spargel",
+          "Truthball-Fleischbällchen mit Zucchini-Nudeln und Tomatensauce",
+          "Schwarze-Bohnen-Tacos mit Avocado und Limetten-Crema",
+          "Overnight Oats mit Proteinpulver, Banane und Mandelmus",
+          "Rindfleisch-Wok mit Brokkoli, Paprika und Vollkornreis",
+        ],
+      },
+      {
+        heading: "So erreichst du dein Tagesziel",
+        content: "Der Trick liegt in der Verteilung — Protein auf alle Mahlzeiten aufteilen statt alles ins Abendessen zu packen. Plane 30 bis 40 Gramm pro Hauptmahlzeit und 15 bis 20 Gramm für Snacks. Nach ein paar Wochen wird das zur Gewohnheit.",
+      },
+      {
+        content: "Nutze Culinse, um Rezepte nach hohem Proteingehalt zu filtern und einen Wochenplan aufzubauen, der dich auf Kurs hält. Mit fünf bis sechs Lieblingsgerichten in der Rotation wird das Ziel schnell zur Routine.",
+      },
+    ],
+  },
+  {
+    slug: "vegetarische-abendessen-ideen",
+    title: "20 vegetarische Abendessen-Ideen, die wirklich satt machen",
+    description: "Auf der Suche nach einfachen vegetarischen Abendessen? Diese 20 pflanzlichen Rezepte sind herzhaft, aromatisch und schnell zubereitet — auch für Nicht-Vegetarier.",
+    publishedAt: "2026-05-28",
+    readingTime: "7 Min. Lesezeit",
+    category: "Vegetarisch",
+    sections: [
+      {
+        content: "Der häufigste Einwand gegen vegetarisches Essen: es macht nicht satt. Das ist fast immer ein Protein- und Fettproblem — kein Fleischproblem. Sobald du verstehst, wie ein ausgewogener vegetarischer Teller aufgebaut ist, vermisst du nichts mehr.",
+      },
+      {
+        heading: "Die Formel für ein sättigendes vegetarisches Abendessen",
+        content: "Jede Mahlzeit braucht drei Dinge, damit man satt bleibt: eine Proteinquelle, komplexe Kohlenhydrate und ausreichend Fett. Für vegetarisches Kochen bedeutet das:",
+        list: [
+          "Protein: Linsen, Kichererbsen, Bohnen, Tofu, Tempeh, Eier, Halloumi, Paneer",
+          "Kohlenhydrate: Vollkornreis, Quinoa, Süßkartoffel, Vollkornnudeln, Brot",
+          "Fett: Olivenöl, Avocado, Nüsse, Käse, Kokosmilch",
+        ],
+      },
+      {
+        heading: "20 vegetarische Abendessen, die sich lohnen",
+        content: "Von schnellen Wochtagsgerichten bis zum entspannten Wochenendkochen:",
+        list: [
+          "Kichererbsen-Curry mit Kokosmilch und Vollkornreis",
+          "Pilz-Linsen-Shepherd's Pie",
+          "Schwarze-Bohnen-Enchiladas mit Salsa Verde",
+          "Halloumi und Gemüse aus dem Ofen",
+          "Pasta e Fagioli (italienische Nudel-Bohnen-Suppe)",
+          "Tofu Pad Thai mit Erdnüssen und Limette",
+          "Süßkartoffel-Schwarze-Bohnen-Tacos",
+          "Paneer Tikka Masala mit Naan",
+          "Geröstetes Gemüse und Feta-Quiche",
+          "Linsen-Bolognese mit Spaghetti",
+          "Blumenkohl-Fried-Rice mit Ei",
+          "Griechisch gefüllte Paprika mit Feta und Kräutern",
+          "Zucchini-Ricotta-Puffer",
+          "Pilzrisotto mit Parmesan",
+          "Spinat-Kichererbsen-Eintopf (Chana Palak)",
+          "Melanzani-Parmigiana (Aubergine überbacken)",
+          "Tempeh-Wok mit Sesam und Ingwer",
+          "Butternut-Kürbissuppe mit Knusterbrot",
+          "Shakshuka (Eier in würziger Tomatensauce)",
+          "Rote-Bete-Ziegenkäse-Flatbread",
+        ],
+      },
+      {
+        heading: "Tipps für aromatisches vegetarisches Kochen",
+        content: "Fleisch trägt Geschmack durch Fett und Umami. Um das in vegetarischer Küche zu replizieren: Karamellisierung nutzen (Zwiebeln nicht überstürzen), Umami-reiche Zutaten einsetzen (Miso, Sojasoße, Parmesan, getrocknete Tomaten, Pilze) und mehrschichtig würzen. Gewürze anrösten. Genug Salz verwenden. Mit Säure abschließen — ein Spritzer Zitrone oder Essig verwandelt die meisten Gerichte.",
+      },
+      {
+        content: "Culinse ermöglicht es dir, gezielt nach vegetarischen Rezepten aus Dutzenden Food-Seiten zu filtern. Browsen nach Küche, Kochzeit und Ernährungspräferenz — alles an einem Ort.",
+      },
+    ],
+  },
+  {
+    slug: "mediterrane-diaet-rezepte-anfaenger",
+    title: "Mediterrane Ernährung: Einfache Rezepte für Einsteiger",
+    description: "Neu bei der mediterranen Ernährung? Diese einfachen Rezepte und Grundprinzipien helfen dir, besser zu essen, dich besser zu fühlen — und das Essen wirklich zu genießen.",
+    publishedAt: "2026-05-29",
+    readingTime: "6 Min. Lesezeit",
+    category: "Gesunde Ernährung",
+    sections: [
+      {
+        content: "Die mediterrane Ernährung belegt immer wieder Spitzenplätze in Ernährungs-Rankings — nicht wegen geschicktem Marketing, sondern weil die Studienlage ungewöhnlich klar ist. Sie wird mit niedrigeren Herzerkrankungsraten, besserer kognitiver Funktion und höherer Lebenserwartung in Verbindung gebracht. Und anders als die meisten Diäten macht sie wirklich Spaß.",
+      },
+      {
+        heading: "Was die mediterrane Ernährung tatsächlich ist",
+        content: "Es ist kein striktes Protokoll, sondern eher ein Essmuster, das auf dem basiert, was Menschen in Südeuropa seit Generationen essen:",
+        list: [
+          "Viel Gemüse, Obst, Vollkornprodukte und Hülsenfrüchte",
+          "Olivenöl als Hauptfett",
+          "Fisch und Meeresfrüchte mindestens zweimal pro Woche",
+          "Moderate Mengen Milchprodukte (hauptsächlich Joghurt und Käse)",
+          "Eier, Geflügel und rotes Fleisch in kleineren Mengen",
+          "Sehr wenig verarbeitete Lebensmittel oder Zucker",
+          "Gelegentlich Wein zu den Mahlzeiten (optional)",
+        ],
+      },
+      {
+        heading: "5 einfache Einsteigerrezepte",
+        content: "Diese Rezepte sind zugänglich, schnell und typisch für den mediterranen Stil:",
+        list: [
+          "Griechischer Salat mit Oliven, Feta, Gurke, Tomate und Olivenöl — kein Dressing nötig",
+          "Gebackener Lachs mit Zitrone, Kapern und frischem Dill auf Couscous",
+          "Linsensuppe mit Möhren, Sellerie, Kreuzkümmel und einem Schuss Olivenöl",
+          "Shakshuka — Eier in würziger Tomatensauce, dazu knuspriges Brot",
+          "Pasta mit Sardellen, Knoblauch, Kirschtomaten und Petersilie",
+        ],
+      },
+      {
+        heading: "Vorratskammer-Grundausstattung",
+        content: "Mit diesen Zutaten wird mediterranes Kochen zum Kinderspiel:",
+        list: [
+          "Natives Olivenöl extra — nicht am Qualität sparen",
+          "Dosentomaten, Kichererbsen, Linsen und weiße Bohnen",
+          "Pasta, Couscous und Vollkornreis",
+          "Kalamata-Oliven, Kapern und getrocknete Tomaten",
+          "Getrocknete Kräuter: Oregano, Thymian, Rosmarin, Kreuzkümmel, Paprika",
+          "Feta-Käse und griechischer Joghurt",
+          "Sardinen, Makrele und Sardellen aus der Dose",
+        ],
+      },
+      {
+        heading: "Eine einfache Regel",
+        content: "Wenn du nur eine Sache aus der mediterranen Ernährung mitnimmst: Koch aus ganzen Zutaten, verwende Olivenöl und iss mehr Gemüse als alles andere. Alles andere ist Detail.",
+      },
+      {
+        content: "Nutze Culinse, um mediterrane Rezepte nach deinen Ernährungspräferenzen und verfügbarer Zeit zu filtern. Der Küchen-Filter macht es einfach, griechische, italienische, türkische und spanische Küche zu entdecken.",
+      },
+    ],
+  },
+  {
+    slug: "guenstige-mahlzeiten-unter-5-euro",
+    title: "Günstige Mahlzeiten unter 5 Euro: Satt, lecker und erschwinglich",
+    description: "Gut essen mit kleinem Budget ist möglich. Diese günstigen Gerichte kosten unter 5 Euro pro Portion und schmecken wirklich gut — keine traurigen Sandwiches.",
+    publishedAt: "2026-05-29",
+    readingTime: "5 Min. Lesezeit",
+    category: "Budgetküche",
+    sections: [
+      {
+        content: "Günstig essen und gut essen schließen sich nicht aus. Die nährstoffreichsten Lebensmittel der Welt — Linsen, Eier, Haferflocken, Kohl, Dosenfisch — gehören auch zu den günstigsten. Das Problem ist, dass niemand einem beibringt, wie man sie wirklich gut kocht.",
+      },
+      {
+        heading: "Die günstigsten nährstoffreichen Zutaten",
+        content: "Das sind die Grundbausteine des Budgetkochens. Wer sie regelmäßig vorrätig hat, senkt die Kosten pro Mahlzeit drastisch:",
+        list: [
+          "Getrocknete Linsen (unter 2 Euro/kg, reicht für 8+ Portionen)",
+          "Eier (ca. 0,25 Euro pro Stück, vollständiges Protein)",
+          "Haferflocken (Frühstück für ca. 1,50 Euro pro Woche)",
+          "Kichererbsen und Bohnen aus der Dose (0,60–0,80 Euro pro Dose)",
+          "Tiefkühlgemüse (oft nährstoffreicher als frisches — und günstiger)",
+          "Saisonales Gemüse (Kohl, Möhren, Zwiebeln, Kartoffeln — alle unter 1 Euro/kg)",
+          "Sardinen und Makrele aus der Dose (1–1,50 Euro, reich an Omega-3)",
+          "Pasta und Reis (unter 1 Euro/kg)",
+        ],
+      },
+      {
+        heading: "10 Gerichte unter 5 Euro",
+        content: "Jedes dieser Gerichte kostet selbst gekocht deutlich unter 5 Euro pro Portion:",
+        list: [
+          "Linsensuppe mit Möhren und Kreuzkümmel — ca. 0,90 Euro pro Teller",
+          "Ei-Fried-Rice mit Tiefkühlgemüse — ca. 1,20 Euro",
+          "Kichererbsen-Spinat-Curry mit Reis — ca. 1,50 Euro",
+          "Pasta mit Sardinen, Knoblauch und Chili — 1,80 Euro",
+          "Bohnenchili mit Reis und saurer Sahne — 2,00 Euro",
+          "Kartoffel-Lauch-Suppe mit Brot — 1,50 Euro",
+          "Gemüseomelette mit Restegemüse — 1,20 Euro",
+          "Overnight Oats mit Banane und Erdnussmus — 0,90 Euro",
+          "Kohl-Schweinefleisch-Wok mit Nudeln — 2,50 Euro",
+          "Dal Makhani (Butterlinsen) mit Naan — 1,80 Euro",
+        ],
+      },
+      {
+        heading: "Die echte Budgetküchen-Fähigkeit: Batch Cooking",
+        content: "Der effektivste Weg, günstig zu essen, ist in großen Mengen zu kochen. Ein Topf Linsensuppe kostet ca. 5 Euro und versorgt dich drei Tage lang. Das sind 1,70 Euro pro Mahlzeit. Wer zweimal pro Woche kocht und dasselbe Gericht zwei bis drei Tage isst, senkt seine Lebensmittelkosten um 40 bis 60 Prozent — ohne Einbußen bei der Qualität.",
+      },
+      {
+        content: "Durchstöbere Culinse nach budgetfreundlichen Rezepten gefiltert nach Zutaten, die du bereits hast. Die Wochenplaner-Funktion hilft dir, die gesamte Woche im Voraus zu planen, damit nichts verschwendet wird.",
+      },
+    ],
+  },
+]

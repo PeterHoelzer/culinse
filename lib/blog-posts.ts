@@ -453,3 +453,219 @@ export const blogPosts: BlogPost[] = [
 export function getBlogPost(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);
 }
+,
+  {
+    slug: "high-protein-meals-for-muscle-building",
+    title: "High Protein Meals for Muscle Building: 10 Easy Recipes",
+    description: "Build muscle with these high protein meal ideas. Simple, delicious recipes packed with protein — perfect for gym-goers and athletes looking to eat smarter.",
+    publishedAt: "2026-05-28",
+    readingTime: "6 min read",
+    category: "Nutrition",
+    sections: [
+      {
+        content: "If you're training consistently but not seeing the results you want, your diet is probably the missing piece. Protein is the most important macronutrient for building and repairing muscle — and most people dramatically underestimate how much they actually need.",
+      },
+      {
+        content: "The general recommendation for people actively trying to build muscle is 1.6 to 2.2 grams of protein per kilogram of body weight per day. For a 75kg person, that's 120 to 165 grams of protein daily. That takes some planning — but it doesn't have to be complicated.",
+      },
+      {
+        heading: "The Best High-Protein Foods",
+        content: "Before we get into recipes, here's what you should be stocking regularly:",
+        list: [
+          "Chicken breast (31g protein per 100g) — the classic for a reason",
+          "Greek yoghurt (10g per 100g) — works for breakfast, sauces, and snacks",
+          "Eggs (6g each) — cheap, versatile, and fast",
+          "Canned tuna (25g per 100g) — no cooking required",
+          "Cottage cheese (12g per 100g) — underrated and filling",
+          "Lentils (9g per 100g cooked) — great plant-based option",
+          "Tofu (8g per 100g) — absorbs flavours beautifully when cooked right",
+        ],
+      },
+      {
+        heading: "10 High Protein Meal Ideas",
+        content: "These meals are designed to be quick, satisfying, and genuinely tasty — not just functional:",
+        list: [
+          "Chicken and rice bowl with teriyaki sauce and edamame",
+          "Greek yoghurt breakfast bowl with berries, granola, and hemp seeds",
+          "Tuna pasta with olive oil, capers, and cherry tomatoes",
+          "Egg and vegetable scramble with cottage cheese stirred in",
+          "Lentil and spinach soup with a slice of sourdough",
+          "Grilled salmon with quinoa and roasted asparagus",
+          "Turkey meatballs with courgette noodles and tomato sauce",
+          "Black bean tacos with avocado and lime crema",
+          "Overnight oats with protein powder, banana, and almond butter",
+          "Steak stir-fry with broccoli, peppers, and brown rice",
+        ],
+      },
+      {
+        heading: "How to Hit Your Protein Target Every Day",
+        content: "The trick is distribution — spreading protein across every meal rather than trying to cram it all into dinner. Aim for 30 to 40 grams per meal and 15 to 20 grams in snacks. That rhythm becomes automatic after a few weeks.",
+      },
+      {
+        content: "Use Culinse to filter recipes by high protein content and build a weekly rotation that keeps you on track. Once you have five or six go-to meals, hitting your target becomes easy — it's just a matter of cooking them in rotation.",
+      },
+    ],
+  },
+  {
+    slug: "vegetarian-dinner-ideas-easy-recipes",
+    title: "20 Vegetarian Dinner Ideas That Are Actually Satisfying",
+    description: "Looking for easy vegetarian dinner ideas? These 20 plant-based recipes are hearty, flavourful, and quick to make — even for non-vegetarians.",
+    publishedAt: "2026-05-28",
+    readingTime: "7 min read",
+    category: "Vegetarian",
+    sections: [
+      {
+        content: "The biggest complaint people have about vegetarian food is that it doesn't fill them up. That's almost always a protein and fat issue, not a meat issue. Once you understand how to build a properly balanced vegetarian plate, you stop missing anything.",
+      },
+      {
+        heading: "The Formula for a Satisfying Vegetarian Dinner",
+        content: "Every meal needs three things to keep you full: a protein source, a complex carbohydrate, and enough fat to slow digestion. For vegetarian cooking, that means:",
+        list: [
+          "Protein: lentils, chickpeas, beans, tofu, tempeh, eggs, halloumi, paneer",
+          "Carbs: brown rice, quinoa, sweet potato, whole-grain pasta, bread",
+          "Fat: olive oil, avocado, nuts, cheese, coconut milk",
+        ],
+      },
+      {
+        heading: "20 Vegetarian Dinners Worth Making",
+        content: "From quick weeknight meals to weekend cooking projects:",
+        list: [
+          "Chickpea curry with coconut milk and brown rice",
+          "Mushroom and lentil shepherd's pie",
+          "Black bean enchiladas with salsa verde",
+          "Halloumi and vegetable traybake",
+          "Pasta e fagioli (Italian pasta and bean soup)",
+          "Tofu pad thai with peanuts and lime",
+          "Sweet potato and black bean tacos",
+          "Paneer tikka masala with naan",
+          "Roasted vegetable and feta quiche",
+          "Lentil bolognese with spaghetti",
+          "Cauliflower fried rice with egg",
+          "Greek-style stuffed peppers with feta and herbs",
+          "Courgette and ricotta fritters",
+          "Mushroom risotto with parmesan",
+          "Spinach and chickpea stew (Chana palak)",
+          "Aubergine parmigiana",
+          "Tempeh stir-fry with sesame and ginger",
+          "Butternut squash soup with crusty bread",
+          "Shakshuka (eggs poached in spiced tomato sauce)",
+          "Beetroot and goat's cheese flatbread",
+        ],
+      },
+      {
+        heading: "Tips for Making Vegetarian Food More Flavourful",
+        content: "Meat carries flavour through fat and umami. To replicate that in vegetarian cooking, lean into: caramelisation (don't rush the onions), umami-rich ingredients (miso, soy sauce, parmesan, sun-dried tomatoes, mushrooms), and layered spicing. Toast your spices. Use enough salt. Finish with acid — a squeeze of lemon or a splash of vinegar transforms most dishes.",
+      },
+      {
+        content: "Culinse lets you filter specifically for vegetarian recipes across dozens of food sites. Browse by cuisine, cooking time, and dietary restriction — all in one place.",
+      },
+    ],
+  },
+  {
+    slug: "mediterranean-diet-recipes-beginners",
+    title: "Mediterranean Diet Recipes for Beginners: Start Here",
+    description: "New to the Mediterranean diet? These easy recipes and simple principles will help you eat better, feel better, and actually enjoy the food.",
+    publishedAt: "2026-05-29",
+    readingTime: "6 min read",
+    category: "Healthy Eating",
+    sections: [
+      {
+        content: "The Mediterranean diet keeps topping nutrition rankings — not because of clever marketing, but because the evidence is unusually consistent. It's associated with lower rates of heart disease, better cognitive function, and longer life expectancy. And unlike most diets, it's genuinely enjoyable to eat.",
+      },
+      {
+        heading: "What the Mediterranean Diet Actually Is",
+        content: "It's not a strict protocol. It's more of a pattern of eating based on what people in southern Europe have eaten for generations:",
+        list: [
+          "Lots of vegetables, fruit, whole grains, and legumes",
+          "Olive oil as the primary fat",
+          "Fish and seafood at least twice a week",
+          "Moderate amounts of dairy (mainly yoghurt and cheese)",
+          "Eggs, poultry, and red meat in smaller quantities",
+          "Very little processed food or added sugar",
+          "Wine occasionally, with meals (optional)",
+        ],
+      },
+      {
+        heading: "5 Easy Recipes to Start With",
+        content: "These recipes are approachable, quick, and representative of the style:",
+        list: [
+          "Greek salad with olives, feta, cucumber, tomato, and olive oil — no dressing needed",
+          "Baked salmon with lemon, capers, and fresh dill on a bed of couscous",
+          "Lentil soup with carrots, celery, cumin, and a drizzle of olive oil",
+          "Shakshuka — eggs in spiced tomato sauce, eaten with crusty bread",
+          "Pasta with anchovies, garlic, cherry tomatoes, and parsley",
+        ],
+      },
+      {
+        heading: "Pantry Staples to Stock",
+        content: "Once you have these in your kitchen, Mediterranean cooking becomes effortless:",
+        list: [
+          "Extra virgin olive oil — don't scrimp on quality",
+          "Canned tomatoes, chickpeas, lentils, and cannellini beans",
+          "Dried pasta, couscous, and brown rice",
+          "Kalamata olives, capers, and sun-dried tomatoes",
+          "Dried herbs: oregano, thyme, rosemary, cumin, smoked paprika",
+          "Feta cheese and Greek yoghurt",
+          "Tinned sardines, mackerel, and anchovies",
+        ],
+      },
+      {
+        heading: "One Simple Rule",
+        content: "If you take one thing from the Mediterranean approach: cook from whole ingredients, use olive oil, and eat more vegetables than anything else. Everything else is detail.",
+      },
+      {
+        content: "Use Culinse to search for Mediterranean recipes filtered by your dietary preferences and time. The cuisine filter makes it easy to explore Greek, Italian, Turkish, and Spanish cooking all in one place.",
+      },
+    ],
+  },
+  {
+    slug: "budget-meals-under-5-euros",
+    title: "Budget Meals Under €5: Cheap, Filling, and Actually Good",
+    description: "Eating well on a tight budget is possible. These cheap meal ideas cost under €5 per serving and taste great — no sad sandwiches required.",
+    publishedAt: "2026-05-29",
+    readingTime: "5 min read",
+    category: "Budget Cooking",
+    sections: [
+      {
+        content: "Eating cheaply and eating well are not mutually exclusive. The most nutritious foods on earth — lentils, eggs, oats, cabbage, tinned fish — are also some of the cheapest. The problem is that nobody teaches you how to cook them well.",
+      },
+      {
+        heading: "The Cheapest Nutritious Ingredients",
+        content: "These are the building blocks of budget cooking. Buy them regularly and your meal costs drop dramatically:",
+        list: [
+          "Dried lentils (under €2/kg, makes 8+ portions)",
+          "Eggs (around €0.25 each, complete protein)",
+          "Oats (breakfast sorted for €1.50/week)",
+          "Canned chickpeas and beans (€0.60–0.80 per can)",
+          "Frozen vegetables (often more nutritious than fresh, and cheaper)",
+          "Seasonal vegetables (cabbage, carrots, onions, potatoes — all under €1/kg)",
+          "Tinned sardines and mackerel (€1–1.50 per tin, high in omega-3)",
+          "Pasta and rice (under €1/kg)",
+        ],
+      },
+      {
+        heading: "10 Meals Under €5",
+        content: "Each of these costs well under €5 per serving when made at home:",
+        list: [
+          "Lentil soup with carrots and cumin — roughly €0.90 per bowl",
+          "Egg fried rice with frozen vegetables — around €1.20",
+          "Chickpea and spinach curry with rice — about €1.50",
+          "Pasta with tinned sardines, garlic, and chilli — €1.80",
+          "Bean chilli with rice and soured cream — €2.00",
+          "Potato and leek soup with bread — €1.50",
+          "Vegetable omelette with leftover roasted veg — €1.20",
+          "Overnight oats with banana and peanut butter — €0.90",
+          "Cabbage and pork stir-fry with noodles — €2.50",
+          "Dal makhani (butter lentils) with naan — €1.80",
+        ],
+      },
+      {
+        heading: "The Real Budget Cooking Skill: Batch Cooking",
+        content: "The most effective way to eat cheaply is to cook in large quantities. A pot of lentil soup costs €5 to make and feeds you for three days. That's €1.70 a meal. If you cook twice a week and eat the same thing for two or three days, your weekly food bill drops by 40–60% without any sacrifice in quality.",
+      },
+      {
+        content: "Browse Culinse to find budget-friendly recipes filtered by ingredients you already have. The meal planner feature helps you plan the whole week in advance so nothing goes to waste.",
+      },
+    ],
+  },
+]
