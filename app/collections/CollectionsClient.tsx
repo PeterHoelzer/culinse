@@ -452,12 +452,20 @@ export default function CollectionsPage() {
                 : t("counter", { count: collections.length })}
             </p>
           </div>
-          <button
-            onClick={handleNewCollectionClick}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-orange-500 text-sm font-semibold hover:bg-orange-50 transition-colors shadow-sm"
-          >
-            {t("newButton")}
-          </button>
+          <div className="flex items-center gap-3">
+            <a
+              href="/collections/explore"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/20 text-white text-sm font-medium hover:bg-white/30 transition-colors"
+            >
+              🌍 Explore
+            </a>
+            <button
+              onClick={handleNewCollectionClick}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-orange-500 text-sm font-semibold hover:bg-orange-50 transition-colors shadow-sm"
+            >
+              {t("newButton")}
+            </button>
+          </div>
         </div>
       </div>
 
