@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Link } from "@/lib/navigation";
-
 interface Props {
   feature?: string;  // e.g. "Unlimited collections"
   className?: string;
