@@ -10,6 +10,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
+import UpgradeModal from "@/components/UpgradeModal";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import { getIngredientAffiliateUrl } from "@/lib/affiliateProducts";
 
@@ -57,6 +58,7 @@ export default function RecipePageClient() {
   const [copied, setCopied] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -125,7 +127,7 @@ export default function RecipePageClient() {
         if (res.status === 403) {
           const data = await res.json();
           if (data.error === "limit_reached") {
-            alert(`Free plan limit reached (${data.limit} saved recipes). Upgrade to Pro for unlimited saves!`);
+            setShowUpgrade(true);
             return;
           }
         }
@@ -249,6 +251,9 @@ export default function RecipePageClient() {
       {/* Login Prompt Modal */}
       {showLoginPrompt && (
         <LoginPromptModal onClose={() => setShowLoginPrompt(false)} />
+      )}
+      {showUpgrade && (
+        <UpgradeModal onClose={() => setShowUpgrade(false)} />
       )}
 
       {/* Recipe */}

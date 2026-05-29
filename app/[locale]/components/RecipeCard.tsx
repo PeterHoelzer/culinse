@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
+import UpgradeModal from "@/components/UpgradeModal";
 import { Link } from "@/lib/navigation";
 import { Recipe, GRADIENTS, EMOJIS } from "./home-types";
 
@@ -15,6 +16,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
   const supabase = createClient();
