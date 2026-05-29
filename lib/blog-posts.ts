@@ -448,11 +448,6 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
-];
-
-export function getBlogPost(slug: string): BlogPost | undefined {
-  return blogPosts.find((p) => p.slug === slug);
-}
 ,
   {
     slug: "high-protein-meals-for-muscle-building",
@@ -669,3 +664,8 @@ export function getBlogPost(slug: string): BlogPost | undefined {
     ],
   },
 ]
+];
+
+export function getBlogPost(slug: string): BlogPost | undefined {
+  return blogPosts.find((p) => p.slug === slug);
+}

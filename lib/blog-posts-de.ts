@@ -439,11 +439,6 @@ export const blogPostsDe: BlogPost[] = [
       },
     ],
   },
-];
-
-export function getBlogPostDe(slug: string): BlogPost | undefined {
-  return blogPostsDe.find((p) => p.slug === slug);
-}
 ,
   {
     slug: "proteinreiche-mahlzeiten-muskelaufbau",
@@ -660,3 +655,8 @@ export function getBlogPostDe(slug: string): BlogPost | undefined {
     ],
   },
 ]
+];
+
+export function getBlogPostDe(slug: string): BlogPost | undefined {
+  return blogPostsDe.find((p) => p.slug === slug);
+}
