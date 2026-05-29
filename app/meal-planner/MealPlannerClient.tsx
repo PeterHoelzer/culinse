@@ -1,4 +1,5 @@
 "use client";
+import ProBadge from "@/components/ProBadge";
 
 import Image from "next/image";
 import { useState, useEffect, useCallback, useMemo } from "react";
@@ -281,9 +282,11 @@ export default function MealPlannerPage() {
                   if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
                   setCreatingPlan(true);
                 }}
-                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap"
+                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap flex items-center gap-2"
               >
-                {!isPro && plans.length >= FREE_PLAN_LIMIT ? t("proMorePlans") : t("newPlan")}
+                {!isPro && plans.length >= FREE_PLAN_LIMIT
+                  ? <><ProBadge feature="Multiple meal plans" />{t("proMorePlans")}</>
+                  : t("newPlan")}
               </button>
             )}
           </div>

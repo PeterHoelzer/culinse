@@ -1,4 +1,5 @@
 "use client";
+import ProBadge from "@/components/ProBadge";
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -514,14 +515,21 @@ export default function CollectionsPage() {
               onClick={handleNewCollectionClick}
               className="bg-white rounded-2xl border-2 border-dashed border-gray-200 h-48 flex flex-col items-center justify-center gap-3 hover:border-orange-300 hover:bg-orange-50/30 transition-all group"
             >
-              <span className="text-3xl text-gray-300 group-hover:text-orange-400 transition-colors">
-                {!isPro && collections.length >= FREE_COLLECTION_LIMIT ? "✦" : "+"}
-              </span>
-              <span className="text-sm font-medium text-gray-400 group-hover:text-orange-500 transition-colors">
-                {!isPro && collections.length >= FREE_COLLECTION_LIMIT
-                  ? t("upgradePro")
-                  : t("newCollection")}
-              </span>
+              {!isPro && collections.length >= FREE_COLLECTION_LIMIT ? (
+                <>
+                  <ProBadge feature="Unlimited collections" className="mb-1" />
+                  <span className="text-sm font-medium text-gray-400 group-hover:text-orange-500 transition-colors">
+                    {t("upgradePro")}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-3xl text-gray-300 group-hover:text-orange-400 transition-colors">+</span>
+                  <span className="text-sm font-medium text-gray-400 group-hover:text-orange-500 transition-colors">
+                    {t("newCollection")}
+                  </span>
+                </>
+              )}
             </button>
           </div>
         )}
