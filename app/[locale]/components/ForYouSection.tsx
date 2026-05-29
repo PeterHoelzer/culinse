@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { Recipe } from "./home-types";
+import { Link } from "@/lib/navigation";
+import { createClient } from "@/lib/supabase/client";
 import RecipeCard from "./RecipeCard";
 
 export default function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLoaded: (ids: (number | string)[]) => void }) {

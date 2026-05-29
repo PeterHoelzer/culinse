@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { Link } from "@/lib/navigation";
 import { Recipe, TREND_FILTER_DEFS } from "./home-types";
 import CategoryChips from "./CategoryChips";
 import RecipeCard from "./RecipeCard";
