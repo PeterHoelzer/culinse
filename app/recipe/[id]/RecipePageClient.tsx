@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -102,19 +103,33 @@ export default function RecipePageClient() {
     setSaving(true);
     try {
       if (saved) {
-        await supabase.from("saved_recipes").delete().eq("recipe_id", recipe.id).eq("user_id", user.id);
+        await fetch("/api/saved-recipes", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ recipe_id: recipe.id }),
+        });
         setSaved(false);
       } else {
-        await supabase.from("saved_recipes").insert({
-          user_id: user.id,
-          recipe_id: recipe.id,
-          title: recipe.title,
-          image: recipe.image,
-          source: recipe.source,
-          source_url: recipe.sourceUrl,
-          time: recipe.time,
+        const res = await fetch("/api/saved-recipes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            recipe_id: recipe.id,
+            title: recipe.title,
+            image: recipe.image,
+            source: recipe.source,
+            source_url: recipe.sourceUrl,
+            time: recipe.time,
+          }),
         });
-        setSaved(true);
+        if (res.status === 403) {
+          const data = await res.json();
+          if (data.error === "limit_reached") {
+            alert(`Free plan limit reached (${data.limit} saved recipes). Upgrade to Pro for unlimited saves!`);
+            return;
+          }
+        }
+        if (res.ok) setSaved(true);
       }
     } finally {
       setSaving(false);
@@ -306,7 +321,7 @@ export default function RecipePageClient() {
                       >
                         <div className="relative">
                           {v.thumbnail ? (
-                            <img src={v.thumbnail} alt={v.title} className="w-full h-24 object-cover bg-gray-100" />
+                            <Image src={v.thumbnail} alt={v.title} fill className="object-cover bg-gray-100" sizes="200px" />
                           ) : (
                             <div className="w-full h-24 bg-gray-100 flex items-center justify-center text-2xl">🎬</div>
                           )}

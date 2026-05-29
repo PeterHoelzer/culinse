@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
@@ -339,7 +340,7 @@ export default function MealPlannerPage() {
                         {entry ? (
                           <div className="flex items-center gap-2">
                             {entry.recipe_image && (
-                              <img src={entry.recipe_image} alt="" className="w-10 h-10 rounded-lg object-cover flex-shrink-0" />
+                              <Image src={entry.recipe_image} alt="" width={40} height={40} className="rounded-lg object-cover flex-shrink-0" />
                             )}
                             <div className="flex-1 min-w-0">
                               <Link href={`/recipe/${entry.recipe_id}`} className="text-sm font-semibold text-gray-800 line-clamp-1 hover:text-orange-500 transition-colors">
@@ -470,7 +471,7 @@ function DesktopSlot({
   return (
     <div className="h-20 rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden relative group">
       {entry.recipe_image ? (
-        <img src={entry.recipe_image} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <Image src={entry.recipe_image} alt="" fill className="object-cover" sizes="300px" />
       ) : (
         <div className="absolute inset-0 bg-orange-50" />
       )}

@@ -12,6 +12,15 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "img.spoonacular.com" },
+      { protocol: "https", hostname: "spoonacular.com" },
+      { protocol: "https", hostname: "images.spoonacular.com" },
+      { protocol: "https", hostname: "*.cloudfront.net" },
+      { protocol: "https", hostname: "*.s3.amazonaws.com" },
+    ],
+  },
   async headers() {
     return [
       {

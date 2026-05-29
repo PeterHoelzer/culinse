@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import HomeClient from "./HomeClient";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // ─── WebSite + Organization JSON-LD ──────────────────────────────────────────
 function buildWebsiteSchema(locale: string) {
@@ -71,7 +72,9 @@ export default async function Page({
       />
 
       {/* Full interactive page — Next.js SSRs this to real HTML on first load */}
-      <HomeClient />
+      <ErrorBoundary>
+        <HomeClient />
+      </ErrorBoundary>
     </>
   );
 }
