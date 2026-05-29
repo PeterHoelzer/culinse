@@ -1,12 +1,10 @@
 "use client";
-
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, KeyboardEvent } from "react";
 import { useRouter } from "@/lib/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 interface Ingredient { name: string; amount: string; unit: string; }
 interface Instruction { step: number; text: string; timer_minutes: number | null; }
-
 interface RecipeData {
   id?: string;
   title: string;
@@ -18,7 +16,7 @@ interface RecipeData {
   cook_time: string;
   prep_time: string;
   servings: string;
-  tags: string;
+  tags: string[];
   is_public: boolean;
 }
 
@@ -26,8 +24,31 @@ const EMPTY: RecipeData = {
   title: "", description: "", image_url: "", video_url: "",
   ingredients: [{ name: "", amount: "", unit: "" }],
   instructions: [{ step: 1, text: "", timer_minutes: null }],
-  cook_time: "", prep_time: "", servings: "2", tags: "", is_public: false,
+  cook_time: "", prep_time: "", servings: "2", tags: [], is_public: false,
 };
+
+function serializeRecipe(data: RecipeData) {
+  return {
+    title: data.title || "Untitled",
+    description: data.description,
+    image_url: data.image_url,
+    video_url: data.video_url,
+    ingredients: data.ingredients.filter(i => i.name),
+    instructions: data.instructions.filter(i => i.text),
+    cook_time: data.cook_time ? parseInt(data.cook_time) : null,
+    prep_time: data.prep_time ? parseInt(data.prep_time) : null,
+    servings: parseInt(data.servings) || 2,
+    tags: data.tags,
+    is_public: data.is_public,
+  };
+}
+
+function isValidVideoUrl(url: string): boolean {
+  if (!url) return true;
+  return /^https?:\/\/(www\.)?(youtube\.com\/watch|youtu\.be\/|tiktok\.com\/)/.test(url);
+}
+
+const STEP_NAMES = ["Basics", "Ingredients", "Instructions", "Media", "Publish"];
 
 interface Props { mode: "create" | "edit"; recipeId?: string; }
 
@@ -39,6 +60,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
   const [uploading, setUploading] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [saved, setSaved] = useState(false);
+  const [tagInput, setTagInput] = useState("");
   const autoSaveRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const draftIdRef = useRef<string | null>(recipeId ?? null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -61,7 +83,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               cook_time: r.cook_time ? String(r.cook_time) : "",
               prep_time: r.prep_time ? String(r.prep_time) : "",
               servings: r.servings ? String(r.servings) : "2",
-              tags: Array.isArray(r.tags) ? r.tags.join(", ") : "",
+              tags: Array.isArray(r.tags) ? r.tags : [],
               is_public: r.is_public ?? false,
             });
           }
@@ -71,20 +93,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
 
   // Auto-save draft every 30s
   const saveDraft = useCallback(async (data: RecipeData) => {
-    const body = {
-      title: data.title || "Untitled",
-      description: data.description,
-      image_url: data.image_url,
-      video_url: data.video_url,
-      ingredients: data.ingredients.filter(i => i.name),
-      instructions: data.instructions.filter(i => i.text),
-      cook_time: data.cook_time ? parseInt(data.cook_time) : null,
-      prep_time: data.prep_time ? parseInt(data.prep_time) : null,
-      servings: parseInt(data.servings) || 2,
-      tags: data.tags.split(",").map(t => t.trim()).filter(Boolean),
-      is_public: data.is_public,
-    };
-
+    const body = serializeRecipe(data);
     if (draftIdRef.current) {
       await fetch(`/api/user-recipes/${draftIdRef.current}`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
@@ -107,6 +116,22 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
     return () => { if (autoSaveRef.current) clearTimeout(autoSaveRef.current); };
   }, [recipe, saveDraft, mode]);
 
+  // Per-step validation
+  const getStepErrors = (s: number): string[] => {
+    if (s === 0 && !recipe.title.trim()) return ["Recipe title is required."];
+    if (s === 1 && !recipe.ingredients.some(i => i.name.trim())) return ["Add at least one ingredient."];
+    if (s === 2 && !recipe.instructions.some(i => i.text.trim())) return ["Add at least one instruction step."];
+    if (s === 3 && recipe.video_url && !isValidVideoUrl(recipe.video_url)) return ["Please enter a valid YouTube or TikTok URL."];
+    return [];
+  };
+
+  const handleNext = () => {
+    const errs = getStepErrors(step);
+    if (errs.length) { setErrors(errs); return; }
+    setErrors([]);
+    setStep(s => s + 1);
+  };
+
   // Image upload to Supabase Storage
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -124,60 +149,59 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
   };
 
   const handlePublish = async () => {
+    const errs: string[] = [];
+    if (!recipe.title.trim()) errs.push("Title is required.");
+    if (recipe.is_public && !recipe.image_url) errs.push("A photo is required for public recipes.");
+    if (errs.length) { setErrors(errs); return; }
     setSaving(true);
     setErrors([]);
-    await saveDraft({ ...recipe, is_public: recipe.is_public });
-    if (draftIdRef.current) {
-      const body = {
-        title: recipe.title,
-        description: recipe.description,
-        image_url: recipe.image_url,
-        video_url: recipe.video_url,
-        ingredients: recipe.ingredients.filter(i => i.name),
-        instructions: recipe.instructions.filter(i => i.text),
-        cook_time: recipe.cook_time ? parseInt(recipe.cook_time) : null,
-        prep_time: recipe.prep_time ? parseInt(recipe.prep_time) : null,
-        servings: parseInt(recipe.servings) || 2,
-        tags: recipe.tags.split(",").map(t => t.trim()).filter(Boolean),
-        is_public: recipe.is_public,
-      };
-      const res = await fetch(`/api/user-recipes/${draftIdRef.current}`, {
-        method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
-      });
-      const d = await res.json();
-      if (res.status === 422) { setErrors(d.issues ?? ["Quality check failed"]); setSaving(false); return; }
-    }
+    const method = draftIdRef.current ? "PUT" : "POST";
+    const url = draftIdRef.current ? `/api/user-recipes/${draftIdRef.current}` : "/api/user-recipes";
+    const res = await fetch(url, {
+      method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(serializeRecipe(recipe)),
+    });
+    const d = await res.json();
+    if (res.status === 422) { setErrors(d.issues ?? ["Quality check failed"]); setSaving(false); return; }
+    if (!draftIdRef.current && d.recipe?.id) draftIdRef.current = d.recipe.id;
     setSaving(false);
     router.push("/my-recipes");
   };
 
+  // Tag helpers
+  const addTag = (val: string) => {
+    const trimmed = val.trim().toLowerCase();
+    if (trimmed && !recipe.tags.includes(trimmed)) {
+      setRecipe(p => ({ ...p, tags: [...p.tags, trimmed] }));
+    }
+    setTagInput("");
+  };
+  const handleTagKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addTag(tagInput); }
+    if (e.key === "Backspace" && !tagInput && recipe.tags.length) {
+      setRecipe(p => ({ ...p, tags: p.tags.slice(0, -1) }));
+    }
+  };
+  const removeTag = (tag: string) => setRecipe(p => ({ ...p, tags: p.tags.filter(t => t !== tag) }));
+
+  // Ingredient helpers
   const updateIngredient = (i: number, field: keyof Ingredient, val: string) => {
-    setRecipe(prev => {
-      const next = [...prev.ingredients];
-      next[i] = { ...next[i], [field]: val };
-      return { ...prev, ingredients: next };
-    });
+    setRecipe(prev => { const next = [...prev.ingredients]; next[i] = { ...next[i], [field]: val }; return { ...prev, ingredients: next }; });
   };
   const addIngredient = () => setRecipe(prev => ({ ...prev, ingredients: [...prev.ingredients, { name: "", amount: "", unit: "" }] }));
   const removeIngredient = (i: number) => setRecipe(prev => ({ ...prev, ingredients: prev.ingredients.filter((_, idx) => idx !== i) }));
 
+  // Instruction helpers
   const updateInstruction = (i: number, field: keyof Instruction, val: string | number | null) => {
-    setRecipe(prev => {
-      const next = [...prev.instructions];
-      next[i] = { ...next[i], [field]: val };
-      return { ...prev, instructions: next };
-    });
+    setRecipe(prev => { const next = [...prev.instructions]; next[i] = { ...next[i], [field]: val }; return { ...prev, instructions: next }; });
   };
   const addInstruction = () => setRecipe(prev => ({
-    ...prev,
-    instructions: [...prev.instructions, { step: prev.instructions.length + 1, text: "", timer_minutes: null }]
+    ...prev, instructions: [...prev.instructions, { step: prev.instructions.length + 1, text: "", timer_minutes: null }]
   }));
   const removeInstruction = (i: number) => setRecipe(prev => ({
-    ...prev,
-    instructions: prev.instructions.filter((_, idx) => idx !== i).map((s, idx) => ({ ...s, step: idx + 1 }))
+    ...prev, instructions: prev.instructions.filter((_, idx) => idx !== i).map((s, idx) => ({ ...s, step: idx + 1 }))
   }));
 
-  const steps = ["Basics", "Ingredients", "Instructions", "Media", "Publish"];
+  const videoUrlError = recipe.video_url && !isValidVideoUrl(recipe.video_url);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -186,7 +210,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
         <div className="max-w-2xl mx-auto flex items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-gray-900">{mode === "create" ? "Create Recipe" : "Edit Recipe"}</h1>
-            <p className="text-xs text-gray-400">Step {step + 1} of {steps.length} — {steps[step]}</p>
+            <p className="text-xs text-gray-400">Step {step + 1} of {STEP_NAMES.length} — {STEP_NAMES[step]}</p>
           </div>
           <div className="flex items-center gap-3">
             {saved && <span className="text-xs text-green-500">✓ Saved</span>}
@@ -196,7 +220,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
         {/* Progress bar */}
         <div className="max-w-2xl mx-auto mt-3">
           <div className="flex gap-1">
-            {steps.map((s, i) => (
+            {STEP_NAMES.map((s, i) => (
               <div key={s} onClick={() => i < step && setStep(i)}
                 className={`flex-1 h-1.5 rounded-full transition-all ${i <= step ? "bg-orange-500" : "bg-gray-200"} ${i < step ? "cursor-pointer" : ""}`} />
             ))}
@@ -238,10 +262,28 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
-              <input type="text" value={recipe.tags} onChange={e => setRecipe(p => ({ ...p, tags: e.target.value }))}
-                placeholder="pasta, italian, quick"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">Tags</label>
+              <div
+                className="flex flex-wrap gap-1.5 px-3 py-2 rounded-xl border border-gray-200 focus-within:border-orange-300 bg-white min-h-[44px] cursor-text"
+                onClick={() => document.getElementById("tag-input")?.focus()}>
+                {recipe.tags.map(tag => (
+                  <span key={tag} className="inline-flex items-center gap-1 bg-orange-50 text-orange-700 text-xs px-2 py-0.5 rounded-full">
+                    {tag}
+                    <button type="button" onClick={e => { e.stopPropagation(); removeTag(tag); }} className="hover:text-red-500 leading-none">×</button>
+                  </span>
+                ))}
+                <input
+                  id="tag-input"
+                  type="text"
+                  value={tagInput}
+                  onChange={e => setTagInput(e.target.value)}
+                  onKeyDown={handleTagKeyDown}
+                  onBlur={() => tagInput && addTag(tagInput)}
+                  placeholder={recipe.tags.length === 0 ? "pasta, italian, quick…" : ""}
+                  className="flex-1 min-w-[100px] text-sm outline-none bg-transparent py-0.5"
+                />
+              </div>
+              <p className="text-xs text-gray-400 mt-1">Press Enter or comma to add a tag</p>
             </div>
           </div>
         )}
@@ -303,9 +345,11 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
         {/* Step 3: Media */}
         {step === 3 && (
           <div className="space-y-6">
-            {/* Image */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Recipe photo</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Recipe photo
+                {recipe.is_public && <span className="ml-1 text-xs text-orange-500">* required for public</span>}
+              </label>
               <div onClick={() => fileRef.current?.click()}
                 className="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-orange-300 transition-colors overflow-hidden">
                 {recipe.image_url ? (
@@ -326,17 +370,18 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                   className="mt-2 text-xs text-red-400 hover:text-red-500">Remove photo</button>
               )}
             </div>
-            {/* Video */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Video URL <span className="text-gray-400 font-normal">(optional)</span></label>
               <input type="url" value={recipe.video_url} onChange={e => setRecipe(p => ({ ...p, video_url: e.target.value }))}
                 placeholder="https://youtube.com/watch?v=... or https://tiktok.com/..."
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-              <p className="text-xs text-gray-400 mt-1">Paste a YouTube or TikTok link — it will be embedded on your recipe page.</p>
-              {recipe.video_url && (
-                <div className="mt-3 p-3 bg-green-50 border border-green-100 rounded-xl text-xs text-green-700">
-                  ✓ Video link added
-                </div>
+                className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors ${videoUrlError ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-300"}`} />
+              {videoUrlError ? (
+                <p className="text-xs text-red-500 mt-1">Please enter a valid YouTube or TikTok URL.</p>
+              ) : (
+                <p className="text-xs text-gray-400 mt-1">Paste a YouTube or TikTok link — it will be embedded on your recipe page.</p>
+              )}
+              {recipe.video_url && !videoUrlError && (
+                <div className="mt-3 p-3 bg-green-50 border border-green-100 rounded-xl text-xs text-green-700">✓ Video link added</div>
               )}
             </div>
           </div>
@@ -354,10 +399,15 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                 <span>📋 {recipe.ingredients.filter(i => i.name).length} ingredients</span>
                 <span>📝 {recipe.instructions.filter(i => i.text).length} steps</span>
               </div>
+              {recipe.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {recipe.tags.map(tag => (
+                    <span key={tag} className="text-xs bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full">{tag}</span>
+                  ))}
+                </div>
+              )}
               {recipe.image_url && <img src={recipe.image_url} alt="" className="w-full h-32 object-cover rounded-xl" />}
             </div>
-
-            {/* Public/Private Toggle */}
             <div className="bg-white rounded-2xl border border-gray-100 p-5">
               <div className="flex items-center justify-between">
                 <div>
@@ -370,43 +420,57 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                 </div>
                 <button
                   onClick={() => setRecipe(p => ({ ...p, is_public: !p.is_public }))}
-                  className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${recipe.is_public ? "bg-orange-500" : "bg-gray-200"}`}
-                >
+                  className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${recipe.is_public ? "bg-orange-500" : "bg-gray-200"}`}>
                   <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${recipe.is_public ? "translate-x-6" : "translate-x-0.5"}`} />
                 </button>
               </div>
               {recipe.is_public && (
-                <div className="mt-3 p-3 bg-orange-50 border border-orange-100 rounded-xl text-xs text-orange-700">
-                  Your recipe will be reviewed against our quality standards: photo required, clear instructions, and a proper title.
+                <div className="mt-3 space-y-2">
+                  <div className="p-3 bg-orange-50 border border-orange-100 rounded-xl text-xs text-orange-700">
+                    Your recipe will be reviewed against our quality standards: photo required, clear instructions, and a proper title.
+                  </div>
+                  {!recipe.image_url && (
+                    <div className="p-3 bg-red-50 border border-red-100 rounded-xl text-xs text-red-600 flex items-center gap-2">
+                      <span>⚠️</span>
+                      <span>No photo added — a photo is required to publish publicly.</span>
+                      <button onClick={() => setStep(3)} className="underline ml-auto flex-shrink-0">Add photo</button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
-
             {errors.length > 0 && (
               <div className="bg-red-50 border border-red-100 rounded-xl p-4">
-                <p className="text-sm font-medium text-red-700 mb-1">Cannot publish publicly:</p>
+                <p className="text-sm font-medium text-red-700 mb-1">Cannot publish:</p>
                 {errors.map((e, i) => <p key={i} className="text-xs text-red-600">• {e}</p>)}
               </div>
             )}
           </div>
         )}
 
+        {/* Inline step errors (steps 0–3) */}
+        {errors.length > 0 && step < 4 && (
+          <div className="mt-4 bg-red-50 border border-red-100 rounded-xl p-3">
+            {errors.map((e, i) => <p key={i} className="text-xs text-red-600">• {e}</p>)}
+          </div>
+        )}
+
         {/* Navigation */}
         <div className="flex gap-3 mt-8">
           {step > 0 && (
-            <button onClick={() => setStep(s => s - 1)}
+            <button onClick={() => { setErrors([]); setStep(s => s - 1); }}
               className="flex-1 py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-gray-300 transition-colors">
               ← Back
             </button>
           )}
-          {step < steps.length - 1 ? (
-            <button onClick={() => setStep(s => s + 1)}
+          {step < STEP_NAMES.length - 1 ? (
+            <button onClick={handleNext}
               className="flex-1 py-3 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
               style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}>
               Next →
             </button>
           ) : (
-            <button onClick={handlePublish} disabled={saving}
+            <button onClick={handlePublish} disabled={saving || (recipe.is_public && !recipe.image_url)}
               className="flex-1 py-3 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
               style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}>
               {saving ? "Saving..." : recipe.is_public ? "Publish Recipe 🌍" : "Save as Draft 🔒"}
