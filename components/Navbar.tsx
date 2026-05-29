@@ -124,6 +124,9 @@ export default function Navbar() {
 
               <div className="w-px h-5 bg-gray-200 mx-1" />
 
+              <Link href="/my-recipes" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
+                {t("myRecipes")}
+              </Link>
               <Link href="/saved" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
                 ♥ {t("saved")}
               </Link>
@@ -247,6 +250,9 @@ export default function Navbar() {
 
               <div className="h-px bg-gray-100 my-1" />
 
+              <Link href="/my-recipes" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
+                {t("myRecipes")}
+              </Link>
               <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
                 ♥ {t("saved")}
               </Link>

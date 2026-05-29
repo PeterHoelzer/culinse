@@ -1,0 +1,122 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { Link, useRouter } from "@/lib/navigation";
+
+interface UserRecipe {
+  id: string;
+  title: string;
+  description: string | null;
+  image_url: string | null;
+  is_public: boolean;
+  status: string;
+  cook_time: number | null;
+  servings: number | null;
+  likes: number;
+  created_at: string;
+}
+
+export default function MyRecipesClient() {
+  const router = useRouter();
+  const [recipes, setRecipes] = useState<UserRecipe[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/user-recipes")
+      .then(r => r.json())
+      .then(d => { setRecipes(d.recipes ?? []); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Delete this recipe?")) return;
+    await fetch(`/api/user-recipes/${id}`, { method: "DELETE" });
+    setRecipes(prev => prev.filter(r => r.id !== id));
+  };
+
+  const togglePublic = async (recipe: UserRecipe) => {
+    const res = await fetch(`/api/user-recipes/${recipe.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...recipe, is_public: !recipe.is_public }),
+    });
+    const data = await res.json();
+    if (res.status === 422) {
+      alert("Cannot publish:\n" + data.issues.join("\n"));
+      return;
+    }
+    if (res.ok) setRecipes(prev => prev.map(r => r.id === recipe.id ? { ...r, is_public: !r.is_public } : r));
+  };
+
+  return (
+    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">My Recipes</h1>
+          <p className="text-gray-500 text-sm mt-1">{recipes.length} recipe{recipes.length !== 1 ? "s" : ""} created</p>
+        </div>
+        <Link
+          href="/recipes/create"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
+          style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+        >
+          + New Recipe
+        </Link>
+      </div>
+
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1,2,3].map(i => <div key={i} className="h-48 rounded-2xl bg-gray-100 animate-pulse" />)}
+        </div>
+      ) : recipes.length === 0 ? (
+        <div className="text-center py-20">
+          <div className="text-6xl mb-4">👨‍🍳</div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">No recipes yet</h2>
+          <p className="text-gray-500 mb-6">Create your first recipe and share it with the world.</p>
+          <Link href="/recipes/create" className="px-6 py-3 rounded-full text-white text-sm font-semibold" style={{ background: "#f97316" }}>
+            Create Recipe
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {recipes.map(recipe => (
+            <div key={recipe.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden group hover:shadow-md transition-all">
+              {recipe.image_url ? (
+                <img src={recipe.image_url} alt={recipe.title} className="w-full h-36 object-cover" />
+              ) : (
+                <div className="w-full h-36 bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center text-4xl">🍳</div>
+              )}
+              <div className="p-4">
+                <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1">{recipe.title}</h3>
+                <div className="flex items-center gap-2 mb-3">
+                  <button
+                    onClick={() => togglePublic(recipe)}
+                    className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
+                      recipe.is_public
+                        ? "bg-green-100 text-green-700 hover:bg-green-200"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                    }`}
+                  >
+                    {recipe.is_public ? "🌍 Public" : "🔒 Private"}
+                  </button>
+                  {recipe.cook_time && <span className="text-xs text-gray-400">⏱ {recipe.cook_time}min</span>}
+                  <span className="text-xs text-gray-400">❤️ {recipe.likes}</span>
+                </div>
+                <div className="flex gap-2">
+                  <button onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
+                    className="flex-1 py-1.5 text-xs font-medium text-gray-600 border border-gray-200 rounded-lg hover:border-orange-300 transition-colors">
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(recipe.id)}
+                    className="px-3 py-1.5 text-xs font-medium text-red-400 border border-red-100 rounded-lg hover:bg-red-50 transition-colors">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </main>
+  );
+}
