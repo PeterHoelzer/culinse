@@ -7,7 +7,7 @@ import { Recipe } from "./home-types";
 import CategoryChips from "./CategoryChips";
 import RecipeCard from "./RecipeCard";
 
-function DiscoverSection({
+export default function DiscoverSection({
   search,
   category,
   setCategory,

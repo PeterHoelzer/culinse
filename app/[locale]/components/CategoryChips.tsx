@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { EN_CATEGORIES } from "./home-types";
 
-function CategoryChips({ active, setActive }: { active: string; setActive: (v: string) => void }) {
+export default function CategoryChips({ active, setActive }: { active: string; setActive: (v: string) => void }) {
   const t = useTranslations();
   const categories = t.raw("categories") as string[];
 

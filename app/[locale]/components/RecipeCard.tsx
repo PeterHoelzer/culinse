@@ -9,7 +9,7 @@ import LoginPromptModal from "@/components/LoginPromptModal";
 import { Link } from "@/lib/navigation";
 import { Recipe, GRADIENTS, EMOJIS } from "./home-types";
 
-function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
+export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const t = useTranslations();
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);

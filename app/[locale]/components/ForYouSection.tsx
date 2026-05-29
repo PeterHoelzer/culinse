@@ -6,7 +6,7 @@ import type { User } from "@supabase/supabase-js";
 import { Recipe } from "./home-types";
 import RecipeCard from "./RecipeCard";
 
-function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLoaded: (ids: (number | string)[]) => void }) {
+export default function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLoaded: (ids: (number | string)[]) => void }) {
   const t = useTranslations();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(true);

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
 
-function VideoSection() {
+export default function VideoSection() {
   const t = useTranslations();
   const [allVideos, setAllVideos] = useState<VideoRecipe[]>([]);
   const [page, setPage] = useState(0);
