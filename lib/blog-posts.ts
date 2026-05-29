@@ -663,7 +663,7 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
-]
+
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
