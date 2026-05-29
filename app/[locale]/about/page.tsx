@@ -15,9 +15,6 @@ export function generateStaticParams() {
 }
 
 
-  params: Promise<{ locale: string }>;
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === "de") {
