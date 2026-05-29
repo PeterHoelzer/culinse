@@ -211,6 +211,22 @@ export default function RecipePageClient() {
         />
       )}
 
+      <style>{`
+        @media print {
+          nav, .print\\:hidden, button, a[href] { display: none !important; }
+          body { background: white; }
+          .bg-gray-50 { background: white; }
+          .shadow-sm, .shadow { box-shadow: none !important; }
+          .border { border-color: #e5e7eb !important; }
+          h1 { font-size: 22pt; }
+          h2 { font-size: 14pt; margin-top: 16pt; }
+          .md\\:sticky { position: static !important; }
+          .md\\:col-span-1, .md\\:col-span-2 { grid-column: span 1 / span 1; }
+          .grid { display: block; }
+          ol, ul { page-break-inside: avoid; }
+          li { break-inside: avoid; }
+        }
+      `}</style>
       <Navbar />
 
       {/* Loading */}
@@ -436,6 +452,12 @@ export default function RecipePageClient() {
                 className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
               >
                 {copied ? "✓ Copied!" : "↑ Share"}
+              </button>
+              <button
+                onClick={() => window.print()}
+                className="print:hidden flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
+              >
+                🖨 Print
               </button>
             </div>
           </div>
