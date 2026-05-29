@@ -23,9 +23,9 @@ export const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "
 export const EN_CATEGORIES = ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
 
 export const TREND_FILTER_DEFS = [
-  { key: "trending", value: "", icon: "🔥" },
-  { key: "quick", value: "quick", icon: "⚡" },
-  { key: "healthy", value: "healthy", icon: "🥗" },
-  { key: "comfort", value: "comfort", icon: "🍲" },
-  { key: "asian", value: "asian", icon: "🍜" },
+  { key: "trending",  value: "",         icon: "🔥", type: "" },
+  { key: "quick",     value: "30",        icon: "⚡", type: "maxReadyTime" },
+  { key: "healthy",   value: "healthy",   icon: "🥗", type: "diet" },
+  { key: "comfort",   value: "comfort",   icon: "🍲", type: "cuisine" },
+  { key: "asian",     value: "asian",     icon: "🍜", type: "cuisine" },
 ];
