@@ -13,6 +13,9 @@ const PROTECTED_PATHS = [
   "/wochenplaner",
   "/saved",
   "/profile",
+  "/my-recipes",
+  "/recipes/create",
+  "/recipes",
 ];
 
 async function proxy(request: NextRequest) {
