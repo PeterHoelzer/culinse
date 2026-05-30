@@ -255,9 +255,47 @@ export default function RecipePageClient() {
         <UpgradeModal onClose={() => setShowUpgrade(false)} />
       )}
 
+      {/* ── Print-only view (inline styles so Tailwind can't override) ── */}
+      {recipe && !loading && (
+        <div className="recipe-print-view" style={{ padding: "24px", fontFamily: "system-ui, sans-serif" }}>
+          <h1 style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</h1>
+          <p style={{ fontSize: "10pt", color: "#6b7280", marginBottom: "16px" }}>
+            {recipe.time && `⏱ ${recipe.time}`}
+            {recipe.servings && `  ·  🍽 ${recipe.servings} servings`}
+            {recipe.ingredients.length > 0 && `  ·  🧂 ${recipe.ingredients.length} ingredients`}
+          </p>
+          <div style={{ display: "flex", gap: "32px", alignItems: "flex-start" }}>
+            <div style={{ width: "32%", flexShrink: 0 }}>
+              <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
+                Ingredients
+              </h2>
+              <ul style={{ listStyle: "disc", paddingLeft: "18px", margin: 0 }}>
+                {recipe.ingredients.map((ing, i) => (
+                  <li key={i} style={{ fontSize: "9.5pt", marginBottom: "4px", lineHeight: "1.4" }}>
+                    {ing.original}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div style={{ flex: 1 }}>
+              <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
+                Instructions
+              </h2>
+              <ol style={{ paddingLeft: "20px", margin: 0 }}>
+                {recipe.instructions.map((step) => (
+                  <li key={step.number} style={{ fontSize: "9.5pt", marginBottom: "10px", lineHeight: "1.5" }}>
+                    {step.step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Recipe */}
       {recipe && !loading && (
-        <main className="max-w-4xl mx-auto px-4 pb-16 pt-6">
+        <main className="recipe-screen-view max-w-4xl mx-auto px-4 pb-16 pt-6">
 
           {/* Breadcrumb */}
           <Link href="/" className="print-hide inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-5">
