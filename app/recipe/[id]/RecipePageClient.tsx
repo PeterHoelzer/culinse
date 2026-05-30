@@ -213,18 +213,18 @@ export default function RecipePageClient() {
 
       <style>{`
         @media print {
-          nav, .print\\:hidden, button, a[href] { display: none !important; }
+          nav, .print-hide { display: none !important; }
           body { background: white; }
-          .bg-gray-50 { background: white; }
+          .bg-gray-50 { background: white !important; }
           .shadow-sm, .shadow { box-shadow: none !important; }
-          .border { border-color: #e5e7eb !important; }
           h1 { font-size: 22pt; }
           h2 { font-size: 14pt; margin-top: 16pt; }
-          .md\\:sticky { position: static !important; }
-          .md\\:col-span-1, .md\\:col-span-2 { grid-column: span 1 / span 1; }
-          .grid { display: block; }
+          .print-ingredients-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+          .print-sticky { position: static !important; }
           ol, ul { page-break-inside: avoid; }
-          li { break-inside: avoid; }
+          li { page-break-inside: avoid; }
+          .ingredient-toggle { pointer-events: none; }
+          .ingredient-shop-link { display: none !important; }
         }
       `}</style>
       <Navbar />
@@ -277,7 +277,7 @@ export default function RecipePageClient() {
         <main className="max-w-4xl mx-auto px-4 pb-16 pt-6">
 
           {/* Breadcrumb */}
-          <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-5">
+          <Link href="/" className="print-hide inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-5">
             {t("backToDiscover")}
           </Link>
 
@@ -313,7 +313,7 @@ export default function RecipePageClient() {
 
           {/* More Videos — only for Tasty recipes with video */}
           {recipe.source === "Tasty" && recipe.videoUrl && (
-            <div className="mb-6">
+            <div className="print-hide mb-6">
               {!videosLoaded ? (
                 <button
                   onClick={loadMoreVideos}
@@ -420,7 +420,7 @@ export default function RecipePageClient() {
               )}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+            <div className="print-hide flex flex-col sm:flex-row gap-3 flex-wrap">
               <button
                 onClick={handleSave}
                 disabled={saving}
@@ -463,9 +463,9 @@ export default function RecipePageClient() {
           </div>
 
           {/* Ingredients + Instructions */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="print-ingredients-grid grid grid-cols-1 md:grid-cols-3 gap-5">
             <div className="md:col-span-1">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:sticky md:top-20">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 print-sticky md:sticky md:top-20">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-bold text-gray-900">{t("ingredients")}</h2>
                   {checkedIngredients.size > 0 && (
@@ -523,12 +523,14 @@ export default function RecipePageClient() {
                 </ul>
 
               {/* Affiliate Box — kitchen tools only */}
+              <div className="print-hide">
               <AffiliateBox
                 dishTypes={recipe.dishTypes}
                 ingredientNames={recipe.ingredients.map(i => i.name)}
                 recipeTitle={recipe.title}
                 toolsOnly
               />
+              </div>
               </div>
             </div>
 
