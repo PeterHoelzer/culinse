@@ -223,7 +223,9 @@ export default function RecipePageClient() {
           .print-sticky { position: static !important; }
           ol, ul { page-break-inside: avoid; }
           li { page-break-inside: avoid; }
-          .ingredient-toggle { pointer-events: none; }
+          .ingredient-item { display: block !important; padding: 2px 0; }
+          .ingredient-item > button { display: block !important; background: none; border: none; padding: 0; text-align: left; width: 100%; }
+          .ingredient-checkbox { display: none !important; }
           .ingredient-shop-link { display: none !important; }
         }
       `}</style>
@@ -482,14 +484,14 @@ export default function RecipePageClient() {
                 )}
                 <ul className="space-y-1">
                   {recipe.ingredients.map((ing, i) => (
-                    <li key={i} className="flex items-start gap-1">
+                    <li key={i} className="ingredient-item flex items-start gap-1">
                       <button
                         onClick={() => toggleIngredient(i)}
                         className={`flex-1 flex items-start gap-3 py-2.5 px-1 rounded-xl text-left transition-colors hover:bg-gray-50 group ${
                           checkedIngredients.has(i) ? "opacity-50" : ""
                         }`}
                       >
-                        <span className={`flex-shrink-0 w-5 h-5 mt-0.5 rounded-full border-2 flex items-center justify-center transition-all ${
+                        <span className={`ingredient-checkbox flex-shrink-0 w-5 h-5 mt-0.5 rounded-full border-2 flex items-center justify-center transition-all ${
                           checkedIngredients.has(i)
                             ? "border-orange-400 bg-orange-400"
                             : "border-gray-200 group-hover:border-orange-300"
@@ -512,7 +514,7 @@ export default function RecipePageClient() {
                             target="_blank"
                             rel="noopener noreferrer sponsored"
                             title={`Buy ${ing.name} on Amazon`}
-                            className="flex-shrink-0 w-7 h-7 mt-1.5 rounded-lg flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 transition-all"
+                            className="ingredient-shop-link flex-shrink-0 w-7 h-7 mt-1.5 rounded-lg flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 transition-all"
                           >
                             🛒
                           </a>
