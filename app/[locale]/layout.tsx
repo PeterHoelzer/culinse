@@ -39,6 +39,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   if (locale === "de") {
     return {
       ...sharedMeta,
+      alternates: {
+        canonical: "https://culinse.com/de",
+        languages: { en: "https://culinse.com/en", de: "https://culinse.com/de" },
+      },
       title: {
         default: "Culinse – Rezepte entdecken, die du lieben wirst",
         template: "%s | Culinse",
@@ -67,6 +71,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   return {
     ...sharedMeta,
+    alternates: {
+      canonical: "https://culinse.com/en",
+      languages: { en: "https://culinse.com/en", de: "https://culinse.com/de" },
+    },
     title: {
       default: "Culinse – Discover Recipes You'll Love",
       template: "%s | Culinse",
@@ -112,12 +120,7 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={`${geist.variable} h-full antialiased`}>
-      <head>
-        {/* hreflang for SEO */}
-        <link rel="alternate" hrefLang="en" href={`https://culinse.com/en`} />
-        <link rel="alternate" hrefLang="de" href={`https://culinse.com/de`} />
-        <link rel="alternate" hrefLang="x-default" href="https://culinse.com/en" />
-      </head>
+      <head />
       <body className="min-h-full flex flex-col bg-white text-gray-900">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}

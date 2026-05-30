@@ -47,6 +47,13 @@ export async function generateMetadata(
   return {
     title,
     description,
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/recipe/${id}`,
+      languages: {
+        en: `${BASE_URL}/en/recipe/${id}`,
+        de: `${BASE_URL}/de/recipe/${id}`,
+      },
+    },
     openGraph: {
       title,
       description,
