@@ -55,3 +55,85 @@ html {
   background: #f97316;
   color: white;
 }
+
+/* ── Print styles ────────────────────────────────────────── */
+@media print {
+  nav,
+  .print-hide {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+  .bg-gray-50 {
+    background: white !important;
+  }
+
+  .shadow-sm,
+  .shadow {
+    box-shadow: none !important;
+  }
+
+  /* Ingredients + Instructions side-by-side */
+  .print-ingredients-grid {
+    display: block !important;
+    overflow: hidden !important;
+  }
+
+  .print-col-ingredients {
+    float: left !important;
+    width: 32% !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+    position: static !important;
+  }
+
+  .print-col-instructions {
+    float: left !important;
+    width: 68% !important;
+    box-sizing: border-box !important;
+  }
+
+  .print-ingredients-grid::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Clean ingredient list — no checkboxes, no cart icons */
+  .ingredient-checkbox {
+    display: none !important;
+  }
+
+  .ingredient-shop-link {
+    display: none !important;
+  }
+
+  .ingredient-item {
+    display: block !important;
+    padding: 2px 0 !important;
+  }
+
+  .ingredient-item > button {
+    display: block !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    text-align: left !important;
+    width: 100% !important;
+    font-size: inherit !important;
+    opacity: 1 !important;
+  }
+
+  /* Prevent page breaks inside lists */
+  ol,
+  ul {
+    page-break-inside: avoid;
+  }
+
+  li {
+    page-break-inside: avoid;
+  }
+}

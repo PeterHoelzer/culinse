@@ -210,28 +210,6 @@ export default function RecipePageClient() {
           }}
         />
       )}
-
-      <style>{`
-        @media print {
-          nav, .print-hide { display: none !important; }
-          body { background: white; }
-          .bg-gray-50 { background: white !important; }
-          .shadow-sm, .shadow { box-shadow: none !important; }
-          h1 { font-size: 22pt; }
-          h2 { font-size: 14pt; margin-top: 16pt; }
-          .print-sticky { position: static !important; }
-          .print-ingredients-grid { display: block !important; overflow: hidden; }
-          .print-col-ingredients { float: left; width: 32%; padding-right: 16px; box-sizing: border-box; }
-          .print-col-instructions { float: left; width: 68%; box-sizing: border-box; }
-          .print-ingredients-grid::after { content: ""; display: table; clear: both; }
-          ol, ul { page-break-inside: avoid; }
-          li { page-break-inside: avoid; }
-          .ingredient-item { display: block !important; padding: 2px 0; }
-          .ingredient-item > button { display: block !important; background: none; border: none; padding: 0; text-align: left; width: 100%; }
-          .ingredient-checkbox { display: none !important; }
-          .ingredient-shop-link { display: none !important; }
-        }
-      `}</style>
       <Navbar />
 
       {/* Loading */}
