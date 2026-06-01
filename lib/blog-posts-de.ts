@@ -653,6 +653,125 @@ export const blogPostsDe: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "meal-prep-fuer-anfaenger",
+    title: "Meal Prep für Anfänger: Der komplette Einsteiger-Guide",
+    description:
+      "Meal Prep für Anfänger leicht gemacht: die 5 Grundprinzipien, die richtige Ausstattung, ein kostenloser 7-Tage-Plan und die häufigsten Fehler. So gelingt dein erster Meal-Prep-Sonntag.",
+    publishedAt: "2026-06-01",
+    readingTime: "8 Min. Lesezeit",
+    category: "Meal Prep",
+    sections: [
+      {
+        content:
+          "Du öffnest abends den Kühlschrank, starrst hinein und weißt nicht, was du kochen sollst – und am Ende wird es doch wieder die Lieferung. Genau hier setzt Meal Prep an. Wer einmal pro Woche ein bisschen vorbereitet, spart sich an den restlichen Tagen die Entscheidung, das Einkaufen unter Zeitdruck und einen großen Teil der Kosten.",
+      },
+      {
+        content:
+          "Dieser Guide zeigt dir Schritt für Schritt, wie du als Anfänger startest – ohne teures Equipment, ohne stundenlanges Kochen und ohne dass dir am Mittwoch schon alles aus dem Hals heraushängt.",
+      },
+      {
+        heading: "Was ist Meal Prep – und für wen lohnt es sich?",
+        content:
+          "Meal Prep bedeutet, dass du Mahlzeiten oder einzelne Bestandteile im Voraus zubereitest und für die Woche portionierst. Das kann heißen, fünf fertige Lunchboxen vorzubereiten – oder einfach Reis zu kochen, Gemüse zu schneiden und eine Sauce auf Vorrat zu machen, die du später flexibel kombinierst. Besonders lohnt es sich, wenn du wenig Zeit hast, abends zu erschöpft zum Kochen bist, Geld sparen willst oder ein konkretes Ernährungsziel verfolgst. Der größte Vorteil ist gar nicht die Zeitersparnis allein, sondern dass die Entscheidung, was es zu essen gibt, schon getroffen ist – genau diese Entscheidungsmüdigkeit ist der Hauptgrund, warum gute Vorsätze unter der Woche kippen.",
+      },
+      {
+        heading: "Die 5 Grundprinzipien für Einsteiger",
+        content:
+          "Fünf Prinzipien machen den Unterschied zwischen „macht Spaß und hält durch\" und „nach zwei Wochen wieder aufgegeben\":",
+        list: [
+          "Fang klein an: Starte mit drei bis vier Mittagessen statt 15 Mahlzeiten. Erfolg motiviert mehr als ein überambitionierter Plan.",
+          "Denke in Komponenten, nicht in fertigen Gerichten: Bereite Bausteine vor (Kohlenhydrat, Protein, Gemüse, Sauce) und kombiniere sie täglich neu.",
+          "Setze auf Batch Cooking: Koche von haltbaren Grundzutaten gleich die doppelte Menge.",
+          "Plane bewusst Abwechslung ein: Variiere Sauce, Gewürze oder Beilage, auch wenn die Basis gleich bleibt.",
+          "Lagere richtig: Die beste Vorbereitung nützt nichts, wenn das Essen am dritten Tag nicht mehr schmeckt.",
+        ],
+      },
+      {
+        heading: "Ausstattung: Was du wirklich brauchst",
+        content:
+          "Du brauchst kein Vakuumiergerät und keine Schrankwand aus Glasbehältern. Die Grundausstattung ist überschaubar: ein gutes scharfes Messer, ein Schneidebrett, ein bis zwei große Töpfe oder eine Pfanne, ein Backblech und ein Satz luftdichter Vorratsdosen. Praktisch sind Behälter in einheitlicher Größe – sie stapeln sich besser und du portionierst automatisch gleichmäßiger. Glas ist langlebig und geruchsneutral, Kunststoff leichter und günstiger für den Transport.",
+      },
+      {
+        heading: "Haltbarkeit nach Lebensmittel",
+        content:
+          "Wie lange etwas hält, entscheidet darüber, wie viel du vorbereiten kannst. Als grobe Orientierung im Kühlschrank:",
+        list: [
+          "Gekochtes Hähnchen, Rind oder Fisch: 3 bis 4 Tage",
+          "Gekochte Hülsenfrüchte und Eintöpfe: 3 bis 5 Tage",
+          "Reis und Nudeln: 3 bis 4 Tage",
+          "Geschnittenes Rohgemüse: 4 bis 5 Tage",
+          "Dressings auf Öl-Essig-Basis: bis zu einer Woche",
+          "Eintöpfe, Currys, Suppen, Bolognese und Chili lassen sich portionsweise einfrieren und halten 2 bis 3 Monate – beschrifte die Behälter mit Inhalt und Datum.",
+        ],
+      },
+      {
+        heading: "In 4 Schritten zum ersten Meal-Prep-Sonntag",
+        content:
+          "So sieht ein realistischer erster Durchlauf aus, der dich nicht länger als rund 90 Minuten kostet:",
+        list: [
+          "Planen (15 Min.): Lege fest, für wie viele Mahlzeiten du vorbereitest, und wähle Gerichte mit überlappenden Zutaten.",
+          "Einkaufen (einmal, mit Liste): Schreib eine vollständige Liste und kaufe gezielt ein. Culinse fasst die Zutaten deiner Rezepte automatisch zu einer Liste mit zusammengerechneten Mengen zusammen.",
+          "Vorbereiten in der richtigen Reihenfolge: Starte mit dem, was am längsten dauert oder von allein gart (Reis, Ofengemüse, Hähnchen) und schneide nebenbei Rohkost.",
+          "Portionieren und kühlen: Lass alles vollständig abkühlen, bevor du es verschließt, dann portionieren und kühlen bzw. einfrieren.",
+        ],
+      },
+      {
+        heading: "Kostenloser 7-Tage-Meal-Prep-Plan",
+        content:
+          "Dieser Plan ist bewusst einsteigerfreundlich: ein Prep-Block am Sonntag, viele wiederverwendete Komponenten und genug Abwechslung. Prep am Sonntag (ca. 90 Min.): 500 g Hähnchenbrust garen, 400 g Reis (Trockengewicht) kochen, 800 g gemischtes Gemüse rösten, 400 g Kichererbsen und 200 g Haferflocken bereitstellen, 3 Dressings anrühren. Mengen für eine Person.",
+        list: [
+          "Montag: Hähnchen-Reis-Bowl mit Ofengemüse und Joghurt-Kräuter-Dressing",
+          "Dienstag: Overnight Oats zum Frühstück; mittags Kichererbsen-Reis-Bowl mit Tomaten-Sugo",
+          "Mittwoch: Hähnchen-Wrap mit Ofengemüse und Erdnuss-Limette-Dressing",
+          "Donnerstag: Reispfanne mit Kichererbsen und geröstetem Gemüse",
+          "Freitag: Reste-Bowl mit einem frischen Ei obendrauf",
+          "Wochenende: bewusst frei für spontane oder besondere Gerichte",
+        ],
+      },
+      {
+        heading: "8 Anfängerfehler und wie du sie vermeidest",
+        content:
+          "Diese acht Stolpersteine treffen fast jeden Einsteiger – und sind leicht zu umgehen:",
+        list: [
+          "Zu viel auf einmal: Starte klein statt fünf Gerichte für die ganze Familie.",
+          "Sieben Tage dieselbe Box: Variiere über Saucen und Gewürze oder friere die Hälfte ein.",
+          "Warm verschließen: Kondenswasser verkürzt die Haltbarkeit – immer auskühlen lassen.",
+          "Empfindliches mit Robustem mischen: Blattsalat, Kräuter und Knuspriges erst beim Servieren dazugeben.",
+          "Ohne Plan einkaufen: Geh mit fertiger Liste los, sonst sprengen Spontankäufe das Budget.",
+          "Würzen unterschätzen: Etwas kräftiger würzen und frische Akzente (Zitrone, Kräuter) erst beim Servieren ergänzen.",
+          "Falsche Behältergrößen: Einheitliche, passende Größen verhindern zu große Portionen.",
+          "Den Sonntag heilig sprechen: Auch 20 Minuten an einem beliebigen Abend retten den nächsten Tag.",
+        ],
+      },
+      {
+        heading: "Meal Prep an deine Ziele und die Jahreszeit anpassen",
+        content:
+          "Meal Prep passt sich dem an, was du gerade brauchst. Wer abnehmen möchte, arbeitet mit klar portionierten Boxen und einem Fokus auf Protein und Gemüse; wer Muskeln aufbauen will, plant größere Portionen mit reichlich Protein. Auch die Jahreszeit zählt: Im Winter trägt ein großer Topf Eintopf oder Curry durch die Woche, im Sommer willst du eher leichte, kühle Gerichte ohne langes Kochen. Der Trick ist, dein Grundgerüst beizubehalten – ein Prep-Block, Komponenten statt fertiger Gerichte, richtige Lagerung – und nur Zutaten und Gerichte zu tauschen.",
+      },
+      {
+        content:
+          "Der mühsamste Teil am Meal Prep ist für die meisten nicht das Kochen, sondern das Planen. Genau diesen Schritt nimmt dir Culinse ab: Du filterst Millionen Rezepte nach Zeit, Ernährungsform oder Protein- und Budgetzielen und stellst dir daraus deinen Wochenplan zusammen – die Zutaten landen automatisch in einer zusammengefassten Einkaufsliste. Kostenlos unter culinse.com.",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Meal Prep beginnt nicht mit teurer Ausstattung oder einem perfekten Plan, sondern mit einer einzigen vorbereiteten Mahlzeit. Fang mit drei Mittagessen an, denke in Komponenten statt in fertigen Gerichten, lagere richtig und baue über Saucen und Gewürze genug Abwechslung ein, dass du dranbleibst. Nach zwei, drei Wochen wird der Prep-Block zur Routine – und der ratlose Blick in den Kühlschrank am Abend gehört der Vergangenheit an.",
+      },
+      {
+        heading: "Häufige Fragen",
+        content:
+          "Die wichtigsten Fragen rund um Meal Prep für Anfänger:",
+        list: [
+          "Wie lange ist vorbereitetes Essen haltbar? Im Kühlschrank halten die meisten gekochten Gerichte 3 bis 4 Tage; Eintöpfe und Currys lassen sich 2 bis 3 Monate einfrieren. Wichtig: alles vor dem Verschließen vollständig abkühlen lassen.",
+          "Kann ich Meal Prep auch ohne Mikrowelle machen? Ja. Viele Gerichte schmecken kalt (Bowls, Salate, Wraps) oder lassen sich in der Pfanne aufwärmen.",
+          "Ist Meal Prep wirklich günstiger? In der Regel ja – du kaufst gezielt nach Liste, nutzt größere Packungen, verwertest Reste und greifst seltener zu Lieferdiensten.",
+          "Wie verhindere ich, dass mir das Essen langweilig wird? Bereite Komponenten statt fertiger Gerichte vor und kombiniere sie täglich neu; drei Saucen reichen für gefühlt drei verschiedene Mahlzeiten.",
+          "Wie viel Zeit muss ich einplanen? Für den Einstieg mit drei bis vier Mahlzeiten reichen etwa 90 Minuten an einem Tag.",
+        ],
+      },
+    ],
+  },
 
 ];
 
