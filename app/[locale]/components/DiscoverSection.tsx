@@ -9,6 +9,19 @@ import { Recipe, TREND_FILTER_DEFS } from "./home-types";
 import CategoryChips from "./CategoryChips";
 import RecipeCard from "./RecipeCard";
 
+// Merge keys into the URL query string without navigating, so the user's filter
+// selection survives navigating to a recipe and pressing "back".
+function updateUrlParams(updates: Record<string, string | undefined>) {
+  if (typeof window === "undefined") return;
+  const params = new URLSearchParams(window.location.search);
+  for (const [key, value] of Object.entries(updates)) {
+    if (value) params.set(key, value);
+    else params.delete(key);
+  }
+  const qs = params.toString();
+  window.history.replaceState(null, "", `${window.location.pathname}${qs ? `?${qs}` : ""}`);
+}
+
 export default function DiscoverSection({
   search,
   category,
@@ -113,6 +126,25 @@ export default function DiscoverSection({
     fetchRecipes(6);
   }, [fetchRecipes]);
 
+  // Restore time/diet/trend filters from the URL on mount (e.g. after the
+  // browser back button), so the user's selection is not lost.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const time = params.get("time");
+    const dietParam = params.get("diet");
+    const trendParam = params.get("trend");
+    // One-time restore from the URL on mount; intentional setState.
+    /* eslint-disable react-hooks/set-state-in-effect */
+    if (time) setMaxTime(time);
+    if (dietParam) setDiet(dietParam);
+    if (trendParam) setTrend(trendParam);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
+
+  const selectMaxTime = (v: string) => { setMaxTime(v); setCount(6); updateUrlParams({ time: v || undefined }); };
+  const selectDiet = (v: string) => { setDiet(v); setCount(6); updateUrlParams({ diet: v || undefined }); };
+  const selectTrend = (v: string) => { setTrend(v); setCount(6); updateUrlParams({ trend: v || undefined }); };
+
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
 
@@ -162,7 +194,7 @@ export default function DiscoverSection({
         {TREND_FILTERS.map((f) => (
           <button
             key={f.value}
-            onClick={() => { setTrend(f.value); setCount(6); }}
+            onClick={() => selectTrend(f.value)}
             className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
               trend === f.value
                 ? "text-white border-transparent"
@@ -184,7 +216,7 @@ export default function DiscoverSection({
           {TIME_FILTERS.map((f) => (
             <button
               key={f.value}
-              onClick={() => { setMaxTime(f.value); setCount(6); }}
+              onClick={() => selectMaxTime(f.value)}
               className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
                 maxTime === f.value
                   ? "bg-white text-gray-900 shadow-sm"
@@ -200,7 +232,7 @@ export default function DiscoverSection({
           {DIET_FILTERS.map((f) => (
             <button
               key={f.value}
-              onClick={() => { setDiet(f.value); setCount(6); }}
+              onClick={() => selectDiet(f.value)}
               className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
                 diet === f.value
                   ? "bg-white text-gray-900 shadow-sm"
