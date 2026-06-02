@@ -210,7 +210,7 @@ export async function GET(req: NextRequest) {
         ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean),
       ];
       return NextResponse.json(
-        { recipes: fallback.slice(0, number), quota_exceeded: true },
+        { recipes: fallback.slice(0, number), quota_exceeded: true, hasMore: false },
         { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
       );
     }
@@ -250,7 +250,14 @@ export async function GET(req: NextRequest) {
       if (ei < uniqueEdamam.length && merged.length < number) merged.push(uniqueEdamam[ei++]);
     }
 
-    return NextResponse.json({ recipes: merged.slice(0, number) }, {
+    // Whether a "Load more" makes sense: we filled the requested page, we're
+    // still below the hard cap of 24, and the source reports more matches than
+    // we've shown. Prevents an empty/pointless Load more button.
+    const totalAvailable =
+      typeof spoonData.totalResults === "number" ? spoonData.totalResults : merged.length;
+    const hasMore = merged.length >= number && number < 24 && totalAvailable > number;
+
+    return NextResponse.json({ recipes: merged.slice(0, number), hasMore }, {
       headers: {
         // Cache on Vercel CDN: 1h fresh, serve stale for 24h while revalidating
         "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",

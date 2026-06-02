@@ -107,7 +107,7 @@ export default function DiscoverSection({
       const data = await res.json();
       const fetched: Recipe[] = data.recipes || [];
       setRecipes(fetched);
-      setHasMore(fetched.length >= num && !data.quota_exceeded);
+      setHasMore(!!data.hasMore);
       setQuotaExceeded(!!data.quota_exceeded);
     } catch {
       setError(true);
