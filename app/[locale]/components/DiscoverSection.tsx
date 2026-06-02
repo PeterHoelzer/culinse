@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
@@ -59,6 +59,7 @@ export default function DiscoverSection({
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
   const [quotaExceeded, setQuotaExceeded] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [count, setCount] = useState(6);
   const [maxTime, setMaxTime] = useState("");
   const [diet, setDiet] = useState("");
@@ -77,9 +78,9 @@ export default function DiscoverSection({
       .then(({ data }) => { if (data) setUserPrefs(data); });
   }, [user]);
 
-  const fetchRecipes = useCallback(async (num = 6) => {
-    if (num === 6) setLoading(true);
-    else setLoadingMore(true);
+  const fetchRecipes = useCallback(async (num = 6, isLoadMore = false) => {
+    if (isLoadMore) setLoadingMore(true);
+    else setLoading(true);
     setError(false);
     try {
       const params = new URLSearchParams();
@@ -104,7 +105,9 @@ export default function DiscoverSection({
       const res = await fetch(`/api/recipes?${params}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
-      setRecipes(data.recipes || []);
+      const fetched: Recipe[] = data.recipes || [];
+      setRecipes(fetched);
+      setHasMore(fetched.length >= num && !data.quota_exceeded);
       setQuotaExceeded(!!data.quota_exceeded);
     } catch {
       setError(true);
@@ -115,35 +118,71 @@ export default function DiscoverSection({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, category, maxTime, diet, trend, forYouActive, userPrefs]);
 
-  const handleLoadMore = () => {
-    const newCount = count + 6;
-    setCount(newCount);
-    fetchRecipes(newCount);
+  // Keep the loaded count in a ref so the fetch effect can read the latest
+  // value without re-running on every Load More. applyCount syncs state, ref
+  // and the URL, so the count survives a back navigation.
+  const countRef = useRef(6);
+  const applyCount = (n: number) => {
+    countRef.current = n;
+    setCount(n);
+    updateUrlParams({ n: n > 6 ? String(n) : undefined });
   };
 
-  useEffect(() => {
-    setCount(6);
-    fetchRecipes(6);
-  }, [fetchRecipes]);
+  const handleLoadMore = () => {
+    const newCount = count + 6;
+    applyCount(newCount);
+    fetchRecipes(newCount, true);
+  };
 
-  // Restore time/diet/trend filters from the URL on mount (e.g. after the
-  // browser back button), so the user's selection is not lost.
+  // Restore filters + loaded count from the URL on mount (e.g. after the
+  // browser back button). Declared before the fetch effect so the first fetch
+  // already uses the restored count. Intentional one-time setState on mount.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const time = params.get("time");
     const dietParam = params.get("diet");
     const trendParam = params.get("trend");
-    // One-time restore from the URL on mount; intentional setState.
+    const n = parseInt(params.get("n") || "", 10);
     /* eslint-disable react-hooks/set-state-in-effect */
     if (time) setMaxTime(time);
     if (dietParam) setDiet(dietParam);
     if (trendParam) setTrend(trendParam);
+    if (n && n > 6) { countRef.current = n; setCount(n); }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
-  const selectMaxTime = (v: string) => { setMaxTime(v); setCount(6); updateUrlParams({ time: v || undefined }); };
-  const selectDiet = (v: string) => { setDiet(v); setCount(6); updateUrlParams({ diet: v || undefined }); };
-  const selectTrend = (v: string) => { setTrend(v); setCount(6); updateUrlParams({ trend: v || undefined }); };
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHasMore(true);
+    fetchRecipes(countRef.current);
+  }, [fetchRecipes]);
+
+  // After results load, scroll the previously-clicked recipe card back into
+  // view. Re-checks on each load (deps include recipes) so it still works once
+  // the restored count brings the card in. The marker is cleared when consumed
+  // and ignored after 60s, so it never fires on an unrelated fresh visit.
+  useEffect(() => {
+    if (loading) return;
+    let raw: string | null = null;
+    try { raw = sessionStorage.getItem("culinse:returnTo"); } catch {}
+    if (!raw) return;
+    let data: { id?: string; y?: number; t?: number } = {};
+    try { data = JSON.parse(raw); }
+    catch { try { sessionStorage.removeItem("culinse:returnTo"); } catch {} return; }
+    if (data.t && Date.now() - data.t > 60000) {
+      try { sessionStorage.removeItem("culinse:returnTo"); } catch {}
+      return;
+    }
+    const el = data.id ? document.getElementById(`recipe-${data.id}`) : null;
+    if (el) {
+      try { sessionStorage.removeItem("culinse:returnTo"); } catch {}
+      requestAnimationFrame(() => el.scrollIntoView({ block: "center", behavior: "auto" }));
+    }
+  }, [loading, recipes]);
+
+  const selectMaxTime = (v: string) => { setMaxTime(v); applyCount(6); updateUrlParams({ time: v || undefined }); };
+  const selectDiet = (v: string) => { setDiet(v); applyCount(6); updateUrlParams({ diet: v || undefined }); };
+  const selectTrend = (v: string) => { setTrend(v); applyCount(6); updateUrlParams({ trend: v || undefined }); };
 
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -180,7 +219,7 @@ export default function DiscoverSection({
       <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
         {user && userPrefs && (userPrefs.diet || (userPrefs.intolerances?.length ?? 0) > 0 || userPrefs.max_time) && (
           <button
-            onClick={() => { setForYouActive(v => !v); setCount(6); }}
+            onClick={() => { setForYouActive(v => !v); applyCount(6); }}
             className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
               forYouActive
                 ? "text-white border-transparent"
@@ -288,15 +327,17 @@ export default function DiscoverSection({
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={handleLoadMore}
-              disabled={loadingMore}
-              className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loadingMore ? t("discover.loadingMore") : t("discover.loadMore")}
-            </button>
-          </div>
+          {hasMore && (
+            <div className="mt-8 flex justify-center">
+              <button
+                onClick={handleLoadMore}
+                disabled={loadingMore}
+                className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loadingMore ? t("discover.loadingMore") : t("discover.loadMore")}
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <div className="text-center py-16 text-gray-400">

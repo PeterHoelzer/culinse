@@ -64,7 +64,11 @@ export default function Home() {
     }
     if (cat && cat !== "All") setCategory(cat);
     /* eslint-enable react-hooks/set-state-in-effect */
-    if (q || (cat && cat !== "All")) {
+    // If a specific recipe card was clicked, DiscoverSection scrolls precisely
+    // back to it — so skip the generic "scroll to results" jump here.
+    let hasPreciseReturn = false;
+    try { hasPreciseReturn = !!sessionStorage.getItem("culinse:returnTo"); } catch {}
+    if (!hasPreciseReturn && (q || (cat && cat !== "All"))) {
       // Let the layout settle before scrolling back down to the results.
       setTimeout(() => scrollToDiscover(false), 120);
     }

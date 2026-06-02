@@ -23,6 +23,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (!user) { setShowLoginPrompt(true); return; }
     if (saved) {
       await fetch("/api/saved-recipes", {
@@ -57,6 +58,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
 
   const handleCollectionClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (!user) { setShowLoginPrompt(true); return; }
     setShowCollectionModal(true);
   };
@@ -65,6 +67,17 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
     <Fragment>
       <Link
         href={`/recipe/${recipe.id}`}
+        id={`recipe-${recipe.id}`}
+        onClick={() => {
+          // Remember where this card was so we can scroll back to it after the
+          // user presses "back" from the recipe page.
+          try {
+            sessionStorage.setItem(
+              "culinse:returnTo",
+              JSON.stringify({ id: recipe.id, y: window.scrollY, t: Date.now() })
+            );
+          } catch {}
+        }}
         className="recipe-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col"
       >
         <div className="relative h-44">
