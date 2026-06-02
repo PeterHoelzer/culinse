@@ -22,12 +22,16 @@ export const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "
 
 export const EN_CATEGORIES = ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
 
+// key   → must match a messages `trendFilters.<key>` label
+// value → unique identity (React key + selection) AND the value sent to the API
+// type  → which /api/recipes param the value maps to
 export const TREND_FILTER_DEFS = [
-  { key: "trending",  value: "",         icon: "🔥", type: "" },
-  { key: "quick",     value: "30",        icon: "⚡", type: "maxReadyTime" },
-  { key: "healthy",   value: "healthy",   icon: "🥗", type: "diet" },
-  { key: "comfort",   value: "comfort",   icon: "🍲", type: "cuisine" },
-  { key: "asian",     value: "asian",     icon: "🍜", type: "cuisine" },
+  { key: "trending",      value: "",             icon: "🔥", type: "" },
+  { key: "highProtein",   value: "30",           icon: "💪", type: "minProtein" },
+  { key: "lowCarb",       value: "40",           icon: "⚡", type: "maxCarbs" },
+  { key: "keto",          value: "ketogenic",    icon: "🥑", type: "diet" },
+  { key: "dairyFree",     value: "dairy",        icon: "🥛", type: "intolerances" },
+  { key: "mediterranean", value: "mediterranean", icon: "🫒", type: "cuisine" },
 ];
 
 export interface VideoRecipe {
