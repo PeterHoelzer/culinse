@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 interface Recipe {
@@ -21,8 +22,6 @@ interface AddToPlanModalProps {
   onClose: () => void;
 }
 
-const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const DAYS_FULL = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const SLOTS = [
   { value: "breakfast", label: "Breakfast", emoji: "🌅" },
   { value: "lunch",     label: "Lunch",     emoji: "☀️" },
@@ -30,6 +29,11 @@ const SLOTS = [
 ];
 
 export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps) {
+  const t = useTranslations("modals");
+  const tm = useTranslations("mealPlanner");
+  const DAYS_T = tm.raw("days") as string[];
+  const DAYS_FULL_T = tm.raw("daysFull") as string[];
+  const MEAL_LABELS = tm.raw("meals") as string[];
   const supabase = createClient();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [selectedPlan, setSelectedPlan] = useState<string>("");
@@ -120,7 +124,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
               <img src={recipe.image} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
             )}
             <div className="flex-1 min-w-0">
-              <p className="text-xs text-gray-400 mb-0.5">Add to Meal Plan</p>
+              <p className="text-xs text-gray-400 mb-0.5">{t("addToPlanHeader")}</p>
               <p className="text-sm font-semibold text-gray-900 line-clamp-2">{recipe.title}</p>
             </div>
             <button onClick={onClose} className="text-gray-300 hover:text-gray-500 flex-shrink-0 text-xl leading-none">×</button>
@@ -128,13 +132,13 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
         </div>
 
         {loading ? (
-          <div className="px-5 py-8 text-center text-gray-400 text-sm">Loading…</div>
+          <div className="px-5 py-8 text-center text-gray-400 text-sm">{t("loading")}</div>
         ) : (
           <div className="px-5 py-4 space-y-4">
 
             {/* Plan selector */}
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Plan</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{t("plan")}</p>
 
               <div className="flex flex-wrap gap-2">
                 {plans.map(p => (
@@ -159,7 +163,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                         value={newPlanName}
                         onChange={e => setNewPlanName(e.target.value)}
                         onKeyDown={e => e.key === "Enter" && handleCreatePlan()}
-                        placeholder="Name your plan…"
+                        placeholder={t("planNamePlaceholder")}
                         className="text-sm border border-orange-300 rounded-full px-3 py-1.5 outline-none w-32"
                       />
                       <button onClick={handleCreatePlan} className="text-orange-500 text-sm font-semibold px-2">✓</button>
@@ -178,7 +182,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                     onClick={() => window.location.href = "/pro"}
                     className="px-3 py-1.5 rounded-full text-sm border border-dashed border-orange-200 text-orange-400"
                   >
-                    ✦ Pro — more plans
+                    {t("proMorePlans")}
                   </button>
                 )}
               </div>
@@ -186,9 +190,9 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
 
             {/* Day selector */}
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Day</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{t("day")}</p>
               <div className="grid grid-cols-7 gap-1">
-                {DAYS.map((d, i) => (
+                {DAYS_T.map((d, i) => (
                   <button
                     key={i}
                     onClick={() => setSelectedDay(i)}
@@ -206,9 +210,9 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
 
             {/* Slot selector */}
             <div>
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Meal</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{t("meal")}</p>
               <div className="grid grid-cols-3 gap-2">
-                {SLOTS.map(s => (
+                {SLOTS.map((s, i) => (
                   <button
                     key={s.value}
                     onClick={() => setSelectedSlot(s.value)}
@@ -219,7 +223,7 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                     }`}
                   >
                     <span className="text-lg">{s.emoji}</span>
-                    {s.label}
+                    {MEAL_LABELS[i]}
                   </button>
                 ))}
               </div>
@@ -232,9 +236,9 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
               className="w-full py-3.5 rounded-full text-white font-semibold text-sm transition-all disabled:opacity-60"
               style={{ background: saved ? "#22c55e" : "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
             >
-              {saving ? "Saving…" : saved
-                ? `✓ ${DAYS_FULL[selectedDay]} — ${SLOTS.find(s => s.value === selectedSlot)?.label}`
-                : "Add to Plan"}
+              {saving ? t("saving") : saved
+                ? `✓ ${DAYS_FULL_T[selectedDay]} — ${MEAL_LABELS[SLOTS.findIndex(s => s.value === selectedSlot)]}`
+                : t("addToPlanButton")}
             </button>
           </div>
         )}

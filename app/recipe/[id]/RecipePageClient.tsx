@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { convertMeasurements } from "@/lib/convertMeasurements";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -43,9 +44,70 @@ interface Recipe {
   dishTypes: string[];
 }
 
+/** Translate a batch of strings EN→DE via the MyMemory route (chunked to 50). */
+async function translateBatch(texts: string[]): Promise<string[]> {
+  const out: string[] = [];
+  for (let i = 0; i < texts.length; i += 50) {
+    const chunk = texts.slice(i, i + 50);
+    try {
+      const res = await fetch("/api/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texts: chunk, targetLang: "de" }),
+      });
+      if (!res.ok) { out.push(...chunk); continue; }
+      const data = await res.json();
+      out.push(...(Array.isArray(data.translated) ? data.translated : chunk));
+    } catch {
+      out.push(...chunk); // fallback: keep English for this chunk
+    }
+  }
+  return out;
+}
+
+/**
+ * Produce a German version of a recipe: convert imperial units to metric
+ * first, then translate the display text. `ingredient.name` and `dishTypes`
+ * stay English on purpose — affiliate matching and related-video tags rely
+ * on them.
+ */
+async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
+  const ingredientTexts = r.ingredients.map((i) => convertMeasurements(i.original));
+  const stepTexts = r.instructions.map((s) => convertMeasurements(s.step));
+  const summaryText = r.summary ? convertMeasurements(r.summary) : "";
+
+  // Fixed layout so we can map results back by index
+  const layout = [r.title, summaryText, ...ingredientTexts, ...stepTexts, ...r.diets];
+  const translated = await translateBatch(layout);
+
+  let idx = 0;
+  const title = translated[idx++] ?? r.title;
+  const summary = translated[idx++] ?? summaryText;
+  const ingredients = r.ingredients.map((ing) => ({
+    ...ing,
+    original: translated[idx++] ?? ing.original,
+  }));
+  const instructions = r.instructions.map((st) => ({
+    ...st,
+    step: translated[idx++] ?? st.step,
+  }));
+  const diets = r.diets.map((d) => translated[idx++] ?? d);
+
+  return {
+    ...r,
+    title,
+    summary: r.summary ? summary : r.summary,
+    ingredients,
+    instructions,
+    diets,
+  };
+}
+
 export default function RecipePageClient() {
   const { id } = useParams();
+  const locale = useLocale();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const translatedRef = useRef(false);
   const t = useTranslations("recipe");
   const tCard = useTranslations("recipeCard");
 
@@ -87,6 +149,18 @@ export default function RecipePageClient() {
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, [id]);
+
+  // On the German site, convert measurements + translate the recipe content.
+  // Runs once after the recipe loads; on failure the English version stays.
+  useEffect(() => {
+    if (locale !== "de" || !recipe || translatedRef.current) return;
+    translatedRef.current = true;
+    let cancelled = false;
+    translateRecipeToGerman(recipe)
+      .then((translated) => { if (!cancelled) setRecipe(translated); })
+      .catch(() => { /* keep English fallback */ });
+    return () => { cancelled = true; };
+  }, [locale, recipe]);
 
   useEffect(() => {
     if (!user || !id) return;
@@ -261,13 +335,13 @@ export default function RecipePageClient() {
           <h1 style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</h1>
           <p style={{ fontSize: "10pt", color: "#6b7280", marginBottom: "16px" }}>
             {recipe.time && `⏱ ${recipe.time}`}
-            {recipe.servings && `  ·  🍽 ${recipe.servings} servings`}
-            {recipe.ingredients.length > 0 && `  ·  🧂 ${recipe.ingredients.length} ingredients`}
+            {recipe.servings && `  ·  🍽 ${recipe.servings} ${t("servings")}`}
+            {recipe.ingredients.length > 0 && `  ·  🧂 ${recipe.ingredients.length} ${t("ingredients")}`}
           </p>
           <div style={{ display: "flex", gap: "32px", alignItems: "flex-start" }}>
             <div style={{ width: "32%", flexShrink: 0 }}>
               <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
-                Ingredients
+                {t("ingredients")}
               </h2>
               <ul style={{ listStyle: "disc", paddingLeft: "18px", margin: 0 }}>
                 {recipe.ingredients.map((ing, i) => (
@@ -279,7 +353,7 @@ export default function RecipePageClient() {
             </div>
             <div style={{ flex: 1 }}>
               <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
-                Instructions
+                {t("instructions")}
               </h2>
               <ol style={{ paddingLeft: "20px", margin: 0 }}>
                 {recipe.instructions.map((step) => (
@@ -342,14 +416,14 @@ export default function RecipePageClient() {
                   className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-gray-500 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all border border-gray-100 bg-white"
                 >
                   {loadingVideos ? (
-                    <><span className="animate-spin">⏳</span> Loading videos...</>
+                    <><span className="animate-spin">⏳</span> {t("loadingVideos")}</>
                   ) : (
-                    <>▶ More Videos</>
+                    <>▶ {t("moreVideos")}</>
                   )}
                 </button>
               ) : moreVideos.length > 0 ? (
                 <div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 px-1">More Videos</p>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 px-1">{t("moreVideos")}</p>
                   <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
                     {moreVideos.map((v) => (
                       <button
@@ -416,7 +490,7 @@ export default function RecipePageClient() {
                 <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
                   <span>⏱</span>
                   <div>
-                    <p className="text-xs text-gray-400">Cook time</p>
+                    <p className="text-xs text-gray-400">{t("cookTime")}</p>
                     <p className="text-sm font-semibold text-gray-800">{recipe.time}</p>
                   </div>
                 </div>
@@ -425,7 +499,7 @@ export default function RecipePageClient() {
                 <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
                   <span>🍽</span>
                   <div>
-                    <p className="text-xs text-gray-400">Servings</p>
+                    <p className="text-xs text-gray-400">{t("servings")}</p>
                     <p className="text-sm font-semibold text-gray-800">{recipe.servings}</p>
                   </div>
                 </div>
@@ -434,7 +508,7 @@ export default function RecipePageClient() {
                 <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
                   <span>🧂</span>
                   <div>
-                    <p className="text-xs text-gray-400">Ingredients</p>
+                    <p className="text-xs text-gray-400">{t("ingredients")}</p>
                     <p className="text-sm font-semibold text-gray-800">{recipe.ingredients.length}</p>
                   </div>
                 </div>
@@ -457,7 +531,7 @@ export default function RecipePageClient() {
                 onClick={() => user ? setShowCollectionModal(true) : setShowLoginPrompt(true)}
                 className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
               >
-                📚 Collections
+                📚 {t("collections")}
               </button>
               <a
                 href={recipe.sourceUrl}
@@ -472,13 +546,13 @@ export default function RecipePageClient() {
                 onClick={handleShare}
                 className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
               >
-                {copied ? "✓ Copied!" : "↑ Share"}
+                {copied ? `✓ ${t("copied")}` : `↑ ${t("share")}`}
               </button>
               <button
                 onClick={() => window.print()}
                 className="print:hidden flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
               >
-                🖨 Print
+                🖨 {t("print")}
               </button>
             </div>
           </div>
@@ -494,12 +568,12 @@ export default function RecipePageClient() {
                       onClick={() => setCheckedIngredients(new Set())}
                       className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
                     >
-                      Reset
+                      {t("reset")}
                     </button>
                   )}
                 </div>
                 {recipe.servings && (
-                  <p className="text-xs text-gray-400 mb-3">For {recipe.servings} servings</p>
+                  <p className="text-xs text-gray-400 mb-3">{t("forServings", { count: recipe.servings })}</p>
                 )}
                 <ul className="space-y-1">
                   {recipe.ingredients.map((ing, i) => (
@@ -574,7 +648,7 @@ export default function RecipePageClient() {
                   </ol>
                 ) : (
                   <div className="bg-gray-50 rounded-2xl p-6 text-center">
-                    <p className="text-gray-500 text-sm mb-3">Full instructions are on the original site.</p>
+                    <p className="text-gray-500 text-sm mb-3">{t("instructionsOnSource")}</p>
                     <a
                       href={recipe.sourceUrl}
                       target="_blank"
@@ -582,7 +656,7 @@ export default function RecipePageClient() {
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
                       style={{ background: "#f97316" }}
                     >
-                      ↗ View Full Recipe
+                      ↗ {t("viewFullRecipe")}
                     </a>
                   </div>
                 )}

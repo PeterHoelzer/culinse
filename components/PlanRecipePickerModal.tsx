@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 interface PickerRecipe {
@@ -43,6 +44,7 @@ export default function PlanRecipePickerModal({
   onClose,
   onAdded,
 }: PlanRecipePickerModalProps) {
+  const t = useTranslations("modals");
   const supabase = createClient();
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [activeTab, setActiveTab] = useState<string>("saved");
@@ -62,7 +64,7 @@ export default function PlanRecipePickerModal({
       const builtTabs: Tab[] = [
         {
           id: "saved",
-          label: "My Recipes",
+          label: t("myRecipesTab"),
           recipes: (saved || []).map(r => ({
             id: String(r.recipe_id),
             title: r.title,
@@ -164,7 +166,7 @@ export default function PlanRecipePickerModal({
         <div className="px-5 pt-2 pb-3 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs text-gray-400">Choose recipe for</p>
+              <p className="text-xs text-gray-400">{t("chooseRecipeFor")}</p>
               <p className="text-sm font-bold text-gray-900">{dayLabel} · {slotLabel}</p>
             </div>
             <button onClick={onClose} className="text-gray-300 hover:text-gray-500 text-2xl leading-none">×</button>
@@ -205,13 +207,13 @@ export default function PlanRecipePickerModal({
               <p className="text-3xl mb-3">{activeTab === "saved" ? "💔" : "📭"}</p>
               <p className="text-sm text-gray-500 font-medium">
                 {activeTab === "saved"
-                  ? "No saved recipes yet"
-                  : "This collection is empty"}
+                  ? t("noSavedRecipes")
+                  : t("emptyCollection")}
               </p>
               <p className="text-xs text-gray-400 mt-1">
                 {activeTab === "saved"
-                  ? "Save recipes with ♡ on the home page."
-                  : "Add recipes with 📚 to this collection."}
+                  ? t("saveHint")
+                  : t("addHint")}
               </p>
             </div>
           ) : (

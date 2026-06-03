@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { getAffiliateUrl, getToolsForRecipe } from "@/lib/affiliateProducts";
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnly }: Props) {
+  const t = useTranslations("modals");
   const products = useMemo(
     () => getToolsForRecipe(dishTypes, ingredientNames, recipeTitle),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,9 +25,9 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnl
     <div className="mt-4 border-t border-gray-100 pt-4">
       <div className="flex items-center justify-between mb-3">
         <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-          {toolsOnly ? "Kitchen Tools" : "Shop"}
+          {toolsOnly ? t("kitchenTools") : t("shop")}
         </p>
-        <span className="text-xs text-gray-300 border border-gray-200 rounded px-1.5 py-0.5">Ad</span>
+        <span className="text-xs text-gray-300 border border-gray-200 rounded px-1.5 py-0.5">{t("ad")}</span>
       </div>
 
       <div className="space-y-1.5">
@@ -49,7 +51,7 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnl
         ))}
       </div>
 
-      <p className="text-xs text-gray-300 mt-3 text-center">* Affiliate links</p>
+      <p className="text-xs text-gray-300 mt-3 text-center">{t("affiliateLinks")}</p>
     </div>
   );
 }

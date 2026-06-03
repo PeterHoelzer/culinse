@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface ShoppingItem {
   name: string;
@@ -74,6 +75,7 @@ export default function ShoppingListDrawer({
   planName,
   onClose,
 }: ShoppingListDrawerProps) {
+  const t = useTranslations("modals");
   const [loading, setLoading] = useState(true);
   const [grouped, setGrouped] = useState<Grouped>({});
   const [checked, setChecked] = useState<Set<string>>(new Set());
@@ -127,8 +129,8 @@ export default function ShoppingListDrawer({
         <div className="px-5 pt-2 pb-4 border-b border-gray-100 flex-shrink-0">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold text-gray-900">🛒 Shopping List</h2>
-              <p className="text-xs text-gray-400 mt-0.5">{planName} · {recipeTitles.length} recipes</p>
+              <h2 className="text-lg font-bold text-gray-900">{t("shoppingTitle")}</h2>
+              <p className="text-xs text-gray-400 mt-0.5">{planName} · {t("recipesCount", { count: recipeTitles.length })}</p>
             </div>
             <button onClick={onClose} className="text-gray-300 hover:text-gray-500 text-2xl leading-none mt-0.5">×</button>
           </div>
@@ -143,14 +145,14 @@ export default function ShoppingListDrawer({
                 />
               </div>
               <span className="text-xs text-gray-500 flex-shrink-0">
-                {checkedCount}/{totalItems} done
+                {checkedCount}/{totalItems} {t("done")}
               </span>
               {checkedCount > 0 && (
                 <button
                   onClick={() => setChecked(new Set())}
                   className="text-xs text-gray-400 hover:text-gray-600 flex-shrink-0"
                 >
-                  Reset
+                  {t("reset")}
                 </button>
               )}
             </div>
@@ -173,18 +175,18 @@ export default function ShoppingListDrawer({
           ) : error ? (
             <div className="px-5 py-12 text-center">
               <p className="text-3xl mb-2">😕</p>
-              <p className="text-sm text-gray-500">Couldn't load ingredients.</p>
+              <p className="text-sm text-gray-500">{t("cantLoad")}</p>
             </div>
           ) : recipeIds.length === 0 ? (
             <div className="px-5 py-12 text-center">
               <p className="text-3xl mb-2">📭</p>
-              <p className="text-sm font-medium text-gray-600">No recipes in plan</p>
-              <p className="text-xs text-gray-400 mt-1">Add recipes to your meal plan first.</p>
+              <p className="text-sm font-medium text-gray-600">{t("noRecipesInPlan")}</p>
+              <p className="text-xs text-gray-400 mt-1">{t("addRecipesFirst")}</p>
             </div>
           ) : totalItems === 0 ? (
             <div className="px-5 py-12 text-center">
               <p className="text-3xl mb-2">🤷</p>
-              <p className="text-sm text-gray-500">No ingredients found — some sources don't support ingredient lists.</p>
+              <p className="text-sm text-gray-500">{t("noIngredients")}</p>
             </div>
           ) : (
             <div className="px-5 py-4 pb-8 space-y-6">
@@ -258,9 +260,9 @@ export default function ShoppingListDrawer({
               rel="noopener noreferrer sponsored"
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-orange-200 text-orange-600 text-sm font-semibold hover:bg-orange-50 transition-all"
             >
-              🛒 Order groceries on Amazon
+              {t("orderGroceries")}
             </a>
-            <p className="text-xs text-gray-300 text-center mt-1.5">Affiliate link — no extra cost for you</p>
+            <p className="text-xs text-gray-300 text-center mt-1.5">{t("affiliateNote")}</p>
           </div>
         )}
 
@@ -270,8 +272,8 @@ export default function ShoppingListDrawer({
             <div className="flex items-center gap-3 bg-green-50 rounded-xl px-4 py-3">
               <span className="text-2xl">🎉</span>
               <div>
-                <p className="text-sm font-bold text-green-700">All done!</p>
-                <p className="text-xs text-green-600">You've bought all the ingredients.</p>
+                <p className="text-sm font-bold text-green-700">{t("allDone")}</p>
+                <p className="text-xs text-green-600">{t("boughtAll")}</p>
               </div>
             </div>
           </div>

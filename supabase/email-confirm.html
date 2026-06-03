@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Mail bestätigen – Culinse</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f9f5f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;">
+
+  <!-- Outer wrapper -->
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f9f5f0;padding:40px 16px;">
+    <tr>
+      <td align="center">
+
+        <!-- Card -->
+        <table role="presentation" width="100%" style="max-width:560px;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
+
+          <!-- Header / Brand bar -->
+          <tr>
+            <td align="center" style="background:linear-gradient(135deg,#f97316 0%,#fb923c 100%);padding:36px 32px 32px;">
+              <!-- Inline logo SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="64" height="64" style="display:block;margin:0 auto 14px;">
+                <circle cx="200" cy="200" r="200" fill="rgba(255,255,255,0.2)"/>
+                <text x="200" y="248" font-family="Georgia,'Times New Roman',serif" font-size="180" font-weight="400" fill="white" text-anchor="middle">C</text>
+                <circle cx="247" cy="158" r="9" fill="white" opacity="0.85"/>
+              </svg>
+              <p style="margin:0;font-size:22px;font-weight:700;color:#ffffff;letter-spacing:-0.3px;">culinse</p>
+              <p style="margin:4px 0 0;font-size:13px;color:rgba(255,255,255,0.8);letter-spacing:0.5px;">Deine Rezept-Welt</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px 40px 32px;">
+
+              <!-- Greeting -->
+              <p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#111827;line-height:1.3;">Herzlich willkommen! 🍳</p>
+              <p style="margin:0 0 24px;font-size:16px;color:#6b7280;line-height:1.6;">
+                Schön, dass du dabei bist. Mit Culinse entdeckst du täglich neue Rezepte, sparst deine Lieblingsgerichte und planst deine Woche ganz einfach.
+              </p>
+
+              <!-- Divider -->
+              <div style="height:1px;background:linear-gradient(to right,#fed7aa,#fdba74,#fed7aa);margin:0 0 28px;"></div>
+
+              <!-- CTA intro -->
+              <p style="margin:0 0 6px;font-size:15px;font-weight:600;color:#374151;">Nur noch ein Schritt:</p>
+              <p style="margin:0 0 28px;font-size:15px;color:#6b7280;line-height:1.6;">
+                Bitte bestätige deine E-Mail-Adresse, damit wir wissen, dass du es wirklich bist.
+              </p>
+
+              <!-- CTA Button -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="center">
+                    <a href="{{ .ConfirmationURL }}"
+                       style="display:inline-block;background:linear-gradient(135deg,#f97316 0%,#ea6c00 100%);color:#ffffff;font-size:16px;font-weight:700;text-decoration:none;padding:16px 48px;border-radius:50px;letter-spacing:0.2px;box-shadow:0 4px 14px rgba(249,115,22,0.4);">
+                      E-Mail bestätigen &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Link fallback -->
+              <p style="margin:24px 0 0;font-size:12px;color:#9ca3af;text-align:center;line-height:1.6;">
+                Der Button funktioniert nicht? Kopiere diesen Link in deinen Browser:<br />
+                <a href="{{ .ConfirmationURL }}" style="color:#f97316;word-break:break-all;text-decoration:none;">{{ .ConfirmationURL }}</a>
+              </p>
+
+              <!-- Divider -->
+              <div style="height:1px;background:#f3f4f6;margin:28px 0;"></div>
+
+              <!-- Features teaser -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="33%" align="center" style="padding:0 8px;">
+                    <p style="font-size:24px;margin:0 0 6px;">🔍</p>
+                    <p style="font-size:12px;font-weight:600;color:#374151;margin:0 0 2px;">Entdecken</p>
+                    <p style="font-size:11px;color:#9ca3af;margin:0;line-height:1.4;">Täglich neue Rezepte</p>
+                  </td>
+                  <td width="33%" align="center" style="padding:0 8px;">
+                    <p style="font-size:24px;margin:0 0 6px;">❤️</p>
+                    <p style="font-size:12px;font-weight:600;color:#374151;margin:0 0 2px;">Speichern</p>
+                    <p style="font-size:11px;color:#9ca3af;margin:0;line-height:1.4;">Deine Lieblingsrezepte</p>
+                  </td>
+                  <td width="33%" align="center" style="padding:0 8px;">
+                    <p style="font-size:24px;margin:0 0 6px;">📅</p>
+                    <p style="font-size:12px;font-weight:600;color:#374151;margin:0 0 2px;">Planen</p>
+                    <p style="font-size:11px;color:#9ca3af;margin:0;line-height:1.4;">Mahlzeiten für die Woche</p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f9f5f0;padding:24px 40px;border-top:1px solid #f3f4f6;">
+              <p style="margin:0 0 6px;font-size:12px;color:#9ca3af;text-align:center;line-height:1.6;">
+                Du erhältst diese E-Mail, weil du dich bei <strong>culinse.com</strong> registriert hast.<br/>
+                Falls du kein Konto erstellt hast, kannst du diese E-Mail ignorieren.
+              </p>
+              <p style="margin:8px 0 0;font-size:11px;color:#d1d5db;text-align:center;">
+                &copy; 2025 Culinse &nbsp;&middot;&nbsp;
+                <a href="https://culinse.com/datenschutz" style="color:#d1d5db;text-decoration:none;">Datenschutz</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- End card -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

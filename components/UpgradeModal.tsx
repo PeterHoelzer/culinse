@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export default function UpgradeModal({ onClose, title, message }: Props) {
+  const t = useTranslations("modals");
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -21,10 +23,10 @@ export default function UpgradeModal({ onClose, title, message }: Props) {
       >
         <div className="text-4xl mb-4">⭐</div>
         <h2 className="text-xl font-bold text-gray-900 mb-2">
-          {title ?? "Upgrade to Pro"}
+          {title ?? t("upgradeTitle")}
         </h2>
         <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-          {message ?? "You've reached the free plan limit of 25 saved recipes. Upgrade to Pro for unlimited saves, collections and more."}
+          {message ?? t("upgradeMessage")}
         </p>
         <div className="flex flex-col gap-3">
           <Link
@@ -33,13 +35,13 @@ export default function UpgradeModal({ onClose, title, message }: Props) {
             style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
             onClick={onClose}
           >
-            See Pro Plans
+            {t("seePlans")}
           </Link>
           <button
             onClick={onClose}
             className="w-full py-2.5 rounded-full text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
           >
-            Maybe later
+            {t("maybeLater")}
           </button>
         </div>
       </div>

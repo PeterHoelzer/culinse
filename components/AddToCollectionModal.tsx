@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 const FREE_RECIPE_LIMIT = 10;
@@ -39,6 +40,7 @@ export function AddToCollectionModal({
   const [newName, setNewName] = useState("");
   const [newEmoji, setNewEmoji] = useState("📚");
   const [creating, setCreating] = useState(false);
+  const t = useTranslations("modals");
   const supabase = createClient();
 
   useEffect(() => {
@@ -188,7 +190,7 @@ export function AddToCollectionModal({
         <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
           <div>
             <h2 className="text-base font-bold text-gray-900">
-              Add to Collection
+              {t("addToCollection")}
             </h2>
             <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">
               {recipe.title}
@@ -206,12 +208,12 @@ export function AddToCollectionModal({
         <div className="max-h-64 overflow-y-auto">
           {loading ? (
             <div className="px-5 py-8 text-center text-sm text-gray-400">
-              Loading…
+              {t("loading")}
             </div>
           ) : collections.length === 0 && !showCreate ? (
             <div className="px-5 py-6 text-center">
-              <p className="text-sm text-gray-400 mb-1">No collections yet</p>
-              <p className="text-xs text-gray-300">Create one below</p>
+              <p className="text-sm text-gray-400 mb-1">{t("noCollections")}</p>
+              <p className="text-xs text-gray-300">{t("createOneBelow")}</p>
             </div>
           ) : (
             collections.map((col) => {
@@ -227,7 +229,7 @@ export function AddToCollectionModal({
                   <div className="flex-1 min-w-0">
                     <span className="text-sm font-medium text-gray-800 block">{col.name}</span>
                     {atLimit && (
-                      <span className="text-xs text-orange-500">Full — upgrade for more</span>
+                      <span className="text-xs text-orange-500">{t("fullUpgrade")}</span>
                     )}
                   </div>
                   {atLimit ? (
@@ -274,7 +276,7 @@ export function AddToCollectionModal({
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                placeholder="Collection name…"
+                placeholder={t("collectionNamePlaceholder")}
                 className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 bg-white"
                 onKeyDown={(e) => e.key === "Enter" && handleCreateAndAdd()}
                 autoFocus
@@ -285,7 +287,7 @@ export function AddToCollectionModal({
                 className="px-4 py-2.5 rounded-xl text-sm font-semibold text-white disabled:opacity-40 transition-opacity hover:opacity-90"
                 style={{ background: "#f97316" }}
               >
-                {creating ? "…" : "Create"}
+                {creating ? "…" : t("create")}
               </button>
             </div>
           </div>
@@ -298,7 +300,7 @@ export function AddToCollectionModal({
               onClick={() => setShowCreate(true)}
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-gray-200 text-sm font-medium text-gray-500 hover:border-orange-300 hover:text-orange-500 transition-colors"
             >
-              + New Collection
+              {t("newCollection")}
             </button>
           ) : (
             <button
@@ -309,7 +311,7 @@ export function AddToCollectionModal({
               }}
               className="w-full py-3 text-sm text-gray-400 hover:text-gray-600 transition-colors"
             >
-              Cancel
+              {t("cancel")}
             </button>
           )}
         </div>
