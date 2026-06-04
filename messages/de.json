@@ -427,7 +427,9 @@
     "moreVideos": "Weitere Videos",
     "loadingVideos": "Videos werden geladen…",
     "instructionsOnSource": "Die vollständige Anleitung findest du auf der Originalseite.",
-    "viewFullRecipe": "Vollständiges Rezept ansehen"
+    "viewFullRecipe": "Vollständiges Rezept ansehen",
+    "printWithImage": "Mit Bild",
+    "printNoImage": "Ohne Bild"
   },
   "pro": {
     "title": "Culinse Pro",

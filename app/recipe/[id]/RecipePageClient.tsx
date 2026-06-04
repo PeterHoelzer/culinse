@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { useParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
 import { convertMeasurements } from "@/lib/convertMeasurements";
@@ -121,6 +122,15 @@ export default function RecipePageClient() {
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [printWithImage, setPrintWithImage] = useState(false);
+  const [showPrintMenu, setShowPrintMenu] = useState(false);
+
+  const handlePrint = (withImage: boolean) => {
+    setShowPrintMenu(false);
+    // flushSync so the print view reflects the image choice before printing
+    flushSync(() => setPrintWithImage(withImage));
+    window.print();
+  };
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -332,6 +342,13 @@ export default function RecipePageClient() {
       {/* ── Print-only view (inline styles so Tailwind can't override) ── */}
       {recipe && !loading && (
         <div className="recipe-print-view" style={{ padding: "24px", fontFamily: "system-ui, sans-serif" }}>
+          {printWithImage && recipe.image && (
+            <img
+              src={recipe.image}
+              alt={recipe.title}
+              style={{ width: "100%", maxHeight: "240px", objectFit: "cover", borderRadius: "12px", marginBottom: "16px" }}
+            />
+          )}
           <h1 style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</h1>
           <p style={{ fontSize: "10pt", color: "#6b7280", marginBottom: "16px" }}>
             {recipe.time && `⏱ ${recipe.time}`}
@@ -548,12 +565,33 @@ export default function RecipePageClient() {
               >
                 {copied ? `✓ ${t("copied")}` : `↑ ${t("share")}`}
               </button>
-              <button
-                onClick={() => window.print()}
-                className="print:hidden flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-              >
-                🖨 {t("print")}
-              </button>
+              <div className="relative print:hidden">
+                <button
+                  onClick={() => setShowPrintMenu((v) => !v)}
+                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
+                >
+                  🖨 {t("print")}
+                </button>
+                {showPrintMenu && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setShowPrintMenu(false)} />
+                    <div className="absolute z-20 bottom-full mb-2 left-0 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden min-w-[180px]">
+                      <button
+                        onClick={() => handlePrint(true)}
+                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 transition-colors"
+                      >
+                        🖼 {t("printWithImage")}
+                      </button>
+                      <button
+                        onClick={() => handlePrint(false)}
+                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 transition-colors border-t border-gray-50"
+                      >
+                        📄 {t("printNoImage")}
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
