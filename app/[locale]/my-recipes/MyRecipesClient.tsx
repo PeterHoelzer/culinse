@@ -81,13 +81,17 @@ export default function MyRecipesClient() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {recipes.map(recipe => (
             <div key={recipe.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden group hover:shadow-md transition-all">
-              {recipe.image_url ? (
-                <img src={recipe.image_url} alt={recipe.title} className="w-full h-36 object-cover" />
-              ) : (
-                <div className="w-full h-36 bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center text-4xl">🍳</div>
-              )}
+              <Link href={`/recipe/user_${recipe.id}`} className="block" title="View recipe">
+                {recipe.image_url ? (
+                  <img src={recipe.image_url} alt={recipe.title} className="w-full h-36 object-cover" />
+                ) : (
+                  <div className="w-full h-36 bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center text-4xl">🍳</div>
+                )}
+              </Link>
               <div className="p-4">
-                <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1">{recipe.title}</h3>
+                <Link href={`/recipe/user_${recipe.id}`}>
+                  <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1 hover:text-orange-500 transition-colors">{recipe.title}</h3>
+                </Link>
                 <div className="flex items-center gap-2 mb-3">
                   <button
                     onClick={() => togglePublic(recipe)}

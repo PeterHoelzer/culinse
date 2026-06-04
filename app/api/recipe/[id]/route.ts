@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient as createServerClient } from "@/lib/supabase/server";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -17,6 +19,69 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+
+  // ── User-created (community) recipe ──────────────────────────────────────────
+  if (id.startsWith("user_")) {
+    const uuid = id.replace("user_", "");
+    try {
+      const supabase = createAdminClient();
+      const { data: r, error } = await supabase
+        .from("user_recipes")
+        .select("*")
+        .eq("id", uuid)
+        .single();
+
+      if (error || !r) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+      // Public recipes are visible to everyone; a private draft is visible only
+      // to its owner (so creators can preview before publishing).
+      if (!r.is_public) {
+        const sb = await createServerClient();
+        const { data: { user } } = await sb.auth.getUser();
+        if (!user || user.id !== r.user_id) {
+          return NextResponse.json({ error: "Not found" }, { status: 404 });
+        }
+      }
+
+      const ingredients = ((r.ingredients || []) as { name?: string; amount?: string; unit?: string }[])
+        .filter((i) => i && i.name)
+        .map((i, idx) => ({
+          id: idx,
+          name: i.name || "",
+          amount: i.amount ? Number(i.amount) || 0 : 0,
+          unit: i.unit || "",
+          original: [i.amount, i.unit, i.name].filter(Boolean).join(" ").trim(),
+        }));
+
+      const instructions = ((r.instructions || []) as { step?: number; text?: string }[])
+        .filter((s) => s && s.text)
+        .sort((a, b) => (a.step ?? 0) - (b.step ?? 0))
+        .map((s, idx) => ({ number: s.step ?? idx + 1, step: s.text || "" }));
+
+      const totalTime = (r.cook_time || 0) + (r.prep_time || 0);
+
+      const recipe = {
+        id,
+        title: r.title,
+        image: r.image_url || null,
+        videoUrl: r.video_url || null,
+        source: "Community",
+        sourceUrl: "",
+        time: totalTime > 0 ? `${totalTime} min` : null,
+        servings: r.servings || null,
+        summary: r.description || null,
+        ingredients,
+        instructions,
+        diets: Array.isArray(r.tags) ? r.tags : [],
+        dishTypes: [],
+      };
+
+      return NextResponse.json({ recipe }, { headers: { "Cache-Control": "no-store" } });
+    } catch (err) {
+      console.error(err);
+      return NextResponse.json({ error: "Failed to fetch recipe" }, { status: 500 });
+    }
+  }
 
   // ── Tasty recipe ───────────────────────────────────────────────────────────
   if (id.startsWith("tasty_")) {
