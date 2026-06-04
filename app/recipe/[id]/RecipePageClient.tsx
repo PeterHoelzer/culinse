@@ -150,6 +150,11 @@ export default function RecipePageClient() {
   }, []);
 
   useEffect(() => {
+    // Reset translation guard so a newly loaded recipe gets translated again
+    // (the component is reused across recipes; only `id` changes).
+    translatedRef.current = false;
+    setLoading(true);
+    setError(false);
     fetch(`/api/recipe/${id}`)
       .then((r) => r.json())
       .then((data) => {

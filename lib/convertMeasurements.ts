@@ -145,8 +145,10 @@ export function convertMeasurements(input: string): string {
   text = replaceUnit(text, "pounds?|lbs?\\.?", (n) => n * 454, "g");
   text = replaceUnit(text, "ounces?|oz\\.?", (n) => n * 28, "g");
 
-  // ── Length: inch → cm (handles inches, inch, in., and the ″ / " symbols) ──
-  text = replaceUnit(text, 'inches|inch|in\\.|["″]', (n) => n * 2.54, "cm");
+  // ── Length: inch → cm (inches, inch, in., and the ″ prime symbol).
+  // The straight double-quote (") is intentionally NOT treated as inches —
+  // it collides with quoted text like Rated "5", causing false conversions. ──
+  text = replaceUnit(text, "inches|inch|in\\.|″", (n) => n * 2.54, "cm");
 
   return text;
 }
