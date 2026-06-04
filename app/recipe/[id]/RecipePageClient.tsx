@@ -33,6 +33,7 @@ interface Recipe {
   id: number | string;
   title: string;
   image: string | null;
+  imagePosition?: string | null;
   videoUrl?: string | null;
   source: string;
   sourceUrl: string;
@@ -414,6 +415,7 @@ export default function RecipePageClient() {
               <img
                 src={recipe.image}
                 alt={recipe.title}
+                style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
                 className="w-full h-64 sm:h-96 object-cover"
                 onError={() => setImgError(true)}
               />

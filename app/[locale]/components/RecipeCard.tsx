@@ -20,6 +20,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
   const supabase = createClient();
+  const isCommunity = typeof recipe.id === "string" && recipe.id.startsWith("user_");
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -85,6 +86,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
             <img
               src={recipe.image}
               alt={recipe.title}
+              style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
               className="w-full h-full object-cover"
               loading="lazy"
               onError={() => setImgError(true)}
@@ -114,6 +116,12 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
               {saved ? "♥" : "♡"}
             </button>
           </div>
+
+          {isCommunity && (
+            <div className="absolute top-3 left-3 bg-orange-500 text-white text-[11px] font-bold px-2 py-1 rounded-lg shadow-sm">
+              👩‍🍳 Community
+            </div>
+          )}
 
           <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
             {recipe.source}

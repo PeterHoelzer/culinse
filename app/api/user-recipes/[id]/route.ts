@@ -46,6 +46,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
       title: body.title,
       description: body.description,
       image_url: body.image_url,
+      image_position: body.image_position || "50% 50%",
       video_url: body.video_url,
       ingredients: body.ingredients,
       instructions: body.instructions,

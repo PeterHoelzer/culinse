@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
@@ -66,6 +66,18 @@ export default function DiscoverSection({
   const [trend, setTrend] = useState("");
   const [forYouActive, setForYouActive] = useState(false);
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
+  const [community, setCommunity] = useState<Recipe[]>([]);
+
+  // Load a couple of public, user-created recipes once, to sprinkle into the
+  // default discover view. Failure is silent — they're a bonus, not required.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/community-recipes?number=2")
+      .then((r) => r.json())
+      .then((d) => { if (!cancelled) setCommunity(d.recipes ?? []); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -183,6 +195,27 @@ export default function DiscoverSection({
   const selectMaxTime = (v: string) => { setMaxTime(v); applyCount(6); updateUrlParams({ time: v || undefined }); };
   const selectDiet = (v: string) => { setDiet(v); applyCount(6); updateUrlParams({ diet: v || undefined }); };
   const selectTrend = (v: string) => { setTrend(v); applyCount(6); updateUrlParams({ trend: v || undefined }); };
+
+  // Only sprinkle community recipes into the unfiltered default view, where
+  // relevance doesn't matter; on a real search/filter we show pure results.
+  const isDefaultView =
+    !search && (!category || category === "All") && !maxTime && !diet && !trend && !forYouActive;
+
+  const displayedRecipes = useMemo(() => {
+    if (!isDefaultView || community.length === 0 || recipes.length === 0) return recipes;
+    const list = [...recipes];
+    // Insert each community recipe at a position derived from a stable hash of
+    // its id (never first, so a strong editorial card leads). Deterministic —
+    // the rotation comes from the API returning a different set each load.
+    community.forEach((c) => {
+      const key = String(c.id);
+      let h = 0;
+      for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) | 0;
+      const pos = 1 + (Math.abs(h) % list.length);
+      list.splice(Math.min(pos, list.length), 0, c);
+    });
+    return list;
+  }, [recipes, community, isDefaultView]);
 
   return (
     <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
@@ -322,7 +355,7 @@ export default function DiscoverSection({
       ) : recipes.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {recipes.map((r, i) => (
+            {displayedRecipes.map((r, i) => (
               <RecipeCard key={r.id} recipe={r} index={i} user={user} />
             ))}
           </div>

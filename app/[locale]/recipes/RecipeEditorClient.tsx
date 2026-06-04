@@ -10,6 +10,7 @@ interface RecipeData {
   title: string;
   description: string;
   image_url: string;
+  image_position: string;
   video_url: string;
   ingredients: Ingredient[];
   instructions: Instruction[];
@@ -21,7 +22,7 @@ interface RecipeData {
 }
 
 const EMPTY: RecipeData = {
-  title: "", description: "", image_url: "", video_url: "",
+  title: "", description: "", image_url: "", image_position: "50% 50%", video_url: "",
   ingredients: [{ name: "", amount: "", unit: "" }],
   instructions: [{ step: 1, text: "", timer_minutes: null }],
   cook_time: "", prep_time: "", servings: "2", tags: [], is_public: false,
@@ -32,6 +33,7 @@ function serializeRecipe(data: RecipeData) {
     title: data.title || "Untitled",
     description: data.description,
     image_url: data.image_url,
+    image_position: data.image_position || "50% 50%",
     video_url: data.video_url,
     ingredients: data.ingredients.filter(i => i.name),
     instructions: data.instructions.filter(i => i.text),
@@ -64,6 +66,31 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
   const autoSaveRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const draftIdRef = useRef<string | null>(recipeId ?? null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const dragState = useRef<{ startX: number; startY: number; baseX: number; baseY: number } | null>(null);
+
+  // ── Image focal point (object-position) drag ────────────────────────────────
+  const parsePos = (s: string) => {
+    const m = (s || "50% 50%").match(/(-?\d+(?:\.\d+)?)%\s+(-?\d+(?:\.\d+)?)%/);
+    return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 50, y: 50 };
+  };
+  const onImgDragStart = (e: React.PointerEvent) => {
+    if (!recipe.image_url) return;
+    const { x, y } = parsePos(recipe.image_position);
+    dragState.current = { startX: e.clientX, startY: e.clientY, baseX: x, baseY: y };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+  };
+  const onImgDragMove = (e: React.PointerEvent) => {
+    if (!dragState.current || !previewRef.current) return;
+    const rect = previewRef.current.getBoundingClientRect();
+    const dx = e.clientX - dragState.current.startX;
+    const dy = e.clientY - dragState.current.startY;
+    // Dragging the image down should reveal its top, so the focal % decreases.
+    const nx = Math.min(100, Math.max(0, dragState.current.baseX - (dx / rect.width) * 100));
+    const ny = Math.min(100, Math.max(0, dragState.current.baseY - (dy / rect.height) * 100));
+    setRecipe(p => ({ ...p, image_position: `${Math.round(nx)}% ${Math.round(ny)}%` }));
+  };
+  const onImgDragEnd = () => { dragState.current = null; };
 
   // Load existing recipe in edit mode
   useEffect(() => {
@@ -77,6 +104,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               title: r.title ?? "",
               description: r.description ?? "",
               image_url: r.image_url ?? "",
+              image_position: r.image_position ?? "50% 50%",
               video_url: r.video_url ?? "",
               ingredients: r.ingredients?.length ? r.ingredients : [{ name: "", amount: "", unit: "" }],
               instructions: r.instructions?.length ? r.instructions : [{ step: 1, text: "", timer_minutes: null }],
@@ -350,10 +378,28 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                 Recipe photo
                 {recipe.is_public && <span className="ml-1 text-xs text-orange-500">* required for public</span>}
               </label>
-              <div onClick={() => fileRef.current?.click()}
-                className="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:border-orange-300 transition-colors overflow-hidden">
+              <div
+                ref={previewRef}
+                onClick={recipe.image_url ? undefined : () => fileRef.current?.click()}
+                style={{ cursor: recipe.image_url ? "move" : "pointer" }}
+                className="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center hover:border-orange-300 transition-colors overflow-hidden">
                 {recipe.image_url ? (
-                  <img src={recipe.image_url} alt="preview" className="absolute inset-0 w-full h-full object-cover" />
+                  <>
+                    <img
+                      src={recipe.image_url}
+                      alt="preview"
+                      draggable={false}
+                      onPointerDown={onImgDragStart}
+                      onPointerMove={onImgDragMove}
+                      onPointerUp={onImgDragEnd}
+                      onPointerCancel={onImgDragEnd}
+                      style={{ objectPosition: recipe.image_position }}
+                      className="absolute inset-0 w-full h-full object-cover select-none touch-none"
+                    />
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/55 text-white text-[11px] px-3 py-1 rounded-full pointer-events-none">
+                      ✥ Ziehen, um das Bild zu positionieren
+                    </div>
+                  </>
                 ) : uploading ? (
                   <div className="text-sm text-gray-400 animate-pulse">Uploading...</div>
                 ) : (
@@ -366,8 +412,12 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               </div>
               <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
               {recipe.image_url && (
-                <button onClick={() => setRecipe(p => ({ ...p, image_url: "" }))}
-                  className="mt-2 text-xs text-red-400 hover:text-red-500">Remove photo</button>
+                <div className="mt-2 flex items-center gap-4">
+                  <button onClick={() => fileRef.current?.click()}
+                    className="text-xs text-gray-500 hover:text-orange-500">Change photo</button>
+                  <button onClick={() => setRecipe(p => ({ ...p, image_url: "", image_position: "50% 50%" }))}
+                    className="text-xs text-red-400 hover:text-red-500">Remove photo</button>
+                </div>
               )}
             </div>
             <div>

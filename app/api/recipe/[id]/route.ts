@@ -64,6 +64,7 @@ export async function GET(
         id,
         title: r.title,
         image: r.image_url || null,
+        imagePosition: r.image_position || "50% 50%",
         videoUrl: r.video_url || null,
         source: "Community",
         sourceUrl: "",

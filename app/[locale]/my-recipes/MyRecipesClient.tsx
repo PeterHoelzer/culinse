@@ -8,6 +8,7 @@ interface UserRecipe {
   title: string;
   description: string | null;
   image_url: string | null;
+  image_position: string | null;
   is_public: boolean;
   status: string;
   cook_time: number | null;
@@ -83,7 +84,7 @@ export default function MyRecipesClient() {
             <div key={recipe.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden group hover:shadow-md transition-all">
               <Link href={`/recipe/user_${recipe.id}`} className="block" title="View recipe">
                 {recipe.image_url ? (
-                  <img src={recipe.image_url} alt={recipe.title} className="w-full h-36 object-cover" />
+                  <img src={recipe.image_url} alt={recipe.title} style={{ objectPosition: recipe.image_position || "50% 50%" }} className="w-full h-36 object-cover" />
                 ) : (
                   <div className="w-full h-36 bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center text-4xl">🍳</div>
                 )}

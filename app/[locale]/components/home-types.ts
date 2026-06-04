@@ -7,6 +7,7 @@ export interface Recipe {
   time: string;
   servings: number | null;
   rating: number | null;
+  imagePosition?: string | null;
 }
 
 export const GRADIENTS = [

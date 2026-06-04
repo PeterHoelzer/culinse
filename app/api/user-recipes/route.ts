@@ -48,6 +48,7 @@ export async function POST(req: NextRequest) {
       title: body.title || "Untitled Recipe",
       description: body.description || null,
       image_url: body.image_url || null,
+      image_position: body.image_position || "50% 50%",
       video_url: body.video_url || null,
       ingredients: body.ingredients || [],
       instructions: body.instructions || [],
