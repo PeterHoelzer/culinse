@@ -30,6 +30,8 @@ export default function LoginClient() {
     setError("");
     setMessage("");
 
+    const redirectTo = new URLSearchParams(window.location.search).get("redirectTo");
+
     if (mode === "signup") {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -42,7 +44,7 @@ export default function LoginClient() {
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
-      else router.push("/");
+      else router.push(redirectTo || "/");
     }
     setLoading(false);
   };

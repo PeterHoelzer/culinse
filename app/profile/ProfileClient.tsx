@@ -45,7 +45,13 @@ export default function ProfilePage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(async ({ data }) => {
-      if (!data.user) { window.location.href = "/login"; return; }
+      if (!data.user) {
+        const locale = window.location.pathname.split("/")[1] || "en";
+        const supported = ["en", "de"];
+        const l = supported.includes(locale) ? locale : "en";
+        window.location.href = `/${l}/login`;
+        return;
+      }
       setUser(data.user);
 
       const [{ data: prefs }, { data: profile }] = await Promise.all([

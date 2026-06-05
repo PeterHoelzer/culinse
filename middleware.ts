@@ -35,16 +35,14 @@ async function proxy(request: NextRequest) {
     if (intlResponse.status !== 200) {
       return intlResponse;
     }
-    // Save the response headers so we can forward them.
-    // intlMiddleware sets x-next-intl-locale (and cookies) that server
+    // intlMiddleware sets x-next-intl-locale (and possibly cookies) that server
     // components need to determine the locale via getTranslations().
     intlHeaders = intlResponse.headers;
   }
 
   // ─── Supabase auth / session ────────────────────────────────────────────────
-  // Build enriched request headers: copy intl headers (x-next-intl-locale etc.)
-  // so that getTranslations() in server components can read the locale via
-  // headers() from next/headers.
+  // Build request headers that include the intl locale headers so that
+  // getTranslations() in server components can read the locale.
   const requestHeaders = new Headers(request.headers);
   if (intlHeaders) {
     intlHeaders.forEach((value, key) => {
@@ -52,14 +50,10 @@ async function proxy(request: NextRequest) {
     });
   }
 
+  // supabaseResponse is recreated in setAll() when Supabase refreshes the
+  // session token.  We use a mutable reference so the updated version is
+  // returned at the end of the function.
   let supabaseResponse = NextResponse.next({ request: { headers: requestHeaders } });
-
-  // Also forward intl headers on the response side (belt-and-suspenders)
-  if (intlHeaders) {
-    intlHeaders.forEach((value, key) => {
-      supabaseResponse.headers.set(key, value);
-    });
-  }
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -70,16 +64,20 @@ async function proxy(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
+          // Write the refreshed token back onto the incoming request so that
+          // downstream server components see the new session.
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
           );
+          // Rebuild the Cookie header from the mutated request.cookies so the
+          // forwarded request always carries the latest token.
+          requestHeaders.set(
+            "cookie",
+            request.cookies.getAll().map(({ name, value }) => `${name}=${value}`).join("; ")
+          );
+          // Recreate the response so it forwards the updated request headers.
           supabaseResponse = NextResponse.next({ request: { headers: requestHeaders } });
-          // Re-forward intl headers whenever supabaseResponse is recreated
-          if (intlHeaders) {
-            intlHeaders.forEach((value, key) => {
-              supabaseResponse.headers.set(key, value);
-            });
-          }
+          // Set the new cookies on the response so the browser updates them.
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           );
@@ -103,7 +101,7 @@ async function proxy(request: NextRequest) {
 
   if (isProtected && !session) {
     // Detect locale from URL or default to "en"
-    const localeMatch = pathname.match(/^\/(en|de)\//);
+    const localeMatch = pathname.match(/^\/(en|de)(\/|$)/);
     const locale = localeMatch ? localeMatch[1] : "en";
     const loginUrl = new URL(`/${locale}/login`, request.url);
     loginUrl.searchParams.set("redirectTo", pathname);
