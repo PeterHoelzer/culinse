@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { translateSearchQuery } from "@/lib/translateSearchQuery";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -147,6 +148,13 @@ export async function GET(req: NextRequest) {
   const maxCarbs = searchParams.get("maxCarbs") || "";
   const intolerances = searchParams.get("intolerances") || "";
   const cuisine = searchParams.get("cuisine") || "";
+  const lang = (searchParams.get("lang") || "en").toLowerCase();
+
+  // Translate the search term to English before hitting the providers (e.g.
+  // "Nudeln" → "pasta"). Falls back to the original on any failure.
+  const searchTerm = query
+    ? await translateSearchQuery(query, lang === "de" ? "DE" : "EN")
+    : query;
 
   // Only fetch MDB/Edamam when no advanced filters active (they don't support them)
   const hasFilters = !!(maxTime || diet || minProtein || maxCarbs || intolerances || cuisine);
@@ -167,7 +175,7 @@ export async function GET(req: NextRequest) {
     let spoonUrl: string;
 
     if (query) {
-      spoonUrl = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(query)}&number=${number}&addRecipeInformation=true&fillIngredients=false&${QUALITY}${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
+      spoonUrl = `${BASE}/recipes/complexSearch?query=${encodeURIComponent(searchTerm)}&number=${number}&addRecipeInformation=true&fillIngredients=false&${QUALITY}${extras ? "&" + extras : ""}&apiKey=${API_KEY}`;
     } else if (category && category !== "All") {
       const cuisineMap: Record<string, string> = {
         Asian: "asian",
@@ -199,8 +207,8 @@ export async function GET(req: NextRequest) {
     // Fetch Spoonacular + TheMealDB + Edamam in parallel
     const [spoonRes, mdbRecipes, edamamRecipes] = await Promise.all([
       fetch(spoonUrl, { next: { revalidate: 3600 } }),
-      hasFilters ? Promise.resolve([]) : fetchMDB(query, category),
-      hasFilters ? Promise.resolve([]) : fetchEdamam(query, category),
+      hasFilters ? Promise.resolve([]) : fetchMDB(searchTerm, category),
+      hasFilters ? Promise.resolve([]) : fetchEdamam(searchTerm, category),
     ]);
 
     // 402 = quota exceeded — return whatever MDB/Edamam already fetched (or empty)

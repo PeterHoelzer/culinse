@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
   const t = useTranslations();
+  const locale = useLocale();
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -14,7 +15,7 @@ export default function Hero({ search, setSearch, onSearch }: { search: string; 
     if (debounceRef.current) clearTimeout(debounceRef.current);
     if (val.length < 2) { setSuggestions([]); return; }
     debounceRef.current = setTimeout(async () => {
-      const res = await fetch(`/api/autocomplete?query=${encodeURIComponent(val)}`);
+      const res = await fetch(`/api/autocomplete?query=${encodeURIComponent(val)}&lang=${locale}`);
       const data = await res.json();
       setSuggestions(data.suggestions || []);
       setShowSuggestions(true);

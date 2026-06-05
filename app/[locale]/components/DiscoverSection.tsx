@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/lib/navigation";
@@ -34,6 +34,7 @@ export default function DiscoverSection({
   user: User | null | undefined;
 }) {
   const t = useTranslations();
+  const locale = useLocale();
 
   const TIME_FILTERS = [
     { label: t("timeFilters.any"), value: "" },
@@ -97,6 +98,7 @@ export default function DiscoverSection({
     try {
       const params = new URLSearchParams();
       if (search) params.set("query", search);
+      params.set("lang", locale);
       if (category && category !== "All") params.set("category", category);
       if (maxTime) params.set("maxTime", maxTime);
       if (diet) params.set("diet", diet);
