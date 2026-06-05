@@ -205,7 +205,11 @@ export default function DiscoverSection({
 
   const displayedRecipes = useMemo(() => {
     if (!isDefaultView || community.length === 0 || recipes.length === 0) return recipes;
-    const list = [...recipes];
+    // Keep the total count unchanged (e.g. 6): the community recipes COUNT
+    // toward the total, replacing the same number of provider recipes rather
+    // than being added on top. So 6 = 4 provider + 2 community.
+    const target = recipes.length;
+    const list = recipes.slice(0, Math.max(0, target - community.length));
     // Insert each community recipe at a position derived from a stable hash of
     // its id (never first, so a strong editorial card leads). Deterministic —
     // the rotation comes from the API returning a different set each load.
@@ -213,10 +217,10 @@ export default function DiscoverSection({
       const key = String(c.id);
       let h = 0;
       for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) | 0;
-      const pos = 1 + (Math.abs(h) % list.length);
+      const pos = 1 + (Math.abs(h) % Math.max(1, list.length));
       list.splice(Math.min(pos, list.length), 0, c);
     });
-    return list;
+    return list.slice(0, target);
   }, [recipes, community, isDefaultView]);
 
   return (
