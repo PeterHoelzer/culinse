@@ -11,6 +11,7 @@ const PROTECTED_PATHS = [
   "/collections",
   "/meal-planner",
   "/wochenplaner",
+  "/planner",
   "/saved",
   "/profile",
   "/my-recipes",
