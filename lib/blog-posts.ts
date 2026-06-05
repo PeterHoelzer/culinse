@@ -662,6 +662,125 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "meal-prep-for-beginners",
+    title: "Meal Prep for Beginners: The Complete Starter Guide",
+    description:
+      "Meal prep for beginners made simple: the 5 core principles, the equipment you actually need, a free 7-day plan, and the most common mistakes. Nail your first meal-prep Sunday.",
+    publishedAt: "2026-06-01",
+    readingTime: "8 min read",
+    category: "Meal Prep",
+    sections: [
+      {
+        content:
+          "You open the fridge in the evening, stare inside, and have no idea what to make — and it ends up being takeout again. This is exactly what meal prep fixes. Spend a little time once a week and you save yourself the decision, the rushed shopping, and a big chunk of the cost on every other day.",
+      },
+      {
+        content:
+          "This guide walks you through how to start as a beginner — without expensive equipment, without hours in the kitchen, and without being sick of your food by Wednesday.",
+      },
+      {
+        heading: "What Is Meal Prep — and Who Is It For?",
+        content:
+          "Meal prep means preparing meals, or individual components, in advance and portioning them for the week. That might mean five ready-to-go lunch boxes — or simply cooking rice, chopping vegetables, and making a sauce ahead of time that you combine flexibly later. It's especially worth it if you're short on time, too tired to cook in the evening, want to save money, or are working toward a specific nutrition goal. The biggest benefit isn't the time saved alone, but that the decision of what to eat is already made — and that decision fatigue is the main reason good intentions collapse during the week.",
+      },
+      {
+        heading: "The 5 Core Principles for Beginners",
+        content:
+          "Five principles make the difference between \"fun and sustainable\" and \"gave up after two weeks\":",
+        list: [
+          "Start small: begin with three or four lunches instead of fifteen meals. Success motivates more than an over-ambitious plan.",
+          "Think in components, not finished dishes: prep building blocks (a carb, a protein, vegetables, a sauce) and recombine them daily.",
+          "Batch cook: when you cook a storable staple, make double the amount.",
+          "Build in variety on purpose: vary the sauce, spices, or side even when the base stays the same.",
+          "Store it right: the best prep is useless if the food no longer tastes good on day three.",
+        ],
+      },
+      {
+        heading: "Equipment: What You Actually Need",
+        content:
+          "You don't need a vacuum sealer or a cupboard full of glass containers. The basics are modest: one good sharp knife, a cutting board, one or two large pots or a pan, a baking sheet, and a set of airtight storage containers. Containers in a consistent size are handy — they stack better and you portion more evenly. Glass is durable and odor-neutral; plastic is lighter and cheaper for transport.",
+      },
+      {
+        heading: "Shelf Life by Food Type",
+        content:
+          "How long something keeps determines how much you can prep. As a rough guide in the fridge:",
+        list: [
+          "Cooked chicken, beef, or fish: 3 to 4 days",
+          "Cooked legumes and stews: 3 to 5 days",
+          "Rice and pasta: 3 to 4 days",
+          "Cut raw vegetables: 4 to 5 days",
+          "Oil-and-vinegar dressings: up to a week",
+          "Stews, curries, soups, bolognese, and chili freeze well in portions and keep 2 to 3 months — label containers with contents and date.",
+        ],
+      },
+      {
+        heading: "Your First Meal-Prep Sunday in 4 Steps",
+        content:
+          "Here's what a realistic first run looks like — no more than about 90 minutes:",
+        list: [
+          "Plan (15 min): decide how many meals you're prepping and pick dishes with overlapping ingredients.",
+          "Shop (once, with a list): write a full list and shop deliberately. Culinse automatically combines your recipes' ingredients into one list with quantities tallied.",
+          "Prep in the right order: start with what takes longest or cooks on its own (rice, roasted vegetables, chicken) and chop raw items while it runs.",
+          "Portion and chill: let everything cool fully before sealing, then portion and refrigerate or freeze.",
+        ],
+      },
+      {
+        heading: "Free 7-Day Meal-Prep Plan",
+        content:
+          "This plan is deliberately beginner-friendly: one prep block on Sunday, lots of reused components, and enough variety. Prep on Sunday (about 90 min): cook 500 g chicken breast, 400 g rice (dry weight), roast 800 g mixed vegetables, set out 400 g chickpeas and 200 g oats, mix 3 dressings. Amounts are for one person.",
+        list: [
+          "Monday: chicken and rice bowl with roasted veg and a yogurt-herb dressing",
+          "Tuesday: overnight oats for breakfast; chickpea and rice bowl with tomato sauce for lunch",
+          "Wednesday: chicken wrap with roasted veg and a peanut-lime dressing",
+          "Thursday: rice pan with chickpeas and roasted vegetables",
+          "Friday: leftovers bowl with a fresh egg on top",
+          "Weekend: deliberately free for spontaneous or special dishes",
+        ],
+      },
+      {
+        heading: "8 Beginner Mistakes and How to Avoid Them",
+        content:
+          "These eight pitfalls catch almost every beginner — and they're easy to sidestep:",
+        list: [
+          "Too much at once: start small instead of cooking five dishes for the whole family.",
+          "The same box for seven days: vary it with sauces and spices, or freeze half.",
+          "Sealing while warm: condensation shortens shelf life — always let it cool.",
+          "Mixing delicate with sturdy: add leafy greens, herbs, and crunchy bits only at serving.",
+          "Shopping without a plan: go with a finished list, or impulse buys blow the budget.",
+          "Underseasoning: season a little more boldly and add fresh accents (lemon, herbs) at serving.",
+          "Wrong container sizes: consistent, fitting sizes prevent oversized portions.",
+          "Treating Sunday as sacred: even 20 minutes on any evening rescues the next day.",
+        ],
+      },
+      {
+        heading: "Adapt Meal Prep to Your Goals and the Season",
+        content:
+          "Meal prep adapts to what you need. If you want to lose weight, work with clearly portioned boxes and a focus on protein and vegetables; if you want to build muscle, plan larger portions with plenty of protein. The season matters too: in winter a big pot of stew or curry carries you through the week, while in summer you'll want lighter, cooler dishes without long cooking. The trick is to keep your framework — one prep block, components instead of finished dishes, proper storage — and only swap the ingredients and dishes.",
+      },
+      {
+        content:
+          "For most people the hardest part of meal prep isn't the cooking, it's the planning. That's exactly the step Culinse takes off your plate: filter millions of recipes by time, diet, or protein and budget goals and build your weekly plan from them — the ingredients land in a single combined shopping list automatically. Free at culinse.com.",
+      },
+      {
+        heading: "Conclusion",
+        content:
+          "Meal prep doesn't start with expensive equipment or a perfect plan, but with a single prepared meal. Start with three lunches, think in components instead of finished dishes, store things right, and build in enough variety through sauces and spices that you stick with it. After two or three weeks the prep block becomes routine — and the clueless evening stare into the fridge becomes a thing of the past.",
+      },
+      {
+        heading: "FAQ",
+        content:
+          "The most common questions about meal prep for beginners:",
+        list: [
+          "How long does prepped food keep? Most cooked dishes keep 3 to 4 days in the fridge; stews and curries freeze for 2 to 3 months. Important: let everything cool fully before sealing.",
+          "Can I meal prep without a microwave? Yes. Many dishes taste great cold (bowls, salads, wraps) or reheat in a pan.",
+          "Is meal prep really cheaper? Usually yes — you shop deliberately from a list, use larger packs, use up leftovers, and reach for delivery less often.",
+          "How do I keep from getting bored? Prep components instead of finished dishes and recombine them daily; three sauces are enough for what feels like three different meals.",
+          "How much time should I plan for? For a beginner start of three or four meals, about 90 minutes on one day is enough.",
+        ],
+      },
+    ],
+  },
 
 ];
 
