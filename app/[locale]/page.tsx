@@ -2,6 +2,10 @@ import { getTranslations } from "next-intl/server";
 import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
+// Prevent Vercel from serving a cached HTML snapshot that shows the
+// loading skeleton permanently (the recipe grid is loaded client-side).
+export const dynamic = "force-dynamic";
+
 // ─── WebSite + Organization JSON-LD ──────────────────────────────────────────
 function buildWebsiteSchema(locale: string) {
   const isDE = locale === "de";
