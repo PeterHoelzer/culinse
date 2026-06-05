@@ -26,10 +26,15 @@ async function proxy(request: NextRequest) {
   const isStaticFile = /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff|woff2)$/.test(pathname);
   // Skip locale middleware for SEO files (sitemap, robots) — must stay at root
   const isSeoFile = pathname === "/sitemap.xml" || pathname === "/robots.txt";
+  // Skip locale middleware for the OAuth/magic-link callback. It lives at
+  // /auth/callback (no locale); with localePrefix "always" next-intl would
+  // otherwise redirect it to /en/auth/callback (which doesn't exist → 404),
+  // so the login code would never be exchanged for a session.
+  const isAuthRoute = pathname.startsWith("/auth/");
 
   // ─── next-intl: run first, capture headers it sets ──────────────────────────
   let intlHeaders: Headers | null = null;
-  if (!isApiRoute && !isStaticFile && !isSeoFile) {
+  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute) {
     const intlResponse = intlMiddleware(request);
     // If it's a redirect (e.g. / → /en), return immediately
     if (intlResponse.status !== 200) {
