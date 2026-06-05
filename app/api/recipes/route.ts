@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
+import { translateTexts } from "@/lib/translate";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
@@ -303,7 +304,19 @@ export async function GET(req: NextRequest) {
     const hasMore = merged.length >= number && number < 24 && totalAvailable > number;
 
     // Community matches lead, then the provider results, capped at `number`.
-    const combined = [...communityMatches, ...merged].slice(0, number);
+    let combined = [...communityMatches, ...merged].slice(0, number);
+
+    // On the German site, translate provider titles to German (cached).
+    // Community recipe titles (id "user_…") are left as the author wrote them.
+    if (lang === "de" && combined.length) {
+      const sourceTitles = combined.map((r) =>
+        typeof r.id === "string" && r.id.startsWith("user_") ? "" : r.title || ""
+      );
+      const deTitles = await translateTexts(sourceTitles, "EN", "DE");
+      combined = combined.map((r, i) =>
+        deTitles[i] && deTitles[i] !== r.title ? { ...r, title: deTitles[i] } : r
+      );
+    }
 
     return NextResponse.json({ recipes: combined, hasMore }, {
       headers: {
