@@ -31,35 +31,48 @@ export async function generateMetadata(
   { params }: { params: Promise<{ locale: string; id: string }> }
 ): Promise<Metadata> {
   const { locale, id } = await params;
+
+  // Canonical and hreflang must point to the recipe URL regardless of whether
+  // the recipe data loaded — the layout sets homepage URLs as defaults, so we
+  // must always override them here.
+  const canonicalUrl = `${BASE_URL}/${locale}/recipe/${id}`;
+  const sharedAlternates = {
+    canonical: canonicalUrl,
+    languages: {
+      en: `${BASE_URL}/en/recipe/${id}`,
+      de: `${BASE_URL}/de/recipe/${id}`,
+    },
+  };
+
   const recipe = await fetchRecipe(id);
   if (!recipe) {
     return {
-      title: "Recipe — Culinse",
+      title: locale === "de" ? "Rezept" : "Recipe",
       description: "Discover delicious recipes on Culinse.",
+      alternates: sharedAlternates,
     };
   }
 
-  const title = `${recipe.title} — Culinse`;
+  // The layout title template is "%s | Culinse", so we must NOT include
+  // "Culinse" here — that would produce "Title | Culinse | Culinse".
+  const recipeSuffix = locale === "de" ? "Rezept" : "Recipe";
+  const title = `${recipe.title} ${recipeSuffix}`;
   const description = recipe.summary
     ? recipe.summary.replace(/<[^>]+>/g, "").slice(0, 155)
+    : locale === "de"
+    ? `So wird ${recipe.title} gemacht – auf Culinse.`
     : `Discover how to make ${recipe.title} on Culinse.`;
 
   return {
     title,
     description,
-    alternates: {
-      canonical: `${BASE_URL}/${locale}/recipe/${id}`,
-      languages: {
-        en: `${BASE_URL}/en/recipe/${id}`,
-        de: `${BASE_URL}/de/recipe/${id}`,
-      },
-    },
+    alternates: sharedAlternates,
     openGraph: {
       title,
       description,
       images: recipe.image ? [{ url: recipe.image }] : [],
       type: "article",
-      url: `${BASE_URL}/${locale}/recipe/${id}`,
+      url: canonicalUrl,
       siteName: "Culinse",
     },
     twitter: {

@@ -7,6 +7,16 @@ export async function generateMetadata(
   { params }: { params: Promise<{ id: string }> }
 ): Promise<Metadata> {
   const { id } = await params;
+
+  const canonicalUrl = `${BASE_URL}/en/recipe/${id}`;
+  const sharedAlternates = {
+    canonical: canonicalUrl,
+    languages: {
+      en: `${BASE_URL}/en/recipe/${id}`,
+      de: `${BASE_URL}/de/recipe/${id}`,
+    },
+  };
+
   try {
     const res = await fetch(`${BASE_URL}/api/recipe/${id}`, {
       next: { revalidate: 86400 },
@@ -14,7 +24,7 @@ export async function generateMetadata(
     if (!res.ok) throw new Error("not found");
     const { recipe } = await res.json();
 
-    const title = `${recipe.title} — Culinse`;
+    const title = `${recipe.title} Recipe`;
     const description = recipe.summary
       ? recipe.summary.replace(/<[^>]+>/g, "").slice(0, 155)
       : `Discover how to make ${recipe.title} on Culinse.`;
@@ -22,12 +32,13 @@ export async function generateMetadata(
     return {
       title,
       description,
+      alternates: sharedAlternates,
       openGraph: {
         title,
         description,
         images: recipe.image ? [{ url: recipe.image }] : [],
         type: "article",
-        url: `${BASE_URL}/recipe/${id}`,
+        url: canonicalUrl,
         siteName: "Culinse",
       },
       twitter: {
@@ -39,8 +50,9 @@ export async function generateMetadata(
     };
   } catch {
     return {
-      title: "Recipe — Culinse",
+      title: "Recipe",
       description: "Discover delicious recipes on Culinse.",
+      alternates: sharedAlternates,
     };
   }
 }
