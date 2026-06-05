@@ -109,15 +109,17 @@ export default function VideoSection() {
           ))}
         </div>
 
-        <div className="mt-6 flex justify-center">
-          <button
-            onClick={loadMore}
-            disabled={loadingMore}
-            className="px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all disabled:opacity-50"
-          >
-            {loadingMore ? t("videoSection.loading") : t("videoSection.loadMore")}
-          </button>
-        </div>
+        {allVideos.length > PAGE_SIZE && (
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={loadMore}
+              disabled={loadingMore}
+              className="px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-medium transition-all disabled:opacity-50"
+            >
+              {loadingMore ? t("videoSection.loading") : t("videoSection.loadMore")}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

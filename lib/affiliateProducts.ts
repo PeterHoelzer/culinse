@@ -179,12 +179,9 @@ interface IngredientEntry {
 
 const INGREDIENT_MAP: IngredientEntry[] = [
 
-  // ── Öle & Fette ─────────────────────────────────────────────────────────────
-  { keywords: ["olive oil", "olivenöl"],                          asin: "B075P28BLK", search: "Bertolli Extra Vergine Olivenöl 750ml",   label: "Olivenöl" },
+  // ── Öle & Fette (nur Spezialöle — Olivenöl/Pflanzenöl/Butter raus: im Supermarkt deutlich günstiger) ──
   { keywords: ["coconut oil", "kokosöl"],                         asin: "B013GBN8MG", search: "Bio Kokosöl nativ 1000ml",                label: "Kokosöl" },
   { keywords: ["sesame oil", "sesamöl"],                          asin: "B09TRSWTQ3", search: "Kikkoman Sesamöl geröstet",               label: "Sesamöl" },
-  { keywords: ["vegetable oil", "sunflower oil", "sonnenblumenöl"], asin: "B0038GY8PQ", search: "Rapunzel Sonnenblumenöl nativ",         label: "Pflanzenöl" },
-  { keywords: ["butter"],                                                               search: "Kerrygold Butter 250g",                  label: "Butter" },
   { keywords: ["ghee", "clarified butter"],                       asin: "B0104EI61G", search: "Maharishi Ayurveda Bio Ghee 500g",        label: "Ghee" },
 
   // ── Saucen & Würzmittel ─────────────────────────────────────────────────────
@@ -197,29 +194,15 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["sriracha"],                                       asin: "B00568NVTS", search: "Flying Goose Sriracha Sauce 455ml",       label: "Sriracha" },
   { keywords: ["tabasco", "hot sauce", "chilisauce"],             asin: "B004JUA5FW", search: "Tabasco Original Red Pepper Sauce 350ml", label: "Tabasco" },
   { keywords: ["mustard", "senf", "dijon"],                       asin: "B00MWUBJD8", search: "Maille Dijon Senf 215g",                  label: "Dijon-Senf" },
-  { keywords: ["tomato paste", "tomatenmark"],                    asin: "B08L4DJHVP", search: "Mutti Tomatenkonzentrat 200g",            label: "Tomatenmark" },
-  { keywords: ["canned tomatoes", "crushed tomatoes", "diced tomatoes", "passata", "tomato sauce"], asin: "B00MGVXR2E", search: "Mutti Pomodori Pelati Schältomaten 260g", label: "Dosentomaten" },
   { keywords: ["coconut milk", "kokosmilch"],                     asin: "B0071JPZHQ", search: "Aroy-D Kokosmilch 400ml",                 label: "Kokosmilch" },
   { keywords: ["cream of coconut", "coconut cream"],              asin: "B00AMXKK2S", search: "Chaokoah Coconut Cream 400ml",            label: "Kokosnusscreme" },
-  { keywords: ["chicken broth", "chicken stock", "vegetable broth", "vegetable stock", "beef broth", "brühe", "stock"], asin: "B07H496H22", search: "Knorr Gemüsebrühe Pulver 500g", label: "Brühe" },
 
-  // ── Getreide, Nudeln & Hülsenfrüchte ────────────────────────────────────────
-  { keywords: ["pasta", "spaghetti"],                             asin: "B082VPM34J", search: "Barilla Spaghetti n°5 500g",              label: "Spaghetti" },
-  { keywords: ["penne"],                                          asin: "B003R7KQQQ", search: "Barilla Penne Rigate 500g",               label: "Penne" },
-  { keywords: ["fusilli"],                                        asin: "B01518B4LY", search: "Barilla Fusilli 500g",                    label: "Fusilli" },
-  { keywords: ["rigatoni"],                                       asin: "B003OVQFU6", search: "Barilla Rigatoni 500g",                   label: "Rigatoni" },
-  { keywords: ["rice", "basmati"],                                asin: "B07YP15HWG", search: "Tilda Basmati Reis 2kg",                  label: "Basmati Reis" },
+  // ── Getreide & Spezial-Reis (Standard-Nudeln/Mehl/Reis raus — im Supermarkt günstiger) ──
   { keywords: ["jasmine rice", "jasminreis"],                     asin: "B004L5DBPQ", search: "Reishunger Jasminreis Bio",               label: "Jasminreis" },
   { keywords: ["arborio", "risotto rice", "risottoreis"],         asin: "B0CG9R48T8", search: "Gallo Arborio Risottoreis 1kg",           label: "Arborio Reis" },
   { keywords: ["couscous"],                                       asin: "B082VMCB9D", search: "Tipiak Couscous 500g",                    label: "Couscous" },
   { keywords: ["quinoa"],                                         asin: "B07JBXHN5Y", search: "Bio Quinoa weiß 1kg",                    label: "Quinoa" },
-  { keywords: ["flour", "all-purpose flour", "mehl"],            asin: "B001ANS4X6", search: "Aurora Weizenmehl Type 405 2kg",          label: "Mehl" },
-  { keywords: ["bread flour", "brotmehl", "type 550"],           asin: "B003UCO59M", search: "Aurora Weizenmehl Type 550",              label: "Brotmehl" },
-  { keywords: ["chickpeas", "kichererbsen"],                      asin: "B092K41DDK", search: "Alnatura Kichererbsen 240g",              label: "Kichererbsen" },
-  { keywords: ["lentils", "linsen"],                              asin: "B0FM41BDRS", search: "Alnatura Rote Linsen 500g",               label: "Linsen" },
-  { keywords: ["black beans", "kidney beans", "black-eyed peas", "bohnen"], asin: "B0DGKQZK75", search: "Bonduelle Kidneybohnen 400g",  label: "Bohnen" },
   { keywords: ["panko", "breadcrumbs", "semmelbrösel"],           asin: "B09TB8MW9G", search: "Kikkoman Panko Semmelbrösel 227g",        label: "Panko" },
-  { keywords: ["oats", "rolled oats", "haferflocken"],            asin: "B08HT8NS9D", search: "Quaker Hafer Haferflocken zart",          label: "Haferflocken" },
 
   // ── Gewürze & Kräuter (getrocknet) ──────────────────────────────────────────
   { keywords: ["paprika", "smoked paprika"],                      asin: "B0CD2K52K9", search: "Ducros Paprika edelsüß",                  label: "Paprika" },
@@ -236,7 +219,6 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["garlic powder", "garlic granules", "knoblauchpulver"], asin: "B0B9BL1TYS", search: "Knoblauch Granulat",                label: "Knoblauchpulver" },
   { keywords: ["onion powder", "zwiebelpulver"],                  asin: "B0FD1NWK6H", search: "Zwiebelgranulat getrocknet",               label: "Zwiebelpulver" },
   { keywords: ["black pepper", "pfeffer"],                        asin: "B08LTKG129", search: "Alpi Nature schwarzer Pfeffer gemahlen",   label: "Pfeffer" },
-  { keywords: ["sea salt", "salt", "salz", "kosher salt"],        asin: "B003CNZYGC", search: "Le Saunier de Camargue Fleur de Sel",      label: "Meersalz" },
   { keywords: ["bay leaf", "bay leaves", "lorbeer"],              asin: "B082VNQSRR", search: "Kotányi Lorbeerblätter getrocknet",        label: "Lorbeerblätter" },
   { keywords: ["cardamom", "kardamom"],                           asin: "B084H84C18", search: "Kardamom gemahlen",                       label: "Kardamom" },
   { keywords: ["za'atar", "zaatar"],                              asin: "B087CY9JGC", search: "Za'atar Gewürzmischung",                  label: "Za'atar" },
@@ -245,29 +227,19 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["five spice", "fünf-gewürze"],                     asin: "B0B9W1NT99", search: "Chinesisches Fünf-Gewürze",               label: "Fünf-Gewürze" },
   { keywords: ["sumac", "sumach"],                                asin: "B0GTWGMNS4", search: "Sumach gemahlen Gewürz",                 label: "Sumach" },
 
-  // ── Süße Zutaten ────────────────────────────────────────────────────────────
-  { keywords: ["honey", "honig"],                                 asin: "B0FMRK2222", search: "Langnese Bio Blütenhonig 250g",            label: "Honig" },
+  // ── Süße Spezialzutaten (Zucker/Honig raus — Cent-Artikel im Supermarkt) ──
   { keywords: ["maple syrup", "ahornsirup"],                      asin: "B0748PYFFV", search: "MapleFarm Ahornsirup Dark 500ml",          label: "Ahornsirup" },
-  { keywords: ["sugar", "zucker"],                                asin: "B01M3VDM76", search: "Rohrohrzucker Bio",                       label: "Rohrzucker" },
-  { keywords: ["brown sugar", "brauner zucker"],                  asin: "B003EG8WYS", search: "Billington's brauner Zucker",             label: "Brauner Zucker" },
-  { keywords: ["powdered sugar", "icing sugar", "puderzucker"],  asin: "B01GJHR5BE", search: "Puderzucker fein",                       label: "Puderzucker" },
   { keywords: ["dark chocolate", "bitter chocolate", "schokolade"], asin: "B09H1P8GW3", search: "Valrhona Zartbitterschokolade 70%",    label: "Zartbitterschokolade" },
   { keywords: ["chocolate chips", "schokoladentropfen"],          asin: "B0794ZBTZY", search: "Callebaut Schokoladentropfen",            label: "Schokoladentropfen" },
   { keywords: ["vanilla", "vanilla extract", "vanille"],          asin: "B0D798BNDL", search: "DECOCINO Vanilleextrakt 100ml",            label: "Vanilleextrakt" },
   { keywords: ["cocoa powder", "kakao"],                          asin: "B01ETNTDW4", search: "Bio Kakaopulver stark entölt 200g",        label: "Kakaopulver" },
 
-  // ── Backzutaten ─────────────────────────────────────────────────────────────
-  { keywords: ["baking powder", "backpulver"],                    asin: "B00U8ISLXW", search: "Dr. Oetker Backpulver",                  label: "Backpulver" },
-  { keywords: ["baking soda", "natron"],                          asin: "B0CDCDYFJH", search: "Arm & Hammer Natron",                    label: "Natron" },
-  { keywords: ["yeast", "dry yeast", "hefe"],                     asin: "B083FXYGM9", search: "Dr. Oetker Trockenhefe",                 label: "Trockenhefe" },
+  // ── Backzutaten (Backpulver/Natron/Hefe raus — Cent-Artikel) ──
   { keywords: ["cream of tartar", "weinstein"],                   asin: "B0995TP2RB", search: "Weinstein Backpulver",                   label: "Weinstein" },
 
-  // ── Essig & Säure ───────────────────────────────────────────────────────────
-  { keywords: ["apple cider vinegar", "apfelessig"],              asin: "B085BDZZKY", search: "Eat Wholesome Apfelessig Bio 1L",          label: "Apfelessig" },
+  // ── Essig (nur Spezial — Apfel-/Rotweinessig & Zitronensaft raus) ──
   { keywords: ["balsamic vinegar", "balsamessig"],                asin: "B0D7J5JHK6", search: "Aceto Balsamico di Modena 250ml",          label: "Balsamessig" },
-  { keywords: ["red wine vinegar", "rotweinessig"],               asin: "B003TUDAFA", search: "Kühne Rotweinessig 500ml",                 label: "Rotweinessig" },
   { keywords: ["rice vinegar", "reisessig"],                      asin: "B07SCF96KB", search: "Diamond Reisessig 610ml",                  label: "Reisessig" },
-  { keywords: ["lemon juice", "lime juice", "zitronen"],          asin: "B078K7H3HD", search: "Pfanner 100% Zitronensaft",                label: "Zitronensaft" },
 
   // ── Spezialzutaten ──────────────────────────────────────────────────────────
   { keywords: ["tahini", "sesame paste"],                         asin: "B005I4VEA8", search: "Al Yaman Tahini Sesampaste 454g",          label: "Tahini" },
@@ -292,17 +264,9 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["peanut butter", "erdnussbutter"],                 asin: "B0GN94C9WY", search: "Whole Earth Erdnussbutter Crunchy 340g",  label: "Erdnussbutter" },
   { keywords: ["almond flour", "mandelmehl"],                     asin: "B0GN346C38", search: "Mandelmehl blanchiert",                  label: "Mandelmehl" },
 
-  // ── Molkereiersatz & Pflanzlich ──────────────────────────────────────────────
-  { keywords: ["almond milk", "mandelmilch"],                     asin: "B00O8PIRNA", search: "Alpro Mandelmilch ungesüßt",             label: "Mandelmilch" },
-  { keywords: ["oat milk", "hafermilch"],                         asin: "B0CJK658DF", search: "Oatly Haferdrink Barista Edition 1L",     label: "Hafermilch" },
-  { keywords: ["coconut yogurt"],                                                      search: "Kokosnusscreme Kochcreme",               label: "Kokosnusscreme" },
-
-  // ── Weine & Kochweine ───────────────────────────────────────────────────────
-  { keywords: ["white wine", "dry white wine", "weißwein"],       asin: "B087JZJ67S", search: "Trockener Weißwein Kochen",              label: "Weißwein (zum Kochen)" },
-  { keywords: ["red wine", "rotwein"],                            asin: "B08DPMYF3V", search: "Rotwein zum Kochen",                     label: "Rotwein (zum Kochen)" },
+  // ── Asiatische Kochweine (Tafelwein, Milch-Alternativen & Parmesan raus) ──
   { keywords: ["mirin"],                                          asin: "B003WVBF80", search: "Kikkoman Mirin Kochwein",               label: "Mirin" },
   { keywords: ["sake"],                                           asin: "B0B59WD9TM", search: "Sake japanischer Reiswein",              label: "Sake" },
-  { keywords: ["parmesan", "parmigiano"],                                              search: "Parmigiano Reggiano DOP",                label: "Parmesan" },
 ];
 
 /**
