@@ -1,8 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
+
+// Public, user-created recipes whose title matches the search term, mapped to
+// the homepage recipe shape. Searched with the ORIGINAL query (user recipes may
+// be in German or English). Failure is silent — search still returns providers.
+async function fetchCommunityMatches(query: string, limit: number) {
+  const q = query.trim();
+  if (q.length < 2) return [];
+  try {
+    const supabase = createAdminClient();
+    const { data } = await supabase
+      .from("user_recipes")
+      .select("id, title, image_url, image_position, cook_time, servings")
+      .eq("is_public", true)
+      .not("image_url", "is", null)
+      .ilike("title", `%${q}%`)
+      .limit(limit);
+    return (data ?? []).map((r) => ({
+      id: `user_${r.id}`,
+      title: r.title,
+      image: r.image_url,
+      source: "Community",
+      sourceUrl: "#",
+      time: r.cook_time ? `${r.cook_time} min` : "—",
+      servings: r.servings ?? null,
+      rating: null,
+      imagePosition: r.image_position ?? "50% 50%",
+    }));
+  } catch (err) {
+    console.error("community match failed:", err);
+    return [];
+  }
+}
 const MDB = "https://www.themealdb.com/api/json/v1/1";
 const MDB_OFFSET = 9_000_000; // prevents ID collision with Spoonacular
 
@@ -204,12 +237,16 @@ export async function GET(req: NextRequest) {
       spoonUrl = `${BASE}/recipes/complexSearch?number=${number}&addRecipeInformation=true&sort=popularity&minPopularity=50&instructionsRequired=true&offset=${dailyOffset}&apiKey=${API_KEY}`;
     }
 
+    // Matching community (user-created) recipes — only for text searches.
+    const communityPromise = query ? fetchCommunityMatches(query, 4) : Promise.resolve([]);
+
     // Fetch Spoonacular + TheMealDB + Edamam in parallel
     const [spoonRes, mdbRecipes, edamamRecipes] = await Promise.all([
       fetch(spoonUrl, { next: { revalidate: 3600 } }),
       hasFilters ? Promise.resolve([]) : fetchMDB(searchTerm, category),
       hasFilters ? Promise.resolve([]) : fetchEdamam(searchTerm, category),
     ]);
+    const communityMatches = await communityPromise;
 
     // 402 = quota exceeded — return whatever MDB/Edamam already fetched (or empty)
     if (spoonRes.status === 402) {
@@ -218,7 +255,7 @@ export async function GET(req: NextRequest) {
         ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean),
       ];
       return NextResponse.json(
-        { recipes: fallback.slice(0, number), quota_exceeded: true, hasMore: false },
+        { recipes: [...communityMatches, ...fallback].slice(0, number), quota_exceeded: true, hasMore: false },
         { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
       );
     }
@@ -265,10 +302,16 @@ export async function GET(req: NextRequest) {
       typeof spoonData.totalResults === "number" ? spoonData.totalResults : merged.length;
     const hasMore = merged.length >= number && number < 24 && totalAvailable > number;
 
-    return NextResponse.json({ recipes: merged.slice(0, number), hasMore }, {
+    // Community matches lead, then the provider results, capped at `number`.
+    const combined = [...communityMatches, ...merged].slice(0, number);
+
+    return NextResponse.json({ recipes: combined, hasMore }, {
       headers: {
-        // Cache on Vercel CDN: 1h fresh, serve stale for 24h while revalidating
-        "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+        // Community results can change, so keep search responses uncached when a
+        // query is present; cache the (stable) default/category views as before.
+        "Cache-Control": query
+          ? "no-store"
+          : "s-maxage=3600, stale-while-revalidate=86400",
       },
     });
   } catch (err) {
