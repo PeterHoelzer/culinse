@@ -151,7 +151,9 @@ export default async function RecipePage(
           }}
         />
       )}
-      <RecipePageClient />
+      {/* Pass the server-fetched title so the H1 is in the SSR HTML from the
+          first byte — the client component re-renders it after its own fetch. */}
+      <RecipePageClient serverTitle={recipe?.title ?? null} />
     </>
   );
 }

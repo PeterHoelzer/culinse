@@ -105,7 +105,7 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
   };
 }
 
-export default function RecipePageClient() {
+export default function RecipePageClient({ serverTitle }: { serverTitle?: string | null }) {
   const { id } = useParams();
   const locale = useLocale();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -301,6 +301,13 @@ export default function RecipePageClient() {
         />
       )}
       <Navbar />
+
+      {/* SSR H1: present in server-rendered HTML before the client fetch resolves.
+          Google sees this even without executing JavaScript. Once the recipe
+          loads, the full <main> block below renders its own visible H1. */}
+      {loading && serverTitle && (
+        <h1 className="sr-only">{serverTitle}</h1>
+      )}
 
       {/* Loading */}
       {loading && (
