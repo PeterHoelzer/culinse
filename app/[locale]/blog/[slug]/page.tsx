@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         "en": `https://culinse.com/en/blog/${enSlug}`,
         "de": `https://culinse.com/de/blog/${deSlug}`,
+        "x-default": `https://culinse.com/en/blog/${enSlug}`,
       },
     },
     openGraph: {
@@ -58,15 +59,25 @@ export default async function BlogPostPage({ params }: Props) {
   const allPosts = locale === "de" ? blogPostsDe : blogPosts;
   const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
 
+  const articleUrl = `https://culinse.com/${locale}/blog/${post.slug}`;
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
-    author: { "@type": "Organization", name: "Culinse" },
-    publisher: { "@type": "Organization", name: "Culinse", url: "https://culinse.com" },
-    url: `https://culinse.com/${locale}/blog/${post.slug}`,
+    dateModified: post.publishedAt,
+    inLanguage: locale,
+    image: ["https://culinse.com/culinse-logo.png"],
+    author: { "@type": "Organization", name: "Culinse", url: "https://culinse.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "Culinse",
+      url: "https://culinse.com",
+      logo: { "@type": "ImageObject", url: "https://culinse.com/culinse-logo.png" },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
+    url: articleUrl,
   };
 
   return (
@@ -86,7 +97,7 @@ export default async function BlogPostPage({ params }: Props) {
       <main className="max-w-2xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
         <Link
-          href="/blog"
+          href={`/${locale}/blog`}
           className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-6"
         >
           ← Blog
@@ -143,7 +154,7 @@ export default async function BlogPostPage({ params }: Props) {
               : "Browse recipes, plan your week, and get an automatic shopping list — free."}
           </p>
           <Link
-            href="/"
+            href={`/${locale}`}
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
             style={{ background: "#f97316" }}
           >
@@ -161,7 +172,7 @@ export default async function BlogPostPage({ params }: Props) {
               {otherPosts.map((related) => (
                 <Link
                   key={related.slug}
-                  href={`/blog/${related.slug}`}
+                  href={`/${locale}/blog/${related.slug}`}
                   className="flex items-start gap-3 bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
                 >
                   <div>

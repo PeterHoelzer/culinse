@@ -29,7 +29,7 @@ interface Step {
   step: string;
 }
 
-interface Recipe {
+export interface Recipe {
   id: number | string;
   title: string;
   image: string | null;
@@ -105,15 +105,15 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
   };
 }
 
-export default function RecipePageClient({ serverTitle }: { serverTitle?: string | null }) {
+export default function RecipePageClient({ serverTitle, initialRecipe }: { serverTitle?: string | null; initialRecipe?: Recipe | null }) {
   const { id } = useParams();
   const locale = useLocale();
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [recipe, setRecipe] = useState<Recipe | null>(initialRecipe ?? null);
   const translatedRef = useRef(false);
   const t = useTranslations("recipe");
   const tCard = useTranslations("recipeCard");
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!initialRecipe);
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -151,9 +151,15 @@ export default function RecipePageClient({ serverTitle }: { serverTitle?: string
   }, []);
 
   useEffect(() => {
-    // Reset translation guard so a newly loaded recipe gets translated again
-    // (the component is reused across recipes; only `id` changes).
+    // Reset translation guard so a newly loaded recipe gets translated again.
     translatedRef.current = false;
+    // The server fetched this recipe and passed it as initialRecipe. The page
+    // keys this component per recipe, so initialRecipe is already the initial
+    // state and is present in the SSR HTML — skip the client fetch entirely
+    // (crawlers see the full recipe without executing JavaScript).
+    if (initialRecipe && String(initialRecipe.id) === String(id)) {
+      return;
+    }
     setLoading(true);
     setError(false);
     fetch(`/api/recipe/${id}`)
@@ -164,7 +170,7 @@ export default function RecipePageClient({ serverTitle }: { serverTitle?: string
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, initialRecipe]);
 
   // On the German site, convert measurements + translate the recipe content.
   // Runs once after the recipe loads; on failure the English version stays.
@@ -228,23 +234,8 @@ export default function RecipePageClient({ serverTitle }: { serverTitle?: string
     }
   };
 
-  // Schema.org structured data for Google Rich Results
-  const schemaData = recipe ? {
-    "@context": "https://schema.org",
-    "@type": "Recipe",
-    name: recipe.title,
-    image: recipe.image ? [recipe.image] : [],
-    author: { "@type": "Organization", name: recipe.source },
-    description: recipe.summary?.replace(/<[^>]+>/g, "").slice(0, 200) || "",
-    prepTime: recipe.time ? `PT${recipe.time.replace(" min", "")}M` : undefined,
-    recipeYield: recipe.servings ? `${recipe.servings} servings` : undefined,
-    recipeIngredient: recipe.ingredients.map((i) => i.original),
-    recipeInstructions: recipe.instructions.map((s) => ({
-      "@type": "HowToStep",
-      text: s.step,
-    })),
-    url: `https://culinse.com/recipe/${recipe.id}`,
-  } : null;
+  // Recipe JSON-LD is rendered once, server-side, in page.tsx — single source of
+  // truth, present in the crawlable HTML and not duplicated here on the client.
 
   // Strip HTML from summary
   const cleanSummary = recipe?.summary
@@ -288,18 +279,6 @@ export default function RecipePageClient({ serverTitle }: { serverTitle?: string
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Schema.org structured data */}
-      {schemaData && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schemaData)
-              .replace(/</g, "\\u003c")
-              .replace(/>/g, "\\u003e")
-              .replace(/&/g, "\\u0026"),
-          }}
-        />
-      )}
       <Navbar />
 
       {/* SSR H1: present in server-rendered HTML before the client fetch resolves.

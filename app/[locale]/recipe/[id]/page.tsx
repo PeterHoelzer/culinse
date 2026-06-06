@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import RecipePageClient from "./RecipePageClient";
+import RecipePageClient, { type Recipe } from "./RecipePageClient";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
-interface RecipeData {
-  title: string;
-  image: string | null;
-  summary: string | null;
-  time: string | null;
-  servings: number | null;
-  ingredients: Array<{ original: string }>;
-  instructions: Array<{ step: string }>;
-  diets: string[];
-}
-
-async function fetchRecipe(id: string): Promise<RecipeData | null> {
+async function fetchRecipe(id: string): Promise<Recipe | null> {
   try {
     const res = await fetch(`${BASE_URL}/api/recipe/${id}`, {
       next: { revalidate: 86400 },
@@ -41,6 +30,7 @@ export async function generateMetadata(
     languages: {
       en: `${BASE_URL}/en/recipe/${id}`,
       de: `${BASE_URL}/de/recipe/${id}`,
+      "x-default": `${BASE_URL}/en/recipe/${id}`,
     },
   };
 
@@ -99,7 +89,12 @@ export default async function RecipePage(
   const { locale, id } = await params;
   const recipe = await fetchRecipe(id);
 
-  // Build Recipe JSON-LD for Google Rich Results
+  // Build Recipe JSON-LD for Google Rich Results — single source of truth,
+  // rendered server-side so it's in the crawlable HTML.
+  const dishTypes = recipe?.dishTypes ?? [];
+  const diets = recipe?.diets ?? [];
+  const hasSource = !!recipe?.sourceUrl && recipe.sourceUrl !== "#";
+
   const jsonLd = recipe
     ? {
         "@context": "https://schema.org",
@@ -111,20 +106,30 @@ export default async function RecipePage(
         image: recipe.image ? [recipe.image] : [],
         author: {
           "@type": "Organization",
-          name: "Culinse",
-          url: "https://culinse.com",
+          name: recipe.source || "Culinse",
+          ...(hasSource ? { url: recipe.sourceUrl } : {}),
         },
         publisher: {
           "@type": "Organization",
           name: "Culinse",
           url: "https://culinse.com",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://culinse.com/culinse-logo.png",
+          },
         },
         url: `${BASE_URL}/${locale}/recipe/${id}`,
+        // Aggregated recipes link back to the original source for attribution.
+        ...(hasSource ? { isBasedOn: recipe.sourceUrl } : {}),
         ...(recipe.time && !isNaN(parseInt(recipe.time))
           ? { totalTime: `PT${parseInt(recipe.time)}M` }
           : {}),
         ...(recipe.servings
           ? { recipeYield: `${recipe.servings} serving${recipe.servings > 1 ? "s" : ""}` }
+          : {}),
+        ...(dishTypes.length ? { recipeCategory: dishTypes[0] } : {}),
+        ...(dishTypes.length || diets.length
+          ? { keywords: [...dishTypes, ...diets].join(", ") }
           : {}),
         recipeIngredient: recipe.ingredients?.map((i) => i.original) ?? [],
         recipeInstructions:
@@ -132,7 +137,7 @@ export default async function RecipePage(
             "@type": "HowToStep",
             text: s.step,
           })) ?? [],
-        suitableForDiet: (recipe.diets ?? [])
+        suitableForDiet: diets
           .map((d) => DIET_SCHEMA_MAP[d.toLowerCase()])
           .filter(Boolean),
       }
@@ -151,9 +156,11 @@ export default async function RecipePage(
           }}
         />
       )}
-      {/* Pass the server-fetched title so the H1 is in the SSR HTML from the
-          first byte — the client component re-renders it after its own fetch. */}
-      <RecipePageClient serverTitle={recipe?.title ?? null} />
+      {/* Pass the server-fetched recipe so ingredients + instructions are in the
+          SSR HTML from the first byte — Googlebot sees the full recipe without
+          executing JavaScript. The client component takes over for interactivity
+          (save, print, DE translation) using this as its initial data. */}
+      <RecipePageClient key={`${locale}-${id}`} serverTitle={recipe?.title ?? null} initialRecipe={recipe} />
     </>
   );
 }

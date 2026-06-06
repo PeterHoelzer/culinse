@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
-import { blogPostsDe } from "@/lib/blog-posts-de";
 
 // Maps EN blog slug → DE blog slug
 const blogSlugMap: Record<string, string> = {
@@ -15,95 +14,76 @@ const blogSlugMap: Record<string, string> = {
   "budget-meals-under-5-euros": "guenstige-mahlzeiten-unter-5-euro",
 };
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://culinse.com";
+const baseUrl = "https://culinse.com";
 
+// hreflang alternates incl. x-default (points to the EN/default version) so
+// Google knows which version to show when no language matches.
+function langs(en: string, de: string) {
+  return { languages: { en, de, "x-default": en } };
+}
+
+// Stable lastmod for non-dated pages. Using `new Date()` on every build tells
+// Google "everything changed today" on each deploy, which makes lastmod
+// untrustworthy and gets ignored. Bump this when static pages actually change.
+const STATIC_LAST_MODIFIED = new Date("2026-06-06");
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     { path: "", changeFrequency: "daily" as const, priority: 1 },
     { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
     { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
-    { path: "/login", changeFrequency: "monthly" as const, priority: 0.3 },
     { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/datenschutz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
   ];
+  // NOTE: /login intentionally excluded — utility page, no SEO value.
 
   // Static pages — one entry per locale with cross-locale alternates
-  const staticEntries: MetadataRoute.Sitemap = staticPages.flatMap(({ path, changeFrequency, priority }) => [
-    {
-      url: `${baseUrl}/en${path}`,
-      lastModified: new Date(),
-      changeFrequency,
-      priority,
-      alternates: { languages: { en: `${baseUrl}/en${path}`, de: `${baseUrl}/de${path}` } },
-    },
-    {
-      url: `${baseUrl}/de${path}`,
-      lastModified: new Date(),
-      changeFrequency,
-      priority,
-      alternates: { languages: { en: `${baseUrl}/en${path}`, de: `${baseUrl}/de${path}` } },
-    },
-  ]);
-
-  // Blog entries — linked via slug map
-  const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((post) => {
-    const deSlug = blogSlugMap[post.slug] ?? post.slug;
+  const staticEntries: MetadataRoute.Sitemap = staticPages.flatMap(({ path, changeFrequency, priority }) => {
+    const enUrl = `${baseUrl}/en${path}`;
+    const deUrl = `${baseUrl}/de${path}`;
     return [
-      {
-        url: `${baseUrl}/en/blog/${post.slug}`,
-        lastModified: new Date(post.publishedAt),
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/blog/${post.slug}`,
-            de: `${baseUrl}/de/blog/${deSlug}`,
-          },
-        },
-      },
-      {
-        url: `${baseUrl}/de/blog/${deSlug}`,
-        lastModified: new Date(post.publishedAt),
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/blog/${post.slug}`,
-            de: `${baseUrl}/de/blog/${deSlug}`,
-          },
-        },
-      },
+      { url: enUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
+      { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
     ];
   });
 
-  // Fetch top-50 popular recipe IDs from Spoonacular for sitemap
+  // Blog entries — linked via slug map, real publish dates as lastmod
+  const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((post) => {
+    const deSlug = blogSlugMap[post.slug] ?? post.slug;
+    const enUrl = `${baseUrl}/en/blog/${post.slug}`;
+    const deUrl = `${baseUrl}/de/blog/${deSlug}`;
+    const lastModified = new Date(post.publishedAt);
+    return [
+      { url: enUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.7, alternates: langs(enUrl, deUrl) },
+      { url: deUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.7, alternates: langs(enUrl, deUrl) },
+    ];
+  });
+
+  // Recipe IDs from Spoonacular. Sorted by ID and cached 7 days so the URL set
+  // stays STABLE across builds/days — recipe URLs churning in and out of the
+  // sitemap signals low value to Google.
+  // TODO: replace with a hand-curated list of your best/most-unique recipes.
   let recipeEntries: MetadataRoute.Sitemap = [];
   try {
     const res = await fetch(
       `https://api.spoonacular.com/recipes/complexSearch?number=50&sort=popularity&minPopularity=50&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_API_KEY}`,
-      { next: { revalidate: 86400 } }
+      { next: { revalidate: 604800 } }
     );
     if (res.ok) {
       const data = await res.json();
-      const ids: number[] = (data.results ?? []).map((r: { id: number }) => r.id);
-      recipeEntries = ids.flatMap((id) => [
-        {
-          url: `${baseUrl}/en/recipe/${id}`,
-          lastModified: new Date(),
-          changeFrequency: "monthly" as const,
-          priority: 0.6,
-          alternates: { languages: { en: `${baseUrl}/en/recipe/${id}`, de: `${baseUrl}/de/recipe/${id}` } },
-        },
-        {
-          url: `${baseUrl}/de/recipe/${id}`,
-          lastModified: new Date(),
-          changeFrequency: "monthly" as const,
-          priority: 0.6,
-          alternates: { languages: { en: `${baseUrl}/en/recipe/${id}`, de: `${baseUrl}/de/recipe/${id}` } },
-        },
-      ]);
+      const ids: number[] = (data.results ?? [])
+        .map((r: { id: number }) => r.id)
+        .sort((a: number, b: number) => a - b);
+      recipeEntries = ids.flatMap((id) => {
+        const enUrl = `${baseUrl}/en/recipe/${id}`;
+        const deUrl = `${baseUrl}/de/recipe/${id}`;
+        return [
+          { url: enUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+          { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+        ];
+      });
     }
   } catch {
     // Silently fail — don't break the build if Spoonacular is unavailable

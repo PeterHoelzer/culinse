@@ -41,7 +41,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ...sharedMeta,
       alternates: {
         canonical: "https://culinse.com/de",
-        languages: { en: "https://culinse.com/en", de: "https://culinse.com/de" },
+        languages: {
+          en: "https://culinse.com/en",
+          de: "https://culinse.com/de",
+          "x-default": "https://culinse.com/en",
+        },
       },
       title: {
         default: "Culinse – Rezepte entdecken, die du lieben wirst",
@@ -73,7 +77,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     ...sharedMeta,
     alternates: {
       canonical: "https://culinse.com/en",
-      languages: { en: "https://culinse.com/en", de: "https://culinse.com/de" },
+      languages: {
+        en: "https://culinse.com/en",
+        de: "https://culinse.com/de",
+        "x-default": "https://culinse.com/en",
+      },
     },
     title: {
       default: "Culinse – Discover Recipes You'll Love",
