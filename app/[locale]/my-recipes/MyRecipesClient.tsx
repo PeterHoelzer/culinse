@@ -56,13 +56,21 @@ export default function MyRecipesClient() {
           <h1 className="text-3xl font-bold text-gray-900">My Recipes</h1>
           <p className="text-gray-500 text-sm mt-1">{recipes.length} recipe{recipes.length !== 1 ? "s" : ""} created</p>
         </div>
-        <Link
-          href="/recipes/create"
-          className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
-          style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-        >
-          + New Recipe
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/recipes/import"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-orange-200 text-orange-600 text-sm font-semibold hover:bg-orange-50 transition-colors"
+          >
+            🔗 Import
+          </Link>
+          <Link
+            href="/recipes/create"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
+            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+          >
+            + New Recipe
+          </Link>
+        </div>
       </div>
 
       {loading ? (
@@ -73,10 +81,15 @@ export default function MyRecipesClient() {
         <div className="text-center py-20">
           <div className="text-6xl mb-4">👨‍🍳</div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">No recipes yet</h2>
-          <p className="text-gray-500 mb-6">Create your first recipe and share it with the world.</p>
-          <Link href="/recipes/create" className="px-6 py-3 rounded-full text-white text-sm font-semibold" style={{ background: "#f97316" }}>
-            Create Recipe
-          </Link>
+          <p className="text-gray-500 mb-6">Create your first recipe — or import one from any recipe site.</p>
+          <div className="flex justify-center gap-3">
+            <Link href="/recipes/create" className="px-6 py-3 rounded-full text-white text-sm font-semibold" style={{ background: "#f97316" }}>
+              Create Recipe
+            </Link>
+            <Link href="/recipes/import" className="px-6 py-3 rounded-full text-sm font-semibold border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors">
+              🔗 Import from URL
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

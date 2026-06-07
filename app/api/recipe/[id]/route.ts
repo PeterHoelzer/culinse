@@ -66,8 +66,10 @@ export async function GET(
         image: r.image_url || null,
         imagePosition: r.image_position || "50% 50%",
         videoUrl: r.video_url || null,
-        source: "Community",
-        sourceUrl: "",
+        // Imported recipes carry their original site name + link for attribution;
+        // user-created recipes fall back to the "Community" label.
+        source: r.source_name || "Community",
+        sourceUrl: r.source_url || "",
         time: totalTime > 0 ? `${totalTime} min` : null,
         servings: r.servings || null,
         summary: r.description || null,
