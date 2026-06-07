@@ -28,6 +28,19 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
   // Quality check before going public
   if (body.is_public === true) {
+    // Imported recipes carry third-party photos/text — they may NEVER be made
+    // public (personal-use only). Verified server-side against the stored row so
+    // it can't be bypassed by a crafted request.
+    const { data: existing } = await supabase
+      .from("user_recipes")
+      .select("source_type")
+      .eq("id", id)
+      .eq("user_id", user.id)
+      .single();
+    if (existing?.source_type === "imported") {
+      return NextResponse.json({ error: "imported_cannot_publish" }, { status: 403 });
+    }
+
     const issues: string[] = [];
     if (!body.image_url) issues.push("A photo is required to publish publicly.");
     if (!body.instructions?.length || body.instructions.length < 2)

@@ -19,13 +19,14 @@ interface RecipeData {
   servings: string;
   tags: string[];
   is_public: boolean;
+  source_type?: string;
 }
 
 const EMPTY: RecipeData = {
   title: "", description: "", image_url: "", image_position: "50% 50%", video_url: "",
   ingredients: [{ name: "", amount: "", unit: "" }],
   instructions: [{ step: 1, text: "", timer_minutes: null }],
-  cook_time: "", prep_time: "", servings: "2", tags: [], is_public: false,
+  cook_time: "", prep_time: "", servings: "2", tags: [], is_public: false, source_type: "created",
 };
 
 function serializeRecipe(data: RecipeData) {
@@ -113,6 +114,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               servings: r.servings ? String(r.servings) : "2",
               tags: Array.isArray(r.tags) ? r.tags : [],
               is_public: r.is_public ?? false,
+              source_type: r.source_type ?? "created",
             });
           }
         });
@@ -458,6 +460,15 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               )}
               {recipe.image_url && <img src={recipe.image_url} alt="" className="w-full h-32 object-cover rounded-xl" />}
             </div>
+            {recipe.source_type === "imported" ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-5">
+              <p className="font-medium text-gray-900">Visibility</p>
+              <p className="text-sm text-gray-500 mt-0.5">🔒 Private — imported recipes stay private to you.</p>
+              <div className="mt-3 p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-700">
+                Imported from another site, so it cannot be made public — only recipes you create yourself can be published. You can still cook from it, search it, and add it to your meal plan.
+              </div>
+            </div>
+            ) : (
             <div className="bg-white rounded-2xl border border-gray-100 p-5">
               <div className="flex items-center justify-between">
                 <div>
@@ -489,6 +500,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                 </div>
               )}
             </div>
+            )}
             {errors.length > 0 && (
               <div className="bg-red-50 border border-red-100 rounded-xl p-4">
                 <p className="text-sm font-medium text-red-700 mb-1">Cannot publish:</p>

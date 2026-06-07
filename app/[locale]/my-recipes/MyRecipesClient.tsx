@@ -15,6 +15,9 @@ interface UserRecipe {
   servings: number | null;
   likes: number;
   created_at: string;
+  source_type?: string;
+  source_name?: string | null;
+  source_url?: string | null;
 }
 
 export default function MyRecipesClient() {
@@ -107,16 +110,28 @@ export default function MyRecipesClient() {
                   <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1 hover:text-orange-500 transition-colors">{recipe.title}</h3>
                 </Link>
                 <div className="flex items-center gap-2 mb-3">
-                  <button
-                    onClick={() => togglePublic(recipe)}
-                    className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
-                      recipe.is_public
-                        ? "bg-green-100 text-green-700 hover:bg-green-200"
-                        : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-                    }`}
-                  >
-                    {recipe.is_public ? "🌍 Public" : "🔒 Private"}
-                  </button>
+                  {recipe.source_type === "imported" ? (
+                    <span
+                      title={
+                        recipe.source_url ||
+                        (recipe.source_name ? `Imported from ${recipe.source_name}` : "Imported recipe")
+                      }
+                      className="text-xs px-2.5 py-1 rounded-full font-medium bg-blue-50 text-blue-600"
+                    >
+                      🔗 {recipe.source_name || "Imported"} · 🔒
+                    </span>
+                  ) : (
+                    <button
+                      onClick={() => togglePublic(recipe)}
+                      className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
+                        recipe.is_public
+                          ? "bg-green-100 text-green-700 hover:bg-green-200"
+                          : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                      }`}
+                    >
+                      {recipe.is_public ? "🌍 Public" : "🔒 Private"}
+                    </button>
+                  )}
                   {recipe.cook_time && <span className="text-xs text-gray-400">⏱ {recipe.cook_time}min</span>}
                   <span className="text-xs text-gray-400">❤️ {recipe.likes}</span>
                 </div>
