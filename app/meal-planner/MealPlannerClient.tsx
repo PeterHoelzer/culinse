@@ -3,7 +3,7 @@ import ProBadge from "@/components/ProBadge";
 
 import Image from "next/image";
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
@@ -25,6 +25,7 @@ interface Entry {
   recipe_title: string;
   recipe_image: string | null;
   recipe_time: number | null;
+  servings: number | null;
 }
 
 interface PickerTarget {
@@ -152,13 +153,18 @@ export default function MealPlannerPage() {
     setDeletingEntry(null);
   };
 
-  const handleEntryAdded = (entry: Omit<Entry, "id"> & { id?: string }) => {
+  const handleEntryAdded = (entry: Omit<Entry, "id" | "servings"> & { id?: string }) => {
     setEntries(prev => {
       const filtered = prev.filter(
         e => !(e.day_index === entry.day_index && e.meal_slot === entry.meal_slot)
       );
-      return [...filtered, { ...entry, id: entry.id ?? crypto.randomUUID() }];
+      return [...filtered, { ...entry, id: entry.id ?? crypto.randomUUID(), servings: null }];
     });
+  };
+
+  const handleSetServings = async (entry: Entry, value: number | null) => {
+    setEntries(prev => prev.map(e => e.id === entry.id ? { ...e, servings: value } : e));
+    await supabase.from("meal_plan_entries").update({ servings: value }).eq("id", entry.id);
   };
 
   const getEntry = (dayIndex: number, slot: string) =>
@@ -166,6 +172,13 @@ export default function MealPlannerPage() {
 
   const totalEntries = entries.length;
   const shoppingRecipeIds = useMemo(() => entries.map(e => e.recipe_id), [entries]);
+  const shoppingTargets = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const e of entries) {
+      if (e.servings && e.servings > 0) m[e.recipe_id] = (m[e.recipe_id] ?? 0) + e.servings;
+    }
+    return m;
+  }, [entries]);
 
   const openPicker = (dayIndex: number, slot: "breakfast" | "lunch" | "dinner") => {
     setPickerTarget({ dayIndex, slot });
@@ -315,6 +328,7 @@ export default function MealPlannerPage() {
                       entry={entry ?? null}
                       onOpen={() => openPicker(dayIdx, slot.value)}
                       onRemove={handleRemoveEntry}
+                      onSetServings={handleSetServings}
                       deleting={deletingEntry}
                     />
                   );
@@ -350,6 +364,7 @@ export default function MealPlannerPage() {
                                 {entry.recipe_title}
                               </Link>
                               {entry.recipe_time && <p className="text-xs text-gray-400">⏱ {entry.recipe_time} min</p>}
+                              <div className="mt-1"><ServingsControl value={entry.servings} onChange={(v) => handleSetServings(entry, v)} /></div>
                             </div>
                             <button
                               onClick={() => handleRemoveEntry(entry.id)}
@@ -420,6 +435,7 @@ export default function MealPlannerPage() {
           recipeTitles={entries.map(e => e.recipe_title)}
           planName={plans.find(p => p.id === activePlanId)?.name ?? t("planName")}
           planId={activePlanId}
+          targets={shoppingTargets}
           onClose={() => setShowShoppingList(false)}
         />
       )}
@@ -448,16 +464,48 @@ export default function MealPlannerPage() {
   );
 }
 
+// ── Servings stepper ───────────────────────────────────────────────────────────
+function ServingsControl({ value, onChange }: { value: number | null; onChange: (v: number | null) => void }) {
+  const locale = useLocale();
+  if (value == null) {
+    return (
+      <button
+        onClick={(e) => { e.stopPropagation(); onChange(2); }}
+        className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-orange-500 transition-colors"
+        title={locale === "de" ? "Portionen einstellen" : "Set servings"}
+      >
+        🍽 <span>{locale === "de" ? "Portionen" : "Servings"}</span>
+      </button>
+    );
+  }
+  return (
+    <div className="inline-flex items-center gap-1 text-xs text-gray-600" onClick={(e) => e.stopPropagation()}>
+      <span>🍽</span>
+      <button
+        onClick={(e) => { e.stopPropagation(); onChange(value <= 1 ? null : value - 1); }}
+        className="w-5 h-5 rounded-full bg-gray-100 hover:bg-orange-100 text-gray-600 flex items-center justify-center leading-none"
+      >−</button>
+      <span className="w-4 text-center font-semibold tabular-nums">{value}</span>
+      <button
+        onClick={(e) => { e.stopPropagation(); onChange(Math.min(value + 1, 20)); }}
+        className="w-5 h-5 rounded-full bg-gray-100 hover:bg-orange-100 text-gray-600 flex items-center justify-center leading-none"
+      >+</button>
+    </div>
+  );
+}
+
 // ── Desktop Slot Cell ──────────────────────────────────────────────────────────
 function DesktopSlot({
   entry,
   onOpen,
   onRemove,
+  onSetServings,
   deleting,
 }: {
   entry: Entry | null;
   onOpen: () => void;
   onRemove: (id: string) => void;
+  onSetServings: (entry: Entry, value: number | null) => void;
   deleting: string | null;
 }) {
   if (!entry) {
@@ -473,30 +521,35 @@ function DesktopSlot({
   }
 
   return (
-    <div className="h-20 rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden relative group">
-      {entry.recipe_image ? (
-        <Image src={entry.recipe_image} alt="" fill className="object-cover" sizes="300px" />
-      ) : (
-        <div className="absolute inset-0 bg-orange-50" />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-      <div className="absolute bottom-1.5 left-2 right-8 z-10">
-        <Link href={`/recipe/${entry.recipe_id}`}>
-          <p className="text-white text-xs font-semibold line-clamp-2 leading-tight hover:text-orange-200 transition-colors">
-            {entry.recipe_title}
-          </p>
-        </Link>
+    <div className="space-y-1">
+      <div className="h-20 rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden relative group">
+        {entry.recipe_image ? (
+          <Image src={entry.recipe_image} alt="" fill className="object-cover" sizes="300px" />
+        ) : (
+          <div className="absolute inset-0 bg-orange-50" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <div className="absolute bottom-1.5 left-2 right-8 z-10">
+          <Link href={`/recipe/${entry.recipe_id}`}>
+            <p className="text-white text-xs font-semibold line-clamp-2 leading-tight hover:text-orange-200 transition-colors">
+              {entry.recipe_title}
+            </p>
+          </Link>
+        </div>
+        <button
+          onClick={onOpen}
+          className="absolute top-1 left-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-orange-500"
+          title="Replace"
+        >↻</button>
+        <button
+          onClick={() => onRemove(entry.id)}
+          disabled={deleting === entry.id}
+          className="absolute top-1 right-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+        >×</button>
       </div>
-      <button
-        onClick={onOpen}
-        className="absolute top-1 left-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-orange-500"
-        title="Replace"
-      >↻</button>
-      <button
-        onClick={() => onRemove(entry.id)}
-        disabled={deleting === entry.id}
-        className="absolute top-1 right-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-      >×</button>
+      <div className="flex justify-center">
+        <ServingsControl value={entry.servings} onChange={(v) => onSetServings(entry, v)} />
+      </div>
     </div>
   );
 }

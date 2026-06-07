@@ -39,6 +39,7 @@ interface ShoppingListDrawerProps {
   recipeTitles: string[];
   planName: string;
   planId?: string; // when provided, checked state + manual items persist per plan
+  targets?: Record<string, number>; // recipeId → target servings (scales amounts)
   onClose: () => void;
 }
 
@@ -90,6 +91,7 @@ export default function ShoppingListDrawer({
   recipeTitles,
   planName,
   planId,
+  targets,
   onClose,
 }: ShoppingListDrawerProps) {
   const t = useTranslations("modals");
@@ -113,12 +115,13 @@ export default function ShoppingListDrawer({
     fetch("/api/shopping-list", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recipeIds }),
+      body: JSON.stringify({ recipeIds, targets: targets ?? {} }),
     })
       .then(r => r.json())
       .then(data => { setAutoGrouped(data.grouped || {}); setLoading(false); })
       .catch(() => { setError(true); setLoading(false); });
-  }, [recipeIds]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipeIds, targets]);
 
   // Load persisted state (checked + manual) for this plan
   useEffect(() => {

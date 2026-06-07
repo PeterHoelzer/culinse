@@ -437,7 +437,7 @@ const UNICODE_FRACTIONS: Record<string, number> = {
 };
 
 function parseFraction(str: string): number {
-  let s = str.trim();
+  const s = str.trim();
 
   // Replace unicode fractions first
   for (const [frac, val] of Object.entries(UNICODE_FRACTIONS)) {
@@ -464,7 +464,20 @@ function parseFraction(str: string): number {
 
 // ── Fetchers ───────────────────────────────────────────────────────────────────
 
-async function fetchSpoonacularIngredients(ids: string[]): Promise<RawIngredient[]> {
+// Per-recipe target servings (recipeId → desired servings). When both a target
+// and the recipe's original servings are known, amounts are scaled by
+// target/original; otherwise they pass through unchanged.
+type Targets = Record<string, number>;
+
+function scaleRatio(target: number | undefined, original: number | undefined | null): number {
+  if (target && original && original > 0) {
+    const r = target / original;
+    return r > 0 && isFinite(r) ? r : 1;
+  }
+  return 1;
+}
+
+async function fetchSpoonacularIngredients(ids: string[], targets: Targets): Promise<RawIngredient[]> {
   if (!SPOONACULAR_KEY || ids.length === 0) return [];
   try {
     const res = await fetch(
@@ -472,16 +485,17 @@ async function fetchSpoonacularIngredients(ids: string[]): Promise<RawIngredient
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return [];
-    const data: Array<{ extendedIngredients?: Array<{ name: string; amount: number; unit: string; aisle: string; original: string }> }> = await res.json();
-    return data.flatMap(r =>
-      (r.extendedIngredients || []).map(i => ({
+    const data: Array<{ id?: number; servings?: number; extendedIngredients?: Array<{ name: string; amount: number; unit: string; aisle: string; original: string }> }> = await res.json();
+    return data.flatMap(r => {
+      const ratio = scaleRatio(targets[String(r.id)], r.servings);
+      return (r.extendedIngredients || []).map(i => ({
         name: i.name,
-        amount: i.amount,
+        amount: i.amount * ratio,
         unit: i.unit,
         aisle: i.aisle,
         original: i.original,
-      }))
-    );
+      }));
+    });
   } catch { return []; }
 }
 
@@ -516,7 +530,7 @@ async function fetchMealDBIngredients(ids: string[]): Promise<RawIngredient[]> {
   return results;
 }
 
-async function fetchEdamamIngredients(ids: string[]): Promise<RawIngredient[]> {
+async function fetchEdamamIngredients(ids: string[], targets: Targets): Promise<RawIngredient[]> {
   const results: RawIngredient[] = [];
   for (const id of ids) {
     try {
@@ -529,15 +543,16 @@ async function fetchEdamamIngredients(ids: string[]): Promise<RawIngredient[]> {
       const data = await res.json();
       const r = data.recipe;
       if (!r) continue;
+      const ratio = scaleRatio(targets[id], r.yield);
       for (const ing of (r.ingredients || []) as Array<{ food: string; quantity: number; measure: string; text: string }>) {
-        results.push({ name: ing.food, amount: ing.quantity, unit: ing.measure || "", aisle: undefined, original: ing.text });
+        results.push({ name: ing.food, amount: ing.quantity * ratio, unit: ing.measure || "", aisle: undefined, original: ing.text });
       }
     } catch { continue; }
   }
   return results;
 }
 
-async function fetchTastyIngredients(ids: string[]): Promise<RawIngredient[]> {
+async function fetchTastyIngredients(ids: string[], targets: Targets): Promise<RawIngredient[]> {
   const results: RawIngredient[] = [];
   for (const id of ids) {
     try {
@@ -548,13 +563,14 @@ async function fetchTastyIngredients(ids: string[]): Promise<RawIngredient[]> {
       });
       if (!res.ok) continue;
       const r = await res.json();
+      const ratio = scaleRatio(targets[id], r.num_servings);
       const components = (r.sections || []).flatMap(
         (sec: { components?: Array<{ ingredient?: { name: string }; measurements?: Array<{ quantity: number; unit?: { abbreviation: string } }>; raw_text?: string }> }) =>
           sec.components || []
       );
       for (const c of components) {
         const name = c.ingredient?.name || c.raw_text || "";
-        const amount = c.measurements?.[0]?.quantity || 0;
+        const amount = (c.measurements?.[0]?.quantity || 0) * ratio;
         const unit = c.measurements?.[0]?.unit?.abbreviation || "";
         results.push({ name, amount, unit, aisle: undefined, original: c.raw_text || name });
       }
@@ -573,7 +589,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  let body: { recipeIds?: unknown };
+  let body: { recipeIds?: unknown; targets?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -592,11 +608,17 @@ export async function POST(req: NextRequest) {
   const edamamIds = recipeIds.filter(id => id.startsWith("edamam_"));
   const tastyIds  = recipeIds.filter(id => id.startsWith("tasty_"));
 
+  // Per-recipe target servings → scale ingredient amounts (target/original)
+  const targets: Targets =
+    body.targets && typeof body.targets === "object" && !Array.isArray(body.targets)
+      ? (body.targets as Targets)
+      : {};
+
   const [spoonRaw, mealdbRaw, edamamRaw, tastyRaw] = await Promise.all([
-    fetchSpoonacularIngredients(spoonOnly),
+    fetchSpoonacularIngredients(spoonOnly, targets),
     fetchMealDBIngredients(mealdbIds),
-    fetchEdamamIngredients(edamamIds),
-    fetchTastyIngredients(tastyIds),
+    fetchEdamamIngredients(edamamIds, targets),
+    fetchTastyIngredients(tastyIds, targets),
   ]);
 
   const allRaw = [...spoonRaw, ...mealdbRaw, ...edamamRaw, ...tastyRaw];
