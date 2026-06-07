@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { translateTexts } from "@/lib/translate";
 
 const SPOONACULAR_KEY = process.env.SPOONACULAR_API_KEY;
 const EDAMAM_APP_ID   = process.env.EDAMAM_APP_ID;
@@ -45,6 +46,22 @@ const AISLE_MAP: Record<string, { label: string; emoji: string }> = {
   "frozen":                         { label: "Frozen",              emoji: "🧊" },
   "beverages":                      { label: "Beverages",           emoji: "🥤" },
   "drinks":                         { label: "Beverages",           emoji: "🥤" },
+};
+
+// German labels for the shopping-list categories (header display on the DE site).
+const CATEGORY_DE: Record<string, string> = {
+  "Produce": "Obst & Gemüse",
+  "Meat & Fish": "Fleisch & Fisch",
+  "Dairy": "Milchprodukte",
+  "Bread & Bakery": "Brot & Backwaren",
+  "Pasta, Rice & Grains": "Nudeln, Reis & Getreide",
+  "Canned Goods": "Konserven",
+  "Baking & Sweets": "Backen & Süßes",
+  "Spices & Herbs": "Gewürze & Kräuter",
+  "Sauces & Oils": "Saucen & Öle",
+  "Frozen": "Tiefkühl",
+  "Beverages": "Getränke",
+  "Other": "Sonstiges",
 };
 
 function resolveCategory(aisle?: string): { label: string; emoji: string } {
@@ -589,7 +606,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  let body: { recipeIds?: unknown; targets?: unknown };
+  let body: { recipeIds?: unknown; targets?: unknown; lang?: unknown };
   try {
     body = await req.json();
   } catch {
@@ -613,6 +630,7 @@ export async function POST(req: NextRequest) {
     body.targets && typeof body.targets === "object" && !Array.isArray(body.targets)
       ? (body.targets as Targets)
       : {};
+  const lang = typeof body.lang === "string" ? body.lang.toLowerCase() : "en";
 
   const [spoonRaw, mealdbRaw, edamamRaw, tastyRaw] = await Promise.all([
     fetchSpoonacularIngredients(spoonOnly, targets),
@@ -624,16 +642,27 @@ export async function POST(req: NextRequest) {
   const allRaw = [...spoonRaw, ...mealdbRaw, ...edamamRaw, ...tastyRaw];
   const items = aggregateIngredients(allRaw);
 
-  // Group by category
-  const grouped: Record<string, { emoji: string; items: ShoppingItem[] }> = {};
+  // Translate ingredient names to German on the DE site (cached, never throws).
+  if (lang === "de" && items.length) {
+    const deNames = await translateTexts(items.map(i => i.name), "EN", "DE");
+    items.forEach((item, i) => { if (deNames[i]) item.name = deNames[i]; });
+  }
+
+  // Group by category — keep the English category as the key (stable sorting),
+  // but carry a localized label for the header.
+  const grouped: Record<string, { emoji: string; label: string; items: ShoppingItem[] }> = {};
   for (const item of items) {
     if (!grouped[item.category]) {
-      grouped[item.category] = { emoji: item.categoryEmoji, items: [] };
+      grouped[item.category] = {
+        emoji: item.categoryEmoji,
+        label: lang === "de" ? (CATEGORY_DE[item.category] ?? item.category) : item.category,
+        items: [],
+      };
     }
     grouped[item.category].items.push(item);
   }
 
-  // Sort items within each category alphabetically
+  // Sort items within each category alphabetically (by the displayed name)
   for (const cat of Object.values(grouped)) {
     cat.items.sort((a, b) => a.name.localeCompare(b.name, "de"));
   }

@@ -30,6 +30,7 @@ interface DisplayItem extends ShoppingItem {
 interface Grouped {
   [category: string]: {
     emoji: string;
+    label?: string;
     items: ShoppingItem[];
   };
 }
@@ -115,7 +116,7 @@ export default function ShoppingListDrawer({
     fetch("/api/shopping-list", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recipeIds, targets: targets ?? {} }),
+      body: JSON.stringify({ recipeIds, targets: targets ?? {}, lang: locale }),
     })
       .then(r => r.json())
       .then(data => { setAutoGrouped(data.grouped || {}); setLoading(false); })
@@ -190,14 +191,14 @@ export default function ShoppingListDrawer({
 
   // Merge auto items + manual items into one grouped structure
   const displayGrouped = useMemo(() => {
-    const g: Record<string, { emoji: string; items: DisplayItem[] }> = {};
+    const g: Record<string, { emoji: string; label: string; items: DisplayItem[] }> = {};
     for (const [cat, group] of Object.entries(autoGrouped)) {
       for (const item of group.items) {
-        (g[cat] ||= { emoji: group.emoji, items: [] }).items.push({ ...item, key: `${cat}||${item.name}` });
+        (g[cat] ||= { emoji: group.emoji, label: group.label ?? cat, items: [] }).items.push({ ...item, key: `${cat}||${item.name}` });
       }
     }
     for (const m of manual) {
-      (g[m.category] ||= { emoji: m.categoryEmoji, items: [] }).items.push({
+      (g[m.category] ||= { emoji: m.categoryEmoji, label: de ? "Sonstiges" : m.category, items: [] }).items.push({
         name: m.name,
         amount: m.amount,
         unit: m.unit,
@@ -209,7 +210,7 @@ export default function ShoppingListDrawer({
       });
     }
     return g;
-  }, [autoGrouped, manual]);
+  }, [autoGrouped, manual, de]);
 
   const allKeys = useMemo(
     () => Object.values(displayGrouped).flatMap(g => g.items.map(i => i.key)),
@@ -343,7 +344,7 @@ export default function ShoppingListDrawer({
                       {/* Category header */}
                       <div className="flex items-center gap-2 mb-2 sticky top-0 bg-white/95 backdrop-blur-sm py-1">
                         <span className="text-lg">{group.emoji}</span>
-                        <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">{category}</span>
+                        <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">{group.label ?? category}</span>
                         <span className="text-xs text-gray-300 ml-auto">
                           {group.items.filter(i => checked.has(i.key)).length}/{group.items.length}
                         </span>
