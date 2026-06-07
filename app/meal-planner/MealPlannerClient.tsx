@@ -51,6 +51,8 @@ export default function MealPlannerPage() {
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
+  const [autoFilling, setAutoFilling] = useState(false);
+  const locale = useLocale();
 
   const DAYS_FULL = t.raw("daysFull") as string[];
   const MEAL_LABELS = t.raw("meals") as string[];
@@ -167,6 +169,80 @@ export default function MealPlannerPage() {
     await supabase.from("meal_plan_entries").update({ servings: value }).eq("id", entry.id);
   };
 
+  // Auto-fill all empty slots with recipes from the user's saved recipes,
+  // topped up with trending recipes so it works even for brand-new users.
+  const handleAutoFill = async () => {
+    if (autoFilling || !activePlanId) return;
+    setAutoFilling(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const occupied = new Set(entries.map(e => `${e.day_index}|${e.meal_slot}`));
+      const emptySlots: { day: number; slot: "breakfast" | "lunch" | "dinner" }[] = [];
+      for (let d = 0; d < 7; d++) {
+        for (const s of SLOTS) {
+          if (!occupied.has(`${d}|${s.value}`)) emptySlots.push({ day: d, slot: s.value });
+        }
+      }
+      if (emptySlots.length === 0) return;
+
+      type Cand = { recipe_id: string; title: string; image: string | null; time: number | null };
+      const toTime = (v: unknown): number | null => (v ? (parseInt(String(v)) || null) : null);
+
+      const { data: saved } = await supabase
+        .from("saved_recipes")
+        .select("recipe_id, title, image, time")
+        .eq("user_id", user.id);
+      const pool: Cand[] = (saved ?? [])
+        .filter(r => r.recipe_id && r.title)
+        .map(r => ({ recipe_id: String(r.recipe_id), title: r.title, image: r.image ?? null, time: toTime(r.time) }));
+
+      // Top up from trending if the user hasn't saved enough recipes yet.
+      if (pool.length < emptySlots.length) {
+        try {
+          const res = await fetch(`/api/recipes?number=24&lang=${locale}`);
+          const data = await res.json();
+          for (const r of (data.recipes ?? [])) {
+            const id = String(r.id);
+            if (!r.title || pool.some(p => p.recipe_id === id)) continue;
+            pool.push({ recipe_id: id, title: r.title, image: r.image ?? null, time: toTime(r.time) });
+          }
+        } catch { /* ignore — saved recipes alone are fine */ }
+      }
+      if (pool.length === 0) return;
+
+      const shuffled = [...pool].sort(() => Math.random() - 0.5);
+      const rows = emptySlots.map((slot, i) => {
+        const r = shuffled[i % shuffled.length];
+        return {
+          plan_id: activePlanId,
+          user_id: user.id,
+          day_index: slot.day,
+          meal_slot: slot.slot,
+          recipe_id: r.recipe_id,
+          recipe_title: r.title,
+          recipe_image: r.image,
+          recipe_time: r.time,
+        };
+      });
+
+      const { data: inserted } = await supabase
+        .from("meal_plan_entries")
+        .upsert(rows, { onConflict: "plan_id,day_index,meal_slot" })
+        .select();
+
+      if (inserted && inserted.length) {
+        setEntries(prev => {
+          const keep = prev.filter(e => !inserted.some((n: Entry) => n.day_index === e.day_index && n.meal_slot === e.meal_slot));
+          return [...keep, ...(inserted as Entry[])];
+        });
+      }
+    } finally {
+      setAutoFilling(false);
+    }
+  };
+
   const getEntry = (dayIndex: number, slot: string) =>
     entries.find(e => e.day_index === dayIndex && e.meal_slot === slot);
 
@@ -216,6 +292,17 @@ export default function MealPlannerPage() {
               </div>
               <p className="text-orange-100 text-xs">{t("mealsPlanned", { n: totalEntries })}</p>
             </div>
+            {totalEntries < 21 && (
+              <button
+                onClick={handleAutoFill}
+                disabled={autoFilling}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all disabled:opacity-60"
+              >
+                {autoFilling
+                  ? (locale === "de" ? "Fülle…" : "Filling…")
+                  : (locale === "de" ? "✨ Woche füllen" : "✨ Auto-fill")}
+              </button>
+            )}
             {totalEntries > 0 && (
               <button
                 onClick={() => setShowShoppingList(true)}
