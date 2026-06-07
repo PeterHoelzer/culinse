@@ -419,6 +419,7 @@ export default function MealPlannerPage() {
           recipeIds={shoppingRecipeIds}
           recipeTitles={entries.map(e => e.recipe_title)}
           planName={plans.find(p => p.id === activePlanId)?.name ?? t("planName")}
+          planId={activePlanId}
           onClose={() => setShowShoppingList(false)}
         />
       )}

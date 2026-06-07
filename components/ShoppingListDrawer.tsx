@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useState, useEffect, useRef, useMemo } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { createClient } from "@/lib/supabase/client";
 
 interface ShoppingItem {
   name: string;
@@ -10,6 +11,20 @@ interface ShoppingItem {
   original: string;
   category: string;
   categoryEmoji: string;
+}
+
+interface ManualItem {
+  id: string;
+  name: string;
+  amount: number | null;
+  unit: string;
+  category: string;
+  categoryEmoji: string;
+}
+
+interface DisplayItem extends ShoppingItem {
+  key: string;
+  manualId?: string;
 }
 
 interface Grouped {
@@ -23,6 +38,7 @@ interface ShoppingListDrawerProps {
   recipeIds: string[];
   recipeTitles: string[];
   planName: string;
+  planId?: string; // when provided, checked state + manual items persist per plan
   onClose: () => void;
 }
 
@@ -73,25 +89,73 @@ export default function ShoppingListDrawer({
   recipeIds,
   recipeTitles,
   planName,
+  planId,
   onClose,
 }: ShoppingListDrawerProps) {
   const t = useTranslations("modals");
-  const [loading, setLoading] = useState(true);
-  const [grouped, setGrouped] = useState<Grouped>({});
-  const [checked, setChecked] = useState<Set<string>>(new Set());
-  const [error, setError] = useState(false);
+  const locale = useLocale();
+  const de = locale === "de";
+  const tr = (en: string, deStr: string) => (de ? deStr : en);
+  const supabase = createClient();
 
+  const [loading, setLoading] = useState(recipeIds.length > 0);
+  const [autoGrouped, setAutoGrouped] = useState<Grouped>({});
+  const [checked, setChecked] = useState<Set<string>>(new Set());
+  const [manual, setManual] = useState<ManualItem[]>([]);
+  const [error, setError] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newQty, setNewQty] = useState("");
+  const loadedRef = useRef(false);
+
+  // Auto items from the recipes in the plan
   useEffect(() => {
-    if (recipeIds.length === 0) { setLoading(false); return; }
+    if (recipeIds.length === 0) return; // loading already starts false in this case
     fetch("/api/shopping-list", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ recipeIds }),
     })
       .then(r => r.json())
-      .then(data => { setGrouped(data.grouped || {}); setLoading(false); })
+      .then(data => { setAutoGrouped(data.grouped || {}); setLoading(false); })
       .catch(() => { setError(true); setLoading(false); });
   }, [recipeIds]);
+
+  // Load persisted state (checked + manual) for this plan
+  useEffect(() => {
+    if (!planId) { loadedRef.current = true; return; }
+    let cancelled = false;
+    supabase
+      .from("shopping_lists")
+      .select("checked, manual")
+      .eq("plan_id", planId)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled) return;
+        if (data) {
+          if (Array.isArray(data.checked)) setChecked(new Set(data.checked as string[]));
+          if (Array.isArray(data.manual)) setManual(data.manual as ManualItem[]);
+        }
+        loadedRef.current = true;
+      });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [planId]);
+
+  // Persist (debounced) whenever checked/manual change — only after initial load
+  useEffect(() => {
+    if (!planId || !loadedRef.current) return;
+    const handle = setTimeout(() => {
+      supabase
+        .from("shopping_lists")
+        .upsert(
+          { plan_id: planId, checked: Array.from(checked), manual, updated_at: new Date().toISOString() },
+          { onConflict: "plan_id" },
+        )
+        .then(() => {});
+    }, 700);
+    return () => clearTimeout(handle);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checked, manual, planId]);
 
   const toggleCheck = (key: string) => {
     setChecked(prev => {
@@ -101,10 +165,57 @@ export default function ShoppingListDrawer({
     });
   };
 
-  const totalItems = Object.values(grouped).reduce((s, g) => s + g.items.length, 0);
-  const checkedCount = checked.size;
+  const addManual = () => {
+    const name = newName.trim();
+    if (!name) return;
+    setManual(prev => [
+      ...prev,
+      { id: crypto.randomUUID(), name, amount: null, unit: newQty.trim(), category: "Other", categoryEmoji: "🛒" },
+    ]);
+    setNewName("");
+    setNewQty("");
+  };
 
-  const sortedCategories = Object.keys(grouped).sort((a, b) => {
+  const removeManual = (id: string) => {
+    setManual(prev => prev.filter(m => m.id !== id));
+    setChecked(prev => {
+      const next = new Set(prev);
+      next.delete(`m||${id}`);
+      return next;
+    });
+  };
+
+  // Merge auto items + manual items into one grouped structure
+  const displayGrouped = useMemo(() => {
+    const g: Record<string, { emoji: string; items: DisplayItem[] }> = {};
+    for (const [cat, group] of Object.entries(autoGrouped)) {
+      for (const item of group.items) {
+        (g[cat] ||= { emoji: group.emoji, items: [] }).items.push({ ...item, key: `${cat}||${item.name}` });
+      }
+    }
+    for (const m of manual) {
+      (g[m.category] ||= { emoji: m.categoryEmoji, items: [] }).items.push({
+        name: m.name,
+        amount: m.amount,
+        unit: m.unit,
+        original: m.name,
+        category: m.category,
+        categoryEmoji: m.categoryEmoji,
+        key: `m||${m.id}`,
+        manualId: m.id,
+      });
+    }
+    return g;
+  }, [autoGrouped, manual]);
+
+  const allKeys = useMemo(
+    () => Object.values(displayGrouped).flatMap(g => g.items.map(i => i.key)),
+    [displayGrouped],
+  );
+  const totalItems = allKeys.length;
+  const checkedCount = allKeys.filter(k => checked.has(k)).length;
+
+  const sortedCategories = Object.keys(displayGrouped).sort((a, b) => {
     const ai = CATEGORY_ORDER.indexOf(a);
     const bi = CATEGORY_ORDER.indexOf(b);
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
@@ -177,76 +288,115 @@ export default function ShoppingListDrawer({
               <p className="text-3xl mb-2">😕</p>
               <p className="text-sm text-gray-500">{t("cantLoad")}</p>
             </div>
-          ) : recipeIds.length === 0 ? (
-            <div className="px-5 py-12 text-center">
-              <p className="text-3xl mb-2">📭</p>
-              <p className="text-sm font-medium text-gray-600">{t("noRecipesInPlan")}</p>
-              <p className="text-xs text-gray-400 mt-1">{t("addRecipesFirst")}</p>
-            </div>
-          ) : totalItems === 0 ? (
-            <div className="px-5 py-12 text-center">
-              <p className="text-3xl mb-2">🤷</p>
-              <p className="text-sm text-gray-500">{t("noIngredients")}</p>
-            </div>
           ) : (
-            <div className="px-5 py-4 pb-8 space-y-6">
-              {sortedCategories.map(category => {
-                const group = grouped[category];
-                return (
-                  <div key={category}>
-                    {/* Category header */}
-                    <div className="flex items-center gap-2 mb-2 sticky top-0 bg-white/95 backdrop-blur-sm py-1">
-                      <span className="text-lg">{group.emoji}</span>
-                      <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">{category}</span>
-                      <span className="text-xs text-gray-300 ml-auto">
-                        {group.items.filter(i => checked.has(`${category}||${i.name}`)).length}/{group.items.length}
-                      </span>
-                    </div>
+            <div className="px-5 py-4 pb-8 space-y-5">
+              {/* Add your own item */}
+              <div className="flex items-center gap-2">
+                <input
+                  value={newName}
+                  onChange={e => setNewName(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter") addManual(); }}
+                  placeholder={tr("Add your own item…", "Eigenen Artikel hinzufügen…")}
+                  className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100"
+                />
+                <input
+                  value={newQty}
+                  onChange={e => setNewQty(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter") addManual(); }}
+                  placeholder={tr("Qty", "Menge")}
+                  className="w-20 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300"
+                />
+                <button
+                  onClick={addManual}
+                  disabled={!newName.trim()}
+                  className="w-10 h-10 flex-shrink-0 rounded-xl text-white text-xl font-semibold flex items-center justify-center transition-opacity hover:opacity-90 disabled:opacity-40"
+                  style={{ background: "#f97316" }}
+                  title={tr("Add item", "Artikel hinzufügen")}
+                >
+                  +
+                </button>
+              </div>
 
-                    {/* Items */}
-                    <div className="space-y-1">
-                      {group.items.map(item => {
-                        const key = `${category}||${item.name}`;
-                        const isDone = checked.has(key);
-                        return (
-                          <button
-                            key={key}
-                            onClick={() => toggleCheck(key)}
-                            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
-                              isDone
-                                ? "bg-gray-50 opacity-50"
-                                : "hover:bg-orange-50"
-                            }`}
-                          >
-                            {/* Checkbox */}
-                            <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                              isDone
-                                ? "bg-green-400 border-green-400"
-                                : "border-gray-300"
-                            }`}>
-                              {isDone && <span className="text-white text-xs">✓</span>}
+              {totalItems === 0 ? (
+                <div className="py-10 text-center">
+                  {recipeIds.length === 0 ? (
+                    <>
+                      <p className="text-3xl mb-2">📭</p>
+                      <p className="text-sm font-medium text-gray-600">{t("noRecipesInPlan")}</p>
+                      <p className="text-xs text-gray-400 mt-1">{tr("…or just add your own items above.", "…oder füge oben einfach eigene Artikel hinzu.")}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-3xl mb-2">🤷</p>
+                      <p className="text-sm text-gray-500">{t("noIngredients")}</p>
+                    </>
+                  )}
+                </div>
+              ) : (
+                sortedCategories.map(category => {
+                  const group = displayGrouped[category];
+                  return (
+                    <div key={category}>
+                      {/* Category header */}
+                      <div className="flex items-center gap-2 mb-2 sticky top-0 bg-white/95 backdrop-blur-sm py-1">
+                        <span className="text-lg">{group.emoji}</span>
+                        <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">{category}</span>
+                        <span className="text-xs text-gray-300 ml-auto">
+                          {group.items.filter(i => checked.has(i.key)).length}/{group.items.length}
+                        </span>
+                      </div>
+
+                      {/* Items */}
+                      <div className="space-y-1">
+                        {group.items.map(item => {
+                          const isDone = checked.has(item.key);
+                          return (
+                            <div key={item.key} className="flex items-center gap-1">
+                              <button
+                                onClick={() => toggleCheck(item.key)}
+                                className={`flex-1 flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
+                                  isDone ? "bg-gray-50 opacity-50" : "hover:bg-orange-50"
+                                }`}
+                              >
+                                {/* Checkbox */}
+                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
+                                  isDone ? "bg-green-400 border-green-400" : "border-gray-300"
+                                }`}>
+                                  {isDone && <span className="text-white text-xs">✓</span>}
+                                </div>
+                                {/* Name */}
+                                <span className={`flex-1 text-sm font-medium capitalize transition-all ${
+                                  isDone ? "line-through text-gray-400" : "text-gray-800"
+                                }`}>
+                                  {item.name}
+                                  {item.manualId && <span className="ml-1.5 text-xs text-gray-300 normal-case">✍️</span>}
+                                </span>
+                                {/* Amount */}
+                                {(item.amount || item.unit) && (
+                                  <span className={`text-xs flex-shrink-0 transition-all ${
+                                    isDone ? "text-gray-300" : "text-gray-500 font-medium"
+                                  }`}>
+                                    {formatAmount(item.amount, item.unit)}
+                                  </span>
+                                )}
+                              </button>
+                              {item.manualId && (
+                                <button
+                                  onClick={() => removeManual(item.manualId!)}
+                                  className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 rounded-lg transition-all"
+                                  title={tr("Remove", "Entfernen")}
+                                >
+                                  ×
+                                </button>
+                              )}
                             </div>
-                            {/* Name */}
-                            <span className={`flex-1 text-sm font-medium capitalize transition-all ${
-                              isDone ? "line-through text-gray-400" : "text-gray-800"
-                            }`}>
-                              {item.name}
-                            </span>
-                            {/* Amount */}
-                            {(item.amount || item.unit) && (
-                              <span className={`text-xs flex-shrink-0 transition-all ${
-                                isDone ? "text-gray-300" : "text-gray-500 font-medium"
-                              }`}>
-                                {formatAmount(item.amount, item.unit)}
-                              </span>
-                            )}
-                          </button>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           )}
         </div>
