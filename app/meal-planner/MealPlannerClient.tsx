@@ -28,6 +28,13 @@ interface Entry {
   servings: number | null;
 }
 
+interface Nut {
+  calories: number;
+  protein: number | null;
+  fat: number | null;
+  carbs: number | null;
+}
+
 interface PickerTarget {
   dayIndex: number;
   slot: "breakfast" | "lunch" | "dinner";
@@ -52,6 +59,7 @@ export default function MealPlannerPage() {
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
   const [autoFilling, setAutoFilling] = useState(false);
+  const [nutritionByRecipe, setNutritionByRecipe] = useState<Record<string, Nut>>({});
   const locale = useLocale();
 
   const DAYS_FULL = t.raw("daysFull") as string[];
@@ -256,6 +264,47 @@ export default function MealPlannerPage() {
     return m;
   }, [entries]);
 
+  // ── Nutrition (per serving) → day/week macro totals ──
+  const uniqueRecipeIds = useMemo(() => Array.from(new Set(entries.map(e => e.recipe_id))), [entries]);
+
+  useEffect(() => {
+    const missing = uniqueRecipeIds.filter(id => !(id in nutritionByRecipe));
+    if (missing.length === 0) return;
+    let cancelled = false;
+    fetch("/api/nutrition", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recipeIds: missing }),
+    })
+      .then(r => r.json())
+      .then(data => { if (!cancelled && data.nutrition) setNutritionByRecipe(prev => ({ ...prev, ...data.nutrition })); })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uniqueRecipeIds]);
+
+  const dayTotals = useMemo(() => {
+    const days: ({ calories: number; protein: number; fat: number; carbs: number; partial: boolean } | null)[] = [];
+    for (let d = 0; d < 7; d++) {
+      const dayEntries = entries.filter(e => e.day_index === d);
+      let cal = 0, p = 0, f = 0, c = 0, counted = 0;
+      for (const e of dayEntries) {
+        const n = nutritionByRecipe[e.recipe_id];
+        if (n) { cal += n.calories; p += n.protein ?? 0; f += n.fat ?? 0; c += n.carbs ?? 0; counted++; }
+      }
+      days.push(counted > 0 ? { calories: cal, protein: p, fat: f, carbs: c, partial: counted < dayEntries.length } : null);
+    }
+    return days;
+  }, [entries, nutritionByRecipe]);
+
+  const weekTotal = useMemo(() => {
+    let cal = 0, p = 0, f = 0, c = 0, daysWith = 0;
+    for (const d of dayTotals) {
+      if (d) { cal += d.calories; p += d.protein; f += d.fat; c += d.carbs; daysWith++; }
+    }
+    return { calories: cal, protein: p, fat: f, carbs: c, daysWith };
+  }, [dayTotals]);
+
   const openPicker = (dayIndex: number, slot: "breakfast" | "lunch" | "dinner") => {
     setPickerTarget({ dayIndex, slot });
   };
@@ -292,6 +341,11 @@ export default function MealPlannerPage() {
               </div>
               <p className="text-orange-100 text-xs">{t("mealsPlanned", { n: totalEntries })}</p>
             </div>
+            {weekTotal.daysWith > 0 && (
+              <span className="px-4 py-2 rounded-full bg-white/15 text-white text-sm font-medium">
+                Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal/{locale === "de" ? "Tag" : "day"}
+              </span>
+            )}
             {totalEntries < 21 && (
               <button
                 onClick={handleAutoFill}
@@ -423,6 +477,17 @@ export default function MealPlannerPage() {
               </div>
             </div>
           ))}
+          {weekTotal.daysWith > 0 && (
+            <div className="grid grid-cols-7 gap-3 mt-1 pt-2 border-t border-gray-100">
+              {dayTotals.map((dn, i) => (
+                <div key={i} className="text-center">
+                  {dn
+                    ? <p className="text-xs font-semibold text-gray-500">≈ {dn.calories}<span className="font-normal text-gray-400"> kcal</span></p>
+                    : <p className="text-xs text-gray-300">–</p>}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── Mobile: day-by-day ── */}
@@ -480,6 +545,15 @@ export default function MealPlannerPage() {
                   );
                 })}
               </div>
+              {dayTotals[dayIdx] && (
+                <div className="px-4 py-2 border-t border-gray-50 bg-gray-50/40 flex items-center justify-between">
+                  <span className="text-xs text-gray-400">{locale === "de" ? "Tag gesamt" : "Day total"}</span>
+                  <span className="text-xs font-medium text-gray-600">
+                    ≈ {dayTotals[dayIdx]!.calories} kcal
+                    <span className="text-gray-400 font-normal"> · {dayTotals[dayIdx]!.protein}P · {dayTotals[dayIdx]!.fat}F · {dayTotals[dayIdx]!.carbs}{locale === "de" ? "KH" : "C"}</span>
+                  </span>
+                </div>
+              )}
             </div>
           ))}
         </div>
