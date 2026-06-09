@@ -44,6 +44,7 @@ export interface Recipe {
   instructions: Step[];
   diets: string[];
   dishTypes: string[];
+  nutrition?: { calories: number; protein: number | null; fat: number | null; carbs: number | null } | null;
 }
 
 /** Translate a batch of strings EN→DE via the MyMemory route (chunked to 50). */
@@ -587,6 +588,32 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
               </div>
             </div>
           </div>
+
+          {/* Nutrition (per serving) */}
+          {recipe.nutrition && (
+            <div className="print-hide bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-5">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-sm font-bold text-gray-900">{locale === "de" ? "Nährwerte" : "Nutrition"}</h2>
+                <span className="text-xs text-gray-400">{locale === "de" ? "pro Portion" : "per serving"}</span>
+              </div>
+              <div className="grid grid-cols-4 gap-2 text-center">
+                {[
+                  { label: locale === "de" ? "Kalorien" : "Calories", value: recipe.nutrition.calories, unit: "kcal" },
+                  { label: locale === "de" ? "Eiweiß" : "Protein", value: recipe.nutrition.protein, unit: "g" },
+                  { label: locale === "de" ? "Fett" : "Fat", value: recipe.nutrition.fat, unit: "g" },
+                  { label: locale === "de" ? "Kohlenhydrate" : "Carbs", value: recipe.nutrition.carbs, unit: "g" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-orange-50 rounded-xl py-2.5 px-1">
+                    <p className="text-base font-bold text-gray-900 leading-none">
+                      {s.value != null ? s.value : "–"}
+                      <span className="text-xs font-normal text-gray-400"> {s.unit}</span>
+                    </p>
+                    <p className="text-xs text-gray-400 mt-1 leading-tight">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Ingredients + Instructions */}
           <div className="print-ingredients-grid grid grid-cols-1 md:grid-cols-3 gap-5">

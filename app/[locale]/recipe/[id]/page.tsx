@@ -131,6 +131,17 @@ export default async function RecipePage(
         ...(dishTypes.length || diets.length
           ? { keywords: [...dishTypes, ...diets].join(", ") }
           : {}),
+        ...(recipe.nutrition
+          ? {
+              nutrition: {
+                "@type": "NutritionInformation",
+                ...(recipe.nutrition.calories != null ? { calories: `${recipe.nutrition.calories} kcal` } : {}),
+                ...(recipe.nutrition.protein != null ? { proteinContent: `${recipe.nutrition.protein} g` } : {}),
+                ...(recipe.nutrition.fat != null ? { fatContent: `${recipe.nutrition.fat} g` } : {}),
+                ...(recipe.nutrition.carbs != null ? { carbohydrateContent: `${recipe.nutrition.carbs} g` } : {}),
+              },
+            }
+          : {}),
         recipeIngredient: recipe.ingredients?.map((i) => i.original) ?? [],
         recipeInstructions:
           recipe.instructions?.map((s) => ({

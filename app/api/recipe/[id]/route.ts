@@ -234,11 +234,22 @@ export async function GET(
   // Spoonacular recipe
   try {
     const res = await fetch(
-      `${BASE}/recipes/${id}/information?includeNutrition=false&apiKey=${API_KEY}`,
+      `${BASE}/recipes/${id}/information?includeNutrition=true&apiKey=${API_KEY}`,
       { next: { revalidate: 86400 } }
     );
     if (!res.ok) throw new Error(`Spoonacular error: ${res.status}`);
     const data = await res.json();
+
+    // Per-serving nutrition (Spoonacular includes it with includeNutrition=true).
+    const nutrients: Array<{ name?: string; amount?: number }> = data?.nutrition?.nutrients ?? [];
+    const nutAmount = (name: string): number | null => {
+      const n = nutrients.find((x) => x.name === name);
+      return n && typeof n.amount === "number" ? Math.round(n.amount) : null;
+    };
+    const calories = nutAmount("Calories");
+    const nutrition = calories != null
+      ? { calories, protein: nutAmount("Protein"), fat: nutAmount("Fat"), carbs: nutAmount("Carbohydrates") }
+      : null;
 
     const recipe = {
       id: data.id,
@@ -262,6 +273,7 @@ export async function GET(
       })),
       diets: data.diets || [],
       dishTypes: data.dishTypes || [],
+      nutrition,
     };
     return NextResponse.json({ recipe }, {
       headers: { "Cache-Control": "s-maxage=86400, stale-while-revalidate=604800" },
