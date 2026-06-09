@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
+import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -60,6 +61,15 @@ export async function GET(
 
       const totalTime = (r.cook_time || 0) + (r.prep_time || 0);
 
+      // Nutrition: use the cached value, or compute it once (lazy) and store it.
+      let nutrition = (r.nutrition as { calories: number; protein: number | null; fat: number | null; carbs: number | null } | null) ?? null;
+      if (!nutrition && Array.isArray(r.ingredients) && r.ingredients.length) {
+        nutrition = await computeUserRecipeNutrition(r.servings, r.ingredients);
+        if (nutrition) {
+          await supabase.from("user_recipes").update({ nutrition }).eq("id", uuid);
+        }
+      }
+
       const recipe = {
         id,
         title: r.title,
@@ -77,6 +87,7 @@ export async function GET(
         instructions,
         diets: Array.isArray(r.tags) ? r.tags : [],
         dishTypes: [],
+        nutrition,
       };
 
       return NextResponse.json({ recipe }, { headers: { "Cache-Control": "no-store" } });

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
 
 // Batch per-recipe nutrition (per serving) for the meal planner's day/week
 // totals. Currently covers Spoonacular recipes (the primary source) via a
@@ -57,6 +59,30 @@ export async function POST(req: NextRequest) {
           const n = extractNutrition(r?.nutrition?.nutrients ?? []);
           if (n) nutrition[String(r.id)] = n;
         }
+      }
+    } catch {
+      /* ignore — nutrition is best-effort */
+    }
+  }
+
+  // User-created / imported recipes — cached on the row, computed lazily.
+  const userUuids = Array.from(new Set(
+    recipeIds.filter((id) => id.startsWith("user_")).map((id) => id.replace("user_", ""))
+  ));
+  if (userUuids.length) {
+    try {
+      const admin = createAdminClient();
+      const { data: rows } = await admin
+        .from("user_recipes")
+        .select("id, nutrition, ingredients, servings")
+        .in("id", userUuids);
+      for (const r of rows ?? []) {
+        let n = (r.nutrition as Nut | null) ?? null;
+        if (!n && Array.isArray(r.ingredients) && r.ingredients.length) {
+          n = await computeUserRecipeNutrition(r.servings, r.ingredients);
+          if (n) await admin.from("user_recipes").update({ nutrition: n }).eq("id", r.id);
+        }
+        if (n) nutrition[`user_${r.id}`] = n;
       }
     } catch {
       /* ignore — nutrition is best-effort */
