@@ -60,6 +60,11 @@ export default function MealPlannerPage() {
   const [showShoppingList, setShowShoppingList] = useState(false);
   const [autoFilling, setAutoFilling] = useState(false);
   const [nutritionByRecipe, setNutritionByRecipe] = useState<Record<string, Nut>>({});
+  const [showAutoPlan, setShowAutoPlan] = useState(false);
+  const [generating, setGenerating] = useState(false);
+  const [planCalories, setPlanCalories] = useState("2000");
+  const [planDiet, setPlanDiet] = useState("");
+  const [generateError, setGenerateError] = useState(false);
   const locale = useLocale();
 
   const DAYS_FULL = t.raw("daysFull") as string[];
@@ -251,6 +256,41 @@ export default function MealPlannerPage() {
     }
   };
 
+  // Generate a full week targeting a daily calorie goal (Spoonacular) and
+  // replace the active plan with it.
+  const handleGeneratePlan = async () => {
+    if (generating || !activePlanId) return;
+    if (entries.length > 0 && !confirm(locale === "de" ? "Das ersetzt den aktuellen Plan. Fortfahren?" : "This replaces your current plan. Continue?")) return;
+    setGenerating(true);
+    setGenerateError(false);
+    try {
+      const res = await fetch("/api/generate-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ targetCalories: Number(planCalories) || 2000, diet: planDiet }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !Array.isArray(data.entries) || data.entries.length === 0) {
+        setGenerateError(true);
+        return;
+      }
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      await supabase.from("meal_plan_entries").delete().eq("plan_id", activePlanId);
+      const rows = (data.entries as Omit<Entry, "id" | "servings">[]).map(e => ({ ...e, plan_id: activePlanId, user_id: user.id }));
+      const { data: inserted } = await supabase
+        .from("meal_plan_entries")
+        .upsert(rows, { onConflict: "plan_id,day_index,meal_slot" })
+        .select();
+      setEntries((inserted as Entry[]) ?? []);
+      setShowAutoPlan(false);
+    } catch {
+      setGenerateError(true);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   const getEntry = (dayIndex: number, slot: string) =>
     entries.find(e => e.day_index === dayIndex && e.meal_slot === slot);
 
@@ -346,17 +386,12 @@ export default function MealPlannerPage() {
                 Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal/{locale === "de" ? "Tag" : "day"}
               </span>
             )}
-            {totalEntries < 21 && (
-              <button
-                onClick={handleAutoFill}
-                disabled={autoFilling}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all disabled:opacity-60"
-              >
-                {autoFilling
-                  ? (locale === "de" ? "Fülle…" : "Filling…")
-                  : (locale === "de" ? "✨ Woche füllen" : "✨ Auto-fill")}
-              </button>
-            )}
+            <button
+              onClick={() => setShowAutoPlan(true)}
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all"
+            >
+              ✨ {locale === "de" ? "Auto-Plan" : "Auto-plan"}
+            </button>
             {totalEntries > 0 && (
               <button
                 onClick={() => setShowShoppingList(true)}
@@ -599,6 +634,70 @@ export default function MealPlannerPage() {
           targets={shoppingTargets}
           onClose={() => setShowShoppingList(false)}
         />
+      )}
+
+      {/* Auto-plan modal */}
+      {showAutoPlan && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => !generating && setShowAutoPlan(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
+            <div className="text-center mb-5">
+              <div className="text-4xl mb-2">🎯</div>
+              <h2 className="text-xl font-bold text-gray-900 mb-1">{locale === "de" ? "Auto-Wochenplan" : "Auto meal plan"}</h2>
+              <p className="text-sm text-gray-500">{locale === "de" ? "Wir füllen die Woche nach deinem Kalorienziel." : "We fill the week to your calorie goal."}</p>
+            </div>
+
+            <label className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5 block">{locale === "de" ? "Kalorien pro Tag" : "Calories per day"}</label>
+            <input
+              type="number" value={planCalories} min={800} max={5000} step={50}
+              onChange={e => setPlanCalories(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm mb-4 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+            />
+
+            <label className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5 block">{locale === "de" ? "Ernährung (optional)" : "Diet (optional)"}</label>
+            <select
+              value={planDiet} onChange={e => setPlanDiet(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm mb-5 bg-white focus:outline-none focus:border-orange-400"
+            >
+              <option value="">{locale === "de" ? "Keine" : "None"}</option>
+              <option value="vegetarian">{locale === "de" ? "Vegetarisch" : "Vegetarian"}</option>
+              <option value="vegan">Vegan</option>
+              <option value="gluten free">{locale === "de" ? "Glutenfrei" : "Gluten free"}</option>
+              <option value="ketogenic">Keto</option>
+              <option value="paleo">Paleo</option>
+              <option value="pescetarian">{locale === "de" ? "Pescetarisch" : "Pescetarian"}</option>
+            </select>
+
+            <button
+              onClick={handleGeneratePlan} disabled={generating}
+              className="w-full py-3.5 rounded-full text-white font-semibold text-sm disabled:opacity-60"
+              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+            >
+              {generating ? (locale === "de" ? "Generiere…" : "Generating…") : (locale === "de" ? "Woche generieren" : "Generate week")}
+            </button>
+
+            {generateError && (
+              <p className="text-xs text-red-500 text-center mt-2">{locale === "de" ? "Konnte keinen Plan erzeugen — versuch andere Werte." : "Couldn't generate a plan — try different values."}</p>
+            )}
+
+            <div className="flex items-center gap-2 my-4">
+              <div className="flex-1 h-px bg-gray-100" />
+              <span className="text-xs text-gray-300">{locale === "de" ? "oder" : "or"}</span>
+              <div className="flex-1 h-px bg-gray-100" />
+            </div>
+
+            <button
+              onClick={() => { setShowAutoPlan(false); handleAutoFill(); }}
+              disabled={generating}
+              className="w-full py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-60"
+            >
+              {locale === "de" ? "Leere Slots aus meinen Rezepten füllen" : "Fill empty slots from my recipes"}
+            </button>
+
+            <button onClick={() => setShowAutoPlan(false)} disabled={generating} className="w-full mt-2 py-2 text-sm text-gray-400 hover:text-gray-600">
+              {locale === "de" ? "Abbrechen" : "Cancel"}
+            </button>
+          </div>
+        </div>
       )}
 
       {/* Pro modal */}
