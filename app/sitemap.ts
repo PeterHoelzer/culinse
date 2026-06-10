@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 // Maps EN blog slug → DE blog slug
 const blogSlugMap: Record<string, string> = {
@@ -89,5 +90,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Silently fail — don't break the build if Spoonacular is unavailable
   }
 
-  return [...staticEntries, ...blogEntries, ...recipeEntries];
+  // Public collections — SEO landing pages (unique curated content).
+  let collectionEntries: MetadataRoute.Sitemap = [];
+  try {
+    const admin = createAdminClient();
+    const { data: cols } = await admin
+      .from("collections")
+      .select("id, created_at")
+      .eq("is_public", true)
+      .limit(2000);
+    collectionEntries = (cols ?? []).flatMap((col: { id: string; created_at?: string }) => {
+      const enUrl = `${baseUrl}/en/collections/${col.id}`;
+      const deUrl = `${baseUrl}/de/collections/${col.id}`;
+      const lastModified = col.created_at ? new Date(col.created_at) : STATIC_LAST_MODIFIED;
+      return [
+        { url: enUrl, lastModified, changeFrequency: "weekly" as const, priority: 0.5, alternates: langs(enUrl, deUrl) },
+        { url: deUrl, lastModified, changeFrequency: "weekly" as const, priority: 0.5, alternates: langs(enUrl, deUrl) },
+      ];
+    });
+  } catch {
+    // Silently fail — collections are a bonus, never break the sitemap.
+  }
+
+  return [...staticEntries, ...blogEntries, ...recipeEntries, ...collectionEntries];
 }

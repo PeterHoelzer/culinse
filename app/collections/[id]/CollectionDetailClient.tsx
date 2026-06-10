@@ -7,7 +7,7 @@ import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
-interface CollectionRecipe {
+export interface CollectionRecipe {
   id: string;
   recipe_id: string;
   title: string;
@@ -18,7 +18,7 @@ interface CollectionRecipe {
   added_at: string;
 }
 
-interface Collection {
+export interface Collection {
   id: string;
   user_id: string;
   name: string;
@@ -114,13 +114,19 @@ function RecipeCard({
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
-export default function CollectionDetailPage() {
+export default function CollectionDetailPage({
+  initialCollection,
+  initialRecipes,
+}: {
+  initialCollection?: Collection | null;
+  initialRecipes?: CollectionRecipe[];
+} = {}) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [collection, setCollection] = useState<Collection | null>(null);
-  const [recipes, setRecipes] = useState<CollectionRecipe[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [collection, setCollection] = useState<Collection | null>(initialCollection ?? null);
+  const [recipes, setRecipes] = useState<CollectionRecipe[]>(initialRecipes ?? []);
+  const [loading, setLoading] = useState(!initialCollection);
   const [isOwner, setIsOwner] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -130,6 +136,13 @@ export default function CollectionDetailPage() {
     supabase.auth.getUser().then(async ({ data }) => {
       const currentUser = data.user;
       setUser(currentUser);
+
+      // Server already provided a (public) collection → just resolve ownership.
+      if (initialCollection) {
+        setIsOwner(currentUser?.id === initialCollection.user_id);
+        setLoading(false);
+        return;
+      }
 
       // Fetch collection
       const { data: col, error } = await supabase
