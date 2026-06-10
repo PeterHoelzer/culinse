@@ -108,6 +108,7 @@ export default function ShoppingListDrawer({
   const [error, setError] = useState(false);
   const [newName, setNewName] = useState("");
   const [newQty, setNewQty] = useState("");
+  const [pantry, setPantry] = useState<{ id: string; name: string }[]>([]);
   const loadedRef = useRef(false);
 
   // Auto items from the recipes in the plan
@@ -161,6 +162,19 @@ export default function ShoppingListDrawer({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checked, manual, planId]);
 
+  // Load the user's pantry — RLS scopes the query to the current user.
+  useEffect(() => {
+    let cancelled = false;
+    supabase
+      .from("pantry_items")
+      .select("id, name")
+      .then(({ data }) => {
+        if (!cancelled && Array.isArray(data)) setPantry(data as { id: string; name: string }[]);
+      });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const toggleCheck = (key: string) => {
     setChecked(prev => {
       const next = new Set(prev);
@@ -189,6 +203,26 @@ export default function ShoppingListDrawer({
     });
   };
 
+  // ── Pantry ("what I already have") ──
+  const pantrySet = useMemo(() => new Set(pantry.map(p => p.name.toLowerCase().trim())), [pantry]);
+  const inPantry = (name: string) => pantrySet.has(name.toLowerCase().trim());
+
+  const addToPantry = async (name: string) => {
+    const clean = name.trim();
+    if (!clean || pantrySet.has(clean.toLowerCase())) return;
+    const tempId = crypto.randomUUID();
+    setPantry(prev => [...prev, { id: tempId, name: clean }]);
+    const { data } = await supabase.from("pantry_items").insert({ name: clean }).select("id").single();
+    if (data?.id) setPantry(prev => prev.map(p => (p.id === tempId ? { ...p, id: data.id as string } : p)));
+  };
+
+  const removeFromPantry = async (name: string) => {
+    const target = pantry.find(p => p.name.toLowerCase().trim() === name.toLowerCase().trim());
+    if (!target) return;
+    setPantry(prev => prev.filter(p => p.id !== target.id));
+    await supabase.from("pantry_items").delete().eq("id", target.id);
+  };
+
   // Merge auto items + manual items into one grouped structure
   const displayGrouped = useMemo(() => {
     const g: Record<string, { emoji: string; label: string; items: DisplayItem[] }> = {};
@@ -212,12 +246,16 @@ export default function ShoppingListDrawer({
     return g;
   }, [autoGrouped, manual, de]);
 
-  const allKeys = useMemo(
-    () => Object.values(displayGrouped).flatMap(g => g.items.map(i => i.key)),
-    [displayGrouped],
+  const buyKeys = useMemo(
+    () => Object.values(displayGrouped).flatMap(g => g.items).filter(i => !pantrySet.has(i.name.toLowerCase().trim())).map(i => i.key),
+    [displayGrouped, pantrySet],
   );
-  const totalItems = allKeys.length;
-  const checkedCount = allKeys.filter(k => checked.has(k)).length;
+  const pantryItems = useMemo(
+    () => Object.values(displayGrouped).flatMap(g => g.items).filter(i => pantrySet.has(i.name.toLowerCase().trim())),
+    [displayGrouped, pantrySet],
+  );
+  const totalItems = buyKeys.length;
+  const checkedCount = buyKeys.filter(k => checked.has(k)).length;
 
   const sortedCategories = Object.keys(displayGrouped).sort((a, b) => {
     const ai = CATEGORY_ORDER.indexOf(a);
@@ -321,7 +359,7 @@ export default function ShoppingListDrawer({
                 </button>
               </div>
 
-              {totalItems === 0 ? (
+              {totalItems === 0 && pantryItems.length === 0 ? (
                 <div className="py-10 text-center">
                   {recipeIds.length === 0 ? (
                     <>
@@ -337,8 +375,11 @@ export default function ShoppingListDrawer({
                   )}
                 </div>
               ) : (
-                sortedCategories.map(category => {
+                <>
+                {sortedCategories.map(category => {
                   const group = displayGrouped[category];
+                  const visible = group.items.filter(i => !inPantry(i.name));
+                  if (visible.length === 0) return null;
                   return (
                     <div key={category}>
                       {/* Category header */}
@@ -346,13 +387,13 @@ export default function ShoppingListDrawer({
                         <span className="text-lg">{group.emoji}</span>
                         <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">{group.label ?? category}</span>
                         <span className="text-xs text-gray-300 ml-auto">
-                          {group.items.filter(i => checked.has(i.key)).length}/{group.items.length}
+                          {visible.filter(i => checked.has(i.key)).length}/{visible.length}
                         </span>
                       </div>
 
                       {/* Items */}
                       <div className="space-y-1">
-                        {group.items.map(item => {
+                        {visible.map(item => {
                           const isDone = checked.has(item.key);
                           return (
                             <div key={item.key} className="flex items-center gap-1">
@@ -384,6 +425,13 @@ export default function ShoppingListDrawer({
                                   </span>
                                 )}
                               </button>
+                              <button
+                                onClick={() => addToPantry(item.name)}
+                                className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
+                                title={tr("I already have this", "Hab ich zuhause")}
+                              >
+                                🏠
+                              </button>
                               {item.manualId && (
                                 <button
                                   onClick={() => removeManual(item.manualId!)}
@@ -399,7 +447,36 @@ export default function ShoppingListDrawer({
                       </div>
                     </div>
                   );
-                })
+                })}
+
+                {pantryItems.length > 0 && (
+                  <div className="pt-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-base">🏠</span>
+                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">
+                        {tr("Already have", "Schon zuhause")} ({pantryItems.length})
+                      </span>
+                    </div>
+                    <div className="space-y-1">
+                      {pantryItems.map(item => (
+                        <div key={item.key} className="flex items-center gap-1">
+                          <div className="flex-1 flex items-center gap-3 px-3 py-2 rounded-xl bg-gray-50/60">
+                            <span className="text-green-400 text-sm flex-shrink-0">✓</span>
+                            <span className="flex-1 text-sm font-medium capitalize text-gray-400 line-through">{item.name}</span>
+                          </div>
+                          <button
+                            onClick={() => removeFromPantry(item.name)}
+                            className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
+                            title={tr("Need to buy after all", "Doch kaufen")}
+                          >
+                            ↩
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                </>
               )}
             </div>
           )}
