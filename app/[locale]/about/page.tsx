@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (locale === "de") {
     return {
       title: "Über uns – Von einem Küchenchef gebaut",
-      description: "Culinse wurde von einem Fleischermeister und Küchenchef entwickelt, der es satt hatte, für jedes Rezept dutzende Seiten besuchen zu müssen.",
+      description: "Culinse wurde von einem Küchenchef und Fleischermeister entwickelt, der es satt hatte, für jedes Rezept dutzende Seiten besuchen zu müssen.",
     };
   }
   return {
