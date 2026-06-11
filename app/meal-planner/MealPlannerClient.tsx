@@ -65,6 +65,7 @@ export default function MealPlannerPage() {
   const [planCalories, setPlanCalories] = useState("2000");
   const [planDiet, setPlanDiet] = useState("");
   const [generateError, setGenerateError] = useState(false);
+  const [allowRepeats, setAllowRepeats] = useState(false);
   const locale = useLocale();
 
   const DAYS_FULL = t.raw("daysFull") as string[];
@@ -182,9 +183,10 @@ export default function MealPlannerPage() {
     await supabase.from("meal_plan_entries").update({ servings: value }).eq("id", entry.id);
   };
 
-  // Auto-fill all empty slots with recipes from the user's saved recipes,
-  // topped up with trending recipes so it works even for brand-new users.
-  const handleAutoFill = async () => {
+  // Auto-fill empty slots with recipes from the user's OWN recipes + saved
+  // recipes, topped up with trending so it works even for brand-new users.
+  // No duplicates by default; `allowRepeats` lets a dish span several days.
+  const handleAutoFill = async (allowRepeats = false) => {
     if (autoFilling || !activePlanId) return;
     setAutoFilling(true);
     try {
@@ -203,32 +205,54 @@ export default function MealPlannerPage() {
       type Cand = { recipe_id: string; title: string; image: string | null; time: number | null };
       const toTime = (v: unknown): number | null => (v ? (parseInt(String(v)) || null) : null);
 
+      // Candidate pool — deduped by recipe_id.
+      const pool: Cand[] = [];
+      const seen = new Set<string>();
+      const add = (c: Cand) => {
+        if (c.recipe_id && c.title && !seen.has(c.recipe_id)) { seen.add(c.recipe_id); pool.push(c); }
+      };
+
+      // 1. The user's own created/imported recipes.
+      const { data: own } = await supabase
+        .from("user_recipes")
+        .select("id, title, image_url, cook_time")
+        .eq("user_id", user.id);
+      (own ?? []).forEach(r => add({ recipe_id: `user_${r.id}`, title: r.title, image: r.image_url ?? null, time: toTime(r.cook_time) }));
+
+      // 2. Saved recipes.
       const { data: saved } = await supabase
         .from("saved_recipes")
         .select("recipe_id, title, image, time")
         .eq("user_id", user.id);
-      const pool: Cand[] = (saved ?? [])
-        .filter(r => r.recipe_id && r.title)
-        .map(r => ({ recipe_id: String(r.recipe_id), title: r.title, image: r.image ?? null, time: toTime(r.time) }));
+      (saved ?? []).forEach(r => add({ recipe_id: String(r.recipe_id), title: r.title, image: r.image ?? null, time: toTime(r.time) }));
 
-      // Top up from trending if the user hasn't saved enough recipes yet.
-      if (pool.length < emptySlots.length) {
+      // Without repeats, never reuse a recipe that's already in the plan.
+      const plannedIds = new Set(entries.map(e => e.recipe_id));
+      const usable: Cand[] = allowRepeats ? [...pool] : pool.filter(c => !plannedIds.has(c.recipe_id));
+
+      // 3. Top up from trending if we still need more (unique) recipes.
+      if (usable.length < emptySlots.length) {
         try {
           const res = await fetch(`/api/recipes?number=24&lang=${locale}`);
           const data = await res.json();
           for (const r of (data.recipes ?? [])) {
             const id = String(r.id);
-            if (!r.title || pool.some(p => p.recipe_id === id)) continue;
-            pool.push({ recipe_id: id, title: r.title, image: r.image ?? null, time: toTime(r.time) });
+            if (!r.title || seen.has(id) || (!allowRepeats && plannedIds.has(id))) continue;
+            seen.add(id);
+            usable.push({ recipe_id: id, title: r.title, image: r.image ?? null, time: toTime(r.time) });
           }
-        } catch { /* ignore — saved recipes alone are fine */ }
+        } catch { /* ignore — own/saved recipes alone are fine */ }
       }
-      if (pool.length === 0) return;
+      if (usable.length === 0) return;
 
-      const shuffled = [...pool].sort(() => Math.random() - 0.5);
-      const rows = emptySlots.map((slot, i) => {
-        const r = shuffled[i % shuffled.length];
-        return {
+      const shuffled = [...usable].sort(() => Math.random() - 0.5);
+      const rows: { plan_id: string; user_id: string; day_index: number; meal_slot: string; recipe_id: string; recipe_title: string; recipe_image: string | null; recipe_time: number | null }[] = [];
+      emptySlots.forEach((slot, i) => {
+        // No repeats → unique recipe per slot (stop when the pool runs out);
+        // repeats allowed → wrap around so a dish can span several days.
+        const r = allowRepeats ? shuffled[i % shuffled.length] : shuffled[i];
+        if (!r) return;
+        rows.push({
           plan_id: activePlanId,
           user_id: user.id,
           day_index: slot.day,
@@ -237,8 +261,9 @@ export default function MealPlannerPage() {
           recipe_title: r.title,
           recipe_image: r.image,
           recipe_time: r.time,
-        };
+        });
       });
+      if (rows.length === 0) return;
 
       const { data: inserted } = await supabase
         .from("meal_plan_entries")
@@ -685,8 +710,17 @@ export default function MealPlannerPage() {
               <div className="flex-1 h-px bg-gray-100" />
             </div>
 
+            <label className="flex items-center gap-2 mb-3 text-xs text-gray-500 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={allowRepeats}
+                onChange={e => setAllowRepeats(e.target.checked)}
+                className="accent-orange-500 w-4 h-4"
+              />
+              {locale === "de" ? "Gerichte über mehrere Tage erlauben (Wiederholungen)" : "Allow a dish across multiple days (repeats)"}
+            </label>
             <button
-              onClick={() => { setShowAutoPlan(false); handleAutoFill(); }}
+              onClick={() => { setShowAutoPlan(false); handleAutoFill(allowRepeats); }}
               disabled={generating}
               className="w-full py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-60"
             >
