@@ -56,6 +56,9 @@ export default function MealPlannerPage() {
   const [newPlanName, setNewPlanName] = useState("");
   const [deletingEntry, setDeletingEntry] = useState<string | null>(null);
   const [dragFrom, setDragFrom] = useState<{ day: number; slot: string } | null>(null);
+  const [moveFrom, setMoveFrom] = useState<{ day: number; slot: string } | null>(null);
+  const [copyingWeek, setCopyingWeek] = useState(false);
+  const [weekInfo, setWeekInfo] = useState<{ dates: Date[]; todayIdx: number } | null>(null);
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
@@ -76,6 +79,26 @@ export default function MealPlannerPage() {
     { value: "lunch"     as const, label: MEAL_LABELS[1], emoji: "☀️" },
     { value: "dinner"    as const, label: MEAL_LABELS[2], emoji: "🌙" },
   ];
+
+  // Current calendar week (Monday-based), computed client-side to avoid SSR
+  // hydration mismatches between server and client clocks.
+  useEffect(() => {
+    const now = new Date();
+    const todayIdx = (now.getDay() + 6) % 7; // 0 = Monday … 6 = Sunday
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - todayIdx);
+    monday.setHours(0, 0, 0, 0);
+    const dates = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(monday);
+      d.setDate(monday.getDate() + i);
+      return d;
+    });
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setWeekInfo({ dates, todayIdx });
+  }, []);
+
+  const fmtDate = (d: Date) =>
+    d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "numeric" });
 
   const loadEntries = useCallback(async (planId: string) => {
     if (!planId) return;
@@ -219,6 +242,51 @@ export default function MealPlannerPage() {
       supabase.from("meal_plan_entries").update(bData).eq("id", a.id),
       supabase.from("meal_plan_entries").update(aData).eq("id", b.id),
     ]);
+  };
+
+  // Duplicate the current plan (incl. all meals) into a fresh plan, then switch
+  // to it — handy for reusing a week as a template or starting the next week.
+  const handleCopyWeek = async () => {
+    if (copyingWeek) return;
+    if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
+    if (entries.length === 0) return;
+    setCopyingWeek(true);
+    try {
+      const current = plans.find(p => p.id === activePlanId);
+      const baseName = current?.name ?? t("planName");
+      const copyName = locale === "de" ? `${baseName} (Kopie)` : `${baseName} (Copy)`;
+      const res = await fetch("/api/meal-plans", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: copyName, is_active: false }),
+      });
+      if (res.status === 403) { setShowProModal(true); return; }
+      if (!res.ok) return;
+      const { plan } = await res.json();
+      if (!plan) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const rows = entries.map(e => ({
+        plan_id: plan.id,
+        user_id: user.id,
+        day_index: e.day_index,
+        meal_slot: e.meal_slot,
+        recipe_id: e.recipe_id,
+        recipe_title: e.recipe_title,
+        recipe_image: e.recipe_image,
+        recipe_time: e.recipe_time,
+        servings: e.servings,
+      }));
+      const { data: inserted } = await supabase
+        .from("meal_plan_entries")
+        .upsert(rows, { onConflict: "plan_id,day_index,meal_slot" })
+        .select();
+      setPlans(prev => [...prev, plan]);
+      setActivePlanId(plan.id);
+      setEntries((inserted as Entry[]) ?? []);
+    } finally {
+      setCopyingWeek(false);
+    }
   };
 
   // Auto-fill empty slots with recipes from the user's OWN recipes + saved
@@ -541,6 +609,17 @@ export default function MealPlannerPage() {
                   : t("newPlan")}
               </button>
             )}
+
+            {totalEntries > 0 && !creatingPlan && (
+              <button
+                onClick={handleCopyWeek}
+                disabled={copyingWeek}
+                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap flex items-center gap-2 disabled:opacity-50"
+                title={t("copyWeek")}
+              >
+                {copyingWeek ? "…" : <>⧉ {t("copyWeek")}</>}
+              </button>
+            )}
           </div>
         </div>
 
@@ -549,9 +628,19 @@ export default function MealPlannerPage() {
           <p className="text-[11px] text-gray-400 mb-2">{t("dragHint")}</p>
           {/* Day headers */}
           <div className="grid grid-cols-7 gap-3 mb-1 px-0">
-            {DAYS_FULL.map((d, i) => (
-              <div key={i} className="text-center text-xs font-bold text-gray-500 uppercase tracking-wide py-1">{d}</div>
-            ))}
+            {DAYS_FULL.map((d, i) => {
+              const isToday = weekInfo?.todayIdx === i;
+              return (
+                <div key={i} className={`text-center py-1 ${isToday ? "text-orange-600" : "text-gray-500"}`}>
+                  <div className="text-xs font-bold uppercase tracking-wide">{d}</div>
+                  {weekInfo && (
+                    <div className={`text-[10px] ${isToday ? "text-orange-500 font-semibold" : "text-gray-400"}`}>
+                      {fmtDate(weekInfo.dates[i])}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           {SLOTS.map(slot => (
             <div key={slot.value} className="mb-4">
@@ -599,14 +688,51 @@ export default function MealPlannerPage() {
 
         {/* ── Mobile: day-by-day ── */}
         <div className="md:hidden space-y-4">
-          {DAYS_FULL.map((day, dayIdx) => (
-            <div key={dayIdx} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/50">
-                <span className="text-sm font-bold text-gray-800">{day}</span>
+          {moveFrom && (
+            <div className="sticky top-0 z-20 flex items-center justify-between gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-sm rounded-xl px-3 py-2">
+              <span>{t("moveHint")}</span>
+              <button onClick={() => setMoveFrom(null)} className="font-semibold underline whitespace-nowrap">{t("cancel")}</button>
+            </div>
+          )}
+          {DAYS_FULL.map((day, dayIdx) => {
+            const isToday = weekInfo?.todayIdx === dayIdx;
+            return (
+            <div key={dayIdx} className={`bg-white rounded-2xl shadow-sm border overflow-hidden ${isToday ? "border-orange-200" : "border-gray-100"}`}>
+              <div className={`px-4 py-3 border-b border-gray-50 flex items-center justify-between ${isToday ? "bg-orange-50/60" : "bg-gray-50/50"}`}>
+                <span className={`text-sm font-bold ${isToday ? "text-orange-700" : "text-gray-800"}`}>{day}</span>
+                {weekInfo && (
+                  <span className={`text-xs ${isToday ? "text-orange-500 font-semibold" : "text-gray-400"}`}>
+                    {fmtDate(weekInfo.dates[dayIdx])}{isToday ? ` · ${t("today")}` : ""}
+                  </span>
+                )}
               </div>
               <div className="divide-y divide-gray-50">
                 {SLOTS.map(slot => {
                   const entry = getEntry(dayIdx, slot.value);
+                  // ── Move mode: every slot becomes a tap target ──
+                  if (moveFrom) {
+                    const isSource = moveFrom.day === dayIdx && moveFrom.slot === slot.value;
+                    return (
+                      <button
+                        key={slot.value}
+                        onClick={() => {
+                          if (isSource) { setMoveFrom(null); return; }
+                          handleMove(moveFrom, { day: dayIdx, slot: slot.value });
+                          setMoveFrom(null);
+                        }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${isSource ? "bg-orange-100/70" : "hover:bg-orange-50"}`}
+                      >
+                        <span className="w-7 text-center flex-shrink-0 text-lg">{slot.emoji}</span>
+                        <span className={`flex-1 min-w-0 text-sm ${isSource ? "text-orange-700 font-medium" : "text-orange-600"}`}>
+                          {isSource
+                            ? t("moving")
+                            : entry
+                            ? `${t("swapHere")}: ${entry.recipe_title}`
+                            : t("moveHere")}
+                        </span>
+                      </button>
+                    );
+                  }
                   return (
                     <div key={slot.value} className="flex items-center gap-3 px-4 py-3">
                       <div className="w-7 text-center flex-shrink-0">
@@ -642,11 +768,18 @@ export default function MealPlannerPage() {
                         )}
                       </div>
                       {entry && (
-                        <button
-                          onClick={() => openPicker(dayIdx, slot.value)}
-                          className="text-xs text-gray-300 hover:text-orange-400 flex-shrink-0 transition-colors"
-                          title="Replace"
-                        >↻</button>
+                        <div className="flex items-center gap-1 flex-shrink-0">
+                          <button
+                            onClick={() => setMoveFrom({ day: dayIdx, slot: slot.value })}
+                            className="text-sm text-gray-300 hover:text-orange-400 transition-colors"
+                            title={t("move")}
+                          >↕</button>
+                          <button
+                            onClick={() => openPicker(dayIdx, slot.value)}
+                            className="text-xs text-gray-300 hover:text-orange-400 transition-colors"
+                            title="Replace"
+                          >↻</button>
+                        </div>
                       )}
                     </div>
                   );
@@ -662,7 +795,8 @@ export default function MealPlannerPage() {
                 </div>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Empty state */}
