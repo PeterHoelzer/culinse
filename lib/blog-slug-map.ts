@@ -20,6 +20,7 @@ export const EN_TO_DE_BLOG_SLUGS: Record<string, string> = {
   "budget-meals-under-5-euros": "guenstige-mahlzeiten-unter-5-euro",
   "meal-prep-for-beginners": "meal-prep-fuer-anfaenger",
   "what-should-i-cook-tonight": "was-koche-ich-heute-abend-ideen-fuer-die-woche",
+  "weekly-grocery-list-from-meal-plan": "einkaufsliste-fuer-die-woche-erstellen",
 };
 
 // Reverse lookup (DE slug → EN slug), derived automatically so it can never

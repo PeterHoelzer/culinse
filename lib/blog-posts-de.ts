@@ -772,6 +772,169 @@ export const blogPostsDe: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "schnelle-abendessen-rezepte-was-wirklich-funktioniert",
+    title: "Schnelle Abendessen-Rezepte: Was wirklich funktioniert",
+    description:
+      "Die meisten '30-Minuten-Rezepte' brauchen heimlich 45. Hier sind schnelle Abendessen, die wirklich schnell gehen — plus Tipps, wie Feierabendküche zuverlässig schnell bleibt.",
+    publishedAt: "2026-05-28",
+    readingTime: "5 Min. Lesezeit",
+    category: "Abendessen-Ideen",
+    sections: [
+      {
+        content:
+          "Du bist wahrscheinlich schon auf den 30-Minuten-Mythos hereingefallen. Allein die Vorbereitung dauert 20 Minuten, und irgendwo zwischen 'Zwiebel schnell würfeln' und 'Sauce glasig einkochen' steht die Uhr bei 55 Minuten — und du isst um 20 Uhr.",
+      },
+      {
+        content:
+          "Wirklich schnelle Abendessen haben ein paar Eigenschaften gemeinsam, die nichts damit zu tun haben, wie sie beworben werden. Hier ist, worauf du achten solltest — und eine Auswahl an Rezepten, die wirklich liefern.",
+      },
+      {
+        heading: "Was ein Rezept wirklich schnell macht",
+        content:
+          "Der Flaschenhals ist fast nie die Garzeit — es ist die Vorbereitung. Ein Rezept ist schnell, wenn:",
+        list: [
+          "Es wenig Schnippelei braucht: Dosenbohnen und -tomaten sind bereits 'vorbereitet'.",
+          "In einer Pfanne gekocht wird: weniger Abwasch, kein paralleles Timing.",
+          "Das Protein von Natur aus schnell gart: Eier, Garnelen, Fischfilets und Hülsenfrüchte aus der Dose sind in unter 10 Minuten fertig.",
+          "Kein Ablöschen, Einreduzieren oder Emulgieren nötig ist: Diese Schritte klingen einfach, kosten aber 10–15 Minuten.",
+        ],
+      },
+      {
+        heading: "Rezepte, die wirklich unter 30 Minuten gehen",
+        content: "Diese funktionieren auch, wenn du müde bist und langsam machst:",
+        list: [
+          "Garnelen-Wok mit Reis (vorgekochten oder Mikrowellenreis nutzen): Garnelen garen in 3–4 Minuten, die Sauce in 2.",
+          "Frittata: Eier verquirlen, in eine ofenfeste Pfanne mit Gemüse/Käse gießen, 12 Minuten bei 200 °C.",
+          "Weiße-Bohnen-Spinat-Suppe: Dosenbohnen, Gemüsebrühe, Knoblauch, Zitrone. In 15 Minuten fertig.",
+          "Pesto-Pasta mit Kirschtomaten: Nudeln kochen, mit Pesto aus dem Glas und halbierten Tomaten mischen. 15 Minuten.",
+          "Fisch-Tacos: Weiße Fischfilets brauchen 8 Minuten in der Pfanne, den Taco baust du währenddessen.",
+          "Caprese-Hähnchen: Hähnchenbrust flach klopfen, 7 Minuten pro Seite braten, mit Mozzarella und Tomate belegen.",
+          "Türkische Eier (Çılbır): Eier in gewürztem Joghurt pochieren, mit brauner Butter abschließen. Klingt beeindruckend, dauert 12 Minuten.",
+          "Soba-Nudelsalat: Nudeln 4 Minuten kochen, mit Soja-Sesam-Dressing, Gurke und Edamame mischen.",
+        ],
+      },
+      {
+        heading: "Die Vorbereitungs-Abkürzungen, die alles ändern",
+        content:
+          "Neben den richtigen Rezepten sparen ein paar Vorbereitungs-Gewohnheiten deutlich Zeit am Feierabend:",
+        list: [
+          "Gekochtes Getreide im Kühlschrank haben: Sonntags eine große Portion Reis oder Quinoa kochen. Aufwärmen in 2 Minuten.",
+          "Dosen und Tiefkühl nutzen: Dosenbohnen, TK-Edamame, TK-Spinat — gar keine Vorbereitung.",
+          "Vorgeschnittenes Gemüse, wo es zählt: TK-Wok-Mischungen, fertig geraspelter Kohl für Slaws.",
+          "Mise en place vor dem Anheizen: 3 Minuten Vorbereitung vor dem Kochen machen alles schneller und entspannter.",
+        ],
+      },
+      {
+        heading: "Warum Planung schneller ist als Tempo",
+        content:
+          "Selbst das schnellste Rezept erfordert einen Gang zum Supermarkt, wenn Zutaten fehlen. Der eigentliche Tempo-Trick fürs Feierabendessen ist nicht, schnellere Rezepte zu finden — sondern 3–4 Mahlzeiten im Voraus zu planen und einmal für alle einzukaufen.",
+      },
+      {
+        content:
+          "Wenn du die richtigen Zutaten zu Hause hast, kochst du jedes dieser Gerichte in unter 30 Minuten, ohne nachzudenken. Culinse hilft dir, die Woche zu planen, und erstellt die Einkaufsliste automatisch — damit die Zutaten da sind, wenn du sie brauchst. Kostenlos auf culinse.com.",
+      },
+    ],
+  },
+
+  {
+    slug: "einkaufsliste-fuer-die-woche-erstellen",
+    title: "Einkaufsliste für die Woche erstellen: So vergisst du nie wieder etwas",
+    description:
+      "Aus deinem Essensplan wird eine clevere Wochen-Einkaufsliste: Zutaten aus den Rezepten ziehen, Vorrat prüfen, nach Abteilung sortieren — und nichts vergessen.",
+    publishedAt: "2026-06-13",
+    readingTime: "6 Min. Lesezeit",
+    category: "Wochenplanung",
+    sections: [
+      {
+        content:
+          "Die meisten Essenspläne scheitern nicht in der Küche, sondern im Supermarkt. Am Sonntag hast du fünf Abendessen geplant, aber am Mittwoch stehst du wieder im Laden und kaufst die eine Zutat, die du vergessen hast — plus drei Dinge, die du gar nicht brauchst. Eine gute Wochen-Einkaufsliste ist das, was aus einem Plan auf dem Papier eine Woche macht, die wirklich läuft.",
+      },
+      {
+        content:
+          "Die gute Nachricht: Eine Einkaufsliste ist nur dein Essensplan, von hinten aufgezäumt. Wenn du weißt, was du kochst, schreibt sich die Liste fast von allein. Hier ist das System, Schritt für Schritt.",
+      },
+      {
+        heading: "1. Erst der Plan, dann der Laden",
+        content:
+          "Geh nicht in den Laden und improvisiere. Entscheide zuerst, was du kochst, und kauf dann genau dafür ein. Du musst nicht alle 21 Mahlzeiten der Woche planen — nur die, die sonst im Lieferdienst enden:",
+        list: [
+          "Fünf Abendessen reichen den meisten. Lass zwei Abende frei für Reste oder Spontanes.",
+          "Nutze Zutaten mehrfach — wenn ein Rezept ein halbes Bund Petersilie braucht, plan ein zweites, das den Rest verwertet.",
+          "Nimm ein, zwei Rezepte, die du im Schlaf kannst, damit nicht die ganze Woche neu und anstrengend ist.",
+        ],
+      },
+      {
+        heading: "2. Jede Zutat aus den Rezepten ziehen",
+        content:
+          "Geh deine Rezepte einzeln durch und schreib auf, was jedes braucht — mit der echten Menge, nicht nur dem Namen. „Tomaten“ ist der Grund, warum du am Ende eine traurige Tomate für ein Gericht hast, das sechs gebraucht hätte.",
+        list: [
+          "Schreib die Menge neben jeden Posten: 500 g Nudeln, 400 g stückige Tomaten, 200 ml Sahne.",
+          "Fass Doppelte gleich zusammen — brauchen drei Rezepte Zwiebeln, addiere die Gesamtmenge, statt dreimal Zwiebeln zu schreiben.",
+          "Führ eine einzige, kombinierte Liste, nicht eine pro Rezept. Du kaufst einmal ein, also willst du eine Liste.",
+        ],
+      },
+      {
+        heading: "3. Erst den Vorrat prüfen, dann Grundzutaten ergänzen",
+        content:
+          "Diesen Schritt überspringen fast alle — und genau hier versickert das Geld. Bevor du die Liste fertig machst, schau, was du schon hast. Die meisten Küchen sind still und heimlich voll mit den Basics, die Rezepte verlangen.",
+        list: [
+          "Streich Grundzutaten, die du hast: Öl, Salz, Gewürze, Mehl, Reis, Nudeln, Konserven.",
+          "Prüf den Kühlschrank auf Angebrochenes — das Stück Käse oder das offene Glas Pesto.",
+          "Kauf nur, was wirklich fehlt. Aus 18 Posten werden oft 12, sobald du tatsächlich nachsiehst.",
+        ],
+      },
+      {
+        heading: "4. Die Liste nach Abteilung sortieren",
+        content:
+          "Eine Liste in der zufälligen Reihenfolge deiner Rezepte heißt: einmal quer durch den Laden und zurück für das Vergessene. Sortier sie stattdessen so, wie der Laden aufgebaut ist:",
+        list: [
+          "Obst & Gemüse: Obst, Gemüse, frische Kräuter.",
+          "Fleisch & Fisch.",
+          "Molkereiprodukte & Eier: Milch, Käse, Joghurt, Butter.",
+          "Tiefkühl.",
+          "Vorrat: Konserven, Nudeln, Reis, Gewürze, Backzutaten.",
+          "Backwaren und der Rest.",
+        ],
+      },
+      {
+        content:
+          "Eine kategorisierte Liste tut zwei unscheinbare, aber starke Dinge: Sie bringt dich schneller durch den Laden, und sie senkt Spontankäufe, weil du gezielt unterwegs bist, statt durch jeden Gang zu schlendern. Praktischer Nebeneffekt: Die frischen, unverarbeiteten Lebensmittel liegen meist am Rand — Obst, Gemüse, Fleisch, Molkerei —, eine Liste „von außen nach innen“ ist also oft auch die gesündere.",
+      },
+      {
+        heading: "5. Auf die Personenzahl skalieren",
+        content:
+          "Rezepte sind für eine feste Portionszahl geschrieben, und die ist selten deine. Bevor du Mengen auf die Liste überträgst, rechne sie um. Du kochst für zwei, das Rezept ist für vier? Halbiere es. Du willst Reste fürs Mittagessen? Verdopple bewusst und lass ein Abendessen zwei Tage abdecken.",
+      },
+      {
+        heading: "Ein paar Gewohnheiten, mit denen die Liste hält",
+        content:
+          "Die Liste allein ist nur die halbe Miete. Diese Gewohnheiten sorgen dafür, dass sie Woche für Woche funktioniert:",
+        list: [
+          "Kauf einmal ein. Jeder Extra-Gang ist eine neue Gelegenheit, zu viel und spontan zu kaufen.",
+          "Halt dich im Laden an die Liste — entschieden hast du schon zu Hause, also vertrau ihr.",
+          "Notier laufend, was zur Neige geht, dann schreibt sich die Liste nächste Woche halb von selbst.",
+          "Behalt im Blick, was schnell verdirbt. Nur zu kaufen, was du wirklich kochst, ist der einfachste Weg, weniger Essen und Geld wegzuwerfen.",
+        ],
+      },
+      {
+        heading: "Oder Culinse erstellt die Liste für dich",
+        content:
+          "Genau diese Schritte automatisiert Culinse. Es ist ein kostenloser Wochenplaner, der aus deiner Woche eine clevere Einkaufsliste macht — die Fleißarbeit fällt weg:",
+        list: [
+          "Plane deine Woche im einfachen Raster, und Culinse baut aus allen Rezepten eine kombinierte Einkaufsliste — Mengen addiert, Doppelte zusammengefasst.",
+          "Die Liste kommt schon nach Abteilung sortiert, du kaufst von oben nach unten, ohne zurückzulaufen.",
+          "Markier, was du schon hast — Vorratsartikel wandern in einen Bereich „schon vorhanden“ statt auf die Kaufliste.",
+          "Stell ein, für wie viele Personen du kochst, und jede Menge skaliert automatisch.",
+          "Hak beim Einkaufen ab und ergänze Zusätzliches von Hand.",
+        ],
+      },
+      {
+        content:
+          "Das manuelle System funktioniert wirklich — viele führen ihre ganze Woche mit Zettel und Stift. Eine App nimmt dir nur die mühsamen Teile ab: das Zusammenrechnen, das Sortieren, das Dran-Denken. Wenn die Liste fertig sein soll, sobald du mit dem Planen fertig bist, plane deine Woche kostenlos auf culinse.com.",
+      },
+    ],
+  },
 
 ];
 

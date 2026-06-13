@@ -781,6 +781,173 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+  {
+    slug: "what-should-i-cook-tonight",
+    title: "What Should I Cook Tonight? Ideas for Every Day of the Week",
+    description:
+      "The eternal question: what do I cook tonight? Here are concrete dinner ideas for every day of the week — plus a simple plan so you ask yourself this question far less often.",
+    publishedAt: "2026-05-28",
+    readingTime: "5 min read",
+    category: "Dinner Ideas",
+    sections: [
+      {
+        content:
+          "\"What should I cook tonight?\" is one of the most common searches there is — and for good reason. After a long day, the decision of what to make feels like disproportionate effort. It's not the cooking itself but the deciding beforehand that drains the energy.",
+      },
+      {
+        content:
+          "This article gives you concrete ideas for every day of the week — and explains why the best solution to the daily question is to stop asking it daily.",
+      },
+      {
+        heading: "Ideas for Every Day of the Week",
+        content: "A proven weekly grid that works in many households:",
+        list: [
+          "Monday — Pasta night: pasta with tomato sauce, pesto, or a creamy sauce. Simple, fast, no overthinking.",
+          "Tuesday — Chicken: roast chicken, a chicken skillet, or a chicken wrap. Versatile and quick.",
+          "Wednesday — Vegetarian: lentil soup, vegetable curry, a quiche, or a big veggie skillet.",
+          "Thursday — Fish: salmon fillet, tuna pasta, or fish with potatoes — a lighter plate mid-week.",
+          "Friday — Freestyle: pizza, burgers, or the week's favorite meal. Friday is allowed to be relaxed.",
+          "Saturday — Something more involved: risotto, a braise, or trying a new recipe.",
+          "Sunday — Classics: a roast, a soup, or meal prep for the week ahead.",
+        ],
+      },
+      {
+        heading: "The Day-of-the-Week Theme System",
+        content:
+          "The so-called 'theme system' sounds playful but has a real benefit: it narrows your choices to the essentials. You already know roughly what the evening will be, and only decide on the details.",
+        list: [
+          "Monday = pasta → which sauce? which protein?",
+          "Tuesday = poultry → skillet, oven, or wrap?",
+          "Wednesday = vegetarian → what's still in the fridge?",
+          "Thursday = fish → salmon, cod, or something smoked?",
+          "Friday = comfort food → step out of the plan, into the feel-good meal.",
+        ],
+      },
+      {
+        content:
+          "The system doesn't have to be rigid. It gives you a starting point instead of a blank page.",
+      },
+      {
+        heading: "The Real Solution: Plan Once a Week",
+        content:
+          "If you'd rather not ask 'what should I cook tonight?' every single day, plan once a week. It sounds like more effort than it is: 10 minutes on Sunday, five recipes chosen, a shopping list built, groceries bought. The whole week then runs on autopilot.",
+        list: [
+          "You know every evening what's for dinner — no more energy spent on the decision.",
+          "Your fridge holds exactly what you need — no daily mini grocery run.",
+          "Less food waste, because you buy what you'll actually use.",
+          "Far less takeout, because the dinner problem is solved before hunger hits.",
+        ],
+      },
+      {
+        heading: "How Culinse Helps",
+        content:
+          "Culinse is a free meal planner that simplifies exactly this process. You plan your week in a 7×3 grid (breakfast, lunch, dinner), pick recipes from a large library — or enter your own — and automatically get a combined shopping list, sorted by store category, with the right quantities.",
+      },
+      {
+        content:
+          "The result: instead of deciding from scratch every evening, you have a plan. The question 'what do I cook tonight?' barely comes up anymore. Try it free at culinse.com.",
+      },
+    ],
+  },
+
+  {
+    slug: "weekly-grocery-list-from-meal-plan",
+    title: "How to Make a Weekly Grocery List From Your Meal Plan (That You'll Actually Use)",
+    description:
+      "Turn your meal plan into one smart weekly grocery list: pull ingredients from your recipes, check the pantry, sort by store section, and stop forgetting things.",
+    publishedAt: "2026-06-13",
+    readingTime: "6 min read",
+    category: "Meal Planning",
+    sections: [
+      {
+        content:
+          "Most meal plans don't fall apart in the kitchen. They fall apart at the store. You planned five dinners on Sunday, but by Wednesday you're back in the shop buying the one ingredient you forgot — and three things you didn't need. A good weekly grocery list is what turns a plan on paper into a week that actually runs.",
+      },
+      {
+        content:
+          "The good news: a grocery list is just your meal plan turned inside out. If you already know what you're cooking, the list almost writes itself. Here's the system, step by step.",
+      },
+      {
+        heading: "1. Start With the Plan, Not the Store",
+        content:
+          "Don't walk into the store and improvise. Decide what you're cooking first, then shop for exactly that. You don't need all 21 meals of the week planned — just pin down the ones that otherwise turn into takeout:",
+        list: [
+          "Five dinners is plenty for most people. Leave a couple of evenings open for leftovers or spontaneity.",
+          "Reuse ingredients across meals — if one recipe needs half a bunch of parsley, plan a second that finishes the rest.",
+          "Pick a couple of recipes you already know by heart, so the week isn't all new and effortful.",
+        ],
+      },
+      {
+        heading: "2. Pull Every Ingredient From Your Recipes",
+        content:
+          "Go through your chosen recipes one by one and write down what each one needs — with the actual quantity, not just the name. \"Tomatoes\" is how you end up with one sad tomato for a dish that needed six.",
+        list: [
+          "Note the amount next to every item: 500 g pasta, 400 g tinned tomatoes, 200 ml cream.",
+          "Combine duplicates as you go — if three recipes need onions, add up the total instead of writing onions three times.",
+          "Keep a single combined list, not one per recipe. You're shopping once, so you want one list.",
+        ],
+      },
+      {
+        heading: "3. Check Your Pantry Before You Add Staples",
+        content:
+          "This is the step almost everyone skips, and it's where the money leaks. Before you finalize the list, look at what you already own. Most kitchens are quietly full of the basics recipes call for.",
+        list: [
+          "Cross off staples you already have: oil, salt, spices, flour, rice, pasta, tinned goods.",
+          "Check the fridge for half-used items — that block of cheese or the open jar of pesto.",
+          "Only buy what's genuinely missing. A list of 18 items often shrinks to 12 once you actually look.",
+        ],
+      },
+      {
+        heading: "4. Sort the List by Store Section",
+        content:
+          "A list written in the random order your recipes came up means criss-crossing the whole store and doubling back for the thing you missed. Group it the way the store is laid out instead:",
+        list: [
+          "Produce: fruit, vegetables, fresh herbs.",
+          "Meat & fish.",
+          "Dairy & eggs: milk, cheese, yoghurt, butter.",
+          "Frozen.",
+          "Pantry: tins, pasta, rice, spices, baking.",
+          "Bakery and everything else.",
+        ],
+      },
+      {
+        content:
+          "A categorized list does two quiet but powerful things: it gets you through the store faster, and it cuts impulse buys, because you move with purpose instead of wandering every aisle. As a bonus, most fresh, whole food lives around the perimeter — produce, meat, dairy — so a perimeter-first list tends to be a healthier one too.",
+      },
+      {
+        heading: "5. Scale to the Number of People You're Feeding",
+        content:
+          "Recipes are written for a fixed number of servings, and that number is rarely yours. Before you copy quantities onto the list, scale them. Cooking for two when the recipe serves four? Halve it. Want leftovers for lunch? Double it on purpose and let one dinner cover two days.",
+      },
+      {
+        heading: "A Few Habits That Make the List Stick",
+        content:
+          "The list itself is only half the job. These habits are what keep it working week after week:",
+        list: [
+          "Shop once. Every extra trip is another chance to overspend and impulse-buy.",
+          "Stick to the list in the store — the deciding already happened at home, so trust it.",
+          "Keep a running note for things as they run out, so next week's list half-writes itself.",
+          "Glance at what tends to spoil. Buying only what you'll actually cook is the simplest way to throw away less food and money.",
+        ],
+      },
+      {
+        heading: "Or Let Culinse Build the List For You",
+        content:
+          "Every step above is exactly what Culinse automates. It's a free meal planner that turns your week into one smart shopping list, so the busywork disappears:",
+        list: [
+          "Plan your week in a simple grid and Culinse builds one combined shopping list from every recipe — quantities added up, duplicates merged.",
+          "The list arrives already sorted by store section, so you shop top to bottom without backtracking.",
+          "Mark what you already own, and pantry items move into an \"already have\" section instead of the buy list.",
+          "Set how many people you're feeding and every quantity scales automatically.",
+          "Tick things off as you shop, and add anything extra by hand.",
+        ],
+      },
+      {
+        content:
+          "The manual system genuinely works — plenty of people run their whole week on a notebook and a pen. An app just handles the tedious parts: the adding-up, the sorting, the remembering. If you'd like the list built for you the moment you finish planning, plan your week free at culinse.com.",
+      },
+    ],
+  },
 
 ];
 
