@@ -55,6 +55,7 @@ export default function MealPlannerPage() {
   const [creatingPlan, setCreatingPlan] = useState(false);
   const [newPlanName, setNewPlanName] = useState("");
   const [deletingEntry, setDeletingEntry] = useState<string | null>(null);
+  const [dragFrom, setDragFrom] = useState<{ day: number; slot: string } | null>(null);
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
@@ -181,6 +182,43 @@ export default function MealPlannerPage() {
   const handleSetServings = async (entry: Entry, value: number | null) => {
     setEntries(prev => prev.map(e => e.id === entry.id ? { ...e, servings: value } : e));
     await supabase.from("meal_plan_entries").update({ servings: value }).eq("id", entry.id);
+  };
+
+  // Move/swap a meal via drag & drop. Swapping two occupied cells exchanges only
+  // their recipe *contents* — each row keeps its id/day_index/meal_slot — so the
+  // (plan_id, day_index, meal_slot) unique constraint is never violated. Dropping
+  // onto an empty cell just repoints the dragged row's day/slot.
+  const handleMove = async (
+    from: { day: number; slot: string },
+    to: { day: number; slot: string }
+  ) => {
+    if (from.day === to.day && from.slot === to.slot) return;
+    const a = entries.find(e => e.day_index === from.day && e.meal_slot === from.slot);
+    if (!a) return;
+    const b = entries.find(e => e.day_index === to.day && e.meal_slot === to.slot);
+
+    if (!b) {
+      setEntries(prev => prev.map(e =>
+        e.id === a.id ? { ...e, day_index: to.day, meal_slot: to.slot } : e
+      ));
+      await supabase
+        .from("meal_plan_entries")
+        .update({ day_index: to.day, meal_slot: to.slot })
+        .eq("id", a.id);
+      return;
+    }
+
+    const aData = { recipe_id: a.recipe_id, recipe_title: a.recipe_title, recipe_image: a.recipe_image, recipe_time: a.recipe_time, servings: a.servings };
+    const bData = { recipe_id: b.recipe_id, recipe_title: b.recipe_title, recipe_image: b.recipe_image, recipe_time: b.recipe_time, servings: b.servings };
+    setEntries(prev => prev.map(e => {
+      if (e.id === a.id) return { ...e, ...bData };
+      if (e.id === b.id) return { ...e, ...aData };
+      return e;
+    }));
+    await Promise.all([
+      supabase.from("meal_plan_entries").update(bData).eq("id", a.id),
+      supabase.from("meal_plan_entries").update(aData).eq("id", b.id),
+    ]);
   };
 
   // Auto-fill empty slots with recipes from the user's OWN recipes + saved
@@ -508,6 +546,7 @@ export default function MealPlannerPage() {
 
         {/* ── Desktop Grid ── */}
         <div className="hidden md:block">
+          <p className="text-[11px] text-gray-400 mb-2">{t("dragHint")}</p>
           {/* Day headers */}
           <div className="grid grid-cols-7 gap-3 mb-1 px-0">
             {DAYS_FULL.map((d, i) => (
@@ -531,6 +570,14 @@ export default function MealPlannerPage() {
                       onRemove={handleRemoveEntry}
                       onSetServings={handleSetServings}
                       deleting={deletingEntry}
+                      isDragging={dragFrom?.day === dayIdx && dragFrom?.slot === slot.value}
+                      isDropTarget={!!dragFrom && !(dragFrom.day === dayIdx && dragFrom.slot === slot.value)}
+                      onDragStart={() => setDragFrom({ day: dayIdx, slot: slot.value })}
+                      onDragEnd={() => setDragFrom(null)}
+                      onDropHere={() => {
+                        if (dragFrom) handleMove(dragFrom, { day: dayIdx, slot: slot.value });
+                        setDragFrom(null);
+                      }}
                     />
                   );
                 })}
@@ -795,19 +842,31 @@ function DesktopSlot({
   onRemove,
   onSetServings,
   deleting,
+  isDragging,
+  isDropTarget,
+  onDragStart,
+  onDragEnd,
+  onDropHere,
 }: {
   entry: Entry | null;
   onOpen: () => void;
   onRemove: (id: string) => void;
   onSetServings: (entry: Entry, value: number | null) => void;
   deleting: string | null;
+  isDragging?: boolean;
+  isDropTarget?: boolean;
+  onDragStart?: () => void;
+  onDragEnd?: () => void;
+  onDropHere?: () => void;
 }) {
   if (!entry) {
     return (
       <button
         onClick={onOpen}
-        className="h-20 w-full rounded-xl border-2 border-dashed hover:border-orange-300 hover:bg-orange-50/50 flex items-center justify-center transition-all group"
-        style={{ borderColor: "#e5e7eb" }}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => { e.preventDefault(); onDropHere?.(); }}
+        className={`h-20 w-full rounded-xl border-2 border-dashed flex items-center justify-center transition-all group ${isDropTarget ? "border-orange-400 bg-orange-50" : "hover:border-orange-300 hover:bg-orange-50/50"}`}
+        style={isDropTarget ? undefined : { borderColor: "#e5e7eb" }}
       >
         <span className="text-gray-300 group-hover:text-orange-400 text-xl transition-colors">+</span>
       </button>
@@ -816,15 +875,28 @@ function DesktopSlot({
 
   return (
     <div className="space-y-1">
-      <div className="h-20 rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden relative group">
+      <div
+        draggable
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+        onDragOver={(e) => e.preventDefault()}
+        onDrop={(e) => { e.preventDefault(); onDropHere?.(); }}
+        className={`h-20 rounded-xl border bg-white shadow-sm overflow-hidden relative group cursor-grab active:cursor-grabbing transition-all ${
+          isDragging
+            ? "opacity-40 ring-2 ring-orange-400 border-orange-300"
+            : isDropTarget
+            ? "ring-2 ring-orange-400 border-orange-300"
+            : "border-gray-100"
+        }`}
+      >
         {entry.recipe_image ? (
-          <Image src={entry.recipe_image} alt="" fill className="object-cover" sizes="300px" />
+          <Image src={entry.recipe_image} alt="" fill draggable={false} className="object-cover pointer-events-none" sizes="300px" />
         ) : (
           <div className="absolute inset-0 bg-orange-50" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
         <div className="absolute bottom-1.5 left-2 right-8 z-10">
-          <Link href={`/recipe/${entry.recipe_id}`}>
+          <Link href={`/recipe/${entry.recipe_id}`} draggable={false}>
             <p className="text-white text-xs font-semibold line-clamp-2 leading-tight hover:text-orange-200 transition-colors">
               {entry.recipe_title}
             </p>
