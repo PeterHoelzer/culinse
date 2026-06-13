@@ -1035,6 +1035,87 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 
+  {
+    slug: "family-meal-planning",
+    title: "How to Meal Plan for a Family (Without Cooking Three Different Dinners)",
+    description:
+      "A calm system for feeding a family: build a rotation of meals everyone eats, plan deconstructed dinners for picky eaters, scale to your household, and reuse good weeks.",
+    publishedAt: "2026-06-13",
+    readingTime: "6 min read",
+    category: "Meal Planning",
+    sections: [
+      {
+        content:
+          "Feeding one person is a logistics problem. Feeding a family is that plus negotiation: different tastes, different appetites, and a small person who decided this morning that they no longer eat the thing they loved last week. A good family meal plan doesn't try to delight everyone every night — it builds a system so dinner mostly runs itself.",
+      },
+      {
+        content:
+          "The goal isn't more cooking or more variety. It's fewer decisions and fewer surprises. Here's how to plan for a household without turning your kitchen into a short-order diner.",
+      },
+      {
+        heading: "Build a Rotation of Meals Everyone Actually Eats",
+        content:
+          "Most families happily eat the same 8 to 10 dinners on repeat — and that's a feature, not a failure. Write down the meals that reliably land with everyone. That list is the backbone of every week; novelty is the exception you add on top, not the foundation.",
+        list: [
+          "List your proven winners first — the dinners that disappear without complaint.",
+          "Aim for roughly 8–10 core meals. That's enough that no week feels repetitive, few enough that planning is quick.",
+          "Add just one new recipe a week if you want to grow the list, rather than reinventing every night.",
+        ],
+      },
+      {
+        heading: "Give the Week an Anchor",
+        content:
+          "Assigning a loose theme to each night kills the nightly 'what's for dinner' negotiation before it starts. The family knows roughly what's coming, and you only decide the details.",
+        list: [
+          "Pasta Monday, Taco Tuesday, sheet-pan Friday — the labels do the deciding for you.",
+          "Anchor nights are flexible: 'Taco Tuesday' can be beef, chicken, beans, or fish.",
+          "Kids find the rhythm reassuring, and it quietly teaches them what to expect.",
+        ],
+      },
+      {
+        heading: "Plan Deconstructed Dinners for Picky Eaters",
+        content:
+          "The fastest way to feed mixed tastes from one pot is to serve the parts separately and let everyone build their own plate. No one's cooking two dinners; people just assemble differently.",
+        list: [
+          "Lean on customizable formats: rice bowls, a pasta bar, baked-potato night, tacos, sheet-pan dinners.",
+          "Keep a 'safe' component everyone eats on the table next to anything new — no pressure to finish it.",
+          "Let kids help shop and cook. A say in the meal makes it far more likely to actually get eaten.",
+        ],
+      },
+      {
+        heading: "Scale Recipes to Your Family's Size",
+        content:
+          "Most recipes are written for two to four servings, and a family of five hits the wall fast. Scale quantities up before you shop so you're not short a portion at the table — and double a dinner now and then on purpose, so tonight's cooking becomes tomorrow's lunch.",
+      },
+      {
+        heading: "Reuse the Weeks That Work",
+        content:
+          "When a week lands — everyone ate, little got wasted, you weren't stressed — don't throw the plan away. Keep it and run it again in a few weeks. Three or four good weeks on rotation quietly covers a whole month, and each one gets easier because you already know it works.",
+      },
+      {
+        heading: "One List for the Whole Household",
+        content:
+          "Turn the family's week into a single combined shopping list with scaled quantities, check the pantry first, and shop once. A bigger household magnifies every benefit of planning — and every cost of not planning, from waste to midweek takeout for five.",
+      },
+      {
+        heading: "How Culinse Helps Families",
+        content:
+          "Culinse is a free meal planner built for exactly this kind of repeatable, household-sized planning:",
+        list: [
+          "Save your family's go-to dinners into a collection so your rotation is always one tap away.",
+          "Plan the week in a simple grid, then scale any recipe to your family's size automatically.",
+          "Copy a week that worked and reuse it — your rotation of good weeks lives on, no replanning from scratch.",
+          "Get one combined shopping list for the whole household, quantities added up and sorted by store section.",
+          "Mark what you already have so pantry staples don't end up bought twice.",
+        ],
+      },
+      {
+        content:
+          "A family meal plan isn't about cooking more — it's about deciding less. Build a rotation everyone eats, give the week an anchor, and let dinner get boring in the best possible way. Plan your week free at culinse.com.",
+      },
+    ],
+  },
+
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {

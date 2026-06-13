@@ -22,6 +22,7 @@ export const EN_TO_DE_BLOG_SLUGS: Record<string, string> = {
   "what-should-i-cook-tonight": "was-koche-ich-heute-abend-ideen-fuer-die-woche",
   "weekly-grocery-list-from-meal-plan": "einkaufsliste-fuer-die-woche-erstellen",
   "meal-planning-on-a-budget": "guenstig-einkaufen-mit-wochenplan",
+  "family-meal-planning": "familien-essensplan-wochenplanung",
 };
 
 // Reverse lookup (DE slug → EN slug), derived automatically so it can never

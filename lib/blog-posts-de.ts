@@ -1022,6 +1022,87 @@ export const blogPostsDe: BlogPost[] = [
     ],
   },
 
+  {
+    slug: "familien-essensplan-wochenplanung",
+    title: "Familien-Essensplan: Wochenplanung für die ganze Familie (ohne drei verschiedene Abendessen)",
+    description:
+      "Ein entspanntes System für die Familie: eine Rotation aus Gerichten, die alle essen, zerlegte Abendessen für Mäkelige, auf die Personenzahl skalieren, gute Wochen wiederverwenden.",
+    publishedAt: "2026-06-13",
+    readingTime: "6 Min. Lesezeit",
+    category: "Wochenplanung",
+    sections: [
+      {
+        content:
+          "Eine Person zu verköstigen ist ein Logistikproblem. Eine Familie zu verköstigen ist das plus Verhandlung: verschiedene Geschmäcker, verschiedene Appetite und ein kleiner Mensch, der heute Morgen beschlossen hat, das nicht mehr zu essen, was er letzte Woche geliebt hat. Ein guter Familien-Essensplan versucht nicht, jeden Abend alle zu begeistern — er baut ein System, damit das Abendessen größtenteils von allein läuft.",
+      },
+      {
+        content:
+          "Es geht nicht um mehr Kochen oder mehr Abwechslung. Es geht um weniger Entscheidungen und weniger Überraschungen. So planst du für einen Haushalt, ohne die Küche in eine Imbissbude zu verwandeln.",
+      },
+      {
+        heading: "Eine Rotation aus Gerichten, die wirklich alle essen",
+        content:
+          "Die meisten Familien essen glücklich dieselben 8 bis 10 Abendessen in Schleife — und das ist ein Vorteil, kein Versagen. Schreib die Gerichte auf, die zuverlässig bei allen ankommen. Diese Liste ist das Rückgrat jeder Woche; Neues ist die Ausnahme obendrauf, nicht das Fundament.",
+        list: [
+          "Notier zuerst deine sicheren Treffer — die Abendessen, die ohne Murren verschwinden.",
+          "Ziel sind etwa 8–10 Kerngerichte. Genug, dass keine Woche eintönig wirkt, wenige genug, dass Planen schnell geht.",
+          "Füg höchstens ein neues Rezept pro Woche hinzu, statt jeden Abend neu zu erfinden.",
+        ],
+      },
+      {
+        heading: "Gib der Woche einen Anker",
+        content:
+          "Jedem Abend ein lockeres Thema zuzuweisen erstickt die abendliche „Was gibt's zu essen?“-Verhandlung, bevor sie beginnt. Die Familie weiß ungefähr, was kommt, und du entscheidest nur die Details.",
+        list: [
+          "Nudel-Montag, Taco-Dienstag, Blech-Freitag — die Etiketten entscheiden für dich.",
+          "Anker-Abende sind flexibel: „Taco-Dienstag“ geht mit Rind, Hähnchen, Bohnen oder Fisch.",
+          "Kinder finden den Rhythmus beruhigend, und nebenbei lernen sie, was sie erwartet.",
+        ],
+      },
+      {
+        heading: "Zerlegte Abendessen für Mäkelige planen",
+        content:
+          "Der schnellste Weg, verschiedene Geschmäcker aus einem Topf zu bedienen, ist, die Teile getrennt zu servieren und alle ihren Teller selbst bauen zu lassen. Niemand kocht zwei Abendessen; es wird nur unterschiedlich zusammengestellt.",
+        list: [
+          "Setz auf anpassbare Formate: Bowls, eine Nudel-Bar, Ofenkartoffel-Abend, Tacos, Blechgerichte.",
+          "Lass eine „sichere“ Komponente, die alle essen, neben allem Neuen stehen — ohne Zwang, es aufzuessen.",
+          "Lass Kinder mit einkaufen und kochen. Ein Mitspracherecht macht es viel wahrscheinlicher, dass das Essen auch gegessen wird.",
+        ],
+      },
+      {
+        heading: "Rezepte auf eure Familiengröße skalieren",
+        content:
+          "Die meisten Rezepte sind für zwei bis vier Portionen geschrieben, und eine fünfköpfige Familie stößt schnell an die Grenze. Skalier die Mengen hoch, bevor du einkaufst, damit am Tisch keine Portion fehlt — und verdopple ab und zu bewusst ein Abendessen, damit aus dem Kochen von heute das Mittagessen von morgen wird.",
+      },
+      {
+        heading: "Wochen wiederverwenden, die funktionieren",
+        content:
+          "Wenn eine Woche sitzt — alle haben gegessen, kaum etwas blieb übrig, du warst nicht gestresst —, wirf den Plan nicht weg. Behalt ihn und fahr ihn in ein paar Wochen erneut. Drei, vier gute Wochen in Rotation decken still einen ganzen Monat ab, und jede wird leichter, weil du schon weißt, dass sie funktioniert.",
+      },
+      {
+        heading: "Eine Liste für den ganzen Haushalt",
+        content:
+          "Mach aus der Familienwoche eine einzige, kombinierte Einkaufsliste mit skalierten Mengen, prüf zuerst den Vorrat und kauf einmal ein. Ein größerer Haushalt verstärkt jeden Vorteil des Planens — und jeden Preis des Nicht-Planens, von Resten bis zum Lieferdienst für fünf unter der Woche.",
+      },
+      {
+        heading: "Wie Culinse Familien hilft",
+        content:
+          "Culinse ist ein kostenloser Wochenplaner, gebaut für genau diese wiederholbare, haushaltsgroße Planung:",
+        list: [
+          "Speicher die Lieblingsgerichte der Familie in einer Sammlung, damit deine Rotation immer einen Fingertipp entfernt ist.",
+          "Plane die Woche im einfachen Raster und skalier jedes Rezept automatisch auf eure Familiengröße.",
+          "Kopier eine Woche, die funktioniert hat, und verwende sie erneut — deine Rotation guter Wochen bleibt, ohne neu zu planen.",
+          "Bekomm eine kombinierte Einkaufsliste für den ganzen Haushalt, Mengen addiert und nach Abteilung sortiert.",
+          "Markier, was du schon hast, damit Grundzutaten nicht doppelt im Wagen landen.",
+        ],
+      },
+      {
+        content:
+          "Ein Familien-Essensplan heißt nicht mehr kochen — er heißt weniger entscheiden. Bau eine Rotation, die alle essen, gib der Woche einen Anker, und lass das Abendessen im besten Sinne langweilig werden. Plane deine Woche kostenlos auf culinse.com.",
+      },
+    ],
+  },
+
 ];
 
 export function getBlogPostDe(slug: string): BlogPost | undefined {
