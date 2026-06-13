@@ -936,6 +936,92 @@ export const blogPostsDe: BlogPost[] = [
     ],
   },
 
+  {
+    slug: "guenstig-einkaufen-mit-wochenplan",
+    title: "Günstig einkaufen mit Wochenplan: So sparst du beim Lebensmitteleinkauf",
+    description:
+      "Ein Essensplan ist der einfachste Weg, die Lebensmittelkosten zu senken. Ein praktisches System: um Überschneidungen planen, erst den Vorrat nutzen, saisonal kaufen.",
+    publishedAt: "2026-06-13",
+    readingTime: "6 Min. Lesezeit",
+    category: "Wochenplanung",
+    sections: [
+      {
+        content:
+          "Der schnellste Weg, beim Essen zu sparen, sind nicht Coupons — es ist die Entscheidung, was du isst, bevor du einkaufst. Das meiste Zuvielausgeben passiert in den Lücken: die ungeplanten Zwischeneinkäufe, die Spontankäufe auf Augenhöhe im Regal, das Gemüse, das im Fach vergammelt, weil nichts dafür eingeplant war. Ein Essensplan schließt diese Lücken an der Wurzel.",
+      },
+      {
+        content:
+          "Es ist dasselbe Plan-dann-Kauf-Prinzip wie immer, nur aufs Budget getrimmt. Niemand muss dafür jeden Abend Bohnen essen — nur etwas gezielter einkaufen. Hier ist das System.",
+      },
+      {
+        heading: "Um Überschneidungen planen, nicht um Abwechslung",
+        content:
+          "Abwechslung ist es, was die Rechnung aufbläht: sieben Abendessen mit sieben getrennten Zutatenlisten heißt ein Wagen voller Dinge, die du einmal benutzt. Plan stattdessen um Überschneidungen. Eine günstige Woche besteht aus wenigen Grundzutaten, die unterschiedlich verwendet werden.",
+        list: [
+          "Wiederhole zwei, drei Abendessen oder nutze eine Basis mehrfach — brate ein Hähnchen und verwende die Reste in einem Wrap und einer Suppe.",
+          "Lass ein Gemüse mehrere Gerichte tragen: ein Kohl oder ein Beutel Karotten reicht für Pfanne, Salat und Suppe.",
+          "Wähl Rezepte mit gemeinsamen Vorratszutaten — Reis, Nudeln, stückige Tomaten, Bohnen —, damit nichts nur für einen einzigen Einsatz gekauft wird.",
+        ],
+      },
+      {
+        heading: "Erst die eigene Küche durchsuchen",
+        content:
+          "Bevor du auch nur einen Posten aufschreibst, öffne die Schränke und das Tiefkühlfach. Die günstigste Zutat ist die, die du schon bezahlt hast — und die meisten Küchen bunkern mehrere Mahlzeiten, die langsam in Vergessenheit geraten.",
+        list: [
+          "Plan ein Gericht gezielt um das, was bald abläuft — der halbe Beutel Spinat, die einsame Zucchini.",
+          "Schau im Tiefkühler nach der Portion Chili oder den Hähnchenbrüsten, bevor du Eiweiß auf die Liste setzt.",
+          "Streich jede Grundzutat, die du hast, damit nicht automatisch ein zweiter Beutel Reis im Wagen landet.",
+        ],
+      },
+      {
+        heading: "Eine Liste — und nur daraus kaufen",
+        content:
+          "Mach aus dem Plan eine einzige, kombinierte Liste mit echten Mengen und behandle sie als die ganze Aufgabe. Spontankäufe sind der leise Budget-Killer, und sie passieren fast immer bei ungeplanten Gängen oder beim Schlendern durch unbekannte Regale.",
+        list: [
+          "Kauf einmal für die Woche ein. Jeder Extra-Gang ist eine neue Gelegenheit, zu viel auszugeben.",
+          "Kauf, was auf der Liste steht, und kaum mehr — entschieden hast du schon zu Hause.",
+          "Geh nicht hungrig einkaufen. Es ist ein Klischee, weil es stimmt: Hunger schmuggelt Posten in den Wagen.",
+        ],
+      },
+      {
+        heading: "Saisonal kaufen, Eigenmarken nicht scheuen",
+        content:
+          "Zwei Gewohnheiten senken den Stückpreis, ohne zu ändern, was du kochst. Saisonales Obst und Gemüse ist günstiger und besser, und Supermarkt-Eigenmarken sind meist dasselbe Produkt wie die Markenware zu einem niedrigeren Preis.",
+        list: [
+          "Bau Gerichte um Saisonales — das ist das Gemüse, das zugleich am günstigsten und am besten ist.",
+          "Greif bei Grundzutaten standardmäßig zur Eigenmarke: Mehl, Reis, Konserven, Tiefkühlgemüse.",
+          "Vergleich den Preis pro Kilo oder pro Liter, nicht pro Packung — die größere Packung ist nicht immer günstiger.",
+        ],
+      },
+      {
+        heading: "Eiweiß strecken statt in den Mittelpunkt stellen",
+        content:
+          "Fleisch und Fisch sind meist das Teuerste im Korb. Du musst sie nicht streichen — lass sie sich den Teller teilen. Bohnen, Linsen, Eier und Vollkorn bringen Portionen und Nährstoffe für einen Bruchteil der Kosten, sodass eine kleinere Menge Eiweiß mehr Menschen satt macht.",
+      },
+      {
+        heading: "Einmal kochen, zweimal essen",
+        content:
+          "Ein Rezept hochzuskalieren kostet viel weniger Mühe als zweimal kochen, und Reste sind das günstigste Mittagessen überhaupt. Verdopple beim Planen bewusst ein, zwei Abendessen und lass sie das Mittagessen am Folgetag abdecken — oder frier eine Portion ein für eine Woche ohne Zeit, in der sonst der Lieferdienst gewinnen würde.",
+      },
+      {
+        heading: "Wie Culinse das Budget schont",
+        content:
+          "Culinse ist ein kostenloser Wochenplaner, und ein Großteil seiner Alltagsarbeit ist genau die Spar-Arbeit von oben — für dich erledigt:",
+        list: [
+          "Plane deine Woche und bekomm eine kombinierte Einkaufsliste mit addierten Mengen, damit du genau das kaufst, was die Rezepte brauchen, und nicht mehr.",
+          "Markier, was du schon hast — Vorratsartikel wandern in einen Bereich „schon vorhanden“ statt auf die Kaufliste, sodass du nichts doppelt kaufst.",
+          "Die Liste ist nach Abteilung sortiert, das hält die Gänge kurz und die Spontankäufe niedrig.",
+          "Skalier jedes Rezept auf die Personenzahl — oder verdopple es bewusst für Reste.",
+          "Eine geplante Woche heißt deutlich weniger weggeworfenes Essen und deutlich weniger Last-Minute-Lieferdienst — meist die zwei größten Lecks.",
+        ],
+      },
+      {
+        content:
+          "Gut essen mit kleinem Budget heißt nicht Tabellen oder Verzicht. Es ist ein Plan rund um Überschneidungen, eine Liste, an die du dich wirklich hältst, und ein kurzer Blick in die eigenen Schränke zuerst. Plane deine Woche kostenlos auf culinse.com und lass die Liste rechnen.",
+      },
+    ],
+  },
+
 ];
 
 export function getBlogPostDe(slug: string): BlogPost | undefined {

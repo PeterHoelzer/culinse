@@ -949,6 +949,92 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 
+  {
+    slug: "meal-planning-on-a-budget",
+    title: "How to Meal Plan on a Budget (and Actually Save Money on Groceries)",
+    description:
+      "Meal planning is the simplest way to cut your grocery bill. A practical system: plan around overlap, shop your pantry first, buy seasonal, and waste almost nothing.",
+    publishedAt: "2026-06-13",
+    readingTime: "6 min read",
+    category: "Meal Planning",
+    sections: [
+      {
+        content:
+          "The fastest way to spend less on food isn't extreme couponing — it's deciding what you'll eat before you shop. Most overspending happens in the gaps: the unplanned mid-week trips, the impulse buys at eye level, and the produce that quietly rots in the drawer because nothing was planned for it. A meal plan closes those gaps at the source.",
+      },
+      {
+        content:
+          "This is the same plan-then-shop loop as always, just tuned for a tighter budget. None of it requires eating beans every night — only buying with a little more intention. Here's the system.",
+      },
+      {
+        heading: "Plan Around Overlap, Not Variety",
+        content:
+          "Variety is what makes a grocery bill balloon: seven dinners with seven separate ingredient lists means a cart full of things you'll use once. Plan around overlap instead. A budget week is built from a small set of base ingredients used in different ways.",
+        list: [
+          "Repeat two or three dinners, or reuse a base — roast one chicken, then use the leftovers in a wrap and a soup.",
+          "Let one vegetable carry several meals: a cabbage or a bag of carrots stretches across a stir-fry, a slaw, and a soup.",
+          "Pick recipes that share pantry staples — rice, pasta, tinned tomatoes, beans — so nothing is bought for a single use.",
+        ],
+      },
+      {
+        heading: "Shop Your Own Kitchen First",
+        content:
+          "Before you write a single item down, open the cupboards and the freezer. The cheapest ingredient is the one you already paid for, and most kitchens are holding several meals' worth of food that's slowly being forgotten.",
+        list: [
+          "Plan one meal specifically around what's about to expire — the half bag of spinach, the lonely courgette.",
+          "Check the freezer for that portion of chili or those chicken breasts before adding any protein to the list.",
+          "Cross off every staple you already own so you don't auto-buy a second bag of rice.",
+        ],
+      },
+      {
+        heading: "Build One List — and Only Buy From It",
+        content:
+          "Turn the plan into a single combined list with real quantities, then treat it as the whole job. Impulse buys are the quiet budget killer, and they almost always happen on unplanned trips or while wandering unfamiliar aisles.",
+        list: [
+          "Shop once for the week. Every extra trip is another chance to overspend.",
+          "Buy what's on the list and little else — the deciding already happened at home.",
+          "Don't shop hungry. It's a cliché because it's true: hunger adds items.",
+        ],
+      },
+      {
+        heading: "Buy Seasonal, and Don't Fear Store Brands",
+        content:
+          "Two habits cut the per-item cost without changing what you cook. Seasonal produce is cheaper and better, and supermarket own-brands are usually the same product as the name brand at a lower price.",
+        list: [
+          "Build meals around what's in season — it's the produce that's both cheapest and at its best.",
+          "Default to store brands on staples like flour, rice, tinned goods, and frozen vegetables.",
+          "Compare the price per kilo or per litre, not per pack — the bigger pack isn't always the better deal.",
+        ],
+      },
+      {
+        heading: "Stretch Proteins Instead of Centering Them",
+        content:
+          "Meat and fish are usually the most expensive things in the basket. You don't have to cut them out — just let them share the plate. Beans, lentils, eggs, and whole grains add servings and nutrition for a fraction of the cost, so a smaller amount of protein feeds more people.",
+      },
+      {
+        heading: "Cook Once, Eat Twice",
+        content:
+          "Scaling a recipe up costs far less effort than cooking twice, and leftovers are the cheapest lunch there is. When you plan, deliberately double a dinner or two and let it cover the next day's lunch — or freeze a portion for a week when there's no time to cook and takeout would otherwise win.",
+      },
+      {
+        heading: "How Culinse Keeps the Budget Tight",
+        content:
+          "Culinse is a free meal planner, and most of its everyday job is exactly the budgeting work above — done for you:",
+        list: [
+          "Plan your week and get one combined shopping list with quantities added up, so you buy exactly what the recipes need and no more.",
+          "Mark what you already own — pantry items drop into an \"already have\" section instead of the buy list, so you stop double-buying.",
+          "The list is sorted by store section, which keeps trips short and impulse buys down.",
+          "Scale any recipe to the number of people you're feeding, or double it on purpose for leftovers.",
+          "A planned week means far less food waste and far less last-minute takeout — usually the two biggest leaks of all.",
+        ],
+      },
+      {
+        content:
+          "Eating well on a budget isn't about spreadsheets or never enjoying food. It's a plan built around overlap, one list you actually stick to, and a quick look in your own cupboards first. Plan your week free at culinse.com and let the list do the math.",
+      },
+    ],
+  },
+
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
