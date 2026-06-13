@@ -19,6 +19,7 @@ interface Tab {
 
 interface PlanRecipePickerModalProps {
   planId: string;
+  weekStart: string;
   dayIndex: number;
   slot: "breakfast" | "lunch" | "dinner";
   dayLabel: string;
@@ -37,6 +38,7 @@ interface PlanRecipePickerModalProps {
 
 export default function PlanRecipePickerModal({
   planId,
+  weekStart,
   dayIndex,
   slot,
   dayLabel,
@@ -121,13 +123,14 @@ export default function PlanRecipePickerModal({
       .upsert({
         plan_id: planId,
         user_id: user.id,
+        week_start: weekStart,
         day_index: dayIndex,
         meal_slot: slot,
         recipe_id: recipe.id,
         recipe_title: recipe.title,
         recipe_image: recipe.image ?? null,
         recipe_time: timeNum,
-      }, { onConflict: "plan_id,day_index,meal_slot" })
+      }, { onConflict: "plan_id,week_start,day_index,meal_slot" })
       .select()
       .single();
 

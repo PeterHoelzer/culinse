@@ -58,7 +58,7 @@ export default function MealPlannerPage() {
   const [dragFrom, setDragFrom] = useState<{ day: number; slot: string } | null>(null);
   const [moveFrom, setMoveFrom] = useState<{ day: number; slot: string } | null>(null);
   const [copyingWeek, setCopyingWeek] = useState(false);
-  const [weekInfo, setWeekInfo] = useState<{ dates: Date[]; todayIdx: number } | null>(null);
+  const [currentWeekStart, setCurrentWeekStart] = useState<string>("");
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
@@ -80,32 +80,49 @@ export default function MealPlannerPage() {
     { value: "dinner"    as const, label: MEAL_LABELS[2], emoji: "🌙" },
   ];
 
-  // Current calendar week (Monday-based), computed client-side to avoid SSR
-  // hydration mismatches between server and client clocks.
-  useEffect(() => {
-    const now = new Date();
-    const todayIdx = (now.getDay() + 6) % 7; // 0 = Monday … 6 = Sunday
-    const monday = new Date(now);
-    monday.setDate(now.getDate() - todayIdx);
-    monday.setHours(0, 0, 0, 0);
+  // Week navigation is anchored to the Monday of the displayed week, kept as an
+  // ISO date string (YYYY-MM-DD). currentWeekStart is set on mount in the loader
+  // effect below (client-side) to avoid SSR hydration mismatches.
+  const isoMonday = (d: Date) => {
+    const dow = (d.getDay() + 6) % 7; // 0 = Monday … 6 = Sunday
+    const m = new Date(d);
+    m.setDate(d.getDate() - dow);
+    return `${m.getFullYear()}-${String(m.getMonth() + 1).padStart(2, "0")}-${String(m.getDate()).padStart(2, "0")}`;
+  };
+  const todayMonday = () => isoMonday(new Date());
+  const shiftISO = (iso: string, days: number) => {
+    const [y, mo, da] = iso.split("-").map(Number);
+    const d = new Date(y, mo - 1, da);
+    d.setDate(d.getDate() + days);
+    return isoMonday(d); // days is a multiple of 7, so the result stays a Monday
+  };
+
+  const fmtDate = (d: Date) =>
+    d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "numeric" });
+
+  // The 7 dates of the displayed week + which column is "today" (only when the
+  // displayed week actually is the current week).
+  const weekInfo = useMemo(() => {
+    if (!currentWeekStart) return null;
+    const [y, mo, da] = currentWeekStart.split("-").map(Number);
+    const monday = new Date(y, mo - 1, da);
     const dates = Array.from({ length: 7 }, (_, i) => {
       const d = new Date(monday);
       d.setDate(monday.getDate() + i);
       return d;
     });
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setWeekInfo({ dates, todayIdx });
-  }, []);
+    const todayIdx = currentWeekStart === todayMonday() ? (new Date().getDay() + 6) % 7 : -1;
+    return { dates, todayIdx };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentWeekStart]);
 
-  const fmtDate = (d: Date) =>
-    d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "numeric" });
-
-  const loadEntries = useCallback(async (planId: string) => {
-    if (!planId) return;
+  const loadEntries = useCallback(async (planId: string, weekStart: string) => {
+    if (!planId || !weekStart) return;
     const { data } = await supabase
       .from("meal_plan_entries")
       .select("*")
-      .eq("plan_id", planId);
+      .eq("plan_id", planId)
+      .eq("week_start", weekStart);
     setEntries(data || []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -137,7 +154,9 @@ export default function MealPlannerPage() {
       setPlans(list);
       const active = list.find(p => p.is_active) ?? list[0];
       setActivePlanId(active?.id ?? "");
-      if (active?.id) await loadEntries(active.id);
+      const wk = todayMonday();
+      setCurrentWeekStart(wk);
+      if (active?.id) await loadEntries(active.id, wk);
       setLoading(false);
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +164,14 @@ export default function MealPlannerPage() {
 
   const switchPlan = async (planId: string) => {
     setActivePlanId(planId);
-    await loadEntries(planId);
+    await loadEntries(planId, currentWeekStart);
+  };
+
+  // Jump to a different calendar week of the active plan.
+  const goToWeek = async (weekStart: string) => {
+    setCurrentWeekStart(weekStart);
+    setMoveFrom(null);
+    if (activePlanId) await loadEntries(activePlanId, weekStart);
   };
 
   const handleCreatePlan = async () => {
@@ -182,7 +208,7 @@ export default function MealPlannerPage() {
     setPlans(remaining);
     if (activePlanId === planId) {
       setActivePlanId(remaining[0]?.id ?? "");
-      await loadEntries(remaining[0]?.id ?? "");
+      await loadEntries(remaining[0]?.id ?? "", currentWeekStart);
     }
   };
 
@@ -269,6 +295,7 @@ export default function MealPlannerPage() {
       const rows = entries.map(e => ({
         plan_id: plan.id,
         user_id: user.id,
+        week_start: currentWeekStart,
         day_index: e.day_index,
         meal_slot: e.meal_slot,
         recipe_id: e.recipe_id,
@@ -279,7 +306,7 @@ export default function MealPlannerPage() {
       }));
       const { data: inserted } = await supabase
         .from("meal_plan_entries")
-        .upsert(rows, { onConflict: "plan_id,day_index,meal_slot" })
+        .upsert(rows, { onConflict: "plan_id,week_start,day_index,meal_slot" })
         .select();
       setPlans(prev => [...prev, plan]);
       setActivePlanId(plan.id);
@@ -352,7 +379,7 @@ export default function MealPlannerPage() {
       if (usable.length === 0) return;
 
       const shuffled = [...usable].sort(() => Math.random() - 0.5);
-      const rows: { plan_id: string; user_id: string; day_index: number; meal_slot: string; recipe_id: string; recipe_title: string; recipe_image: string | null; recipe_time: number | null }[] = [];
+      const rows: { plan_id: string; user_id: string; week_start: string; day_index: number; meal_slot: string; recipe_id: string; recipe_title: string; recipe_image: string | null; recipe_time: number | null }[] = [];
       emptySlots.forEach((slot, i) => {
         // No repeats → unique recipe per slot (stop when the pool runs out);
         // repeats allowed → wrap around so a dish can span several days.
@@ -361,6 +388,7 @@ export default function MealPlannerPage() {
         rows.push({
           plan_id: activePlanId,
           user_id: user.id,
+          week_start: currentWeekStart,
           day_index: slot.day,
           meal_slot: slot.slot,
           recipe_id: r.recipe_id,
@@ -373,7 +401,7 @@ export default function MealPlannerPage() {
 
       const { data: inserted } = await supabase
         .from("meal_plan_entries")
-        .upsert(rows, { onConflict: "plan_id,day_index,meal_slot" })
+        .upsert(rows, { onConflict: "plan_id,week_start,day_index,meal_slot" })
         .select();
 
       if (inserted && inserted.length) {
@@ -407,11 +435,11 @@ export default function MealPlannerPage() {
       }
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
-      await supabase.from("meal_plan_entries").delete().eq("plan_id", activePlanId);
-      const rows = (data.entries as Omit<Entry, "id" | "servings">[]).map(e => ({ ...e, plan_id: activePlanId, user_id: user.id }));
+      await supabase.from("meal_plan_entries").delete().eq("plan_id", activePlanId).eq("week_start", currentWeekStart);
+      const rows = (data.entries as Omit<Entry, "id" | "servings">[]).map(e => ({ ...e, plan_id: activePlanId, user_id: user.id, week_start: currentWeekStart }));
       const { data: inserted } = await supabase
         .from("meal_plan_entries")
-        .upsert(rows, { onConflict: "plan_id,day_index,meal_slot" })
+        .upsert(rows, { onConflict: "plan_id,week_start,day_index,meal_slot" })
         .select();
       setEntries((inserted as Entry[]) ?? []);
       setShowAutoPlan(false);
@@ -623,6 +651,37 @@ export default function MealPlannerPage() {
           </div>
         </div>
 
+        {/* ── Week navigator ── */}
+        {weekInfo && (
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <button
+              onClick={() => goToWeek(shiftISO(currentWeekStart, -7))}
+              className="w-9 h-9 rounded-full border border-gray-200 text-gray-500 hover:border-orange-300 hover:text-orange-500 transition-all flex items-center justify-center text-lg leading-none"
+              title={t("prevWeek")}
+              aria-label={t("prevWeek")}
+            >‹</button>
+            <div className="text-center min-w-[160px]">
+              <p className="text-sm font-semibold text-gray-800">
+                {fmtDate(weekInfo.dates[0])} – {fmtDate(weekInfo.dates[6])}
+              </p>
+              {currentWeekStart !== todayMonday() ? (
+                <button
+                  onClick={() => goToWeek(todayMonday())}
+                  className="text-xs text-orange-500 hover:text-orange-600 font-medium"
+                >↺ {t("thisWeek")}</button>
+              ) : (
+                <p className="text-xs text-gray-400">{t("thisWeek")}</p>
+              )}
+            </div>
+            <button
+              onClick={() => goToWeek(shiftISO(currentWeekStart, 7))}
+              className="w-9 h-9 rounded-full border border-gray-200 text-gray-500 hover:border-orange-300 hover:text-orange-500 transition-all flex items-center justify-center text-lg leading-none"
+              title={t("nextWeek")}
+              aria-label={t("nextWeek")}
+            >›</button>
+          </div>
+        )}
+
         {/* ── Desktop Grid ── */}
         <div className="hidden md:block">
           <p className="text-[11px] text-gray-400 mb-2">{t("dragHint")}</p>
@@ -821,6 +880,7 @@ export default function MealPlannerPage() {
       {pickerTarget && activePlanId && (
         <PlanRecipePickerModal
           planId={activePlanId}
+          weekStart={currentWeekStart}
           dayIndex={pickerTarget.dayIndex}
           slot={pickerTarget.slot}
           dayLabel={DAYS_FULL[pickerTarget.dayIndex]}

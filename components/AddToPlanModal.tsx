@@ -75,16 +75,25 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) { setSaving(false); return; }
 
+    // Adding from a recipe page targets the current calendar week (Monday). The
+    // planner stores a week anchor per entry; "this week" is the sensible default.
+    const now = new Date();
+    const dow = (now.getDay() + 6) % 7;
+    const mon = new Date(now);
+    mon.setDate(now.getDate() - dow);
+    const weekStart = `${mon.getFullYear()}-${String(mon.getMonth() + 1).padStart(2, "0")}-${String(mon.getDate()).padStart(2, "0")}`;
+
     const { error } = await supabase.from("meal_plan_entries").upsert({
       plan_id: selectedPlan,
       user_id: user.id,
+      week_start: weekStart,
       day_index: selectedDay,
       meal_slot: selectedSlot,
       recipe_id: recipe.id,
       recipe_title: recipe.title,
       recipe_image: recipe.image ?? null,
       recipe_time: recipe.readyInMinutes ?? null,
-    }, { onConflict: "plan_id,day_index,meal_slot" });
+    }, { onConflict: "plan_id,week_start,day_index,meal_slot" });
 
     setSaving(false);
     if (error) { console.error("Plan save failed:", error); return; }
