@@ -229,7 +229,7 @@ export const blogPosts: BlogPost[] = [
     description:
       "Stop writing shopping lists by hand. Learn how to build a complete weekly meal plan that generates your grocery list automatically — saving time every single week.",
     publishedAt: "2026-05-14",
-    readingTime: "5 min read",
+    readingTime: "8 min read",
     category: "Meal Planning",
     sections: [
       {
@@ -308,6 +308,57 @@ export const blogPosts: BlogPost[] = [
       {
         content:
           "The time investment pays off every single day — no more 'what's for dinner' decision fatigue, no more forgotten ingredients, and significantly less food waste because you're buying what you'll actually use.",
+      },
+      {
+        heading: "A Sample Week You Can Copy",
+        content:
+          "Theory is easier to trust with an example. Here's a simple five-dinner week built around ingredient overlap, so the shopping list stays short and cheap:",
+        list: [
+          "Monday — Sheet-pan chicken thighs with roasted vegetables.",
+          "Tuesday — Pasta with tomato sauce and a green salad.",
+          "Wednesday — Chicken stir-fry with rice, using the same vegetables as Monday.",
+          "Thursday — Red lentil soup with crusty bread.",
+          "Friday — Homemade pizza, or a freestyle 'use it up' night.",
+        ],
+      },
+      {
+        content:
+          "Because the chicken, vegetables, and pantry basics repeat, those five dinners collapse into one short, organized list instead of five separate ones:",
+        list: [
+          "Produce: onions, garlic, vegetables for roasting and the stir-fry, salad leaves, tomatoes.",
+          "Meat: chicken thighs — enough for two meals.",
+          "Pantry: pasta, rice, red lentils, tinned tomatoes, olive oil, stock.",
+          "Bakery: bread and a pizza base.",
+          "Dairy: cheese for the pizza and salad.",
+        ],
+      },
+      {
+        content:
+          "Five dinners, one trip, almost nothing wasted — that's the entire payoff of planning before you shop.",
+      },
+      {
+        heading: "How many meals should I plan each week?",
+        content:
+          "Start with dinners — they're the hardest to wing and the most worth planning. Four or five is realistic for most people; leave a couple of evenings open for leftovers or spontaneity. Add lunches only if you actually meal prep, and keep breakfast flexible.",
+      },
+      {
+        heading: "What if my plans change mid-week?",
+        content:
+          "They will, and that's fine. A plan is a starting point, not a contract. Swap two dinners, push one to next week, or cook the quick option when a day runs long. The goal is to remove the daily decision, not to lock yourself in.",
+      },
+      {
+        heading: "How do I keep the grocery bill down?",
+        content:
+          "Plan around overlap so ingredients get fully used, check your pantry before you buy, and lean on what's in season. Buying only what your plan needs is the single biggest way to cut waste — and waste is where most grocery money quietly disappears.",
+      },
+      {
+        heading: "Can I plan for a whole family?",
+        content:
+          "Yes — the system scales straight up. Build a rotation of meals everyone eats, scale each recipe to your household size so no portion comes up short, and reuse the weeks that land well instead of replanning from scratch.",
+      },
+      {
+        content:
+          "However you plan — notebook or app — the magic is in deciding before you shop. And if you'd like the shopping list built for you automatically the moment your week is set, plan your week free at culinse.com.",
       },
     ],
   },

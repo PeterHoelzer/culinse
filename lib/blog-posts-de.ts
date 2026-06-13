@@ -215,7 +215,7 @@ export const blogPostsDe: BlogPost[] = [
     description:
       "Hör auf, Einkaufslisten von Hand zu schreiben. Lerne, wie du einen vollständigen Wochenmenüplan erstellst, der deine Einkaufsliste automatisch generiert — und dir jede Woche Zeit spart.",
     publishedAt: "2026-05-14",
-    readingTime: "5 Min. Lesezeit",
+    readingTime: "8 Min. Lesezeit",
     category: "Mahlzeitenplanung",
     sections: [
       {
@@ -294,6 +294,57 @@ export const blogPostsDe: BlogPost[] = [
       {
         content:
           "Die Zeitinvestition zahlt sich jeden einzelnen Tag aus — keine „Was gibt’s zum Abendessen?\"-Entscheidungsmüdigkeit mehr, keine vergessenen Zutaten mehr und deutlich weniger Lebensmittelverschwendung, weil du kaufst, was du wirklich verbrauchst.",
+      },
+      {
+        heading: "Eine Beispielwoche zum Nachmachen",
+        content:
+          "Mit einem Beispiel vertraut man der Theorie leichter. Hier eine einfache Woche aus fünf Abendessen, rund um Zutaten-Überschneidung gebaut, damit die Einkaufsliste kurz und günstig bleibt:",
+        list: [
+          "Montag — Blech-Hähnchenschenkel mit geröstetem Gemüse.",
+          "Dienstag — Pasta mit Tomatensauce und grünem Salat.",
+          "Mittwoch — Hähnchen-Wok mit Reis, mit demselben Gemüse wie am Montag.",
+          "Donnerstag — Rote-Linsen-Suppe mit knusprigem Brot.",
+          "Freitag — selbstgemachte Pizza oder ein freier „Reste verwerten“-Abend.",
+        ],
+      },
+      {
+        content:
+          "Weil Hähnchen, Gemüse und Vorratsbasics sich wiederholen, schrumpfen diese fünf Abendessen zu einer kurzen, geordneten Liste statt fünf einzelnen:",
+        list: [
+          "Obst & Gemüse: Zwiebeln, Knoblauch, Gemüse zum Rösten und für den Wok, Salat, Tomaten.",
+          "Fleisch: Hähnchenschenkel — genug für zwei Mahlzeiten.",
+          "Vorrat: Nudeln, Reis, rote Linsen, stückige Tomaten, Olivenöl, Brühe.",
+          "Backwaren: Brot und ein Pizzateig.",
+          "Molkerei: Käse für Pizza und Salat.",
+        ],
+      },
+      {
+        content:
+          "Fünf Abendessen, ein Einkauf, fast nichts verschwendet — das ist der ganze Gewinn davon, vor dem Einkaufen zu planen.",
+      },
+      {
+        heading: "Wie viele Mahlzeiten sollte ich pro Woche planen?",
+        content:
+          "Beginn mit dem Abendessen — das lässt sich am schwersten improvisieren und ist am meisten wert, geplant zu werden. Vier bis fünf sind für die meisten realistisch; lass ein, zwei Abende frei für Reste oder Spontanes. Mittagessen nur, wenn du wirklich Meal Prep machst, Frühstück flexibel.",
+      },
+      {
+        heading: "Was, wenn sich meine Pläne unter der Woche ändern?",
+        content:
+          "Werden sie, und das ist okay. Ein Plan ist ein Ausgangspunkt, kein Vertrag. Tausch zwei Abendessen, schieb eins auf nächste Woche oder koch die schnelle Variante, wenn ein Tag lang wird. Es geht darum, die tägliche Entscheidung loszuwerden, nicht dich festzunageln.",
+      },
+      {
+        heading: "Wie halte ich die Lebensmittelkosten niedrig?",
+        content:
+          "Plan um Überschneidungen, damit Zutaten ganz verbraucht werden, prüf vor dem Kauf den Vorrat und setz auf Saisonales. Nur zu kaufen, was der Plan braucht, ist der größte Hebel gegen Reste — und in Resten versickert das meiste Geld.",
+      },
+      {
+        heading: "Kann ich für eine ganze Familie planen?",
+        content:
+          "Ja — das System skaliert direkt hoch. Bau eine Rotation aus Gerichten, die alle essen, skalier jedes Rezept auf eure Haushaltsgröße, damit keine Portion fehlt, und verwende gute Wochen wieder, statt neu zu planen.",
+      },
+      {
+        content:
+          "Wie auch immer du planst — Zettel oder App —, der Zauber liegt darin, vor dem Einkaufen zu entscheiden. Und wenn die Einkaufsliste automatisch entstehen soll, sobald deine Woche steht, plane deine Woche kostenlos auf culinse.com.",
       },
     ],
   },
