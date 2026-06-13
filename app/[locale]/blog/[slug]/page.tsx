@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
+import { blogSlugPair } from "@/lib/blog-slug-map";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -20,9 +21,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = locale === "de" ? getBlogPostDe(slug) : getBlogPost(slug);
   if (!post) return {};
 
-  // hreflang: link EN ↔ DE versions
-  const enSlug = locale === "de" ? (getBlogPost(slug)?.slug ?? slug) : slug;
-  const deSlug = locale === "en" ? (getBlogPostDe(slug)?.slug ?? slug) : slug;
+  // hreflang: link EN ↔ DE versions via the canonical slug map. Localized slugs
+  // differ per language, so the matching slug can't be derived — it's looked up.
+  const { en: enSlug, de: deSlug } = blogSlugPair(slug, locale);
 
   return {
     title: post.title,

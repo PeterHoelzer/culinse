@@ -1,19 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
+import { EN_TO_DE_BLOG_SLUGS } from "@/lib/blog-slug-map";
 import { createAdminClient } from "@/lib/supabase/admin";
-
-// Maps EN blog slug → DE blog slug
-const blogSlugMap: Record<string, string> = {
-  "how-to-meal-prep-for-the-week": "meal-prep-fuer-die-woche",
-  "best-free-meal-planner-apps-2026": "beste-kostenlose-meal-planner-apps-2026",
-  "weekly-meal-plan-with-shopping-list": "wochenmenuplan-mit-einkaufsliste",
-  "easy-dinner-ideas-for-busy-weeknights": "schnelle-abendessen-ideen-unter-30-minuten",
-  "quick-dinner-recipes-under-30-minutes": "was-koche-ich-heute-abend-ideen-fuer-die-woche",
-  "high-protein-meals-for-muscle-building": "proteinreiche-mahlzeiten-muskelaufbau",
-  "vegetarian-dinner-ideas-easy-recipes": "vegetarische-abendessen-ideen",
-  "mediterranean-diet-recipes-beginners": "mediterrane-diaet-rezepte-anfaenger",
-  "budget-meals-under-5-euros": "guenstige-mahlzeiten-unter-5-euro",
-};
 
 const baseUrl = "https://culinse.com";
 
@@ -52,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Blog entries — linked via slug map, real publish dates as lastmod
   const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((post) => {
-    const deSlug = blogSlugMap[post.slug] ?? post.slug;
+    const deSlug = EN_TO_DE_BLOG_SLUGS[post.slug] ?? post.slug;
     const enUrl = `${baseUrl}/en/blog/${post.slug}`;
     const deUrl = `${baseUrl}/de/blog/${deSlug}`;
     const lastModified = new Date(post.publishedAt);
