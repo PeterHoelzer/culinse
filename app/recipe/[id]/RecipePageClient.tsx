@@ -45,6 +45,10 @@ export interface Recipe {
   diets: string[];
   dishTypes: string[];
   nutrition?: { calories: number; protein: number | null; fat: number | null; carbs: number | null } | null;
+  prepTime?: number | null;
+  cookTime?: number | null;
+  datePublished?: string | null;
+  cuisine?: string | null;
 }
 
 /** Translate a batch of strings EN→DE via the MyMemory route (chunked to 50). */

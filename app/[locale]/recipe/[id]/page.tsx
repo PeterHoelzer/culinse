@@ -121,9 +121,15 @@ export default async function RecipePage(
         url: `${BASE_URL}/${locale}/recipe/${id}`,
         // Aggregated recipes link back to the original source for attribution.
         ...(hasSource ? { isBasedOn: recipe.sourceUrl } : {}),
+        // prepTime + cookTime must be emitted together (Google requires the pair).
+        ...(recipe.prepTime && recipe.prepTime > 0 && recipe.cookTime && recipe.cookTime > 0
+          ? { prepTime: `PT${recipe.prepTime}M`, cookTime: `PT${recipe.cookTime}M` }
+          : {}),
         ...(recipe.time && !isNaN(parseInt(recipe.time))
           ? { totalTime: `PT${parseInt(recipe.time)}M` }
           : {}),
+        ...(recipe.datePublished ? { datePublished: recipe.datePublished } : {}),
+        ...(recipe.cuisine ? { recipeCuisine: recipe.cuisine } : {}),
         ...(recipe.servings
           ? { recipeYield: `${recipe.servings} serving${recipe.servings > 1 ? "s" : ""}` }
           : {}),
