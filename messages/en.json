@@ -93,6 +93,7 @@
   "forYou": {
     "title": "✨ For You",
     "subtitle": "Personalized based on your food profile",
+    "fromActivity": "Based on the recipes you've saved and planned",
     "editProfile": "Edit profile →"
   },
   "videoSection": {
