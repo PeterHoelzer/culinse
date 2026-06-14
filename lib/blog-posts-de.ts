@@ -217,6 +217,7 @@ export const blogPostsDe: BlogPost[] = [
     publishedAt: "2026-05-14",
     readingTime: "8 Min. Lesezeit",
     category: "Mahlzeitenplanung",
+    updatedAt: "2026-06-13",
     sections: [
       {
         content:

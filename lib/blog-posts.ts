@@ -5,6 +5,8 @@ export interface BlogPost {
   publishedAt: string;
   readingTime: string;
   category: string;
+  updatedAt?: string;
+  image?: string;
   sections: Section[];
 }
 
@@ -231,6 +233,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-05-14",
     readingTime: "8 min read",
     category: "Meal Planning",
+    updatedAt: "2026-06-13",
     sections: [
       {
         content:

@@ -100,5 +100,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Silently fail — collections are a bonus, never break the sitemap.
   }
 
-  return [...staticEntries, ...blogEntries, ...recipeEntries, ...collectionEntries];
+  // Public community recipes — unique, user-created content that's genuinely
+  // worth indexing (unlike aggregated provider recipes, which are duplicate
+  // content). Imported recipes are force-private, so only original posts appear.
+  let userRecipeEntries: MetadataRoute.Sitemap = [];
+  try {
+    const admin = createAdminClient();
+    const { data: urs } = await admin
+      .from("user_recipes")
+      .select("id, created_at")
+      .eq("is_public", true)
+      .limit(5000);
+    userRecipeEntries = (urs ?? []).flatMap((r: { id: string; created_at?: string }) => {
+      const enUrl = `${baseUrl}/en/recipe/user_${r.id}`;
+      const deUrl = `${baseUrl}/de/recipe/user_${r.id}`;
+      const lastModified = r.created_at ? new Date(r.created_at) : STATIC_LAST_MODIFIED;
+      return [
+        { url: enUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+        { url: deUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+      ];
+    });
+  } catch {
+    // Silently fail — community recipes are a bonus, never break the sitemap.
+  }
+
+  return [...staticEntries, ...blogEntries, ...recipeEntries, ...collectionEntries, ...userRecipeEntries];
 }

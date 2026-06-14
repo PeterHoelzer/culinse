@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // hreflang: link EN ↔ DE versions via the canonical slug map. Localized slugs
   // differ per language, so the matching slug can't be derived — it's looked up.
   const { en: enSlug, de: deSlug } = blogSlugPair(slug, locale);
+  const ogImage = post.image ?? "https://culinse.com/culinse-logo.png";
 
   return {
     title: post.title,
@@ -42,12 +43,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://culinse.com/${locale}/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt ?? post.publishedAt,
+      images: [{ url: ogImage }],
       siteName: "Culinse",
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
+      images: [ogImage],
     },
   };
 }
@@ -67,9 +71,9 @@ export default async function BlogPostPage({ params }: Props) {
     headline: post.title,
     description: post.description,
     datePublished: post.publishedAt,
-    dateModified: post.publishedAt,
+    dateModified: post.updatedAt ?? post.publishedAt,
     inLanguage: locale,
-    image: ["https://culinse.com/culinse-logo.png"],
+    image: post.image ? [post.image] : ["https://culinse.com/culinse-logo.png"],
     author: { "@type": "Organization", name: "Culinse", url: "https://culinse.com" },
     publisher: {
       "@type": "Organization",
