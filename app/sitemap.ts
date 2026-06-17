@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
 import { EN_TO_DE_BLOG_SLUGS } from "@/lib/blog-slug-map";
+import { CURATED_RECIPE_IDS } from "@/lib/curated-recipe-ids";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const baseUrl = "https://culinse.com";
@@ -50,33 +51,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   });
 
-  // Recipe IDs from Spoonacular. Sorted by ID and cached 7 days so the URL set
-  // stays STABLE across builds/days — recipe URLs churning in and out of the
-  // sitemap signals low value to Google.
-  // TODO: replace with a hand-curated list of your best/most-unique recipes.
-  let recipeEntries: MetadataRoute.Sitemap = [];
-  try {
-    const res = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?number=50&sort=popularity&minPopularity=50&instructionsRequired=true&apiKey=${process.env.SPOONACULAR_API_KEY}`,
-      { next: { revalidate: 604800 } }
-    );
-    if (res.ok) {
-      const data = await res.json();
-      const ids: number[] = (data.results ?? [])
-        .map((r: { id: number }) => r.id)
-        .sort((a: number, b: number) => a - b);
-      recipeEntries = ids.flatMap((id) => {
-        const enUrl = `${baseUrl}/en/recipe/${id}`;
-        const deUrl = `${baseUrl}/de/recipe/${id}`;
-        return [
-          { url: enUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
-          { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
-        ];
-      });
-    }
-  } catch {
-    // Silently fail — don't break the build if Spoonacular is unavailable
-  }
+  // Recipe URLs — a STABLE, hand-curated list (see lib/curated-recipe-ids.ts).
+  // Replaces the old dynamic Spoonacular popularity query, whose URL set churned
+  // between builds (136 → 134 in a week) and signalled "low value" to Google.
+  // Empty by default: aggregated provider recipes are duplicate content and won't
+  // index in bulk — curate your best/most-unique IDs in that file to include them.
+  const recipeEntries: MetadataRoute.Sitemap = CURATED_RECIPE_IDS.flatMap((id) => {
+    const enUrl = `${baseUrl}/en/recipe/${id}`;
+    const deUrl = `${baseUrl}/de/recipe/${id}`;
+    return [
+      { url: enUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+      { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+    ];
+  });
 
   // Public collections — SEO landing pages (unique curated content).
   let collectionEntries: MetadataRoute.Sitemap = [];
