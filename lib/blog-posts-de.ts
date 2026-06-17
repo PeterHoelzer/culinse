@@ -348,6 +348,28 @@ export const blogPostsDe: BlogPost[] = [
           "Wie auch immer du planst — Zettel oder App —, der Zauber liegt darin, vor dem Einkaufen zu entscheiden. Und wenn die Einkaufsliste automatisch entstehen soll, sobald deine Woche steht, plane deine Woche kostenlos auf culinse.com.",
       },
     ],
+    faq: [
+      {
+        question: "Wie viele Mahlzeiten sollte ich pro Woche planen?",
+        answer:
+          "Beginn mit dem Abendessen — das lässt sich am schwersten improvisieren und ist am meisten wert, geplant zu werden. Vier bis fünf sind für die meisten realistisch; lass ein, zwei Abende frei für Reste oder Spontanes. Mittagessen nur, wenn du wirklich Meal Prep machst, Frühstück flexibel.",
+      },
+      {
+        question: "Was, wenn sich meine Pläne unter der Woche ändern?",
+        answer:
+          "Werden sie, und das ist okay. Ein Plan ist ein Ausgangspunkt, kein Vertrag. Tausch zwei Abendessen, schieb eins auf nächste Woche oder koch die schnelle Variante, wenn ein Tag lang wird. Es geht darum, die tägliche Entscheidung loszuwerden, nicht dich festzunageln.",
+      },
+      {
+        question: "Wie halte ich die Lebensmittelkosten niedrig?",
+        answer:
+          "Plan um Überschneidungen, damit Zutaten ganz verbraucht werden, prüf vor dem Kauf den Vorrat und setz auf Saisonales. Nur zu kaufen, was der Plan braucht, ist der größte Hebel gegen Reste — und in Resten versickert das meiste Geld.",
+      },
+      {
+        question: "Kann ich für eine ganze Familie planen?",
+        answer:
+          "Ja — das System skaliert direkt hoch. Bau eine Rotation aus Gerichten, die alle essen, skalier jedes Rezept auf eure Haushaltsgröße, damit keine Portion fehlt, und verwende gute Wochen wieder, statt neu zu planen.",
+      },
+    ],
   },
   {
     slug: "schnelle-abendessen-ideen-unter-30-minuten",

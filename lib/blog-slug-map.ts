@@ -42,3 +42,30 @@ export function blogSlugPair(slug: string, locale: string): { en: string; de: st
   }
   return { en: slug, de: EN_TO_DE_BLOG_SLUGS[slug] ?? slug };
 }
+
+/**
+ * Map a wrong-language slug to the correct slug for `locale`.
+ *
+ * Background: an earlier hreflang bug emitted `/de/blog/<en-slug>` (and the
+ * reverse) links that Google crawled and recorded as 404s. The code that
+ * generated them is fixed, but those stale URLs still sit in Search Console as
+ * "Not found (404)". This lets the blog route 308-redirect such a request to the
+ * proper localized URL instead of serving a hard 404 — the SEO-correct way to
+ * retire URLs Google already knows.
+ *
+ * Returns the correct slug for `locale` when `slug` is a known slug of the OTHER
+ * language; otherwise `null` (caller should serve a real 404). Only called after
+ * a lookup in the current locale has already failed, so a valid same-language
+ * post always takes precedence.
+ */
+export function crossLanguageBlogSlug(slug: string, locale: string): string | null {
+  if (locale === "de") {
+    // An EN slug requested under /de/ → its DE counterpart.
+    return EN_TO_DE_BLOG_SLUGS[slug] ?? null;
+  }
+  if (locale === "en") {
+    // A DE slug requested under /en/ → its EN counterpart.
+    return DE_TO_EN_BLOG_SLUGS[slug] ?? null;
+  }
+  return null;
+}

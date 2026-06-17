@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
-import { blogSlugPair } from "@/lib/blog-slug-map";
+import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -59,7 +59,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { locale, slug } = await params;
   const post = locale === "de" ? getBlogPostDe(slug) : getBlogPost(slug);
-  if (!post) notFound();
+  if (!post) {
+    // A slug from the other language (legacy hreflang-bug URLs like
+    // /de/blog/<en-slug> that Google indexed as 404s). If it maps to a real post
+    // in this locale, 308-redirect there so the stale 404 resolves to the right
+    // URL; otherwise it's a genuine 404.
+    const correctSlug = crossLanguageBlogSlug(slug, locale);
+    const target = correctSlug
+      ? locale === "de"
+        ? getBlogPostDe(correctSlug)
+        : getBlogPost(correctSlug)
+      : undefined;
+    if (correctSlug && target) {
+      permanentRedirect(`/${locale}/blog/${correctSlug}`);
+    }
+    notFound();
+  }
 
   const allPosts = locale === "de" ? blogPostsDe : blogPosts;
   const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
@@ -85,6 +100,24 @@ export default async function BlogPostPage({ params }: Props) {
     url: articleUrl,
   };
 
+  // FAQPage schema — only emitted when the post defines FAQ Q&A. The same Q&A is
+  // rendered visibly via `post.sections`, so the on-page content matches the
+  // structured data (Google requires the answers to be visible). Makes the post
+  // eligible for FAQ rich results and improves AI-answer citation odds.
+  const faqSchema =
+    post.faq && post.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          inLanguage: locale,
+          mainEntity: post.faq.map((f) => ({
+            "@type": "Question",
+            name: f.question,
+            acceptedAnswer: { "@type": "Answer", text: f.answer },
+          })),
+        }
+      : null;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <script
@@ -96,6 +129,18 @@ export default async function BlogPostPage({ params }: Props) {
             .replace(/&/g, "\\u0026"),
         }}
       />
+
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema)
+              .replace(/</g, "\\u003c")
+              .replace(/>/g, "\\u003e")
+              .replace(/&/g, "\\u0026"),
+          }}
+        />
+      )}
 
       <Navbar />
 
@@ -165,6 +210,42 @@ export default async function BlogPostPage({ params }: Props) {
           >
             {locale === "de" ? "Culinse kostenlos ausprobieren →" : "Try Culinse for free →"}
           </Link>
+        </div>
+
+        {/* Explore features — passes crawl/link equity from the blog into the
+            planner + collections pages (SEO masterplan §3.3) */}
+        <div className="mb-10">
+          <h3 className="text-lg font-bold text-gray-900 mb-4">
+            {locale === "de" ? "Mehr von Culinse" : "More from Culinse"}
+          </h3>
+          <div className="grid sm:grid-cols-2 gap-3">
+            <Link
+              href={`/${locale}/meal-planner`}
+              className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
+            >
+              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+                {locale === "de" ? "Wochenplaner" : "Weekly meal planner"}
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {locale === "de"
+                  ? "Woche planen und automatische Einkaufsliste erhalten."
+                  : "Plan your week and get an automatic shopping list."}
+              </p>
+            </Link>
+            <Link
+              href={`/${locale}/collections/explore`}
+              className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
+            >
+              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+                {locale === "de" ? "Rezept-Collections" : "Recipe collections"}
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {locale === "de"
+                  ? "Kuratierte Rezeptsammlungen zum Entdecken."
+                  : "Curated recipe collections to explore."}
+              </p>
+            </Link>
+          </div>
         </div>
 
         {/* Related posts */}

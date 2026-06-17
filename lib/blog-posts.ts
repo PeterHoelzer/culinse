@@ -8,6 +8,10 @@ export interface BlogPost {
   updatedAt?: string;
   image?: string;
   sections: Section[];
+  // Optional Q&A pairs rendered as a visible FAQ block AND emitted as FAQPage
+  // JSON-LD (rich-result / AI-citation eligibility). The text MUST match what is
+  // shown on the page — keep these in sync with the visible FAQ sections.
+  faq?: { question: string; answer: string }[];
 }
 
 interface Section {
@@ -362,6 +366,28 @@ export const blogPosts: BlogPost[] = [
       {
         content:
           "However you plan — notebook or app — the magic is in deciding before you shop. And if you'd like the shopping list built for you automatically the moment your week is set, plan your week free at culinse.com.",
+      },
+    ],
+    faq: [
+      {
+        question: "How many meals should I plan each week?",
+        answer:
+          "Start with dinners — they're the hardest to wing and the most worth planning. Four or five is realistic for most people; leave a couple of evenings open for leftovers or spontaneity. Add lunches only if you actually meal prep, and keep breakfast flexible.",
+      },
+      {
+        question: "What if my plans change mid-week?",
+        answer:
+          "They will, and that's fine. A plan is a starting point, not a contract. Swap two dinners, push one to next week, or cook the quick option when a day runs long. The goal is to remove the daily decision, not to lock yourself in.",
+      },
+      {
+        question: "How do I keep the grocery bill down?",
+        answer:
+          "Plan around overlap so ingredients get fully used, check your pantry before you buy, and lean on what's in season. Buying only what your plan needs is the single biggest way to cut waste — and waste is where most grocery money quietly disappears.",
+      },
+      {
+        question: "Can I plan for a whole family?",
+        answer:
+          "Yes — the system scales straight up. Build a rotation of meals everyone eats, scale each recipe to your household size so no portion comes up short, and reuse the weeks that land well instead of replanning from scratch.",
       },
     ],
   },
