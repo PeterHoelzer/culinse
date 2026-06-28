@@ -1,15 +1,26 @@
 User-agent: *
 Allow: /
 
-# Block user-specific pages (no SEO value)
+# Block user-specific / utility pages (no SEO value; most redirect to login)
 Disallow: /*/saved
-Disallow: /*/collections
-Disallow: /*/meal-planner
+Disallow: /*/meal-planner$
+Disallow: /*/wochenplaner$
+Disallow: /*/planner$
+Disallow: /*/my-recipes
+Disallow: /*/recipes
 Disallow: /*/profile
 Disallow: /*/pro/success
 Disallow: /*/login
 Disallow: /*/reset-password
 Disallow: /*/update-password
+
+# Collections: block only the user's own collections index, but keep the
+# public landing pages crawlable (they're in the sitemap):
+#   /<locale>/collections          → user's list (blocked)
+#   /<locale>/collections/explore  → public discovery (allowed)
+#   /<locale>/collections/<id>     → public collection (allowed)
+Disallow: /*/collections
+Allow: /*/collections/
 
 # Block API routes
 Disallow: /api/

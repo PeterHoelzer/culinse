@@ -7,8 +7,11 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 // Protected routes — without locale prefix (checked against pathname after stripping locale)
+// NOTE: "/collections" is intentionally NOT a blanket prefix here. Its public
+// sub-pages (/collections/explore and /collections/<id>) are server-rendered SEO
+// landing pages listed in the sitemap and MUST stay reachable by anonymous users
+// and crawlers. Only the user's own collections index is gated — see isProtected.
 const PROTECTED_PATHS = [
-  "/collections",
   "/meal-planner",
   "/wochenplaner",
   "/planner",
@@ -101,9 +104,16 @@ async function proxy(request: NextRequest) {
   const localePattern = /^\/(en|de)(\/|$)/;
   const strippedPath = pathname.replace(localePattern, "/");
 
-  const isProtected = PROTECTED_PATHS.some((path) =>
-    strippedPath.startsWith(path)
-  );
+  // Gate only the user's OWN collections index (/collections or /collections/),
+  // never the public sub-pages /collections/explore and /collections/<id>, which
+  // must stay crawlable for SEO (they're in the sitemap and server-render their
+  // own content; private collections are access-gated client-side).
+  const isCollectionsIndex =
+    strippedPath === "/collections" || strippedPath === "/collections/";
+
+  const isProtected =
+    isCollectionsIndex ||
+    PROTECTED_PATHS.some((path) => strippedPath.startsWith(path));
 
   if (isProtected && !session) {
     // Detect locale from URL or default to "en"

@@ -220,7 +220,7 @@ export default async function BlogPostPage({ params }: Props) {
           </h3>
           <div className="grid sm:grid-cols-2 gap-3">
             <Link
-              href={`/${locale}/meal-planner`}
+              href={`/${locale}/weekly-meal-planner`}
               className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
             >
               <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
