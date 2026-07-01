@@ -73,12 +73,12 @@ export default function DiscoverSection({
   // default discover view. Failure is silent — they're a bonus, not required.
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/community-recipes?number=2")
+    fetch(`/api/community-recipes?number=2&lang=${locale}`)
       .then((r) => r.json())
       .then((d) => { if (!cancelled) setCommunity(d.recipes ?? []); })
       .catch(() => {});
     return () => { cancelled = true; };
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     if (!user) return;

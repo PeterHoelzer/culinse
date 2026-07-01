@@ -8,15 +8,19 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const number = Math.min(Math.max(Number(searchParams.get("number") || 2), 1), 6);
+  const lang = searchParams.get("lang") === "de" ? "de" : "en";
 
   try {
     const supabase = createAdminClient();
     // Only public recipes that have an image (cards look broken without one).
+    // Filter by language so German recipes stay on the German site and vice
+    // versa; legacy rows without a language (NULL) remain visible everywhere.
     const { data, error } = await supabase
       .from("user_recipes")
       .select("id, title, image_url, image_position, cook_time, servings")
       .eq("is_public", true)
       .not("image_url", "is", null)
+      .or(`language.eq.${lang},language.is.null`)
       .order("created_at", { ascending: false })
       .limit(50);
 

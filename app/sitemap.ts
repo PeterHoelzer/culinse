@@ -96,18 +96,47 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const admin = createAdminClient();
     const { data: urs } = await admin
       .from("user_recipes")
-      .select("id, created_at")
+      .select("id, created_at, language, translation_group")
       .eq("is_public", true)
       .limit(5000);
-    userRecipeEntries = (urs ?? []).flatMap((r: { id: string; created_at?: string }) => {
-      const enUrl = `${baseUrl}/en/recipe/user_${r.id}`;
-      const deUrl = `${baseUrl}/de/recipe/user_${r.id}`;
-      const lastModified = r.created_at ? new Date(r.created_at) : STATIC_LAST_MODIFIED;
-      return [
-        { url: enUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
-        { url: deUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
-      ];
-    });
+
+    // Group DE/EN versions of the same recipe (via translation_group) so each
+    // localized recipe is listed ONLY under its own locale, with hreflang
+    // pointing to its sibling. A German recipe never appears as an /en URL and
+    // vice versa. Legacy rows without a language fall back to both locales.
+    type Row = { id: string; created_at?: string; language?: string | null; translation_group?: string | null };
+    const groups = new Map<string, { de?: Row; en?: Row; legacy?: Row }>();
+    for (const r of (urs ?? []) as Row[]) {
+      const key = r.translation_group || `__${r.id}`;
+      const g = groups.get(key) ?? {};
+      if (r.language === "de") g.de = r;
+      else if (r.language === "en") g.en = r;
+      else g.legacy = r;
+      groups.set(key, g);
+    }
+
+    const modOf = (r: Row) => (r.created_at ? new Date(r.created_at) : STATIC_LAST_MODIFIED);
+    for (const g of groups.values()) {
+      if (g.legacy && !g.de && !g.en) {
+        const r = g.legacy;
+        const enUrl = `${baseUrl}/en/recipe/user_${r.id}`;
+        const deUrl = `${baseUrl}/de/recipe/user_${r.id}`;
+        userRecipeEntries.push(
+          { url: enUrl, lastModified: modOf(r), changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+          { url: deUrl, lastModified: modOf(r), changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
+        );
+        continue;
+      }
+      const enUrl = g.en ? `${baseUrl}/en/recipe/user_${g.en.id}` : undefined;
+      const deUrl = g.de ? `${baseUrl}/de/recipe/user_${g.de.id}` : undefined;
+      const languages: Record<string, string> = {};
+      if (enUrl) languages.en = enUrl;
+      if (deUrl) languages.de = deUrl;
+      languages["x-default"] = enUrl ?? deUrl!;
+      const alternates = { languages };
+      if (g.en) userRecipeEntries.push({ url: enUrl!, lastModified: modOf(g.en), changeFrequency: "monthly" as const, priority: 0.6, alternates });
+      if (g.de) userRecipeEntries.push({ url: deUrl!, lastModified: modOf(g.de), changeFrequency: "monthly" as const, priority: 0.6, alternates });
+    }
   } catch {
     // Silently fail — community recipes are a bonus, never break the sitemap.
   }

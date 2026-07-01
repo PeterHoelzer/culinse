@@ -9,9 +9,10 @@ const BASE = "https://api.spoonacular.com";
 // Public, user-created recipes whose title matches the search term, mapped to
 // the homepage recipe shape. Searched with the ORIGINAL query (user recipes may
 // be in German or English). Failure is silent — search still returns providers.
-async function fetchCommunityMatches(query: string, limit: number) {
+async function fetchCommunityMatches(query: string, limit: number, lang: string) {
   const q = query.trim();
   if (q.length < 2) return [];
+  const l = lang === "de" ? "de" : "en";
   try {
     const supabase = createAdminClient();
     const { data } = await supabase
@@ -19,6 +20,7 @@ async function fetchCommunityMatches(query: string, limit: number) {
       .select("id, title, image_url, image_position, cook_time, servings")
       .eq("is_public", true)
       .not("image_url", "is", null)
+      .or(`language.eq.${l},language.is.null`)
       .ilike("title", `%${q}%`)
       .limit(limit);
     return (data ?? []).map((r) => ({
@@ -239,7 +241,7 @@ export async function GET(req: NextRequest) {
     }
 
     // Matching community (user-created) recipes — only for text searches.
-    const communityPromise = query ? fetchCommunityMatches(query, 4) : Promise.resolve([]);
+    const communityPromise = query ? fetchCommunityMatches(query, 4, lang) : Promise.resolve([]);
 
     // Fetch Spoonacular + TheMealDB + Edamam in parallel
     const [spoonRes, mdbRecipes, edamamRecipes] = await Promise.all([

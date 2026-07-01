@@ -67,7 +67,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
       prep_time: body.prep_time,
       servings: body.servings,
       tags: body.tags,
-      nutrition: null,
+      nutrition: body.nutrition !== undefined ? body.nutrition : null,
       is_public: body.is_public,
       status: body.is_public ? "published" : "draft",
     })
