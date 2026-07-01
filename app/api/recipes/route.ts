@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
 import { translateTexts } from "@/lib/translate";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { recipeSourceLabel } from "@/lib/culinse";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -17,7 +18,7 @@ async function fetchCommunityMatches(query: string, limit: number, lang: string)
     const supabase = createAdminClient();
     const { data } = await supabase
       .from("user_recipes")
-      .select("id, title, image_url, image_position, cook_time, servings")
+      .select("id, user_id, title, image_url, image_position, cook_time, servings")
       .eq("is_public", true)
       .not("image_url", "is", null)
       .or(`language.eq.${l},language.is.null`)
@@ -27,7 +28,7 @@ async function fetchCommunityMatches(query: string, limit: number, lang: string)
       id: `user_${r.id}`,
       title: r.title,
       image: r.image_url,
-      source: "Community",
+      source: recipeSourceLabel(r.user_id),
       sourceUrl: "#",
       time: r.cook_time ? `${r.cook_time} min` : "—",
       servings: r.servings ?? null,
@@ -305,8 +306,13 @@ export async function GET(req: NextRequest) {
       typeof spoonData.totalResults === "number" ? spoonData.totalResults : merged.length;
     const hasMore = merged.length >= number && number < 24 && totalAvailable > number;
 
-    // Community matches lead, then the provider results, capped at `number`.
-    let combined = [...communityMatches, ...merged].slice(0, number);
+    // Culinse recipes flow into the normal results — spread across the list so
+    // they rank alongside the provider recipes instead of as a separate block.
+    const spread = [...merged] as Array<(typeof merged)[number] | (typeof communityMatches)[number]>;
+    communityMatches.forEach((c, i) => {
+      spread.splice(Math.min(spread.length, i * 3 + 1), 0, c);
+    });
+    let combined = spread.slice(0, number);
 
     // On the German site, translate provider titles to German (cached).
     // Community recipe titles (id "user_…") are left as the author wrote them.

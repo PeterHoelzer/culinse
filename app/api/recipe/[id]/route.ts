@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
+import { recipeSourceLabel } from "@/lib/culinse";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -77,8 +78,8 @@ export async function GET(
         imagePosition: r.image_position || "50% 50%",
         videoUrl: r.video_url || null,
         // Imported recipes carry their original site name + link for attribution;
-        // user-created recipes fall back to the "Community" label.
-        source: r.source_name || "Community",
+        // created recipes are labelled Culinse (owner) or Community (other members).
+        source: r.source_type === "imported" ? (r.source_name || "Community") : recipeSourceLabel(r.user_id),
         sourceUrl: r.source_url || "",
         time: totalTime > 0 ? `${totalTime} min` : null,
         prepTime: r.prep_time || null,

@@ -20,7 +20,6 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
   const gradient = GRADIENTS[index % GRADIENTS.length];
   const emoji = EMOJIS[index % EMOJIS.length];
   const supabase = createClient();
-  const isCommunity = typeof recipe.id === "string" && recipe.id.startsWith("user_");
 
   const handleSave = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,7 +116,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
             </button>
           </div>
 
-          {isCommunity && (
+          {recipe.source === "Community" && (
             <div className="absolute top-3 left-3 bg-orange-500 text-white text-[11px] font-bold px-2 py-1 rounded-lg shadow-sm">
               👩‍🍳 Community
             </div>

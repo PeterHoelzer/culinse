@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { recipeSourceLabel } from "@/lib/culinse";
 
 // GET /api/community-recipes?number=2
 // Returns up to `number` random public, user-created recipes, mapped to the
@@ -17,7 +18,7 @@ export async function GET(req: Request) {
     // versa; legacy rows without a language (NULL) remain visible everywhere.
     const { data, error } = await supabase
       .from("user_recipes")
-      .select("id, title, image_url, image_position, cook_time, servings")
+      .select("id, user_id, title, image_url, image_position, cook_time, servings")
       .eq("is_public", true)
       .not("image_url", "is", null)
       .or(`language.eq.${lang},language.is.null`)
@@ -37,7 +38,7 @@ export async function GET(req: Request) {
       id: `user_${r.id}`,
       title: r.title,
       image: r.image_url,
-      source: "Community",
+      source: recipeSourceLabel(r.user_id),
       sourceUrl: "#",
       time: r.cook_time ? `${r.cook_time} min` : "—",
       servings: r.servings ?? null,
