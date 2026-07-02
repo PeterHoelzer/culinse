@@ -272,7 +272,7 @@ export async function GET(req: NextRequest) {
         id: r.id,
         title: r.title,
         image: r.image || null,
-        source: r.sourceName || r.creditsText || "Culinse",
+        source: r.sourceName || r.creditsText || "Spoonacular",
         sourceUrl: r.sourceUrl || "#",
         time: r.readyInMinutes ? `${r.readyInMinutes} min` : "—",
         servings: r.servings || null,

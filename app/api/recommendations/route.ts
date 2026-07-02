@@ -111,7 +111,7 @@ export async function GET(req: NextRequest) {
     id: c.id,
     title: c.title,
     image: c.imageType ? `https://img.spoonacular.com/recipes/${c.id}-636x393.${c.imageType}` : null,
-    source: "Culinse",
+    source: "Spoonacular",
     sourceUrl: "#",
     time: c.readyInMinutes ? `${c.readyInMinutes} min` : "—",
     servings: c.servings ?? null,
