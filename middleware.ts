@@ -12,6 +12,7 @@ const intlMiddleware = createMiddleware(routing);
 // landing pages listed in the sitemap and MUST stay reachable by anonymous users
 // and crawlers. Only the user's own collections index is gated — see isProtected.
 const PROTECTED_PATHS = [
+  "/admin",
   "/meal-planner",
   "/wochenplaner",
   "/planner",

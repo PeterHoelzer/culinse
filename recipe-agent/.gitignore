@@ -1,0 +1,5 @@
+# Laufzeit-Zustand des Rezept-Agenten — nicht versionieren
+state/queue/
+state/images/
+state/log/
+state/gsc.csv
