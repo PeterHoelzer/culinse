@@ -56,8 +56,38 @@ export default async function AboutPage({ params }: Props) {
   const values = t.raw("values") as { icon: string; title: string; desc: string }[];
   const visionItems = t.raw("visionItems") as { icon: string; title: string; desc: string }[];
 
+  // Person schema (E-E-A-T): the same @id is referenced as `author` in every
+  // blog article's Article JSON-LD, so Google can connect articles → author →
+  // credentials on this page.
+  const personSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://culinse.com/#peter",
+    name: "Peter Hölzer",
+    jobTitle:
+      locale === "de"
+        ? "Küchenchef & Fleischermeister"
+        : "Head Chef & German Master Butcher (Fleischermeister)",
+    description:
+      locale === "de"
+        ? "Küchenchef mit Restaurant-Erfahrung in ganz Deutschland, seit 2024 Fleischermeister — die höchste Qualifikation des Fleischerhandwerks. Gründer von Culinse."
+        : "Head chef with restaurant experience across Germany, certified Fleischermeister (German master butcher, the trade's highest qualification) in 2024. Founder of Culinse.",
+    url: `https://culinse.com/${locale}/about`,
+    knowsAbout: ["Cooking", "Butchery", "Meal planning", "Recipes"],
+    worksFor: { "@type": "Organization", "@id": "https://culinse.com/#organization" },
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personSchema)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e")
+            .replace(/&/g, "\\u0026"),
+        }}
+      />
       <Navbar />
 
       {/* Hero */}

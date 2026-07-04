@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import AuthorBox from "@/components/AuthorBox";
 import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
 import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
@@ -23,19 +24,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   // hreflang: link EN ↔ DE versions via the canonical slug map. Localized slugs
   // differ per language, so the matching slug can't be derived — it's looked up.
+  // Single-language posts (the 12-week content plan publishes some articles in
+  // only one language) must NOT emit an alternate for the missing language —
+  // blogSlugPair falls back to the same slug, which would point hreflang at a
+  // URL that redirects/404s (the exact class of bug GSC flagged before).
   const { en: enSlug, de: deSlug } = blogSlugPair(slug, locale);
+  const enExists = Boolean(getBlogPost(enSlug));
+  const deExists = Boolean(getBlogPostDe(deSlug));
+  const selfUrl = `https://culinse.com/${locale}/blog/${post.slug}`;
+  const languages: Record<string, string> = {
+    ...(enExists ? { en: `https://culinse.com/en/blog/${enSlug}` } : {}),
+    ...(deExists ? { de: `https://culinse.com/de/blog/${deSlug}` } : {}),
+    "x-default": enExists ? `https://culinse.com/en/blog/${enSlug}` : selfUrl,
+  };
   const ogImage = post.image ?? "https://culinse.com/culinse-logo.png";
 
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `https://culinse.com/${locale}/blog/${post.slug}`,
-      languages: {
-        "en": `https://culinse.com/en/blog/${enSlug}`,
-        "de": `https://culinse.com/de/blog/${deSlug}`,
-        "x-default": `https://culinse.com/en/blog/${enSlug}`,
-      },
+      canonical: selfUrl,
+      languages,
     },
     openGraph: {
       title: post.title,
@@ -89,7 +98,23 @@ export default async function BlogPostPage({ params }: Props) {
     dateModified: post.updatedAt ?? post.publishedAt,
     inLanguage: locale,
     image: post.image ? [post.image] : ["https://culinse.com/culinse-logo.png"],
-    author: { "@type": "Organization", name: "Culinse", url: "https://culinse.com" },
+    // Person author (E-E-A-T): real, verifiable expertise. Keep in sync with
+    // the visible <AuthorBox /> below the article.
+    author: {
+      "@type": "Person",
+      "@id": "https://culinse.com/#peter",
+      name: "Peter Hölzer",
+      jobTitle:
+        locale === "de"
+          ? "Küchenchef & Fleischermeister"
+          : "Head Chef & German Master Butcher (Fleischermeister)",
+      description:
+        locale === "de"
+          ? "Küchenchef mit Restaurant-Erfahrung in ganz Deutschland, seit 2024 Fleischermeister. Gründer von Culinse."
+          : "Head chef with restaurant experience across Germany, certified Fleischermeister (German master butcher) since 2024. Founder of Culinse.",
+      url: `https://culinse.com/${locale}/about`,
+      worksFor: { "@type": "Organization", "@id": "https://culinse.com/#organization" },
+    },
     publisher: {
       "@type": "Organization",
       name: "Culinse",
@@ -192,6 +217,9 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           ))}
         </article>
+
+        {/* Author (E-E-A-T) */}
+        <AuthorBox locale={locale} />
 
         {/* CTA */}
         <div className="bg-orange-50 border border-orange-100 rounded-2xl p-6 mb-10 text-center">

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-posts";
-import { EN_TO_DE_BLOG_SLUGS } from "@/lib/blog-slug-map";
+import { blogPostsDe } from "@/lib/blog-posts-de";
+import { EN_TO_DE_BLOG_SLUGS, DE_TO_EN_BLOG_SLUGS } from "@/lib/blog-slug-map";
 import { CURATED_RECIPE_IDS } from "@/lib/curated-recipe-ids";
 import { createAdminClient } from "@/lib/supabase/admin";
 
@@ -40,17 +41,53 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   });
 
-  // Blog entries — linked via slug map, real publish dates as lastmod
+  // Blog entries — linked via slug map, real publish dates as lastmod.
+  // Some posts exist in only ONE language (12-week content plan): those emit a
+  // single entry WITHOUT a cross-language alternate — never an alternate URL
+  // that doesn't exist.
+  const deSlugSet = new Set(blogPostsDe.map((p) => p.slug));
+  const enSlugSet = new Set(blogPosts.map((p) => p.slug));
+
   const blogEntries: MetadataRoute.Sitemap = blogPosts.flatMap((post) => {
-    const deSlug = EN_TO_DE_BLOG_SLUGS[post.slug] ?? post.slug;
+    const deSlug = EN_TO_DE_BLOG_SLUGS[post.slug];
+    const hasDe = deSlug !== undefined && deSlugSet.has(deSlug);
     const enUrl = `${baseUrl}/en/blog/${post.slug}`;
-    const deUrl = `${baseUrl}/de/blog/${deSlug}`;
     const lastModified = new Date(post.publishedAt);
+    if (!hasDe) {
+      return [
+        {
+          url: enUrl,
+          lastModified,
+          changeFrequency: "monthly" as const,
+          priority: 0.7,
+          alternates: { languages: { en: enUrl, "x-default": enUrl } },
+        },
+      ];
+    }
+    const deUrl = `${baseUrl}/de/blog/${deSlug}`;
     return [
       { url: enUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.7, alternates: langs(enUrl, deUrl) },
       { url: deUrl, lastModified, changeFrequency: "monthly" as const, priority: 0.7, alternates: langs(enUrl, deUrl) },
     ];
   });
+
+  // DE-only posts (no EN counterpart) — otherwise they'd be missing from the
+  // sitemap entirely, since the loop above iterates the EN list.
+  const deOnlyBlogEntries: MetadataRoute.Sitemap = blogPostsDe
+    .filter((post) => {
+      const enSlug = DE_TO_EN_BLOG_SLUGS[post.slug];
+      return enSlug === undefined || !enSlugSet.has(enSlug);
+    })
+    .map((post) => {
+      const deUrl = `${baseUrl}/de/blog/${post.slug}`;
+      return {
+        url: deUrl,
+        lastModified: new Date(post.publishedAt),
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+        alternates: { languages: { de: deUrl, "x-default": deUrl } },
+      };
+    });
 
   // Recipe URLs — a STABLE, hand-curated list (see lib/curated-recipe-ids.ts).
   // Replaces the old dynamic Spoonacular popularity query, whose URL set churned
@@ -141,5 +178,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Silently fail — community recipes are a bonus, never break the sitemap.
   }
 
-  return [...staticEntries, ...blogEntries, ...recipeEntries, ...collectionEntries, ...userRecipeEntries];
+  return [...staticEntries, ...blogEntries, ...deOnlyBlogEntries, ...recipeEntries, ...collectionEntries, ...userRecipeEntries];
 }

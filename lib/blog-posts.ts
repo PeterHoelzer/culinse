@@ -1196,6 +1196,184 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 
+  // Week 2 of the 12-week content plan (SEO entwicklung/w02) — EN only.
+  {
+    slug: "meal-prep-for-weight-loss",
+    title: "Meal Prep for Weight Loss: 20 Recipes + a Free 7-Day Plan",
+    description:
+      "Meal prep for weight loss made simple: how to build calorie-smart meals, 20 high-protein low-calorie recipes, a free 7-day plan, and the storage tips that keep it all tasting good.",
+    publishedAt: "2026-07-04",
+    readingTime: "8 min read",
+    category: "Healthy Eating",
+    sections: [
+      {
+        content:
+          "Most weight-loss plans don't fall apart because of a lack of willpower. They fall apart at 7 p.m. on a Tuesday, when you're tired, hungry, and the fastest option is also the least helpful one. Meal prep fixes exactly that moment. When the healthy choice is already cooked, portioned, and waiting in the fridge, you don't have to be disciplined — you just have to open the door.",
+      },
+      {
+        content:
+          "This guide walks you through how to build meals that actually support fat loss, gives you 20 recipes and a full 7-day plan, and shows you how to keep it all tasting good through Friday.",
+      },
+      {
+        heading: "Why Meal Prep Works for Weight Loss",
+        content:
+          "Weight loss comes down to a consistent calorie deficit: taking in slightly less energy than you burn, sustained over time. The hard part isn't understanding that — it's doing it day after day when life gets in the way. This is where meal prep earns its keep, in three concrete ways.",
+        list: [
+          "It controls portions automatically: when you portion deliberately on prep day, every meal is a known quantity — no hungry, rushed guessing.",
+          "It removes decision fatigue: every 'What should I eat?' is a chance to talk yourself into something you'll regret. Prepping makes that decision once, calmly, in advance.",
+          "It cuts out the impulse purchases and delivery orders that quietly add hundreds of calories — and a lot of money — to your week.",
+        ],
+      },
+      {
+        content:
+          "The goal isn't to eat less food and feel miserable. It's to eat food that fills you up for fewer calories, so the deficit happens without constant hunger. That comes down to how you build each meal.",
+      },
+      {
+        heading: "How to Build a Calorie-Smart Meal",
+        content:
+          "A weight-loss meal isn't about cutting things out — it's about the right ratio of three things that keep you full: protein, fiber, and volume.",
+        list: [
+          "Protein is the single most important lever. It's the most satiating macronutrient, it protects muscle while you're in a deficit, and your body burns more digesting it. Aim for a solid source in every meal: chicken, turkey, fish, eggs, Greek yogurt, tofu, tempeh, beans, or lentils.",
+          "Fiber slows digestion and keeps you full for hours. Vegetables, whole grains, beans, and fruit do the heavy lifting — and high-fiber foods tend to be high in volume and low in calories anyway.",
+          "Volume is the underrated one. Leafy greens, non-starchy vegetables, and broth-based soups let you eat a genuinely large meal for very few calories. Build your plate around these and add a controlled amount of calorie-dense extras (oils, nuts, cheese, dressings) — not the other way around.",
+        ],
+      },
+      {
+        content:
+          "A simple formula for a fat-loss plate: half non-starchy vegetables, a quarter lean protein, a quarter smart carbs (rice, potatoes, oats, whole grains), plus a measured amount of fat for flavor. If you'd rather not assemble this from scratch every week, Culinse lets you filter millions of recipes by exactly these criteria — high protein, lower calorie, your dietary preferences — and build a plan around them in minutes.",
+      },
+      {
+        heading: "20 High-Protein, Low-Calorie Prep Recipes",
+        content:
+          "These are organized by meal so you can mix and match. Each leans on the protein-fiber-volume principle, and most reheat or travel well. Breakfasts first:",
+        list: [
+          "Overnight oats with Greek yogurt and berries — oats, high-protein yogurt, chia, and frozen berries; filling and ready to grab.",
+          "Egg and veggie muffins — eggs baked with spinach, peppers, and onion in a muffin tin; batch a dozen, eat through the week.",
+          "Cottage cheese breakfast bowls — cottage cheese with fruit, a sprinkle of granola, and cinnamon; high protein, almost no prep.",
+          "Savory tofu scramble — turmeric-spiced tofu with vegetables; vegan and reheats in two minutes.",
+          "Protein chia pudding — chia, milk or soy milk, a scoop of protein powder; set overnight in jars.",
+        ],
+      },
+      {
+        heading: "Lunches",
+        content: "Prep-friendly lunches that hold up in the fridge:",
+        list: [
+          "Chicken and roasted-veg grain bowl — chicken breast, roasted vegetables, quinoa, lemon-yogurt dressing.",
+          "Turkey taco bowls — lean ground turkey, beans, corn, salsa, and lettuce instead of a shell.",
+          "Lentil and feta salad — lentils, cucumber, tomato, red onion, a little feta; holds up for days.",
+          "Tuna and white bean salad — protein-dense, no cooking required, dressed with lemon and herbs.",
+          "Chickpea shawarma bowls — spiced chickpeas, cabbage slaw, garlic-yogurt sauce over rice.",
+        ],
+      },
+      {
+        heading: "Dinners",
+        content: "Dinners that portion and reheat well:",
+        list: [
+          "Sheet-pan chicken and vegetables — one tray, minimal cleanup, easy to portion.",
+          "Baked salmon with broccoli and rice — omega-3s, fiber, and a smart carb in one box.",
+          "Turkey chili — beans, tomatoes, lean turkey; freezes beautifully in portions.",
+          "Stir-fry with tofu and lots of vegetables — high volume, low calorie, fast to reheat in a pan.",
+          "Stuffed peppers with lean mince and quinoa — satisfying, portioned by nature.",
+        ],
+      },
+      {
+        heading: "Snacks",
+        content: "Keep these on hand so hunger between meals doesn't derail the plan:",
+        list: [
+          "Greek yogurt with berries — high protein, quick, naturally portioned.",
+          "Hummus with raw vegetables — fiber and a little healthy fat to bridge to the next meal.",
+          "Hard-boiled eggs — batch six on prep day; the easiest protein snack there is.",
+          "Edamame with sea salt — protein and fiber, ready in minutes.",
+          "Cottage cheese with cucumber and pepper — high protein, very low calorie, surprisingly filling.",
+        ],
+      },
+      {
+        heading: "Free 7-Day Weight-Loss Meal Prep Plan",
+        content:
+          "This plan is built around one prep block, reused components, and enough variety to keep you interested. Adjust portion sizes to your own calorie target — the structure matters more than the exact grams. Prep day (about 90 minutes): cook a batch of chicken breast and a batch of baked salmon; roast a large tray of mixed vegetables; cook quinoa and rice; make a pot of turkey chili and freeze half; batch egg muffins; set up overnight oats jars; mix two dressings (lemon-yogurt, garlic-yogurt).",
+        list: [
+          "Monday — Breakfast: overnight oats; Lunch: chicken and roasted-veg grain bowl; Dinner: stir-fry with tofu and vegetables",
+          "Tuesday — Breakfast: egg muffins; Lunch: lentil and feta salad; Dinner: baked salmon with broccoli and rice",
+          "Wednesday — Breakfast: overnight oats; Lunch: turkey taco bowl; Dinner: turkey chili (from the freezer)",
+          "Thursday — Breakfast: cottage cheese bowl; Lunch: chicken grain bowl (remix with the second dressing); Dinner: sheet-pan chicken and vegetables",
+          "Friday — Breakfast: egg muffins; Lunch: tuna and white bean salad; Dinner: stuffed peppers",
+          "Weekend — Cook one or two meals fresh and keep snacks (Greek yogurt, hummus and veg, hard-boiled eggs) on hand so you don't drift into mindless grazing.",
+        ],
+      },
+      {
+        content:
+          "If you're brand new to prepping and the logistics feel daunting, our complete beginner's guide to meal prep on the Culinse blog walks through the basics step by step first — you'll find it linked below under more articles.",
+      },
+      {
+        heading: "Portioning and Storage Without Losing Flavor",
+        content:
+          "The fastest way to quit a weight-loss prep is to open a sad, watery box on Wednesday. A few habits prevent that. Let everything cool fully before sealing — warm food traps steam, which shortens shelf life and turns vegetables soggy. Most cooked proteins and grains keep 3 to 4 days in the fridge; soups, chilis, and stews freeze well for 2 to 3 months, so cook those in bigger batches and freeze half. Store dressings and anything crunchy separately and add them just before eating.",
+      },
+      {
+        content:
+          "For portion control, use containers of a consistent size — they make portions automatic and stack neatly in the fridge. A simple kitchen scale on prep day is worth more than any fancy gadget: weighing protein and carbs once removes the guesswork that quietly derails a deficit. And season a little more boldly than usual, because prepped food tastes flatter after a day or two; a squeeze of lemon, fresh herbs, or chili added at serving brings it back to life.",
+      },
+      {
+        heading: "Common Mistakes That Stall Weight Loss",
+        content: "Five patterns catch almost everyone at some point:",
+        list: [
+          "Forgetting that 'healthy' still has calories: nuts, olive oil, nut butters, granola, and dressings are nutritious but calorie-dense — measure them, don't pour by feel.",
+          "Under-eating protein: skimp on it and you'll be hungrier, lose more muscle, and find the deficit much harder to sustain.",
+          "Cutting portions too aggressively: a drastic deficit backfires — you're ravenous, you binge, and the average evens out. A moderate, livable deficit beats an extreme one you abandon.",
+          "Drinking your calories: juices, sweetened coffees, and sodas add up fast without filling you up.",
+          "Eating perfectly five days, then a free-for-all weekend: two days of unplanned eating can erase a week's deficit. Keep weekends a little looser, not unlimited.",
+        ],
+      },
+      {
+        heading: "Conclusion",
+        content:
+          "Meal prep doesn't make weight loss effortless, but it removes the moments where good intentions usually collapse. Build each meal around protein, fiber, and volume; portion deliberately; store smart so it still tastes good on day four; and keep the deficit moderate enough to live with. Do that consistently and the results take care of themselves — no willpower heroics required at 7 p.m. on a Tuesday. Want to skip the planning? Culinse filters millions of recipes by calorie and macro goals, then turns your weekly picks into a single combined shopping list — free at culinse.com.",
+      },
+      {
+        heading: "FAQ",
+        content: "The most common questions about meal prep for weight loss:",
+        list: [
+          "How many calories should my meal prep have for weight loss? That depends on your body, activity, and goals — there's no single number. The reliable approach is a moderate deficit below your maintenance calories: large enough to see progress, small enough to sustain.",
+          "Is meal prep actually effective for losing weight? Yes, primarily because it makes a calorie deficit easier to maintain. It controls portions, removes daily decisions, and crowds out impulse eating and takeout.",
+          "How long does prepped weight-loss food last? Most cooked meals keep 3 to 4 days in the fridge. Soups, chilis, and stews can be frozen in portions for 2 to 3 months. Cool food fully before sealing.",
+          "Do I need to count calories if I meal prep? Not strictly, but knowing rough numbers helps. Even a few days of weighing portions teaches you what a sensible serving looks like — after that you can often eyeball it.",
+          "Can I lose weight prepping vegetarian or vegan meals? Absolutely. Build around plant proteins — tofu, tempeh, lentils, beans, edamame, and high-protein dairy or alternatives — and apply the same protein-fiber-volume principle.",
+        ],
+      },
+      {
+        content:
+          "This article is general information, not medical or nutritional advice. If you have a health condition or specific dietary needs, check with a doctor or registered dietitian before making significant changes.",
+      },
+    ],
+    faq: [
+      {
+        question: "How many calories should my meal prep have for weight loss?",
+        answer:
+          "That depends on your body, activity, and goals — there's no single number. The reliable approach is a moderate deficit below your maintenance calories: large enough to see progress, small enough to sustain.",
+      },
+      {
+        question: "Is meal prep actually effective for losing weight?",
+        answer:
+          "Yes, primarily because it makes a calorie deficit easier to maintain. It controls portions, removes daily decisions, and crowds out impulse eating and takeout.",
+      },
+      {
+        question: "How long does prepped weight-loss food last?",
+        answer:
+          "Most cooked meals keep 3 to 4 days in the fridge. Soups, chilis, and stews can be frozen in portions for 2 to 3 months. Cool food fully before sealing.",
+      },
+      {
+        question: "Do I need to count calories if I meal prep?",
+        answer:
+          "Not strictly, but knowing rough numbers helps. Even a few days of weighing portions teaches you what a sensible serving looks like — after that you can often eyeball it.",
+      },
+      {
+        question: "Can I lose weight prepping vegetarian or vegan meals?",
+        answer:
+          "Absolutely. Build around plant proteins — tofu, tempeh, lentils, beans, edamame, and high-protein dairy or alternatives — and apply the same protein-fiber-volume principle.",
+      },
+    ],
+  },
+
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
