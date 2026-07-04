@@ -8,6 +8,15 @@ interface Props {
   params: Promise<{ locale: string }>;
 }
 
+const blogAlternates = (locale: string) => ({
+  canonical: `https://culinse.com/${locale}/blog`,
+  languages: {
+    en: "https://culinse.com/en/blog",
+    de: "https://culinse.com/de/blog",
+    "x-default": "https://culinse.com/en/blog",
+  },
+});
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (locale === "de") {
@@ -15,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: "Blog – Meal Planning Tipps & Ratgeber",
       description:
         "Praktische Ratgeber zu Meal Prep, Wochenplanung und Einkaufslisten. Spare Zeit und Geld jede Woche.",
+      alternates: blogAlternates(locale),
       openGraph: {
         title: "Culinse Blog – Meal Planning Tipps & Ratgeber",
         description: "Praktische Ratgeber zu Meal Prep, Wochenplanung und Einkaufslisten.",
@@ -26,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: "Blog – Meal Planning Tips & Guides",
     description:
       "Practical guides on meal prepping, meal planning, and building a shopping list that actually works. Save time and money every week.",
+    alternates: blogAlternates(locale),
     openGraph: {
       title: "Culinse Blog – Meal Planning Tips & Guides",
       description:
@@ -56,6 +67,11 @@ export default async function BlogPage({ params }: Props) {
           {posts.map((post) => (
             <Link
               key={post.slug}
+              // Explicit locale: without it, server rendering resolved the
+              // locale-aware Link against the fallback locale ("en"), so the
+              // German blog index linked every article to /en/… (redirect chain
+              // onto the ENGLISH article — 5 "Seite mit Weiterleitung" in GSC).
+              locale={locale as "en" | "de"}
               href={`/blog/${post.slug}`}
               className="block bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:border-orange-200 hover:shadow-md transition-all group"
             >

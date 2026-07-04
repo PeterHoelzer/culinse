@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -41,6 +42,50 @@ function buildWebsiteSchema(locale: string) {
         },
       },
     ],
+  };
+}
+
+// ─── Homepage metadata (canonical + hreflang + Open Graph) ───────────────────
+// These used to live in [locale]/layout.tsx, where every child page without
+// its own `alternates` inherited the HOMEPAGE canonical and got deindexed.
+// They belong here, on the homepage only.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isDE = locale === "de";
+  const url = `https://culinse.com/${locale}`;
+  const title = isDE
+    ? "Culinse – Rezepte entdecken, die du lieben wirst"
+    : "Culinse – Discover Recipes You'll Love";
+  const description = isDE
+    ? "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich."
+    : "Millions of recipes from the world's best food sites. Personalized for you.";
+
+  return {
+    alternates: {
+      canonical: url,
+      languages: {
+        en: "https://culinse.com/en",
+        de: "https://culinse.com/de",
+        "x-default": "https://culinse.com/en",
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Culinse",
+      locale: isDE ? "de_DE" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 

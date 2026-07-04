@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -36,17 +37,14 @@ const sharedMeta = {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
 
+  // NOTE: No `alternates` here! Canonical + hreflang MUST be set per page
+  // (see each page's generateMetadata). A layout-level canonical is inherited
+  // by every child page that doesn't define its own — which told Google that
+  // /about, /blog, /pro etc. were duplicates of the homepage and got them
+  // deindexed ("Alternative Seite mit richtigem kanonischen Tag" in GSC).
   if (locale === "de") {
     return {
       ...sharedMeta,
-      alternates: {
-        canonical: "https://culinse.com/de",
-        languages: {
-          en: "https://culinse.com/en",
-          de: "https://culinse.com/de",
-          "x-default": "https://culinse.com/en",
-        },
-      },
       title: {
         default: "Culinse – Rezepte entdecken, die du lieben wirst",
         template: "%s | Culinse",
@@ -55,57 +53,23 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos und ohne Abo.",
       keywords: [
         "Rezepte", "Rezepte entdecken", "personalisierte Rezepte", "Kochen", "Essen",
-        "Rezeptaggregator", "Chefkoch", "gesunde Rezepte", "schnelle Rezepte",
+        "Rezeptsuche", "gesunde Rezepte", "schnelle Rezepte", "Wochenplan", "Einkaufsliste",
       ],
-      openGraph: {
-        title: "Culinse – Rezepte entdecken, die du lieben wirst",
-        description: "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich.",
-        url: "https://culinse.com/de",
-        siteName: "Culinse",
-        locale: "de_DE",
-        type: "website",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: "Culinse – Rezepte entdecken, die du lieben wirst",
-        description: "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich.",
-      },
     };
   }
 
   return {
     ...sharedMeta,
-    alternates: {
-      canonical: "https://culinse.com/en",
-      languages: {
-        en: "https://culinse.com/en",
-        de: "https://culinse.com/de",
-        "x-default": "https://culinse.com/en",
-      },
-    },
     title: {
       default: "Culinse – Discover Recipes You'll Love",
       template: "%s | Culinse",
     },
     description:
-      "Culinse aggregates millions of recipes from BBC Good Food, Bon Appétit, Chefkoch and more. Get a personalized recipe feed — free, no subscription.",
+      "Culinse aggregates millions of recipes from the web's best food sites — filtered to your diet and allergies. Free, no subscription.",
     keywords: [
       "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
-      "recipe aggregator", "BBC Good Food", "Chefkoch", "healthy recipes", "easy recipes",
+      "recipe search", "healthy recipes", "easy recipes", "meal planner", "shopping list",
     ],
-    openGraph: {
-      title: "Culinse – Discover Recipes You'll Love",
-      description: "Millions of recipes from the world's best food sites. Personalized for you.",
-      url: "https://culinse.com/en",
-      siteName: "Culinse",
-      locale: "en_US",
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Culinse – Discover Recipes You'll Love",
-      description: "Millions of recipes from the world's best food sites. Personalized for you.",
-    },
   };
 }
 
@@ -121,6 +85,11 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!routing.locales.includes(locale as "en" | "de")) {
     notFound();
   }
+
+  // Pin the request locale for server components in this subtree. Without this,
+  // next-intl's requestLocale can fall back to "en" (e.g. during static
+  // rendering), which made locale-aware <Link>s on /de pages point to /en/…
+  setRequestLocale(locale);
 
   // Load messages directly from JSON — do NOT use getMessages() which relies on
   // middleware request context and may fall back to the default locale ("en").

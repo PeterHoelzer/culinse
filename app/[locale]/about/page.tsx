@@ -17,15 +17,35 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  const alternates = {
+    canonical: `https://culinse.com/${locale}/about`,
+    languages: {
+      en: "https://culinse.com/en/about",
+      de: "https://culinse.com/de/about",
+      "x-default": "https://culinse.com/en/about",
+    },
+  };
   if (locale === "de") {
     return {
       title: "Über uns – Von einem Küchenchef gebaut",
       description: "Culinse wurde von einem Küchenchef und Fleischermeister entwickelt, der es satt hatte, für jedes Rezept dutzende Seiten besuchen zu müssen.",
+      alternates,
+      openGraph: {
+        title: "Über uns – Von einem Küchenchef gebaut | Culinse",
+        description: "Culinse wurde von einem Küchenchef und Fleischermeister entwickelt.",
+        url: "https://culinse.com/de/about",
+      },
     };
   }
   return {
     title: "About – Built by a Chef",
     description: "Culinse was built by a head chef and Fleischermeister who was tired of searching a hundred sites for the perfect recipe.",
+    alternates,
+    openGraph: {
+      title: "About – Built by a Chef | Culinse",
+      description: "Culinse was built by a head chef and German master butcher.",
+      url: "https://culinse.com/en/about",
+    },
   };
 }
 
