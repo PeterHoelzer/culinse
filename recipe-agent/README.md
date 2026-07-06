@@ -20,23 +20,31 @@ Rezepte leben als Datei-Queue in `state/queue/<slug>.json`, bis sie **komplett
 
 ```bash
 node recipe-agent/orchestrator.mjs            # Scout → Autor → Prüfer → Fotograf (lokal)
-open recipe-agent/state/images/               # Bilder SICHTEN (Pflicht)
-ONLY=<slug> REROLL=1 node recipe-agent/workers/photographer.mjs   # alle Varianten neu würfeln
-UPLOAD=1 node recipe-agent/workers/photographer.mjs               # nach Sichtung: Upload + DB
+node recipe-agent/sichtung.mjs                # Browser-Sichtung: klicken statt löschen
 node recipe-agent/workers/distributor.mjs     # NUR nach Freigabe (approved → published)
 ```
 
-**Bild-Varianten:** Der Fotograf erzeugt pro Gericht `VARIANTS` Bilder (Default 3,
-`<slug>-v1..3.jpg`) — FLUX-schnell streut stark, du pickst die beste. Wahl beim
-Upload: `PICK=<slug>:<n>` angeben ODER einfach die schlechten Dateien löschen
-(die einzige übrige wird genommen). 3 Varianten × 10 Rezepte ≈ 23 % des
-Cloudflare-Gratis-Kontingents (~130 Bilder/Tag frei).
+**Sichtung im Browser (der bequeme Weg):** `node recipe-agent/sichtung.mjs` öffnet
+http://127.0.0.1:4711 — dort per Klick: Bilder erzeugen (falls noch keine da),
+beste Variante antippen, einzelne Gerichte neu würfeln, dann **Hochladen**
+(macht exakt dasselbe wie `UPLOAD=1 photographer.mjs`: Bucket + DB-Entwurf als
+`pending_review`). Danach freigeben auf culinse.com/de/admin/review.
+
+**CLI-Fallback:** Der Fotograf erzeugt pro Gericht `VARIANTS` Bilder (Default 3,
+`<slug>-v1..3.jpg`). Wahl beim Upload: Klick auf der Sichtungs-Seite ODER
+`PICK=<slug>:<n>` ODER schlechte Dateien löschen (die einzige übrige zählt).
+3 Varianten × 10 Rezepte ≈ 23 % des Cloudflare-Gratis-Kontingents (~130 Bilder/Tag).
 
 `SCOUT_COUNT=10` für den vollen Tageslauf (Default 1). Stau-Guard: `MAX_OPEN` (Default 15).
 
 ## Review (Phase 2)
 
-Admin-Seite **`/de/admin/review`** (nur Culinse-Konto, hinter Login, noindex):
+Admin-Seite **`/de/admin/review`** (hinter Login, noindex). Zugriff haben das
+Culinse-Owner-Konto **und** Reviewer aus der Env-Var
+`CULINSE_REVIEWER_EMAILS` (kommagetrennte E-Mails, in Vercel + `.env.local`
+pflegen; Reviewer brauchen ein normales Culinse-Konto mit genau dieser
+E-Mail). Reviewer können freigeben/verwerfen — Bearbeiten bleibt dem Owner
+vorbehalten. Die Seite:
 zeigt die `pending_review`-Queue mit Bild, Zutaten, Schritten, Nährwerten
 (inkl. 4/4/9-Check). **Freigeben** veröffentlicht DE+EN gemeinsam (identisch zum
 Distributor), **Verwerfen** setzt `discarded` (bleibt privater Entwurf),

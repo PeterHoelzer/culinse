@@ -50,7 +50,8 @@ export function list(status = null) {
   ensureDirs();
   const items = fs
     .readdirSync(QUEUE_DIR)
-    .filter((f) => f.endsWith(".json"))
+    // Nur echte Queue-Dateien (<slug>.json) — nicht <slug>.response.json / .prompt.txt
+    .filter((f) => /^[a-z0-9-]+\.json$/.test(f))
     .map((f) => JSON.parse(fs.readFileSync(path.join(QUEUE_DIR, f), "utf8")));
   const filtered = status ? items.filter((i) => i.status === status) : items;
   return filtered.sort((a, b) => (a.created_at || "").localeCompare(b.created_at || ""));

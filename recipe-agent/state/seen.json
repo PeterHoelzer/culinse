@@ -1,5 +1,591 @@
 {
-  "slugs": [],
-  "titles": [],
-  "fingerprints": []
+  "slugs": [
+    "gazpacho-andaluz",
+    "griechischer-bauernsalat",
+    "one-pot-sommerpasta",
+    "minestrone-italienisch",
+    "panzanella-brotsalat",
+    "ofengemuese-mit-feta",
+    "gegrillter-halloumi-salat",
+    "ratatouille-provencale",
+    "gemuese-grillspiesse",
+    "wassermelone-feta-salat",
+    "caprese-nudelsalat",
+    "salade-nicoise",
+    "beeren-crumble",
+    "shakshuka-paprika-tomate",
+    "tomaten-galette",
+    "gelbes-gemuese-curry",
+    "linsen-bolognese",
+    "zitronen-zucchini-pasta",
+    "hummus-gemuese-bowl",
+    "knuspriger-sesam-tofu",
+    "mais-avocado-salat",
+    "chili-sin-carne",
+    "orientalischer-couscous-salat",
+    "orientalischer-kichererbsen-eintopf",
+    "quinoa-avocado-salat",
+    "rote-bete-linsen-salat",
+    "taboule-bulgursalat",
+    "erdbeer-spinat-salat",
+    "fruehlings-frittata",
+    "caesar-salad-haehnchen",
+    "gefuellte-paprika"
+  ],
+  "titles": [
+    "andalusische gazpacho",
+    "andalusian gazpacho",
+    "griechischer bauernsalat horiatiki",
+    "greek village salad horiatiki",
+    "one pot sommerpasta zucchini kirschtomaten",
+    "one pot summer pasta zucchini cherry tomatoes",
+    "italienische minestrone weissen bohnen",
+    "italian minestrone white beans",
+    "panzanella toskanischer brotsalat",
+    "tuscan panzanella bread salad",
+    "ofengemuese gebackenem feta honig thymian",
+    "sheet pan vegetables baked feta honey thyme",
+    "gegrillter halloumi salat honig zitronen dressing",
+    "grilled halloumi salad honey lemon dressing",
+    "ratatouille nach provenzalischer art",
+    "proven al style ratatouille",
+    "marinierte gemuese grillspiesse kraeuter knoblauch marinade",
+    "marinated veggie skewers herb garlic marinade",
+    "wassermelonen feta salat minze limette",
+    "watermelon feta salad mint lime",
+    "caprese nudelsalat kirschtomaten mozzarella",
+    "caprese pasta salad cherry tomatoes mozzarella",
+    "salade ni oise senf vinaigrette",
+    "salade ni oise mustard vinaigrette",
+    "beeren crumble butterstreuseln",
+    "mixed berry crumble buttery streusel",
+    "shakshuka paprika tomate",
+    "shakshuka bell pepper tomato",
+    "rustikale tomaten galette",
+    "rustic heirloom tomato galette",
+    "gelbes gemuese curry kokosmilch",
+    "yellow vegetable coconut curry",
+    "linsen bolognese spaghetti",
+    "lentil bolognese spaghetti",
+    "zitronen zucchini pasta parmesan",
+    "lemon zucchini pasta parmesan",
+    "hummus bowl za atar ofengemuese",
+    "hummus bowl za atar roasted vegetables",
+    "knuspriger sesam tofu brokkoli",
+    "crispy sesame tofu broccoli",
+    "geroesteter mais avocado salat limette",
+    "charred corn avocado salad lime",
+    "rauchiges chili sin carne",
+    "smoky chili sin carne",
+    "orientalischer couscous salat granatapfel",
+    "moroccan couscous salad pomegranate",
+    "orientalischer kichererbsen eintopf aprikosen",
+    "moroccan style chickpea stew apricots",
+    "quinoa avocado salat limetten dressing",
+    "quinoa avocado salad lime dressing",
+    "rote bete salat belugalinsen",
+    "beetroot salad beluga lentils",
+    "taboul levantinischer petersiliensalat",
+    "tabbouleh levantine parsley salad",
+    "erdbeer spinat salat geroesteten kernen",
+    "strawberry spinach salad toasted seeds",
+    "fruehlings frittata gruenem spargel ziegenkaese",
+    "spring frittata green asparagus goat cheese",
+    "caesar salad gebratenem haehnchen",
+    "chicken caesar salad",
+    "gefuellte paprika hackfleisch reis",
+    "stuffed bell peppers minced meat rice"
+  ],
+  "fingerprints": [
+    {
+      "slug": "gazpacho-andaluz",
+      "ingredients": [
+        "reife tomaten",
+        "salatgurke",
+        "gruene paprika",
+        "knoblauch",
+        "weissbrot vom vortag",
+        "olivenoel",
+        "sherry-essig",
+        "kaltes wasser"
+      ]
+    },
+    {
+      "slug": "griechischer-bauernsalat",
+      "ingredients": [
+        "reife tomaten",
+        "salatgurke",
+        "gruene paprika",
+        "rote zwiebel",
+        "kalamata-oliven",
+        "feta am stueck",
+        "olivenoel",
+        "rotweinessig",
+        "getrockneter oregano",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "one-pot-sommerpasta",
+      "ingredients": [
+        "spaghetti",
+        "kirschtomaten",
+        "zucchini",
+        "zwiebel",
+        "knoblauch",
+        "olivenoel",
+        "gemuesebruehe",
+        "parmesan",
+        "basilikum",
+        "chiliflocken"
+      ]
+    },
+    {
+      "slug": "minestrone-italienisch",
+      "ingredients": [
+        "karotten",
+        "stangen staudensellerie",
+        "zwiebel",
+        "knoblauch",
+        "buschbohnen",
+        "festkochende kartoffeln",
+        "gehackte tomaten",
+        "weisse bohnen",
+        "kleine suppennudeln",
+        "gemuesebruehe",
+        "olivenoel",
+        "parmesan",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "panzanella-brotsalat",
+      "ingredients": [
+        "altbackenes ciabatta",
+        "reife tomaten",
+        "salatgurke",
+        "rote zwiebel",
+        "olivenoel",
+        "rotweinessig",
+        "kapern",
+        "basilikum",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "ofengemuese-mit-feta",
+      "ingredients": [
+        "fruehkartoffeln",
+        "zucchini",
+        "rote paprika",
+        "aubergine",
+        "kirschtomaten",
+        "rote zwiebel",
+        "olivenoel",
+        "feta am stueck",
+        "honig",
+        "zweige thymian",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "gegrillter-halloumi-salat",
+      "ingredients": [
+        "halloumi",
+        "gemischter blattsalat",
+        "kirschtomaten",
+        "salatgurke",
+        "kleine rote zwiebel",
+        "mandelblaettchen",
+        "olivenoel",
+        "zitronensaft",
+        "honig",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "ratatouille-provencale",
+      "ingredients": [
+        "aubergine",
+        "zucchini",
+        "rote paprika",
+        "reife tomaten",
+        "zwiebel",
+        "knoblauch",
+        "olivenoel",
+        "tomatenmark",
+        "kraeuter der provence",
+        "lorbeerblatt",
+        "schwarzer pfeffer",
+        "basilikum"
+      ]
+    },
+    {
+      "slug": "gemuese-grillspiesse",
+      "ingredients": [
+        "zucchini",
+        "rote paprika",
+        "rote zwiebel",
+        "kirschtomaten",
+        "braune champignons",
+        "olivenoel",
+        "knoblauch",
+        "zitronensaft",
+        "getrockneter thymian",
+        "edelsuesses paprikapulver",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "wassermelone-feta-salat",
+      "ingredients": [
+        "wassermelone",
+        "feta",
+        "salatgurke",
+        "kleine rote zwiebel",
+        "olivenoel",
+        "limettensaft",
+        "minze",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "caprese-nudelsalat",
+      "ingredients": [
+        "fusilli",
+        "kirschtomaten",
+        "mini-mozzarella-kugeln",
+        "basilikum",
+        "olivenoel",
+        "dunkler balsamico",
+        "knoblauch",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "salade-nicoise",
+      "ingredients": [
+        "festkochende fruehkartoffeln",
+        "gruene buschbohnen",
+        "eier",
+        "thunfisch im eigenen saft",
+        "kirschtomaten",
+        "schwarze oliven",
+        "kleine rote zwiebel",
+        "olivenoel",
+        "rotweinessig",
+        "dijonsenf",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "beeren-crumble",
+      "ingredients": [
+        "gemischte beeren",
+        "speisestaerke",
+        "zitrone",
+        "weizenmehl",
+        "kalte butter",
+        "zarte haferflocken",
+        "vanillezucker"
+      ]
+    },
+    {
+      "slug": "shakshuka-paprika-tomate",
+      "ingredients": [
+        "olivenoel",
+        "zwiebel",
+        "knoblauch",
+        "rote paprika",
+        "stueckige tomaten",
+        "reife tomaten",
+        "eier",
+        "gemahlener kreuzkuemmel",
+        "edelsuesses paprikapulver",
+        "chiliflocken",
+        "koriander",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "tomaten-galette",
+      "ingredients": [
+        "weizenmehl",
+        "kalte butter",
+        "eiskaltes wasser",
+        "crème fraîche",
+        "dijonsenf",
+        "bunte tomaten",
+        "geriebener gruyère",
+        "ei",
+        "thymian",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "gelbes-gemuese-curry",
+      "ingredients": [
+        "kokosoel",
+        "zwiebel",
+        "knoblauch",
+        "ingwer",
+        "gelbe currypaste",
+        "kokosmilch",
+        "gemuesebruehe",
+        "fruehkartoffeln",
+        "blumenkohl",
+        "rote paprika",
+        "zucchini",
+        "sojasauce",
+        "limette",
+        "koriander"
+      ]
+    },
+    {
+      "slug": "linsen-bolognese",
+      "ingredients": [
+        "berglinsen",
+        "spaghetti",
+        "zwiebel",
+        "karotten",
+        "stangen staudensellerie",
+        "knoblauch",
+        "tomatenmark",
+        "stueckige tomaten",
+        "gemuesebruehe",
+        "olivenoel",
+        "sojasauce",
+        "getrockneter oregano",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "zitronen-zucchini-pasta",
+      "ingredients": [
+        "linguine",
+        "zucchini",
+        "bio-zitrone",
+        "geriebener parmesan",
+        "olivenoel",
+        "knoblauch",
+        "basilikum",
+        "schwarzer pfeffer",
+        "chiliflocken"
+      ]
+    },
+    {
+      "slug": "hummus-gemuese-bowl",
+      "ingredients": [
+        "kichererbsen",
+        "tahini",
+        "zitrone",
+        "knoblauch",
+        "olivenoel",
+        "gemahlener kreuzkuemmel",
+        "suesskartoffel",
+        "rote paprika",
+        "zucchini",
+        "za'atar",
+        "sesam"
+      ]
+    },
+    {
+      "slug": "knuspriger-sesam-tofu",
+      "ingredients": [
+        "fester tofu",
+        "speisestaerke",
+        "neutrales oel",
+        "sojasauce",
+        "ahornsirup",
+        "reisessig",
+        "geroestetes sesamoel",
+        "sesam",
+        "knoblauch",
+        "ingwer",
+        "brokkoli",
+        "basmatireis",
+        "fruehlingszwiebeln",
+        "chiliflocken"
+      ]
+    },
+    {
+      "slug": "mais-avocado-salat",
+      "ingredients": [
+        "maiskolben",
+        "reife avocados",
+        "limetten",
+        "rote zwiebel",
+        "koriander",
+        "olivenoel",
+        "schwarzer pfeffer",
+        "chiliflocken"
+      ]
+    },
+    {
+      "slug": "chili-sin-carne",
+      "ingredients": [
+        "olivenoel",
+        "rote zwiebeln",
+        "knoblauch",
+        "rote paprika",
+        "sojagranulat",
+        "gemuesebruehe",
+        "kidneybohnen",
+        "mais",
+        "gehackte tomaten",
+        "tomatenmark",
+        "geraeuchertes paprikapulver",
+        "gemahlener kreuzkuemmel",
+        "backkakao",
+        "chiliflocken",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "orientalischer-couscous-salat",
+      "ingredients": [
+        "couscous",
+        "gemuesebruehe",
+        "rote paprika",
+        "salatgurke",
+        "rote zwiebel",
+        "granatapfelkerne",
+        "mandeln",
+        "minze",
+        "zitronensaft",
+        "olivenoel",
+        "kreuzkuemmel",
+        "zimt",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "orientalischer-kichererbsen-eintopf",
+      "ingredients": [
+        "olivenoel",
+        "zwiebeln",
+        "knoblauch",
+        "karotten",
+        "ras el-hanout",
+        "zimt",
+        "kichererbsen",
+        "gehackte tomaten",
+        "gemuesebruehe",
+        "getrocknete aprikosen",
+        "mangold",
+        "bio-zitrone",
+        "koriander",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "quinoa-avocado-salat",
+      "ingredients": [
+        "quinoa",
+        "avocados",
+        "kirschtomaten",
+        "salatgurke",
+        "rote zwiebel",
+        "bio-limetten",
+        "olivenoel",
+        "kuerbiskerne",
+        "koriander",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "rote-bete-linsen-salat",
+      "ingredients": [
+        "belugalinsen",
+        "gekochte rote bete",
+        "rucola",
+        "walnusskerne",
+        "schalotte",
+        "balsamicoessig",
+        "olivenoel",
+        "ahornsirup",
+        "dijonsenf",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "taboule-bulgursalat",
+      "ingredients": [
+        "glatte petersilie",
+        "minze",
+        "feiner bulgur",
+        "reife tomaten",
+        "fruehlingszwiebeln",
+        "zitronensaft",
+        "olivenoel",
+        "piment",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "erdbeer-spinat-salat",
+      "ingredients": [
+        "babyspinat",
+        "erdbeeren",
+        "sonnenblumenkerne",
+        "kuerbiskerne",
+        "rote zwiebel",
+        "balsamicoessig",
+        "olivenoel",
+        "ahornsirup",
+        "dijonsenf",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "fruehlings-frittata",
+      "ingredients": [
+        "eier",
+        "milch",
+        "gruener spargel",
+        "erbsen",
+        "ziegenkaeserolle",
+        "fruehlingszwiebeln",
+        "olivenoel",
+        "schnittlauch",
+        "muskatnuss",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "caesar-salad-haehnchen",
+      "ingredients": [
+        "haehnchenbrustfilets",
+        "roemersalatherzen",
+        "ciabatta",
+        "parmesan",
+        "eigelb",
+        "sardellenfilets",
+        "knoblauch",
+        "dijonsenf",
+        "zitronensaft",
+        "worcestersauce",
+        "olivenoel",
+        "schwarzer pfeffer"
+      ]
+    },
+    {
+      "slug": "gefuellte-paprika",
+      "ingredients": [
+        "grosse paprika",
+        "gemischtes hackfleisch",
+        "langkornreis",
+        "zwiebeln",
+        "knoblauch",
+        "ei",
+        "tomatenmark",
+        "passierte tomaten",
+        "gemuesebruehe",
+        "olivenoel",
+        "paprikapulver",
+        "getrockneter majoran",
+        "schwarzer pfeffer"
+      ]
+    }
+  ]
 }

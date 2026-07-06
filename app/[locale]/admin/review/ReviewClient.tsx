@@ -38,7 +38,7 @@ function macroCheck(n: Nutrition | null): { calc: number; devPct: number; ok: bo
   return { calc, devPct: Math.round(devPct * 10) / 10, ok: devPct <= 12 };
 }
 
-function GroupCard({ g, onDone }: { g: Group; onDone: (group: string) => void }) {
+function GroupCard({ g, onDone, canEdit }: { g: Group; onDone: (group: string) => void; canEdit: boolean }) {
   const [lang, setLang] = useState<"de" | "en">("de");
   const [busy, setBusy] = useState<string | null>(null);
   const r = g.recipes.find((x) => x.language === lang) ?? g.recipes[0];
@@ -155,13 +155,15 @@ function GroupCard({ g, onDone }: { g: Group; onDone: (group: string) => void })
           >
             {busy === "approve" ? "Veröffentliche …" : "✓ Freigeben (DE+EN öffentlich)"}
           </button>
-          <Link
-            href={`/recipes/${r.id}/edit`}
-            className="px-4 py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 transition-colors"
-          >
-            ✏️ Bearbeiten ({r.language.toUpperCase()})
-          </Link>
-          {other && (
+          {canEdit && (
+            <Link
+              href={`/recipes/${r.id}/edit`}
+              className="px-4 py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 transition-colors"
+            >
+              ✏️ Bearbeiten ({r.language.toUpperCase()})
+            </Link>
+          )}
+          {canEdit && other && (
             <Link
               href={`/recipes/${other.id}/edit`}
               className="px-4 py-2.5 rounded-full border border-gray-200 text-gray-500 text-sm hover:bg-gray-50 transition-colors"
@@ -184,6 +186,7 @@ function GroupCard({ g, onDone }: { g: Group; onDone: (group: string) => void })
 
 export default function ReviewClient() {
   const [groups, setGroups] = useState<Group[]>([]);
+  const [canEdit, setCanEdit] = useState(true);
   const [state, setState] = useState<"loading" | "ok" | "forbidden" | "error">("loading");
 
   const load = useCallback(() => {
@@ -193,6 +196,7 @@ export default function ReviewClient() {
         if (!res.ok) { setState("error"); return; }
         const d = await res.json();
         setGroups(d.groups ?? []);
+        setCanEdit(d.viewer?.isOwner ?? false);
         setState("ok");
       })
       .catch(() => setState("error"));
@@ -211,7 +215,10 @@ export default function ReviewClient() {
 
       {state === "loading" && <p className="text-gray-400">Lade Queue …</p>}
       {state === "forbidden" && (
-        <p className="text-gray-500">Kein Zugriff — diese Seite ist nur für das Culinse-Konto.</p>
+        <p className="text-gray-500">
+          Kein Zugriff — diese Seite ist nur für das Culinse-Konto und freigeschaltete
+          Reviewer. Bitte mit dem richtigen Konto einloggen.
+        </p>
       )}
       {state === "error" && <p className="text-red-600">Fehler beim Laden der Queue.</p>}
       {state === "ok" && groups.length === 0 && (
@@ -223,7 +230,7 @@ export default function ReviewClient() {
 
       <div className="space-y-6">
         {groups.map((g) => (
-          <GroupCard key={g.group} g={g} onDone={(group) => setGroups((prev) => prev.filter((x) => x.group !== group))} />
+          <GroupCard key={g.group} g={g} canEdit={canEdit} onDone={(group) => setGroups((prev) => prev.filter((x) => x.group !== group))} />
         ))}
       </div>
     </main>

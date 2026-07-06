@@ -30,7 +30,13 @@ export default function LoginClient() {
     setError("");
     setMessage("");
 
-    const redirectTo = new URLSearchParams(window.location.search).get("redirectTo");
+    // Die Middleware setzt redirectTo MIT Locale-Präfix (z. B. /de/admin/review).
+    // router (next-intl) stellt die Locale beim Push selbst wieder voran —
+    // ohne Strip entstünde /de/de/… (404). Deshalb Präfix hier entfernen.
+    const rawRedirect = new URLSearchParams(window.location.search).get("redirectTo");
+    const redirectTo = rawRedirect
+      ? rawRedirect.replace(/^\/(en|de)(?=\/|$)/, "") || "/"
+      : null;
 
     if (mode === "signup") {
       const { data, error } = await supabase.auth.signUp({
