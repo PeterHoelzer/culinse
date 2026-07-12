@@ -7,6 +7,21 @@ import { recipeSourceLabel } from "@/lib/culinse";
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapCommunityRow(r: any) {
+  return {
+    id: `user_${r.id}`,
+    title: r.title,
+    image: r.image_url,
+    source: recipeSourceLabel(r.user_id),
+    sourceUrl: "#",
+    time: r.cook_time ? `${r.cook_time} min` : "—",
+    servings: r.servings ?? null,
+    rating: null,
+    imagePosition: r.image_position ?? "50% 50%",
+  };
+}
+
 // Public, user-created recipes whose title matches the search term, mapped to
 // the homepage recipe shape. Searched with the ORIGINAL query (user recipes may
 // be in German or English). Failure is silent — search still returns providers.
@@ -24,19 +39,33 @@ async function fetchCommunityMatches(query: string, limit: number, lang: string)
       .or(`language.eq.${l},language.is.null`)
       .ilike("title", `%${q}%`)
       .limit(limit);
-    return (data ?? []).map((r) => ({
-      id: `user_${r.id}`,
-      title: r.title,
-      image: r.image_url,
-      source: recipeSourceLabel(r.user_id),
-      sourceUrl: "#",
-      time: r.cook_time ? `${r.cook_time} min` : "—",
-      servings: r.servings ?? null,
-      rating: null,
-      imagePosition: r.image_position ?? "50% 50%",
-    }));
+    return (data ?? []).map(mapCommunityRow);
   } catch (err) {
     console.error("community match failed:", err);
+    return [];
+  }
+}
+
+// One RANDOM public community recipe for the default (landing) view, so member
+// recipes are always represented among the trending cards. PostgREST can't sort
+// randomly, so we load a pool of recent public recipes and pick one in JS.
+// Failure is silent — the landing page then just shows provider recipes.
+async function fetchRandomCommunityRecipe(lang: string) {
+  const l = lang === "de" ? "de" : "en";
+  try {
+    const supabase = createAdminClient();
+    const { data } = await supabase
+      .from("user_recipes")
+      .select("id, user_id, title, image_url, image_position, cook_time, servings")
+      .eq("is_public", true)
+      .not("image_url", "is", null)
+      .or(`language.eq.${l},language.is.null`)
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (!data?.length) return [];
+    return [mapCommunityRow(data[Math.floor(Math.random() * data.length)])];
+  } catch (err) {
+    console.error("random community recipe failed:", err);
     return [];
   }
 }
@@ -241,8 +270,15 @@ export async function GET(req: NextRequest) {
       spoonUrl = `${BASE}/recipes/complexSearch?number=${number}&addRecipeInformation=true&sort=popularity&minPopularity=50&instructionsRequired=true&offset=${dailyOffset}&apiKey=${API_KEY}`;
     }
 
-    // Matching community (user-created) recipes — only for text searches.
-    const communityPromise = query ? fetchCommunityMatches(query, 4, lang) : Promise.resolve([]);
+    // Community (user-created) recipes: title matches for text searches; on the
+    // default landing view (no query/category/filters) always ONE random public
+    // community recipe — it replaces a provider recipe via the spread+slice below.
+    const isDefaultView = !query && !hasFilters && (!category || category === "All");
+    const communityPromise = query
+      ? fetchCommunityMatches(query, 4, lang)
+      : isDefaultView
+        ? fetchRandomCommunityRecipe(lang)
+        : Promise.resolve([]);
 
     // Fetch Spoonacular + TheMealDB + Edamam in parallel
     const [spoonRes, mdbRecipes, edamamRecipes] = await Promise.all([
