@@ -36,7 +36,11 @@ async function requireReviewer() {
   if (!user) return { error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) };
 
   const isOwner = user.id === CULINSE_OWNER_ID;
-  const isReviewer = reviewerEmails().includes((user.email || "").toLowerCase());
+  // Nur BESTÄTIGTE E-Mail zählt — sonst könnte (falls E-Mail-Confirmation je
+  // deaktiviert wird) jeder ein Konto mit der Reviewer-Adresse registrieren.
+  const isReviewer =
+    Boolean(user.email_confirmed_at) &&
+    reviewerEmails().includes((user.email || "").toLowerCase());
   if (!isOwner && !isReviewer)
     return { error: NextResponse.json({ error: "Forbidden" }, { status: 403 }) };
 

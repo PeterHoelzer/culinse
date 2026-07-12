@@ -51,8 +51,8 @@ const ALLOWED_DIETS = new Set([
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   if (!SPOONACULAR_KEY) return NextResponse.json({ error: "Not configured" }, { status: 503 });
 
   let body: { targetCalories?: unknown; diet?: unknown };

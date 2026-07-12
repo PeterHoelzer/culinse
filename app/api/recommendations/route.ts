@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = new URL(req.url);
   const lang = (searchParams.get("lang") || "en").toLowerCase();
-  const number = Math.min(Number(searchParams.get("number") || 6), 12);
+  const number = Math.min(Math.max(Math.floor(Number(searchParams.get("number")) || 6), 1), 12);
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

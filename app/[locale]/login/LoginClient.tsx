@@ -33,9 +33,12 @@ export default function LoginClient() {
     // Die Middleware setzt redirectTo MIT Locale-Präfix (z. B. /de/admin/review).
     // router (next-intl) stellt die Locale beim Push selbst wieder voran —
     // ohne Strip entstünde /de/de/… (404). Deshalb Präfix hier entfernen.
+    // Nur interne Pfade zulassen: "https://…" und "//host" (protokoll-relativ)
+    // wären sonst ein Open Redirect auf fremde Seiten nach dem Login.
     const rawRedirect = new URLSearchParams(window.location.search).get("redirectTo");
-    const redirectTo = rawRedirect
-      ? rawRedirect.replace(/^\/(en|de)(?=\/|$)/, "") || "/"
+    const isInternalPath = rawRedirect?.startsWith("/") && !rawRedirect.startsWith("//");
+    const redirectTo = isInternalPath
+      ? rawRedirect!.replace(/^\/(en|de)(?=\/|$)/, "") || "/"
       : null;
 
     if (mode === "signup") {

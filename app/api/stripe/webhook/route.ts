@@ -53,8 +53,15 @@ export async function POST(req: NextRequest) {
 
       const customerId = session.customer as string;
       const subscriptionId = session.subscription as string;
-      const userId = await getUserId(customerId);
-      if (!userId) break;
+      // client_reference_id is set by our checkout route — it activates Pro
+      // even when the profile row is missing its stripe_customer_id (e.g. the
+      // save during checkout failed). Without a user id the customer HAS paid,
+      // so log loudly instead of dropping the event silently.
+      const userId = session.client_reference_id || (await getUserId(customerId));
+      if (!userId) {
+        console.error("checkout.session.completed: no user for customer", customerId);
+        break;
+      }
 
       const sub = await stripe.subscriptions.retrieve(subscriptionId, {
         expand: ["items"],
@@ -82,12 +89,16 @@ export async function POST(req: NextRequest) {
       const subscriptionId = typeof rawSub === "string" ? rawSub : rawSub?.id ?? null;
       if (!subscriptionId) break;
 
-      const userId = await getUserId(customerId);
-      if (!userId) break;
-
       const sub = await stripe.subscriptions.retrieve(subscriptionId, {
         expand: ["items"],
       });
+      // Fallback: the checkout route stores the user id in the subscription
+      // metadata, so renewals still work if the customer-id lookup fails.
+      const userId =
+        (await getUserId(customerId)) ??
+        ((sub as Stripe.Subscription).metadata?.supabase_user_id || null);
+      if (!userId) break;
+
       const periodEnd = getPeriodEnd(sub as Stripe.Subscription);
 
       await supabaseAdmin.from("profiles").upsert({
@@ -104,7 +115,8 @@ export async function POST(req: NextRequest) {
     case "customer.subscription.updated": {
       const sub = event.data.object as Stripe.Subscription;
       const customerId = sub.customer as string;
-      const userId = await getUserId(customerId);
+      const userId =
+        (await getUserId(customerId)) ?? (sub.metadata?.supabase_user_id || null);
       if (!userId) break;
 
       const isActive = sub.status === "active" || sub.status === "trialing";

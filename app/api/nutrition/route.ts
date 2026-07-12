@@ -30,8 +30,8 @@ function extractNutrition(nutrients: Array<{ name?: string; amount?: number }>):
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   let body: { recipeIds?: unknown };
   try {
