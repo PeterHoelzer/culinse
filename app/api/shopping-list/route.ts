@@ -601,8 +601,8 @@ async function fetchTastyIngredients(ids: string[], targets: Targets): Promise<R
 export async function POST(req: NextRequest) {
   // Auth check — only logged-in users may call this endpoint
   const supabase = await createClient();
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

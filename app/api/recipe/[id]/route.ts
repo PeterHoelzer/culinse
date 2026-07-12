@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
 import { recipeSourceLabel } from "@/lib/culinse";
+import { httpUrl } from "@/lib/userRecipeInput";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -74,13 +75,15 @@ export async function GET(
       const recipe = {
         id,
         title: r.title,
-        image: r.image_url || null,
+        // URL columns pass the http(s) filter before rendering as src/href —
+        // stored javascript:/data: values must never reach visitors' browsers.
+        image: httpUrl(r.image_url),
         imagePosition: r.image_position || "50% 50%",
-        videoUrl: r.video_url || null,
+        videoUrl: httpUrl(r.video_url),
         // Imported recipes carry their original site name + link for attribution;
         // created recipes are labelled Culinse (owner) or Community (other members).
         source: r.source_type === "imported" ? (r.source_name || "Community") : recipeSourceLabel(r.user_id),
-        sourceUrl: r.source_url || "",
+        sourceUrl: httpUrl(r.source_url) ?? "",
         time: totalTime > 0 ? `${totalTime} min` : null,
         prepTime: r.prep_time || null,
         cookTime: r.cook_time || null,

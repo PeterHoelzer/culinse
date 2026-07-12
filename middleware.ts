@@ -112,9 +112,13 @@ async function proxy(request: NextRequest) {
   const isCollectionsIndex =
     strippedPath === "/collections" || strippedPath === "/collections/";
 
+  // Match on segment boundaries: "/recipes" must gate "/recipes" and
+  // "/recipes/create", but not an unrelated route like "/recipes-blog".
   const isProtected =
     isCollectionsIndex ||
-    PROTECTED_PATHS.some((path) => strippedPath.startsWith(path));
+    PROTECTED_PATHS.some(
+      (path) => strippedPath === path || strippedPath.startsWith(`${path}/`)
+    );
 
   if (isProtected && !session) {
     // Detect locale from URL or default to "en"

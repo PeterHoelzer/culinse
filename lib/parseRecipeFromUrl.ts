@@ -7,6 +7,8 @@
 // Vercel — no Python microservice required. Microdata/RDFa-only sites are out
 // of scope for this first version (a later upgrade can add a wider parser).
 
+import { isSafePublicUrl } from "@/lib/ssrfGuard";
+
 export interface ParsedIngredient {
   name: string;
   amount: string; // kept as string ("1.5", "") — matches user_recipes shape
@@ -357,15 +359,31 @@ export function recipeFromJsonLd(node: Record<string, unknown>, url: string): Pa
 export async function parseRecipeFromUrl(url: string): Promise<ParsedRecipe | null> {
   let html: string;
   try {
-    const res = await fetch(url, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (compatible; CulinseBot/1.0; +https://culinse.com/bot)",
-        Accept: "text/html,application/xhtml+xml",
-      },
-      redirect: "follow",
-      signal: AbortSignal.timeout(12000),
-    });
-    if (!res.ok) return null;
+    // Follow redirects manually so every hop passes the SSRF guard — with
+    // redirect:"follow" an approved public URL could bounce the fetch to an
+    // internal host (169.254.169.254, localhost, …).
+    const MAX_REDIRECTS = 3;
+    let current = new URL(url);
+    let res: Response | null = null;
+    for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
+      if (!(await isSafePublicUrl(current))) return null;
+      res = await fetch(current.toString(), {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; CulinseBot/1.0; +https://culinse.com/bot)",
+          Accept: "text/html,application/xhtml+xml",
+        },
+        redirect: "manual",
+        signal: AbortSignal.timeout(12000),
+      });
+      if (res.status >= 300 && res.status < 400) {
+        const location = res.headers.get("location");
+        if (!location || hop === MAX_REDIRECTS) return null;
+        current = new URL(location, current);
+        continue;
+      }
+      break;
+    }
+    if (!res || !res.ok) return null;
     const ct = res.headers.get("content-type") || "";
     if (!/text\/html|application\/xhtml/i.test(ct)) return null;
     html = (await res.text()).slice(0, 3_000_000); // cap at ~3 MB

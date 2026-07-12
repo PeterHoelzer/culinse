@@ -178,7 +178,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query") || "";
   const category = searchParams.get("category") || "";
-  const number = Math.min(Number(searchParams.get("number") || 6), 24);
+  const number = Math.min(Math.max(Math.floor(Number(searchParams.get("number")) || 6), 1), 24);
   const maxTime = searchParams.get("maxTime") || "";
   const diet = searchParams.get("diet") || "";
   const minProtein = searchParams.get("minProtein") || "";

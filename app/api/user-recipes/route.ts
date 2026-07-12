@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { sanitizeRecipeInput } from "@/lib/userRecipeInput";
 
 const FREE_RECIPE_LIMIT = 5;
 
@@ -40,22 +41,28 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const body = await req.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: "invalid_body" }, { status: 400 });
+  }
+  const input = sanitizeRecipeInput(body);
   const { data, error } = await supabase
     .from("user_recipes")
     .insert({
       user_id: user.id,
-      title: body.title || "Untitled Recipe",
-      description: body.description || null,
-      image_url: body.image_url || null,
-      image_position: body.image_position || "50% 50%",
-      video_url: body.video_url || null,
-      ingredients: body.ingredients || [],
-      instructions: body.instructions || [],
-      cook_time: body.cook_time || null,
-      prep_time: body.prep_time || null,
-      servings: body.servings || 2,
-      tags: body.tags || [],
+      title: input.title || "Untitled Recipe",
+      description: input.description,
+      image_url: input.image_url,
+      image_position: input.image_position,
+      video_url: input.video_url,
+      ingredients: input.ingredients,
+      instructions: input.instructions,
+      cook_time: input.cook_time,
+      prep_time: input.prep_time,
+      servings: input.servings ?? 2,
+      tags: input.tags,
       status: "draft",
       is_public: false,
     })

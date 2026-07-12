@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
@@ -34,10 +35,13 @@ export async function POST(req: NextRequest) {
     });
     customerId = customer.id;
 
-    // Save customer ID
-    await supabase
+    // Save customer ID — via service client: billing columns on profiles are
+    // locked against client-role writes (see supabase/security_hardening.sql),
+    // and the id comes from Stripe, not from user input.
+    const { error: saveErr } = await createAdminClient()
       .from("profiles")
       .upsert({ id: user.id, stripe_customer_id: customerId });
+    if (saveErr) console.error("Failed to save stripe_customer_id:", saveErr);
   }
 
   // Determine which plan was requested (default: monthly)
@@ -49,6 +53,10 @@ export async function POST(req: NextRequest) {
 
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
+    // Fallback identity for the webhook: if saving stripe_customer_id to the
+    // profile failed, the customer-id lookup finds nothing — without this the
+    // user would pay but never be activated as Pro.
+    client_reference_id: user.id,
     mode: "subscription",
     payment_method_types: ["card"],
     line_items: [{ price: priceId, quantity: 1 }],

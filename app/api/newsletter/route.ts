@@ -10,9 +10,20 @@ function createAdminClient() {
 }
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json();
+  let email: unknown;
+  try {
+    ({ email } = await req.json());
+  } catch {
+    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+  }
 
-  if (!email || typeof email !== "string" || !email.includes("@")) {
+  // Unauthenticated endpoint writing via service role — validate strictly so it
+  // can't be used to flood the table with arbitrary strings.
+  if (
+    typeof email !== "string" ||
+    email.length > 254 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
+  ) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 

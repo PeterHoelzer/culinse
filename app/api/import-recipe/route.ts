@@ -1,26 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseRecipeFromUrl } from "@/lib/parseRecipeFromUrl";
+import { isSafePublicUrl } from "@/lib/ssrfGuard";
 
 // Imports count against the same free quota as user-created recipes.
 const FREE_RECIPE_LIMIT = 5;
-
-// ── SSRF guard ──────────────────────────────────────────────────────────────
-// The user supplies an arbitrary URL that we fetch server-side, so we must
-// refuse internal/private/metadata hosts.
-function isUnsafeHost(hostname: string): boolean {
-  const h = hostname.toLowerCase().replace(/^\[|\]$/g, "");
-  if (!h) return true;
-  if (h === "localhost" || h.endsWith(".local") || h.endsWith(".internal")) return true;
-  if (h === "::1" || h === "0.0.0.0") return true;
-  if (/^127\./.test(h)) return true; // loopback
-  if (/^10\./.test(h)) return true; // private
-  if (/^192\.168\./.test(h)) return true; // private
-  if (/^172\.(1[6-9]|2\d|3[01])\./.test(h)) return true; // private
-  if (/^169\.254\./.test(h)) return true; // link-local + cloud metadata (169.254.169.254)
-  if (/^fc00:|^fd00:|^fe80:/i.test(h)) return true; // IPv6 private/link-local
-  return false;
-}
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
@@ -45,7 +29,9 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: "invalid_url" }, { status: 400 });
   }
-  if (!/^https?:$/.test(target.protocol) || isUnsafeHost(target.hostname)) {
+  // SSRF guard: resolves the hostname and rejects private/internal targets
+  // (also catches decimal/hex IP forms and DNS records pointing inward).
+  if (!(await isSafePublicUrl(target))) {
     return NextResponse.json({ error: "invalid_url" }, { status: 400 });
   }
 
