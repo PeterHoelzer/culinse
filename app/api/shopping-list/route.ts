@@ -700,7 +700,7 @@ export async function POST(req: NextRequest) {
     fetchMealDBIngredients(mealdbIds),
     fetchEdamamIngredients(edamamIds, targets),
     fetchTastyIngredients(tastyIds, targets),
-    fetchUserRecipeIngredients(userIds, targets, session.user.id),
+    fetchUserRecipeIngredients(userIds, targets, user.id),
   ]);
 
   const allRaw = [...spoonRaw, ...mealdbRaw, ...edamamRaw, ...tastyRaw, ...userRaw];
