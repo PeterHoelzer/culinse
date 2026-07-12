@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { translateTexts } from "@/lib/translate";
 
 const SPOONACULAR_KEY = process.env.SPOONACULAR_API_KEY;
@@ -596,6 +597,67 @@ async function fetchTastyIngredients(ids: string[], targets: Targets): Promise<R
   return results;
 }
 
+// User-created / imported recipes (ids prefixed "user_"): ingredients live on the
+// `user_recipes` row as [{ name, amount, unit }]. Read via the service-role client
+// (RLS-bypassing), but scope the visibility ourselves — only rows that are public
+// OR owned by the requesting user, so a private draft is never leaked into another
+// user's shopping list.
+async function fetchUserRecipeIngredients(
+  ids: string[],
+  targets: Targets,
+  currentUserId: string
+): Promise<RawIngredient[]> {
+  if (ids.length === 0) return [];
+  try {
+    const uuidById = new Map(ids.map(id => [id.replace("user_", ""), id]));
+    const admin = createAdminClient();
+    const { data: rows } = await admin
+      .from("user_recipes")
+      .select("id, ingredients, servings, is_public, user_id")
+      .in("id", Array.from(uuidById.keys()));
+
+    const results: RawIngredient[] = [];
+    for (const r of (rows ?? []) as Array<{
+      id: string;
+      ingredients: unknown;
+      servings: number | null;
+      is_public: boolean | null;
+      user_id: string | null;
+    }>) {
+      // Visibility gate: skip private drafts that don't belong to the caller.
+      if (!r.is_public && r.user_id !== currentUserId) continue;
+      if (!Array.isArray(r.ingredients)) continue;
+
+      const fullId = uuidById.get(r.id) ?? `user_${r.id}`;
+      const ratio = scaleRatio(targets[fullId], r.servings);
+
+      for (const ing of r.ingredients as Array<{ name?: unknown; amount?: unknown; unit?: unknown }>) {
+        const name = typeof ing?.name === "string" ? ing.name : "";
+        if (!name.trim()) continue;
+        // amount may be stored as a number or a string ("1/2", "1 1/2", "¼").
+        const parsed =
+          typeof ing.amount === "number"
+            ? ing.amount
+            : ing.amount != null
+              ? parseFraction(String(ing.amount))
+              : NaN;
+        const amount = isNaN(parsed) ? 0 : parsed * ratio;
+        const unit = typeof ing.unit === "string" ? ing.unit : "";
+        results.push({
+          name,
+          amount,
+          unit,
+          aisle: undefined,
+          original: [ing.amount, unit, name].filter(Boolean).join(" ").trim(),
+        });
+      }
+    }
+    return results;
+  } catch {
+    return [];
+  }
+}
+
 // ── Main handler ───────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
@@ -624,6 +686,7 @@ export async function POST(req: NextRequest) {
   const spoonOnly = recipeIds.filter(id => /^\d+$/.test(id) && parseInt(id) < MDB_OFFSET);
   const edamamIds = recipeIds.filter(id => id.startsWith("edamam_"));
   const tastyIds  = recipeIds.filter(id => id.startsWith("tasty_"));
+  const userIds   = recipeIds.filter(id => id.startsWith("user_"));
 
   // Per-recipe target servings → scale ingredient amounts (target/original)
   const targets: Targets =
@@ -632,14 +695,15 @@ export async function POST(req: NextRequest) {
       : {};
   const lang = typeof body.lang === "string" ? body.lang.toLowerCase() : "en";
 
-  const [spoonRaw, mealdbRaw, edamamRaw, tastyRaw] = await Promise.all([
+  const [spoonRaw, mealdbRaw, edamamRaw, tastyRaw, userRaw] = await Promise.all([
     fetchSpoonacularIngredients(spoonOnly, targets),
     fetchMealDBIngredients(mealdbIds),
     fetchEdamamIngredients(edamamIds, targets),
     fetchTastyIngredients(tastyIds, targets),
+    fetchUserRecipeIngredients(userIds, targets, session.user.id),
   ]);
 
-  const allRaw = [...spoonRaw, ...mealdbRaw, ...edamamRaw, ...tastyRaw];
+  const allRaw = [...spoonRaw, ...mealdbRaw, ...edamamRaw, ...tastyRaw, ...userRaw];
   const items = aggregateIngredients(allRaw);
 
   // Translate ingredient names to German on the DE site (cached, never throws).
