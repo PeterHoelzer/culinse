@@ -16,7 +16,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Dieser Leitfaden führt dich durch alles: wie du planst, was du kochst, wie du effizient einkaufst und wie du alles richtig aufbewahrst. Keine komplizierten Rezepte nötig.",
+          "Dieser Leitfaden führt dich durch alles: wie du planst, was du kochst, wie du effizient einkaufst und wie du alles richtig aufbewahrst. Keine komplizierten Rezepte nötig. Wenn du direkt loslegen willst, hilft dir der [Wochenplaner von Culinse](/de/weekly-meal-planner), deine Woche zu planen und automatisch eine [Einkaufsliste zu erstellen](/de/blog/wochenmenuplan-mit-einkaufsliste).",
       },
       {
         heading: "Schritt 1: Entscheide, was du vorbereiten möchtest",
@@ -244,7 +244,7 @@ export const blogPostsDe: BlogPost[] = [
       {
         heading: "Schritt 1: Zuerst die Woche planen",
         content:
-          "Vor jeder Einkaufsliste brauchst du einen Wochenplan. Das nützlichste Format ist ein 7×3-Raster — sieben Tage oben, Frühstück/Mittag/Abend auf der Seite. Du musst nicht jede Zelle füllen. Die meisten planen mindestens Abendessen, fügen Mittagessen hinzu, wenn sie Meal Prep machen, und lassen das Frühstück flexibel.",
+          "Vor jeder Einkaufsliste brauchst du einen Wochenplan. Der [Wochenplaner von Culinse](/de/weekly-meal-planner) macht genau das — kostenlos und ohne Konto zum Ausprobieren. Das nützlichste Format ist ein 7×3-Raster — sieben Tage oben, Frühstück/Mittag/Abend auf der Seite. Du musst nicht jede Zelle füllen. Die meisten planen mindestens Abendessen, fügen Mittagessen hinzu, wenn sie Meal Prep machen, und lassen das Frühstück flexibel.",
         list: [
           "Beginne mit dem Abendessen — das ist zeitaufwändig und am meisten wert, geplant zu werden.",
           "Füge Mittagessen hinzu, wenn du für die Arbeit meal preppst.",
@@ -386,7 +386,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Diese 15 schnellen Abendessen-Ideen sind genau das, was unter der Woche wirklich funktioniert — schnell, sättigend und aus Dingen, die man griffbereit haben kann. Keine ausgefeilten Vorbereitungen, keine als 'schnell' verkleideten 45-Minuten-Rezepte, einfach unkompliziertes Essen, das pünktlich auf dem Tisch steht.",
+          "Diese 15 schnellen Abendessen-Ideen sind genau das, was unter der Woche wirklich funktioniert — schnell, sättigend und aus Dingen, die man griffbereit haben kann. Keine ausgefeilten Vorbereitungen, keine als 'schnell' verkleideten 45-Minuten-Rezepte, einfach unkompliziertes Essen, das pünktlich auf dem Tisch steht. Der Trick dahinter ist fast immer Planung — mit einem [Wochenmenüplan samt Einkaufsliste](/de/blog/wochenmenuplan-mit-einkaufsliste) steht die 18-Uhr-Frage gar nicht erst im Raum.",
       },
       {
         heading: "10–15 Minuten",
@@ -1177,6 +1177,697 @@ export const blogPostsDe: BlogPost[] = [
     ],
   },
 
+  {
+    slug: "proteinreiches-fruehstueck",
+    title: "Proteinreiches Frühstück: 18 Ideen mit über 30 g Protein",
+    description:
+      "Proteinreiches Frühstück mit über 30 g Protein: 18 schnelle, vorzubereitende und vegetarische Ideen, eine Proteinquellen-Übersicht und ein Meal-Prep-Tipp für die ganze Woche.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 Min. Lesezeit",
+    category: "Ernährung",
+    sections: [
+      {
+        content:
+          "Das klassische Frühstück aus Marmeladenbrötchen, Müsliriegel oder schnellem Croissant hat ein Problem: Es liefert vor allem Kohlenhydrate und kaum Protein – und genau deshalb hast du zwei Stunden später schon wieder Hunger. Ein proteinreiches Frühstück dreht das um. Es hält länger satt, stabilisiert den Blutzucker und unterstützt den Muskelerhalt. In diesem Beitrag bekommst du 18 konkrete Ideen mit jeweils über 30 g Protein, eine Übersicht der besten Proteinquellen und einen Tipp, wie du dein Frühstück für die ganze Woche vorbereitest.",
+      },
+      {
+        heading: "Warum Protein am Morgen?",
+        content:
+          "Protein ist der sättigendste der drei Makronährstoffe. Eine eiweißreiche erste Mahlzeit dämpft das Hungergefühl spürbar länger als ein rein kohlenhydratlastiges Frühstück – das macht es leichter, bis zum Mittag ohne Snack durchzukommen, und beugt dem Vormittagstief vor. Dazu kommt der Effekt auf die Muskulatur: Nach der nächtlichen Fastenphase ist der Körper morgens besonders empfänglich für Eiweiß. Wer Muskeln aufbauen oder im Kaloriendefizit erhalten will, profitiert davon, die Proteinzufuhr gleichmäßig über den Tag zu verteilen, statt sie aufs Abendessen zu konzentrieren. Nicht zuletzt hat Protein den höchsten thermischen Effekt: Der Körper verbraucht für die Verdauung mehr Energie als bei Fett oder Kohlenhydraten.",
+      },
+      {
+        heading: "Wie viel Protein gehört ins Frühstück?",
+        content:
+          "Als grobe Orientierung gelten 20 bis 40 g Protein pro Mahlzeit als sinnvoll, um die Muskelproteinsynthese gut anzustoßen. Für ein Frühstück, das wirklich satt macht und den Tag trägt, ist die 30-g-Marke ein guter Zielwert – und genau darauf sind die folgenden Ideen ausgelegt. Der Gesamtbedarf hängt von Körpergewicht und Aktivität ab: Wer regelmäßig trainiert oder Muskeln aufbauen möchte, orientiert sich oft an rund 1,6 bis 2,0 g Protein pro Kilogramm Körpergewicht und Tag. Mehr zu dieser Rechnung und passenden Hauptmahlzeiten findest du in unserem Guide zu [proteinreichen Mahlzeiten für den Muskelaufbau](/de/blog/proteinreiche-mahlzeiten-muskelaufbau).",
+      },
+      {
+        heading: "18 proteinreiche Frühstücksideen",
+        content:
+          "Alle Ideen sind so gedacht, dass du mit den angegebenen Hauptzutaten locker über 30 g Protein kommst. Die Mengen gelten für eine Portion. Schnell fertig in unter 5 Minuten:",
+        list: [
+          "Skyr-Bowl mit Beeren und Nüssen – 250 g Skyr, eine Handvoll Beeren, 20 g Nüsse; ohne Kochen, in zwei Minuten fertig.",
+          "Protein-Shake to go – 300 ml Milch oder Sojadrink, 30 g Proteinpulver, eine Banane; ideal für hektische Morgen.",
+          "Hüttenkäse-Brot herzhaft – 200 g Hüttenkäse auf Vollkornbrot mit Tomate, Schnittlauch und Pfeffer.",
+          "Quark mit Haferflocken – 250 g Magerquark, 40 g Haferflocken, etwas Honig und Zimt; cremig und schnell.",
+          "Eier-Wrap to go – 3 Rühreier in einer Vollkorn-Tortilla mit etwas Käse, schnell eingerollt.",
+        ],
+      },
+      {
+        heading: "Zum Vorbereiten / Overnight",
+        content: "Diese Ideen bereitest du am Vorabend oder für mehrere Tage im Voraus zu:",
+        list: [
+          "Overnight Oats mit Skyr – 50 g Haferflocken, 200 g Skyr, 150 ml Milch, Chia und Beeren; über Nacht im Glas.",
+          "Protein-Chia-Pudding – 30 g Chiasamen, 250 ml Milch, 1 Scoop Proteinpulver; am Vorabend ansetzen.",
+          "Quark-Frühstücksgläser – Schichten aus Magerquark, Beeren und Granola; drei bis vier Gläser auf einmal vorbereiten.",
+          "Baked Oats mit Proteinpulver – Haferflocken, Ei, Proteinpulver und Banane gebacken; portionsweise für mehrere Tage.",
+          "Egg Muffins – 6 Eier mit Spinat, Paprika und etwas Käse in der Muffinform gebacken; halten mehrere Tage im Kühlschrank.",
+        ],
+      },
+      {
+        heading: "Vegetarisch & vegan",
+        content: "Auch ohne Fleisch – und teils komplett pflanzlich – kommst du über die 30-g-Marke:",
+        list: [
+          "Tofu-Rührei (Scramble) – 200 g Tofu mit Kurkuma, Gemüse und Kala Namak; vegan und herzhaft.",
+          "Sojajoghurt-Bowl – 250 g proteinangereicherter Sojajoghurt mit Nüssen, Samen und Obst.",
+          "Linsen-Frühstücks-Hash – gekochte Linsen mit Kartoffeln und Paprika in der Pfanne; sättigend und proteinreich.",
+          "Erdnussbutter-Porridge mit Sojadrink – Haferflocken in Sojadrink mit 1 EL Erdnussbutter und einem Scoop pflanzlichem Protein.",
+          "Kichererbsen-Pancakes – Pfannkuchen aus Kichererbsenmehl, herzhaft mit Gemüse belegt.",
+        ],
+      },
+      {
+        heading: "Herzhaft",
+        content: "Für alle, die morgens lieber deftig essen:",
+        list: [
+          "Shakshuka mit Feta – 2–3 Eier in Tomatensugo pochiert, mit etwas Feta; ideal fürs Wochenende.",
+          "Lachs-Bagel mit Frischkäse – Vollkornbagel, Räucherlachs, Frischkäse, rote Zwiebel; viel Protein, wenig Aufwand.",
+          "Omelett mit Hähnchen und Gemüse – 3 Eier mit Resten von gegartem Hähnchen und Gemüse; verwertet zugleich Meal-Prep-Reste.",
+        ],
+      },
+      {
+        heading: "Proteinquellen fürs Frühstück im Überblick",
+        content:
+          "Damit du selbst kombinieren kannst, hilft ein Gefühl dafür, wie viel Protein die typischen Frühstückszutaten liefern. Die Werte sind Richtwerte pro üblicher Portion:",
+        list: [
+          "Magerquark (250 g): rund 32 g",
+          "Skyr (250 g): rund 28 g",
+          "Hüttenkäse (200 g): rund 25 g",
+          "Proteinpulver (1 Scoop, 30 g): rund 24 g",
+          "Eier (je Stück): rund 6–7 g",
+          "Tofu (200 g): rund 24 g",
+          "Räucherlachs (100 g): rund 20 g",
+          "Haferflocken (50 g): rund 6 g",
+          "Sojajoghurt, proteinangereichert (250 g): rund 12–15 g",
+          "Nüsse (20 g): rund 4 g",
+        ],
+      },
+      {
+        content:
+          "Die Logik dahinter: Eine konzentrierte Hauptquelle (Quark, Skyr, Eier, Tofu) liefert den Großteil, kleinere Bausteine (Nüsse, Haferflocken, Samen) runden ab. So erreichst du die 30-g-Marke fast immer mit einer einzigen guten Basiszutat.",
+      },
+      {
+        heading: "Meal-Prep-Tipp: Frühstück für die ganze Woche vorbereiten",
+        content:
+          "Der häufigste Grund, warum das proteinreiche Frühstück im Alltag scheitert, ist Zeitmangel am Morgen. Die Lösung ist dieselbe wie bei jeder anderen Mahlzeit: vorbereiten. Setze an einem Tag drei bis fünf Gläser Overnight Oats mit Skyr an, backe ein Blech Egg Muffins und portioniere Quark-Frühstücksgläser. Damit hast du in wenigen Minuten Aufwand mehrere Morgen abgedeckt, an denen du nur noch den Kühlschrank öffnen musst. Wenn du dir das Zusammenstellen sparen willst, filterst du mit Culinse Rezepte direkt nach Proteingehalt und Ernährungsform und stellst dir daraus deine Frühstückswoche zusammen – inklusive automatischer Einkaufsliste.",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Ein proteinreiches Frühstück ist der einfachste Weg, länger satt zu bleiben, das Vormittagstief zu vermeiden und die tägliche Eiweißzufuhr gleichmäßig zu verteilen. Du musst dafür weder kompliziert kochen noch jeden Morgen Zeit investieren: Eine konzentrierte Proteinquelle wie Quark, Skyr, Eier oder Tofu bringt dich fast immer über die 30-g-Marke, und mit ein wenig Vorbereitung am Wochenende ist die ganze Woche abgedeckt. Such dir aus den 18 Ideen zwei oder drei aus, die zu deinem Alltag passen, und mach sie zur Routine.",
+      },
+      {
+        heading: "Häufige Fragen",
+        content: "Die wichtigsten Fragen rund ums proteinreiche Frühstück:",
+        list: [
+          "Wie komme ich morgens auf über 30 g Protein? Am einfachsten über eine konzentrierte Hauptquelle: 250 g Magerquark oder Skyr liefern bereits rund 28–32 g, drei Eier plus etwas Käse ebenfalls. Kleinere Zutaten wie Nüsse oder Haferflocken runden den Wert ab.",
+          "Ist ein proteinreiches Frühstück gut zum Abnehmen? Es kann helfen, weil Protein lange sättigt und so das Snacken am Vormittag reduziert. Entscheidend fürs Abnehmen bleibt die gesamte Energiebilanz über den Tag – ein sättigendes Frühstück macht ein Kaloriendefizit aber leichter durchzuhalten.",
+          "Geht proteinreiches Frühstück auch vegetarisch oder vegan? Ja. Quark, Skyr, Hüttenkäse und Eier decken die vegetarische Variante ab; für vegan eignen sich Tofu, proteinangereicherter Sojajoghurt, Hülsenfrüchte und pflanzliches Proteinpulver. Mehrere der Ideen oben sind bereits fleischfrei.",
+          "Brauche ich Proteinpulver für ein proteinreiches Frühstück? Nein. Proteinpulver ist praktisch, wenn es schnell gehen muss, aber kein Muss. Mit Quark, Skyr, Eiern, Tofu oder Räucherlachs erreichst du die Zielmenge problemlos auch ohne Pulver.",
+          "Wie lange ist vorbereitetes Frühstück haltbar? Overnight Oats und Quark-Gläser halten im Kühlschrank etwa 3 bis 4 Tage, Egg Muffins ebenfalls rund 3 bis 4 Tage. Lass Gebackenes vor dem Verschließen vollständig abkühlen.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Wie komme ich morgens auf über 30 g Protein?",
+        answer:
+          "Am einfachsten über eine konzentrierte Hauptquelle: 250 g Magerquark oder Skyr liefern bereits rund 28–32 g, drei Eier plus etwas Käse ebenfalls. Kleinere Zutaten wie Nüsse oder Haferflocken runden den Wert ab.",
+      },
+      {
+        question: "Ist ein proteinreiches Frühstück gut zum Abnehmen?",
+        answer:
+          "Es kann helfen, weil Protein lange sättigt und so das Snacken am Vormittag reduziert. Entscheidend fürs Abnehmen bleibt die gesamte Energiebilanz über den Tag – ein sättigendes Frühstück macht ein Kaloriendefizit aber leichter durchzuhalten.",
+      },
+      {
+        question: "Geht proteinreiches Frühstück auch vegetarisch oder vegan?",
+        answer:
+          "Ja. Quark, Skyr, Hüttenkäse und Eier decken die vegetarische Variante ab; für vegan eignen sich Tofu, proteinangereicherter Sojajoghurt, Hülsenfrüchte und pflanzliches Proteinpulver. Mehrere der Ideen oben sind bereits fleischfrei.",
+      },
+      {
+        question: "Brauche ich Proteinpulver für ein proteinreiches Frühstück?",
+        answer:
+          "Nein. Proteinpulver ist praktisch, wenn es schnell gehen muss, aber kein Muss. Mit Quark, Skyr, Eiern, Tofu oder Räucherlachs erreichst du die Zielmenge problemlos auch ohne Pulver.",
+      },
+      {
+        question: "Wie lange ist vorbereitetes Frühstück haltbar?",
+        answer:
+          "Overnight Oats und Quark-Gläser halten im Kühlschrank etwa 3 bis 4 Tage, Egg Muffins ebenfalls rund 3 bis 4 Tage. Lass Gebackenes vor dem Verschließen vollständig abkühlen.",
+      },
+    ],
+  },
+  {
+    slug: "sommer-meal-prep",
+    title: "Sommer Meal Prep: 15 leichte Rezepte ohne stundenlanges Kochen",
+    description:
+      "Sommer Meal Prep leicht gemacht: 15 leichte Rezepte ohne langes Kochen, die besten hitzefesten Zutaten, Tipps zum Kühlen und Transportieren und ein Wochenplan für heiße Tage.",
+    publishedAt: "2026-07-12",
+    readingTime: "7 Min. Lesezeit",
+    category: "Meal Prep",
+    sections: [
+      {
+        content:
+          "Im Sommer hat kaum jemand Lust, bei 30 Grad stundenlang am heißen Herd zu stehen – und schwere, warme Gerichte passen auch nicht zum Wetter. Trotzdem willst du nicht jeden Tag improvisieren oder zum Lieferdienst greifen. Genau dafür ist Sommer Meal Prep gemacht: einmal leichte, frische Gerichte vorbereiten, die kühl schmecken, sich gut transportieren lassen und bei Hitze nicht schlappmachen. Hier bekommst du 15 Rezeptideen, die besten hitzefesten Zutaten und einen Wochenplan für den Sommer.",
+      },
+      {
+        heading: "Meal Prep im Sommer – worauf du bei Hitze achten solltest",
+        content:
+          "Sommer-Prep folgt denselben Grundprinzipien wie das ganze Jahr über – einmal vorbereiten, in Komponenten denken, richtig lagern; die Basics dazu findest du in unserem [Einsteiger-Guide zum Meal Prep](/de/blog/meal-prep-fuer-anfaenger). Im Sommer kommen aber zwei Dinge dazu. Erstens verderben Lebensmittel bei Wärme schneller: Was du vorbereitest, muss zügig in den Kühlschrank und sollte beim Transport gekühlt bleiben. Zweitens willst du leichtere Gerichte – Salate, Bowls, kalte Nudeln, viel frisches Gemüse statt schwerer Aufläufe. Das spart nebenbei Zeit, weil vieles ohne oder mit nur kurzem Kochen auskommt. Der Trick ist, eher kalte oder No-Cook-Komponenten einzuplanen und empfindliche Zutaten erst kurz vor dem Essen dazuzugeben.",
+      },
+      {
+        heading: "Lebensmittel, die sich bei Wärme gut halten",
+        content:
+          "Manche Zutaten sind im Sommer deutlich unkomplizierter als andere. Gut geeignet sind robuste Rohkost wie Karotten, Paprika, Gurke und Radieschen, gekochte Hülsenfrüchte (Kichererbsen, Linsen, Bohnen), gekochte Körner wie Quinoa, Bulgur und Couscous sowie haltbare Proteine wie hartgekochte Eier, Feta und Hähnchen, wenn es durchgehend gekühlt bleibt. Vorsicht ist bei empfindlichen Dingen geboten: Blattsalate werden mit Dressing schnell matschig, Mayonnaise-basierte Gerichte sind bei Wärme heikel, und frische Kräuter welken rasch. Die Lösung ist simpel – diese Komponenten getrennt aufbewahren und erst beim Servieren kombinieren. So bleibt der Salat knackig und das Dressing frisch.",
+      },
+      {
+        heading: "15 leichte Sommer-Meal-Prep-Rezepte",
+        content:
+          "Alle Ideen sind auf Frische und wenig Kochaufwand ausgelegt. Vieles lässt sich in Gläsern oder Boxen vorbereiten und kühl genießen. Zuerst die Salate im Glas:",
+        list: [
+          "Quinoa-Gemüse-Salat – Quinoa, Gurke, Tomate, Paprika, Zitronen-Dressing; hält mehrere Tage.",
+          "Kichererbsen-Feta-Salat – Kichererbsen, Feta, rote Zwiebel, Petersilie; sättigend und proteinreich.",
+          "Linsensalat mit Tomate – gekochte Linsen, Kirschtomaten, Schnittlauch, Senf-Dressing.",
+          "Nudelsalat leicht – Vollkornnudeln, viel Gemüse, Pesto oder Joghurt-Kräuter-Dressing.",
+          "Bulgur-Tabouleh – Bulgur, viel Petersilie, Tomate, Minze, Zitrone; klassisch und erfrischend.",
+        ],
+      },
+      {
+        heading: "Bowls & Wraps",
+        list: [
+          "Sommer-Bowl mit Couscous – Couscous, geröstetes Gemüse vom Vortag, Hummus, Granatapfel.",
+          "Hähnchen-Reis-Bowl kalt – kaltes gegartes Hähnchen, Reis, Edamame, Limetten-Dressing.",
+          "Falafel-Bowl – Falafel, Salat, Gurke, Tahin-Sauce; Komponenten getrennt halten.",
+          "Wrap mit Hummus und Gemüse – Vollkorn-Wrap, Hummus, Karotte, Paprika, Spinat.",
+          "Mexican Bean Bowl – schwarze Bohnen, Mais, Avocado (frisch dazu), Limette, Koriander.",
+        ],
+      },
+      {
+        heading: "Ohne Ofen / No-Cook",
+        list: [
+          "Caprese-Spieße to go – Tomate, Mozzarella, Basilikum; im Sommer ein Klassiker.",
+          "Overnight Oats für heiße Morgen – Haferflocken, Joghurt, Beeren; kühl und sättigend.",
+          "Gazpacho – kalte Tomatensuppe, perfekt vorzubereiten und tagelang haltbar.",
+          "Hüttenkäse-Bowl – Hüttenkäse mit Gurke, Tomate, Radieschen und Kräutern.",
+          "Melonen-Feta-Salat – Wassermelone, Feta, Minze; erfrischend und in Minuten fertig.",
+        ],
+      },
+      {
+        heading: "Richtig kühlen & transportieren",
+        content:
+          "Im Sommer entscheidet die Kühlkette darüber, ob dein Prep gut bleibt. Lass alles vor dem Verschließen vollständig abkühlen – warm verschlossen bildet sich Kondenswasser, das den Inhalt schneller verderben lässt. Im Kühlschrank halten die meisten Salate und Bowls 3 bis 4 Tage, frisch geschnittenes Obst etwas kürzer. Für unterwegs – ins Büro, zum Picknick oder an den Strand – gehört Vorbereitetes in eine kleine Kühltasche mit Kühlakku, gerade wenn es länger als ein, zwei Stunden warm steht. Halte empfindliche Komponenten (Dressing, Avocado, Blattsalat) bis zum Essen getrennt und gib sie erst dann dazu. So vermeidest du matschige Salate und hast beim Auspacken etwas, das wie frisch zubereitet schmeckt.",
+      },
+      {
+        heading: "Wochenplan: leichter Sommer-Prep",
+        content:
+          "Dieser Plan kommt mit einem kurzen Prep-Block und vielen wiederverwendeten Komponenten aus. Mengen für eine Person, einfach hochrechnen. Prep-Block (ca. 60 Min.): Quinoa und Couscous kochen, ein Blech Gemüse rösten, Kichererbsen und Linsen bereitstellen, Hähnchen garen, zwei Dressings anrühren (Zitrone-Olivenöl, Joghurt-Kräuter), Overnight Oats für die ersten Tage ansetzen.",
+        list: [
+          "Montag: Quinoa-Gemüse-Salat; morgens Overnight Oats",
+          "Dienstag: Kichererbsen-Feta-Salat; abends Gazpacho mit Brot",
+          "Mittwoch: Sommer-Bowl mit Couscous und Röstgemüse",
+          "Donnerstag: Hähnchen-Reis-Bowl kalt mit Edamame",
+          "Freitag: Reste-Bowl aus allem, was übrig ist, plus Melonen-Feta-Salat",
+          "Wochenende: frei für Grillen oder spontane Gerichte",
+        ],
+      },
+      {
+        content:
+          "Wer im Sommer ohnehin oft grillt, ergänzt das Ganze mit passenden Beilagen – Ideen dafür findest du in unserem Beitrag zu [schnellen Grillbeilagen](/de/blog/schnelle-grillbeilagen). Und wer leichte Küche mag, findet im Stil der [mediterranen Diät für Anfänger](/de/blog/mediterrane-diaet-rezepte-anfaenger) viele weitere sommertaugliche Gerichte.",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Sommer Meal Prep heißt nicht weniger Genuss, sondern leichtere, frischere Gerichte mit weniger Kochaufwand. Setze auf hitzefeste Zutaten, halte empfindliche Komponenten getrennt und achte bei Transport und Lagerung auf die Kühlkette – dann hast du auch an den heißesten Tagen etwas Frisches griffbereit, ohne am Herd zu schwitzen. Such dir aus den 15 Ideen ein paar Favoriten und bau dir daraus deine Sommerwoche. Wenn du dir das Zusammenstellen sparen willst, filterst du mit Culinse Rezepte nach leichten Sommergerichten und Ernährungsform und bekommst die Zutaten automatisch als Einkaufsliste.",
+      },
+      {
+        heading: "Häufige Fragen",
+        content: "Die wichtigsten Fragen rund um Meal Prep im Sommer:",
+        list: [
+          "Welche Gerichte eignen sich am besten für Meal Prep im Sommer? Salate im Glas, Bowls mit gekochten Körnern und Hülsenfrüchten, kalte Nudelgerichte und No-Cook-Ideen wie Gazpacho oder Hüttenkäse-Bowls. Sie schmecken kühl, halten sich gut und kommen mit wenig Kochen aus.",
+          "Wie lange hält vorbereitetes Sommeressen im Kühlschrank? Die meisten Salate und Bowls halten 3 bis 4 Tage. Frisch geschnittenes Obst und empfindliche Zutaten etwas kürzer. Wichtig ist, alles vollständig abzukühlen, bevor du es verschließt.",
+          "Wie transportiere ich Meal Prep bei Hitze sicher? In einer Kühltasche mit Kühlakku, besonders wenn das Essen länger warm steht. Dressing, Avocado und Blattsalat erst kurz vor dem Essen dazugeben, damit nichts matschig wird.",
+          "Geht Sommer Meal Prep auch komplett ohne Kochen? Ja. Gazpacho, Caprese, Hüttenkäse-Bowls, Melonen-Feta-Salat und Overnight Oats kommen ganz ohne Herd aus. Mit gekauften Komponenten wie fertigen Hülsenfrüchten lässt sich noch mehr No-Cook kombinieren.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Welche Gerichte eignen sich am besten für Meal Prep im Sommer?",
+        answer:
+          "Salate im Glas, Bowls mit gekochten Körnern und Hülsenfrüchten, kalte Nudelgerichte und No-Cook-Ideen wie Gazpacho oder Hüttenkäse-Bowls. Sie schmecken kühl, halten sich gut und kommen mit wenig Kochen aus.",
+      },
+      {
+        question: "Wie lange hält vorbereitetes Sommeressen im Kühlschrank?",
+        answer:
+          "Die meisten Salate und Bowls halten 3 bis 4 Tage. Frisch geschnittenes Obst und empfindliche Zutaten etwas kürzer. Wichtig ist, alles vollständig abzukühlen, bevor du es verschließt.",
+      },
+      {
+        question: "Wie transportiere ich Meal Prep bei Hitze sicher?",
+        answer:
+          "In einer Kühltasche mit Kühlakku, besonders wenn das Essen länger warm steht. Dressing, Avocado und Blattsalat erst kurz vor dem Essen dazugeben, damit nichts matschig wird.",
+      },
+      {
+        question: "Geht Sommer Meal Prep auch komplett ohne Kochen?",
+        answer:
+          "Ja. Gazpacho, Caprese, Hüttenkäse-Bowls, Melonen-Feta-Salat und Overnight Oats kommen ganz ohne Herd aus. Mit gekauften Komponenten wie fertigen Hülsenfrüchten lässt sich noch mehr No-Cook kombinieren.",
+      },
+    ],
+  },
+  {
+    slug: "schnelle-grillbeilagen",
+    title: "Schnelle Grillbeilagen: 25 Ideen in unter 20 Minuten",
+    description:
+      "Schnelle Grillbeilagen in unter 20 Minuten: 25 Ideen für Salate, Dips, Brot und Gemüse vom Grill, dazu Beilagen zum Vorbereiten und ein Mengen-Planer pro Person.",
+    publishedAt: "2026-07-12",
+    readingTime: "7 Min. Lesezeit",
+    category: "Saisonale Küche",
+    sections: [
+      {
+        content:
+          "Das Fleisch liegt auf dem Rost, die Gäste stehen schon da – und an die Beilagen hat wieder niemand gedacht. Dabei machen genau sie ein gutes Grillen aus: Ohne frische Salate, würzige Dips und knuspriges Brot wird selbst das beste Steak schnell eintönig. Die gute Nachricht: Die meisten Grillbeilagen sind in unter 20 Minuten fertig oder lassen sich am Vortag vorbereiten. Hier kommen 25 schnelle Ideen, ein Tipp zum Vorbereiten und ein Mengen-Planer, damit am Ende auch für alle genug da ist.",
+      },
+      {
+        heading: "Was macht eine gute Grillbeilage aus?",
+        content:
+          "Eine gelungene Beilagen-Auswahl bringt Abwechslung auf den Teller: etwas Frisches gegen die Schwere vom Grill, etwas Cremiges zum Dippen und etwas Sättigendes wie Brot oder Kartoffeln. Die Faustregel für eine runde Auswahl lautet: ein bis zwei Salate, ein bis zwei Dips, eine Brot- oder Kartoffelkomponente und etwas Gemüse vom Grill. Wichtig ist auch die Balance zwischen leicht und herzhaft: Wer nur schwere, mayonnaiselastige Beilagen serviert, macht satt, aber müde. Eine Mischung aus knackigen Salaten und ein, zwei wärmenden Komponenten hält die Runde länger fit. Und das Beste: Vieles lässt sich parallel zum Grillen oder schon am Vortag erledigen, sodass du beim Grillen selbst entspannt bleibst.",
+      },
+      {
+        heading: "25 schnelle Grillbeilagen",
+        content:
+          "Die Ideen sind nach Kategorie sortiert, damit du dir aus jeder Gruppe etwas herauspicken kannst. Los geht es mit den Salaten:",
+        list: [
+          "Krautsalat (Coleslaw) – fein gehobelter Weißkohl mit Karotte und einem Joghurt-Senf-Dressing.",
+          "Tomaten-Mozzarella-Salat – Tomate, Mozzarella, Basilikum, Olivenöl; in fünf Minuten fertig.",
+          "Gurkensalat – Gurke, etwas Dill, Joghurt oder Essig-Öl; erfrischend leicht.",
+          "Couscous-Salat – Couscous mit Paprika, Tomate, Minze und Zitrone.",
+          "Bohnensalat – Kidney- und weiße Bohnen, rote Zwiebel, Petersilie, Essig-Öl.",
+          "Kartoffelsalat schnell – fertig gekochte Kartoffeln mit Brühe, Senf und Zwiebel.",
+          "Tabouleh – Bulgur, viel Petersilie, Tomate, Zitrone.",
+          "Rucola mit Parmesan – Rucola, Parmesanspäne, Balsamico; minimalistisch und schnell.",
+        ],
+      },
+      {
+        heading: "Dips & Saucen",
+        list: [
+          "Kräuterquark – Magerquark mit Schnittlauch, Petersilie und etwas Knoblauch.",
+          "Tzatziki – Joghurt, geraspelte Gurke, Knoblauch, Dill.",
+          "Guacamole – Avocado, Limette, Zwiebel, Tomate.",
+          "Hummus – Kichererbsen, Tahin, Zitrone, Knoblauch; auch fertig gekauft schnell aufgepeppt.",
+          "Aioli / Knoblauchsauce – cremig zum Brot und Gemüse.",
+          "Tomaten-Salsa – Tomate, Zwiebel, Chili, Koriander.",
+        ],
+      },
+      {
+        heading: "Brot & Beilagen",
+        list: [
+          "Knoblauchbrot vom Grill – Baguette mit Knoblauchbutter, kurz auf dem Rost.",
+          "Kräuterbutter – Butter mit frischen Kräutern, schnell selbst gemacht.",
+          "Fladenbrot – warm vom Grill, ideal zu Dips.",
+          "Ofen-Wedges – Kartoffelspalten mit Paprikapulver (parallel im Ofen).",
+          "Maiskolben – kurz gekocht oder direkt gegrillt, mit Butter und Salz.",
+        ],
+      },
+      {
+        heading: "Vom Grill & vegetarisch",
+        list: [
+          "Grillgemüse – Zucchini, Paprika, Aubergine mit Olivenöl und Salz.",
+          "Gegrillter Halloumi – in Scheiben, wenige Minuten pro Seite.",
+          "Grillspieße mit Gemüse – Paprika, Zwiebel, Champignon abwechselnd.",
+          "Gegrillte Champignons – mit Knoblauch und Petersilie.",
+          "Folienkartoffeln – in Alufolie auf dem Rost, mit Kräuterquark serviert.",
+          "Grüner Spargel vom Grill – mit Olivenöl und Zitrone, in Minuten gar.",
+        ],
+      },
+      {
+        heading: "Beilagen zum Vorbereiten (am Vortag)",
+        content:
+          "Der entspannteste Grillabend ist der, bei dem die Hälfte schon fertig ist, bevor der erste Gast kommt. Viele Beilagen schmecken vorbereitet sogar besser, weil sie durchziehen. Salate auf Getreide- oder Hülsenfruchtbasis – Couscous-Salat, Bohnensalat, Tabouleh – kannst du problemlos am Vortag machen; sie halten im Kühlschrank 2 bis 3 Tage und gewinnen an Geschmack. Auch Dips wie Tzatziki, Kräuterquark und Hummus lassen sich gut vorbereiten. Blattsalate und alles mit Avocado bereitest du dagegen erst kurz vorher zu, damit nichts welkt oder braun wird. Ein praktischer Ansatz: am Vortag die haltbaren Komponenten machen, am Grilltag nur noch die frischen Salate anrichten und das Brot aufbacken – ganz nach dem Prinzip aus unserem [Meal-Prep-Guide](/de/blog/meal-prep-fuer-anfaenger).",
+      },
+      {
+        heading: "Mengen-Planer: Wie viel Beilage pro Person?",
+        content:
+          "Damit nicht zu viel übrig bleibt oder zu wenig da ist, hilft eine grobe Orientierung pro Person: rund 150 bis 200 g Salat, etwa 50 bis 80 g Dip, ein bis zwei Scheiben Brot und ein bis zwei Stück Grillgemüse. Bei mehreren Salaten zur Auswahl kannst du die Menge je Salat etwas reduzieren, weil sich die Gäste verteilen. Plane bei größeren Runden lieber eine zusätzliche Beilage mehr als eine zu wenig – Reste lassen sich am nächsten Tag gut verwerten, ein leerer Tisch lässt sich schwer retten. Eine zusammengefasste Einkaufsliste für alle Beilagen erstellst du mit Culinse automatisch, indem du die gewünschten Rezepte auswählst und die Mengen zusammenrechnen lässt.",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Gute Grillbeilagen müssen weder aufwendig sein noch viel Zeit kosten. Mit einer Mischung aus einem frischen Salat, einem cremigen Dip, etwas Brot und Gemüse vom Grill hast du in unter 20 Minuten eine runde Auswahl – und wenn du die haltbaren Komponenten schon am Vortag machst, bleibst du am Grilltag selbst völlig entspannt. Such dir aus den 25 Ideen für jede Kategorie einen Favoriten und du bist für die nächste Grillparty bestens vorbereitet. Mehr leichte Sommergerichte für die Tage zwischen den Grillabenden findest du in unseren [vegetarischen Abendessen-Ideen](/de/blog/vegetarische-abendessen-ideen).",
+      },
+      {
+        heading: "Häufige Fragen",
+        content: "Die wichtigsten Fragen rund um schnelle Grillbeilagen:",
+        list: [
+          "Welche Grillbeilagen gehen besonders schnell? Tomaten-Mozzarella, Gurkensalat, Rucola mit Parmesan, Kräuterquark und Knoblauchbrot vom Grill sind in unter 10 Minuten fertig. Mit fertig gekauften Komponenten wie Hummus geht es noch schneller.",
+          "Welche Beilagen kann ich am Vortag vorbereiten? Salate auf Getreide- oder Hülsenfruchtbasis (Couscous, Bohnen, Tabouleh) sowie Dips wie Tzatziki, Hummus und Kräuterquark. Sie halten 2 bis 3 Tage und gewinnen oft an Geschmack. Blattsalate und Avocado erst kurz vorher zubereiten.",
+          "Wie viel Beilage brauche ich pro Person? Als Richtwert etwa 150–200 g Salat, 50–80 g Dip, ein bis zwei Scheiben Brot und ein bis zwei Stück Grillgemüse pro Person. Bei mehreren Salaten kannst du je Salat etwas weniger einplanen.",
+          "Welche vegetarischen Grillbeilagen gibt es? Grillgemüse, gegrillter Halloumi, Gemüsespieße, Folienkartoffeln und grüner Spargel vom Grill sind allesamt vegetarisch und sättigend – viele davon können sogar als Hauptkomponente für Vegetarier dienen.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Welche Grillbeilagen gehen besonders schnell?",
+        answer:
+          "Tomaten-Mozzarella, Gurkensalat, Rucola mit Parmesan, Kräuterquark und Knoblauchbrot vom Grill sind in unter 10 Minuten fertig. Mit fertig gekauften Komponenten wie Hummus geht es noch schneller.",
+      },
+      {
+        question: "Welche Beilagen kann ich am Vortag vorbereiten?",
+        answer:
+          "Salate auf Getreide- oder Hülsenfruchtbasis (Couscous, Bohnen, Tabouleh) sowie Dips wie Tzatziki, Hummus und Kräuterquark. Sie halten 2 bis 3 Tage und gewinnen oft an Geschmack. Blattsalate und Avocado erst kurz vorher zubereiten.",
+      },
+      {
+        question: "Wie viel Beilage brauche ich pro Person?",
+        answer:
+          "Als Richtwert etwa 150–200 g Salat, 50–80 g Dip, ein bis zwei Scheiben Brot und ein bis zwei Stück Grillgemüse pro Person. Bei mehreren Salaten kannst du je Salat etwas weniger einplanen.",
+      },
+      {
+        question: "Welche vegetarischen Grillbeilagen gibt es?",
+        answer:
+          "Grillgemüse, gegrillter Halloumi, Gemüsespieße, Folienkartoffeln und grüner Spargel vom Grill sind allesamt vegetarisch und sättigend – viele davon können sogar als Hauptkomponente für Vegetarier dienen.",
+      },
+    ],
+  },
+  {
+    slug: "rezepte-fuer-studenten",
+    title: "Einfache Rezepte für Studenten: günstig, schnell & ohne viel Equipment",
+    description:
+      "Einfache Rezepte für Studenten: günstig, schnell und ohne viel Equipment. 20 Ideen für One-Pot, ohne Backofen und Meal Prep fürs Semester, plus Vorratsliste und 30-Euro-Wocheneinkauf.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 Min. Lesezeit",
+    category: "Budgetküche",
+    sections: [
+      {
+        content:
+          "Wenig Zeit, wenig Geld, eine winzige Küche mit zwei Herdplatten und vielleicht keinem Backofen – Kochen im Studium hat seine eigenen Spielregeln. Trotzdem muss es weder teuer noch eintönig sein, und du musst dich auch nicht von Tiefkühlpizza und Nudeln mit Ketchup ernähren. Dieser Guide zeigt dir 20 einfache Rezepte, die günstig sind, schnell gehen und kaum Ausstattung brauchen, dazu eine günstige Vorratsliste und einen Wocheneinkauf für rund 30 Euro.",
+      },
+      {
+        heading: "Kochen im Studentenalltag: wenig Zeit, wenig Geld, kleine Küche",
+        content:
+          "Die größten Hürden beim Kochen im Studium sind fast immer dieselben: knappes Budget, wenig Zeit zwischen Vorlesungen und Job, und eine Küche, die oft nur aus Herdplatten, einem Topf und einer Pfanne besteht. Die Lösung liegt nicht in komplizierten Rezepten, sondern in einfachen Gerichten mit wenigen, günstigen Zutaten, die sich vielfach kombinieren lassen. Zwei Prinzipien helfen besonders. Erstens: in Grundzutaten denken, die lange halten und in vielen Gerichten auftauchen – Reis, Nudeln, Linsen, Eier, Dosen-Tomaten. Zweitens: einmal vorkochen statt jeden Tag von vorn anzufangen. Wer am Sonntag eine größere Menge kocht, hat unter der Woche mehrere Mahlzeiten griffbereit – wie das im Detail funktioniert, zeigt unser [Einsteiger-Guide zum Meal Prep](/de/blog/meal-prep-fuer-anfaenger).",
+      },
+      {
+        heading: "Günstige Grundausstattung & Vorratsliste",
+        content:
+          "Du brauchst keine ausgestattete Profiküche. Mit einem Topf, einer Pfanne, einem scharfen Messer, einem Brett und ein paar Vorratsdosen kommst du erstaunlich weit; wenn ein Backofen fehlt, ersetzt eine Pfanne fast alles. Für die Vorratskammer lohnen sich haltbare Grundzutaten, die die Basis für dutzende Gerichte bilden: Reis, Nudeln, Haferflocken, Linsen und getrocknete oder Dosen-Bohnen, Dosen-Tomaten, Zwiebeln, Knoblauch, Öl, Salz und ein paar Grundgewürze (Paprikapulver, Currypulver, Pfeffer). Dazu Eier, Tiefkühlgemüse (günstig und ohne Verschwendung) und etwas Käse für Abwechslung. Mit diesem Grundstock kochst du eine Woche lang, ohne ständig nachkaufen zu müssen – und gibst kaum Geld für Dinge aus, die im Schrank verstauben.",
+      },
+      {
+        heading: "20 Studenten-Rezepte",
+        content:
+          "Sortiert nach Situation – ob nur eine Herdplatte frei ist, kein Ofen da ist oder du fürs Semester vorkochen willst. Zuerst One-Pot und eine Herdplatte:",
+        list: [
+          "One-Pot-Pasta – Nudeln, Dosen-Tomaten, Knoblauch und Gewürze in einem Topf gegart.",
+          "Linsen-Dahl – rote Linsen, Dosen-Tomaten, Currypulver; sättigend und billig.",
+          "Reispfanne mit Gemüse und Ei – Reis, Tiefkühlgemüse, ein Ei untergerührt.",
+          "Chili sin Carne – Bohnen, Mais, Tomaten, Gewürze; ergibt mehrere Portionen.",
+          "Gemüsesuppe – was an Gemüse da ist, mit Brühe und Linsen für Sättigung.",
+          "Nudeln Aglio e Olio – Nudeln, Knoblauch, Öl, Chili; minimalistisch und gut.",
+        ],
+      },
+      {
+        heading: "Ohne Backofen",
+        list: [
+          "Rührei mit Gemüse – Eier mit Resten von Paprika, Zwiebel, Spinat.",
+          "Pfannkuchen herzhaft oder süß – Mehl, Ei, Milch; vielseitig und günstig.",
+          "Wraps mit Bohnen und Käse – in der Pfanne kurz angeröstet.",
+          "Gebratener Reis – Reis vom Vortag, Ei, Tiefkühlgemüse, Sojasauce.",
+          "Kartoffelpfanne – gekochte Kartoffeln mit Zwiebel und Ei angebraten.",
+          "Couscous-Salat – Couscous nur mit heißem Wasser, dazu Gemüse und Zitrone.",
+        ],
+      },
+      {
+        heading: "Meal Prep fürs Semester",
+        list: [
+          "Bolognese aus Linsen – große Menge kochen, portionsweise einfrieren.",
+          "Chili auf Vorrat – friert hervorragend ein, hält Wochen im Tiefkühler.",
+          "Currys (Linsen oder Kichererbsen) – lassen sich gut vorbereiten und aufwärmen.",
+          "Overnight Oats – Frühstück für mehrere Tage im Glas vorbereiten.",
+          "Reis- und Gemüse-Bowls – Komponenten vorkochen und täglich neu kombinieren.",
+        ],
+      },
+      {
+        heading: "Unter 2 €",
+        list: [
+          "Linsensuppe – Linsen, Karotte, Zwiebel, Brühe; ein paar Cent pro Portion.",
+          "Nudeln mit Tomatensauce – selbst gemacht aus Dosen-Tomaten und Knoblauch.",
+          "Porridge mit Banane – Haferflocken, Milch oder Wasser, eine Banane.",
+        ],
+      },
+      {
+        heading: "Cleverer Wocheneinkauf für ~30 €",
+        content:
+          "So sieht ein günstiger Einkauf aus, der eine Woche trägt, weil sich die Zutaten über mehrere Gerichte verteilen. Kaufe einmal gezielt mit Liste: Reis, Nudeln, Haferflocken, eine Packung rote Linsen, ein paar Dosen Bohnen und Tomaten, ein Karton Eier, Tiefkühlgemüse, Kartoffeln, Zwiebeln, Knoblauch, Karotten, eine Banane oder zwei und etwas Käse oder Joghurt. Der Trick ist die Überlappung: Die Linsen wandern in Dahl und Bolognese, die Bohnen in Chili, Wraps und Suppe, die Eier ins Rührei, in gebratenen Reis und Pfannkuchen, der Reis ist Basis für mehrere Pfannen. So zahlt jede Zutat auf mehrere Gerichte ein und nichts bleibt ungenutzt liegen. Eine zusammengefasste Einkaufsliste für deine gewählten Rezepte – mit zusammengerechneten Mengen – erstellst du mit Culinse automatisch, damit du nicht doppelt kaufst. Wer noch günstiger kochen will, findet weitere Ideen in unserer Sammlung [Mahlzeiten unter 5 Euro](/de/blog/guenstige-mahlzeiten-unter-5-euro).",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Gut essen im Studium ist eine Frage des Systems, nicht des Budgets: ein paar günstige Grundzutaten, einfache Gerichte mit wenig Equipment und einmal vorkochen statt täglich improvisieren. Mit einem Wocheneinkauf für rund 30 Euro und Zutaten, die sich über mehrere Gerichte verteilen, kommst du günstig, schnell und abwechslungsreich durch die Woche. Such dir aus den 20 Rezepten ein paar Favoriten für deine Küchensituation und mach sie zu deiner Grundroutine. Wer abends schnell etwas Frisches braucht, findet weitere Ideen in unseren [schnellen Abendessen-Ideen unter 30 Minuten](/de/blog/schnelle-abendessen-ideen-unter-30-minuten).",
+      },
+      {
+        heading: "Häufige Fragen",
+        content: "Die wichtigsten Fragen rund ums Kochen im Studium:",
+        list: [
+          "Welche Rezepte eignen sich am besten für Studenten? Gerichte mit wenigen, günstigen Zutaten und wenig Aufwand: One-Pot-Pasta, Linsen-Dahl, Chili, gebratener Reis und Couscous-Salat. Sie sind billig, schnell und brauchen kaum Equipment.",
+          "Wie koche ich ohne Backofen? Eine Pfanne ersetzt fast alles: Rührei, gebratener Reis, Pfannkuchen, Wraps und Kartoffelpfanne gelingen alle auf dem Herd. Couscous braucht nur heißes Wasser.",
+          "Wie viel kostet günstiges Kochen pro Woche? Mit einem cleveren Einkauf und Zutaten, die sich über mehrere Gerichte verteilen, kommst du für rund 30 Euro durch die Woche. Der größte Spareffekt entsteht durch Überlappung der Zutaten und wenig Verschwendung.",
+          "Wie spare ich Zeit beim Kochen im Studium? Vorkochen ist der Schlüssel: Einmal eine größere Menge Chili, Bolognese oder Curry kochen und portionsweise einfrieren. Unter der Woche wärmst du dann nur noch auf, statt jeden Tag von vorn anzufangen.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Welche Rezepte eignen sich am besten für Studenten?",
+        answer:
+          "Gerichte mit wenigen, günstigen Zutaten und wenig Aufwand: One-Pot-Pasta, Linsen-Dahl, Chili, gebratener Reis und Couscous-Salat. Sie sind billig, schnell und brauchen kaum Equipment.",
+      },
+      {
+        question: "Wie koche ich ohne Backofen?",
+        answer:
+          "Eine Pfanne ersetzt fast alles: Rührei, gebratener Reis, Pfannkuchen, Wraps und Kartoffelpfanne gelingen alle auf dem Herd. Couscous braucht nur heißes Wasser.",
+      },
+      {
+        question: "Wie viel kostet günstiges Kochen pro Woche?",
+        answer:
+          "Mit einem cleveren Einkauf und Zutaten, die sich über mehrere Gerichte verteilen, kommst du für rund 30 Euro durch die Woche. Der größte Spareffekt entsteht durch Überlappung der Zutaten und wenig Verschwendung.",
+      },
+      {
+        question: "Wie spare ich Zeit beim Kochen im Studium?",
+        answer:
+          "Vorkochen ist der Schlüssel: Einmal eine größere Menge Chili, Bolognese oder Curry kochen und portionsweise einfrieren. Unter der Woche wärmst du dann nur noch auf, statt jeden Tag von vorn anzufangen.",
+      },
+    ],
+  },
+  {
+    slug: "was-koche-ich-am-wochenende",
+    title: "Was koche ich am Wochenende? 20 entspannte Ideen für jeden Anlass",
+    description:
+      "Was koche ich am Wochenende? 20 entspannte Ideen nach Stimmung – vom gemütlichen Brunch über Gerichte für Gäste bis zu Comfort Food. Plus Reste-Tipp und ausgewogener Genuss.",
+    publishedAt: "2026-07-12",
+    readingTime: "7 Min. Lesezeit",
+    category: "Wochenplanung",
+    sections: [
+      {
+        content:
+          "Unter der Woche zählt vor allem, dass es schnell geht. Am Wochenende ist das anders: Du hast Zeit, vielleicht Gäste, und Lust, dir etwas zu gönnen, das unter der Woche zu aufwendig wäre. Genau deshalb stellt sich am Samstag die Frage „Was koche ich?\" ganz anders als am Dienstagabend. Hier kommen 20 entspannte Ideen, sortiert nach Stimmung – vom gemütlichen Brunch über Gerichte für die ganze Familie bis zu Comfort Food und etwas Besonderem ohne Stress.",
+      },
+      {
+        heading: "Wochenende = Zeit zum Genießen: andere Regeln als unter der Woche",
+        content:
+          "Wochenendkochen darf langsamer, geselliger und ein bisschen aufwendiger sein. Während es werktags um Tempo geht, steht am Wochenende der Genuss im Vordergrund: ein Gericht, das vor sich hin schmort, während du anderes tust, ein gemeinsames Essen mit Freunden oder einfach das Lieblings-Comfort-Food, auf das du die ganze Woche gewartet hast. Das heißt nicht, dass es kompliziert sein muss. Viele entspannte Wochenendgerichte machen wenig aktive Arbeit – ein Schmorgericht oder eine Suppe kocht weitgehend von allein. Der Unterschied ist eher die Haltung: Statt „schnell fertig werden\" geht es darum, sich Zeit zu nehmen. Für spontane Entscheidungen unter der Woche hilft dir übrigens unser Beitrag dazu, [was du heute Abend kochen kannst](/de/blog/was-koche-ich-heute-abend-ideen-fuer-die-woche).",
+      },
+      {
+        heading: "20 Wochenend-Ideen nach Stimmung",
+        content:
+          "Such dir die Kategorie aus, die zu deinem Wochenende passt. Für den gemütlichen Brunch:",
+        list: [
+          "Shakshuka – Eier in würziger Tomatensauce, mit Brot zum Tunken.",
+          "Pancakes oder Waffeln – süß mit Beeren oder herzhaft belegt.",
+          "Avocado-Brot mit pochiertem Ei – schnell, aber wie im Café.",
+          "French Toast – aus altem Brot, mit Zimt und Obst.",
+          "Frühstücks-Bowl – Joghurt, Granola, Obst, Nüsse; entspannt und frisch.",
+        ],
+      },
+      {
+        heading: "Für Gäste / Familie",
+        list: [
+          "One-Pot-Pasta für viele – unkompliziert und für eine Runde gut skalierbar.",
+          "Selbstgemachte Pizza – jeder belegt seine eigene; macht gemeinsam Spaß.",
+          "Tacos zum Selberbauen – Komponenten auf den Tisch, alle bedienen sich.",
+          "Großer Auflauf – einmal in den Ofen, satt werden alle.",
+          "Curry für mehrere – ein Topf, viele Teller, lässt sich gut vorbereiten.",
+        ],
+      },
+      {
+        heading: "Comfort Food",
+        list: [
+          "Lasagne – der Klassiker für ein gemütliches Wochenende.",
+          "Cremiges Risotto – braucht Aufmerksamkeit, belohnt aber dafür.",
+          "Burger selbst gemacht – mit Beilagen-Salat und Pommes aus dem Ofen.",
+          "Mac and Cheese – cremig, herzhaft, pures Wohlfühlessen.",
+          "Schmorgericht (Gulasch o. Ä.) – kocht stundenlang von allein vor sich hin.",
+        ],
+      },
+      {
+        heading: "Etwas Besonderes ohne Stress",
+        list: [
+          "Ofengericht mit Lachs und Gemüse – edel, aber kaum Aufwand.",
+          "Risotto mit Pilzen – schmeckt festlich, braucht wenige Zutaten.",
+          "Selbstgemachte Gnocchi oder Pasta – ein entspanntes Küchenprojekt fürs Wochenende.",
+          "Bowl mit mariniertem Tofu oder Hähnchen – frisch, bunt, sieht beeindruckend aus.",
+          "Mediterrane Platte – verschiedene kleine Gerichte zum Teilen, im Stil der mediterranen Küche.",
+        ],
+      },
+      {
+        heading: "Reste clever in die neue Woche überführen",
+        content:
+          "Ein schöner Nebeneffekt vom Wochenendkochen: Wer ohnehin in größerer Menge kocht, hat den Start in die neue Woche schon erledigt. Ein Topf Curry, Chili oder Schmorgericht vom Samstag wird zum Mittagessen am Montag – einfach portionieren und kühlen oder einfrieren. So schlägst du die Brücke vom genussvollen Wochenende zum entspannten Wochenstart. Das passt nahtlos zum Meal-Prep-Gedanken: Statt am Sonntag extra vorzukochen, nutzt du das, was du sowieso zubereitest, und legst ein paar Portionen zur Seite. Wie du daraus ein System machst, zeigt unser [Einsteiger-Guide zum Meal Prep](/de/blog/meal-prep-fuer-anfaenger); und wenn du den ganzen Wochenplan im Blick behalten willst, hilft dir der [Wochenmenüplan mit Einkaufsliste](/de/blog/wochenmenuplan-mit-einkaufsliste).",
+      },
+      {
+        heading: "Wochenend-Genuss trotzdem ausgewogen",
+        content:
+          "Genießen und ausgewogen essen schließen sich nicht aus. Wer am Wochenende gern etwas Herzhaftes kocht, kann es leicht ausbalancieren: ein großer Salat oder reichlich Gemüse als Beilage, eine Proteinquelle im Zentrum und Comfort Food bewusst statt nebenbei. Auch beim Brunch lässt sich mit Joghurt, Obst und Eiern viel Protein einbauen, ohne dass es nach Verzicht schmeckt. Der entspannteste Ansatz: das Wochenende nicht als Ausnahmezustand sehen, in dem alle Regeln fallen, sondern als die Tage, an denen du dir mehr Zeit fürs Kochen und Genießen nimmst. Ein bisschen mehr Gemüse hier, eine bewusste Portion dort – das reicht, um Genuss und Ausgewogenheit zusammenzubringen.",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Die Frage „Was koche ich am Wochenende?\" verdient eine andere Antwort als die werktägliche Eile. Nimm dir Zeit, koch nach Stimmung – ob gemütlicher Brunch, Essen für Gäste, Comfort Food oder etwas Besonderes ohne Stress – und nutze die größere Menge gleich für einen entspannten Start in die neue Woche. Such dir aus den 20 Ideen die passende Kategorie und mach das Wochenendkochen zu einem kleinen Highlight statt einer weiteren Entscheidung. Wenn dir die Idee fehlt, hilft dir die Rezept-Discovery von Culinse: Du filterst nach Anlass, Zeit und Lust und bekommst passende Vorschläge – inklusive automatischer Einkaufsliste.",
+      },
+      {
+        heading: "Häufige Fragen",
+        content: "Die wichtigsten Fragen rund ums Wochenendkochen:",
+        list: [
+          "Was kann ich am Wochenende Schönes kochen? Das hängt von der Stimmung ab: ein gemütlicher Brunch mit Shakshuka oder Pancakes, etwas für Gäste wie selbstgemachte Pizza oder Tacos, Comfort Food wie Lasagne oder Risotto, oder etwas Besonderes wie ein Ofengericht mit Lachs.",
+          "Was koche ich am Wochenende für Gäste, ohne Stress? Gerichte zum Selberbauen (Tacos, Pizza) oder ein großer Topf bzw. Auflauf sind ideal, weil sie sich gut skalieren lassen und wenig Last-Minute-Arbeit machen. Vieles kannst du vorbereiten und musst es nur noch fertigstellen.",
+          "Wie nutze ich Wochenend-Reste sinnvoll? Koch gleich etwas mehr und leg Portionen für die neue Woche zurück. Curry, Chili und Schmorgerichte lassen sich gut portionieren, kühlen oder einfrieren – so ist das Montagsessen schon erledigt.",
+          "Geht Wochenend-Genuss auch ausgewogen? Ja. Ein großer Salat oder reichlich Gemüse als Beilage, eine Proteinquelle im Zentrum und Comfort Food bewusst statt nebenbei – so bleibt es genussvoll und trotzdem ausgewogen.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Was kann ich am Wochenende Schönes kochen?",
+        answer:
+          "Das hängt von der Stimmung ab: ein gemütlicher Brunch mit Shakshuka oder Pancakes, etwas für Gäste wie selbstgemachte Pizza oder Tacos, Comfort Food wie Lasagne oder Risotto, oder etwas Besonderes wie ein Ofengericht mit Lachs.",
+      },
+      {
+        question: "Was koche ich am Wochenende für Gäste, ohne Stress?",
+        answer:
+          "Gerichte zum Selberbauen (Tacos, Pizza) oder ein großer Topf bzw. Auflauf sind ideal, weil sie sich gut skalieren lassen und wenig Last-Minute-Arbeit machen. Vieles kannst du vorbereiten und musst es nur noch fertigstellen.",
+      },
+      {
+        question: "Wie nutze ich Wochenend-Reste sinnvoll?",
+        answer:
+          "Koch gleich etwas mehr und leg Portionen für die neue Woche zurück. Curry, Chili und Schmorgerichte lassen sich gut portionieren, kühlen oder einfrieren – so ist das Montagsessen schon erledigt.",
+      },
+      {
+        question: "Geht Wochenend-Genuss auch ausgewogen?",
+        answer:
+          "Ja. Ein großer Salat oder reichlich Gemüse als Beilage, eine Proteinquelle im Zentrum und Comfort Food bewusst statt nebenbei – so bleibt es genussvoll und trotzdem ausgewogen.",
+      },
+    ],
+  },
+  {
+    slug: "vorratshaltung-speisekammer",
+    title: "Vorratshaltung leicht gemacht: Liste, Lagerung & clever einkaufen",
+    description:
+      "Vorratshaltung leicht gemacht: die Basis-Vorratsliste für Speisekammer, Kühlschrank und Tiefkühler, richtige Lagerung nach Lebensmittelgruppe, das FIFO-Prinzip und eine praktische Checkliste.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 Min. Lesezeit",
+    category: "Mahlzeitenplanung",
+    sections: [
+      {
+        content:
+          "Ein gut sortierter Vorrat ist die unsichtbare Grundlage einer entspannten Küche. Wer die richtigen Grundzutaten im Haus hat, kann jederzeit kochen, ohne extra einkaufen zu gehen, spart Geld und wirft deutlich weniger weg. Trotzdem wirkt Vorratshaltung oft kompliziert – dabei reichen eine gute Liste, ein paar Lagerregeln und ein einfaches System. Hier bekommst du genau das: die Basis-Vorratsliste für Speisekammer, Kühlschrank und Tiefkühler, die richtige Lagerung nach Lebensmittelgruppe, das FIFO-Prinzip und eine Checkliste zum Mitnehmen.",
+      },
+      {
+        heading: "Warum sich eine durchdachte Vorratshaltung lohnt",
+        content:
+          "Der Nutzen ist dreifach: Geld, Zeit und weniger Müll. Wer Grundzutaten auf Vorrat hat, kann größere und damit günstigere Packungen kaufen und muss seltener spontan und teuer nachkaufen. Gleichzeitig sparst du Zeit, weil du nicht für jedes Gericht losziehen musst – die Basis ist schon da. Und du wirfst weniger weg, weil ein klarer Überblick verhindert, dass Dinge im hinteren Schrankeck vergessen werden und verderben. Dazu kommt der Komfort: An einem Tag, an dem nichts Frisches im Haus ist, lässt sich aus einem guten Vorrat trotzdem eine vollwertige Mahlzeit zaubern – Nudeln mit Tomatensauce, ein Linsencurry, eine schnelle Suppe. Vorratshaltung ist damit das Fundament jeder Wochenplanung; wie du daraus konkrete Mahlzeiten machst, zeigt unser [Wochenmenüplan mit Einkaufsliste](/de/blog/wochenmenuplan-mit-einkaufsliste).",
+      },
+      {
+        heading: "Die Basis-Vorratsliste",
+        content:
+          "Ein guter Vorrat verteilt sich auf drei Bereiche – du musst nicht alles auf einmal anschaffen, bau die Liste nach und nach auf. Speisekammer (trocken und haltbar): Reis, Nudeln, Haferflocken, Linsen und getrocknete oder Dosen-Bohnen, Dosen-Tomaten, Mehl, Öl, Essig, Salz, Zucker und ein Grundstock an Gewürzen (Pfeffer, Paprika, Curry, Kräuter), dazu Konserven wie Kichererbsen, Mais und passierte Tomaten als schnelle Basis. Kühlschrank: Eier, etwas Käse, Joghurt oder Quark, Butter, ein paar haltbare Gemüse wie Karotten und Zwiebeln sowie Senf und andere Grundsaucen – diese Dinge halten vergleichsweise lange und tauchen in vielen Gerichten auf. Tiefkühler: Tiefkühlgemüse (günstig, nährstoffreich und ohne Verschwendung), Beeren, etwas Brot in Reserve und selbst vorgekochte Portionen wie Suppe, Chili oder Bolognese – der Tiefkühler ist deine Versicherung gegen „nichts im Haus\". Mit diesem Grundstock kannst du fast jederzeit kochen; Frisches kaufst du gezielt dazu, statt jedes Mal bei null anzufangen.",
+      },
+      {
+        heading: "Richtig lagern: Haltbarkeit nach Lebensmittelgruppe",
+        content:
+          "Wie lange etwas hält, hängt stark von der richtigen Lagerung ab. Trockenwaren wie Reis, Nudeln und Hülsenfrüchte halten kühl, trocken und luftdicht verschlossen viele Monate bis Jahre. Mehl und Haferflocken sind ebenfalls lange haltbar, sollten aber vor Feuchtigkeit und Schädlingen geschützt werden – am besten in verschließbaren Behältern. Öle gehören dunkel und nicht zu warm gelagert. Im Kühlschrank halten Eier mehrere Wochen, Hartkäse länger als Weichkäse, Joghurt und Quark bis zum aufgedruckten Datum und oft etwas darüber hinaus, wenn sie unversehrt sind. Gekochte Reste halten in der Regel 3 bis 4 Tage. Empfindliches Gemüse (Blattsalat, Kräuter) verbraucht sich am schnellsten, robustes (Karotten, Kohl) hält Wochen. Im Tiefkühler bleibt vieles 2 bis 3 Monate in guter Qualität – beschrifte Behälter mit Inhalt und Datum, damit nichts zum Rätsel wird. Diese Lagerlogik ist dieselbe, die beim Vorbereiten von Mahlzeiten gilt; mehr dazu im [Einsteiger-Guide zum Meal Prep](/de/blog/meal-prep-fuer-anfaenger).",
+      },
+      {
+        heading: "First In, First Out – Ordnung, die bleibt",
+        content:
+          "Das wirksamste Prinzip gegen Lebensmittelverschwendung ist gleichzeitig das einfachste: First In, First Out (FIFO). Es bedeutet, ältere Vorräte nach vorn zu räumen und neu Gekauftes nach hinten zu stellen. So greifst du automatisch zuerst zu dem, was zuerst ablaufen würde, und nichts gammelt unbemerkt im hinteren Eck. In der Praxis heißt das: Beim Einräumen nach dem Einkauf die neuen Packungen hinter die alten stellen, im Kühlschrank Älteres auf Augenhöhe platzieren und den Tiefkühler regelmäßig sichten. Kombiniert mit einem groben Überblick darüber, was du überhaupt im Haus hast, verhinderst du Doppelkäufe und verdorbene Reste. Ein einmal etabliertes FIFO-System läuft fast von allein und spart über das Jahr spürbar Geld.",
+      },
+      {
+        heading: "Vom Vorrat zum Wochenplan: in 3 Schritten kochen ohne Einkauf",
+        content:
+          "Ein Vorrat entfaltet seinen Wert erst, wenn du ihn nutzt. So machst du in drei Schritten aus dem, was da ist, fertige Mahlzeiten:",
+        list: [
+          "Schritt 1 – Bestand sichten: Schau, welche Basis du hast – ein Kohlenhydrat (Reis, Nudeln), ein Protein (Linsen, Bohnen, Eier) und eine Geschmacksgrundlage (Dosen-Tomaten, Gewürze, Sauce). Fast immer ergibt sich daraus schon ein Gericht.",
+          "Schritt 2 – Lücken gezielt füllen: Notiere nur, was wirklich fehlt – etwas frisches Gemüse, vielleicht ein Kraut. So bleibt der Einkauf klein und günstig.",
+          "Schritt 3 – Kombinieren und kochen: Aus Vorrat plus wenig Frischem entstehen Gerichte wie Linsencurry, Tomatenpasta oder Gemüsesuppe.",
+        ],
+      },
+      {
+        content:
+          "Genau hier hilft die Rezept-Discovery von Culinse: Du filterst nach den Zutaten, die du im Vorrat hast, und bekommst passende Rezepte vorgeschlagen – fehlende Zutaten landen automatisch in einer zusammengefassten Einkaufsliste. Wer dabei aufs Budget achtet, findet weitere Ideen in unserer Sammlung [Mahlzeiten unter 5 Euro](/de/blog/guenstige-mahlzeiten-unter-5-euro).",
+      },
+      {
+        heading: "Deine Vorratsliste zum Abhaken",
+        content:
+          "Damit du gleich loslegen kannst, fasst diese Checkliste die Basics zusammen – häng sie an den Vorratsschrank oder nimm sie mit zum Einkauf:",
+        list: [
+          "Speisekammer: Reis, Nudeln, Haferflocken, Linsen, Bohnen (Dose/getrocknet), Dosen-Tomaten, Mehl, Öl, Essig, Salz, Gewürze, Kichererbsen, Mais",
+          "Kühlschrank: Eier, Käse, Joghurt/Quark, Butter, Karotten, Zwiebeln, Senf",
+          "Tiefkühler: TK-Gemüse, Beeren, Brot in Reserve, vorgekochte Portionen (Suppe, Chili, Bolognese)",
+        ],
+      },
+      {
+        content:
+          "Übertrag die Liste in deine Notizen-App und ergänze, was du häufig brauchst. Eine digitale, automatisch zusammengerechnete Einkaufsliste auf Basis deiner Rezepte erstellst du zusätzlich mit Culinse.",
+      },
+      {
+        heading: "Fazit",
+        content:
+          "Vorratshaltung ist kein Hexenwerk, sondern ein einfaches System aus drei Teilen: eine gute Basisliste für Speisekammer, Kühlschrank und Tiefkühler, die richtige Lagerung nach Lebensmittelgruppe und das FIFO-Prinzip, das Verschwendung verhindert. Damit kannst du fast jederzeit kochen, sparst Geld und wirfst weniger weg. Bau deinen Vorrat nach und nach mit der Liste oben auf, und mach das Sichten beim Einräumen zur Routine – der Rest läuft von allein.",
+      },
+      {
+        heading: "Häufige Fragen",
+        content: "Die wichtigsten Fragen rund um die Vorratshaltung:",
+        list: [
+          "Was gehört in eine gute Vorratsliste? In die Speisekammer Reis, Nudeln, Haferflocken, Hülsenfrüchte, Dosen-Tomaten, Mehl, Öl und Gewürze; in den Kühlschrank Eier, Käse, Joghurt, Butter und haltbares Gemüse; in den Tiefkühler TK-Gemüse, Beeren, Brot und vorgekochte Portionen.",
+          "Wie lagere ich Vorräte richtig? Trockenwaren kühl, trocken und luftdicht; Öle dunkel; Kühlschrankware nach Haltbarkeit sortiert; Tiefkühlware beschriftet mit Inhalt und Datum. So bleibt alles länger frisch und nichts wird vergessen.",
+          "Was bedeutet das FIFO-Prinzip? First In, First Out heißt: Älteres nach vorn, Neues nach hinten. Du verbrauchst zuerst, was zuerst abläuft, und verhinderst so, dass Lebensmittel unbemerkt verderben.",
+          "Wie vermeide ich Lebensmittelverschwendung? Mit Überblick über den Bestand, dem FIFO-Prinzip, richtiger Lagerung und dem Einfrieren von Resten und Überschüssen. Flexible Grundrezepte wie Suppe oder Pfannengerichte helfen, Reste zu verwerten.",
+          "Wie koche ich nur aus dem Vorrat, ohne einzukaufen? Sichte deine Basis aus Kohlenhydrat, Protein und Geschmacksgrundlage – daraus ergibt sich fast immer ein Gericht wie Linsencurry, Tomatenpasta oder Suppe. Nur wirklich Fehlendes kaufst du gezielt dazu.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Was gehört in eine gute Vorratsliste?",
+        answer:
+          "In die Speisekammer Reis, Nudeln, Haferflocken, Hülsenfrüchte, Dosen-Tomaten, Mehl, Öl und Gewürze; in den Kühlschrank Eier, Käse, Joghurt, Butter und haltbares Gemüse; in den Tiefkühler TK-Gemüse, Beeren, Brot und vorgekochte Portionen.",
+      },
+      {
+        question: "Wie lagere ich Vorräte richtig?",
+        answer:
+          "Trockenwaren kühl, trocken und luftdicht; Öle dunkel; Kühlschrankware nach Haltbarkeit sortiert; Tiefkühlware beschriftet mit Inhalt und Datum. So bleibt alles länger frisch und nichts wird vergessen.",
+      },
+      {
+        question: "Was bedeutet das FIFO-Prinzip?",
+        answer:
+          "First In, First Out heißt: Älteres nach vorn, Neues nach hinten. Du verbrauchst zuerst, was zuerst abläuft, und verhinderst so, dass Lebensmittel unbemerkt verderben.",
+      },
+      {
+        question: "Wie vermeide ich Lebensmittelverschwendung?",
+        answer:
+          "Mit Überblick über den Bestand, dem FIFO-Prinzip, richtiger Lagerung und dem Einfrieren von Resten und Überschüssen. Flexible Grundrezepte wie Suppe oder Pfannengerichte helfen, Reste zu verwerten.",
+      },
+      {
+        question: "Wie koche ich nur aus dem Vorrat, ohne einzukaufen?",
+        answer:
+          "Sichte deine Basis aus Kohlenhydrat, Protein und Geschmacksgrundlage – daraus ergibt sich fast immer ein Gericht wie Linsencurry, Tomatenpasta oder Suppe. Nur wirklich Fehlendes kaufst du gezielt dazu.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPostDe(slug: string): BlogPost | undefined {

@@ -16,7 +16,7 @@ export interface BlogPost {
 
 interface Section {
   heading?: string;
-  content: string;
+  content?: string;
   list?: string[];
 }
 
@@ -245,7 +245,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         content:
-          "There's a better way. If you use a meal planner that automatically generates a combined shopping list from your planned recipes, the whole process takes a fraction of the time. Here's how to set it up.",
+          "There's a better way. If you use a meal planner that automatically generates a combined shopping list from your planned recipes, the whole process takes a fraction of the time. Culinse's [weekly meal planner](/en/weekly-meal-planner) does exactly this — free, no account required to try. Here's how to set it up.",
       },
       {
         heading: "The Problem with Manual Shopping Lists",
@@ -406,7 +406,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         content:
-          "These 15 easy dinner ideas are the kind of weeknight meals that actually work — fast, filling, and made from things you can keep on hand. No elaborate prep, no 45-minute recipes dressed up as 'quick', just straightforward food that gets dinner on the table.",
+          "These 15 easy dinner ideas are the kind of weeknight meals that actually work — fast, filling, and made from things you can keep on hand. No elaborate prep, no 45-minute recipes dressed up as 'quick', just straightforward food that gets dinner on the table. The real trick is almost always planning — with a [weekly meal plan and shopping list](/en/blog/weekly-meal-plan-with-shopping-list), the 6 pm question never comes up in the first place.",
       },
       {
         heading: "10–15 Minute Dinners",
@@ -1374,6 +1374,561 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 
+  {
+    slug: "high-protein-vegetarian-meals",
+    title: "High-Protein Vegetarian Meals: 20 Recipes (25g+ Protein, No Meat)",
+    description:
+      "High-protein vegetarian meals made easy: the best meatless protein sources, 20 recipes with 25g+ protein, a sample high-protein veggie day, and how to hit 100g+ protein without meat.",
+    publishedAt: "2026-07-12",
+    readingTime: "9 min read",
+    category: "Vegetarian",
+    sections: [
+      {
+        content:
+          "The biggest myth about vegetarian eating is that it can't deliver enough protein. The truth is that it can — easily — once you know which foods do the heavy lifting and how to build a plate around them. This guide covers the best meatless protein sources, 20 recipes that each hit 25 g of protein or more, a sample high-protein day, and a simple strategy for getting past 100 g of protein without a single piece of meat.",
+      },
+      {
+        heading: "Can you get enough protein without meat?",
+        content:
+          "Yes, and it isn't close. Plenty of plant and dairy foods are protein-dense: lentils, beans, chickpeas, tofu, tempeh, edamame, Greek yogurt, cottage cheese, eggs, and seitan all pack a serious amount per serving. The reason some vegetarians fall short isn't the diet itself — it's defaulting to carb-heavy meals (pasta, toast, rice bowls with little else) and treating protein as an afterthought. There's a small nuance worth knowing: most individual plant proteins are slightly lower in one or two essential amino acids than animal proteins. In practice this matters very little if you eat a varied diet across the day, because different plant foods complement each other — beans and grains together, for instance, cover the full amino-acid range. You don't need to engineer this at every meal; eating a range of sources over the day handles it on its own. Dairy and eggs, available to most vegetarians, are complete proteins and make hitting targets even simpler.",
+      },
+      {
+        heading: "Best vegetarian protein sources, ranked",
+        content:
+          "Here's a rough guide to how much protein the staples deliver per common serving, so you can build meals with intent rather than hope:",
+        list: [
+          "Seitan (100 g): ~25 g — the highest of the plant options",
+          "Tempeh (100 g): ~19 g",
+          "Tofu, firm (200 g): ~24 g",
+          "Lentils, cooked (200 g): ~18 g",
+          "Edamame (150 g): ~17 g",
+          "Greek yogurt (200 g): ~20 g",
+          "Cottage cheese (200 g): ~22 g",
+          "Chickpeas, cooked (200 g): ~15 g",
+          "Black beans, cooked (200 g): ~15 g",
+          "Eggs (each): ~6–7 g",
+          "Quinoa, cooked (185 g): ~8 g",
+          "Edam/cheddar cheese (30 g): ~7 g",
+        ],
+      },
+      {
+        content:
+          "The takeaway: lead each meal with one concentrated source (tofu, tempeh, seitan, dairy, or a generous portion of legumes), then let grains, vegetables, nuts, and seeds top it up. That single habit is what separates a high-protein vegetarian plate from a carb-heavy one.",
+      },
+      {
+        heading: "20 high-protein vegetarian recipes",
+        content:
+          "Each of these is built to land at roughly 25 g of protein or more per serving. They're grouped by how you'll likely use them. Quick weeknight options first:",
+        list: [
+          "Tofu and broccoli stir-fry — firm tofu, broccoli, soy-ginger sauce over rice.",
+          "Black bean and cheese quesadillas — beans, cheese, peppers; ready in ten minutes.",
+          "Chickpea curry — chickpeas in a tomato-coconut sauce with spinach.",
+          "Egg and feta shakshuka — eggs poached in spiced tomato sauce with feta.",
+          "Lentil bolognese — red lentils standing in for mince over pasta.",
+          "Halloumi and grain bowl — pan-fried halloumi, quinoa, roasted vegetables.",
+          "Tempeh tacos — crumbled, spiced tempeh with slaw and avocado.",
+        ],
+      },
+      {
+        heading: "Meal-prep friendly",
+        list: [
+          "Lentil and feta salad — lentils, cucumber, tomato, red onion; holds for days.",
+          "Quinoa and black bean bowls — batch-cooked base with corn, peppers, and lime.",
+          "Tofu and peanut noodle jars — cold noodles, tofu, vegetables, peanut sauce.",
+          "Chickpea shawarma bowls — spiced chickpeas, garlic-yogurt sauce, rice.",
+          "Egg muffins with spinach and cheese — bake a dozen, eat through the week.",
+          "Three-bean chili — freezes beautifully in portions.",
+          "Cottage cheese and roasted-veg pasta salad — high protein, served cold.",
+        ],
+      },
+      {
+        heading: "High-protein vegan",
+        list: [
+          "Tempeh and quinoa Buddha bowl — tempeh, quinoa, kale, tahini dressing.",
+          "Red lentil dahl — lentils, tomato, warming spices, served with rice.",
+          "Tofu scramble breakfast wrap — turmeric tofu, vegetables, hot sauce.",
+          "Edamame and soba noodle salad — edamame, soba, sesame dressing.",
+          "Seitan stir-fry — seitan strips, mixed vegetables, savory sauce.",
+          "Black bean and sweet potato chili — hearty, freezer-friendly, fully plant-based.",
+        ],
+      },
+      {
+        heading: "How to hit 100g+ protein per day as a vegetarian",
+        content:
+          "Reaching a high daily total is mostly about anchoring each meal and not letting snacks slip into pure carbs. Start breakfast with a concentrated source — 200 g of Greek yogurt with seeds, or a tofu scramble — for around 25–30 g. Build lunch around legumes or tofu, like a quinoa and black bean bowl or a lentil salad, for another 25–30 g. Make dinner your second anchor: a tofu stir-fry, tempeh bowl, or three-bean chili for 30 g or more. Then close any gap with high-protein snacks — cottage cheese, edamame, a handful of roasted chickpeas, or a glass of soy milk — each adding 10–20 g. Anchor, anchor, anchor, top up: three protein-led meals plus one or two deliberate snacks gets most people comfortably over 100 g. The mistake to avoid is the carb-only meal — plain pasta, a bagel, a rice-and-veg bowl with no real protein source — because each one quietly costs you 20–30 g you'll struggle to make up later.",
+      },
+      {
+        heading: "A sample high-protein vegetarian day",
+        content: "This is one easy-to-follow template you can adapt to your tastes and calorie needs:",
+        list: [
+          "Breakfast: Greek yogurt bowl with berries, chia, and a spoon of nut butter (~28 g)",
+          "Lunch: quinoa and black bean bowl with corn, peppers, and lime (~26 g)",
+          "Snack: edamame with sea salt (~17 g)",
+          "Dinner: tofu and broccoli stir-fry over rice (~30 g)",
+          "Optional snack: cottage cheese with cucumber (~22 g)",
+        ],
+      },
+      {
+        content:
+          "That lands comfortably above 100 g of protein, entirely meat-free, with plenty of fiber and volume along the way.",
+      },
+      {
+        heading: "Conclusion",
+        content:
+          "High-protein vegetarian eating isn't complicated once you stop treating protein as an afterthought. Lead every meal with a concentrated source — tofu, tempeh, seitan, legumes, or dairy — eat a variety of them across the day, and use simple snacks to close any gaps. Pick a few of the 20 recipes above, anchor your three main meals, and 100 g a day stops being a challenge and becomes a default. Want the recipes to come to you? Culinse lets you filter millions of recipes by both vegetarian and high protein at once, then turns your weekly picks into a single shopping list. For a meatless dinner rotation beyond these, see our [vegetarian dinner ideas](/en/blog/vegetarian-dinner-ideas-easy-recipes), and if your goal is fat loss, our guide to [meal prep for weight loss](/en/blog/meal-prep-for-weight-loss) pairs naturally with a high-protein approach.",
+      },
+      {
+        heading: "FAQ",
+        content: "Common questions about high-protein vegetarian eating:",
+        list: [
+          "Can vegetarians really get enough protein? Yes, comfortably. Tofu, tempeh, seitan, legumes, Greek yogurt, cottage cheese, and eggs are all protein-dense. The key is leading each meal with one of them rather than building meals around carbs alone.",
+          "Do I need to combine proteins at every meal? No. The idea that you must pair specific foods (like beans and rice) at every single meal is outdated. Eating a variety of plant proteins across the whole day covers the full range of amino acids on its own.",
+          "What's the highest-protein vegetarian food? Among plant options, seitan leads at roughly 25 g per 100 g, followed by tempeh and tofu. Among vegetarian (non-vegan) foods, Greek yogurt, cottage cheese, and eggs are excellent, complete sources.",
+          "How much protein should I aim for? It depends on your weight and activity. People who train often target roughly 1.6–2.0 g per kilogram of body weight per day. A planner that tracks macros makes hitting that target far easier than guessing.",
+          "Are these recipes good for weight loss too? Many are. High-protein, high-fiber vegetarian meals are filling for relatively few calories, which supports a calorie deficit. Watch portions of calorie-dense extras like oils, nuts, and cheese.",
+        ],
+      },
+      {
+        content:
+          "This article is general information, not medical or nutritional advice. If you have specific dietary needs or a health condition, consult a doctor or registered dietitian.",
+      },
+    ],
+    faq: [
+      {
+        question: "Can vegetarians really get enough protein?",
+        answer:
+          "Yes, comfortably. Tofu, tempeh, seitan, legumes, Greek yogurt, cottage cheese, and eggs are all protein-dense. The key is leading each meal with one of them rather than building meals around carbs alone.",
+      },
+      {
+        question: "Do I need to combine proteins at every meal?",
+        answer:
+          "No. The idea that you must pair specific foods (like beans and rice) at every single meal is outdated. Eating a variety of plant proteins across the whole day covers the full range of amino acids on its own.",
+      },
+      {
+        question: "What's the highest-protein vegetarian food?",
+        answer:
+          "Among plant options, seitan leads at roughly 25 g per 100 g, followed by tempeh and tofu. Among vegetarian (non-vegan) foods, Greek yogurt, cottage cheese, and eggs are excellent, complete sources.",
+      },
+      {
+        question: "How much protein should I aim for?",
+        answer:
+          "It depends on your weight and activity. People who train often target roughly 1.6–2.0 g per kilogram of body weight per day. A planner that tracks macros makes hitting that target far easier than guessing.",
+      },
+      {
+        question: "Are these recipes good for weight loss too?",
+        answer:
+          "Many are. High-protein, high-fiber vegetarian meals are filling for relatively few calories, which supports a calorie deficit. Watch portions of calorie-dense extras like oils, nuts, and cheese.",
+      },
+    ],
+  },
+  {
+    slug: "easy-summer-dinner-ideas",
+    title: "Easy Summer Dinner Ideas: 30 Light Meals for Hot Days",
+    description:
+      "Easy summer dinner ideas for hot days: 30 light meals across no-cook, grill, 20-minute stovetop, and vegetarian, plus a build-your-own bowl formula and make-ahead tips.",
+    publishedAt: "2026-07-12",
+    readingTime: "9 min read",
+    category: "Dinner Ideas",
+    sections: [
+      {
+        content:
+          "When it's hot out, the last thing you want is to stand over a stove or run the oven for an hour. But you still need dinner — something fresh, fast, and light enough for a warm evening. This roundup gives you 30 easy summer dinners across four styles, from genuinely no-cook plates to quick grills and 20-minute stovetop meals, plus a simple formula for building your own and a few make-ahead tricks to keep your kitchen cool.",
+      },
+      {
+        heading: "What makes a great summer dinner",
+        content:
+          "A good warm-weather dinner does three things: it stays light, it comes together fast, and it keeps heat in the kitchen to a minimum. That means leaning on fresh produce at its seasonal peak, proteins that cook quickly or not at all, and bright flavors — citrus, herbs, chili — instead of heavy, slow-cooked richness. The other quiet advantage of summer cooking is variety. With tomatoes, corn, zucchini, berries, and stone fruit all in season, you can eat differently every night without much effort. Build around what's fresh, add a quick protein, finish with something acidic and herby, and you have a dinner that feels like summer rather than a reheated version of winter.",
+      },
+      {
+        heading: "30 easy summer dinners",
+        content:
+          "Grouped by style, so you can pick based on how much heat (and effort) you're willing to bring tonight. First up, no-cook plates and salads:",
+        list: [
+          "Caprese with crusty bread — tomato, mozzarella, basil, olive oil.",
+          "Greek salad with chickpeas — cucumber, tomato, feta, olives, chickpeas for protein.",
+          "Tuna and white bean salad — no cooking, dressed with lemon and herbs.",
+          "Gazpacho — chilled tomato soup, made ahead, served cold.",
+          "Watermelon, feta, and mint salad — refreshing, ready in minutes.",
+          "Cold soba noodle salad — soba, edamame, sesame dressing.",
+          "Hummus and mezze plate — hummus, veg, olives, pita, boiled eggs.",
+          "Smoked salmon and avocado toast — quick, rich, no stove required.",
+        ],
+      },
+      {
+        heading: "Grill & BBQ",
+        list: [
+          "Grilled chicken skewers — marinated, with a side salad.",
+          "Grilled halloumi and vegetable skewers — vegetarian and satisfying.",
+          "BBQ shrimp — fast on the grill, served over salad or rice.",
+          "Grilled corn and black bean salad — smoky, fresh, holds well.",
+          "Burgers with a crunchy slaw — classic, kept light with a side of greens.",
+          "Grilled vegetable and feta wraps — char the veg, wrap, done.",
+          "Grilled fish tacos — white fish, cabbage slaw, lime crema.",
+        ],
+      },
+      {
+        heading: "20-minute stovetop",
+        list: [
+          "Shrimp and zucchini stir-fry — fast, light, one pan.",
+          "Lemon garlic pasta with cherry tomatoes — minimal heat, bright flavor.",
+          "Chickpea and spinach skillet — protein and greens in fifteen minutes.",
+          "Quick stir-fried tofu and snap peas — soy-ginger sauce, over rice.",
+          "Pan-seared salmon with a tomato-corn salad — fish in minutes, no oven.",
+          "Egg and veg fried rice — clears the fridge, fast and filling.",
+          "Sausage and pepper skillet — quick sear, lots of vegetables.",
+        ],
+      },
+      {
+        heading: "Vegetarian",
+        list: [
+          "Stuffed tomatoes or peppers with couscous — light and colorful.",
+          "Zucchini noodle bowl with pesto — barely cooked, very fresh.",
+          "Lentil and roasted-veg salad — hearty enough as a main.",
+          "Caprese pasta salad — served cold, great for leftovers.",
+          "Falafel bowls — falafel, salad, tahini sauce.",
+          "Halloumi and grain bowl — quick-fried halloumi over quinoa.",
+          "Black bean and corn quesadillas — ten minutes, minimal heat.",
+          "Summer vegetable frittata — make ahead, eat warm or cold.",
+        ],
+      },
+      {
+        heading: "Build-your-own summer bowl formula",
+        content:
+          "When you don't want a recipe at all, this template turns whatever's in the fridge into dinner. Pick one from each line:",
+        list: [
+          "Base: mixed greens, cold grains (quinoa, couscous, rice), or chilled noodles",
+          "Protein: grilled chicken, shrimp, chickpeas, tofu, feta, or a boiled egg",
+          "Vegetables: whatever's fresh — tomato, cucumber, corn, peppers, zucchini",
+          "Crunch: nuts, seeds, croutons, or crispy chickpeas",
+          "Dressing: something bright — lemon-olive oil, yogurt-herb, or tahini-lime",
+        ],
+      },
+      {
+        content:
+          "Assemble, toss, done — no recipe and barely any heat. It's also the easiest way to use up odds and ends before they go off.",
+      },
+      {
+        heading: "Make-ahead tips for hot evenings",
+        content:
+          "The coolest dinners — literally and figuratively — are the ones you've half-prepared in advance. Cook grains, roast a tray of vegetables, or grill extra protein in the cooler morning hours, then assemble cold plates in the evening with zero added heat. Most prepped components keep 3 to 4 days in the fridge, so a little batch cooking covers several nights. A few habits help: let everything cool fully before sealing so it doesn't sweat in the container; store dressings and crunchy toppings separately so salads stay crisp; and keep a couple of no-cook proteins on hand — boiled eggs, canned tuna or beans, feta — so you can throw a meal together on the hottest evenings without touching the stove.",
+      },
+      {
+        heading: "Conclusion",
+        content:
+          "A great summer dinner doesn't ask much of you: keep it light, keep it fast, and keep the heat out of the kitchen. Lean on fresh seasonal produce, quick or no-cook proteins, and bright finishing flavors, and use the build-your-own formula whenever you don't feel like following a recipe. With 30 ideas across four styles, you've got enough to eat differently all summer without ever heating up the house. Don't want to decide? Culinse surfaces light, fast summer recipes from top food sites — filter by time, diet, or what's in season — and turns your picks into a single shopping list. For weeknight speed all year round, see our [quick dinner recipes under 30 minutes](/en/blog/quick-dinner-recipes-under-30-minutes), and when you're stuck, our [what-should-I-cook-tonight ideas](/en/blog/what-should-i-cook-tonight) help you decide fast.",
+      },
+      {
+        heading: "FAQ",
+        content: "Common questions about easy summer dinners:",
+        list: [
+          "What are good light dinners for hot weather? No-cook salads, chilled soups like gazpacho, grain bowls, cold noodle dishes, and quick grills. They stay light, come together fast, and keep heat out of the kitchen.",
+          "What can I make for dinner without turning on the oven? Plenty: caprese, Greek salad with chickpeas, tuna and bean salad, gazpacho, cold soba salad, mezze plates, and anything from the grill or a quick stovetop pan. The build-your-own bowl formula above needs almost no heat.",
+          "How do I make summer dinners more filling? Add a real protein source — grilled chicken or shrimp, chickpeas, tofu, feta, or eggs — and include a grain like quinoa or couscous. Protein and fiber keep a light meal satisfying.",
+          "Can I prep summer dinners ahead? Yes. Cook grains, roast vegetables, or grill protein in the cooler part of the day and assemble cold in the evening. Keep dressings and crunchy toppings separate so things stay fresh, and most components last 3 to 4 days.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What are good light dinners for hot weather?",
+        answer:
+          "No-cook salads, chilled soups like gazpacho, grain bowls, cold noodle dishes, and quick grills. They stay light, come together fast, and keep heat out of the kitchen.",
+      },
+      {
+        question: "What can I make for dinner without turning on the oven?",
+        answer:
+          "Plenty: caprese, Greek salad with chickpeas, tuna and bean salad, gazpacho, cold soba salad, mezze plates, and anything from the grill or a quick stovetop pan. A build-your-own bowl needs almost no heat.",
+      },
+      {
+        question: "How do I make summer dinners more filling?",
+        answer:
+          "Add a real protein source — grilled chicken or shrimp, chickpeas, tofu, feta, or eggs — and include a grain like quinoa or couscous. Protein and fiber keep a light meal satisfying.",
+      },
+      {
+        question: "Can I prep summer dinners ahead?",
+        answer:
+          "Yes. Cook grains, roast vegetables, or grill protein in the cooler part of the day and assemble cold in the evening. Keep dressings and crunchy toppings separate so things stay fresh, and most components last 3 to 4 days.",
+      },
+    ],
+  },
+  {
+    slug: "cheap-healthy-meals",
+    title: "Cheap Healthy Meals: 25 Budget Recipes Under $3 a Serving",
+    description:
+      "Cheap healthy meals under $3 a serving: budget staples that stretch, 25 recipes by category, a weekly grocery plan, and simple ways to cut food waste and save money.",
+    publishedAt: "2026-07-12",
+    readingTime: "10 min read",
+    category: "Budget Cooking",
+    sections: [
+      {
+        content:
+          "Eating well on a tight budget isn't about clipping coupons or living on plain rice. It's about knowing which cheap ingredients deliver the most nutrition, cooking in a way that stretches them, and wasting as little as possible. Done right, healthy food is often cheaper than the processed and takeout options it replaces. This guide covers the budget staples worth building around, 25 meals that come in under roughly $3 a serving, a weekly grocery plan, and the habits that keep your food bill — and your waste — low.",
+      },
+      {
+        heading: "How to eat healthy on a tight budget",
+        content:
+          "The core principle is simple: build meals around inexpensive, nutrient-dense staples and treat pricier items like meat as an accent rather than the centerpiece. A bag of dried lentils, a dozen eggs, a sack of oats, and a few cans of beans cost very little and form the backbone of dozens of meals. Three habits do most of the work. First, cook from scratch — pre-made and convenience foods carry a steep markup for very little nutritional benefit. Second, buy in larger quantities for staples you'll use up (rice, oats, dried beans, frozen vegetables), since the per-serving cost drops sharply. Third, plan before you shop, so you buy what you'll actually cook and nothing rots in the drawer. That last one is the single biggest money-saver, because wasted food is wasted money.",
+      },
+      {
+        heading: "Budget staples that stretch",
+        content:
+          "A handful of cheap ingredients punch far above their price and turn up across countless meals:",
+        list: [
+          "Dried beans, lentils, and chickpeas — protein and fiber for pennies a serving; the backbone of budget cooking.",
+          "Eggs — cheap, complete protein that works at any meal.",
+          "Oats — breakfast for cents; also bulks out other dishes.",
+          "Rice and pasta — filling carbohydrate bases that store forever.",
+          "Frozen vegetables — as nutritious as fresh, cheaper, and zero waste since you use only what you need.",
+          "Canned tomatoes — the base for sauces, soups, stews, and curries.",
+          "Potatoes — versatile, filling, and among the cheapest foods by calorie.",
+          "Cabbage and carrots — hardy, cheap vegetables that last for weeks.",
+          "Peanut butter and seasonal produce — affordable flavor and nutrition.",
+        ],
+      },
+      {
+        content:
+          "Build your shopping list around these and the per-meal cost stays low almost automatically.",
+      },
+      {
+        heading: "25 cheap healthy meals by category",
+        content:
+          "Each of these lands around or under $3 per serving when cooked at home, depending on local prices. Breakfast first:",
+        list: [
+          "Overnight oats — oats, milk, frozen berries; pennies per bowl.",
+          "Veggie scramble — eggs with whatever vegetables need using up.",
+          "Banana oat pancakes — banana, oats, egg; three cheap ingredients.",
+          "Peanut butter banana toast — fast, filling, inexpensive.",
+          "Savory oatmeal with an egg — surprisingly good and very cheap.",
+        ],
+      },
+      {
+        heading: "Lunch",
+        list: [
+          "Lentil soup — lentils, carrot, onion, canned tomato.",
+          "Bean and rice burrito bowls — beans, rice, frozen corn, salsa.",
+          "Egg fried rice — leftover rice, egg, frozen vegetables.",
+          "Chickpea salad sandwich — mashed chickpeas instead of tuna.",
+          "Baked potato with beans and cheese — hearty and dirt cheap.",
+          "Pasta with garlic, oil, and frozen peas — minimalist and tasty.",
+        ],
+      },
+      {
+        heading: "Dinner",
+        list: [
+          "Lentil bolognese — red lentils in place of mince, over pasta.",
+          "Vegetable and bean chili — freezes well, feeds several meals.",
+          "Stir-fried rice and vegetables with egg — clears the fridge.",
+          "Baked potatoes with toppings — beans, cheese, or leftover chili.",
+          "Tomato and white bean stew — canned beans, canned tomato, herbs.",
+          "Cabbage and noodle stir-fry — cheap, fast, satisfying.",
+          "Dahl with rice — lentils, spices, a true budget classic.",
+          "Shakshuka — eggs poached in spiced tomato sauce, with bread.",
+          "Potato and chickpea curry — filling, warming, very low cost.",
+        ],
+      },
+      {
+        heading: "Batch / freezer",
+        list: [
+          "Big-batch vegetable soup — uses up odds and ends, freezes well.",
+          "Three-bean chili — make once, eat all week or freeze.",
+          "Lentil curry — scales up easily and freezes in portions.",
+          "Bolognese sauce — double it and freeze half.",
+          "Breakfast burritos — wrap, freeze, reheat on busy mornings.",
+        ],
+      },
+      {
+        heading: "A weekly grocery plan that keeps it cheap",
+        content:
+          "Here's how a budget week comes together with overlapping ingredients, so nothing is bought for a single use. Shop once, with a list: buy your staples — a sack of rice, dried lentils, oats, a few cans of beans and tomatoes, a dozen eggs, a bag of frozen vegetables, potatoes, onions, carrots, and one or two seasonal fresh items — plus a small amount of cheese or yogurt for variety. Cook with overlap: use the lentils for both soup and bolognese; the beans for burrito bowls, chili, and a stuffed baked potato; the eggs across breakfasts and fried rice; the rice as a base for several dinners. Each ingredient earns its place by showing up in more than one meal. Batch the freezer meals early: make a pot of chili or soup at the start of the week and freeze half. On the busiest evenings you reheat instead of cooking, which is exactly when most people reach for expensive takeout. This is precisely the kind of planning Culinse automates: pick budget recipes, and it combines the ingredients into one shopping list with quantities tallied — so you buy the right amount once and avoid duplicate purchases. For an even tighter budget, our roundup of [budget meals under 5 euros](/en/blog/budget-meals-under-5-euros) goes further on cost.",
+      },
+      {
+        heading: "Cut food waste, cut costs",
+        content:
+          "The cheapest ingredient is the one you don't throw away. Roughly a third of household food often ends up in the bin, and every bit of it is money lost. A few habits fix most of it. Store food properly so it lasts: keep herbs in water, freeze bread and anything you won't use in time, and keep your freezer working as a pause button for leftovers and surplus. Practice first in, first out — put older items at the front so they get used before they spoil. Plan a deliberate leftovers night or a fridge-clear-out soup each week to mop up odds and ends. And learn a few flexible base recipes (fried rice, soup, frittata, stir-fry) that happily absorb whatever needs using up. These habits quietly save more money than any single cheap recipe.",
+      },
+      {
+        heading: "Conclusion",
+        content:
+          "Eating healthy on a budget comes down to a repeatable system: build meals around cheap, nutrient-dense staples; cook from scratch; plan before you shop so you buy with overlap; and waste as little as possible. Do that, and $3-a-serving meals stop being a constraint and become the normal way you cook. Pick a few recipes from each category above, shop once with a list, and let the freezer carry you through the busy nights. Want the planning done for you? Culinse filters recipes by cost and turns your weekly picks into a single shopping list with tallied quantities. Pair it with our guide to the [best free meal planner apps for 2026](/en/blog/best-free-meal-planner-apps-2026) to lock in the habit, and our [meal prep for weight loss](/en/blog/meal-prep-for-weight-loss) guide if you want budget eating and a calorie goal to work together.",
+      },
+      {
+        heading: "FAQ",
+        content: "Common questions about cheap healthy eating:",
+        list: [
+          "What are the cheapest healthy foods to build meals around? Dried beans, lentils, and chickpeas, plus eggs, oats, rice, pasta, frozen vegetables, canned tomatoes, potatoes, cabbage, and carrots. They're inexpensive, nutritious, store well, and appear across dozens of meals.",
+          "Is it really cheaper to cook healthy meals than to buy convenience food? Usually, yes. Cooking from scratch with staples costs far less per serving than processed meals or takeout, which carry a big markup. The savings grow when you buy staples in bulk and waste less.",
+          "How do I eat healthy on a very tight budget? Build meals around cheap staples, treat meat as an accent rather than the main event, plan meals before shopping, buy in bulk where it makes sense, and minimize waste with proper storage and a weekly leftovers night.",
+          "How can I make cheap meals more filling? Lean on protein and fiber: beans, lentils, eggs, and oats are all cheap and very satiating. Adding a filling carbohydrate like rice or potatoes alongside keeps a low-cost meal satisfying.",
+          "How do I stop wasting food and money? Store food properly, freeze what you won't use in time, follow first in, first out, and plan a weekly leftovers night. Flexible base recipes like soup, fried rice, and frittata are great for using up odds and ends.",
+        ],
+      },
+      {
+        content:
+          "This article is general information, not medical or nutritional advice. Prices vary by location and over time; figures are rough estimates.",
+      },
+    ],
+    faq: [
+      {
+        question: "What are the cheapest healthy foods to build meals around?",
+        answer:
+          "Dried beans, lentils, and chickpeas, plus eggs, oats, rice, pasta, frozen vegetables, canned tomatoes, potatoes, cabbage, and carrots. They're inexpensive, nutritious, store well, and appear across dozens of meals.",
+      },
+      {
+        question: "Is it really cheaper to cook healthy meals than to buy convenience food?",
+        answer:
+          "Usually, yes. Cooking from scratch with staples costs far less per serving than processed meals or takeout, which carry a big markup. The savings grow when you buy staples in bulk and waste less.",
+      },
+      {
+        question: "How do I eat healthy on a very tight budget?",
+        answer:
+          "Build meals around cheap staples, treat meat as an accent rather than the main event, plan meals before shopping, buy in bulk where it makes sense, and minimize waste with proper storage and a weekly leftovers night.",
+      },
+      {
+        question: "How can I make cheap meals more filling?",
+        answer:
+          "Lean on protein and fiber: beans, lentils, eggs, and oats are all cheap and very satiating. Adding a filling carbohydrate like rice or potatoes alongside keeps a low-cost meal satisfying.",
+      },
+      {
+        question: "How do I stop wasting food and money?",
+        answer:
+          "Store food properly, freeze what you won't use in time, follow first in, first out, and plan a weekly leftovers night. Flexible base recipes like soup, fried rice, and frittata are great for using up odds and ends.",
+      },
+    ],
+  },
+  {
+    slug: "5-ingredient-dinners",
+    title: "5-Ingredient Dinners: 25 Quick Recipes with Minimal Effort",
+    description:
+      "5-ingredient dinners that are quick and low-effort: 25 recipes across pasta, sheet-pan, skillet, and vegetarian, plus the pantry staples to keep on hand and easy swaps.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 min read",
+    category: "Dinner Ideas",
+    sections: [
+      {
+        content:
+          "Some nights you just don't have it in you to follow a recipe with a 15-item shopping list. The fix isn't takeout — it's keeping your dinners to five ingredients. Fewer ingredients means less shopping, less prep, less cleanup, and less food going to waste, without giving up a satisfying meal. This guide gives you 25 five-ingredient dinners across four styles, the handful of pantry staples that make them work, and simple swaps to stretch or change them up.",
+      },
+      {
+        content:
+          "A quick note on the rules: as with most five-ingredient recipes, basics like oil, salt, pepper, and water are assumed and don't count toward the five. Everything else is real, countable ingredients.",
+      },
+      {
+        heading: "Why fewer ingredients = less stress (and less waste)",
+        content:
+          "The appeal of a five-ingredient dinner is mostly about removing friction. A short list is faster to shop for, faster to prep, and far less likely to leave you with half-used odds and ends wilting in the fridge. When dinner is genuinely simple, you actually make it instead of ordering in. There's a flavor logic too: with only five ingredients, each one has to earn its place, so you naturally lean on things that bring a lot to the table — a good sauce, a strong cheese, a punchy spice blend, a quality protein. The result tastes deliberate rather than sparse. The trick is choosing ingredients that do double duty — something that adds flavor and substance at once.",
+      },
+      {
+        heading: "The pantry 5: ingredients that do the heavy lifting",
+        content:
+          "Keep a handful of high-impact staples on hand and a five-ingredient dinner is always within reach:",
+        list: [
+          "A flavor-packed sauce or paste — pesto, curry paste, salsa, soy sauce; instant depth from one jar.",
+          "A strong cheese — feta, parmesan, or cheddar adds flavor and richness fast.",
+          "Canned beans or lentils — protein and substance with zero prep.",
+          "Eggs — turn almost anything into a meal in minutes.",
+          "Frozen vegetables — no chopping, no waste, ready when you are.",
+        ],
+      },
+      {
+        content:
+          "With these in the cupboard, you only need to add a fresh protein or a starch to round out dinner. That's how five ingredients still feels like a complete meal.",
+      },
+      {
+        heading: "25 five-ingredient dinners",
+        content:
+          "Grouped by cooking style. Remember: oil, salt, pepper, and water are freebies. Pasta and grains first:",
+        list: [
+          "Pesto pasta with cherry tomatoes — pasta, pesto, cherry tomatoes, parmesan, basil.",
+          "Tomato and white bean pasta — pasta, canned tomatoes, white beans, garlic, parmesan.",
+          "Lemon garlic pasta — pasta, lemon, garlic, parmesan, parsley.",
+          "Feta and spinach orzo — orzo, feta, spinach, garlic, lemon.",
+          "Garlic butter shrimp pasta — pasta, shrimp, garlic, butter, parsley.",
+          "One-pot tomato risotto — rice, canned tomatoes, onion, parmesan, stock.",
+        ],
+      },
+      {
+        heading: "Sheet-pan",
+        list: [
+          "Sausage and vegetable tray bake — sausages, peppers, onion, potatoes, paprika.",
+          "Sheet-pan chicken and broccoli — chicken, broccoli, garlic, lemon, olive oil.",
+          "Salmon and asparagus — salmon, asparagus, lemon, garlic, olive oil.",
+          "Roasted chickpea and veg traybake — chickpeas, peppers, onion, cumin, olive oil.",
+          "Halloumi and vegetable bake — halloumi, courgette, peppers, red onion, olive oil.",
+          "Baked feta and tomatoes with pasta — feta, cherry tomatoes, garlic, pasta, basil.",
+        ],
+      },
+      {
+        heading: "Skillet",
+        list: [
+          "Chickpea and spinach curry — chickpeas, curry paste, coconut milk, spinach, rice.",
+          "Egg fried rice — rice, eggs, frozen vegetables, soy sauce, spring onion.",
+          "Black bean quesadillas — tortillas, black beans, cheese, salsa, peppers.",
+          "Tofu and broccoli stir-fry — tofu, broccoli, soy sauce, garlic, rice.",
+          "Sausage and cabbage skillet — sausage, cabbage, onion, garlic, paprika.",
+          "Shakshuka — eggs, canned tomatoes, onion, garlic, paprika.",
+          "Gnocchi with tomato and mozzarella — gnocchi, canned tomatoes, mozzarella, garlic, basil.",
+        ],
+      },
+      {
+        heading: "Vegetarian",
+        list: [
+          "Caprese pasta salad — pasta, mozzarella, tomatoes, basil, balsamic.",
+          "Lentil dahl — red lentils, curry paste, coconut milk, onion, rice.",
+          "Stuffed peppers with feta and couscous — peppers, couscous, feta, spinach, garlic.",
+          "White bean and tomato stew — white beans, canned tomatoes, garlic, spinach, bread.",
+          "Halloumi grain bowl — halloumi, quinoa, cherry tomatoes, cucumber, lemon.",
+          "Frittata with whatever's left — eggs, cheese, frozen vegetables, onion, herbs.",
+        ],
+      },
+      {
+        heading: "Swaps & scaling: make it cheaper, bigger, or different",
+        content:
+          "The beauty of a five-ingredient framework is how flexibly it bends. To make a dish cheaper, swap shrimp or salmon for canned beans, lentils, or eggs — they're a fraction of the cost and just as filling. To stretch a meal for more people or extra leftovers, bulk it out with an inexpensive starch like rice, pasta, or potatoes without adding to the ingredient count in spirit. To change the flavor entirely, just switch the hero ingredient: the same pasta, tomatoes, and garlic become Italian with parmesan and basil, or something quite different with a spoon of curry paste and coconut milk. And to add protein to a vegetarian dish, drop in an egg, a handful of beans, or some cubed tofu. One or two smart substitutions turn 25 recipes into far more.",
+      },
+      {
+        heading: "Turn them into a 5-ingredient meal-prep week",
+        content:
+          "These dishes lend themselves naturally to batch cooking, because the short ingredient lists overlap. Cook a big pot of lentil dahl or a tray of roasted chickpeas and vegetables, pair it with a batch of rice, and you've got several lunches sorted. Most keep 3 to 4 days in the fridge, and curries, dahl, and stews freeze well in portions. Plan two or three of these for the week, lean on shared staples (one bag of rice, one jar of curry paste, one block of feta covering several meals), and your shopping list stays short. For the full system behind cooking once and eating all week, see our [beginner's guide to meal prepping for the week](/en/blog/how-to-meal-prep-for-the-week), and for more weeknight speed, our [quick dinner recipes under 30 minutes](/en/blog/quick-dinner-recipes-under-30-minutes) pair perfectly with this approach.",
+      },
+      {
+        heading: "Conclusion",
+        content:
+          "A five-ingredient dinner is the antidote to the too-tired-to-cook night. Keep a few high-impact staples on hand, lean on ingredients that do double duty, and use simple swaps to keep things cheap and varied. With 25 recipes across four styles, you've always got a complete, satisfying meal that's faster to shop for, quicker to cook, and easier to clean up — no long list required. Want recipes filtered by exactly what you've got? Culinse lets you search by ingredients on hand and turns your picks into a single short shopping list. When budget matters most, our [cheap healthy meals](/en/blog/cheap-healthy-meals) guide keeps the cost down too.",
+      },
+      {
+        heading: "FAQ",
+        content: "Common questions about five-ingredient cooking:",
+        list: [
+          "Do oil, salt, and pepper count as ingredients? By convention, no. Five-ingredient recipes assume you already have basics like oil, salt, pepper, and water on hand, so they don't count toward the five. The other five are real, countable ingredients.",
+          "Can five-ingredient dinners actually be healthy? Yes. Build them around vegetables, legumes, and lean proteins — a chickpea curry, a salmon traybake, a lentil dahl — and they're as nutritious as longer recipes. Fewer ingredients doesn't mean less healthy.",
+          "How do I make a five-ingredient meal more filling? Add a protein source like beans, eggs, or tofu, and a filling starch such as rice, pasta, or potatoes. Both keep a short-ingredient meal satisfying without lengthening the list much.",
+          "What pantry staples should I keep for easy dinners? A flavorful sauce or paste (pesto, curry paste, soy sauce), a strong cheese, canned beans or lentils, eggs, and frozen vegetables. With these on hand, a five-ingredient dinner is always within reach.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Do oil, salt, and pepper count as ingredients?",
+        answer:
+          "By convention, no. Five-ingredient recipes assume you already have basics like oil, salt, pepper, and water on hand, so they don't count toward the five. The other five are real, countable ingredients.",
+      },
+      {
+        question: "Can five-ingredient dinners actually be healthy?",
+        answer:
+          "Yes. Build them around vegetables, legumes, and lean proteins — a chickpea curry, a salmon traybake, a lentil dahl — and they're as nutritious as longer recipes. Fewer ingredients doesn't mean less healthy.",
+      },
+      {
+        question: "How do I make a five-ingredient meal more filling?",
+        answer:
+          "Add a protein source like beans, eggs, or tofu, and a filling starch such as rice, pasta, or potatoes. Both keep a short-ingredient meal satisfying without lengthening the list much.",
+      },
+      {
+        question: "What pantry staples should I keep for easy dinners?",
+        answer:
+          "A flavorful sauce or paste (pesto, curry paste, soy sauce), a strong cheese, canned beans or lentils, eggs, and frozen vegetables. With these on hand, a five-ingredient dinner is always within reach.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
