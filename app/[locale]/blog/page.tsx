@@ -48,7 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
-  const posts = locale === "de" ? blogPostsDe : blogPosts;
+  const posts = [...(locale === "de" ? blogPostsDe : blogPosts)].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">

@@ -6,6 +6,7 @@ import AuthorBox from "@/components/AuthorBox";
 import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
 import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
+import { renderRichText } from "@/lib/renderRichText";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -86,7 +87,19 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const allPosts = locale === "de" ? blogPostsDe : blogPosts;
-  const otherPosts = allPosts.filter((p) => p.slug !== post.slug);
+  // Themen-Cluster: Artikel derselben Kategorie zuerst, dann der Rest — so
+  // fließt die interne Link-Equity zwischen thematisch verwandten Seiten
+  // (Google baut daraus Topical Authority) statt sich gleichmäßig über alle
+  // Artikel zu verteilen. Auf 6 begrenzt, damit die Links fokussiert bleiben.
+  const otherPosts = allPosts
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => {
+      const aSame = a.category === post.category ? 0 : 1;
+      const bSame = b.category === post.category ? 0 : 1;
+      if (aSame !== bSame) return aSame - bSame;
+      return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+    })
+    .slice(0, 6);
 
   const articleUrl = `https://culinse.com/${locale}/blog/${post.slug}`;
   const schemaData = {
@@ -202,14 +215,14 @@ export default async function BlogPostPage({ params }: Props) {
                 </h2>
               )}
               {section.content && (
-                <p className="text-gray-700 leading-relaxed mb-3">{section.content}</p>
+                <p className="text-gray-700 leading-relaxed mb-3">{renderRichText(section.content)}</p>
               )}
               {section.list && (
                 <ul className="space-y-2 mt-2">
                   {section.list.map((item, j) => (
                     <li key={j} className="flex items-start gap-2 text-gray-700">
                       <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                      <span className="leading-relaxed">{item}</span>
+                      <span className="leading-relaxed">{renderRichText(item)}</span>
                     </li>
                   ))}
                 </ul>
