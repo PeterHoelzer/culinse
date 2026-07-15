@@ -12,7 +12,8 @@
     "join": "Mitmachen",
     "logout": "Abmelden",
     "upgrade": "✦ Upgrade",
-    "myRecipes": "Meine Rezepte"
+    "myRecipes": "Meine Rezepte",
+    "calculator": "Einkaufsrechner"
   },
   "hero": {
     "badge": "Entwickelt von einem Fleischermeister & Küchenchef",
@@ -399,7 +400,6 @@
     "copyWeek": "Woche kopieren",
     "prevWeek": "Vorherige Woche",
     "nextWeek": "Nächste Woche",
-    "thisWeek": "Diese Woche",
     "emptyTitle": "Dein Plan ist noch leer",
     "emptySub": "Tippe auf ein Feld, um ein Rezept aus deinen gespeicherten Rezepten hinzuzufügen.",
     "myRecipes": "♥ Meine Rezepte",
