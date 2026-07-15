@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { flushSync } from "react-dom";
 import { useParams } from "next/navigation";
 import { useTranslations, useLocale } from "next-intl";
@@ -10,6 +10,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { estimateRecipeCost, formatEstPrice } from "@/lib/ingredient-prices";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
@@ -113,6 +114,16 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
 export default function RecipePageClient({ serverTitle, initialRecipe }: { serverTitle?: string | null; initialRecipe?: Recipe | null }) {
   const { id } = useParams();
   const locale = useLocale();
+  // Geschätzte Zutatenkosten (Discounter-Niveau) — nur bei guter Abdeckung zeigen
+  const estCost = useMemo(() => {
+    if (!recipe.ingredients?.length) return null;
+    const c = estimateRecipeCost(
+      recipe.ingredients.map(i => ({ name: i.name, amount: i.amount, unit: i.unit })),
+      recipe.servings
+    );
+    return c.priced >= 3 && c.priced / c.count >= 0.6 ? c : null;
+  }, [recipe.ingredients, recipe.servings]);
+
   const [recipe, setRecipe] = useState<Recipe | null>(initialRecipe ?? null);
   const translatedRef = useRef(false);
   const t = useTranslations("recipe");
@@ -636,6 +647,24 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
                 </div>
                 {recipe.servings && (
                   <p className="text-xs text-gray-400 mb-3">{t("forServings", { count: recipe.servings })}</p>
+                )}
+                {estCost && (
+                  <div
+                    className="print-hide mb-3 flex items-baseline justify-between bg-orange-50 border border-orange-100 rounded-xl px-3 py-2"
+                    title={locale === "de" ? "Schätzung auf Discounter-Niveau, Preise variieren je nach Markt" : "Discount-store estimate, prices vary by store"}
+                  >
+                    <span className="text-xs font-semibold text-gray-700">
+                      {locale === "de" ? "Geschätzte Kosten" : "Estimated cost"}
+                    </span>
+                    <span className="text-xs font-bold text-orange-600">
+                      {formatEstPrice(estCost.total, locale)}
+                      {estCost.perServing != null && (
+                        <span className="font-medium text-gray-500">
+                          {" "}· {formatEstPrice(estCost.perServing, locale)}{locale === "de" ? "/Portion" : "/serving"}
+                        </span>
+                      )}
+                    </span>
+                  </div>
                 )}
                 <ul className="space-y-1">
                   {recipe.ingredients.map((ing, i) => (

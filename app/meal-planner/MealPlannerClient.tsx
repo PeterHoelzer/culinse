@@ -64,6 +64,8 @@ export default function MealPlannerPage() {
   const [showShoppingList, setShowShoppingList] = useState(false);
   const [autoFilling, setAutoFilling] = useState(false);
   const [nutritionByRecipe, setNutritionByRecipe] = useState<Record<string, Nut>>({});
+  // Protein-Tagesziel (g) — lokal je Gerät gespeichert, kein Account-Feld nötig
+  const [proteinTarget, setProteinTarget] = useState<number | null>(null);
   const [showAutoPlan, setShowAutoPlan] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [planCalories, setPlanCalories] = useState("2000");
@@ -482,6 +484,20 @@ export default function MealPlannerPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uniqueRecipeIds]);
 
+  useEffect(() => {
+    const raw = typeof window !== "undefined" ? localStorage.getItem("culinse-protein-target") : null;
+    if (raw) {
+      const v = parseInt(raw, 10);
+      if (v > 0) setProteinTarget(v);
+    }
+  }, []);
+
+  const saveProteinTarget = (v: number | null) => {
+    setProteinTarget(v);
+    if (v && v > 0) localStorage.setItem("culinse-protein-target", String(v));
+    else localStorage.removeItem("culinse-protein-target");
+  };
+
   const dayTotals = useMemo(() => {
     const days: ({ calories: number; protein: number; fat: number; carbs: number; partial: boolean } | null)[] = [];
     for (let d = 0; d < 7; d++) {
@@ -542,9 +558,22 @@ export default function MealPlannerPage() {
             </div>
             {weekTotal.daysWith > 0 && (
               <span className="px-4 py-2 rounded-full bg-white/15 text-white text-sm font-medium">
-                Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal/{locale === "de" ? "Tag" : "day"}
+                Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal · {Math.round(weekTotal.protein / weekTotal.daysWith)} g {locale === "de" ? "Protein/Tag" : "protein/day"}
               </span>
             )}
+            <label className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-sm font-semibold cursor-text">
+              🎯 {locale === "de" ? "Protein-Ziel" : "Protein goal"}
+              <input
+                type="number"
+                min={0}
+                max={400}
+                value={proteinTarget ?? ""}
+                placeholder="–"
+                onChange={e => saveProteinTarget(e.target.value ? parseInt(e.target.value, 10) : null)}
+                className="w-14 bg-white/20 rounded-md px-1.5 py-0.5 text-white placeholder-white/60 text-sm text-center focus:outline-none focus:bg-white/30"
+              />
+              g
+            </label>
             <button
               onClick={() => setShowAutoPlan(true)}
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all"
@@ -737,7 +766,20 @@ export default function MealPlannerPage() {
               {dayTotals.map((dn, i) => (
                 <div key={i} className="text-center">
                   {dn
-                    ? <p className="text-xs font-semibold text-gray-500">≈ {dn.calories}<span className="font-normal text-gray-400"> kcal</span></p>
+                    ? <>
+                        <p className="text-xs font-semibold text-gray-500">≈ {dn.calories}<span className="font-normal text-gray-400"> kcal</span></p>
+                        <p className={`text-[11px] font-semibold ${
+                          proteinTarget
+                            ? dn.protein >= proteinTarget
+                              ? "text-green-600"
+                              : dn.protein >= proteinTarget * 0.7
+                                ? "text-orange-500"
+                                : "text-gray-400"
+                            : "text-gray-400"
+                        }`}>
+                          {Math.round(dn.protein)} g P{proteinTarget ? ` / ${proteinTarget}` : ""}
+                        </p>
+                      </>
                     : <p className="text-xs text-gray-300">–</p>}
                 </div>
               ))}
@@ -849,7 +891,7 @@ export default function MealPlannerPage() {
                   <span className="text-xs text-gray-400">{locale === "de" ? "Tag gesamt" : "Day total"}</span>
                   <span className="text-xs font-medium text-gray-600">
                     ≈ {dayTotals[dayIdx]!.calories} kcal
-                    <span className="text-gray-400 font-normal"> · {dayTotals[dayIdx]!.protein}P · {dayTotals[dayIdx]!.fat}F · {dayTotals[dayIdx]!.carbs}{locale === "de" ? "KH" : "C"}</span>
+                    <span className="text-gray-400 font-normal"> · <span className={proteinTarget && dayTotals[dayIdx]!.protein >= proteinTarget ? "text-green-600 font-semibold" : undefined}>{Math.round(dayTotals[dayIdx]!.protein)}P{proteinTarget ? `/${proteinTarget}` : ""}</span> · {dayTotals[dayIdx]!.fat}F · {dayTotals[dayIdx]!.carbs}{locale === "de" ? "KH" : "C"}</span>
                   </span>
                 </div>
               )}

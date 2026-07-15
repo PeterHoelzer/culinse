@@ -361,6 +361,81 @@ const DE_HINTS = new Set([
   "wein", "rotwein", "orangensaft", "saft", "kaffee", "tahin",
 ]);
 
+// ── Rezept-Kosten (Original-Einheiten der Rezeptquellen) ─────────────────────
+// Rezept-Zutaten kommen in Roh-Einheiten (cups, tbsp, EL, Stück …). Diese
+// Konvertierung ist bewusst grob (Schätzungs-Anspruch ±20 %): Volumen→L bei
+// Flüssig-Einträgen (perL), sonst →g mit Dichte ≈ 1.
+
+const VOLUME_ML: Record<string, number> = {
+  ml: 1, l: 1000, liter: 1000, litre: 1000,
+  tsp: 5, teaspoon: 5, teaspoons: 5, tl: 5,
+  tbsp: 15, tablespoon: 15, tablespoons: 15, el: 15,
+  cup: 240, cups: 240, tasse: 240, tassen: 240,
+  "fl oz": 30, floz: 30, dl: 100,
+};
+const WEIGHT_G: Record<string, number> = {
+  g: 1, gram: 1, grams: 1, gramm: 1, kg: 1000,
+  oz: 28, ounce: 28, ounces: 28, lb: 454, lbs: 454, pound: 454, pounds: 454,
+};
+const PIECE_UNITS = new Set([
+  "", "pc", "pcs", "piece", "pieces", "stück", "stueck", "stk", "st",
+  "can", "cans", "dose", "dosen", "clove", "cloves", "zehe", "zehen",
+  "bunch", "bund", "head", "kopf", "package", "packung", "pck", "glas", "jar",
+]);
+const TINY_UNITS = new Set(["pinch", "prise", "dash", "sprig", "zweig", "handful", "handvoll"]);
+
+/**
+ * Schätzt die Kosten eines Rezepts aus seiner Zutatenliste (Roh-Einheiten).
+ * Liefert Gesamtkosten, €/Portion und die Abdeckung (wie viele Zutaten
+ * preisbar waren) — die UI blendet die Schätzung bei schlechter Abdeckung aus.
+ */
+export function estimateRecipeCost(
+  ingredients: { name: string; amount: number | null; unit: string }[],
+  servings: number | null
+): { total: number; perServing: number | null; priced: number; count: number } {
+  let total = 0;
+  let priced = 0;
+
+  for (const ing of ingredients) {
+    const entry = findPriceEntry(ing.name);
+    if (!entry) continue;
+
+    const u = (ing.unit || "").toLowerCase().trim();
+    const amt = ing.amount && ing.amount > 0 ? ing.amount : null;
+    let cost: number | null = null;
+
+    if (amt && VOLUME_ML[u] != null) {
+      const liters = (amt * VOLUME_ML[u]) / 1000;
+      cost = entry.perL != null ? liters * entry.perL
+           : entry.perKg != null ? liters * entry.perKg // Dichte ≈ 1
+           : null;
+    } else if (amt && WEIGHT_G[u] != null) {
+      const kg = (amt * WEIGHT_G[u]) / 1000;
+      cost = entry.perKg != null ? kg * entry.perKg
+           : entry.perL != null ? kg * entry.perL
+           : null;
+    } else if (amt && PIECE_UNITS.has(u)) {
+      if (entry.perPiece != null) cost = amt * entry.perPiece;
+      else if (entry.pieceGrams && entry.perKg != null) cost = amt * (entry.pieceGrams / 1000) * entry.perKg;
+    } else if (TINY_UNITS.has(u) || !amt) {
+      cost = 0.05; // Gewürz-/Kleinstmengen-Pauschale
+    }
+
+    if (cost != null && isFinite(cost)) {
+      total += Math.max(0.05, cost);
+      priced++;
+    }
+  }
+
+  total = Math.round(total * 20) / 20;
+  return {
+    total,
+    perServing: servings && servings > 0 ? Math.round((total / servings) * 20) / 20 : null,
+    priced,
+    count: ingredients.length,
+  };
+}
+
 /** Formatiert einen Schätzpreis fürs UI (deutsches Format). */
 export function formatEstPrice(price: number, locale: string): string {
   const s = price.toFixed(2);
