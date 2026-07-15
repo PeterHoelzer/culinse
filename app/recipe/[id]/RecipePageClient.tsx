@@ -114,17 +114,17 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
 export default function RecipePageClient({ serverTitle, initialRecipe }: { serverTitle?: string | null; initialRecipe?: Recipe | null }) {
   const { id } = useParams();
   const locale = useLocale();
+  const [recipe, setRecipe] = useState<Recipe | null>(initialRecipe ?? null);
+
   // Geschätzte Zutatenkosten (Discounter-Niveau) — nur bei guter Abdeckung zeigen
   const estCost = useMemo(() => {
-    if (!recipe.ingredients?.length) return null;
+    if (!recipe?.ingredients?.length) return null;
     const c = estimateRecipeCost(
       recipe.ingredients.map(i => ({ name: i.name, amount: i.amount, unit: i.unit })),
       recipe.servings
     );
     return c.priced >= 3 && c.priced / c.count >= 0.6 ? c : null;
-  }, [recipe.ingredients, recipe.servings]);
-
-  const [recipe, setRecipe] = useState<Recipe | null>(initialRecipe ?? null);
+  }, [recipe?.ingredients, recipe?.servings]);
   const translatedRef = useRef(false);
   const t = useTranslations("recipe");
   const tCard = useTranslations("recipeCard");
