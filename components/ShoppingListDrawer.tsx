@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { formatEstPrice, PRICES_UPDATED_AT } from "@/lib/ingredient-prices";
 
 interface ShoppingItem {
   name: string;
@@ -11,6 +12,7 @@ interface ShoppingItem {
   original: string;
   category: string;
   categoryEmoji: string;
+  estPrice?: number | null;
 }
 
 interface ManualItem {
@@ -257,6 +259,19 @@ export default function ShoppingListDrawer({
   const totalItems = buyKeys.length;
   const checkedCount = buyKeys.filter(k => checked.has(k)).length;
 
+  // Geschätzte Wochenkosten über alle Kauf-Positionen (ohne Vorrat)
+  const { estTotal, pricedCount, unpricedCount } = useMemo(() => {
+    const buyItems = Object.values(displayGrouped)
+      .flatMap(g => g.items)
+      .filter(i => !pantrySet.has(i.name.toLowerCase().trim()));
+    const priced = buyItems.filter(i => typeof i.estPrice === "number");
+    return {
+      estTotal: priced.reduce((sum, i) => sum + (i.estPrice as number), 0),
+      pricedCount: priced.length,
+      unpricedCount: buyItems.length - priced.length,
+    };
+  }, [displayGrouped, pantrySet]);
+
   const sortedCategories = Object.keys(displayGrouped).sort((a, b) => {
     const ai = CATEGORY_ORDER.indexOf(a);
     const bi = CATEGORY_ORDER.indexOf(b);
@@ -308,6 +323,27 @@ export default function ShoppingListDrawer({
                   {t("reset")}
                 </button>
               )}
+            </div>
+          )}
+
+          {/* Geschätzte Kosten */}
+          {!loading && pricedCount > 0 && (
+            <div className="mt-3 flex items-baseline justify-between gap-3 bg-orange-50 border border-orange-100 rounded-xl px-3.5 py-2.5">
+              <div>
+                <span className="text-sm font-bold text-gray-900">
+                  {tr("Estimated cost:", "Geschätzte Kosten:")}{" "}
+                  <span className="text-orange-600">{formatEstPrice(estTotal, locale)}</span>
+                </span>
+                {unpricedCount > 0 && (
+                  <span className="text-xs text-gray-400 ml-1.5">
+                    {tr(`+ ${unpricedCount} unpriced`, `+ ${unpricedCount} ohne Schätzung`)}
+                  </span>
+                )}
+              </div>
+              <span className="text-[10px] text-gray-400 flex-shrink-0">
+                {tr("Discount-store estimate", "Discounter-Schätzung")} ·{" "}
+                {new Date(PRICES_UPDATED_AT).toLocaleDateString(de ? "de-DE" : "en-US", { month: "long", year: "numeric" })}
+              </span>
             </div>
           )}
         </div>
@@ -422,6 +458,13 @@ export default function ShoppingListDrawer({
                                     isDone ? "text-gray-300" : "text-gray-500 font-medium"
                                   }`}>
                                     {formatAmount(item.amount, item.unit)}
+                                  </span>
+                                )}
+                                {typeof item.estPrice === "number" && (
+                                  <span className={`text-[10px] flex-shrink-0 w-14 text-right tabular-nums ${
+                                    isDone ? "text-gray-200" : "text-gray-400"
+                                  }`}>
+                                    {formatEstPrice(item.estPrice, locale)}
                                   </span>
                                 )}
                               </button>
