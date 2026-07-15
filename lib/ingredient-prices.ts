@@ -368,8 +368,8 @@ const DE_HINTS = new Set([
 
 const VOLUME_ML: Record<string, number> = {
   ml: 1, l: 1000, liter: 1000, litre: 1000,
-  tsp: 5, teaspoon: 5, teaspoons: 5, tl: 5,
-  tbsp: 15, tablespoon: 15, tablespoons: 15, el: 15,
+  tsp: 5, tsps: 5, teaspoon: 5, teaspoons: 5, tl: 5,
+  tbsp: 15, tbsps: 15, tablespoon: 15, tablespoons: 15, el: 15,
   cup: 240, cups: 240, tasse: 240, tassen: 240,
   "fl oz": 30, floz: 30, dl: 100,
 };
@@ -382,7 +382,7 @@ const PIECE_UNITS = new Set([
   "can", "cans", "dose", "dosen", "clove", "cloves", "zehe", "zehen",
   "bunch", "bund", "head", "kopf", "package", "packung", "pck", "glas", "jar",
 ]);
-const TINY_UNITS = new Set(["pinch", "prise", "dash", "sprig", "zweig", "handful", "handvoll"]);
+const TINY_UNITS = new Set(["pinch", "pinches", "prise", "prisen", "dash", "dashes", "sprig", "sprigs", "zweig", "zweige", "handful", "handfuls", "handvoll", "serving", "servings", "to taste"]);
 
 /**
  * Schätzt die Kosten eines Rezepts aus seiner Zutatenliste (Roh-Einheiten).
