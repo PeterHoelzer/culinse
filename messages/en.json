@@ -12,7 +12,8 @@
     "join": "Join",
     "logout": "Log out",
     "upgrade": "✦ Upgrade",
-    "myRecipes": "My Recipes"
+    "myRecipes": "My Recipes",
+    "calculator": "Grocery Calculator"
   },
   "hero": {
     "badge": "Built by a Master Butcher & Head Chef",
@@ -399,7 +400,6 @@
     "copyWeek": "Copy week",
     "prevWeek": "Previous week",
     "nextWeek": "Next week",
-    "thisWeek": "This week",
     "emptyTitle": "Your plan is empty",
     "emptySub": "Tap a slot to add a recipe from your saved recipes.",
     "myRecipes": "♥ My Recipes",
