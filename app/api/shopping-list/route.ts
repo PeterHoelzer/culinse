@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { translateTexts } from "@/lib/translate";
+import { estimatePrice, PRICES_UPDATED_AT } from "@/lib/ingredient-prices";
 
 const SPOONACULAR_KEY = process.env.SPOONACULAR_API_KEY;
 const EDAMAM_APP_ID   = process.env.EDAMAM_APP_ID;
@@ -90,6 +91,8 @@ interface ShoppingItem {
   original: string;
   category: string;
   categoryEmoji: string;
+  /** geschätzter Preis in € (DE-Discounter-Niveau), null = keine Schätzung */
+  estPrice?: number | null;
 }
 
 // Words to strip when building the dedup key (adjectives, cooking states, etc.)
@@ -706,6 +709,11 @@ export async function POST(req: NextRequest) {
   const allRaw = [...spoonRaw, ...mealdbRaw, ...edamamRaw, ...tastyRaw, ...userRaw];
   const items = aggregateIngredients(allRaw);
 
+  // Preis-Schätzung — auf den ENGLISCHEN Namen matchen, bevor übersetzt wird.
+  for (const item of items) {
+    item.estPrice = estimatePrice(item.name, item.amount, item.unit);
+  }
+
   // Translate ingredient names to German on the DE site (cached, never throws).
   if (lang === "de" && items.length) {
     const deNames = await translateTexts(items.map(i => i.name), "EN", "DE");
@@ -731,5 +739,13 @@ export async function POST(req: NextRequest) {
     cat.items.sort((a, b) => a.name.localeCompare(b.name, "de"));
   }
 
-  return NextResponse.json({ items, grouped });
+  const priced = items.filter(i => typeof i.estPrice === "number");
+  const pricing = {
+    total: Math.round(priced.reduce((sum, i) => sum + (i.estPrice as number), 0) * 100) / 100,
+    matched: priced.length,
+    count: items.length,
+    updatedAt: PRICES_UPDATED_AT,
+  };
+
+  return NextResponse.json({ items, grouped, pricing });
 }

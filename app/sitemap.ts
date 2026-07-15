@@ -16,13 +16,14 @@ function langs(en: string, de: string) {
 // Stable lastmod for non-dated pages. Using `new Date()` on every build tells
 // Google "everything changed today" on each deploy, which makes lastmod
 // untrustworthy and gets ignored. Bump this when static pages actually change.
-const STATIC_LAST_MODIFIED = new Date("2026-06-06");
+const STATIC_LAST_MODIFIED = new Date("2026-07-14");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     { path: "", changeFrequency: "daily" as const, priority: 1 },
     { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
     { path: "/weekly-meal-planner", changeFrequency: "monthly" as const, priority: 0.9 },
+    { path: "/grocery-list-calculator", changeFrequency: "monthly" as const, priority: 0.9 },
     { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
     { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
