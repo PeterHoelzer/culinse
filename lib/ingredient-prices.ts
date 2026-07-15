@@ -5,6 +5,9 @@
 // auf Eigenmarken-/Discounter-Niveau (Aldi/Lidl), gerundet, Stand siehe
 // PRICES_UPDATED_AT. Kalibrierpunkte Juli 2026: Frischmilch 3,5 % ≈ 0,95 €/L,
 // Butter ≈ 1,05–1,29 €/250 g (Quellen: lebensmittelpraxis.de, agrarheute).
+// Check 15.07.2026: Rinderhack 6,19 €/500 g, gemischtes Hack 5,49 €/500 g
+// (Aldi Süd), Gouda-Scheiben ≈ 6,20 €/kg (Lidl Milbona), Olivenöl Eigenmarke
+// < 6 €/L, Röstkaffee gemahlen 500 g ab 4,79 € (Aldi-Preissenkungen Frühjahr).
 //
 // PFLEGE: Ein monatlicher automatischer Preis-Check gleicht die wichtigsten
 // Einträge gegen aktuelle Quellen ab und aktualisiert PRICES_UPDATED_AT.
@@ -14,7 +17,7 @@
 // Preislogik: perKg (€/kg) für Feststoffe, perL (€/L) für Flüssigkeiten,
 // perPiece (€/Stück) für Stückware, pieceGrams für Stück→Gewicht-Umrechnung.
 
-export const PRICES_UPDATED_AT = "2026-07-14";
+export const PRICES_UPDATED_AT = "2026-07-15";
 
 export interface PriceEntry {
   /** lowercase Matching-Namen: Englisch zuerst (API-Rohdaten), dann Deutsch */
@@ -36,7 +39,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["yogurt", "greek yogurt", "joghurt", "griechischer joghurt"], perKg: 2.2 },
   { names: ["quark", "magerquark", "cottage cheese", "hüttenkäse", "huettenkaese"], perKg: 3.0 },
   { names: ["skyr"], perKg: 3.4 },
-  { names: ["cheese", "cheddar", "gouda", "edam", "käse", "kaese"], perKg: 9.0 },
+  { names: ["cheese", "cheddar", "gouda", "edam", "käse", "kaese"], perKg: 7.0 },
   { names: ["parmesan", "parmigiano", "pecorino"], perKg: 16.0 },
   { names: ["mozzarella"], perKg: 6.4, perPiece: 0.95, pieceGrams: 125 },
   { names: ["feta", "schafskäse"], perKg: 8.5, perPiece: 1.29, pieceGrams: 150 },
@@ -47,9 +50,9 @@ export const PRICE_TABLE: PriceEntry[] = [
   // ── Fleisch & Fisch ──
   { names: ["chicken breast", "chicken", "hähnchenbrust", "haehnchenbrust", "hähnchen", "hühnchen"], perKg: 8.5 },
   { names: ["chicken thigh", "hähnchenschenkel", "hähnchenkeule"], perKg: 5.5 },
-  { names: ["ground beef", "minced beef", "beef mince", "hackfleisch", "rinderhack"], perKg: 8.0 },
-  { names: ["mixed ground meat", "gemischtes hack"], perKg: 6.5 },
-  { names: ["beef", "steak", "rindfleisch", "rind"], perKg: 14.0 },
+  { names: ["ground beef", "minced beef", "beef mince", "hackfleisch", "rinderhack"], perKg: 12.0 },
+  { names: ["mixed ground meat", "gemischtes hack"], perKg: 10.5 },
+  { names: ["beef", "steak", "rindfleisch", "rind"], perKg: 16.0 },
   { names: ["pork", "pork loin", "schweinefleisch", "schwein", "schweinefilet"], perKg: 7.5 },
   { names: ["bacon", "speck", "bauchspeck"], perKg: 10.0 },
   { names: ["ham", "schinken"], perKg: 11.0 },
@@ -138,7 +141,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["coconut milk", "kokosmilch"], perL: 4.0, perPiece: 1.29, pieceGrams: 400 },
   { names: ["broth", "stock", "chicken broth", "vegetable broth", "brühe", "bruehe", "gemüsebrühe", "hühnerbrühe"], perL: 0.6 },
   { names: ["soy sauce", "sojasauce", "sojasoße"], perL: 6.0 },
-  { names: ["olive oil", "olivenöl", "olivenoel"], perL: 7.5 },
+  { names: ["olive oil", "olivenöl", "olivenoel"], perL: 6.0 },
   { names: ["vegetable oil", "sunflower oil", "rapsöl", "rapsoel", "sonnenblumenöl", "pflanzenöl", "öl", "oel", "oil"], perL: 2.2 },
   { names: ["sesame oil", "sesamöl"], perL: 12.0 },
   { names: ["vinegar", "essig"], perL: 1.6 },
@@ -225,7 +228,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["ice cream", "eis", "eiscreme"], perL: 3.0 },
   { names: ["wine", "white wine", "red wine", "wein", "weißwein", "rotwein"], perL: 4.5 },
   { names: ["orange juice", "juice", "orangensaft", "saft"], perL: 1.8 },
-  { names: ["coffee", "kaffee"], perKg: 12.0 },
+  { names: ["coffee", "kaffee"], perKg: 10.0 },
 ];
 
 // ── Matching & Schätzung ──────────────────────────────────────────────────────
