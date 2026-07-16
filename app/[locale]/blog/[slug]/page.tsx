@@ -142,6 +142,16 @@ export default async function BlogPostPage({ params }: Props) {
   // rendered visibly via `post.sections`, so the on-page content matches the
   // structured data (Google requires the answers to be visible). Makes the post
   // eligible for FAQ rich results and improves AI-answer citation odds.
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Culinse", item: `https://culinse.com/${locale}` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `https://culinse.com/${locale}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: articleUrl },
+    ],
+  };
+
   const faqSchema =
     post.faq && post.faq.length > 0
       ? {
@@ -158,6 +168,15 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e")
+            .replace(/&/g, "\\u0026"),
+        }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

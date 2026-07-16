@@ -729,10 +729,11 @@ export const blogPostsDe: BlogPost[] = [
   },
   {
     slug: "meal-prep-fuer-anfaenger",
-    title: "Meal Prep für Anfänger: Der komplette Einsteiger-Guide",
+    title: "Meal Prepping für Anfänger: Der ultimative Guide (mit 7-Tage-Plan)",
     description:
-      "Meal Prep für Anfänger leicht gemacht: die 5 Grundprinzipien, die richtige Ausstattung, ein kostenloser 7-Tage-Plan und die häufigsten Fehler. So gelingt dein erster Meal-Prep-Sonntag.",
+      "Meal Prepping für Anfänger leicht gemacht: die 5 Grundprinzipien, die richtige Ausstattung, ein kostenloser 7-Tage-Plan und die häufigsten Fehler. So gelingt dein Einstieg.",
     publishedAt: "2026-06-01",
+    updatedAt: "2026-07-16",
     readingTime: "8 Min. Lesezeit",
     category: "Meal Prep",
     sections: [
