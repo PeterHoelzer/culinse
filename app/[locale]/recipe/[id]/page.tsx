@@ -47,11 +47,19 @@ export async function generateMetadata(
   // "Culinse" here — that would produce "Title | Culinse | Culinse".
   const recipeSuffix = locale === "de" ? "Rezept" : "Recipe";
   const title = `${recipe.title} ${recipeSuffix}`;
-  const description = recipe.summary
-    ? recipe.summary.replace(/<[^>]+>/g, "").slice(0, 155)
-    : locale === "de"
-    ? `So wird ${recipe.title} gemacht – auf Culinse.`
-    : `Discover how to make ${recipe.title} on Culinse.`;
+  // Spoonacular-Summaries sind englisch — auf DE-SERPs wirkt ein englischer
+  // Anriss abschreckend (CTR). Deutsche Description nur übernehmen, wenn der
+  // Text deutsch aussieht; sonst sauberer deutscher Standard-Anriss.
+  const summaryText = recipe.summary ? recipe.summary.replace(/<[^>]+>/g, "") : "";
+  const looksGerman = /\s(und|mit|für|einfach)\s|ß/.test(summaryText);
+  const description =
+    locale === "de"
+      ? summaryText && looksGerman
+        ? summaryText.slice(0, 155)
+        : `${recipe.title}: Zutaten, Schritt-für-Schritt-Anleitung, Nährwerte und geschätzte Kosten – mit automatischer Einkaufsliste auf Culinse.`
+      : summaryText
+      ? summaryText.slice(0, 155)
+      : `Discover how to make ${recipe.title} on Culinse.`;
 
   return {
     title,
@@ -160,8 +168,30 @@ export default async function RecipePage(
       }
     : null;
 
+  const breadcrumbLd = recipe
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: locale === "de" ? "Rezepte" : "Recipes", item: `${BASE_URL}/${locale}` },
+          { "@type": "ListItem", position: 2, name: recipe.title, item: `${BASE_URL}/${locale}/recipe/${id}` },
+        ],
+      }
+    : null;
+
   return (
     <>
+      {breadcrumbLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbLd)
+              .replace(/</g, "\\u003c")
+              .replace(/>/g, "\\u003e")
+              .replace(/&/g, "\\u0026"),
+          }}
+        />
+      )}
       {jsonLd && (
         <script
           type="application/ld+json"

@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const deSlug = EN_TO_DE_BLOG_SLUGS[post.slug];
     const hasDe = deSlug !== undefined && deSlugSet.has(deSlug);
     const enUrl = `${baseUrl}/en/blog/${post.slug}`;
-    const lastModified = new Date(post.publishedAt);
+    const lastModified = new Date(post.updatedAt ?? post.publishedAt);
     if (!hasDe) {
       return [
         {

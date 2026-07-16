@@ -530,9 +530,11 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "high-protein-meals-for-muscle-building",
-    title: "High Protein Meals for Muscle Building: 10 Easy Recipes",
-    description: "Build muscle with these high protein meal ideas. Simple, delicious recipes packed with protein — perfect for gym-goers and athletes looking to eat smarter.",
+    title: "High Protein Meals for Muscle Gain: 10 Easy Recipes (30g+ Each)",
+    description:
+      "High protein meals for muscle gain and muscle building: 10 simple recipes with 30g+ protein each, plus an easy weekly plan to hit your daily protein target.",
     publishedAt: "2026-05-28",
+    updatedAt: "2026-07-16",
     readingTime: "6 min read",
     category: "Nutrition",
     sections: [
@@ -932,10 +934,11 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "weekly-grocery-list-from-meal-plan",
-    title: "How to Make a Weekly Grocery List From Your Meal Plan (That You'll Actually Use)",
+    title: "Weekly Meal Plan to Grocery List: The 5-Step Method (+ Free Generator)",
     description:
-      "Turn your meal plan into one smart weekly grocery list: pull ingredients from your recipes, check the pantry, sort by store section, and stop forgetting things.",
+      "Turn any weekly meal plan into one smart grocery list: pull ingredients from your recipes, combine amounts, sort by aisle — or generate it automatically, free.",
     publishedAt: "2026-06-13",
+    updatedAt: "2026-07-16",
     readingTime: "6 min read",
     category: "Meal Planning",
     sections: [
