@@ -28,13 +28,21 @@ export async function GET(req: Request) {
     if (error) throw error;
 
     const pool = data ?? [];
-    // Fisher–Yates shuffle, then take `number` — gives a rotating selection.
-    for (let i = pool.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [pool[i], pool[j]] = [pool[j], pool[i]];
-    }
+    // Echte Community-Beiträge (andere Mitglieder) haben Vorrang — die Rezepte
+    // des Seitenbetreibers füllen nur auf, wenn nicht genug echte da sind.
+    // Sobald Mitglieder veröffentlichen, übernehmen sie die Slots automatisch.
+    const shuffle = <T,>(arr: T[]): T[] => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+    const member = shuffle(pool.filter((r) => recipeSourceLabel(r.user_id) === "Community"));
+    const owner = shuffle(pool.filter((r) => recipeSourceLabel(r.user_id) !== "Community"));
+    const picked = [...member, ...owner].slice(0, number);
 
-    const recipes = pool.slice(0, number).map((r) => ({
+    const recipes = picked.map((r) => ({
       id: `user_${r.id}`,
       title: r.title,
       image: r.image_url,
