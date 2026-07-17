@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
@@ -49,6 +50,7 @@ function RecipeCard({
   canEdit: boolean;
   onRemove: (id: string) => void;
 }) {
+  const t = useTranslations("collections");
   const [imgError, setImgError] = useState(false);
   const gradient = GRADIENTS[index % GRADIENTS.length];
 
@@ -78,7 +80,7 @@ function RecipeCard({
               e.preventDefault();
               onRemove(recipe.id);
             }}
-            title="Remove from collection"
+            title={t("removeFromCollection")}
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white text-gray-400 flex items-center justify-center text-sm hover:bg-red-50 hover:text-red-400 transition-colors shadow-sm font-bold"
           >
             ×
@@ -104,7 +106,7 @@ function RecipeCard({
             href={`/recipe/${recipe.recipe_id}`}
             className="ml-auto text-orange-500 font-medium hover:text-orange-700 transition-colors"
           >
-            View →
+            {t("view")}
           </Link>
         </div>
       </div>
@@ -123,6 +125,7 @@ export default function CollectionDetailPage({
 } = {}) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
+  const t = useTranslations("collections");
   const [user, setUser] = useState<User | null>(null);
   const [collection, setCollection] = useState<Collection | null>(initialCollection ?? null);
   const [recipes, setRecipes] = useState<CollectionRecipe[]>(initialRecipes ?? []);
@@ -244,7 +247,7 @@ export default function CollectionDetailPage({
             href="/collections"
             className="inline-flex items-center gap-1 text-orange-200 text-sm hover:text-white transition-colors mb-4"
           >
-            ← My Collections
+            ← {t("detailBack")}
           </Link>
 
           <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -256,7 +259,7 @@ export default function CollectionDetailPage({
                 </h1>
                 {collection.is_public && (
                   <span className="text-xs bg-white/20 text-white px-2 py-1 rounded-full">
-                    🌍 Public
+                    🌍 {t("publicBadge")}
                   </span>
                 )}
               </div>
@@ -266,7 +269,7 @@ export default function CollectionDetailPage({
                 </p>
               )}
               <p className="text-orange-200 text-sm mt-2 ml-14">
-                {recipes.length} recipe{recipes.length !== 1 ? "s" : ""}
+                {t("recipeCount", { count: recipes.length })}
               </p>
             </div>
 
@@ -277,14 +280,14 @@ export default function CollectionDetailPage({
                   onClick={handleTogglePublic}
                   className="px-4 py-2 rounded-full bg-white/20 text-white text-xs font-medium hover:bg-white/30 transition-colors"
                 >
-                  {collection.is_public ? "🔒 Make Private" : "🌍 Make Public"}
+                  {collection.is_public ? t("makePrivate") : t("makePublic")}
                 </button>
               )}
               <button
                 onClick={handleShare}
                 className="px-4 py-2 rounded-full bg-white text-orange-500 text-xs font-semibold hover:bg-orange-50 transition-colors shadow-sm"
               >
-                {copied ? "✓ Copied!" : "↑ Share"}
+                {copied ? t("copied") : t("share")}
               </button>
             </div>
           </div>
@@ -297,17 +300,17 @@ export default function CollectionDetailPage({
           <div className="text-center py-24">
             <div className="text-6xl mb-4">{collection.emoji}</div>
             <p className="text-xl font-semibold text-gray-800 mb-2">
-              No recipes yet
+              {t("noRecipes")}
             </p>
             <p className="text-sm text-gray-500 mb-8">
-              Add recipes to this collection from any recipe page.
+              {t("noRecipesSub")}
             </p>
             <Link
               href="/"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               style={{ background: "#f97316" }}
             >
-              Discover Recipes →
+              {t("discoverCta")}
             </Link>
           </div>
         ) : (
@@ -332,24 +335,24 @@ export default function CollectionDetailPage({
                 onClick={() => setShowDeleteConfirm(true)}
                 className="text-xs text-gray-300 hover:text-red-400 transition-colors"
               >
-                Delete this collection
+                {t("deleteThis")}
               </button>
             ) : (
               <div className="inline-flex items-center gap-3 bg-red-50 border border-red-200 rounded-2xl px-5 py-3">
                 <p className="text-sm text-red-700">
-                  Delete &quot;{collection.name}&quot;?
+                  {t("deleteNamed", { name: collection.name })}
                 </p>
                 <button
                   onClick={handleDeleteCollection}
                   className="text-xs font-semibold text-red-600 hover:text-red-800 transition-colors"
                 >
-                  Yes, delete
+                  {t("yesDelete")}
                 </button>
                 <button
                   onClick={() => setShowDeleteConfirm(false)}
                   className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             )}
