@@ -13,7 +13,7 @@
     "logout": "Abmelden",
     "upgrade": "✦ Upgrade",
     "myRecipes": "Meine Rezepte",
-    "calculator": "Einkaufsrechner"
+    "calculator": "Rechner"
   },
   "hero": {
     "badge": "Entwickelt von einem Fleischermeister & Küchenchef",
@@ -55,10 +55,10 @@
     "forYou": "✨ Für dich"
   },
   "timeFilters": {
-    "any": "Beliebig",
     "15": "≤ 15 min",
     "30": "≤ 30 min",
-    "60": "≤ 60 min"
+    "60": "≤ 60 min",
+    "any": "Beliebig"
   },
   "dietFilters": {
     "all": "Alle Diäten",
@@ -351,7 +351,21 @@
     "iconLabel": "Symbol",
     "upgradePro": "Auf Pro upgraden",
     "loading": "Lädt…",
-    "recipeCount": "{count, plural, one {# Rezept} other {# Rezepte}}"
+    "recipeCount": "{count, plural, one {# Rezept} other {# Rezepte}}",
+    "detailBack": "Meine Sammlungen",
+    "publicBadge": "Öffentlich",
+    "makePrivate": "🔒 Privat machen",
+    "makePublic": "🌍 Öffentlich machen",
+    "share": "↑ Teilen",
+    "copied": "✓ Link kopiert!",
+    "noRecipes": "Noch keine Rezepte",
+    "noRecipesSub": "Füge Rezepte von jeder Rezeptseite zu dieser Sammlung hinzu.",
+    "discoverCta": "Rezepte entdecken →",
+    "deleteThis": "Diese Sammlung löschen",
+    "deleteNamed": "\"{name}\" löschen?",
+    "yesDelete": "Ja, löschen",
+    "removeFromCollection": "Aus der Sammlung entfernen",
+    "view": "Ansehen →"
   },
   "mealPlanner": {
     "title": "Wochenplaner",
@@ -605,5 +619,11 @@
     "affiliateNote": "Affiliate-Link — keine Mehrkosten für dich",
     "allDone": "Alles erledigt!",
     "boughtAll": "Du hast alle Zutaten besorgt."
+  },
+  "proSuccess": {
+    "title": "Willkommen bei Culinse Pro!",
+    "subtitle": "Dein Abo ist aktiv. Du hast jetzt Zugriff auf unbegrenzte Sammlungen, den Wochenplaner und smarte Einkaufslisten.",
+    "goCollections": "📚 Zu meinen Sammlungen",
+    "discover": "Rezepte entdecken"
   }
 }
