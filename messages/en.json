@@ -13,7 +13,7 @@
     "logout": "Log out",
     "upgrade": "✦ Upgrade",
     "myRecipes": "My Recipes",
-    "calculator": "Grocery Calculator"
+    "calculator": "Calculator"
   },
   "hero": {
     "badge": "Built by a Master Butcher & Head Chef",
@@ -55,10 +55,10 @@
     "forYou": "✨ For You"
   },
   "timeFilters": {
-    "any": "Any time",
     "15": "≤ 15 min",
     "30": "≤ 30 min",
-    "60": "≤ 60 min"
+    "60": "≤ 60 min",
+    "any": "Any time"
   },
   "dietFilters": {
     "all": "All diets",
@@ -351,7 +351,21 @@
     "iconLabel": "Icon",
     "upgradePro": "Upgrade to Pro",
     "loading": "Loading…",
-    "recipeCount": "{count, plural, one {# recipe} other {# recipes}}"
+    "recipeCount": "{count, plural, one {# recipe} other {# recipes}}",
+    "detailBack": "My Collections",
+    "publicBadge": "Public",
+    "makePrivate": "🔒 Make Private",
+    "makePublic": "🌍 Make Public",
+    "share": "↑ Share",
+    "copied": "✓ Copied!",
+    "noRecipes": "No recipes yet",
+    "noRecipesSub": "Add recipes to this collection from any recipe page.",
+    "discoverCta": "Discover Recipes →",
+    "deleteThis": "Delete this collection",
+    "deleteNamed": "Delete \"{name}\"?",
+    "yesDelete": "Yes, delete",
+    "removeFromCollection": "Remove from collection",
+    "view": "View →"
   },
   "mealPlanner": {
     "title": "Meal Planner",
@@ -605,5 +619,11 @@
     "affiliateNote": "Affiliate link — no extra cost for you",
     "allDone": "All done!",
     "boughtAll": "You've bought all the ingredients."
+  },
+  "proSuccess": {
+    "title": "Welcome to Culinse Pro!",
+    "subtitle": "Your subscription is active. You now have access to unlimited Collections, the Weekly Planner, and Smart Shopping Lists.",
+    "goCollections": "📚 Go to Collections",
+    "discover": "Discover Recipes"
   }
 }
