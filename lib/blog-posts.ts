@@ -28,6 +28,7 @@ export const blogPosts: BlogPost[] = [
       "Learn how to meal prep for the week like a pro. Step-by-step guide covering planning, shopping, batch cooking, and storage — save time and money every week.",
     publishedAt: "2026-05-10",
     readingTime: "7 min read",
+    image: "https://culinse.com/blog/how-to-meal-prep-for-the-week.jpg",
     category: "Meal Prep",
     sections: [
       {
@@ -135,6 +136,7 @@ export const blogPosts: BlogPost[] = [
       "Looking for a free meal planner? We compare the best free meal planning apps in 2026 — features, limits, and which one is right for your cooking style.",
     publishedAt: "2026-05-12",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/best-free-meal-planner-apps-2026.jpg",
     category: "Tools & Apps",
     sections: [
       {
@@ -236,6 +238,7 @@ export const blogPosts: BlogPost[] = [
       "Stop writing shopping lists by hand. Learn how to build a complete weekly meal plan that generates your grocery list automatically — saving time every single week.",
     publishedAt: "2026-05-14",
     readingTime: "8 min read",
+    image: "https://culinse.com/blog/weekly-meal-plan-with-shopping-list.jpg",
     category: "Meal Planning",
     updatedAt: "2026-06-13",
     sections: [
@@ -398,6 +401,7 @@ export const blogPosts: BlogPost[] = [
       "Stuck on what to cook tonight? These easy dinner ideas come together in 30 minutes or less — no complicated steps, no obscure ingredients, just real food that actually works on busy weeknights.",
     publishedAt: "2026-05-28",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/easy-dinner-ideas-for-busy-weeknights.jpg",
     category: "Dinner Ideas",
     sections: [
       {
@@ -471,6 +475,7 @@ export const blogPosts: BlogPost[] = [
       "Most '30-minute recipes' secretly take 45. Here are quick dinner recipes that genuinely come together fast — with tips on how to make weeknight cooking reliably quick every time.",
     publishedAt: "2026-05-28",
     readingTime: "5 min read",
+    image: "https://culinse.com/blog/quick-dinner-recipes-under-30-minutes.jpg",
     category: "Dinner Ideas",
     sections: [
       {
@@ -536,6 +541,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-05-28",
     updatedAt: "2026-07-16",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/high-protein-meals-for-muscle-building.jpg",
     category: "Nutrition",
     sections: [
       {
@@ -588,6 +594,7 @@ export const blogPosts: BlogPost[] = [
     description: "Looking for easy vegetarian dinner ideas? These 20 plant-based recipes are hearty, flavourful, and quick to make — even for non-vegetarians.",
     publishedAt: "2026-05-28",
     readingTime: "7 min read",
+    image: "https://culinse.com/blog/vegetarian-dinner-ideas-easy-recipes.jpg",
     category: "Vegetarian",
     sections: [
       {
@@ -643,6 +650,7 @@ export const blogPosts: BlogPost[] = [
     description: "New to the Mediterranean diet? These easy recipes and simple principles will help you eat better, feel better, and actually enjoy the food.",
     publishedAt: "2026-05-29",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/mediterranean-diet-recipes-beginners.jpg",
     category: "Healthy Eating",
     sections: [
       {
@@ -700,6 +708,7 @@ export const blogPosts: BlogPost[] = [
     description: "Eating well on a tight budget is possible. These cheap meal ideas cost under €5 per serving and taste great — no sad sandwiches required.",
     publishedAt: "2026-05-29",
     readingTime: "5 min read",
+    image: "https://culinse.com/blog/budget-meals-under-5-euros.jpg",
     category: "Budget Cooking",
     sections: [
       {
@@ -751,6 +760,7 @@ export const blogPosts: BlogPost[] = [
       "Meal prep for beginners made simple: the 5 core principles, the equipment you actually need, a free 7-day plan, and the most common mistakes. Nail your first meal-prep Sunday.",
     publishedAt: "2026-06-01",
     readingTime: "8 min read",
+    image: "https://culinse.com/blog/meal-prep-for-beginners.jpg",
     category: "Meal Prep",
     sections: [
       {
@@ -870,6 +880,7 @@ export const blogPosts: BlogPost[] = [
       "The eternal question: what do I cook tonight? Here are concrete dinner ideas for every day of the week — plus a simple plan so you ask yourself this question far less often.",
     publishedAt: "2026-05-28",
     readingTime: "5 min read",
+    image: "https://culinse.com/blog/what-should-i-cook-tonight.jpg",
     category: "Dinner Ideas",
     sections: [
       {
@@ -940,6 +951,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-06-13",
     updatedAt: "2026-07-16",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/weekly-grocery-list-from-meal-plan.jpg",
     category: "Meal Planning",
     sections: [
       {
@@ -1039,6 +1051,7 @@ export const blogPosts: BlogPost[] = [
       "Meal planning is the simplest way to cut your grocery bill. A practical system: plan around overlap, shop your pantry first, buy seasonal, and waste almost nothing.",
     publishedAt: "2026-06-13",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/meal-planning-on-a-budget.jpg",
     category: "Meal Planning",
     sections: [
       {
@@ -1125,6 +1138,7 @@ export const blogPosts: BlogPost[] = [
       "A calm system for feeding a family: build a rotation of meals everyone eats, plan deconstructed dinners for picky eaters, scale to your household, and reuse good weeks.",
     publishedAt: "2026-06-13",
     readingTime: "6 min read",
+    image: "https://culinse.com/blog/family-meal-planning.jpg",
     category: "Meal Planning",
     sections: [
       {
@@ -1207,6 +1221,7 @@ export const blogPosts: BlogPost[] = [
       "Meal prep for weight loss made simple: how to build calorie-smart meals, 20 high-protein low-calorie recipes, a free 7-day plan, and the storage tips that keep it all tasting good.",
     publishedAt: "2026-07-04",
     readingTime: "8 min read",
+    image: "https://culinse.com/blog/meal-prep-for-weight-loss.jpg",
     category: "Healthy Eating",
     sections: [
       {
@@ -1384,6 +1399,7 @@ export const blogPosts: BlogPost[] = [
       "High-protein vegetarian meals made easy: the best meatless protein sources, 20 recipes with 25g+ protein, a sample high-protein veggie day, and how to hit 100g+ protein without meat.",
     publishedAt: "2026-07-12",
     readingTime: "9 min read",
+    image: "https://culinse.com/blog/high-protein-vegetarian-meals.jpg",
     category: "Vegetarian",
     sections: [
       {
@@ -1531,6 +1547,7 @@ export const blogPosts: BlogPost[] = [
       "Easy summer dinner ideas for hot days: 30 light meals across no-cook, grill, 20-minute stovetop, and vegetarian, plus a build-your-own bowl formula and make-ahead tips.",
     publishedAt: "2026-07-12",
     readingTime: "9 min read",
+    image: "https://culinse.com/blog/easy-summer-dinner-ideas.jpg",
     category: "Dinner Ideas",
     sections: [
       {
@@ -1661,6 +1678,7 @@ export const blogPosts: BlogPost[] = [
       "Cheap healthy meals under $3 a serving: budget staples that stretch, 25 recipes by category, a weekly grocery plan, and simple ways to cut food waste and save money.",
     publishedAt: "2026-07-12",
     readingTime: "10 min read",
+    image: "https://culinse.com/blog/cheap-healthy-meals.jpg",
     category: "Budget Cooking",
     sections: [
       {
@@ -1805,6 +1823,7 @@ export const blogPosts: BlogPost[] = [
       "5-ingredient dinners that are quick and low-effort: 25 recipes across pasta, sheet-pan, skillet, and vegetarian, plus the pantry staples to keep on hand and easy swaps.",
     publishedAt: "2026-07-12",
     readingTime: "8 min read",
+    image: "https://culinse.com/blog/5-ingredient-dinners.jpg",
     category: "Dinner Ideas",
     sections: [
       {

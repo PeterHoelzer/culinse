@@ -224,6 +224,16 @@ export default async function BlogPostPage({ params }: Props) {
           <p className="text-gray-500 leading-relaxed">{post.description}</p>
         </div>
 
+        {/* Header image (FLUX-generiert, eigene Rechte) */}
+        {post.image && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={post.image}
+            alt={post.title}
+            className="w-full aspect-[1.91/1] object-cover rounded-2xl border border-gray-100 shadow-sm mb-8"
+          />
+        )}
+
         {/* Article content */}
         <article className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 mb-8">
           {post.sections.map((section, i) => (

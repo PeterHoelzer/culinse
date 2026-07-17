@@ -11,6 +11,7 @@ export interface LitePost {
   description: string;
   category: string;
   readingTime: string;
+  image?: string;
 }
 
 // Dezente visuelle Anker pro Kategorie (DE + EN)
@@ -86,6 +87,15 @@ export default function BlogIndexList({ posts, locale }: { posts: LitePost[]; lo
             href={`/blog/${post.slug}`}
             className="block bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:border-orange-200 hover:shadow-md transition-all group"
           >
+            {post.image && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={post.image}
+                alt=""
+                loading="lazy"
+                className="w-full aspect-[1.91/1] object-cover rounded-xl mb-4"
+              />
+            )}
             <div className="flex items-center gap-3 mb-3">
               <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full">
                 {CATEGORY_EMOJI[post.category] ?? "📄"} {post.category}
