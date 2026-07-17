@@ -131,7 +131,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
           <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
           <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
             {recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
-            {recipe.servings && <span>🍽 {t("recipeCard.servings", { count: recipe.servings })}</span>}
+            {recipe.servings && <span>🍽️ {t("recipeCard.servings", { count: recipe.servings })}</span>}
             {recipe.rating && <span>⭐ {recipe.rating}</span>}
             <span className="ml-auto text-orange-500 font-medium">{t("recipeCard.details")}</span>
           </div>

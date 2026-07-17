@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
 
 export default function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
   const t = useTranslations();
@@ -106,6 +107,24 @@ export default function Hero({ search, setSearch, onSearch }: { search: string; 
               {s}
             </button>
           ))}
+        </div>
+
+        {/* Primary CTAs — the planner+shopping-list funnel is the product's core
+            value; before this the hero offered search only (no conversion path). */}
+        <div className="flex flex-wrap justify-center gap-3 mt-7">
+          <Link
+            href={`/${locale}/weekly-meal-planner`}
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-white text-sm sm:text-base font-semibold shadow-md shadow-orange-200 transition-all hover:opacity-90 hover:scale-[1.02]"
+            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+          >
+            {t("hero.ctaPlan")}
+          </Link>
+          <button
+            onClick={() => document.querySelector(".discover-anchor")?.scrollIntoView({ behavior: "smooth" })}
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-orange-200 bg-white/70 text-orange-600 text-sm sm:text-base font-semibold transition-colors hover:bg-orange-50"
+          >
+            {t("hero.ctaBrowse")}
+          </button>
         </div>
 
         {/* Source trust row */}

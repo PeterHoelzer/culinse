@@ -360,7 +360,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
           <h1 style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</h1>
           <p style={{ fontSize: "10pt", color: "#6b7280", marginBottom: "16px" }}>
             {recipe.time && `⏱ ${recipe.time}`}
-            {recipe.servings && `  ·  🍽 ${recipe.servings} ${t("servings")}`}
+            {recipe.servings && `  ·  🍽️ ${recipe.servings} ${t("servings")}`}
             {recipe.ingredients.length > 0 && `  ·  🧂 ${recipe.ingredients.length} ${t("ingredients")}`}
           </p>
           <div style={{ display: "flex", gap: "32px", alignItems: "flex-start" }}>
@@ -523,7 +523,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
               )}
               {recipe.servings && (
                 <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
-                  <span>🍽</span>
+                  <span>🍽️</span>
                   <div>
                     <p className="text-xs text-gray-400">{t("servings")}</p>
                     <p className="text-sm font-semibold text-gray-800">{recipe.servings}</p>
