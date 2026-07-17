@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import { Link } from "@/lib/navigation";
 import { blogPosts } from "@/lib/blog-posts";
 import { blogPostsDe } from "@/lib/blog-posts-de";
+import BlogIndexList, { type LitePost } from "./BlogIndexList";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -65,36 +66,16 @@ export default async function BlogPage({ params }: Props) {
           </p>
         </div>
 
-        <div className="space-y-6">
-          {posts.map((post) => (
-            <Link
-              key={post.slug}
-              // Explicit locale: without it, server rendering resolved the
-              // locale-aware Link against the fallback locale ("en"), so the
-              // German blog index linked every article to /en/… (redirect chain
-              // onto the ENGLISH article — 5 "Seite mit Weiterleitung" in GSC).
-              locale={locale as "en" | "de"}
-              href={`/blog/${post.slug}`}
-              className="block bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:border-orange-200 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full">
-                  {post.category}
-                </span>
-                <span className="text-xs text-gray-400">{post.readingTime}</span>
-              </div>
-              <h2 className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors mb-2 leading-snug">
-                {post.title}
-              </h2>
-              <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
-                {post.description}
-              </p>
-              <span className="inline-block mt-3 text-sm font-medium text-orange-500 group-hover:underline">
-                {locale === "de" ? "Artikel lesen →" : "Read article →"}
-              </span>
-            </Link>
-          ))}
-        </div>
+        <BlogIndexList
+          locale={locale}
+          posts={posts.map((p): LitePost => ({
+            slug: p.slug,
+            title: p.title,
+            description: p.description,
+            category: p.category,
+            readingTime: p.readingTime,
+          }))}
+        />
       </main>
     </div>
   );

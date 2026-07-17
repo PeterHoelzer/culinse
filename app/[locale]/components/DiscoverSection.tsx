@@ -242,7 +242,7 @@ export default function DiscoverSection({
         </Link>
       )}
 
-      <div className="flex items-center justify-between mb-6">
+      <div className="discover-anchor flex items-center justify-between mb-6 scroll-mt-24">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">
             {search ? t("discover.resultsFor", { query: search }) : t("discover.title")}

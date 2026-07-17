@@ -31,7 +31,9 @@
     ],
     "sourcesMobile": "Von Spoonacular, MealDB, Edamam & Tasty",
     "sourcesDesktop": "Quellen:",
-    "freeLabel": "Für immer kostenlos · Keine Werbung"
+    "freeLabel": "Für immer kostenlos · Keine Werbung",
+    "ctaPlan": "📅 Woche kostenlos planen",
+    "ctaBrowse": "Rezepte entdecken ↓"
   },
   "categories": [
     "Alle",

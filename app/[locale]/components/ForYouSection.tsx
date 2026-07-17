@@ -67,7 +67,8 @@ export default function ForYouSection({ user, onLoaded }: { user: User | null | 
   if (!user || !hasContent) return null;
 
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-4">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+      <div className="bg-gradient-to-b from-orange-50/70 to-transparent border border-orange-100/70 rounded-3xl p-4 sm:p-6">
       <div className="flex items-center justify-between mb-5">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
@@ -89,6 +90,7 @@ export default function ForYouSection({ user, onLoaded }: { user: User | null | 
       </div>
 
       <div className="border-b border-gray-100 mt-10" />
+      </div>
     </section>
   );
 }
