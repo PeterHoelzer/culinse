@@ -74,6 +74,7 @@ export default async function BlogPage({ params }: Props) {
             description: p.description,
             category: p.category,
             readingTime: p.readingTime,
+            image: p.image,
           }))}
         />
       </main>

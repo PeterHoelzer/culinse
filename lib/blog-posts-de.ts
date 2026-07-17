@@ -8,6 +8,7 @@ export const blogPostsDe: BlogPost[] = [
       "Lerne, wie du wie ein Profi für die Woche vorbereitest. Schritt-für-Schritt-Anleitung zu Planung, Einkauf, Batch-Cooking und Aufbewahrung — spare jede Woche Zeit und Geld.",
     publishedAt: "2026-05-10",
     readingTime: "7 Min. Lesezeit",
+    image: "https://culinse.com/blog/how-to-meal-prep-for-the-week.jpg",
     category: "Meal Prep",
     sections: [
       {
@@ -115,6 +116,7 @@ export const blogPostsDe: BlogPost[] = [
       "Auf der Suche nach einem kostenlosen Mahlzeitenplaner? Wir vergleichen die besten kostenlosen Meal-Planning-Apps im Jahr 2026 — Funktionen, Einschränkungen und welche für deinen Kochstil am besten geeignet ist.",
     publishedAt: "2026-05-12",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/best-free-meal-planner-apps-2026.jpg",
     category: "Tools & Apps",
     sections: [
       {
@@ -216,6 +218,7 @@ export const blogPostsDe: BlogPost[] = [
       "Hör auf, Einkaufslisten von Hand zu schreiben. Lerne, wie du einen vollständigen Wochenmenüplan erstellst, der deine Einkaufsliste automatisch generiert — und dir jede Woche Zeit spart.",
     publishedAt: "2026-05-14",
     readingTime: "8 Min. Lesezeit",
+    image: "https://culinse.com/blog/weekly-meal-plan-with-shopping-list.jpg",
     category: "Mahlzeitenplanung",
     updatedAt: "2026-06-13",
     sections: [
@@ -378,6 +381,7 @@ export const blogPostsDe: BlogPost[] = [
       "Was koche ich heute Abend? Diese schnellen Abendessen-Ideen sind in 30 Minuten fertig — keine komplizierten Schritte, keine exotischen Zutaten, einfach echtes Essen das unter der Woche wirklich funktioniert.",
     publishedAt: "2026-05-28",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/easy-dinner-ideas-for-busy-weeknights.jpg",
     category: "Abendessen-Ideen",
     sections: [
       {
@@ -451,6 +455,7 @@ export const blogPostsDe: BlogPost[] = [
       "Die ewige Frage: Was koche ich heute? Hier findest du konkrete Abendessen-Ideen für jeden Tag der Woche — plus einen einfachen Plan, damit du dir diese Frage seltener stellst.",
     publishedAt: "2026-05-28",
     readingTime: "5 Min. Lesezeit",
+    image: "https://culinse.com/blog/what-should-i-cook-tonight.jpg",
     category: "Abendessen-Ideen",
     sections: [
       {
@@ -519,6 +524,7 @@ export const blogPostsDe: BlogPost[] = [
     description: "Baue Muskeln mit diesen proteinreichen Mahlzeiten auf. Einfache, leckere Rezepte mit viel Protein — ideal für alle, die gezielt trainieren und besser essen wollen.",
     publishedAt: "2026-05-28",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/high-protein-meals-for-muscle-building.jpg",
     category: "Ernährung",
     sections: [
       {
@@ -571,6 +577,7 @@ export const blogPostsDe: BlogPost[] = [
     description: "Auf der Suche nach einfachen vegetarischen Abendessen? Diese 20 pflanzlichen Rezepte sind herzhaft, aromatisch und schnell zubereitet — auch für Nicht-Vegetarier.",
     publishedAt: "2026-05-28",
     readingTime: "7 Min. Lesezeit",
+    image: "https://culinse.com/blog/vegetarian-dinner-ideas-easy-recipes.jpg",
     category: "Vegetarisch",
     sections: [
       {
@@ -626,6 +633,7 @@ export const blogPostsDe: BlogPost[] = [
     description: "Neu bei der mediterranen Ernährung? Diese einfachen Rezepte und Grundprinzipien helfen dir, besser zu essen, dich besser zu fühlen — und das Essen wirklich zu genießen.",
     publishedAt: "2026-05-29",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/mediterranean-diet-recipes-beginners.jpg",
     category: "Gesunde Ernährung",
     sections: [
       {
@@ -683,6 +691,7 @@ export const blogPostsDe: BlogPost[] = [
     description: "Gut essen mit kleinem Budget ist möglich. Diese günstigen Gerichte kosten unter 5 Euro pro Portion und schmecken wirklich gut — keine traurigen Sandwiches.",
     publishedAt: "2026-05-29",
     readingTime: "5 Min. Lesezeit",
+    image: "https://culinse.com/blog/budget-meals-under-5-euros.jpg",
     category: "Budgetküche",
     sections: [
       {
@@ -735,6 +744,7 @@ export const blogPostsDe: BlogPost[] = [
     publishedAt: "2026-06-01",
     updatedAt: "2026-07-16",
     readingTime: "8 Min. Lesezeit",
+    image: "https://culinse.com/blog/meal-prep-for-beginners.jpg",
     category: "Meal Prep",
     sections: [
       {
@@ -854,6 +864,7 @@ export const blogPostsDe: BlogPost[] = [
       "Die meisten '30-Minuten-Rezepte' brauchen heimlich 45. Hier sind schnelle Abendessen, die wirklich schnell gehen — plus Tipps, wie Feierabendküche zuverlässig schnell bleibt.",
     publishedAt: "2026-05-28",
     readingTime: "5 Min. Lesezeit",
+    image: "https://culinse.com/blog/quick-dinner-recipes-under-30-minutes.jpg",
     category: "Abendessen-Ideen",
     sections: [
       {
@@ -919,6 +930,7 @@ export const blogPostsDe: BlogPost[] = [
       "Aus deinem Essensplan wird eine clevere Wochen-Einkaufsliste: Zutaten aus den Rezepten ziehen, Vorrat prüfen, nach Abteilung sortieren — und nichts vergessen.",
     publishedAt: "2026-06-13",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/weekly-grocery-list-from-meal-plan.jpg",
     category: "Wochenplanung",
     sections: [
       {
@@ -1018,6 +1030,7 @@ export const blogPostsDe: BlogPost[] = [
       "Ein Essensplan ist der einfachste Weg, die Lebensmittelkosten zu senken. Ein praktisches System: um Überschneidungen planen, erst den Vorrat nutzen, saisonal kaufen.",
     publishedAt: "2026-06-13",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/meal-planning-on-a-budget.jpg",
     category: "Wochenplanung",
     sections: [
       {
@@ -1104,6 +1117,7 @@ export const blogPostsDe: BlogPost[] = [
       "Ein entspanntes System für die Familie: eine Rotation aus Gerichten, die alle essen, zerlegte Abendessen für Mäkelige, auf die Personenzahl skalieren, gute Wochen wiederverwenden.",
     publishedAt: "2026-06-13",
     readingTime: "6 Min. Lesezeit",
+    image: "https://culinse.com/blog/family-meal-planning.jpg",
     category: "Wochenplanung",
     sections: [
       {
@@ -1185,6 +1199,7 @@ export const blogPostsDe: BlogPost[] = [
       "Proteinreiches Frühstück mit über 30 g Protein: 18 schnelle, vorzubereitende und vegetarische Ideen, eine Proteinquellen-Übersicht und ein Meal-Prep-Tipp für die ganze Woche.",
     publishedAt: "2026-07-12",
     readingTime: "8 Min. Lesezeit",
+    image: "https://culinse.com/blog/proteinreiches-fruehstueck.jpg",
     category: "Ernährung",
     sections: [
       {
@@ -1322,6 +1337,7 @@ export const blogPostsDe: BlogPost[] = [
       "Sommer Meal Prep leicht gemacht: 15 leichte Rezepte ohne langes Kochen, die besten hitzefesten Zutaten, Tipps zum Kühlen und Transportieren und ein Wochenplan für heiße Tage.",
     publishedAt: "2026-07-12",
     readingTime: "7 Min. Lesezeit",
+    image: "https://culinse.com/blog/sommer-meal-prep.jpg",
     category: "Meal Prep",
     sections: [
       {
@@ -1438,6 +1454,7 @@ export const blogPostsDe: BlogPost[] = [
       "Schnelle Grillbeilagen in unter 20 Minuten: 25 Ideen für Salate, Dips, Brot und Gemüse vom Grill, dazu Beilagen zum Vorbereiten und ein Mengen-Planer pro Person.",
     publishedAt: "2026-07-12",
     readingTime: "7 Min. Lesezeit",
+    image: "https://culinse.com/blog/schnelle-grillbeilagen.jpg",
     category: "Saisonale Küche",
     sections: [
       {
@@ -1552,6 +1569,7 @@ export const blogPostsDe: BlogPost[] = [
       "Einfache Rezepte für Studenten: günstig, schnell und ohne viel Equipment. 20 Ideen für One-Pot, ohne Backofen und Meal Prep fürs Semester, plus Vorratsliste und 30-Euro-Wocheneinkauf.",
     publishedAt: "2026-07-12",
     readingTime: "8 Min. Lesezeit",
+    image: "https://culinse.com/blog/rezepte-fuer-studenten.jpg",
     category: "Budgetküche",
     sections: [
       {
@@ -1661,6 +1679,7 @@ export const blogPostsDe: BlogPost[] = [
       "Was koche ich am Wochenende? 20 entspannte Ideen nach Stimmung – vom gemütlichen Brunch über Gerichte für Gäste bis zu Comfort Food. Plus Reste-Tipp und ausgewogener Genuss.",
     publishedAt: "2026-07-12",
     readingTime: "7 Min. Lesezeit",
+    image: "https://culinse.com/blog/was-koche-ich-am-wochenende.jpg",
     category: "Wochenplanung",
     sections: [
       {
@@ -1770,6 +1789,7 @@ export const blogPostsDe: BlogPost[] = [
       "Vorratshaltung leicht gemacht: die Basis-Vorratsliste für Speisekammer, Kühlschrank und Tiefkühler, richtige Lagerung nach Lebensmittelgruppe, das FIFO-Prinzip und eine praktische Checkliste.",
     publishedAt: "2026-07-12",
     readingTime: "8 Min. Lesezeit",
+    image: "https://culinse.com/blog/vorratshaltung-speisekammer.jpg",
     category: "Mahlzeitenplanung",
     sections: [
       {
