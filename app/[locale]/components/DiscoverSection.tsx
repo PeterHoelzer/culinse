@@ -73,7 +73,7 @@ export default function DiscoverSection({
   // default discover view. Failure is silent — they're a bonus, not required.
   useEffect(() => {
     let cancelled = false;
-    fetch(`/api/community-recipes?number=2&lang=${locale}`)
+    fetch(`/api/community-recipes?number=4&lang=${locale}`)
       .then((r) => r.json())
       .then((d) => { if (!cancelled) setCommunity(d.recipes ?? []); })
       .catch(() => {});
@@ -205,22 +205,24 @@ export default function DiscoverSection({
 
   const displayedRecipes = useMemo(() => {
     if (!isDefaultView || community.length === 0 || recipes.length === 0) return recipes;
-    // Keep the total count unchanged (e.g. 6): the community recipes COUNT
-    // toward the total, replacing the same number of provider recipes rather
-    // than being added on top. So 6 = 4 provider + 2 community.
+    // Feste Regel (Peters Vorgabe): Jedes 6. Bild gehört der Community/dem
+    // eigenen Korpus — Index 5, 11, 17, … Die Gesamtzahl bleibt unverändert;
+    // Provider-Rezepte füllen die übrigen Slots. So sind die eigenen Rezepte
+    // verlässlich in jedem Sechser-Block sichtbar statt an Zufallspositionen.
     const target = recipes.length;
-    const list = recipes.slice(0, Math.max(0, target - community.length));
-    // Insert each community recipe at a position derived from a stable hash of
-    // its id (never first, so a strong editorial card leads). Deterministic —
-    // the rotation comes from the API returning a different set each load.
-    community.forEach((c) => {
-      const key = String(c.id);
-      let h = 0;
-      for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) | 0;
-      const pos = 1 + (Math.abs(h) % Math.max(1, list.length));
-      list.splice(Math.min(pos, list.length), 0, c);
-    });
-    return list.slice(0, target);
+    const communityIds = new Set(community.map((c) => String(c.id)));
+    const providers = recipes.filter((r) => !communityIds.has(String(r.id)));
+    const out: Recipe[] = [];
+    let pi = 0;
+    let ci = 0;
+    for (let i = 0; i < target; i++) {
+      const isCommunitySlot = (i + 1) % 6 === 0 && ci < community.length;
+      if (isCommunitySlot) out.push(community[ci++]);
+      else if (pi < providers.length) out.push(providers[pi++]);
+      else if (ci < community.length) out.push(community[ci++]);
+      else break;
+    }
+    return out;
   }, [recipes, community, isDefaultView]);
 
   return (
