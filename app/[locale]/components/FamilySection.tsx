@@ -14,7 +14,7 @@ interface CommunityRecipe {
 
 /**
  * Familienrezepte & Community — das emotionale Differenzierungsmerkmal:
- * echte Rezepte von echten Menschen (allen voran Gerds Familienrezepte),
+ * echte Rezepte von echten Menschen (allen voran die Familienrezepte von Peters Vater),
  * keine anonyme Datenbank. Rendert nur, wenn Community-Rezepte existieren.
  */
 export default function FamilySection() {
@@ -51,8 +51,8 @@ export default function FamilySection() {
             </h2>
             <p className="text-gray-600 leading-relaxed mb-5">
               {de
-                ? "Culinse wird von Küchenchef und Fleischermeister Peter gebaut — und die ersten Community-Rezepte kommen von seinem Vater Gerd: Familienklassiker, seit Jahrzehnten gekocht und für dich aufgeschrieben. Jedes Mitglied kann eigene Rezepte veröffentlichen und landet damit hier auf der Startseite."
-                : "Culinse is built by head chef and master butcher Peter — and the first community recipes come from his father Gerd: family classics, cooked for decades and written down for you. Every member can publish their own recipes and land right here on the homepage."}
+                ? "Culinse wird von Küchenchef und Fleischermeister Peter gebaut — und die ersten Community-Rezepte kommen von seinem Vater: Familienklassiker, seit Jahrzehnten gekocht und für dich aufgeschrieben. Jedes Mitglied kann eigene Rezepte veröffentlichen und landet damit hier auf der Startseite."
+                : "Culinse is built by head chef and master butcher Peter — and the first community recipes come from his father: family classics, cooked for decades and written down for you. Every member can publish their own recipes and land right here on the homepage."}
             </p>
             <Link
               href={`/${locale}/my-recipes`}
