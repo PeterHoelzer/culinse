@@ -1,10 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function NewsletterBanner() {
   const t = useTranslations("newsletter");
+  const locale = useLocale();
+  const pdfHref =
+    locale === "de"
+      ? "/downloads/culinse-7-tage-meal-prep-plan.pdf"
+      : "/downloads/culinse-7-day-meal-prep-plan.pdf";
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error" | "already">("idle");
 
@@ -35,10 +40,18 @@ export default function NewsletterBanner() {
         <p className="text-gray-400 text-sm mb-8 leading-relaxed">{t("subtitle")}</p>
 
         {status === "success" || status === "already" ? (
-          <div className="bg-green-500/10 border border-green-500/30 rounded-2xl px-6 py-4">
-            <p className="text-green-400 font-semibold text-sm">
+          <div className="bg-green-500/10 border border-green-500/30 rounded-2xl px-6 py-5">
+            <p className="text-green-400 font-semibold text-sm mb-4">
               {status === "already" ? t("already") : t("success")}
             </p>
+            <a
+              href={pdfHref}
+              download
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white transition-opacity hover:opacity-90"
+              style={{ background: "#f97316" }}
+            >
+              {t("download")}
+            </a>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex gap-2 max-w-md mx-auto">
