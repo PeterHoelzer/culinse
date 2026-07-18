@@ -6,7 +6,7 @@ const TASTY_BASE = "https://tasty.p.rapidapi.com";
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get("query") || "";
-  const size = Math.min(Math.max(Math.floor(Number(searchParams.get("size")) || 6), 1), 12);
+  const size = Math.min(Math.max(Math.floor(Number(searchParams.get("size")) || 6), 1), 40);
   const from = Math.max(Math.floor(Number(searchParams.get("from")) || 0), 0);
 
   try {
