@@ -558,14 +558,15 @@
     "backHome": "Back to Home"
   },
   "newsletter": {
-    "title": "Weekly Recipe Ideas",
-    "subtitle": "The best recipes of the week — straight to your inbox. No spam, unsubscribe anytime.",
+    "title": "Get the free 7-Day Meal Prep Plan (PDF)",
+    "subtitle": "Complete weekly plan with prep block, tick-off shopping list and chef tips — free as a PDF. Plus the best recipe ideas every week. No spam, unsubscribe anytime.",
     "placeholder": "your@email.com",
     "button": "Subscribe",
     "success": "🎉 Thanks! You’ll hear from us soon.",
     "error": "Something went wrong. Please try again.",
     "already": "This email is already subscribed.",
-    "sending": "Subscribing…"
+    "sending": "Subscribing…",
+    "download": "📄 Download the plan (PDF)"
   },
   "loginPrompt": {
     "title": "Save this recipe",

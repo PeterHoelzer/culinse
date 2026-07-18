@@ -10,6 +10,7 @@ import DiscoverSection from "./components/DiscoverSection";
 import ForYouSection from "./components/ForYouSection";
 import VideoSection from "./components/VideoSection";
 import HowItWorks from "./components/HowItWorks";
+import FamilySection from "./components/FamilySection";
 import CTA from "./components/CTA";
 import HomeFooter from "./components/HomeFooter";
 
@@ -95,6 +96,7 @@ export default function Home() {
         <ForYouSection user={user} onLoaded={() => {}} />
         <DiscoverSection search={activeSearch} category={category} setCategory={handleSetCategory} user={user} />
         <VideoSection />
+        <FamilySection />
         <HowItWorks />
         <NewsletterBanner />
         <CTA />

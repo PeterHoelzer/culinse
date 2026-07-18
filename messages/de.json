@@ -558,14 +558,15 @@
     "backHome": "Zurück zur Startseite"
   },
   "newsletter": {
-    "title": "Wöchentliche Rezeptideen",
-    "subtitle": "Die besten Rezepte der Woche – direkt in dein Postfach. Kein Spam, jederzeit abmeldbar.",
+    "title": "Hol dir den 7-Tage-Meal-Prep-Plan (PDF)",
+    "subtitle": "Kompletter Wochenplan mit Prep-Block, Einkaufsliste zum Abhaken und Chef-Tipps — kostenlos als PDF. Dazu wöchentlich die besten Rezeptideen. Kein Spam, jederzeit abmeldbar.",
     "placeholder": "deine@email.de",
     "button": "Anmelden",
     "success": "🎉 Danke! Du bekommst bald Post von uns.",
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     "already": "Diese E-Mail ist bereits eingetragen.",
-    "sending": "Wird eingetragen…"
+    "sending": "Wird eingetragen…",
+    "download": "📄 Plan jetzt herunterladen (PDF)"
   },
   "loginPrompt": {
     "title": "Rezept speichern",
