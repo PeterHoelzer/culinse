@@ -4,6 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/lib/navigation";
 import { VideoRecipe } from "./home-types";
+import { createClient } from "@/lib/supabase/client";
+import AddToPlanModal from "@/components/AddToPlanModal";
+import LoginPromptModal from "@/components/LoginPromptModal";
 
 // Themen-Chips — q-Werte sind englisch (Tasty-API), Labels lokalisiert.
 const TAGS = [
@@ -36,6 +39,16 @@ export default function VideoSection() {
   const [playing, setPlaying] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [exhausted, setExhausted] = useState(false);
+  const [planFor, setPlanFor] = useState<VideoRecipe | null>(null);
+  const [showLogin, setShowLogin] = useState(false);
+
+  // „+ Planen" auf der Karte: eingeloggt -> Plan-Picker, sonst Login-Prompt.
+  const openPlanner = async (v: VideoRecipe) => {
+    setPlaying(null);
+    const { data: { user } } = await createClient().auth.getUser();
+    if (user) setPlanFor(v);
+    else setShowLogin(true);
+  };
 
   const shuffle = (videos: VideoRecipe[]) => {
     let seed = daySeed();
@@ -191,13 +204,22 @@ export default function VideoSection() {
                     )}
                     <div className="absolute bottom-0 left-0 right-0 p-3">
                       <p className="text-white text-sm font-semibold leading-snug line-clamp-2 mb-2">{v.title}</p>
-                      <Link
-                        href={`/recipe/${v.id}`}
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors"
-                      >
-                        {t("videoSection.fullRecipe")}
-                      </Link>
+                      <div className="flex items-center justify-between gap-2">
+                        <Link
+                          href={`/recipe/${v.id}`}
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 text-xs font-medium text-orange-400 hover:text-orange-300 transition-colors"
+                        >
+                          {t("videoSection.fullRecipe")}
+                        </Link>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); openPlanner(v); }}
+                          className="flex-shrink-0 text-xs font-semibold text-white px-2.5 py-1 rounded-full transition-opacity hover:opacity-90"
+                          style={{ background: "#f97316" }}
+                        >
+                          {t("videoSection.addToPlan")}
+                        </button>
+                      </div>
                     </div>
                   </>
                 )}
@@ -216,6 +238,19 @@ export default function VideoSection() {
           </button>
         </div>
       </div>
+
+      {planFor && (
+        <AddToPlanModal
+          recipe={{
+            id: planFor.id,
+            title: planFor.title,
+            image: planFor.image,
+            readyInMinutes: planFor.time ? parseInt(planFor.time, 10) || undefined : undefined,
+          }}
+          onClose={() => setPlanFor(null)}
+        />
+      )}
+      {showLogin && <LoginPromptModal onClose={() => setShowLogin(false)} redirectTo="/" />}
     </section>
   );
 }
