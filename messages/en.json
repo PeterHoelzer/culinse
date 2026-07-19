@@ -33,7 +33,10 @@
     "sourcesDesktop": "Sources:",
     "freeLabel": "Free forever · No ads",
     "ctaPlan": "📅 Plan your week free",
-    "ctaBrowse": "Browse recipes ↓"
+    "ctaBrowse": "Browse recipes ↓",
+    "trust1": "100% free",
+    "trust2": "No ads",
+    "trust3": "Real discount-store prices"
   },
   "categories": [
     "All",
