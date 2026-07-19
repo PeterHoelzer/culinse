@@ -20,12 +20,11 @@ import { CULINSE_OWNER_ID } from "@/lib/culinse";
  * Sessions sonst aussperren) — strikt gescoped auf Owner + pipeline_status.
  */
 
-// Reviewer kommen ausschließlich aus der Env-Var CULINSE_REVIEWER_EMAILS
-// (kommagetrennt) — gleiche Konvention wie CULINSE_OWNER_ID in lib/culinse.ts.
-// Bewusst KEIN Default im Code: das Repo ist öffentlich, private Adressen
-// gehören nicht hinein. Ohne gesetzte Env-Var hat nur der Owner Zugriff.
+// Standard-Reviewer: Gerd (Peters Vater). Überschreibbar/erweiterbar via
+// Env-Var CULINSE_REVIEWER_EMAILS (kommagetrennt) — gleiche Konvention wie
+// CULINSE_OWNER_ID in lib/culinse.ts.
 function reviewerEmails(): string[] {
-  return (process.env.CULINSE_REVIEWER_EMAILS || "")
+  return (process.env.CULINSE_REVIEWER_EMAILS || "gerd@hoelzer.xyz")
     .split(",")
     .map((e) => e.trim().toLowerCase())
     .filter(Boolean);
