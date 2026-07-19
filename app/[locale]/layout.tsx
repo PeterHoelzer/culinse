@@ -16,6 +16,8 @@ const sharedMeta = {
   authors: [{ name: "Culinse" }],
   creator: "Culinse",
   metadataBase: new URL("https://culinse.com"),
+  // Pinterest-Website-Verifizierung (Settings → Link zu Pinterest, 19.07.2026)
+  other: { "p:domain_verify": "72c938fb4034ca5bad89019932a07840" },
   icons: {
     icon: [{ url: "/icon", type: "image/png", sizes: "32x32" }],
     shortcut: "/icon",
