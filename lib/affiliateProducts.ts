@@ -17,6 +17,19 @@ export function getAffiliateUrl(product: AffiliateProduct): string {
   return `https://www.amazon.de/s?k=${encodeURIComponent(product.search)}&tag=${TAG}`;
 }
 
+/**
+ * Wraps an affiliate URL in our /api/out redirect ("turnstile") so every
+ * click is counted before forwarding. source = placement identifier
+ * (recipe_ingredient, recipe_tools, shopping_list, …).
+ */
+export function trackedUrl(url: string, source: string, recipeId?: string | number): string {
+  const params = new URLSearchParams({ u: url, s: source });
+  if (recipeId !== undefined && recipeId !== null && `${recipeId}` !== "") {
+    params.set("r", `${recipeId}`);
+  }
+  return `/api/out?${params.toString()}`;
+}
+
 // ─── Küchenwerkzeuge ─────────────────────────────────────────────────────────
 // Tags: Rezept-Eigenschaften die dieses Tool wirklich braucht.
 // "general" wird NICHT mehr im Haystack gesetzt → keine zufälligen Treffer mehr.
@@ -52,7 +65,7 @@ export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [
   {
     type: "tool",
     name: "Ninja Blender",
-    asin: "B08X21QX27",  // Ninja Foodi Power Nutri Mixer
+    asin: "B0D8QNV7LM",  // Ninja Detect Power Mixer Pro (Ersatz 19.07.2026, alter ASIN ohne Buybox)
     search: "Ninja Professional Standmixer Blender",
     price: "ab €140", emoji: "🥤",
     tags: ["smoothie", "blend", "shake", "puree", "beverage", "soup puree", "hummus"],
@@ -60,7 +73,7 @@ export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [
   {
     type: "tool",
     name: "Ninja Creami",
-    asin: "B0G26N7D9N",  // Ninja CREAMi Eismaschine 2 Behälter
+    asin: "B0FP2KH5FP",  // Ninja Creami Deluxe (Ersatz 19.07.2026, NC302EU EOL)
     search: "Ninja Creami Eismaschine",
     price: "ab €200", emoji: "🍦",
     tags: ["ice cream", "frozen dessert", "sorbet", "gelato", "frozen yogurt", "nice cream"],
@@ -94,7 +107,7 @@ export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [
   {
     type: "tool",
     name: "Antihaft-Pfanne",
-    asin: "B086R9L33H",  // Tefal Unlimited On 28cm
+    asin: "B08GH6R477",  // Tefal Jamie Oliver Cook's Direct On 28cm (Ersatz 19.07.2026)
     search: "Tefal Expertise Pfanne 28cm Antihaft",
     price: "ab €50", emoji: "🍳",
     tags: ["egg", "omelette", "pancake", "sauté", "stir fry", "fish fillet", "breakfast", "crepe"],
@@ -185,11 +198,11 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["ghee", "clarified butter"],                       asin: "B0104EI61G", search: "Maharishi Ayurveda Bio Ghee 500g",        label: "Ghee" },
 
   // ── Saucen & Würzmittel ─────────────────────────────────────────────────────
-  { keywords: ["soy sauce", "sojasauce"],                         asin: "B005E9VL28", search: "Kikkoman Sojasauce 1L",                   label: "Sojasauce" },
+  { keywords: ["soy sauce", "sojasauce"],                         asin: "B000RPWGXC", search: "Kikkoman Sojasauce 1L",                   label: "Sojasauce" },
   { keywords: ["tamari"],                                         asin: "B01CQE03RM", search: "Kikkoman Tamari glutenfrei 1L",            label: "Tamari" },
   { keywords: ["fish sauce", "fischsauce"],                       asin: "B0050O7GVW", search: "Tiparos Fischsauce Thai 700ml",           label: "Fischsauce" },
   { keywords: ["worcestershire"],                                 asin: "B0074FOPSM", search: "Lea Perrins Worcestershire Sauce 568ml",  label: "Worcestershire Sauce" },
-  { keywords: ["oyster sauce", "austernsauce"],                   asin: "B07YQ83QZW", search: "Lee Kum Kee Austernsauce 255g",           label: "Austernsauce" },
+  { keywords: ["oyster sauce", "austernsauce"],                   asin: "B0DK3Y1RQK", search: "Lee Kum Kee Panda Austernsauce",           label: "Austernsauce" },
   { keywords: ["hoisin sauce", "hoisinsauce"],                    asin: "B0F5WZ61Q4", search: "Reishunger Bio Hoisin Sauce 250ml",       label: "Hoisin Sauce" },
   { keywords: ["sriracha"],                                       asin: "B00568NVTS", search: "Flying Goose Sriracha Sauce 455ml",       label: "Sriracha" },
   { keywords: ["tabasco", "hot sauce", "chilisauce"],             asin: "B004JUA5FW", search: "Tabasco Original Red Pepper Sauce 350ml", label: "Tabasco" },
