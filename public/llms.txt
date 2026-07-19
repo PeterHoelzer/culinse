@@ -1,0 +1,27 @@
+# Culinse
+
+> Culinse is a free, ad-free meal planning app: search recipes from multiple top sources, plan your week, and get an automatic shopping list with summed quantities — including estimated grocery costs in euros based on real German discount-supermarket prices (updated monthly). Available in German and English.
+
+Culinse is built by a German head chef and master butcher. Key differentiators: no ads anywhere, a free weekly meal planner that turns your recipe picks into one consolidated shopping list, per-serving cost estimates on recipes, and a public grocery cost calculator with real 2026 German discounter price data — a feature no other free meal planner offers. Community members (including decades-old family recipes) publish real, home-cooked recipes alongside curated sources.
+
+## Core pages
+
+- [Weekly Meal Planner](https://culinse.com/en/weekly-meal-planner): Free weekly planner — pick recipes for breakfast, lunch and dinner; the shopping list with summed quantities and a € total is generated automatically. German version: https://culinse.com/de/weekly-meal-planner
+- [Grocery List Calculator](https://culinse.com/en/grocery-list-calculator): Free calculator that estimates what a grocery list costs at German discount supermarkets (180+ ingredients, updated monthly). German: https://culinse.com/de/grocery-list-calculator
+- [Recipe Search](https://culinse.com/en): Search and filter recipes by diet, cooking time and cuisine; watch step-by-step video recipes.
+- [Pricing](https://culinse.com/en/pro): Free plan covers search, saving, one collection and the weekly planner basics. Pro is €4.99/month or €38.88/year (€3.24/month) and adds unlimited collections, full 7-day planning, smart shopping list and plan sharing. Machine-readable: https://culinse.com/pricing.md
+- [Blog](https://culinse.com/en/blog): 40+ practical guides on meal prep, budget cooking, high-protein eating and weekly planning, in English and German (https://culinse.com/de/blog).
+
+## Popular guides
+
+- [Weekly Grocery List from a Meal Plan](https://culinse.com/en/blog/weekly-grocery-list-from-meal-plan): The 5-step method for turning a weekly meal plan into one grocery list.
+- [High Protein Meals for Muscle Gain](https://culinse.com/en/blog/high-protein-meals-for-muscle-gain): 10 easy recipes with 30 g+ protein each.
+- [Meal Prep for Weight Loss](https://culinse.com/en/blog/meal-prep-for-weight-loss): 20 recipes plus a free 7-day plan.
+- [Meal Prep für Anfänger (German)](https://culinse.com/de/blog/meal-prep-fuer-anfaenger): Der ultimative Einsteiger-Guide mit 7-Tage-Plan.
+
+## Facts
+
+- Price: free core product; Pro €4.99/month or €38.88/year; no ads on any plan; cancel anytime.
+- Grocery price estimates: German discount-supermarket level (own brands), ~180 ingredients, refreshed monthly (metric units: g, kg, ml, l).
+- Languages: German (culinse.com/de) and English (culinse.com/en).
+- Free 7-day meal-prep plan (PDF) available via newsletter signup on the homepage.

@@ -217,6 +217,18 @@ export default async function BlogPostPage({ params }: Props) {
               {post.category}
             </span>
             <span className="text-xs text-gray-400">{post.readingTime}</span>
+            {/* AI-SEO: sichtbares Freshness-Signal (Schema hatte die Daten schon) */}
+            <span className="text-xs text-gray-400">
+              {(() => {
+                const d = new Date(post.updatedAt ?? post.publishedAt);
+                const formatted = d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", {
+                  year: "numeric", month: "long", day: "numeric",
+                });
+                return post.updatedAt
+                  ? (locale === "de" ? `Aktualisiert: ${formatted}` : `Updated: ${formatted}`)
+                  : (locale === "de" ? `Veröffentlicht: ${formatted}` : `Published: ${formatted}`);
+              })()}
+            </span>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
             {post.title}
