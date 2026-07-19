@@ -1951,6 +1951,703 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+{
+    slug: "high-protein-breakfast",
+    title: "High-Protein Breakfast: 18 Ideas With Over 30 g of Protein",
+    description:
+      "A high-protein breakfast with more than 30 g of protein: 18 quick, make-ahead and vegetarian ideas, a protein-source cheat sheet, and a meal-prep tip to cover your whole week.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 min read",
+    image: "https://culinse.com/blog/proteinreiches-fruehstueck.jpg",
+    category: "Nutrition",
+    sections: [
+      {
+        content:
+          "The classic breakfast of a jam roll, a cereal bar, or a croissant grabbed on the way out has one big flaw: it's mostly carbs and almost no protein, which is exactly why you're hungry again two hours later. A high-protein breakfast flips that around. It keeps you full longer, steadies your blood sugar, and helps you hold on to muscle. In this post you'll get 18 concrete ideas that each land above 30 g of protein, an overview of the best protein sources, and a tip for prepping your breakfast for the whole week.",
+      },
+      {
+        heading: "Why protein in the morning?",
+        content:
+          "Protein is the most filling of the three macronutrients. A protein-rich first meal keeps hunger at bay noticeably longer than a carb-heavy one, which makes it far easier to reach lunch without snacking and helps you dodge that mid-morning slump. There's a muscle angle too: after the overnight fast, your body is especially receptive to protein in the morning. If you want to build muscle or hold on to it while cutting calories, it pays to spread your protein evenly across the day rather than piling it all onto dinner. On top of that, protein has the highest thermic effect: your body burns more energy digesting it than it does with fat or carbs.",
+      },
+      {
+        heading: "How much protein belongs in breakfast?",
+        content:
+          "As a rough guide, 20 to 40 g of protein per meal is a sensible range to properly kick-start muscle protein synthesis. For a breakfast that genuinely fills you up and carries you through the morning, 30 g is a solid target, and that's exactly what the ideas below are built around. Your total needs depend on body weight and activity level: if you train regularly or want to build muscle, a common benchmark is roughly 1.6 to 2.0 g of protein per kilogram of body weight per day. You'll find more on that math and matching main meals in our guide to [high-protein meals for building muscle](/blog/high-protein-meals-muscle-building).",
+      },
+      {
+        heading: "18 high-protein breakfast ideas",
+        content:
+          "Every idea is designed so that the listed main ingredients comfortably push you past 30 g of protein. The amounts are per serving. First up, ready in under 5 minutes:",
+        list: [
+          "Skyr bowl with berries and nuts – 250 g skyr, a handful of berries, 20 g nuts; no cooking, done in two minutes.",
+          "Protein shake to go – 300 ml milk or soy drink, 30 g protein powder, one banana; perfect for hectic mornings.",
+          "Savory cottage cheese toast – 200 g cottage cheese on whole-grain bread with tomato, chives, and pepper.",
+          "Quark with oats – 250 g low-fat quark, 40 g rolled oats, a little honey and cinnamon; creamy and fast.",
+          "Egg wrap to go – 3 scrambled eggs in a whole-grain tortilla with a little cheese, quickly rolled up.",
+        ],
+      },
+      {
+        heading: "Make-ahead / overnight",
+        content: "These ideas are prepped the night before or several days in advance:",
+        list: [
+          "Overnight oats with skyr – 50 g rolled oats, 200 g skyr, 150 ml milk, chia, and berries; set in a jar overnight.",
+          "Protein chia pudding – 30 g chia seeds, 250 ml milk, 1 scoop protein powder; mix the evening before.",
+          "Quark breakfast jars – layers of low-fat quark, berries, and granola; prep three or four jars at once.",
+          "Baked oats with protein powder – oats, egg, protein powder, and banana baked together; portioned out for several days.",
+          "Egg muffins – 6 eggs baked in a muffin tin with spinach, bell pepper, and a little cheese; keep for several days in the fridge.",
+        ],
+      },
+      {
+        heading: "Vegetarian & vegan",
+        content: "Even without meat – and sometimes fully plant-based – you can clear the 30 g mark:",
+        list: [
+          "Tofu scramble – 200 g tofu with turmeric, veggies, and kala namak; vegan and savory.",
+          "Soy yogurt bowl – 250 g protein-enriched soy yogurt with nuts, seeds, and fruit.",
+          "Lentil breakfast hash – cooked lentils with potatoes and bell pepper in the pan; filling and high in protein.",
+          "Peanut butter porridge with soy drink – oats in soy drink with 1 tbsp peanut butter and a scoop of plant-based protein.",
+          "Chickpea pancakes – pancakes made from chickpea flour, topped savory with veggies.",
+        ],
+      },
+      {
+        heading: "Savory",
+        content: "For anyone who prefers something hearty in the morning:",
+        list: [
+          "Shakshuka with feta – 2–3 eggs poached in tomato sauce with a little feta; perfect for the weekend.",
+          "Salmon bagel with cream cheese – whole-grain bagel, smoked salmon, cream cheese, red onion; lots of protein, little effort.",
+          "Omelet with chicken and vegetables – 3 eggs with leftover cooked chicken and veggies; a great way to use up meal-prep leftovers.",
+        ],
+      },
+      {
+        heading: "Breakfast protein sources at a glance",
+        content:
+          "To help you build your own combinations, it's useful to have a feel for how much protein typical breakfast ingredients deliver. These are rough values per usual serving:",
+        list: [
+          "Low-fat quark (250 g): around 32 g",
+          "Skyr (250 g): around 28 g",
+          "Cottage cheese (200 g): around 25 g",
+          "Protein powder (1 scoop, 30 g): around 24 g",
+          "Eggs (each): around 6–7 g",
+          "Tofu (200 g): around 24 g",
+          "Smoked salmon (100 g): around 20 g",
+          "Rolled oats (50 g): around 6 g",
+          "Soy yogurt, protein-enriched (250 g): around 12–15 g",
+          "Nuts (20 g): around 4 g",
+        ],
+      },
+      {
+        content:
+          "The logic behind it: one concentrated main source (quark, skyr, eggs, tofu) delivers the bulk, while smaller building blocks (nuts, oats, seeds) round it out. That way you'll hit the 30 g mark almost every time with a single solid base ingredient.",
+      },
+      {
+        heading: "Meal-prep tip: get breakfast ready for the whole week",
+        content:
+          "The most common reason a high-protein breakfast falls apart in everyday life is simply a lack of time in the morning. The fix is the same as for any other meal: prep ahead. On one day, set up three to five jars of overnight oats with skyr, bake a tray of egg muffins, and portion out quark breakfast jars. With just a few minutes of effort you've covered several mornings where all you have to do is open the fridge. If you'd rather skip the planning altogether, you can use Culinse to filter recipes directly by protein content and dietary style and assemble your whole breakfast week from them – automatic shopping list included.",
+      },
+      {
+        heading: "Bottom line",
+        content:
+          "A high-protein breakfast is the simplest way to stay full longer, avoid the mid-morning slump, and spread your daily protein intake evenly. You don't need to cook anything complicated or spend time every morning: a concentrated protein source like quark, skyr, eggs, or tofu will almost always push you past 30 g, and with a little prep on the weekend the whole week is covered. Pick two or three of the 18 ideas that fit your routine and turn them into a habit.",
+      },
+      {
+        heading: "Frequently asked questions",
+        content: "The key questions about a high-protein breakfast:",
+        list: [
+          "How do I hit more than 30 g of protein in the morning? The easiest route is a concentrated main source: 250 g of low-fat quark or skyr already delivers around 28–32 g, and so do three eggs plus a little cheese. Smaller ingredients like nuts or oats top up the total.",
+          "Is a high-protein breakfast good for losing weight? It can help, because protein keeps you full for a long time and cuts down on mid-morning snacking. What ultimately matters for weight loss is your overall energy balance across the day, but a filling breakfast makes a calorie deficit much easier to stick to.",
+          "Can a high-protein breakfast be vegetarian or vegan? Yes. Quark, skyr, cottage cheese, and eggs cover the vegetarian version; for vegan, go with tofu, protein-enriched soy yogurt, legumes, and plant-based protein powder. Several of the ideas above are already meat-free.",
+          "Do I need protein powder for a high-protein breakfast? No. Protein powder is handy when you're in a rush, but it's not a must. With quark, skyr, eggs, tofu, or smoked salmon you'll easily reach your target amount without any powder.",
+          "How long does prepped breakfast keep? Overnight oats and quark jars keep in the fridge for about 3 to 4 days, and egg muffins for roughly 3 to 4 days as well. Let anything baked cool completely before sealing it.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "How do I hit more than 30 g of protein in the morning?",
+        answer:
+          "The easiest route is a concentrated main source: 250 g of low-fat quark or skyr already delivers around 28–32 g, and so do three eggs plus a little cheese. Smaller ingredients like nuts or oats top up the total.",
+      },
+      {
+        question: "Is a high-protein breakfast good for losing weight?",
+        answer:
+          "It can help, because protein keeps you full for a long time and cuts down on mid-morning snacking. What ultimately matters for weight loss is your overall energy balance across the day, but a filling breakfast makes a calorie deficit much easier to stick to.",
+      },
+      {
+        question: "Can a high-protein breakfast be vegetarian or vegan?",
+        answer:
+          "Yes. Quark, skyr, cottage cheese, and eggs cover the vegetarian version; for vegan, go with tofu, protein-enriched soy yogurt, legumes, and plant-based protein powder. Several of the ideas above are already meat-free.",
+      },
+      {
+        question: "Do I need protein powder for a high-protein breakfast?",
+        answer:
+          "No. Protein powder is handy when you're in a rush, but it's not a must. With quark, skyr, eggs, tofu, or smoked salmon you'll easily reach your target amount without any powder.",
+      },
+      {
+        question: "How long does prepped breakfast keep?",
+        answer:
+          "Overnight oats and quark jars keep in the fridge for about 3 to 4 days, and egg muffins for roughly 3 to 4 days as well. Let anything baked cool completely before sealing it.",
+      },
+    ],
+  },
+  {
+    slug: "summer-meal-prep",
+    title: "Summer Meal Prep: 15 Light Recipes Without Hours at the Stove",
+    description:
+      "Summer meal prep made easy: 15 light recipes with barely any cooking, the best heat-friendly ingredients, tips for chilling and transporting, and a weekly plan for hot days.",
+    publishedAt: "2026-07-12",
+    readingTime: "7 min read",
+    image: "https://culinse.com/blog/sommer-meal-prep.jpg",
+    category: "Meal Prep",
+    sections: [
+      {
+        content:
+          "In summer, hardly anyone feels like standing over a hot stove for hours when it's 90 degrees out – and heavy, warm dishes don't suit the weather anyway. Even so, you don't want to improvise every day or reach for a delivery app. That's exactly what summer meal prep is for: prep light, fresh dishes once that taste great cold, travel well, and won't wilt in the heat. Here you'll get 15 recipe ideas, the best heat-friendly ingredients, and a weekly plan built for summer.",
+      },
+      {
+        heading: "Meal prep in summer – what to watch out for in the heat",
+        content:
+          "Summer prep follows the same core principles as the rest of the year – prep once, think in components, store properly; you'll find the basics in our [beginner's guide to meal prep](/blog/meal-prep-for-beginners). In summer, though, two things get added. First, food spoils faster in the warmth: whatever you prep needs to get into the fridge quickly and should stay cold in transit. Second, you'll want lighter dishes – salads, bowls, cold noodles, plenty of fresh vegetables instead of heavy bakes. That saves time as a bonus, since much of it needs little or no cooking. The trick is to lean toward cold or no-cook components and to add delicate ingredients only just before eating.",
+      },
+      {
+        heading: "Foods that hold up well in the heat",
+        content:
+          "Some ingredients are far less fussy in summer than others. Good picks include sturdy raw veg like carrots, bell peppers, cucumber, and radishes, cooked legumes (chickpeas, lentils, beans), cooked grains like quinoa, bulgur, and couscous, and shelf-stable proteins like hard-boiled eggs, feta, and chicken – as long as it stays chilled throughout. Be careful with the delicate stuff: leafy salads turn soggy fast once dressed, mayo-based dishes are risky in the warmth, and fresh herbs wilt quickly. The fix is simple – store those components separately and combine them only when serving. That keeps the salad crisp and the dressing fresh.",
+      },
+      {
+        heading: "15 light summer meal-prep recipes",
+        content:
+          "Every idea is built around freshness and minimal cooking. Much of it can be prepped in jars or boxes and enjoyed cold. First, the salads in a jar:",
+        list: [
+          "Quinoa veggie salad – quinoa, cucumber, tomato, bell pepper, lemon dressing; keeps for several days.",
+          "Chickpea-feta salad – chickpeas, feta, red onion, parsley; filling and high in protein.",
+          "Lentil salad with tomato – cooked lentils, cherry tomatoes, chives, mustard dressing.",
+          "Light pasta salad – whole-grain pasta, lots of vegetables, pesto or a yogurt-herb dressing.",
+          "Bulgur tabbouleh – bulgur, plenty of parsley, tomato, mint, lemon; classic and refreshing.",
+        ],
+      },
+      {
+        heading: "Bowls & wraps",
+        list: [
+          "Summer bowl with couscous – couscous, roasted vegetables from the day before, hummus, pomegranate.",
+          "Cold chicken-and-rice bowl – cold cooked chicken, rice, edamame, lime dressing.",
+          "Falafel bowl – falafel, salad, cucumber, tahini sauce; keep the components separate.",
+          "Wrap with hummus and veggies – whole-grain wrap, hummus, carrot, bell pepper, spinach.",
+          "Mexican bean bowl – black beans, corn, avocado (add fresh), lime, cilantro.",
+        ],
+      },
+      {
+        heading: "No oven / no-cook",
+        list: [
+          "Caprese skewers to go – tomato, mozzarella, basil; a summer classic.",
+          "Overnight oats for hot mornings – oats, yogurt, berries; cool and filling.",
+          "Gazpacho – cold tomato soup, perfect to prep ahead and it keeps for days.",
+          "Cottage cheese bowl – cottage cheese with cucumber, tomato, radishes, and herbs.",
+          "Melon-feta salad – watermelon, feta, mint; refreshing and ready in minutes.",
+        ],
+      },
+      {
+        heading: "Chilling & transporting the right way",
+        content:
+          "In summer, the cold chain decides whether your prep stays good. Let everything cool completely before sealing it – sealing it warm creates condensation that makes the contents spoil faster. In the fridge, most salads and bowls last 3 to 4 days, and freshly cut fruit a bit less. For the road – to the office, a picnic, or the beach – pack your prepped food in a small cooler bag with an ice pack, especially if it'll sit out warm for more than an hour or two. Keep delicate components (dressing, avocado, leafy salad) separate until you eat and only add them then. That way you avoid soggy salads and have something that tastes freshly made when you unpack it.",
+      },
+      {
+        heading: "Weekly plan: light summer prep",
+        content:
+          "This plan runs on one short prep block and lots of reused components. Amounts are for one person – just scale up. Prep block (about 60 min): cook quinoa and couscous, roast a tray of vegetables, get chickpeas and lentils ready, cook chicken, whisk two dressings (lemon-olive oil, yogurt-herb), and set up overnight oats for the first few days.",
+        list: [
+          "Monday: quinoa veggie salad; overnight oats in the morning",
+          "Tuesday: chickpea-feta salad; gazpacho with bread in the evening",
+          "Wednesday: summer bowl with couscous and roasted vegetables",
+          "Thursday: cold chicken-and-rice bowl with edamame",
+          "Friday: leftovers bowl from whatever's left, plus melon-feta salad",
+          "Weekend: free for grilling or spontaneous meals",
+        ],
+      },
+      {
+        content:
+          "If you tend to grill a lot in summer, round it all out with matching sides – you'll find ideas in our post on [easy BBQ side dishes](/blog/easy-bbq-side-dishes). And if you're into light cooking, the [Mediterranean diet for beginners](/blog/mediterranean-diet-recipes-beginners) offers plenty more summer-friendly dishes.",
+      },
+      {
+        heading: "Bottom line",
+        content:
+          "Summer meal prep doesn't mean less enjoyment – it means lighter, fresher dishes with less cooking. Lean on heat-friendly ingredients, keep delicate components separate, and mind the cold chain when transporting and storing, and you'll have something fresh on hand even on the hottest days without sweating over the stove. Pick a few favorites from the 15 ideas and build your summer week around them. If you'd rather skip the planning, use Culinse to filter recipes by light summer dishes and dietary style and get the ingredients automatically as a shopping list.",
+      },
+      {
+        heading: "Frequently asked questions",
+        content: "The key questions about meal prep in summer:",
+        list: [
+          "Which dishes are best for meal prep in summer? Salads in a jar, bowls with cooked grains and legumes, cold pasta dishes, and no-cook ideas like gazpacho or cottage cheese bowls. They taste great cold, keep well, and need little cooking.",
+          "How long does prepped summer food keep in the fridge? Most salads and bowls last 3 to 4 days. Freshly cut fruit and delicate ingredients a bit less. The important thing is to cool everything completely before you seal it.",
+          "How do I transport meal prep safely in the heat? In a cooler bag with an ice pack, especially if the food sits out warm for a while. Add dressing, avocado, and leafy salad only just before eating so nothing turns soggy.",
+          "Can summer meal prep be done entirely without cooking? Yes. Gazpacho, caprese, cottage cheese bowls, melon-feta salad, and overnight oats need no stove at all. With store-bought components like ready-cooked legumes you can put together even more no-cook options.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Which dishes are best for meal prep in summer?",
+        answer:
+          "Salads in a jar, bowls with cooked grains and legumes, cold pasta dishes, and no-cook ideas like gazpacho or cottage cheese bowls. They taste great cold, keep well, and need little cooking.",
+      },
+      {
+        question: "How long does prepped summer food keep in the fridge?",
+        answer:
+          "Most salads and bowls last 3 to 4 days. Freshly cut fruit and delicate ingredients a bit less. The important thing is to cool everything completely before you seal it.",
+      },
+      {
+        question: "How do I transport meal prep safely in the heat?",
+        answer:
+          "In a cooler bag with an ice pack, especially if the food sits out warm for a while. Add dressing, avocado, and leafy salad only just before eating so nothing turns soggy.",
+      },
+      {
+        question: "Can summer meal prep be done entirely without cooking?",
+        answer:
+          "Yes. Gazpacho, caprese, cottage cheese bowls, melon-feta salad, and overnight oats need no stove at all. With store-bought components like ready-cooked legumes you can put together even more no-cook options.",
+      },
+    ],
+  },
+  {
+    slug: "easy-bbq-side-dishes",
+    title: "Easy BBQ Side Dishes: 25 Ideas in Under 20 Minutes",
+    description:
+      "Easy BBQ side dishes in under 20 minutes: 25 ideas for salads, dips, bread, and grilled vegetables, plus make-ahead sides and a per-person portion planner.",
+    publishedAt: "2026-07-12",
+    readingTime: "7 min read",
+    image: "https://culinse.com/blog/schnelle-grillbeilagen.jpg",
+    category: "Seasonal Cooking",
+    sections: [
+      {
+        content:
+          "The meat's on the grill, the guests are already there – and once again nobody thought about the sides. Yet they're exactly what makes a cookout great: without fresh salads, punchy dips, and crusty bread, even the best steak gets boring fast. The good news: most BBQ sides are ready in under 20 minutes or can be made the day before. Here come 25 quick ideas, a make-ahead tip, and a portion planner so there's enough for everyone in the end.",
+      },
+      {
+        heading: "What makes a good BBQ side?",
+        content:
+          "A well-chosen lineup of sides brings variety to the plate: something fresh to cut the richness off the grill, something creamy for dipping, and something filling like bread or potatoes. The rule of thumb for a well-rounded spread: one or two salads, one or two dips, a bread or potato component, and something off the grill. Balance between light and hearty matters too: serve only heavy, mayo-laden sides and you'll leave everyone full but sluggish. A mix of crisp salads and one or two warming components keeps the group going longer. And the best part: much of it can be done alongside the grilling or the day before, so you stay relaxed while you cook.",
+      },
+      {
+        heading: "25 easy BBQ side dishes",
+        content:
+          "The ideas are sorted by category so you can pick something from each group. Let's start with the salads:",
+        list: [
+          "Coleslaw – finely shredded white cabbage with carrot and a yogurt-mustard dressing.",
+          "Tomato-mozzarella salad – tomato, mozzarella, basil, olive oil; ready in five minutes.",
+          "Cucumber salad – cucumber, a little dill, yogurt or oil-and-vinegar; refreshingly light.",
+          "Couscous salad – couscous with bell pepper, tomato, mint, and lemon.",
+          "Bean salad – kidney and white beans, red onion, parsley, oil-and-vinegar.",
+          "Quick potato salad – ready-cooked potatoes with broth, mustard, and onion.",
+          "Tabbouleh – bulgur, plenty of parsley, tomato, lemon.",
+          "Arugula with parmesan – arugula, parmesan shavings, balsamic; minimalist and fast.",
+        ],
+      },
+      {
+        heading: "Dips & sauces",
+        list: [
+          "Herb quark – low-fat quark with chives, parsley, and a little garlic.",
+          "Tzatziki – yogurt, grated cucumber, garlic, dill.",
+          "Guacamole – avocado, lime, onion, tomato.",
+          "Hummus – chickpeas, tahini, lemon, garlic; even store-bought is quick to jazz up.",
+          "Aioli / garlic sauce – creamy, for bread and vegetables.",
+          "Tomato salsa – tomato, onion, chili, cilantro.",
+        ],
+      },
+      {
+        heading: "Bread & sides",
+        list: [
+          "Grilled garlic bread – baguette with garlic butter, briefly on the grill.",
+          "Herb butter – butter with fresh herbs, quick to make yourself.",
+          "Flatbread – warm off the grill, perfect with dips.",
+          "Oven wedges – potato wedges with paprika (done in the oven alongside).",
+          "Corn on the cob – briefly boiled or grilled directly, with butter and salt.",
+        ],
+      },
+      {
+        heading: "Off the grill & vegetarian",
+        list: [
+          "Grilled vegetables – zucchini, bell pepper, eggplant with olive oil and salt.",
+          "Grilled halloumi – in slices, a few minutes per side.",
+          "Veggie skewers – bell pepper, onion, and mushroom, alternated.",
+          "Grilled mushrooms – with garlic and parsley.",
+          "Foil potatoes – in aluminum foil on the grill, served with herb quark.",
+          "Grilled green asparagus – with olive oil and lemon, done in minutes.",
+        ],
+      },
+      {
+        heading: "Sides to make ahead (the day before)",
+        content:
+          "The most relaxed cookout is the one where half of it is already done before the first guest arrives. Many sides actually taste better prepped ahead, because they have time to soak up flavor. Grain- or legume-based salads – couscous salad, bean salad, tabbouleh – are easy to make the day before; they keep in the fridge for 2 to 3 days and gain in flavor. Dips like tzatziki, herb quark, and hummus also prep well. Leafy salads and anything with avocado, on the other hand, are best made just before serving so nothing wilts or browns. A practical approach: make the keeping components the day before, and on grill day just plate the fresh salads and warm the bread – in the spirit of our [meal-prep guide](/blog/meal-prep-for-beginners).",
+      },
+      {
+        heading: "Portion planner: how much side dish per person?",
+        content:
+          "So you don't end up with too much left over or too little on the table, here's a rough guide per person: about 150 to 200 g of salad, roughly 50 to 80 g of dip, one or two slices of bread, and one or two pieces of grilled vegetables. With several salads to choose from you can trim the amount per salad a little, since guests spread out across them. For bigger groups, plan one extra side rather than one too few – leftovers are easy to use up the next day, but an empty table is hard to save. You can build a combined shopping list for all your sides automatically with Culinse by selecting the recipes you want and letting the amounts add up.",
+      },
+      {
+        heading: "Bottom line",
+        content:
+          "Good BBQ sides don't have to be elaborate or time-consuming. With a mix of a fresh salad, a creamy dip, some bread, and vegetables off the grill, you'll have a well-rounded spread in under 20 minutes – and if you make the keeping components the day before, you'll stay completely relaxed on grill day itself. Pick a favorite from each of the 25 ideas for each category and you're set for your next cookout. For more light summer dishes to fill the days between grill nights, check out our [vegetarian dinner ideas](/blog/vegetarian-dinner-ideas).",
+      },
+      {
+        heading: "Frequently asked questions",
+        content: "The key questions about easy BBQ side dishes:",
+        list: [
+          "Which BBQ sides are especially quick? Tomato-mozzarella, cucumber salad, arugula with parmesan, herb quark, and grilled garlic bread are ready in under 10 minutes. With store-bought components like hummus it's faster still.",
+          "Which sides can I prep the day before? Grain- or legume-based salads (couscous, beans, tabbouleh) and dips like tzatziki, hummus, and herb quark. They keep for 2 to 3 days and often gain in flavor. Make leafy salads and avocado only just before serving.",
+          "How much side dish do I need per person? As a guideline, about 150–200 g of salad, 50–80 g of dip, one or two slices of bread, and one or two pieces of grilled vegetables per person. With several salads you can plan a little less of each.",
+          "What vegetarian BBQ sides are there? Grilled vegetables, grilled halloumi, veggie skewers, foil potatoes, and grilled green asparagus are all vegetarian and filling – many of them can even serve as the main component for vegetarians.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Which BBQ sides are especially quick?",
+        answer:
+          "Tomato-mozzarella, cucumber salad, arugula with parmesan, herb quark, and grilled garlic bread are ready in under 10 minutes. With store-bought components like hummus it's faster still.",
+      },
+      {
+        question: "Which sides can I prep the day before?",
+        answer:
+          "Grain- or legume-based salads (couscous, beans, tabbouleh) and dips like tzatziki, hummus, and herb quark. They keep for 2 to 3 days and often gain in flavor. Make leafy salads and avocado only just before serving.",
+      },
+      {
+        question: "How much side dish do I need per person?",
+        answer:
+          "As a guideline, about 150–200 g of salad, 50–80 g of dip, one or two slices of bread, and one or two pieces of grilled vegetables per person. With several salads you can plan a little less of each.",
+      },
+      {
+        question: "What vegetarian BBQ sides are there?",
+        answer:
+          "Grilled vegetables, grilled halloumi, veggie skewers, foil potatoes, and grilled green asparagus are all vegetarian and filling – many of them can even serve as the main component for vegetarians.",
+      },
+    ],
+  },
+{
+    slug: "easy-student-recipes",
+    title: "Easy Student Recipes: Cheap, Fast, and Almost No Equipment Needed",
+    description:
+      "Easy student recipes that are cheap, fast, and need barely any equipment. 20 ideas for one-pot meals, no-oven cooking, and semester meal prep, plus a pantry list and a €30 weekly shop.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 min read",
+    image: "https://culinse.com/blog/rezepte-fuer-studenten.jpg",
+    category: "Budget Cooking",
+    sections: [
+      {
+        content:
+          "Not much time, not much money, a tiny kitchen with two burners and maybe no oven at all — cooking as a student comes with its own set of rules. That doesn't mean it has to be expensive or boring, and you definitely don't have to live on frozen pizza and pasta with ketchup. This guide gives you 20 easy recipes that are cheap, quick, and need hardly any equipment, plus an affordable pantry list and a weekly shop for around €30.",
+      },
+      {
+        heading: "Cooking as a Student: Little Time, Little Money, Tiny Kitchen",
+        content:
+          "The biggest hurdles to cooking during your studies are almost always the same: a tight budget, little time between lectures and a part-time job, and a kitchen that often amounts to a couple of burners, one pot, and one pan. The answer isn't complicated recipes — it's simple dishes built from a handful of cheap ingredients that mix and match in dozens of ways. Two principles help most. First, think in terms of staples that keep for a long time and show up in lots of meals — rice, pasta, lentils, eggs, canned tomatoes. Second, cook once instead of starting from scratch every day. Make a bigger batch on Sunday and you'll have several meals ready to go during the week — our [beginner's guide to meal prep](/en/blog/meal-prep-for-beginners) walks you through exactly how that works.",
+      },
+      {
+        heading: "Cheap Basics and a Pantry List",
+        content:
+          "You don't need a fully kitted-out kitchen. With one pot, one pan, a sharp knife, a cutting board, and a few storage containers, you can get surprisingly far — and if there's no oven, a pan covers almost everything. For the pantry, it's worth stocking shelf-stable staples that form the base for dozens of dishes: rice, pasta, oats, lentils, and dried or canned beans, canned tomatoes, onions, garlic, oil, salt, and a few basic spices (paprika, curry powder, pepper). Add eggs, frozen vegetables (cheap and no waste), and a bit of cheese for variety. With this foundation you can cook for a whole week without constantly running back to the store — and you'll spend almost nothing on things that just gather dust in the cupboard.",
+      },
+      {
+        heading: "20 Student Recipes",
+        content:
+          "Sorted by situation — whether you've only got one burner free, no oven, or you want to batch-cook for the semester. First up, one-pot meals and single-burner cooking:",
+        list: [
+          "One-pot pasta — pasta, canned tomatoes, garlic, and spices all cooked in a single pot.",
+          "Lentil dal — red lentils, canned tomatoes, curry powder; filling and cheap.",
+          "Rice and veg stir-fry with egg — rice, frozen vegetables, and an egg stirred through.",
+          "Chili sin carne — beans, corn, tomatoes, spices; makes several portions.",
+          "Vegetable soup — whatever veg you have, with stock and lentils to fill you up.",
+          "Pasta aglio e olio — pasta, garlic, oil, chili; minimalist and delicious.",
+        ],
+      },
+      {
+        heading: "No Oven Needed",
+        list: [
+          "Scrambled eggs with veg — eggs with leftover peppers, onion, or spinach.",
+          "Pancakes, savory or sweet — flour, egg, milk; versatile and cheap.",
+          "Bean and cheese wraps — quickly toasted in the pan.",
+          "Fried rice — day-old rice, egg, frozen vegetables, soy sauce.",
+          "Potato hash — boiled potatoes fried up with onion and egg.",
+          "Couscous salad — couscous made with just hot water, plus veg and lemon.",
+        ],
+      },
+      {
+        heading: "Semester Meal Prep",
+        list: [
+          "Lentil bolognese — cook a big batch and freeze in portions.",
+          "Chili in bulk — freezes beautifully and keeps for weeks in the freezer.",
+          "Curries (lentil or chickpea) — easy to make ahead and reheat.",
+          "Overnight oats — prep breakfast for several days in a jar.",
+          "Rice and veg bowls — cook the components ahead and recombine them daily.",
+        ],
+      },
+      {
+        heading: "Under €2",
+        list: [
+          "Lentil soup — lentils, carrot, onion, stock; a few cents per portion.",
+          "Pasta with tomato sauce — made from scratch with canned tomatoes and garlic.",
+          "Porridge with banana — oats, milk or water, one banana.",
+        ],
+      },
+      {
+        heading: "A Smart Weekly Shop for Around €30",
+        content:
+          "Here's what a budget shop looks like that carries you through a week, because the ingredients spread across several dishes. Shop once, deliberately, with a list: rice, pasta, oats, a pack of red lentils, a few cans of beans and tomatoes, a carton of eggs, frozen vegetables, potatoes, onions, garlic, carrots, a banana or two, and some cheese or yogurt. The trick is overlap: the lentils go into dal and bolognese, the beans into chili, wraps, and soup, the eggs into scrambles, fried rice, and pancakes, and the rice is the base for several pans. That way every ingredient earns its keep across multiple dishes and nothing sits around unused. Culinse builds a combined shopping list for your chosen recipes automatically — with quantities added up — so you never buy the same thing twice. If you want to cook even cheaper, you'll find more ideas in our collection of [meals under €5](/en/blog/budget-meals-under-5-euros).",
+      },
+      {
+        heading: "The Takeaway",
+        content:
+          "Eating well as a student is a question of system, not budget: a few cheap staples, simple dishes that need little equipment, and cooking once instead of improvising every day. With a weekly shop for around €30 and ingredients that spread across several meals, you can get through the week cheaply, quickly, and with plenty of variety. Pick a few favorites from the 20 recipes that suit your kitchen setup and make them your go-to routine. And when you need something fresh in a hurry after class, you'll find more inspiration in our [quick dinner ideas under 30 minutes](/en/blog/easy-dinner-ideas-for-busy-weeknights).",
+      },
+      {
+        heading: "Frequently Asked Questions",
+        content: "The key questions about cooking as a student:",
+        list: [
+          "Which recipes work best for students? Dishes with few, cheap ingredients and little effort: one-pot pasta, lentil dal, chili, fried rice, and couscous salad. They're cheap, fast, and need barely any equipment.",
+          "How do I cook without an oven? A pan covers almost everything: scrambled eggs, fried rice, pancakes, wraps, and potato hash all come together on the stovetop. Couscous just needs hot water.",
+          "How much does cheap cooking cost per week? With a smart shop and ingredients that spread across several dishes, you can get through the week for around €30. The biggest savings come from overlapping ingredients and wasting less.",
+          "How do I save time cooking as a student? Batch cooking is the key: make a big pot of chili, bolognese, or curry once and freeze it in portions. During the week you just reheat instead of starting over every day.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "Which recipes work best for students?",
+        answer:
+          "Dishes with few, cheap ingredients and little effort: one-pot pasta, lentil dal, chili, fried rice, and couscous salad. They're cheap, fast, and need barely any equipment.",
+      },
+      {
+        question: "How do I cook without an oven?",
+        answer:
+          "A pan covers almost everything: scrambled eggs, fried rice, pancakes, wraps, and potato hash all come together on the stovetop. Couscous just needs hot water.",
+      },
+      {
+        question: "How much does cheap cooking cost per week?",
+        answer:
+          "With a smart shop and ingredients that spread across several dishes, you can get through the week for around €30. The biggest savings come from overlapping ingredients and wasting less.",
+      },
+      {
+        question: "How do I save time cooking as a student?",
+        answer:
+          "Batch cooking is the key: make a big pot of chili, bolognese, or curry once and freeze it in portions. During the week you just reheat instead of starting over every day.",
+      },
+    ],
+  },
+  {
+    slug: "what-to-cook-on-the-weekend",
+    title: "What Should I Cook This Weekend? 20 Relaxed Ideas for Any Occasion",
+    description:
+      "What should you cook this weekend? 20 relaxed ideas by mood — from a cozy brunch to dishes for guests to comfort food. Plus a leftovers tip and how to keep it balanced.",
+    publishedAt: "2026-07-12",
+    readingTime: "7 min read",
+    image: "https://culinse.com/blog/was-koche-ich-am-wochenende.jpg",
+    category: "Meal Planning",
+    sections: [
+      {
+        content:
+          "During the week, the main thing is speed. Weekends are different: you have time, maybe guests, and the urge to treat yourself to something that would be too much effort on a busy weeknight. That's exactly why the Saturday \"what should I cook?\" question feels completely different from the Tuesday-night version. Here are 20 relaxed ideas, sorted by mood — from a cozy brunch to meals for the whole family to comfort food and something special without the stress.",
+      },
+      {
+        heading: "Weekend = Time to Enjoy: Different Rules Than Weekdays",
+        content:
+          "Weekend cooking is allowed to be slower, more social, and a little more involved. Where weekdays are about speed, weekends put enjoyment front and center: a dish that simmers away while you do something else, a shared meal with friends, or simply the favorite comfort food you've been looking forward to all week. That doesn't mean it has to be complicated. Plenty of relaxed weekend dishes involve very little active work — a braise or a soup mostly cooks itself. The difference is more about mindset: instead of \"get it done fast,\" it's about taking your time. For those spur-of-the-moment weekday decisions, by the way, our piece on [what to cook tonight](/en/blog/what-should-i-cook-tonight) has you covered.",
+      },
+      {
+        heading: "20 Weekend Ideas by Mood",
+        content:
+          "Pick the category that matches your weekend. For a cozy brunch:",
+        list: [
+          "Shakshuka — eggs in a spiced tomato sauce, with bread for dipping.",
+          "Pancakes or waffles — sweet with berries or with savory toppings.",
+          "Avocado toast with a poached egg — quick, but café-worthy.",
+          "French toast — made from stale bread, with cinnamon and fruit.",
+          "Breakfast bowl — yogurt, granola, fruit, nuts; relaxed and fresh.",
+        ],
+      },
+      {
+        heading: "For Guests / Family",
+        list: [
+          "One-pot pasta for a crowd — fuss-free and easy to scale up for a group.",
+          "Homemade pizza — everyone tops their own; fun to make together.",
+          "Build-your-own tacos — put the components on the table and let everyone dig in.",
+          "A big bake or casserole — one trip to the oven and everyone's full.",
+          "Curry for several — one pot, many plates, and easy to prep ahead.",
+        ],
+      },
+      {
+        heading: "Comfort Food",
+        list: [
+          "Lasagna — the classic for a cozy weekend.",
+          "Creamy risotto — it needs your attention, but it rewards you for it.",
+          "Homemade burgers — with a side salad and oven fries.",
+          "Mac and cheese — creamy, savory, pure feel-good food.",
+          "A braise (goulash or similar) — simmers away on its own for hours.",
+        ],
+      },
+      {
+        heading: "Something Special, No Stress",
+        list: [
+          "Baked salmon and vegetables — elegant, but barely any effort.",
+          "Mushroom risotto — tastes special and needs few ingredients.",
+          "Homemade gnocchi or pasta — a relaxed weekend kitchen project.",
+          "A bowl with marinated tofu or chicken — fresh, colorful, and impressive-looking.",
+          "A Mediterranean spread — a variety of small dishes to share, in the style of Mediterranean cooking.",
+        ],
+      },
+      {
+        heading: "Turn Leftovers Cleverly Into the New Week",
+        content:
+          "One nice side effect of weekend cooking: if you're making a big batch anyway, you've already got a head start on the new week. A pot of curry, chili, or braise from Saturday becomes Monday's lunch — just portion it out and chill or freeze it. That's how you bridge the gap between an indulgent weekend and a relaxed start to the week. It slots right into the meal-prep mindset: instead of cooking ahead specially on Sunday, you use what you're making anyway and set a few portions aside. Our [beginner's guide to meal prep](/en/blog/meal-prep-for-beginners) shows you how to turn that into a system; and if you want to keep the whole week in view, the [weekly meal plan with shopping list](/en/blog/weekly-meal-plan-with-shopping-list) will help.",
+      },
+      {
+        heading: "Weekend Indulgence, Still Balanced",
+        content:
+          "Enjoying yourself and eating a balanced diet aren't mutually exclusive. If you like to cook something hearty at the weekend, it's easy to balance out: a big salad or plenty of veg on the side, a protein source at the center, and comfort food eaten mindfully rather than absentmindedly. Even at brunch, yogurt, fruit, and eggs pack in plenty of protein without it feeling like a sacrifice. The most relaxed approach: don't treat the weekend as a state of emergency where all the rules go out the window, but as the days when you take a little more time to cook and enjoy. A bit more veg here, a mindful portion there — that's enough to bring enjoyment and balance together.",
+      },
+      {
+        heading: "The Takeaway",
+        content:
+          "The question \"what should I cook this weekend?\" deserves a different answer than the weekday rush. Take your time, cook by mood — whether a cozy brunch, a meal for guests, comfort food, or something special without the stress — and put the bigger batch to work for a relaxed start to the new week. Pick the right category from the 20 ideas and turn weekend cooking into a little highlight instead of one more decision. And when the inspiration just isn't there, Culinse's recipe discovery helps: filter by occasion, time, and mood, and get matching suggestions — complete with an automatic shopping list.",
+      },
+      {
+        heading: "Frequently Asked Questions",
+        content: "The key questions about weekend cooking:",
+        list: [
+          "What's something nice to cook at the weekend? It depends on the mood: a cozy brunch with shakshuka or pancakes, something for guests like homemade pizza or tacos, comfort food like lasagna or risotto, or something special like baked salmon.",
+          "What should I cook for weekend guests without the stress? Build-your-own dishes (tacos, pizza) or a big pot or casserole are ideal, because they scale well and involve little last-minute work. Much of it you can prep ahead and just finish off.",
+          "How do I make good use of weekend leftovers? Cook a little extra and set portions aside for the new week. Curry, chili, and braises portion, chill, and freeze well — so Monday's meal is already sorted.",
+          "Can weekend indulgence still be balanced? Yes. A big salad or plenty of veg on the side, a protein source at the center, and comfort food eaten mindfully rather than absentmindedly — that keeps it enjoyable and balanced all the same.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What's something nice to cook at the weekend?",
+        answer:
+          "It depends on the mood: a cozy brunch with shakshuka or pancakes, something for guests like homemade pizza or tacos, comfort food like lasagna or risotto, or something special like baked salmon.",
+      },
+      {
+        question: "What should I cook for weekend guests without the stress?",
+        answer:
+          "Build-your-own dishes (tacos, pizza) or a big pot or casserole are ideal, because they scale well and involve little last-minute work. Much of it you can prep ahead and just finish off.",
+      },
+      {
+        question: "How do I make good use of weekend leftovers?",
+        answer:
+          "Cook a little extra and set portions aside for the new week. Curry, chili, and braises portion, chill, and freeze well — so Monday's meal is already sorted.",
+      },
+      {
+        question: "Can weekend indulgence still be balanced?",
+        answer:
+          "Yes. A big salad or plenty of veg on the side, a protein source at the center, and comfort food eaten mindfully rather than absentmindedly — that keeps it enjoyable and balanced all the same.",
+      },
+    ],
+  },
+  {
+    slug: "how-to-stock-a-pantry",
+    title: "How to Stock a Pantry: Lists, Storage, and Shopping Smart",
+    description:
+      "How to stock a pantry the easy way: the essential staples list for pantry, fridge, and freezer, proper storage by food group, the FIFO principle, and a practical checklist.",
+    publishedAt: "2026-07-12",
+    readingTime: "8 min read",
+    image: "https://culinse.com/blog/vorratshaltung-speisekammer.jpg",
+    category: "Meal Planning",
+    sections: [
+      {
+        content:
+          "A well-stocked pantry is the invisible foundation of a relaxed kitchen. Keep the right staples in the house and you can cook any time without an extra trip to the store, save money, and throw away far less. Even so, stocking a pantry often feels complicated — when really all you need is a good list, a few storage rules, and a simple system. That's exactly what you'll get here: the essential staples list for pantry, fridge, and freezer, the right way to store food by group, the FIFO principle, and a checklist to take with you.",
+      },
+      {
+        heading: "Why a Well-Thought-Out Pantry Pays Off",
+        content:
+          "The payoff is threefold: money, time, and less waste. Keep staples on hand and you can buy bigger — and therefore cheaper — packs, and rarely have to make a spur-of-the-moment, pricey top-up shop. At the same time you save time, because you don't have to head out for every dish — the base is already there. And you throw away less, because a clear overview stops things from being forgotten in the back corner of the cupboard and going off. On top of that comes convenience: on a day when there's nothing fresh in the house, a good pantry still lets you conjure up a proper meal — pasta with tomato sauce, a lentil curry, a quick soup. That makes a stocked pantry the foundation of any weekly plan; to turn it into concrete meals, see our [weekly meal plan with shopping list](/en/blog/weekly-meal-plan-with-shopping-list).",
+      },
+      {
+        heading: "The Essential Staples List",
+        content:
+          "A good stock spreads across three areas — you don't have to buy it all at once, so build the list up gradually. Pantry (dry and shelf-stable): rice, pasta, oats, lentils and dried or canned beans, canned tomatoes, flour, oil, vinegar, salt, sugar, and a base set of spices (pepper, paprika, curry, herbs), plus canned goods like chickpeas, corn, and passata as a quick base. Fridge: eggs, some cheese, yogurt or quark, butter, a few long-keeping vegetables like carrots and onions, plus mustard and other basic condiments — these keep comparatively long and show up in lots of dishes. Freezer: frozen vegetables (cheap, nutritious, and no waste), berries, some bread in reserve, and your own pre-cooked portions like soup, chili, or bolognese — the freezer is your insurance against \"nothing in the house.\" With this foundation you can cook almost any time; you buy fresh ingredients deliberately on top, instead of starting from zero every time.",
+      },
+      {
+        heading: "Store It Right: Shelf Life by Food Group",
+        content:
+          "How long something keeps depends heavily on storing it correctly. Dry goods like rice, pasta, and legumes keep for many months to years when stored cool, dry, and airtight. Flour and oats also last a long time, but should be protected from moisture and pests — ideally in sealable containers. Oils belong somewhere dark and not too warm. In the fridge, eggs keep for several weeks, hard cheese longer than soft cheese, and yogurt and quark until the printed date and often a little beyond if they're intact. Cooked leftovers generally keep for 3 to 4 days. Delicate vegetables (leafy salads, herbs) get used up fastest, while sturdy ones (carrots, cabbage) keep for weeks. In the freezer, much stays in good quality for 2 to 3 months — label containers with contents and date so nothing turns into a mystery. This storage logic is the same one that applies when prepping meals; more on that in the [beginner's guide to meal prep](/en/blog/meal-prep-for-beginners).",
+      },
+      {
+        heading: "First In, First Out — Order That Sticks",
+        content:
+          "The most effective principle against food waste is also the simplest: First In, First Out (FIFO). It means moving older stock to the front and putting newly bought items at the back. That way you automatically reach first for whatever would expire soonest, and nothing rots unnoticed in the back corner. In practice: when you put the shopping away, place the new packs behind the old ones, keep older items at eye level in the fridge, and check the freezer regularly. Combined with a rough overview of what you actually have in the house, this stops duplicate purchases and spoiled leftovers. Once established, a FIFO system runs almost on its own and saves you noticeable money over the year.",
+      },
+      {
+        heading: "From Pantry to Weekly Plan: Cook Without Shopping in 3 Steps",
+        content:
+          "A pantry only shows its value once you use it. Here's how to turn what you have into finished meals in three steps:",
+        list: [
+          "Step 1 — Take stock: See what base you've got — a carbohydrate (rice, pasta), a protein (lentils, beans, eggs), and a flavor base (canned tomatoes, spices, sauce). Almost always, that alone points to a dish.",
+          "Step 2 — Fill the gaps deliberately: Note down only what's genuinely missing — some fresh veg, maybe a herb. That keeps the shop small and cheap.",
+          "Step 3 — Combine and cook: Pantry plus a little fresh produce turns into dishes like lentil curry, tomato pasta, or vegetable soup.",
+        ],
+      },
+      {
+        content:
+          "This is exactly where Culinse's recipe discovery helps: filter by the ingredients you have in your pantry and get matching recipes suggested — missing ingredients land automatically in a combined shopping list. And if you're watching the budget, you'll find more ideas in our collection of [meals under €5](/en/blog/budget-meals-under-5-euros).",
+      },
+      {
+        heading: "Your Pantry Checklist",
+        content:
+          "So you can get started right away, this checklist sums up the basics — pin it to the pantry door or take it with you to the store:",
+        list: [
+          "Pantry: rice, pasta, oats, lentils, beans (canned/dried), canned tomatoes, flour, oil, vinegar, salt, spices, chickpeas, corn",
+          "Fridge: eggs, cheese, yogurt/quark, butter, carrots, onions, mustard",
+          "Freezer: frozen veg, berries, bread in reserve, pre-cooked portions (soup, chili, bolognese)",
+        ],
+      },
+      {
+        content:
+          "Copy the list into your notes app and add whatever you use often. For a digital, automatically totaled shopping list based on your recipes, build one with Culinse on top.",
+      },
+      {
+        heading: "The Takeaway",
+        content:
+          "Stocking a pantry is no black art — it's a simple system in three parts: a good base list for pantry, fridge, and freezer, the right storage by food group, and the FIFO principle that prevents waste. With that, you can cook almost any time, save money, and throw away less. Build up your stock gradually with the list above, and make taking stock as you put the shopping away a routine — the rest runs on its own.",
+      },
+      {
+        heading: "Frequently Asked Questions",
+        content: "The key questions about stocking a pantry:",
+        list: [
+          "What belongs on a good pantry list? In the pantry: rice, pasta, oats, legumes, canned tomatoes, flour, oil, and spices; in the fridge: eggs, cheese, yogurt, butter, and long-keeping vegetables; in the freezer: frozen veg, berries, bread, and pre-cooked portions.",
+          "How do I store staples correctly? Dry goods cool, dry, and airtight; oils dark; fridge items sorted by shelf life; freezer items labeled with contents and date. That keeps everything fresh longer and nothing gets forgotten.",
+          "What does the FIFO principle mean? First In, First Out means: older items to the front, new ones to the back. You use up what expires first, and stop food from spoiling unnoticed.",
+          "How do I avoid food waste? With an overview of your stock, the FIFO principle, proper storage, and freezing leftovers and surpluses. Flexible base recipes like soup or stir-fries help use up leftovers.",
+          "How do I cook from the pantry alone, without shopping? Take stock of your base — a carbohydrate, a protein, and a flavor base — and almost always a dish emerges, like lentil curry, tomato pasta, or soup. You only buy what's genuinely missing, deliberately.",
+        ],
+      },
+    ],
+    faq: [
+      {
+        question: "What belongs on a good pantry list?",
+        answer:
+          "In the pantry: rice, pasta, oats, legumes, canned tomatoes, flour, oil, and spices; in the fridge: eggs, cheese, yogurt, butter, and long-keeping vegetables; in the freezer: frozen veg, berries, bread, and pre-cooked portions.",
+      },
+      {
+        question: "How do I store staples correctly?",
+        answer:
+          "Dry goods cool, dry, and airtight; oils dark; fridge items sorted by shelf life; freezer items labeled with contents and date. That keeps everything fresh longer and nothing gets forgotten.",
+      },
+      {
+        question: "What does the FIFO principle mean?",
+        answer:
+          "First In, First Out means: older items to the front, new ones to the back. You use up what expires first, and stop food from spoiling unnoticed.",
+      },
+      {
+        question: "How do I avoid food waste?",
+        answer:
+          "With an overview of your stock, the FIFO principle, proper storage, and freezing leftovers and surpluses. Flexible base recipes like soup or stir-fries help use up leftovers.",
+      },
+      {
+        question: "How do I cook from the pantry alone, without shopping?",
+        answer:
+          "Take stock of your base — a carbohydrate, a protein, and a flavor base — and almost always a dish emerges, like lentil curry, tomato pasta, or soup. You only buy what's genuinely missing, deliberately.",
+      },
+    ],
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {

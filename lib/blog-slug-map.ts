@@ -23,6 +23,17 @@ export const EN_TO_DE_BLOG_SLUGS: Record<string, string> = {
   "weekly-grocery-list-from-meal-plan": "einkaufsliste-fuer-die-woche-erstellen",
   "meal-planning-on-a-budget": "guenstig-einkaufen-mit-wochenplan",
   "family-meal-planning": "familien-essensplan-wochenplanung",
+  "meal-prep-for-weight-loss": "meal-prep-zum-abnehmen",
+  "high-protein-vegetarian-meals": "proteinreiche-vegetarische-gerichte",
+  "easy-summer-dinner-ideas": "einfache-sommer-abendessen-ideen",
+  "cheap-healthy-meals": "guenstige-gesunde-mahlzeiten",
+  "5-ingredient-dinners": "5-zutaten-abendessen",
+  "high-protein-breakfast": "proteinreiches-fruehstueck",
+  "summer-meal-prep": "sommer-meal-prep",
+  "easy-bbq-side-dishes": "schnelle-grillbeilagen",
+  "easy-student-recipes": "rezepte-fuer-studenten",
+  "what-to-cook-on-the-weekend": "was-koche-ich-am-wochenende",
+  "how-to-stock-a-pantry": "vorratshaltung-speisekammer",
 };
 
 // Reverse lookup (DE slug → EN slug), derived automatically so it can never
