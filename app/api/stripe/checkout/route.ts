@@ -64,6 +64,9 @@ export async function POST(req: NextRequest) {
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pro`,
     allow_promotion_codes: true,
     subscription_data: {
+      // 7-day free trial: card is collected now, first charge after the trial.
+      // The webhook already treats status "trialing" as Pro (see webhook/route.ts).
+      trial_period_days: 7,
       metadata: { supabase_user_id: user.id },
     },
   });

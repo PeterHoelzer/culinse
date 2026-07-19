@@ -15,7 +15,7 @@ import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
 import { AffiliateBox } from "@/components/AffiliateBox";
-import { getIngredientAffiliateUrl } from "@/lib/affiliateProducts";
+import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 
 interface Ingredient {
   id: number;
@@ -694,7 +694,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
                         const url = getIngredientAffiliateUrl(ing.name);
                         return url ? (
                           <a
-                            href={url}
+                            href={trackedUrl(url, "recipe_ingredient", recipe.id)}
                             target="_blank"
                             rel="noopener noreferrer sponsored"
                             title={`Buy ${ing.name} on Amazon`}
@@ -715,6 +715,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
                 ingredientNames={recipe.ingredients.map(i => i.name)}
                 recipeTitle={recipe.title}
                 toolsOnly
+                recipeId={recipe.id}
               />
               </div>
               </div>

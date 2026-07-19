@@ -7,6 +7,7 @@ import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
 import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
 import { renderRichText } from "@/lib/renderRichText";
+import BlogAffiliateBox from "@/components/BlogAffiliateBox";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -295,6 +296,14 @@ export default async function BlogPostPage({ params }: Props) {
           ))}
         </article>
 
+        {/* Affiliate: kontextuelle Produkt-Empfehlungen (source: "blog" in /api/out) */}
+        <BlogAffiliateBox
+          title={post.title}
+          category={post.category}
+          headings={post.sections.map((s) => s.heading ?? "").filter(Boolean)}
+          locale={locale}
+        />
+
         {/* Author (E-E-A-T) */}
         <AuthorBox locale={locale} />
 
@@ -348,6 +357,19 @@ export default async function BlogPostPage({ params }: Props) {
                 {locale === "de"
                   ? "Kuratierte Rezeptsammlungen zum Entdecken."
                   : "Curated recipe collections to explore."}
+              </p>
+            </Link>
+            <Link
+              href={`/${locale}/pro`}
+              className="block bg-white rounded-xl border border-orange-200 p-4 hover:border-orange-300 hover:bg-orange-50/40 transition-colors group sm:col-span-2"
+            >
+              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+                {locale === "de" ? "Culinse Pro — 7 Tage gratis testen" : "Culinse Pro — try 7 days free"}
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {locale === "de"
+                  ? "Unbegrenzte Sammlungen, mehrere Wochenpläne und unbegrenzt gespeicherte Rezepte."
+                  : "Unlimited collections, multiple meal plans, and unlimited saved recipes."}
               </p>
             </Link>
           </div>

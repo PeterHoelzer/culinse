@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         template: "%s | Culinse",
       },
       description:
-        "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos und ohne Abo.",
+        "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos nutzbar und ohne Abo-Zwang.",
       keywords: [
         "Rezepte", "Rezepte entdecken", "personalisierte Rezepte", "Kochen", "Essen",
         "Rezeptsuche", "gesunde Rezepte", "schnelle Rezepte", "Wochenplan", "Einkaufsliste",
@@ -65,7 +65,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       template: "%s | Culinse",
     },
     description:
-      "Culinse aggregates millions of recipes from the web's best food sites — filtered to your diet and allergies. Free, no subscription.",
+      "Culinse aggregates millions of recipes from the web's best food sites — filtered to your diet and allergies. Free to use, no subscription required.",
     keywords: [
       "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
       "recipe search", "healthy recipes", "easy recipes", "meal planner", "shopping list",

@@ -19,7 +19,7 @@
     "badge": "Entwickelt von einem Fleischermeister & Küchenchef",
     "headline1": "Ein Ort für jedes",
     "headline2": "Rezept, das du liebst.",
-    "subline": "Culinse bündelt Rezepte aus den besten Quellen — gefiltert nach deiner Ernährung und Allergien, ohne Werbung und ohne Bezahlschranken.",
+    "subline": "Culinse bündelt Rezepte aus den besten Quellen — gefiltert nach deiner Ernährung und Allergien, ohne Werbebanner und alle Rezepte gratis.",
     "searchPlaceholder": "Pasta, Curry, Steak…",
     "searchButton": "Suchen",
     "tryLabel": "Versuche:",
@@ -31,11 +31,11 @@
     ],
     "sourcesMobile": "Von Spoonacular, MealDB, Edamam & Tasty",
     "sourcesDesktop": "Quellen:",
-    "freeLabel": "Für immer kostenlos · Keine Werbung",
+    "freeLabel": "Kostenlos nutzbar · Keine Werbebanner",
     "ctaPlan": "📅 Woche kostenlos planen",
     "ctaBrowse": "Rezepte entdecken ↓",
-    "trust1": "100 % kostenlos",
-    "trust2": "Keine Werbung",
+    "trust1": "Kostenlos nutzbar",
+    "trust2": "Keine Werbebanner",
     "trust3": "Echte Discounter-Preise"
   },
   "categories": [
@@ -133,7 +133,7 @@
   },
   "cta": {
     "title": "Entdecke jetzt Rezepte.",
-    "subtitle": "Für immer kostenlos. Kein Abo. Einfach großartiges Essen, personalisiert für dich.",
+    "subtitle": "Kostenlos starten, kein Abo-Zwang. Einfach großartiges Essen, personalisiert für dich.",
     "button": "Kostenloses Konto erstellen →"
   },
   "footer": {
@@ -165,7 +165,7 @@
       {
         "icon": "✨",
         "title": "Einfachheit",
-        "desc": "Keine Werbung, keine Abos, kein Durcheinander. Nur Rezepte, die du kochen möchtest."
+        "desc": "Keine Werbebanner, kein Abo-Zwang, kein Durcheinander. Nur Rezepte, die du kochen möchtest."
       }
     ],
     "visionItems": [
@@ -248,7 +248,7 @@
       "Unbegrenzte Sammlungen",
       "Wöchentlicher Mahlzeitenplan",
       "Smarte Einkaufsliste",
-      "Pläne & Sammlungen teilen",
+      "Unbegrenzt Rezepte speichern",
       "Bevorzugte neue Funktionen"
     ],
     "loading": "Lädt…",
@@ -480,8 +480,8 @@
     "heroTitle": "Deine Küche,\nvollständig organisiert.",
     "heroSubtitle": "Plane deine Woche, erstelle deine Einkaufsliste und organisiere jedes Rezept, das du liebst — alles an einem Ort.",
     "alreadyPro": "✓ Du bist bereits Pro!",
-    "startButton": "Für €4,99 / Monat starten →",
-    "cancelNote": "Jederzeit kündbar · Keine Verträge",
+    "startButton": "7 Tage gratis testen →",
+    "cancelNote": "7 Tage kostenlos · Erst danach wird abgebucht · Jederzeit kündbar",
     "activeNote": "Du nutzt Culinse Pro 🎉",
     "freeLabel": "Kostenlos",
     "proLabel": "Pro",
@@ -502,7 +502,7 @@
       },
       {
         "q": "Gibt es eine kostenlose Testphase?",
-        "a": "Noch nicht — aber mit der kostenlosen Sammlung kannst du die Kernfunktionen bereits vor einem Upgrade ausprobieren."
+        "a": "Ja — du testest Pro 7 Tage kostenlos. Abgebucht wird erst nach Ablauf der Testphase, und du kannst jederzeit vorher kündigen."
       }
     ],
     "freeFeatures": [
@@ -528,9 +528,9 @@
         "sub": "Automatisch aus deinem Plan erstellt, nach Kategorie sortiert"
       },
       {
-        "icon": "🌍",
-        "label": "Pläne & Sammlungen teilen",
-        "sub": "Link senden — jeder kann deine Sammlung ansehen"
+        "icon": "❤️",
+        "label": "Unbegrenzt Rezepte speichern",
+        "sub": "Kein 25-Rezepte-Limit — speichere alles, was dir schmeckt"
       },
       {
         "icon": "⚡",
@@ -545,7 +545,7 @@
     "annualPrice": "€3,24 / Monat",
     "annualTotal": "€38,88 / Jahr",
     "monthlyPrice": "€4,99 / Monat",
-    "annualStartButton": "Für €38,88 / Jahr starten →",
+    "annualStartButton": "7 Tage gratis testen →",
     "billedAnnually": "Jährlich abgerechnet",
     "billedMonthly": "Monatlich abgerechnet"
   },
