@@ -14,7 +14,15 @@ const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Cache-Control": "no-store",
+  // text/plain statt application/json: Der einzige Konsument ist das
+  // Geld-Dashboard, dessen Fetch-Weg JSON-Content-Types leer rendert.
+  // Browser zeigen text/plain-JSON identisch an.
+  "Content-Type": "text/plain; charset=utf-8",
 };
+
+function jsonText(data: unknown, status = 200) {
+  return new NextResponse(JSON.stringify(data), { status, headers: CORS });
+}
 
 export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: CORS });
@@ -23,10 +31,10 @@ export async function OPTIONS() {
 export async function GET(req: NextRequest) {
   const key = req.nextUrl.searchParams.get("key");
   if (!process.env.MONEY_STATS_KEY) {
-    return NextResponse.json({ error: "MONEY_STATS_KEY not configured" }, { status: 503, headers: CORS });
+    return jsonText({ error: "MONEY_STATS_KEY not configured" }, 503);
   }
   if (key !== process.env.MONEY_STATS_KEY) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401, headers: CORS });
+    return jsonText({ error: "Unauthorized" }, 401);
   }
 
   // ── Affiliate-Klicks (letzte 30 Tage, roh → hier aggregiert) ──
@@ -38,7 +46,7 @@ export async function GET(req: NextRequest) {
     .limit(10000);
 
   if (error) {
-    return NextResponse.json({ error: "clicks query failed" }, { status: 500, headers: CORS });
+    return jsonText({ error: "clicks query failed" }, 500);
   }
 
   const bySource: Record<string, number> = {};
@@ -71,18 +79,15 @@ export async function GET(req: NextRequest) {
     console.error("money-stats: stripe lookup failed", e);
   }
 
-  return NextResponse.json(
-    {
-      generatedAt: new Date().toISOString(),
-      clicks: {
-        total30d: (clicks ?? []).length,
-        last7d: clicks7d,
-        today: clicksToday,
-        bySource,
-        byDay,
-      },
-      pro: { trialing, active },
+  return jsonText({
+    generatedAt: new Date().toISOString(),
+    clicks: {
+      total30d: (clicks ?? []).length,
+      last7d: clicks7d,
+      today: clicksToday,
+      bySource,
+      byDay,
     },
-    { headers: CORS }
-  );
+    pro: { trialing, active },
+  });
 }
