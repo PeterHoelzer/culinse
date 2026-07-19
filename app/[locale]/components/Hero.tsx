@@ -127,6 +127,13 @@ export default function Hero({ search, setSearch, onSearch }: { search: string; 
           </button>
         </div>
 
+        {/* CRO: ehrliche Trust-Signale direkt unter den CTAs */}
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 mt-5 text-xs sm:text-sm text-gray-500">
+          <span className="inline-flex items-center gap-1.5"><span className="text-green-500 font-bold">✓</span>{t("hero.trust1")}</span>
+          <span className="inline-flex items-center gap-1.5"><span className="text-green-500 font-bold">✓</span>{t("hero.trust2")}</span>
+          <span className="inline-flex items-center gap-1.5"><span className="text-green-500 font-bold">✓</span>{t("hero.trust3")}</span>
+        </div>
+
         {/* Source trust row */}
         <div className="mt-8 text-xs text-gray-400">
           {/* Mobile: compact version */}

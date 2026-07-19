@@ -238,6 +238,29 @@ export default async function BlogPostPage({ params }: Props) {
         <article className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 mb-8">
           {post.sections.map((section, i) => (
             <div key={i} className="mb-6 last:mb-0">
+              {/* CRO: kontextueller Inline-CTA im Lesefluss (nach der 3. Section).
+                  Budget-/Einkaufs-Themen -> Rechner, alles andere -> Planer. */}
+              {i === 3 && (() => {
+                const topicText = `${slug} ${post.title}`.toLowerCase();
+                const isBudget = /budget|grocery|einkauf|spar|kosten|list|zettel|calculator|rechner/.test(topicText);
+                const href = isBudget
+                  ? `/${locale}/grocery-list-calculator`
+                  : `/${locale}/weekly-meal-planner`;
+                const label = isBudget
+                  ? (locale === "de" ? "Was kostet dein Einkauf? Rechne es in 30 Sekunden nach" : "What does your shopping cost? Check it in 30 seconds")
+                  : (locale === "de" ? "Plane deine Woche und die Einkaufsliste schreibt sich von selbst" : "Plan your week and the shopping list writes itself");
+                const cta = isBudget
+                  ? (locale === "de" ? "Zum kostenlosen Einkaufsrechner →" : "Open the free grocery calculator →")
+                  : (locale === "de" ? "Wochenplaner kostenlos starten →" : "Start the free meal planner →");
+                return (
+                  <div className="my-8 rounded-xl border-l-4 border-orange-400 bg-orange-50 p-4">
+                    <p className="text-sm font-semibold text-gray-800 mb-1.5">{label}</p>
+                    <Link href={href} className="text-sm font-semibold text-orange-600 hover:text-orange-700">
+                      {cta}
+                    </Link>
+                  </div>
+                );
+              })()}
               {section.heading && (
                 <h2 className="text-xl font-bold text-gray-900 mb-3 mt-8 first:mt-0">
                   {section.heading}

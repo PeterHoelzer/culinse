@@ -183,6 +183,28 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
               ? "Schätzung auf Discounter-Niveau (Eigenmarken). Tatsächliche Preise variieren je nach Markt und Region."
               : "Estimates at discount-store level (own brands). Actual prices vary by store and region."}
           </p>
+
+          {/* CRO: Nach dem Ergebnis war hier eine Sackgasse — jetzt führt der
+              natürliche nächste Schritt in den Planer (Liste entsteht dort automatisch). */}
+          <div className="mt-5 mx-3 rounded-xl bg-orange-50 border border-orange-100 p-4 text-center">
+            <p className="text-sm font-semibold text-gray-800 mb-1">
+              {de
+                ? "Schluss mit Tippen: Im Wochenplaner schreibt sich diese Liste von selbst."
+                : "Stop typing lists: in the weekly planner this list writes itself."}
+            </p>
+            <p className="text-xs text-gray-500 mb-3">
+              {de
+                ? "Rezepte wählen → Einkaufsliste mit €-Summe kommt automatisch. Kostenlos, ohne Werbung."
+                : "Pick recipes → your shopping list with a € total is generated automatically. Free, no ads."}
+            </p>
+            <a
+              href={de ? "/de/weekly-meal-planner" : "/en/weekly-meal-planner"}
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              style={{ background: "#f97316" }}
+            >
+              {de ? "Wochenplaner kostenlos starten →" : "Start the free meal planner →"}
+            </a>
+          </div>
         </div>
       )}
     </div>
