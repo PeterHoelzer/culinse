@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     // Nur öffentliche Rezepte mit Bild; Sprach-Filter wie gehabt (NULL = überall).
     // WICHTIG: Mitglieder-Rezepte bekommen ihre EIGENE Abfrage — ein gemeinsamer
     // "neueste 50"-Pool wurde komplett vom Owner-Korpus verdrängt, sobald der
-    // Rezept-Agent viel veröffentlicht (so verschwanden Gerds 29 Rezepte).
+    // Rezept-Agent viel veröffentlicht (so verschwanden die Familienrezepte).
     const base = () =>
       supabase
         .from("user_recipes")
