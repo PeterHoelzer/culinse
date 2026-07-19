@@ -242,7 +242,7 @@ export default async function BlogPostPage({ params }: Props) {
                   Budget-/Einkaufs-Themen -> Rechner, alles andere -> Planer. */}
               {i === 3 && (() => {
                 const topicText = `${slug} ${post.title}`.toLowerCase();
-                const isBudget = /budget|grocery|einkauf|spar|kosten|list|zettel|calculator|rechner/.test(topicText);
+                const isBudget = /budget|grocery|einkauf|sparen|zettel|calculator|rechner|was kostet/.test(topicText);
                 const href = isBudget
                   ? `/${locale}/grocery-list-calculator`
                   : `/${locale}/weekly-meal-planner`;
