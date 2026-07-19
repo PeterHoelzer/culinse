@@ -20,7 +20,16 @@ const CORS = {
   "Content-Type": "text/plain; charset=utf-8",
 };
 
-function jsonText(data: unknown, status = 200) {
+function jsonText(data: unknown, status = 200, asHtml = false) {
+  if (asHtml) {
+    // format=html: JSON in eine minimale HTML-Seite gewickelt — für Fetch-Wege,
+    // die nur HTML-Inhalte extrahieren. Der Konsument parst das {...} heraus.
+    const body = `<!DOCTYPE html><html><body><pre>${JSON.stringify(data)}</pre></body></html>`;
+    return new NextResponse(body, {
+      status,
+      headers: { ...CORS, "Content-Type": "text/html; charset=utf-8" },
+    });
+  }
   return new NextResponse(JSON.stringify(data), { status, headers: CORS });
 }
 
@@ -30,11 +39,12 @@ export async function OPTIONS() {
 
 export async function GET(req: NextRequest) {
   const key = req.nextUrl.searchParams.get("key");
+  const asHtml = req.nextUrl.searchParams.get("format") === "html";
   if (!process.env.MONEY_STATS_KEY) {
-    return jsonText({ error: "MONEY_STATS_KEY not configured" }, 503);
+    return jsonText({ error: "MONEY_STATS_KEY not configured" }, 503, asHtml);
   }
   if (key !== process.env.MONEY_STATS_KEY) {
-    return jsonText({ error: "Unauthorized" }, 401);
+    return jsonText({ error: "Unauthorized" }, 401, asHtml);
   }
 
   // ── Affiliate-Klicks (letzte 30 Tage, roh → hier aggregiert) ──
@@ -46,7 +56,7 @@ export async function GET(req: NextRequest) {
     .limit(10000);
 
   if (error) {
-    return jsonText({ error: "clicks query failed" }, 500);
+    return jsonText({ error: "clicks query failed" }, 500, asHtml);
   }
 
   const bySource: Record<string, number> = {};
@@ -89,5 +99,5 @@ export async function GET(req: NextRequest) {
       byDay,
     },
     pro: { trialing, active },
-  });
+  }, 200, asHtml);
 }
