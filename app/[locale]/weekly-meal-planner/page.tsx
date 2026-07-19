@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? "Wochenplaner mit automatischer Einkaufsliste – kostenlos"
     : "Weekly Meal Planner with Free Shopping List Generator";
   const description = isDE
-    ? "Plane deine Woche und erhalte automatisch eine fertige Einkaufsliste aus deinen Rezepten – Mengen zusammengefasst, nach Supermarkt-Bereich sortiert. Kostenlos, ohne Abo."
-    : "Plan your week and get a ready-made shopping list generated automatically from your recipes — amounts combined, sorted by store aisle. Free, no subscription.";
+    ? "Plane deine Woche und erhalte automatisch eine fertige Einkaufsliste aus deinen Rezepten – Mengen zusammengefasst, nach Supermarkt-Bereich sortiert. Kostenlos nutzbar, ohne Abo-Zwang."
+    : "Plan your week and get a ready-made shopping list generated automatically from your recipes — amounts combined, sorted by store aisle. Free to use, no subscription required.";
 
   return {
     title,
@@ -88,7 +88,7 @@ function getCopy(locale: string): Copy {
     return {
       badge: "Wochenplaner + Einkaufsliste",
       h1: "Wochenplaner mit automatischer Einkaufsliste",
-      sub: "Plane deine Woche in Minuten und lass Culinse die Einkaufsliste aus deinen Rezepten erstellen – Mengen zusammengefasst, nach Supermarkt-Bereich sortiert. Kostenlos und ohne Abo.",
+      sub: "Plane deine Woche in Minuten und lass Culinse die Einkaufsliste aus deinen Rezepten erstellen – Mengen zusammengefasst, nach Supermarkt-Bereich sortiert. Kostenlos nutzbar, ohne Abo-Zwang.",
       ctaPrimary: "Woche kostenlos planen →",
       ctaSecondary: "Erst Rezepte entdecken",
       introHeading: "Schluss mit Listen von Hand",
@@ -170,7 +170,7 @@ function getCopy(locale: string): Copy {
   return {
     badge: "Meal planner + shopping list",
     h1: "Weekly Meal Planner with an Automatic Shopping List",
-    sub: "Plan your week in minutes and let Culinse build the shopping list from your recipes — amounts combined, sorted by store aisle. Free, no subscription.",
+    sub: "Plan your week in minutes and let Culinse build the shopping list from your recipes — amounts combined, sorted by store aisle. Free to use, no subscription required.",
     ctaPrimary: "Plan your week free →",
     ctaSecondary: "Browse recipes first",
     introHeading: "Stop writing shopping lists by hand",

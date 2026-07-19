@@ -2,16 +2,17 @@
 
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { getAffiliateUrl, getToolsForRecipe } from "@/lib/affiliateProducts";
+import { getAffiliateUrl, getToolsForRecipe, trackedUrl } from "@/lib/affiliateProducts";
 
 interface Props {
   dishTypes: string[];
   ingredientNames: string[];
   recipeTitle?: string;
   toolsOnly?: boolean;
+  recipeId?: string | number;
 }
 
-export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnly }: Props) {
+export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnly, recipeId }: Props) {
   const t = useTranslations("modals");
   const products = useMemo(
     () => getToolsForRecipe(dishTypes, ingredientNames, recipeTitle),
@@ -34,7 +35,7 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnl
         {products.map((p) => (
           <a
             key={p.search}
-            href={getAffiliateUrl(p)}
+            href={trackedUrl(getAffiliateUrl(p), "recipe_tools", recipeId)}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="flex items-center gap-2.5 px-2 py-2 rounded-xl hover:bg-orange-50 transition-colors group"

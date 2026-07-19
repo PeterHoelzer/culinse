@@ -19,7 +19,7 @@
     "badge": "Built by a Master Butcher & Head Chef",
     "headline1": "One place for every",
     "headline2": "recipe you'll love.",
-    "subline": "Culinse aggregates recipes from multiple top sources — filtered to your diet and allergies, with no ads and no paywalls.",
+    "subline": "Culinse aggregates recipes from multiple top sources — filtered to your diet and allergies, with no ad banners and every recipe free to read.",
     "searchPlaceholder": "Pasta, curry, steak…",
     "searchButton": "Search",
     "tryLabel": "Try:",
@@ -31,11 +31,11 @@
     ],
     "sourcesMobile": "From Spoonacular, MealDB, Edamam & Tasty",
     "sourcesDesktop": "Sources:",
-    "freeLabel": "Free forever · No ads",
+    "freeLabel": "Free to use · No ad banners",
     "ctaPlan": "📅 Plan your week free",
     "ctaBrowse": "Browse recipes ↓",
-    "trust1": "100% free",
-    "trust2": "No ads",
+    "trust1": "Free to use",
+    "trust2": "No ad banners",
     "trust3": "Real discount-store prices"
   },
   "categories": [
@@ -133,7 +133,7 @@
   },
   "cta": {
     "title": "Start discovering recipes today.",
-    "subtitle": "Free forever. No subscription. Just great food, personalized for you.",
+    "subtitle": "Free to start, no subscription required. Just great food, personalized for you.",
     "button": "Create Free Account →"
   },
   "footer": {
@@ -165,7 +165,7 @@
       {
         "icon": "✨",
         "title": "Simplicity",
-        "desc": "No ads, no subscriptions, no clutter. Just recipes you'll want to make."
+        "desc": "No ad banners, no forced subscription, no clutter. Just recipes you'll want to make."
       }
     ],
     "visionItems": [
@@ -248,7 +248,7 @@
       "Unlimited Collections",
       "Weekly Meal Planner",
       "Smart Shopping List",
-      "Share Plans & Collections",
+      "Unlimited saved recipes",
       "Priority new features"
     ],
     "loading": "Loading…",
@@ -480,8 +480,8 @@
     "heroTitle": "Your kitchen,\nfully organized.",
     "heroSubtitle": "Plan your week, build your shopping list, and organize every recipe you love — all in one place.",
     "alreadyPro": "✓ You're already Pro!",
-    "startButton": "Start for €4.99 / month →",
-    "cancelNote": "Cancel anytime · No contracts",
+    "startButton": "Try 7 days free →",
+    "cancelNote": "7 days free · You won't be charged until the trial ends · Cancel anytime",
     "activeNote": "You're on Culinse Pro 🎉",
     "freeLabel": "Free",
     "proLabel": "Pro",
@@ -502,7 +502,7 @@
       },
       {
         "q": "Is there a free trial?",
-        "a": "Not yet — but with Collections free you can already try the core features before upgrading."
+        "a": "Yes — you get 7 days of Pro for free. You won't be charged until the trial ends, and you can cancel anytime before that."
       }
     ],
     "freeFeatures": [
@@ -528,9 +528,9 @@
         "sub": "Auto-generated from your plan, sorted by category"
       },
       {
-        "icon": "🌍",
-        "label": "Share Plans & Collections",
-        "sub": "Send a link — anyone can view your collection"
+        "icon": "❤️",
+        "label": "Unlimited saved recipes",
+        "sub": "No 25-recipe cap — save everything you love"
       },
       {
         "icon": "⚡",
@@ -545,7 +545,7 @@
     "annualPrice": "€3.24 / month",
     "annualTotal": "€38.88 / year",
     "monthlyPrice": "€4.99 / month",
-    "annualStartButton": "Start for €38.88 / year →",
+    "annualStartButton": "Try 7 days free →",
     "billedAnnually": "Billed annually",
     "billedMonthly": "Billed monthly"
   },

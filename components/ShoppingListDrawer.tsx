@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { formatEstPrice, PRICES_UPDATED_AT } from "@/lib/ingredient-prices";
+import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 
 interface ShoppingItem {
   name: string;
@@ -468,6 +469,20 @@ export default function ShoppingListDrawer({
                                   </span>
                                 )}
                               </button>
+                              {!isDone && (() => {
+                                const shopUrl = getIngredientAffiliateUrl(item.name);
+                                return shopUrl ? (
+                                  <a
+                                    href={trackedUrl(shopUrl, "shopping_list")}
+                                    target="_blank"
+                                    rel="noopener noreferrer sponsored"
+                                    title={tr("Buy on Amazon (ad)", "Bei Amazon kaufen (Werbung)")}
+                                    className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
+                                  >
+                                    🛒
+                                  </a>
+                                ) : null;
+                              })()}
                               <button
                                 onClick={() => addToPantry(item.name)}
                                 className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
@@ -529,7 +544,7 @@ export default function ShoppingListDrawer({
         {!loading && totalItems > 0 && (
           <div className="px-5 pt-3 pb-1 flex-shrink-0">
             <a
-              href={`https://www.amazon.de/s?k=lebensmittel+online&tag=${process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || "culinse-21"}`}
+              href={trackedUrl(`https://www.amazon.de/s?k=lebensmittel+online&tag=${process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || "culinse-21"}`, "shopping_list_all")}
               target="_blank"
               rel="noopener noreferrer sponsored"
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-orange-200 text-orange-600 text-sm font-semibold hover:bg-orange-50 transition-all"
