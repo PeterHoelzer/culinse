@@ -141,7 +141,9 @@
     "impressum": "Legal Notice",
     "datenschutz": "Privacy Policy",
     "contact": "Contact",
-    "copyright": "© {year} Culinse. All rights reserved."
+    "copyright": "© {year} Culinse. All rights reserved.",
+    "planner": "Meal planner",
+    "calculator": "Grocery calculator"
   },
   "about": {
     "ourStory": "Our Story",

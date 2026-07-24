@@ -111,9 +111,10 @@ export const blogPostsDe: BlogPost[] = [
   },
   {
     slug: "beste-kostenlose-meal-planner-apps-2026",
-    title: "Die besten kostenlosen Meal Planner Apps 2026",
+    title: "Die 5 besten kostenlosen Meal-Planner-Apps 2026 (ehrlich verglichen)",
+    updatedAt: "2026-07-19",
     description:
-      "Auf der Suche nach einem kostenlosen Mahlzeitenplaner? Wir vergleichen die besten kostenlosen Meal-Planning-Apps im Jahr 2026 — Funktionen, Einschränkungen und welche für deinen Kochstil am besten geeignet ist.",
+      "5 kostenlose Meal-Planner-Apps im ehrlichen Vergleich (Stand: Juli 2026): Funktionen, versteckte Grenzen der Gratis-Versionen und welche App automatische Einkaufslisten wirklich kostenlos erstellt.",
     publishedAt: "2026-05-12",
     readingTime: "6 Min. Lesezeit",
     image: "https://culinse.com/blog/best-free-meal-planner-apps-2026.jpg",
@@ -1784,9 +1785,10 @@ export const blogPostsDe: BlogPost[] = [
   },
   {
     slug: "vorratshaltung-speisekammer",
-    title: "Vorratshaltung leicht gemacht: Liste, Lagerung & clever einkaufen",
+    title: "Vorratshaltung & Trockenvorrat anlegen: Liste, Lagerung, Vorratsübersicht",
+    updatedAt: "2026-07-19",
     description:
-      "Vorratshaltung leicht gemacht: die Basis-Vorratsliste für Speisekammer, Kühlschrank und Tiefkühler, richtige Lagerung nach Lebensmittelgruppe, das FIFO-Prinzip und eine praktische Checkliste.",
+      "Vorratshaltung leicht gemacht: Trockenvorrat anlegen in 3 Stufen, die Basis-Vorratsliste für Speisekammer, Kühlschrank und Tiefkühler, richtige Lagerung, FIFO-Prinzip und eine Vorratsübersicht, die sich von selbst pflegt.",
     publishedAt: "2026-07-12",
     readingTime: "8 Min. Lesezeit",
     image: "https://culinse.com/blog/vorratshaltung-speisekammer.jpg",
@@ -1843,6 +1845,16 @@ export const blogPostsDe: BlogPost[] = [
       {
         content:
           "Übertrag die Liste in deine Notizen-App und ergänze, was du häufig brauchst. Eine digitale, automatisch zusammengerechnete Einkaufsliste auf Basis deiner Rezepte erstellst du zusätzlich mit Culinse.",
+      },
+      {
+        heading: "Trockenvorrat anlegen: die 3-Stufen-Methode",
+        content:
+          "Ein Trockenvorrat ist der Teil deiner Vorratshaltung, der ohne Kühlung monatelang hält — und er ist in drei Stufen aufgebaut, statt in einem teuren Großeinkauf. So wächst er nebenbei mit und die Vorratsübersicht bleibt von Anfang an sauber.",
+        list: [
+          "Stufe 1 — Grundstock für 2 Wochen: Reis, Nudeln, Haferflocken, Linsen, passierte Tomaten, Öl, Salz, Zucker, Mehl. Alles Zutaten, aus denen du mit frischen Resten komplette Mahlzeiten kochst — pro Wocheneinkauf einfach 2–3 Positionen doppelt kaufen.",
+          "Stufe 2 — Rotierender Vorrat: Von allem, was du regelmäßig verbrauchst, eine Einheit mehr im Schrank als du brauchst. Aufgebraucht wird immer das ältere Paket (FIFO, siehe oben), nachgekauft beim nächsten normalen Einkauf — so läuft nichts ab.",
+          "Stufe 3 — Vorratsübersicht führen: Eine einzige Liste (Zettel an der Schranktür oder digital) mit Bestand und Mindesthaltbarkeit der Stufe-2-Artikel. Einmal pro Woche beim Schreiben der [Einkaufsliste](/de/weekly-meal-planner) abgleichen — dann ist die Übersicht in 2 Minuten aktuell und du kaufst nie doppelt.",
+        ],
       },
       {
         heading: "Fazit",

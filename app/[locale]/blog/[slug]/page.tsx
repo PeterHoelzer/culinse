@@ -360,6 +360,19 @@ export default async function BlogPostPage({ params }: Props) {
               </p>
             </Link>
             <Link
+              href={`/${locale}/grocery-list-calculator`}
+              className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
+            >
+              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+                {locale === "de" ? "Einkaufsrechner" : "Grocery calculator"}
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {locale === "de"
+                  ? "Was kostet dein Wocheneinkauf? Echte Discounter-Preise, kostenlos."
+                  : "What does your weekly shop cost? Real discount-store prices, free."}
+              </p>
+            </Link>
+            <Link
               href={`/${locale}/pro`}
               className="block bg-white rounded-xl border border-orange-200 p-4 hover:border-orange-300 hover:bg-orange-50/40 transition-colors group sm:col-span-2"
             >
