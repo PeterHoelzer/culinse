@@ -131,7 +131,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "best-free-meal-planner-apps-2026",
-    title: "The Best Free Meal Planner Apps in 2026",
+    title: "The 5 Best Free Meal Planner Apps in 2026 (Honest Comparison)",
+    updatedAt: "2026-07-19",
     description:
       "Looking for a free meal planner? We compare the best free meal planning apps in 2026 — features, limits, and which one is right for your cooking style.",
     publishedAt: "2026-05-12",

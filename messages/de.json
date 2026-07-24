@@ -141,7 +141,9 @@
     "impressum": "Impressum",
     "datenschutz": "Datenschutz",
     "contact": "Kontakt",
-    "copyright": "© {year} Culinse. Alle Rechte vorbehalten."
+    "copyright": "© {year} Culinse. Alle Rechte vorbehalten.",
+    "planner": "Wochenplaner",
+    "calculator": "Einkaufsrechner"
   },
   "about": {
     "ourStory": "Unsere Geschichte",

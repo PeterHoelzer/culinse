@@ -12,6 +12,9 @@ export default function HomeFooter() {
             <img src="/culinse-logo.png" alt="culinse" style={{ height: "22px", width: "auto", filter: "brightness(0) invert(1)" }} />
           </div>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
+            <Link href="/weekly-meal-planner" className="hover:text-white transition-colors">{t("footer.planner")}</Link>
+            <Link href="/grocery-list-calculator" className="hover:text-white transition-colors">{t("footer.calculator")}</Link>
+            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link href="/about" className="hover:text-white transition-colors">{t("footer.about")}</Link>
             <Link href="/impressum" className="hover:text-white transition-colors">{t("footer.impressum")}</Link>
             <Link href="/datenschutz" className="hover:text-white transition-colors">{t("footer.datenschutz")}</Link>
