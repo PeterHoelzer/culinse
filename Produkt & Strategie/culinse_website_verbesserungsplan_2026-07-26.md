@@ -4,6 +4,8 @@ Grundlage: kompletter Desktop-Durchgang der Live-Site (eingeloggt), GSC-Daten vo
 
 > **Stand 26.07. abends: Paket A komplett live (Commit ca713cb) ✓ · B6 Navbar komplett live (Commit 5259b03) ✓ — Voll-Leiste erst ab 1024px (darunter Burger), ein Primär-Button, „Über uns" nur noch Footer/Menü, kurze Labels. Nächster Schritt: C10 Rezeptseiten.**
 
+> **Update 26.07. spät: C10 Rezeptseiten LIVE (security-hardening 3afdd27 → main c0b8045) ✓ — „Ähnliche Rezepte“-Sektion (server-gerendert via /api/similar-recipes: Korpus/Community zuerst per Tag- und Titel-Match, bei Spoonacular-IDs +3 Provider-Rezepte, DE-Titel aus Übersetzungs-Cache) und Sticky „+ In den Wochenplan“-Button (erscheint ab 250 px Scroll, AddToPlanModal wie Video-Karten, Login-Gate) auf allen Rezeptseiten DE+EN. Nächster Schritt: B9 Video-Titel.**
+
 ## Paket A — Quick Wins (sofort umsetzbar, je < 30 Min) → ERLEDIGT ✓
 
 1. **Footer-Logo ist ein weißer Klotz.** `culinse-logo.png` hat weißen Hintergrund und liegt auf dunklem Footer — wirkt kaputt. Fix: Text-Wortmarke („culi" weiß + „nse" orange) statt PNG.
