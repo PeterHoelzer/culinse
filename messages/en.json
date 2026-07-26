@@ -13,7 +13,8 @@
     "logout": "Log out",
     "upgrade": "✦ Upgrade",
     "myRecipes": "My Recipes",
-    "calculator": "Calculator"
+    "calculator": "Calculator",
+    "myRecipesShort": "Recipes"
   },
   "hero": {
     "badge": "Built by a Master Butcher & Head Chef",

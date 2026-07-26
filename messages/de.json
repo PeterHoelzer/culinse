@@ -13,7 +13,8 @@
     "logout": "Abmelden",
     "upgrade": "✦ Upgrade",
     "myRecipes": "Meine Rezepte",
-    "calculator": "Rechner"
+    "calculator": "Rechner",
+    "myRecipesShort": "Rezepte"
   },
   "hero": {
     "badge": "Entwickelt von einem Fleischermeister & Küchenchef",
