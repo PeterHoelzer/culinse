@@ -2,7 +2,9 @@
 
 Grundlage: kompletter Desktop-Durchgang der Live-Site (eingeloggt), GSC-Daten vom 20.07., bekannte Mobil-Befunde vom 17.07.
 
-## Paket A — Quick Wins (sofort umsetzbar, je < 30 Min) → WIRD DIREKT UMGESETZT
+> **Stand 26.07. abends: Paket A komplett live (Commit ca713cb) ✓ · B6 Navbar komplett live (Commit 5259b03) ✓ — Voll-Leiste erst ab 1024px (darunter Burger), ein Primär-Button, „Über uns" nur noch Footer/Menü, kurze Labels. Nächster Schritt: C10 Rezeptseiten.**
+
+## Paket A — Quick Wins (sofort umsetzbar, je < 30 Min) → ERLEDIGT ✓
 
 1. **Footer-Logo ist ein weißer Klotz.** `culinse-logo.png` hat weißen Hintergrund und liegt auf dunklem Footer — wirkt kaputt. Fix: Text-Wortmarke („culi" weiß + „nse" orange) statt PNG.
 2. **Eingeloggte sehen „Kostenloses Konto erstellen".** Der Schluss-CTA der Startseite ignoriert den Login-Status. Fix: eingeloggt → „Öffne deinen Wochenplaner →".
