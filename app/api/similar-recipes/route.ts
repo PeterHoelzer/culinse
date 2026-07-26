@@ -224,7 +224,7 @@ export async function GET(req: NextRequest) {
         };
       });
 
-    let cards = [...communityCards, ...external.slice(0, number - communityCards.length)];
+    const cards = [...communityCards, ...external.slice(0, number - communityCards.length)];
 
     // German page → translate provider titles (cached); corpus titles are
     // already stored in the page language.
