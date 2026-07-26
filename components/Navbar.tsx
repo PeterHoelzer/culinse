@@ -72,13 +72,10 @@ export default function Navbar() {
           <img src="/culinse-logo.png" alt="culinse" height={28} style={{ height: "28px", width: "auto" }} />
         </Link>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-2">
+        {/* Desktop nav (erst ab lg — zwischen 768–1024px war die Leiste überfüllt, Review 26.07.) */}
+        <div className="hidden lg:flex items-center gap-1.5 whitespace-nowrap">
           <Link href="/" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
             {t("discover")}
-          </Link>
-          <Link href="/about" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-            {t("about")}
           </Link>
           <Link href="/blog" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
             {t("blog")}
@@ -108,37 +105,30 @@ export default function Navbar() {
                 </Link>
               )}
 
-              {isPro ? (
-                <Link
-                  href="/collections"
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", color: "white" }}
-                >
-                  📚 {t("collections")}
-                </Link>
-              ) : (
-                <Link
-                  href="/pro"
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-dashed border-orange-200 text-orange-400 hover:bg-orange-50 transition-all"
-                >
-                  🔒 {t("collections")}
-                </Link>
-              )}
-
-              <div className="w-px h-5 bg-gray-200 mx-1" />
+              <Link
+                href={isPro ? "/collections" : "/pro"}
+                className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors"
+              >
+                {isPro ? "📚" : "🔒"} {t("collections")}
+              </Link>
 
               <Link href="/my-recipes" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-                {t("myRecipes")}
+                {t("myRecipesShort")}
               </Link>
-              <Link href="/saved" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-                ♥ {t("saved")}
+              <Link
+                href="/saved"
+                title={t("saved")}
+                aria-label={t("saved")}
+                className="px-2.5 py-1.5 text-base font-medium text-gray-500 hover:text-orange-500 transition-colors"
+              >
+                ♥
               </Link>
             </>
           )}
         </div>
 
         {/* Desktop auth + locale switcher */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-3 whitespace-nowrap">
           <LocaleSwitcher />
 
           {user ? (
@@ -173,8 +163,8 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile: right side */}
-        <div className="flex md:hidden items-center gap-2">
+        {/* Mobile/Tablet: right side */}
+        <div className="flex lg:hidden items-center gap-2">
           <LocaleSwitcher />
           {!user && (
             <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
@@ -194,7 +184,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-1">
+        <div className="lg:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-1">
           <Link href="/" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
             🔍 {t("discover")}
           </Link>
