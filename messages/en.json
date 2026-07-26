@@ -112,7 +112,7 @@
   },
   "howItWorks": {
     "title": "How Culinse Works",
-    "subtitle": "We bring the internet's best recipes to you — personalized, searchable, and with shopping coming soon.",
+    "subtitle": "We bring the internet's best recipes to you — personalized, searchable, with an automatic shopping list.",
     "steps": [
       {
         "icon": "🔍",
@@ -124,17 +124,14 @@
         "title": "Save & Personalize",
         "desc": "Save recipes you love. Culinse learns your taste and shows you more of what you like."
       },
-      {
-        "icon": "🛒",
-        "title": "Shop Instantly",
-        "desc": "Coming soon — add all ingredients to your cart with one click and get them delivered to your door."
-      }
+      {"icon": "🛒", "title": "Shopping list with € total", "desc": "Your weekly plan becomes a shopping list automatically — with estimated discount-store prices per ingredient and a total for the whole week."}
     ]
   },
   "cta": {
     "title": "Start discovering recipes today.",
     "subtitle": "Free to start, no subscription required. Just great food, personalized for you.",
-    "button": "Create Free Account →"
+    "button": "Create Free Account →",
+    "buttonLoggedIn": "Open your meal planner →"
   },
   "footer": {
     "about": "About",

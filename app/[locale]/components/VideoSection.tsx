@@ -197,7 +197,7 @@ export default function VideoSection() {
                         <span className="text-white text-lg ml-0.5">▶</span>
                       </div>
                     </div>
-                    {v.time && (
+                    {v.time && parseInt(v.time, 10) > 0 && parseInt(v.time, 10) <= 90 && (
                       <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
                         ⏱ {v.time}
                       </div>

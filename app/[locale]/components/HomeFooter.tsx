@@ -9,7 +9,7 @@ export default function HomeFooter() {
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center">
-            <img src="/culinse-logo.png" alt="culinse" style={{ height: "22px", width: "auto", filter: "brightness(0) invert(1)" }} />
+            <span className="text-lg font-bold tracking-tight text-white">culi<span style={{ color: "#f97316" }}>nse</span></span>
           </div>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <Link href="/weekly-meal-planner" className="hover:text-white transition-colors">{t("footer.planner")}</Link>
