@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import RecipePageClient, { type Recipe } from "./RecipePageClient";
+import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
@@ -13,6 +13,37 @@ async function fetchRecipe(id: string): Promise<Recipe | null> {
     return recipe ?? null;
   } catch {
     return null;
+  }
+}
+
+// Related recipes for the "Ähnliche Rezepte" section — fetched server-side so
+// the internal links are part of the crawlable HTML (SEO: recipe pages as
+// landing pages, Review-Paket C10).
+async function fetchSimilar(id: string, locale: string, recipe: Recipe): Promise<SimilarRecipe[]> {
+  const params = new URLSearchParams({
+    id,
+    lang: locale === "de" ? "de" : "en",
+    number: "8",
+  });
+  const tags = Array.from(
+    new Set(
+      [...(recipe.diets ?? []), ...(recipe.dishTypes ?? []), ...(recipe.cuisine ? [recipe.cuisine] : [])]
+        .map((t) => String(t).toLowerCase().trim())
+        .filter(Boolean)
+    )
+  ).slice(0, 10);
+  if (tags.length) params.set("tags", tags.join(","));
+  if (recipe.title) params.set("title", recipe.title);
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/similar-recipes?${params.toString()}`, {
+      next: { revalidate: 43200 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.recipes) ? data.recipes : [];
+  } catch {
+    return [];
   }
 }
 
@@ -96,6 +127,7 @@ export default async function RecipePage(
 ) {
   const { locale, id } = await params;
   const recipe = await fetchRecipe(id);
+  const similarRecipes = recipe ? await fetchSimilar(id, locale, recipe) : [];
 
   // Build Recipe JSON-LD for Google Rich Results — single source of truth,
   // rendered server-side so it's in the crawlable HTML.
@@ -207,7 +239,12 @@ export default async function RecipePage(
           SSR HTML from the first byte — Googlebot sees the full recipe without
           executing JavaScript. The client component takes over for interactivity
           (save, print, DE translation) using this as its initial data. */}
-      <RecipePageClient key={`${locale}-${id}`} serverTitle={recipe?.title ?? null} initialRecipe={recipe} />
+      <RecipePageClient
+        key={`${locale}-${id}`}
+        serverTitle={recipe?.title ?? null}
+        initialRecipe={recipe}
+        similarRecipes={similarRecipes}
+      />
     </>
   );
 }

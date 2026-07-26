@@ -12,8 +12,10 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { estimateRecipeCost, formatEstPrice } from "@/lib/ingredient-prices";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import AddToPlanModal from "@/components/AddToPlanModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
+import { Link as LocaleLink } from "@/lib/navigation";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 
@@ -50,6 +52,16 @@ export interface Recipe {
   cookTime?: number | null;
   datePublished?: string | null;
   cuisine?: string | null;
+}
+
+/** Card data for the "Ähnliche Rezepte" section (built server-side in page.tsx). */
+export interface SimilarRecipe {
+  id: number | string;
+  title: string;
+  image: string | null;
+  imagePosition?: string | null;
+  time?: string | null;
+  source?: string | null;
 }
 
 /** Translate a batch of strings EN→DE via the MyMemory route (chunked to 50). */
@@ -111,7 +123,7 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
   };
 }
 
-export default function RecipePageClient({ serverTitle, initialRecipe }: { serverTitle?: string | null; initialRecipe?: Recipe | null }) {
+export default function RecipePageClient({ serverTitle, initialRecipe, similarRecipes }: { serverTitle?: string | null; initialRecipe?: Recipe | null; similarRecipes?: SimilarRecipe[] | null }) {
   const { id } = useParams();
   const locale = useLocale();
   const [recipe, setRecipe] = useState<Recipe | null>(initialRecipe ?? null);
@@ -141,6 +153,23 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [printWithImage, setPrintWithImage] = useState(false);
   const [showPrintMenu, setShowPrintMenu] = useState(false);
+  const [showPlanModal, setShowPlanModal] = useState(false);
+  const [stickyVisible, setStickyVisible] = useState(false);
+
+  // Sticky „+ In den Wochenplan": erscheint nach kurzem Scrollen und bleibt
+  // beim Weiterscrollen sichtbar (Review-Paket C10).
+  useEffect(() => {
+    const onScroll = () => setStickyVisible(window.scrollY > 250);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Wie bei den Video-Karten: eingeloggt → Plan-Modal, sonst Login-Prompt.
+  const openPlanModal = () => {
+    if (!user) { setShowLoginPrompt(true); return; }
+    setShowPlanModal(true);
+  };
 
   const handlePrint = (withImage: boolean) => {
     setShowPrintMenu(false);
@@ -345,6 +374,19 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
       )}
       {showUpgrade && (
         <UpgradeModal onClose={() => setShowUpgrade(false)} />
+      )}
+
+      {/* Add to Meal Plan Modal (Sticky-Button) */}
+      {showPlanModal && recipe && (
+        <AddToPlanModal
+          recipe={{
+            id: String(recipe.id),
+            title: recipe.title,
+            image: recipe.image ?? undefined,
+            readyInMinutes: recipe.time ? parseInt(recipe.time, 10) || undefined : undefined,
+          }}
+          onClose={() => setShowPlanModal(false)}
+        />
       )}
 
       {/* ── Print-only view (inline styles so Tailwind can't override) ── */}
@@ -755,7 +797,69 @@ export default function RecipePageClient({ serverTitle, initialRecipe }: { serve
               </div>
             </div>
           </div>
+
+          {/* Ähnliche Rezepte — interne Links, server-gerendert (SEO, Review-Paket C10) */}
+          {similarRecipes && similarRecipes.length > 0 && (
+            <section className="print-hide mt-10">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">{t("similarRecipes")}</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                {similarRecipes.map((s) => (
+                  <LocaleLink
+                    key={String(s.id)}
+                    href={`/recipe/${s.id}`}
+                    className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-200 transition-all"
+                  >
+                    <div className="relative h-28 sm:h-36 overflow-hidden bg-orange-50">
+                      {s.image ? (
+                        <img
+                          src={s.image}
+                          alt={s.title}
+                          loading="lazy"
+                          style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-4xl">🍳</div>
+                      )}
+                      {s.source === "Community" && (
+                        <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded-full">
+                          👩‍🍳 Community
+                        </span>
+                      )}
+                      {s.time && (
+                        <span className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-medium px-1.5 py-0.5 rounded">
+                          ⏱ {s.time}
+                        </span>
+                      )}
+                    </div>
+                    <div className="p-3">
+                      <p className="text-sm font-semibold text-gray-800 leading-snug line-clamp-2 group-hover:text-orange-600 transition-colors">
+                        {s.title}
+                      </p>
+                    </div>
+                  </LocaleLink>
+                ))}
+              </div>
+            </section>
+          )}
         </main>
+      )}
+
+      {/* Sticky „+ In den Wochenplan" — bleibt beim Scrollen sichtbar */}
+      {recipe && !loading && (
+        <div
+          className={`print-hide fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 z-40 flex justify-center sm:justify-end transition-all duration-300 ${
+            stickyVisible && !showPlanModal ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4"
+          }`}
+        >
+          <button
+            onClick={openPlanModal}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-semibold shadow-lg shadow-orange-500/30 transition-transform hover:scale-[1.03]"
+            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+          >
+            🗓 {t("addToPlan")}
+          </button>
+        </div>
       )}
     </div>
   );
