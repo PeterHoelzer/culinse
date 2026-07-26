@@ -139,8 +139,6 @@ export default function Hero({ search, setSearch, onSearch }: { search: string; 
           {/* Mobile: compact version */}
           <div className="sm:hidden flex flex-wrap justify-center items-center gap-2">
             <span>{t("hero.sourcesMobile")}</span>
-            <span className="text-gray-300">·</span>
-            <span>{t("hero.freeLabel")}</span>
           </div>
           {/* Desktop: badge version */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
@@ -148,8 +146,7 @@ export default function Hero({ search, setSearch, onSearch }: { search: string; 
             {["Spoonacular", "MealDB", "Edamam", "Tasty"].map((src) => (
               <span key={src} className="font-medium text-gray-500 bg-white/60 border border-gray-200 px-2.5 py-1 rounded-full">{src}</span>
             ))}
-            <span className="text-gray-300">·</span>
-            <span>{t("hero.freeLabel")}</span>
+
           </div>
         </div>
       </div>

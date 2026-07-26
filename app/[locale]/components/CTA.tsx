@@ -1,9 +1,16 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
+import { createClient } from "@/lib/supabase/client";
 
 export default function CTA() {
   const t = useTranslations();
+  // Eingeloggte sollen keinen "Konto erstellen"-CTA sehen (Review 26.07.)
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    createClient().auth.getUser().then(({ data: { user } }) => setLoggedIn(!!user));
+  }, []);
   return (
     <section
       className="py-20 px-4 text-white text-center"
@@ -14,11 +21,11 @@ export default function CTA() {
         <h2 className="text-3xl sm:text-4xl font-bold mb-4">{t("cta.title")}</h2>
         <p className="text-orange-100 text-lg mb-8 max-w-lg mx-auto">{t("cta.subtitle")}</p>
         <Link
-          href="/login"
+          href={loggedIn ? "/meal-planner" : "/login"}
           className="inline-flex items-center gap-2 bg-white font-semibold px-8 py-3.5 rounded-full text-base transition-opacity hover:opacity-90"
           style={{ color: "#f97316" }}
         >
-          {t("cta.button")}
+          {loggedIn ? t("cta.buttonLoggedIn") : t("cta.button")}
         </Link>
       </div>
     </section>

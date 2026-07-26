@@ -112,7 +112,7 @@
   },
   "howItWorks": {
     "title": "So funktioniert Culinse",
-    "subtitle": "Wir bringen dir die besten Rezepte aus dem Internet — personalisiert, durchsuchbar, und bald auch shoppable.",
+    "subtitle": "Wir bringen dir die besten Rezepte aus dem Internet — personalisiert, durchsuchbar, mit automatischer Einkaufsliste.",
     "steps": [
       {
         "icon": "🔍",
@@ -124,17 +124,14 @@
         "title": "Speichern & Personalisieren",
         "desc": "Speichere Rezepte, die du liebst. Culinse lernt deinen Geschmack und zeigt dir mehr davon."
       },
-      {
-        "icon": "🛒",
-        "title": "Sofort einkaufen",
-        "desc": "Demnächst — alle Zutaten mit einem Klick in den Warenkorb, direkt nach Hause geliefert."
-      }
+      {"icon": "🛒", "title": "Einkaufsliste mit €-Summe", "desc": "Dein Wochenplan wird automatisch zur Einkaufsliste — mit geschätzten Discounter-Preisen je Zutat und der Summe für die ganze Woche."}
     ]
   },
   "cta": {
     "title": "Entdecke jetzt Rezepte.",
     "subtitle": "Kostenlos starten, kein Abo-Zwang. Einfach großartiges Essen, personalisiert für dich.",
-    "button": "Kostenloses Konto erstellen →"
+    "button": "Kostenloses Konto erstellen →",
+    "buttonLoggedIn": "Öffne deinen Wochenplaner →"
   },
   "footer": {
     "about": "Über uns",
