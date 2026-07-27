@@ -303,7 +303,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
     const tags = recipe.dishTypes?.slice(0, 2).join(",") || "";
     const excludeId = String(recipe.id).replace("tasty_", "");
     try {
-      const res = await fetch(`/api/tasty-related?tags=${encodeURIComponent(tags)}&exclude=${excludeId}`);
+      const res = await fetch(`/api/tasty-related?tags=${encodeURIComponent(tags)}&exclude=${excludeId}${locale === "de" ? "&lang=de" : ""}`);
       const data = await res.json();
       setMoreVideos(data.videos || []);
     } catch { /* silently fail */ }

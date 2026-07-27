@@ -67,10 +67,11 @@ export default function VideoSection() {
   const fetchBatch = useCallback(async (q: string, from: number): Promise<VideoRecipe[]> => {
     const params = new URLSearchParams({ size: String(BATCH), from: String(from) });
     if (q) params.set("query", q);
+    if (de) params.set("lang", "de"); // B9: deutsche Video-Titel
     const res = await fetch(`/api/videos?${params}`);
     const d = await res.json();
     return d.videos || [];
-  }, []);
+  }, [de]);
 
   // Initial-Load: Ohne Thema startet das Fenster an einem TÄGLICH anderen
   // Offset im Tasty-Katalog — vorher war from=0 hardcoded, sodass jahrein,
