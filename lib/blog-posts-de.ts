@@ -987,7 +987,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Eine kategorisierte Liste tut zwei unscheinbare, aber starke Dinge: Sie bringt dich schneller durch den Laden, und sie senkt Spontankäufe, weil du gezielt unterwegs bist, statt durch jeden Gang zu schlendern. Praktischer Nebeneffekt: Die frischen, unverarbeiteten Lebensmittel liegen meist am Rand — Obst, Gemüse, Fleisch, Molkerei —, eine Liste „von außen nach innen“ ist also oft auch die gesündere.",
+          "Eine kategorisierte Liste tut zwei unscheinbare, aber starke Dinge: Sie bringt dich schneller durch den Laden, und sie senkt Spontankäufe, weil du gezielt unterwegs bist, statt durch jeden Gang zu schlendern. Praktischer Nebeneffekt: Die frischen, unverarbeiteten Lebensmittel liegen meist am Rand — Obst, Gemüse, Fleisch, Molkerei —, eine Liste „von außen nach innen“ ist also oft auch die gesündere. Und wenn du vorher wissen willst, was die fertige Liste ungefähr kostet: Der [Einkaufsrechner für Lebensmittel](/de/grocery-list-calculator) schätzt jeden Posten auf Discounter-Preisniveau.",
       },
       {
         heading: "5. Auf die Personenzahl skalieren",

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { translateTexts } from "@/lib/translate";
 
 const TASTY_KEY = process.env.TASTY_API_KEY;
 const TASTY_BASE = "https://tasty.p.rapidapi.com";
@@ -8,6 +9,7 @@ export async function GET(req: NextRequest) {
   const query = searchParams.get("query") || "";
   const size = Math.min(Math.max(Math.floor(Number(searchParams.get("size")) || 6), 1), 40);
   const from = Math.max(Math.floor(Number(searchParams.get("from")) || 0), 0);
+  const lang = searchParams.get("lang") === "de" ? "de" : "en";
 
   try {
     // Request extra to have enough with videos after filtering
@@ -25,7 +27,7 @@ export async function GET(req: NextRequest) {
     if (!res.ok) throw new Error(`Tasty error: ${res.status}`);
     const data = await res.json();
 
-    const videos = (data.results || [])
+    let videos = (data.results || [])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((r: any) => (r.original_video_url || r.video_url) && r.thumbnail_url && r.name)
       .slice(0, size)
@@ -40,6 +42,13 @@ export async function GET(req: NextRequest) {
         time: r.total_time_minutes ? `${r.total_time_minutes} min` : null,
         servings: r.yields || null,
       }));
+
+    // DE-Seite: Tasty-Titel eindeutschen — persistenter Uebersetzungs-Cache
+    // (DeepL/MyMemory via translateTexts), Review-Paket B9.
+    if (lang === "de" && videos.length) {
+      const de = await translateTexts(videos.map((v: { title: string }) => v.title), "EN", "DE");
+      videos = videos.map((v: { title: string }, i: number) => (de[i] && de[i] !== v.title ? { ...v, title: de[i] } : v));
+    }
 
     return NextResponse.json({ videos });
   } catch (err) {
