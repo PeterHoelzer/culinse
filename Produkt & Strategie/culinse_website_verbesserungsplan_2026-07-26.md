@@ -6,6 +6,8 @@ Grundlage: kompletter Desktop-Durchgang der Live-Site (eingeloggt), GSC-Daten vo
 
 > **Update 26.07. spät: C10 Rezeptseiten LIVE (security-hardening 3afdd27 → main c0b8045) ✓ — „Ähnliche Rezepte“-Sektion (server-gerendert via /api/similar-recipes: Korpus/Community zuerst per Tag- und Titel-Match, bei Spoonacular-IDs +3 Provider-Rezepte, DE-Titel aus Übersetzungs-Cache) und Sticky „+ In den Wochenplan“-Button (erscheint ab 250 px Scroll, AddToPlanModal wie Video-Karten, Login-Gate) auf allen Rezeptseiten DE+EN. Nächster Schritt: B9 Video-Titel.**
 
+> **Update 27.07. abends: B9 Video-Titel LIVE (10a7514 → main b78a2e4) — /api/videos und /api/tasty-related übersetzen Tasty-Titel bei lang=de über den Übersetzungs-Cache; VideoSection und Rezept-Carousel angebunden, live verifiziert (deutsche Titel). Zusätzlich GSC-Empfehlung vom Montags-Lauf umgesetzt: In-Text-Anchor „Einkaufsrechner für Lebensmittel“ im Artikel einkaufsliste-fuer-die-woche-erstellen → /de/grocery-list-calculator (die frisch indexierten Rechner-LPs sollen das Query-Cluster übernehmen). Nächster Schritt: C12 Onboarding-Wizard.**
+
 ## Paket A — Quick Wins (sofort umsetzbar, je < 30 Min) → ERLEDIGT ✓
 
 1. **Footer-Logo ist ein weißer Klotz.** `culinse-logo.png` hat weißen Hintergrund und liegt auf dunklem Footer — wirkt kaputt. Fix: Text-Wortmarke („culi" weiß + „nse" orange) statt PNG.
