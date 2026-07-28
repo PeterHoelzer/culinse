@@ -18,6 +18,7 @@ const PROTECTED_PATHS = [
   "/planner",
   "/saved",
   "/profile",
+  "/onboarding",
   "/my-recipes",
   "/recipes/create",
   "/recipes",
