@@ -25,7 +25,7 @@ export async function GET(request: Request) {
         .single();
 
       if (!prefs) {
-        return NextResponse.redirect(`${origin}/profile?welcome=1`);
+        return NextResponse.redirect(`${origin}/onboarding`);
       }
     }
   }
