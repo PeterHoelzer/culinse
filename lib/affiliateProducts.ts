@@ -207,7 +207,7 @@ const INGREDIENT_MAP: IngredientEntry[] = [
   { keywords: ["sriracha"],                                       asin: "B00568NVTS", search: "Flying Goose Sriracha Sauce 455ml",       label: "Sriracha" },
   { keywords: ["tabasco", "hot sauce", "chilisauce"],             asin: "B004JUA5FW", search: "Tabasco Original Red Pepper Sauce 350ml", label: "Tabasco" },
   { keywords: ["mustard", "senf", "dijon"],                       asin: "B00MWUBJD8", search: "Maille Dijon Senf 215g",                  label: "Dijon-Senf" },
-  { keywords: ["coconut milk", "kokosmilch"],                     asin: "B0071JPZHQ", search: "Aroy-D Kokosmilch 400ml",                 label: "Kokosmilch" },
+  { keywords: ["coconut milk", "kokosmilch"],                     asin: "B01M3XHJYS", search: "Alnatura Bio Kokosmilch 400ml",           label: "Kokosmilch" },
   { keywords: ["cream of coconut", "coconut cream"],              asin: "B00AMXKK2S", search: "Chaokoah Coconut Cream 400ml",            label: "Kokosnusscreme" },
 
   // ── Getreide & Spezial-Reis (Standard-Nudeln/Mehl/Reis raus — im Supermarkt günstiger) ──

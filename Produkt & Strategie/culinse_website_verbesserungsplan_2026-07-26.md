@@ -2,7 +2,15 @@
 
 Grundlage: kompletter Desktop-Durchgang der Live-Site (eingeloggt), GSC-Daten vom 20.07., bekannte Mobil-Befunde vom 17.07.
 
-## Paket A — Quick Wins (sofort umsetzbar, je < 30 Min) → WIRD DIREKT UMGESETZT
+> **Stand 26.07. abends: Paket A komplett live (Commit ca713cb) ✓ · B6 Navbar komplett live (Commit 5259b03) ✓ — Voll-Leiste erst ab 1024px (darunter Burger), ein Primär-Button, „Über uns" nur noch Footer/Menü, kurze Labels. Nächster Schritt: C10 Rezeptseiten.**
+
+> **Update 26.07. spät: C10 Rezeptseiten LIVE (security-hardening 3afdd27 → main c0b8045) ✓ — „Ähnliche Rezepte“-Sektion (server-gerendert via /api/similar-recipes: Korpus/Community zuerst per Tag- und Titel-Match, bei Spoonacular-IDs +3 Provider-Rezepte, DE-Titel aus Übersetzungs-Cache) und Sticky „+ In den Wochenplan“-Button (erscheint ab 250 px Scroll, AddToPlanModal wie Video-Karten, Login-Gate) auf allen Rezeptseiten DE+EN. Nächster Schritt: B9 Video-Titel.**
+
+> **Update 27.07. abends: B9 Video-Titel LIVE (10a7514 → main b78a2e4) — /api/videos und /api/tasty-related übersetzen Tasty-Titel bei lang=de über den Übersetzungs-Cache; VideoSection und Rezept-Carousel angebunden, live verifiziert (deutsche Titel). Zusätzlich GSC-Empfehlung vom Montags-Lauf umgesetzt: In-Text-Anchor „Einkaufsrechner für Lebensmittel“ im Artikel einkaufsliste-fuer-die-woche-erstellen → /de/grocery-list-calculator (die frisch indexierten Rechner-LPs sollen das Query-Cluster übernehmen). Nächster Schritt: C12 Onboarding-Wizard.**
+
+> **Update 27.07. spät: C12 Onboarding-Wizard LIVE (ca954fe → main af21787) — neue Route /onboarding (Middleware-geschützt, noindex): Schritt 1 Ernährungsweise (schreibt user_preferences mit den Profil-Werten → personalisiert ForYou; die Zeile markiert zugleich „onboarded“ für den Auth-Callback), Schritt 2 fünf Korpus-Vorschläge via /api/similar-recipes als Abendessen Mo–Fr in den Wochenplan (legt „Mein Wochenplan“ an, falls keiner existiert; Woche = aktueller Montag wie AddToPlanModal), Schritt 3 ShoppingListDrawer mit der fertigen Einkaufsliste. Einstiege: Signup mit Sofort-Session (LoginClient) und E-Mail-Bestätigung (auth/callback, ersetzt /profile?welcome=1). Live verifiziert DE+EN: Render Schritt 1, Middleware-Redirect für Anonyme, Vorschlags-API (vegan/quick je 5 Treffer). Schreibpfade (prefs-Upsert, meal_plans/meal_plan_entries) bewusst nicht am Live-Account getestet — folgen 1:1 den AddToPlanModal-/Profil-Mustern. Nächster Schritt: C11 Wochenplan-Sharing.**
+
+## Paket A — Quick Wins (sofort umsetzbar, je < 30 Min) → ERLEDIGT ✓
 
 1. **Footer-Logo ist ein weißer Klotz.** `culinse-logo.png` hat weißen Hintergrund und liegt auf dunklem Footer — wirkt kaputt. Fix: Text-Wortmarke („culi" weiß + „nse" orange) statt PNG.
 2. **Eingeloggte sehen „Kostenloses Konto erstellen".** Der Schluss-CTA der Startseite ignoriert den Login-Status. Fix: eingeloggt → „Öffne deinen Wochenplaner →".
