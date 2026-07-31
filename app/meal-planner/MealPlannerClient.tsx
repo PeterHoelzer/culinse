@@ -62,6 +62,8 @@ export default function MealPlannerPage() {
   const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
   const [autoFilling, setAutoFilling] = useState(false);
   const [nutritionByRecipe, setNutritionByRecipe] = useState<Record<string, Nut>>({});
   // Protein-Tagesziel (g) — lokal je Gerät gespeichert, kein Account-Feld nötig
@@ -170,6 +172,33 @@ export default function MealPlannerPage() {
   };
 
   // Jump to a different calendar week of the active plan.
+  // C11: aktuelle Woche als oeffentlichen Snapshot teilen (Share-Sheet/Link).
+  const handleShareWeek = async () => {
+    if (sharing || !activePlanId || !currentWeekStart) return;
+    setSharing(true);
+    try {
+      const res = await fetch("/api/share-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ planId: activePlanId, weekStart: currentWeekStart, locale }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.path) throw new Error(data.error || "share_failed");
+      const url = `${window.location.origin}${data.path}`;
+      if (navigator.share) {
+        await navigator.share({ title: "Culinse", url });
+      } else {
+        await navigator.clipboard.writeText(url);
+        setShareCopied(true);
+        setTimeout(() => setShareCopied(false), 2500);
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+    } finally {
+      setSharing(false);
+    }
+  };
+
   const goToWeek = async (weekStart: string) => {
     setCurrentWeekStart(weekStart);
     setMoveFrom(null);
@@ -586,6 +615,15 @@ export default function MealPlannerPage() {
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-orange-600 text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105"
               >
                 {t("shoppingList")}
+              </button>
+            )}
+            {totalEntries > 0 && (
+              <button
+                onClick={handleShareWeek}
+                disabled={sharing}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all disabled:opacity-60"
+              >
+                {sharing ? "…" : shareCopied ? t("shareCopied") : `↗ ${t("shareWeek")}`}
               </button>
             )}
           </div>
