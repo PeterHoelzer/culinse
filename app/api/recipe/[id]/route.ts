@@ -4,6 +4,7 @@ import { createClient as createServerClient } from "@/lib/supabase/server";
 import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
 import { recipeSourceLabel } from "@/lib/culinse";
 import { httpUrl } from "@/lib/userRecipeInput";
+import { optimizedImageUrl } from "@/lib/imageUrl";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -77,7 +78,7 @@ export async function GET(
         title: r.title,
         // URL columns pass the http(s) filter before rendering as src/href —
         // stored javascript:/data: values must never reach visitors' browsers.
-        image: httpUrl(r.image_url),
+        image: optimizedImageUrl(httpUrl(r.image_url), 1200),
         imagePosition: r.image_position || "50% 50%",
         videoUrl: httpUrl(r.video_url),
         // Imported recipes carry their original site name + link for attribution;

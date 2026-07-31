@@ -460,6 +460,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                 src={recipe.image}
                 alt={recipe.title}
                 style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
+                fetchPriority="high"
                 className="w-full h-64 sm:h-96 object-cover"
                 onError={() => setImgError(true)}
               />

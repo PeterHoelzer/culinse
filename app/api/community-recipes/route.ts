@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recipeSourceLabel, CULINSE_OWNER_ID } from "@/lib/culinse";
+import { optimizedImageUrl } from "@/lib/imageUrl";
 
 // GET /api/community-recipes?number=2
 // Returns up to `number` random public, user-created recipes, mapped to the
@@ -47,7 +48,7 @@ export async function GET(req: Request) {
     const recipes = picked.map((r) => ({
       id: `user_${r.id}`,
       title: r.title,
-      image: r.image_url,
+      image: optimizedImageUrl(r.image_url, 640),
       source: recipeSourceLabel(r.user_id),
       sourceUrl: "#",
       time: r.cook_time ? `${r.cook_time} min` : "—",
