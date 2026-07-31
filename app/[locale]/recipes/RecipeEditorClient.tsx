@@ -11,6 +11,7 @@ interface RecipeData {
   description: string;
   image_url: string;
   image_position: string;
+  images: string[];
   video_url: string;
   ingredients: Ingredient[];
   instructions: Instruction[];
@@ -23,7 +24,7 @@ interface RecipeData {
 }
 
 const EMPTY: RecipeData = {
-  title: "", description: "", image_url: "", image_position: "50% 50%", video_url: "",
+  title: "", description: "", image_url: "", image_position: "50% 50%", images: [], video_url: "",
   ingredients: [{ name: "", amount: "", unit: "" }],
   instructions: [{ step: 1, text: "", timer_minutes: null }],
   cook_time: "", prep_time: "", servings: "2", tags: [], is_public: false, source_type: "created",
@@ -33,7 +34,8 @@ function serializeRecipe(data: RecipeData) {
   return {
     title: data.title || "Untitled",
     description: data.description,
-    image_url: data.image_url,
+    image_url: data.images[0] ?? data.image_url,
+    images: data.images,
     image_position: data.image_position || "50% 50%",
     video_url: data.video_url,
     ingredients: data.ingredients.filter(i => i.name),
@@ -76,7 +78,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
     return m ? { x: parseFloat(m[1]), y: parseFloat(m[2]) } : { x: 50, y: 50 };
   };
   const onImgDragStart = (e: React.PointerEvent) => {
-    if (!recipe.image_url) return;
+    if (!recipe.images[0]) return;
     const { x, y } = parsePos(recipe.image_position);
     dragState.current = { startX: e.clientX, startY: e.clientY, baseX: x, baseY: y };
     e.currentTarget.setPointerCapture?.(e.pointerId);
@@ -106,6 +108,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               description: r.description ?? "",
               image_url: r.image_url ?? "",
               image_position: r.image_position ?? "50% 50%",
+              images: Array.isArray(r.images) && r.images.length ? r.images.filter((u: unknown): u is string => typeof u === "string") : r.image_url ? [r.image_url] : [],
               video_url: r.video_url ?? "",
               ingredients: r.ingredients?.length ? r.ingredients : [{ name: "", amount: "", unit: "" }],
               instructions: r.instructions?.length ? r.instructions : [{ step: 1, text: "", timer_minutes: null }],
@@ -162,26 +165,48 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
     setStep(s => s + 1);
   };
 
-  // Image upload to Supabase Storage
+  // Image upload to Supabase Storage — mehrere Dateien pro Auswahl moeglich;
+  // das erste Galerie-Bild ist das Cover (image_url bleibt fuer Karten synchron).
+  const MAX_IMAGES = 6;
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (!files.length) return;
     setUploading(true);
     const supabase = createClient();
-    const ext = file.name.split(".").pop();
-    const path = `${(await supabase.auth.getUser()).data.user?.id}/${Date.now()}.${ext}`;
-    const { data, error } = await supabase.storage.from("recipe-media").upload(path, file, { upsert: true });
-    if (!error && data) {
-      const { data: { publicUrl } } = supabase.storage.from("recipe-media").getPublicUrl(data.path);
-      setRecipe(prev => ({ ...prev, image_url: publicUrl }));
+    const uid = (await supabase.auth.getUser()).data.user?.id;
+    const uploaded: string[] = [];
+    for (const file of files.slice(0, Math.max(0, MAX_IMAGES - recipe.images.length))) {
+      const ext = file.name.split(".").pop();
+      const path = `${uid}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { data, error } = await supabase.storage.from("recipe-media").upload(path, file, { upsert: true });
+      if (!error && data) {
+        const { data: { publicUrl } } = supabase.storage.from("recipe-media").getPublicUrl(data.path);
+        uploaded.push(publicUrl);
+      }
+    }
+    if (uploaded.length) {
+      setRecipe(prev => {
+        const images = [...prev.images, ...uploaded].slice(0, MAX_IMAGES);
+        return { ...prev, images, image_url: images[0] };
+      });
     }
     setUploading(false);
   };
+  const removeImage = (idx: number) => setRecipe(p => {
+    const images = p.images.filter((_, i) => i !== idx);
+    return { ...p, images, image_url: images[0] ?? "", image_position: idx === 0 ? "50% 50%" : p.image_position };
+  });
+  const makeCover = (idx: number) => setRecipe(p => {
+    if (idx === 0) return p;
+    const images = [p.images[idx], ...p.images.filter((_, i) => i !== idx)];
+    return { ...p, images, image_url: images[0], image_position: "50% 50%" };
+  });
 
   const handlePublish = async () => {
     const errs: string[] = [];
     if (!recipe.title.trim()) errs.push("Title is required.");
-    if (recipe.is_public && !recipe.image_url) errs.push("A photo is required for public recipes.");
+    if (recipe.is_public && !recipe.images.length) errs.push("A photo is required for public recipes.");
     if (errs.length) { setErrors(errs); return; }
     setSaving(true);
     setErrors([]);
@@ -377,18 +402,18 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
           <div className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Recipe photo
+                Recipe photos
                 {recipe.is_public && <span className="ml-1 text-xs text-orange-500">* required for public</span>}
               </label>
               <div
                 ref={previewRef}
-                onClick={recipe.image_url ? undefined : () => fileRef.current?.click()}
-                style={{ cursor: recipe.image_url ? "move" : "pointer" }}
+                onClick={recipe.images[0] ? undefined : () => fileRef.current?.click()}
+                style={{ cursor: recipe.images[0] ? "move" : "pointer" }}
                 className="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center hover:border-orange-300 transition-colors overflow-hidden">
-                {recipe.image_url ? (
+                {recipe.images[0] ? (
                   <>
                     <img
-                      src={recipe.image_url}
+                      src={recipe.images[0]}
                       alt="preview"
                       draggable={false}
                       onPointerDown={onImgDragStart}
@@ -408,18 +433,36 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                   <>
                     <div className="text-3xl mb-2">📷</div>
                     <p className="text-sm text-gray-400">Click to upload a photo</p>
-                    <p className="text-xs text-gray-300 mt-1">JPG, PNG, WebP · Max 5 MB</p>
+                    <p className="text-xs text-gray-300 mt-1">JPG, PNG, WebP · Max 5 MB · up to 6 photos</p>
                   </>
                 )}
               </div>
-              <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
-              {recipe.image_url && (
-                <div className="mt-2 flex items-center gap-4">
-                  <button onClick={() => fileRef.current?.click()}
-                    className="text-xs text-gray-500 hover:text-orange-500">Change photo</button>
-                  <button onClick={() => setRecipe(p => ({ ...p, image_url: "", image_position: "50% 50%" }))}
-                    className="text-xs text-red-400 hover:text-red-500">Remove photo</button>
+              <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
+              {recipe.images.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {recipe.images.map((url, i) => (
+                    <div key={url} className="relative group">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={url} alt={`Photo ${i + 1}`}
+                        onClick={() => makeCover(i)}
+                        className={`w-20 h-20 rounded-xl object-cover cursor-pointer ${i === 0 ? "ring-2 ring-orange-500" : "opacity-80 hover:opacity-100"}`} />
+                      {i === 0 && (
+                        <span className="absolute bottom-1 left-1 bg-orange-500 text-white text-[9px] font-semibold px-1.5 py-0.5 rounded-full pointer-events-none">Cover</span>
+                      )}
+                      <button onClick={() => removeImage(i)}
+                        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-black/60 text-white text-[11px] leading-none hidden group-hover:flex items-center justify-center">×</button>
+                    </div>
+                  ))}
+                  {recipe.images.length < MAX_IMAGES && (
+                    <button onClick={() => fileRef.current?.click()} disabled={uploading}
+                      className="w-20 h-20 rounded-xl border-2 border-dashed border-gray-200 text-gray-300 text-2xl hover:border-orange-300 hover:text-orange-400 transition-colors disabled:opacity-50">
+                      {uploading ? "…" : "+"}
+                    </button>
+                  )}
                 </div>
+              )}
+              {recipe.images.length > 1 && (
+                <p className="text-xs text-gray-400 mt-1.5">Tap a photo to make it the cover — visitors see all photos as a gallery.</p>
               )}
             </div>
             <div>
@@ -458,7 +501,15 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                   ))}
                 </div>
               )}
-              {recipe.image_url && <img src={recipe.image_url} alt="" className="w-full h-32 object-cover rounded-xl" />}
+              {recipe.images[0] && (
+                <div className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={recipe.images[0]} alt="" className="w-full h-32 object-cover rounded-xl" />
+                  {recipe.images.length > 1 && (
+                    <span className="absolute bottom-2 right-2 bg-black/55 text-white text-[11px] px-2 py-0.5 rounded-full">📷 {recipe.images.length}</span>
+                  )}
+                </div>
+              )}
             </div>
             {recipe.source_type === "imported" ? (
             <div className="bg-white rounded-2xl border border-gray-100 p-5">
@@ -490,7 +541,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                   <div className="p-3 bg-orange-50 border border-orange-100 rounded-xl text-xs text-orange-700">
                     Your recipe will be reviewed against our quality standards: photo required, clear instructions, and a proper title.
                   </div>
-                  {!recipe.image_url && (
+                  {!recipe.images.length && (
                     <div className="p-3 bg-red-50 border border-red-100 rounded-xl text-xs text-red-600 flex items-center gap-2">
                       <span>⚠️</span>
                       <span>No photo added — a photo is required to publish publicly.</span>
@@ -532,7 +583,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
               Next →
             </button>
           ) : (
-            <button onClick={handlePublish} disabled={saving || (recipe.is_public && !recipe.image_url)}
+            <button onClick={handlePublish} disabled={saving || (recipe.is_public && !recipe.images.length)}
               className="flex-1 py-3 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
               style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}>
               {saving ? "Saving..." : recipe.is_public ? "Publish Recipe 🌍" : "Save as Draft 🔒"}

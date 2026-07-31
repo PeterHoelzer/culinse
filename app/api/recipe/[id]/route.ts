@@ -79,6 +79,10 @@ export async function GET(
         // URL columns pass the http(s) filter before rendering as src/href —
         // stored javascript:/data: values must never reach visitors' browsers.
         image: optimizedImageUrl(httpUrl(r.image_url), 1200),
+        // Galerie (falls gepflegt): geordnete Liste, Cover an Position 0.
+        images: (Array.isArray(r.images) ? (r.images as unknown[]) : [])
+          .map((u) => optimizedImageUrl(httpUrl(u), 1200))
+          .filter((u): u is string => Boolean(u)),
         imagePosition: r.image_position || "50% 50%",
         videoUrl: httpUrl(r.video_url),
         // Imported recipes carry their original site name + link for attribution;

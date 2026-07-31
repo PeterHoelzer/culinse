@@ -36,6 +36,7 @@ export interface Recipe {
   id: number | string;
   title: string;
   image: string | null;
+  images?: string[] | null;
   imagePosition?: string | null;
   videoUrl?: string | null;
   source: string;
@@ -147,6 +148,10 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   const [saving, setSaving] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [imgError, setImgError] = useState(false);
+  // Mehrbild-Galerie (Community-Rezepte): Index 0 = Cover.
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
+  const gallery = recipe?.images?.length ? recipe.images : recipe?.image ? [recipe.image] : [];
+  const heroImage = gallery.length ? gallery[Math.min(activeImageIdx, gallery.length - 1)] : recipe?.image ?? null;
   const [copied, setCopied] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
@@ -455,11 +460,11 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                 poster={recipe.image || undefined}
                 className="w-full h-64 sm:h-96 object-cover bg-black"
               />
-            ) : recipe.image && !imgError ? (
+            ) : heroImage && !imgError ? (
               <img
-                src={recipe.image}
+                src={heroImage}
                 alt={recipe.title}
-                style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
+                style={recipe.imagePosition && activeImageIdx === 0 ? { objectPosition: recipe.imagePosition } : undefined}
                 fetchPriority="high"
                 className="w-full h-64 sm:h-96 object-cover"
                 onError={() => setImgError(true)}
@@ -474,6 +479,26 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               📖 {recipe.source}
             </div>
           </div>
+
+          {/* Bildergalerie — nur wenn das Rezept mehrere Fotos hat (Community) */}
+          {gallery.length > 1 && !activeVideoUrl && (
+            <div className="print-hide flex gap-2 mb-2 overflow-x-auto pb-1">
+              {gallery.map((url, i) => (
+                <button
+                  key={url}
+                  type="button"
+                  onClick={() => { setActiveImageIdx(i); setImgError(false); }}
+                  aria-label={`${recipe.title} ${i + 1}`}
+                  className={`relative flex-shrink-0 rounded-xl overflow-hidden transition-all ${
+                    i === activeImageIdx ? "ring-2 ring-orange-500" : "opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={url} alt={`${recipe.title} ${i + 1}`} loading="lazy" className="w-16 h-16 sm:w-20 sm:h-20 object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* More Videos — only for Tasty recipes with video */}
           {recipe.source === "Tasty" && recipe.videoUrl && (
