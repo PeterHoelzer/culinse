@@ -374,6 +374,8 @@
     "view": "View →"
   },
   "mealPlanner": {
+    "shareWeek": "Share",
+    "shareCopied": "✓ Link copied",
     "title": "Meal Planner",
     "days": [
       "Mon",
@@ -461,6 +463,17 @@
     "skip": "Skip — go to the homepage",
     "loadError": "That didn't work. Please try again in a moment.",
     "planName": "My Meal Plan"
+  },
+  "planShare": {
+    "badge": "Shared meal plan",
+    "title": "My meal plan",
+    "titleWithCost": "My week for {cost}",
+    "subtitle": "{count, plural, one {1 meal} other {# meals}} · week of {date}",
+    "estCost": "Estimated grocery cost",
+    "estCostHint": "Discount-store estimate ({priced} of {total} meals calculated). Prices vary by store.",
+    "ctaTitle": "Plan your own week — free",
+    "ctaText": "Pick recipes, fill your week, get a ready shopping list with price estimate. No ad banners, no forced subscription.",
+    "ctaButton": "Start for free"
   },
   "recipe": {
     "cookTime": "Cook time",

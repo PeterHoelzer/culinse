@@ -374,6 +374,8 @@
     "view": "Ansehen →"
   },
   "mealPlanner": {
+    "shareWeek": "Teilen",
+    "shareCopied": "✓ Link kopiert",
     "title": "Wochenplaner",
     "days": [
       "Mo",
@@ -461,6 +463,17 @@
     "skip": "Überspringen — direkt zur Startseite",
     "loadError": "Das hat leider nicht geklappt. Versuch es gleich nochmal.",
     "planName": "Mein Wochenplan"
+  },
+  "planShare": {
+    "badge": "Geteilter Wochenplan",
+    "title": "Mein Wochenplan",
+    "titleWithCost": "Meine Woche für {cost}",
+    "subtitle": "{count, plural, one {1 Gericht} other {# Gerichte}} · Woche vom {date}",
+    "estCost": "Geschätzte Einkaufskosten",
+    "estCostHint": "Schätzung auf Discounter-Preisniveau ({priced} von {total} Gerichten kalkuliert). Preise variieren je nach Markt.",
+    "ctaTitle": "Plan deine eigene Woche — kostenlos",
+    "ctaText": "Rezepte aussuchen, Woche füllen, fertige Einkaufsliste mit Preisschätzung bekommen. Ohne Werbebanner, ohne Abo-Zwang.",
+    "ctaButton": "Kostenlos starten"
   },
   "recipe": {
     "cookTime": "Kochzeit",
