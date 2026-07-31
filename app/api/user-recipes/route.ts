@@ -48,25 +48,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "invalid_body" }, { status: 400 });
   }
   const input = sanitizeRecipeInput(body);
-  const { data, error } = await supabase
-    .from("user_recipes")
-    .insert({
-      user_id: user.id,
-      title: input.title || "Untitled Recipe",
-      description: input.description,
-      image_url: input.image_url,
-      image_position: input.image_position,
-      video_url: input.video_url,
-      ingredients: input.ingredients,
-      instructions: input.instructions,
-      cook_time: input.cook_time,
-      prep_time: input.prep_time,
-      servings: input.servings ?? 2,
-      tags: input.tags,
-      status: "draft",
-      is_public: false,
-    })
-    .select().single();
+  const row: Record<string, unknown> = {
+    user_id: user.id,
+    title: input.title || "Untitled Recipe",
+    description: input.description,
+    image_url: input.image_url,
+    images: input.images,
+    image_position: input.image_position,
+    video_url: input.video_url,
+    ingredients: input.ingredients,
+    instructions: input.instructions,
+    cook_time: input.cook_time,
+    prep_time: input.prep_time,
+    servings: input.servings ?? 2,
+    tags: input.tags,
+    status: "draft",
+    is_public: false,
+  };
+  let { data, error } = await supabase.from("user_recipes").insert(row).select().single();
+  // Bis die images-Migration (supabase/user_recipe_images_migration.sql) im SQL
+  // Editor gelaufen ist, kennt PostgREST die Spalte nicht (PGRST204) — dann ohne
+  // Galerie speichern statt hart zu failen; das Cover (image_url) bleibt erhalten.
+  if (error && /images/i.test(error.message || "")) {
+    const fallback = { ...row };
+    delete fallback.images;
+    ({ data, error } = await supabase.from("user_recipes").insert(fallback).select().single());
+  }
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ recipe: data }, { status: 201 });

@@ -143,7 +143,7 @@ export default async function RecipePage(
         description: recipe.summary
           ? recipe.summary.replace(/<[^>]+>/g, "").slice(0, 300)
           : `Learn how to make ${recipe.title}.`,
-        image: recipe.image ? [recipe.image] : [],
+        image: recipe.images?.length ? recipe.images : recipe.image ? [recipe.image] : [],
         author: {
           "@type": "Organization",
           name: recipe.source || "Culinse",

@@ -7,6 +7,7 @@
 const MAX_INGREDIENTS = 100;
 const MAX_INSTRUCTIONS = 60;
 const MAX_TAGS = 20;
+const MAX_IMAGES = 6;
 
 function str(v: unknown, maxLen: number): string | null {
   if (typeof v !== "string") return null;
@@ -35,6 +36,7 @@ export interface SanitizedRecipeInput {
   title: string | null;
   description: string | null;
   image_url: string | null;
+  images: string[];
   image_position: string;
   video_url: string | null;
   ingredients: { name: string; amount: string; unit: string }[];
@@ -78,10 +80,21 @@ export function sanitizeRecipeInput(body: Record<string, unknown>): SanitizedRec
     .map((t) => str(t, 50))
     .filter((t): t is string => Boolean(t));
 
+  const images = Array.from(
+    new Set(
+      (Array.isArray(body.images) ? body.images : [])
+        .slice(0, MAX_IMAGES * 2)
+        .map((u) => httpUrl(u))
+        .filter((u): u is string => Boolean(u))
+    )
+  ).slice(0, MAX_IMAGES);
+
   return {
     title: str(body.title, 200),
     description: str(body.description, 2000),
-    image_url: httpUrl(body.image_url),
+    // Cover ist immer das erste Galerie-Bild; ohne Galerie gilt image_url weiter.
+    image_url: images.length ? images[0] : httpUrl(body.image_url),
+    images,
     image_position,
     video_url: httpUrl(body.video_url),
     ingredients,

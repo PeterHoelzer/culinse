@@ -74,26 +74,38 @@ export async function PUT(req: NextRequest, { params }: Params) {
   }
 
   const isPublic = body.is_public === true;
-  const { data, error } = await supabase
+  const patch: Record<string, unknown> = {
+    title: input.title,
+    description: input.description,
+    image_url: input.image_url,
+    images: input.images,
+    image_position: input.image_position,
+    video_url: input.video_url,
+    ingredients: input.ingredients,
+    instructions: input.instructions,
+    cook_time: input.cook_time,
+    prep_time: input.prep_time,
+    servings: input.servings,
+    tags: input.tags,
+    nutrition: sanitizeNutrition(body.nutrition),
+    is_public: isPublic,
+    status: isPublic ? "published" : "draft",
+  };
+  let { data, error } = await supabase
     .from("user_recipes")
-    .update({
-      title: input.title,
-      description: input.description,
-      image_url: input.image_url,
-      image_position: input.image_position,
-      video_url: input.video_url,
-      ingredients: input.ingredients,
-      instructions: input.instructions,
-      cook_time: input.cook_time,
-      prep_time: input.prep_time,
-      servings: input.servings,
-      tags: input.tags,
-      nutrition: sanitizeNutrition(body.nutrition),
-      is_public: isPublic,
-      status: isPublic ? "published" : "draft",
-    })
+    .update(patch)
     .eq("id", id).eq("user_id", user.id)
     .select().single();
+  // Bis die images-Migration gelaufen ist: ohne Galerie-Spalte erneut versuchen.
+  if (error && /images/i.test(error.message || "")) {
+    const fallback = { ...patch };
+    delete fallback.images;
+    ({ data, error } = await supabase
+      .from("user_recipes")
+      .update(fallback)
+      .eq("id", id).eq("user_id", user.id)
+      .select().single());
+  }
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ recipe: data });
