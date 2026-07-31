@@ -87,7 +87,8 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
               alt={recipe.title}
               style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
               className="w-full h-full object-cover"
-              loading="lazy"
+              loading={index < 3 ? "eager" : "lazy"}
+              fetchPriority={index < 3 ? "high" : undefined}
               onError={() => setImgError(true)}
             />
           ) : (

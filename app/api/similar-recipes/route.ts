@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recipeSourceLabel } from "@/lib/culinse";
 import { translateTexts } from "@/lib/translate";
+import { optimizedImageUrl } from "@/lib/imageUrl";
 
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
@@ -217,7 +218,7 @@ export async function GET(req: NextRequest) {
         return {
           id: `user_${r.id}`,
           title: r.title,
-          image: r.image_url,
+          image: optimizedImageUrl(r.image_url, 640),
           imagePosition: r.image_position ?? null,
           time: total > 0 ? `${total} min` : null,
           source: recipeSourceLabel(r.user_id),
