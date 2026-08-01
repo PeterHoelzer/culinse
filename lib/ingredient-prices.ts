@@ -8,6 +8,10 @@
 // Check 15.07.2026: Rinderhack 6,19 €/500 g, gemischtes Hack 5,49 €/500 g
 // (Aldi Süd), Gouda-Scheiben ≈ 6,20 €/kg (Lidl Milbona), Olivenöl Eigenmarke
 // < 6 €/L, Röstkaffee gemahlen 500 g ab 4,79 € (Aldi-Preissenkungen Frühjahr).
+// Check 01.08.2026: Mehl 405 1 kg 0,39–0,59 € (Aldi Süd/Nord), Zucker & Mehl
+// breit gesenkt, Kartoffeln nach Ernte-Überangebot (Erzeugerpreise ≈ −50 %,
+// agrarheute) runter, Eier Bodenhaltung 10er 2,49 € (Vogelgrippe) rauf;
+// Fleisch/Butter/Milch/Öle/Kaffee unverändert im Rahmen.
 //
 // PFLEGE: Ein monatlicher automatischer Preis-Check gleicht die wichtigsten
 // Einträge gegen aktuelle Quellen ab und aktualisiert PRICES_UPDATED_AT.
@@ -17,7 +21,7 @@
 // Preislogik: perKg (€/kg) für Feststoffe, perL (€/L) für Flüssigkeiten,
 // perPiece (€/Stück) für Stückware, pieceGrams für Stück→Gewicht-Umrechnung.
 
-export const PRICES_UPDATED_AT = "2026-07-15";
+export const PRICES_UPDATED_AT = "2026-08-01";
 
 export interface PriceEntry {
   /** lowercase Matching-Namen: Englisch zuerst (API-Rohdaten), dann Deutsch */
@@ -33,7 +37,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   // ── Molkerei & Eier ──
   { names: ["milk", "whole milk", "milch", "vollmilch"], perL: 0.95 },
   { names: ["butter"], perKg: 4.8 },
-  { names: ["egg", "eggs", "ei", "eier"], perPiece: 0.22, pieceGrams: 60 },
+  { names: ["egg", "eggs", "ei", "eier"], perPiece: 0.25, pieceGrams: 60 },
   { names: ["cream", "heavy cream", "whipping cream", "sahne", "schlagsahne"], perL: 2.6 },
   { names: ["sour cream", "creme fraiche", "crème fraîche", "schmand", "saure sahne"], perKg: 3.2 },
   { names: ["yogurt", "greek yogurt", "joghurt", "griechischer joghurt"], perKg: 2.2 },
@@ -74,7 +78,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["cucumber", "gurke", "salatgurke"], perPiece: 0.89, pieceGrams: 400 },
   { names: ["bell pepper", "pepper", "paprika"], perKg: 3.3, perPiece: 0.85, pieceGrams: 180 },
   { names: ["carrot", "carrots", "karotte", "karotten", "möhre", "möhren", "moehren"], perKg: 1.2, pieceGrams: 80 },
-  { names: ["potato", "potatoes", "kartoffel", "kartoffeln"], perKg: 1.3, pieceGrams: 120 },
+  { names: ["potato", "potatoes", "kartoffel", "kartoffeln"], perKg: 1.0, pieceGrams: 120 },
   { names: ["sweet potato", "süßkartoffel", "suesskartoffel"], perKg: 2.6, pieceGrams: 250 },
   { names: ["zucchini", "courgette"], perKg: 2.5, perPiece: 0.79, pieceGrams: 300 },
   { names: ["eggplant", "aubergine"], perPiece: 1.19, pieceGrams: 300 },
@@ -120,7 +124,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["couscous"], perKg: 3.2 },
   { names: ["bulgur"], perKg: 3.0 },
   { names: ["oats", "rolled oats", "oatmeal", "haferflocken"], perKg: 1.5 },
-  { names: ["flour", "all-purpose flour", "mehl", "weizenmehl"], perKg: 0.85 },
+  { names: ["flour", "all-purpose flour", "mehl", "weizenmehl"], perKg: 0.5 },
   { names: ["lentils", "red lentils", "linsen", "rote linsen"], perKg: 3.2 },
   { names: ["chickpeas", "kichererbsen"], perKg: 3.0, perPiece: 0.89, pieceGrams: 240 },
   { names: ["beans", "black beans", "kidney beans", "white beans", "bohnen", "kidneybohnen", "schwarze bohnen", "weiße bohnen"], perKg: 3.0, perPiece: 0.79, pieceGrams: 240 },
@@ -129,7 +133,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["orzo", "kritharaki"], perKg: 2.8 },
   { names: ["breadcrumbs", "paniermehl", "semmelbrösel"], perKg: 2.2 },
   { names: ["cornstarch", "speisestärke", "speisestaerke"], perKg: 2.6 },
-  { names: ["sugar", "zucker"], perKg: 1.1 },
+  { names: ["sugar", "zucker"], perKg: 0.9 },
   { names: ["brown sugar", "brauner zucker"], perKg: 2.2 },
   { names: ["baking powder", "backpulver"], perKg: 8.0 },
   { names: ["yeast", "hefe"], perPiece: 0.15, pieceGrams: 42 },
