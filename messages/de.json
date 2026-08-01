@@ -138,6 +138,7 @@
     "about": "Über uns",
     "impressum": "Impressum",
     "datenschutz": "Datenschutz",
+    "aiTransparency": "KI-Transparenz",
     "contact": "Kontakt",
     "copyright": "© {year} Culinse. Alle Rechte vorbehalten.",
     "planner": "Wochenplaner",
@@ -500,7 +501,9 @@
     "instructionsOnSource": "Die vollständige Anleitung findest du auf der Originalseite.",
     "viewFullRecipe": "Vollständiges Rezept ansehen",
     "printWithImage": "Mit Bild",
-    "printNoImage": "Ohne Bild"
+    "printNoImage": "Ohne Bild",
+    "aiNotice": "Mit KI-Unterstützung erstellt und redaktionell geprüft",
+    "aiNoticeMore": "Mehr zur KI-Transparenz"
   },
   "pro": {
     "title": "Culinse Pro",

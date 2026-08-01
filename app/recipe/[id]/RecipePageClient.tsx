@@ -52,6 +52,7 @@ export interface Recipe {
   prepTime?: number | null;
   cookTime?: number | null;
   datePublished?: string | null;
+  aiAssisted?: boolean;
   cuisine?: string | null;
 }
 
@@ -479,6 +480,16 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               📖 {recipe.source}
             </div>
           </div>
+
+          {/* Freiwillige KI-Kennzeichnung (EU AI Act Art. 50) fuer Korpus-Rezepte */}
+          {recipe.aiAssisted && (
+            <p className="print-hide text-[11px] text-gray-400 mb-2">
+              🤖 {t("aiNotice")} ·{" "}
+              <LocaleLink href="/ki-transparenz" className="underline hover:text-orange-500">
+                {t("aiNoticeMore")}
+              </LocaleLink>
+            </p>
+          )}
 
           {/* Bildergalerie — nur wenn das Rezept mehrere Fotos hat (Community) */}
           {gallery.length > 1 && !activeVideoUrl && (
