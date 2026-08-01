@@ -87,7 +87,9 @@ export async function GET(
         // Freiwillige KI-Kennzeichnung (AI Act Art. 50): Korpus-Rezepte laufen
         // durch die Agent-Pipeline (pipeline_status gesetzt) und sind redaktionell
         // geprueft; manuelle Community-Rezepte haben hier NULL.
-        aiAssisted: r.pipeline_status != null,
+        // Doppelt abgesichert: Pipeline-Merkmal ODER strukturell (alles, was unter
+        // dem Culinse-Label laeuft und nicht importiert ist, ist KI-unterstuetzt).
+        aiAssisted: r.pipeline_status != null || (recipeSourceLabel(r.user_id) === "Culinse" && r.source_type !== "imported"),
         videoUrl: httpUrl(r.video_url),
         // Imported recipes carry their original site name + link for attribution;
         // created recipes are labelled Culinse (owner) or Community (other members).
