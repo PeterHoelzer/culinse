@@ -5,7 +5,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
 async function fetchRecipe(id: string): Promise<Recipe | null> {
   try {
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}`, {
+    // v=2: Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
+    // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
+    // bis zu einem Tag lang alte Daten ohne die neuen Felder.
+    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=2`, {
       next: { revalidate: 86400 },
     });
     if (!res.ok) return null;
