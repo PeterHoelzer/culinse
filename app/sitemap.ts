@@ -28,6 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/datenschutz", changeFrequency: "yearly" as const, priority: 0.1 },
+    { path: "/ki-transparenz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
   ];
   // NOTE: /login intentionally excluded — utility page, no SEO value.
@@ -129,7 +130,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Public community recipes — unique, user-created content that's genuinely
   // worth indexing (unlike aggregated provider recipes, which are duplicate
   // content). Imported recipes are force-private, so only original posts appear.
-  let userRecipeEntries: MetadataRoute.Sitemap = [];
+  const userRecipeEntries: MetadataRoute.Sitemap = [];
   try {
     const admin = createAdminClient();
     const { data: urs } = await admin

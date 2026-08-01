@@ -138,6 +138,7 @@
     "about": "About",
     "impressum": "Legal Notice",
     "datenschutz": "Privacy Policy",
+    "aiTransparency": "AI Transparency",
     "contact": "Contact",
     "copyright": "© {year} Culinse. All rights reserved.",
     "planner": "Meal planner",
@@ -500,7 +501,9 @@
     "instructionsOnSource": "Full instructions are on the original site.",
     "viewFullRecipe": "View Full Recipe",
     "printWithImage": "With image",
-    "printNoImage": "Without image"
+    "printNoImage": "Without image",
+    "aiNotice": "Created with AI assistance and editorially reviewed",
+    "aiNoticeMore": "About our AI transparency"
   },
   "pro": {
     "title": "Culinse Pro",

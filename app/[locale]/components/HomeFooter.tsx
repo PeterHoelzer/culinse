@@ -18,6 +18,7 @@ export default function HomeFooter() {
             <Link href="/about" className="hover:text-white transition-colors">{t("footer.about")}</Link>
             <Link href="/impressum" className="hover:text-white transition-colors">{t("footer.impressum")}</Link>
             <Link href="/datenschutz" className="hover:text-white transition-colors">{t("footer.datenschutz")}</Link>
+            <Link href="/ki-transparenz" className="hover:text-white transition-colors">{t("footer.aiTransparency")}</Link>
             <a href="mailto:peter@hoelzer.xyz" className="hover:text-white transition-colors">{t("footer.contact")}</a>
           </div>
           <p className="text-xs text-gray-600">

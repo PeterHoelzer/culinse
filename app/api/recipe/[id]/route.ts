@@ -84,6 +84,10 @@ export async function GET(
           .map((u) => optimizedImageUrl(httpUrl(u), 1200))
           .filter((u): u is string => Boolean(u)),
         imagePosition: r.image_position || "50% 50%",
+        // Freiwillige KI-Kennzeichnung (AI Act Art. 50): Korpus-Rezepte laufen
+        // durch die Agent-Pipeline (pipeline_status gesetzt) und sind redaktionell
+        // geprueft; manuelle Community-Rezepte haben hier NULL.
+        aiAssisted: r.pipeline_status != null,
         videoUrl: httpUrl(r.video_url),
         // Imported recipes carry their original site name + link for attribution;
         // created recipes are labelled Culinse (owner) or Community (other members).
