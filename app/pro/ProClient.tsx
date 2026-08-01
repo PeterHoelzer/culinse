@@ -200,6 +200,12 @@ export default function ProPage() {
                 {loading ? t("processing") : plan === "annual" ? t("annualStartButton") : t("upgradeButton")}
               </button>
               <p className="text-xs text-gray-400">{t("cancelNote")}</p>
+              <p className="text-[11px] text-gray-400 mt-1">
+                {t("legalNote")}{" "}
+                <Link href="/agb" className="underline hover:text-orange-500">{t("agbLabel")}</Link>
+                {" "}{t("legalAnd")}{" "}
+                <Link href="/widerruf" className="underline hover:text-orange-500">{t("widerrufLabel")}</Link>.
+              </p>
             </div>
           )}
         </div>

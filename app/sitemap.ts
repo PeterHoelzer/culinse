@@ -29,6 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/datenschutz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/ki-transparenz", changeFrequency: "yearly" as const, priority: 0.1 },
+    { path: "/agb", changeFrequency: "yearly" as const, priority: 0.1 },
+    { path: "/widerruf", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
   ];
   // NOTE: /login intentionally excluded — utility page, no SEO value.
