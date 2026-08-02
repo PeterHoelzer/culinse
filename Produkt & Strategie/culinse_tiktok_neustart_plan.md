@@ -91,3 +91,55 @@ Nach 4 Wochen (12 Posts) Metricool-Check:
 1. **Deutsch statt Englisch** — ok? (Empfehlung: ja)
 2. ERLEDIGT (18.07.): Papa hat zugestimmt — Rezepte ok, sein Name wird NIE genannt (in Posts nur „mein Vater")
 3. Langfristig: Bereitschaft für 15-Sekunden-Videos (Screenrecordings reichen — kein Gesicht nötig)
+
+## Learnings Woche 2 (19.07.2026)
+
+**Datenlage:** Noch keine veröffentlichten Posts. Woche 1 (Gulasch / Linsen-Feta / Protein-Frühstück) ist für 22.–24.07. geplant und publisht erst dann automatisch. Metricool-Analytics (14 Tage) daher leer — der echte Serien-Vergleich (Views/Likes/Shares je Serie) startet erst mit dem Lauf nächste Woche. Dieser Eintrag ist ein Produktions-Log.
+
+**Produziert:** Woche 2 (29.–31.07.), Posts 4–6, drei verifizierte Carousels:
+
+- Mi — Familie: **Rahmgeschnetzeltes mit Estragon** (echtes Papa-Foto)
+- Do — Preis: **Wocheneinkauf für unter 30 €** — 26,50 € ehrlich mit `lib/ingredient-prices.ts` gerechnet
+- Fr — Protein: **Hähnchen-Gyros-Bowl** (45 g Protein, Katalog-Foto)
+
+**Abweichung vom Plan (+ Grund):** Post 4 war „Königsberger Klopse" — existiert in Papas Korpus nicht. Ersetzt durch Rahmgeschnetzeltes mit Estragon: echtes Foto vorhanden, starker Story-Wert („beeindruckt seit 30 Jahren jeden Gast"), kollidiert nicht mit Gulasch (W1) / Spätzle (W3) / Zwiebelsuppe (W4). Der Plan erlaubt das ausdrücklich („Reihenfolge flexibel je nach Bildmaterial").
+
+**Produktions-Learnings (fürs nächste Skript):**
+
+1. **Papas `user_recipes` haben `language = null`** (nicht „de"). Ein Filter auf `language==='de'` liefert leer → Fallback greift ein beliebiges Rezept (hier zunächst „Apfelkuchen"). Beim Familien-Fetch NICHT nach Sprache filtern, sondern nach Titel-Match + vorhandenem `image_url`.
+2. **FLUX-schnell rendert trotz „no text" oft Fake-Marken-Text** auf Verpackungen (erster Budget-Haul hatte erfundene Milch-/Eier-Labels). Für Verpackungs-/Einkaufsmotive den Prompt mit „plain unbranded packaging, no labels, no logos, no lettering" verstärken UND das Bild sichten. Re-Roll war sauber.
+3. **Slide-Footnote wird nicht umgebrochen** → max. ~960 px (≈ 60 Zeichen bei 28 px), sonst rechts abgeschnitten. Kurz halten.
+4. **Budget-Ehrlichkeit:** Eine reale Studentenwoche landet bei 26,50 €, nicht 30. „unter 30 €" ist glaubwürdiger als eine runde Zahl und bleibt bei der Marken-Ehrlichkeit (Öl/Gewürze als „extra" ausgewiesen).
+
+**Für nächste Woche:** Sobald W1-Zahlen vorliegen, je Serie Views/Likes/Shares vergleichen und den schwächsten Hook konkreter/emotionaler umformulieren; bei durchgehend <50 Views greift ab Woche 4 die Video-Eskalation (§6).
+
+## Learnings Woche 3 (26.07.2026)
+
+**Datenlage W1 (22.–24.07., erste echte Zahlen):** Metricool zeigt für alle drei Posts **0 Views, 0 Likes, 0 Shares** (Stand 26.07.). Damit ist kein Serien-Vergleich möglich — es gibt keinen Gewinner-Hook, weil es keine Distribution gab. Zwei Deutungen: (a) TikTok testet die Carousels gar nicht aus (v1-Niveau war 0–5 Views, das wäre eine Fortsetzung), oder (b) Metricool-Sync-Lag bei Foto-Posts, der jüngste Post ist erst 2 Tage alt. **Konsequenz:** Noch keine Panik-Eskalation — aber nächsten Sonntag W1+W2 (6 Posts) gemeinsam prüfen. Bleibt es bei ≈0, ist die 4-Wochen-Frist aus §6 faktisch vorentschieden und die Video-Eskalation (15-Sek-Screenrecordings) wird zur Woche-5-Produktion vorbereitet.
+
+**Hook-Anpassung aus echten Daten:** Post 8 (Baked Feta Pasta) war mit „2,10 € pro Portion" geplant — die ehrliche Rechnung mit `lib/ingredient-prices.ts` ergibt **7,00 € / 4 Portionen = 1,75 €**. Hook auf 1,75 € präzisiert (Budget-Ehrlichkeit, W2-Learning bestätigt: krumme echte Zahlen schlagen runde Behauptungen).
+
+**Produktion W3 (05.–07.08., Posts 7–9):**
+- Mi — Familie: **Spätzle** (echtes Papa-Foto). Story-Kern: nur 4 Zutaten, kein Fix-Beutel.
+- Do — Preis: **Baked Feta Pasta** — 1,75 €/Portion, alle 7 Posten einzeln auf dem Slide.
+- Fr — Protein: **Herzhafte Hüttenkäse-Bowl** (Katalog, DE): 28 g Protein / 370 kcal pro Bowl, ~0,60 € Hüttenkäse-Anteil → „billigstes Protein im Kühlregal"-Winkel.
+
+**Produktions-Notizen:** Alle 3 Bilder ohne FLUX-Lauf (Papas Foto + 2 DE-Katalogbilder vorhanden); Familien-Fetch über Titel-Match ohne Sprachfilter (W2-Learning §1) hat auf Anhieb funktioniert.
+
+## Learnings Woche 4 (02.08.2026)
+
+**Datenlage W1+W2 (6 Posts, 22.–31.07.):** Alle sechs veröffentlichten Posts stehen laut Metricool bei **0 Views, 0 Likes, 0 Shares** (Stand 02.08.). Der älteste Post ist 11 Tage alt — die Sync-Lag-Deutung aus W3 trägt allein nicht mehr. Das Muster entspricht v1: TikTok testet die Foto-Carousels nicht aus. Ein Serien-/Hook-Vergleich bleibt unmöglich, weil es keine Distribution gibt. **Rest-Unsicherheit:** Es ist nicht ausgeschlossen, dass Metricool Views von Foto-Posts unsauber synct — Gegenprobe: einmal direkt in der TikTok-App die Post-Views prüfen (2 Minuten, steht im Wochenbericht als Bitte an Peter).
+
+**Konsequenz / Eskalations-Fahrplan (§6):**
+- W4 (12.–14.08.) schließt die 12er-Tabelle planmäßig ab — produziert und geplant (siehe unten).
+- Bleiben auch W3-Posts (05.–07.08.) bei ≈0, ist die 4-Wochen-Frist faktisch entschieden: Ab W5 (19.–21.08.) sollten statt weiterer Carousels die ersten **15-Sek-Screenrecording-Videos** laufen (Wochenplan → Einkaufsliste mit €-Summe in Echtzeit, kein Gesicht nötig). Das ist Plan-§7-Entscheidung Nr. 3 und braucht Peters Go — im Wochenbericht 02.08. angefragt. Nächster Lauf (09.08.): bei Go Video-Produktion testen, sonst W5-Carousels im Serien-Schema.
+
+**Produktion W4 (12.–14.08., Posts 10–12):**
+- Mi — Familie: **Scharfe Waldpilzsuppe** (echtes Papa-Foto, 4032×3024) statt Zwiebelsuppe. Grund: Das Zwiebelsuppen-Foto ist ein 1972×484-Panorama — der Vollflächen-Crop ergab eine konturlose, verpixelte Käsefläche. Die Waldpilzsuppe hat das bessere Foto UND die stärkere Story: Hallimasch gibt es nicht im Supermarkt, „mein Vater sammelt sie selbst". (Zwiebelsuppe zurückgestellt, bis ein neues Foto existiert.)
+- Do — Preis: **Meal-Prep-Woche** — ehrlich gerechnet mit `lib/ingredient-prices.ts`: 12,30 € für 5 Mittagessen = **2,46 €/Portion** (Plan-Behauptung „12,80 €" ersetzt; 7 Posten einzeln auf dem Slide). FLUX-Bild (Glas-Boxen, unbranded — sauber, kein Fake-Text).
+- Fr — Protein: **Protein Overnight Oats** (Korpus DE, published): echte Nutrition **38 g Protein**/470 kcal (Plan sagte 31 g — echte Zahl gewinnt). Skyr-Winkel mit Preisbeleg: 150 g Skyr 0,50 € vs. Joghurt 0,35 €.
+
+**Produktions-Learnings:**
+1. **Bildgröße vor Serienplanung prüfen:** Unter ~1000 px kurzer Kante taugt ein Foto nicht als Vollflächen-Hintergrund (Cover-Crop + Upscale). Papas Bestand: 10 von 15 Fotos sind ≥1800 px — reicht für Monate.
+2. **EXIF-Rotation:** Papas Handy-Fotos brauchen `ImageOps.exif_transpose()` vor dem Slide-Bau — der Generator macht das nicht selbst; ggf. zusätzlich manuell rotieren (Waldpilzsuppe: ROTATE_270, Löffel unten rechts).
+3. **Beträge im Hook als ein Token schreiben („12,30€", ohne Leerzeichen)** — sonst trennt der Zeilenumbruch Zahl und €-Zeichen.
