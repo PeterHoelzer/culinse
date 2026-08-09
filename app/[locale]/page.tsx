@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import Link from "next/link";
 
 // Prevent Vercel from serving a cached HTML snapshot that shows the
 // loading skeleton permanently (the recipe grid is loaded client-side).
@@ -43,6 +44,34 @@ function buildWebsiteSchema(locale: string) {
       },
     ],
   };
+}
+
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
+
+interface FeaturedRecipe {
+  id: string;
+  title: string;
+}
+
+// Server-gefetchte Rezeptlinks fuer den SEO-Block am Seitenende.
+// Zweck (GSC 09.08.2026): 429 Rezept-URLs "Gefunden - zurzeit nicht
+// indexiert" - die Startseite ist die staerkste Seite der Domain, hatte im
+// crawlbaren HTML aber keinen einzigen Rezeptlink (das Grid laedt
+// client-seitig). revalidate haelt die Antwort im Data Cache, kostet also
+// trotz force-dynamic praktisch keinen TTFB; Fehler degradieren still zu
+// einer leeren Liste (der Block rendert dann nur die Hub-Links).
+async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : "en"}&number=12`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.recipes) ? data.recipes : [];
+  } catch {
+    return [];
+  }
 }
 
 // ─── Homepage metadata (canonical + hreflang + Open Graph) ───────────────────
@@ -107,6 +136,55 @@ export default async function Page({
 
   const websiteSchema = buildWebsiteSchema(locale);
 
+  // Server-gerenderter SEO-/Interlinking-Block (siehe fetchFeatured oben).
+  const featured = await fetchFeatured(locale);
+  const isDE = locale === "de";
+  const seoSection = (
+    <section className="bg-white border-t border-gray-100 py-14 px-4">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          {isDE ? "Neu im Rezeptkatalog" : "New in the recipe catalog"}
+        </h2>
+        <p className="text-sm text-gray-500 mb-6 max-w-2xl">
+          {isDE
+            ? "Frisch redaktionell geprüfte Rezepte – jedes mit Nährwerten, automatischer Einkaufsliste und Preisschätzung auf Discounter-Niveau."
+            : "Freshly reviewed recipes — each with nutrition facts, an automatic shopping list and a discount-store price estimate."}
+        </p>
+        {featured.length > 0 && (
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-2.5 mb-8">
+            {featured.map((r) => (
+              <li key={r.id}>
+                <Link
+                  href={`/${locale}/recipe/${r.id}`}
+                  className="text-sm text-gray-700 hover:text-orange-600 transition-colors"
+                >
+                  {r.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
+          <Link href={`/${locale}/grocery-list-calculator`} className="text-orange-600 hover:text-orange-700">
+            {isDE ? "Einkaufsrechner für Lebensmittel" : "Grocery cost calculator"}
+          </Link>
+          <Link href={`/${locale}/weekly-meal-planner`} className="text-orange-600 hover:text-orange-700">
+            {isDE ? "Wochenplaner mit Einkaufsliste" : "Weekly meal planner with shopping list"}
+          </Link>
+          <Link href={`/${locale}/blog/${isDE ? "meal-prep-fuer-anfaenger" : "meal-prep-for-beginners"}`} className="text-orange-600 hover:text-orange-700">
+            {isDE ? "Meal Prepping für Anfänger" : "Meal prep for beginners"}
+          </Link>
+          <Link href={`/${locale}/blog`} className="text-orange-600 hover:text-orange-700">
+            {isDE ? "Ratgeber: Planung, Budget & Meal Prep" : "Guides: planning, budget & meal prep"}
+          </Link>
+          <Link href={`/${locale}/collections/explore`} className="text-orange-600 hover:text-orange-700">
+            {isDE ? "Rezept-Kollektionen" : "Recipe collections"}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+
   return (
     <>
       {/* JSON-LD: WebSite schema + Sitelinks Searchbox */}
@@ -122,7 +200,7 @@ export default async function Page({
 
       {/* Full interactive page — Next.js SSRs this to real HTML on first load */}
       <ErrorBoundary>
-        <HomeClient />
+        <HomeClient seoSection={seoSection} />
       </ErrorBoundary>
     </>
   );
