@@ -111,10 +111,10 @@ export const blogPostsDe: BlogPost[] = [
   },
   {
     slug: "beste-kostenlose-meal-planner-apps-2026",
-    title: "Die 5 besten kostenlosen Meal-Planner-Apps 2026 (ehrlich verglichen)",
+    title: "Die 5 besten kostenlosen Meal-Planner-Apps 2026 – und ihre Haken",
     updatedAt: "2026-07-19",
     description:
-      "5 kostenlose Meal-Planner-Apps im ehrlichen Vergleich (Stand: Juli 2026): Funktionen, versteckte Grenzen der Gratis-Versionen und welche App automatische Einkaufslisten wirklich kostenlos erstellt.",
+      "5 kostenlose Meal-Planner-Apps ehrlich verglichen: Stärken, versteckte Gratis-Grenzen – und welche App Einkaufsliste samt Preisschätzung dauerhaft kostenlos kann.",
     publishedAt: "2026-05-12",
     readingTime: "6 Min. Lesezeit",
     image: "https://culinse.com/blog/best-free-meal-planner-apps-2026.jpg",

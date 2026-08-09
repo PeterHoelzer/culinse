@@ -119,6 +119,16 @@ function getCopy(locale: string, priceDate: string): Copy {
           title: "Rezepte für Studenten",
           text: "Günstig, schnell und mit 30-Euro-Wocheneinkauf.",
         },
+        {
+          href: "/de/blog/meal-prep-fuer-anfaenger",
+          title: "Meal Prepping für Anfänger: Der ultimative Guide",
+          text: "Grundprinzipien, Ausstattung und kostenloser 7-Tage-Plan.",
+        },
+        {
+          href: "/de/blog/beste-kostenlose-meal-planner-apps-2026",
+          title: "Die besten kostenlosen Meal-Planner-Apps 2026",
+          text: "5 Apps ehrlich verglichen – und ihre Gratis-Grenzen.",
+        },
       ],
       faqHeading: "Häufige Fragen",
       faq: [
@@ -182,6 +192,16 @@ function getCopy(locale: string, priceDate: string): Copy {
         href: "/en/blog/budget-meals-under-5-euros",
         title: "Budget meals under 5 euros",
         text: "Filling dishes that cost very little.",
+      },
+      {
+        href: "/en/blog/meal-prep-for-beginners",
+        title: "Meal Prep for Beginners: The Complete Starter Guide",
+        text: "Core principles, gear and a free 7-day plan.",
+      },
+      {
+        href: "/en/blog/best-free-meal-planner-apps-2026",
+        title: "The Best Free Meal Planner Apps in 2026",
+        text: "5 apps honestly compared — and their free-tier catches.",
       },
     ],
     faqHeading: "Frequently asked questions",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, type ReactNode } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import SharedNavbar from "@/components/Navbar";
@@ -34,7 +34,7 @@ function scrollToDiscover(smooth = true) {
     ?.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
 }
 
-export default function Home() {
+export default function Home({ seoSection }: { seoSection?: ReactNode }) {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
@@ -100,6 +100,7 @@ export default function Home() {
         <HowItWorks />
         <NewsletterBanner />
         <CTA />
+        {seoSection}
       </main>
       <HomeFooter />
     </>
