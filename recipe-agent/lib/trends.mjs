@@ -684,6 +684,28 @@ export const DISHES = [
   { slug: "amerikaner-gebaeck", de: "Amerikaner mit Zuckerguss", en: "German Black and White Cookies", category: "gebaeck", topics: ["vegetarisch"], produce: [], notes: "Weiche, gewölbte Gebäckfladen mit Zuckerguss — der Bäckerei-Klassiker aus der Kindheit, wahlweise halb-halb mit Schokoglasur." },
   { slug: "butterkuchen", de: "Butterkuchen vom Blech", en: "German Butter Sugar Cake", category: "gebaeck", topics: ["vegetarisch"], produce: [], notes: "Norddeutscher Hefeblechkuchen mit Butterflöckchen, Zucker und Mandeln — schlicht und unwiderstehlich; vom Bienenstich (Karamellkruste, Cremefüllung) klar abgegrenzt: pur ohne Füllung." },
   { slug: "zimtsterne", de: "Zimtsterne", en: "Cinnamon Star Cookies", category: "gebaeck", topics: ["vegetarisch", "meal-prep"], produce: [], notes: "Nuss-Zimt-Sterne mit weißer Eischnee-Glasur, von Natur aus ohne Mehl — neben Vanillekipferln der Plätzchen-Klassiker ab November; mit Trick gegen klebrigen Teig." },
+
+  // ── Fisch-Nachschub 14.08.2026 — Vorrat für die neue 2-Fisch-Quote des Scouts ──
+  { slug: "lachs-burger", de: "Lachs-Burger mit Zitronen-Dill-Creme", en: "Salmon Burger with Lemon Dill Sauce", category: "fisch", topics: ["schnell"], produce: ["blattsalat"], notes: "Saftiges Lachs-Patty aus gehacktem Filet im Brioche-Bun mit Zitronen-Dill-Creme; von Beef- und Veggie-Burgern klar abgegrenzt: Fisch-Patty ohne Wolf, grob gehackt." },
+  { slug: "thunfisch-pasta-tomate", de: "Thunfisch-Pasta in Tomatensauce", en: "Tuna Tomato Pasta", category: "pasta", topics: ["schnell"], produce: ["tomate"], notes: "Der Budget-Klassiker aus dem Vorratsschrank: Dosen-Thunfisch, Tomaten, Kapern und Knoblauch in 15 Minuten; von der Lachs-Sahne-Pasta (Sahne, Frischfisch) klar abgegrenzt: tomatig aus der Dose." },
+  { slug: "fischsuppe-mediterran", de: "Mediterrane Fischsuppe", en: "Mediterranean Fish Soup", category: "suppe", topics: [], produce: ["tomate", "fenchel"], notes: "Safran-Tomaten-Sud mit Fenchel, Weißfischwürfeln und Garnelen, dazu Rouille-Brot — Urlaubsküche im Suppentopf; von Bouillabaisse-Komplexität bewusst auf Alltagsniveau vereinfacht." },
+  { slug: "backfisch-mit-remoulade", de: "Backfisch mit Remoulade", en: "Beer-Battered Fried Fish", category: "fisch", topics: [], produce: [], notes: "Kabeljau im knusprigen Bierteig ausgebacken, dazu selbst gerührte Remoulade — Imbiss-Klassiker der Küste; von Fischstäbchen (Panko-Streifen, Ofen) klar abgegrenzt: Bierteig aus dem heißen Fett." },
+  { slug: "pannfisch-mit-senfsauce", de: "Hamburger Pannfisch", en: "Hamburg Pan-Fried Fish with Mustard Sauce", category: "fisch", topics: ["schnell"], produce: [], notes: "Gebratene Fischwürfel auf Bratkartoffeln mit körniger Senfsauce — Hamburger Wirtshausklassiker; vom Kabeljau in Senfsauce (pochiert, Salzkartoffeln) klar abgegrenzt: kross gebraten auf Bratkartoffeln." },
+  { slug: "scholle-finkenwerder", de: "Scholle Finkenwerder Art", en: "Plaice Finkenwerder Style", category: "fisch", topics: ["schnell"], produce: [], notes: "Ganze Scholle in Butter gebraten mit Speckwürfeln und Krabben-Option, dazu Zitrone; vom Pannfisch (Würfel, Senfsauce) klar abgegrenzt: ganze Scholle mit Speck." },
+  { slug: "zanderfilet-gebraten", de: "Zanderfilet auf der Haut gebraten", en: "Crispy Skin-On Pike-Perch Fillet", category: "fisch", topics: ["schnell"], produce: [], notes: "Zander mit krosser Haut — die Technik (trocken tupfen, Haut zuerst, wenig bewegen) macht das Restaurant-Ergebnis; dazu Zitronenbutter; vom Kabeljau und Pannfisch klar abgegrenzt: Hautbraten als Kernkompetenz." },
+  { slug: "dorade-aus-dem-ofen", de: "Dorade aus dem Ofen", en: "Whole Roasted Sea Bream", category: "fisch", topics: [], produce: ["tomate", "fenchel"], notes: "Ganze Dorade auf Fenchel-Tomaten-Bett mit Zitrone und Kräutern gebacken — Urlaub auf dem Blech; von der Ofen-Forelle (Bachforelle, Kräuterfüllung) klar abgegrenzt: mediterranes Gemüsebett." },
+  { slug: "kabeljau-mediterran-geschmort", de: "Kabeljau in Tomaten-Oliven-Sud", en: "Mediterranean Braised Cod", category: "fisch", topics: ["schnell"], produce: ["tomate"], notes: "Kabeljaufilet zieht sanft im Tomaten-Oliven-Kapern-Sud gar — mediterran und gelingsicher; vom Kabeljau in Senfsauce (norddeutsch, hell) klar abgegrenzt: mediterraner Schmorsud." },
+  { slug: "fisch-kartoffel-auflauf", de: "Fisch-Kartoffel-Auflauf", en: "Fish and Potato Gratin", category: "auflauf", topics: [], produce: ["brokkoli"], notes: "Seelachs unter Kartoffelscheiben und Senf-Sahne-Guss mit Käse gebacken — Familienauflauf mit Fisch; vom Brokkoli-Kartoffel-Auflauf (vegetarisch) klar abgegrenzt: Fischschicht als Kern." },
+  { slug: "englischer-fish-pie", de: "Englischer Fish Pie", en: "Classic British Fish Pie", category: "auflauf", topics: [], produce: ["erbse"], notes: "Fisch-Erbsen-Ragout in heller Sauce unter goldener Kartoffelpüree-Haube; von Shepherd's Pie (Hack) und Hähnchen-Pot-Pie (Blätterteig) klar abgegrenzt: Fischfüllung unter Püree." },
+  { slug: "indisches-fisch-curry", de: "Indisches Fisch-Curry", en: "Indian Fish Curry", category: "curry", topics: ["schnell"], produce: ["tomate"], notes: "Weißfischwürfel in Tomaten-Kokos-Curry mit Senfsaat und Curryblättern nach südindischer Art; vom Garnelen-Kokos-Curry klar abgegrenzt: Weißfisch und Senfsaat-Tempering." },
+  { slug: "honig-knoblauch-garnelen", de: "Honig-Knoblauch-Garnelen", en: "Honey Garlic Shrimp", category: "pfannengericht", topics: ["schnell"], produce: ["brokkoli"], notes: "Der virale Pfannen-Hit: Garnelen in klebriger Honig-Soja-Knoblauch-Glasur mit Reis und Brokkoli in 15 Minuten; von Gambas al Ajillo (pures Knoblauchöl, Tapa) klar abgegrenzt: süße Glasur als Hauptgericht." },
+  { slug: "meeresfruechte-paella", de: "Meeresfrüchte-Paella", en: "Seafood Paella", category: "one-pot", topics: [], produce: ["erbse", "paprika"], notes: "Safranreis mit Garnelen, Muscheln und Tintenfischringen, Socarrat-Kruste am Pfannenboden; von der Hähnchen-Paella klar abgegrenzt: Meeresfrüchte-Version mit TK-Mix-Alltagsoption." },
+  { slug: "thai-fischcakes", de: "Thailändische Fischküchlein", en: "Thai Fish Cakes (Tod Mun)", category: "fisch", topics: ["schnell"], produce: ["buschbohne"], notes: "Tod Mun Pla: Fischpaste mit roter Currypaste, Limettenblättern und grünen Bohnen, goldbraun gebraten, dazu Gurken-Erdnuss-Dip; von Thunfisch-Frikadellen (klassisch) klar abgegrenzt: thailändisch gewürzt." },
+  { slug: "raeucherlachs-bagel", de: "Bagel mit Räucherlachs und Frischkäse", en: "Smoked Salmon Bagel", category: "fruehstueck", topics: ["schnell"], produce: ["salatgurke"], notes: "New-York-Klassiker: getoasteter Bagel mit Frischkäse, Räucherlachs, Gurke, Kapern und roten Zwiebeln; vom Avocado-Toast klar abgegrenzt: Lachs-Frischkäse-Belag auf Bagel." },
+  { slug: "krabbenbrot-nordisch", de: "Nordisches Krabbenbrot", en: "North Sea Shrimp Open Sandwich", category: "snack", topics: ["schnell"], produce: ["salatgurke"], notes: "Dunkles Brot mit Nordseekrabben, Ei, Gurke und Dill-Creme — Küsten-Brotzeit in 10 Minuten; vom Krabbencocktail (Glas, Vorspeise) klar abgegrenzt: belegtes Brot." },
+  { slug: "garnelen-cocktail-retro", de: "Garnelen-Cocktail", en: "Classic Prawn Cocktail", category: "snack", topics: ["schnell"], produce: ["blattsalat"], notes: "Der Retro-Auftakt fürs Festmenü: Garnelen auf Salatstreifen mit Cocktailsauce und Zitrone im Glas; von Ceviche (roh mariniert) klar abgegrenzt: gegarte Garnelen in cremiger Sauce." },
+  { slug: "sardinen-auf-toast", de: "Sardinen auf geröstetem Brot", en: "Sardines on Toast", category: "snack", topics: ["schnell"], produce: ["tomate"], notes: "Tinned-Fish-Trend: gute Dosen-Sardinen auf geröstetem Sauerteigbrot mit Zitrone, Chili und Petersilie; vom Tuna Melt (überbacken, warm) klar abgegrenzt: puristisch kalt-warm ohne Käse." },
+  { slug: "forellen-aufstrich", de: "Räucherforellen-Aufstrich", en: "Smoked Trout Spread", category: "dip", topics: ["schnell"], produce: [], notes: "Cremiger Aufstrich aus Räucherforelle, Frischkäse, Meerrettich und Dill — für Brotzeit und Abendbrot; vom Obatzda (Käse) klar abgegrenzt: Fisch-Creme mit Meerrettich." },
 ];
 
 /** Kategorien/Tags, die der Korpus schon abdeckt (aus Seed-Tags abgeleitet). */
@@ -700,6 +722,49 @@ export function gscQueries() {
   if (!fs.existsSync(f)) return [];
   return fs.readFileSync(f, "utf8").split("\n").slice(1)
     .map((l) => l.split(",")[0]?.trim().toLowerCase()).filter(Boolean);
+}
+
+/**
+ * Fleisch/Fisch-Klassifikation für die Scout-Quote (Peters Regel 14.08.2026):
+ * Pro 10 Tages-Kandidaten ersetzen 2 Fisch- und 2 Fleischgerichte die reine
+ * Score-Auswahl. Vegan/vegetarisch getaggte Gerichte sind grundsätzlich neutral
+ * (schützt Blumenkohl-Steak, Linsen-Bolognese, Sellerieschnitzel usw.).
+ */
+const FISCH_WORDS = [
+  "lachs", "salmon", "thunfisch", "tuna", "fisch", "garnele", "shrimp", "prawn",
+  "gambas", "matjes", "hering", "herring", "kabeljau", "forelle", "trout",
+  "muschel", "mussel", "ceviche", "krabbe", "scampi", "dorade", "zander",
+  "sardine", "seafood", "scholle",
+];
+const FLEISCH_WORDS = [
+  "haehnchen", "hähnchen", "chicken", "huhn", "huehner", "hühner", "pute", "turkey",
+  "rind", "beef", "schwein", "pork", "hack", "speck", "bacon", "schinken",
+  "wurst", "würstchen", "wuerstchen", "sausage", "lamm", "lamb", "entenbrust", "duck",
+  "hirsch", "venison", "kassler", "gulasch", "goulash", "schnitzel", "steak",
+  "doener", "döner", "gyros", "koefte", "köfte", "cevapcici", "frikadelle",
+  "klopse", "meatball", "meat", "rostbraten", "sauerbraten", "tafelspitz", "cordon",
+  "bifteki", "birria", "bolognese", "geschnetzelt", "souvlaki", "karaage",
+  "saltimbocca", "carne", "fleisch", "burger", "big-mac", "coq", "spareribs",
+  "paprikahuhn", "al-pastor",
+];
+// Gerichte mit Fleisch/Fisch, deren Namen kein Signalwort tragen:
+const FLEISCH_SLUGS = new Set([
+  "quiche-lorraine", "elsaesser-flammkuchen", "toast-hawaii", "strammer-max",
+  "bauerntopf", "banh-mi", "pho-ga", "gebratene-maultaschen", "spaghetti-carbonara",
+  "eggs-benedict", "pichelsteiner-eintopf",
+]);
+const FISCH_SLUGS = new Set(["salade-nicoise", "sushi-bake"]);
+
+/** "fisch" | "fleisch" | null (pflanzlich/neutral). */
+export function proteinType(d) {
+  const topics = d.topics || [];
+  if (topics.includes("vegan") || topics.includes("vegetarisch")) return null;
+  if (FISCH_SLUGS.has(d.slug)) return "fisch";
+  if (FLEISCH_SLUGS.has(d.slug)) return "fleisch";
+  const s = `${d.slug} ${d.de} ${d.en}`.toLowerCase();
+  if (FISCH_WORDS.some((w) => s.includes(w))) return "fisch";
+  if (FLEISCH_WORDS.some((w) => s.includes(w))) return "fleisch";
+  return null;
 }
 
 /** Alle Katalog-Gerichte für den Monat scoren (ohne Dedup — macht der Scout). */

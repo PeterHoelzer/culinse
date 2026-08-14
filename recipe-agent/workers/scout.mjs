@@ -11,7 +11,7 @@
  */
 import { ENV, logEvent } from "../lib/env.mjs";
 import * as queue from "../lib/queue.mjs";
-import { scoreDishes } from "../lib/trends.mjs";
+import { scoreDishes, proteinType } from "../lib/trends.mjs";
 import { loadCorpus, quickDup } from "../lib/dedup.mjs";
 import { fetchDbCorpus } from "../lib/supa.mjs";
 
@@ -39,16 +39,40 @@ async function main() {
 
   console.log(`Scout — Monat ${month} · Kandidaten-Ranking (Top 8):\n`);
   const fresh = [];
+  let printed = 0;
   for (const d of ranked) {
     const dup = quickDup(d.slug, d.de, d.en, corpus) ||
       (queue.get(d.slug) ? "schon in der Queue" : null);
-    if (fresh.length < 8 || !dup)
+    if (printed < 8) {
       console.log(`  ${dup ? "✗" : "•"} ${String(d.score).padStart(5)}  ${d.de}${dup ? `  (${dup})` : `  [${d.reasons.join(" · ")}]`}`);
+      printed++;
+    }
     if (!dup) fresh.push(d);
-    if (fresh.length >= Math.max(COUNT, 8)) break;
   }
 
-  const chosen = fresh.slice(0, COUNT);
+  // Fleisch/Fisch-Quote (Peters Regel 14.08.2026): pro 10 Kandidaten werden 4 ersetzt
+  // durch genau 2 Fisch- und 2 Fleischgerichte; die übrigen Plätze gehen an neutrale
+  // (pflanzliche) Gerichte nach Score. Bei COUNT<5 entfällt die Quote (quota=0).
+  // Fehlen Kandidaten einer Sorte, wird typoffen aufgefüllt — kein Leerlauf.
+  const quota = Math.floor(COUNT / 5);
+  let chosen;
+  if (quota > 0) {
+    const fischPick = fresh.filter((d) => proteinType(d) === "fisch").slice(0, quota);
+    const fleischPick = fresh.filter((d) => proteinType(d) === "fleisch").slice(0, quota);
+    const picked = new Set([...fischPick, ...fleischPick].map((d) => d.slug));
+    const neutralPick = fresh
+      .filter((d) => !picked.has(d.slug) && proteinType(d) === null)
+      .slice(0, Math.max(0, COUNT - picked.size));
+    for (const d of neutralPick) picked.add(d.slug);
+    const fillPick = fresh
+      .filter((d) => !picked.has(d.slug))
+      .slice(0, Math.max(0, COUNT - picked.size));
+    chosen = [...fischPick, ...fleischPick, ...neutralPick, ...fillPick]
+      .sort((a, b) => b.score - a.score || a.slug.localeCompare(b.slug));
+    console.log(`\nQuote: ${fischPick.length}/${quota} Fisch · ${fleischPick.length}/${quota} Fleisch · ${neutralPick.length} neutral · ${fillPick.length} aufgefüllt.`);
+  } else {
+    chosen = fresh.slice(0, COUNT);
+  }
   if (!chosen.length) { console.log("\nKeine neuen Kandidaten (alles Dublette?)."); return; }
 
   for (const d of chosen) {
