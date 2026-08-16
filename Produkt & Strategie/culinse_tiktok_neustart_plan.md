@@ -143,3 +143,58 @@ Nach 4 Wochen (12 Posts) Metricool-Check:
 1. **Bildgröße vor Serienplanung prüfen:** Unter ~1000 px kurzer Kante taugt ein Foto nicht als Vollflächen-Hintergrund (Cover-Crop + Upscale). Papas Bestand: 10 von 15 Fotos sind ≥1800 px — reicht für Monate.
 2. **EXIF-Rotation:** Papas Handy-Fotos brauchen `ImageOps.exif_transpose()` vor dem Slide-Bau — der Generator macht das nicht selbst; ggf. zusätzlich manuell rotieren (Waldpilzsuppe: ROTATE_270, Löffel unten rechts).
 3. **Beträge im Hook als ein Token schreiben („12,30€", ohne Leerzeichen)** — sonst trennt der Zeilenumbruch Zahl und €-Zeichen.
+
+## Learnings Woche 5 (09.08.2026)
+
+**Datenlage W2+W3 (Stand 09.08.): DURCHBRUCH.** Erster Post mit echter Distribution: Do 06.08. Preis **Baked Feta Pasta = 149 Views** (0 Likes, 0 Shares). Die anderen fünf Posts der letzten 14 Tage (Rahmgeschnetzeltes, Wocheneinkauf, Gyros-Bowl, Spätzle, Hüttenkäse-Bowl) stehen weiter bei 0. Das Muster ist eindeutig: Der EINZIGE Post mit bekanntem viralem Gerichtsnamen („das virale TikTok-Rezept") + gericht-spezifischem Hashtag (#bakedfeta) wurde vom Algorithmus ausgetestet. TikTok distribuiert Foto-Carousels also doch — aber offenbar nur mit **Trend-/Such-Anker**. Metricool-Sync funktioniert damit nachweislich auch für Foto-Posts (entkräftet die Sync-Lag-Deutung aus W3/W4).
+
+**Deutung:** Nicht die Serie B als Format gewinnt, sondern das Anker-Prinzip: bekannter, gesuchter Gerichtsname im Hook + passender Nischen-Hashtag. Generische Gerichte („Hüttenkäse-Bowl") werden nicht ausgetestet.
+
+**Konsequenz W5 (19.–21.08., Posts 13–15): Gewinner-Element in alle drei Posts gedoppelt** — jede Serie behält ihren Wochentag, aber jeder Post bekommt einen Anker-Namen:
+- Mi Familie: **Apfelkuchen** (Papas echtes Foto 4032×3024, EXIF-transponiert; Hook „1kg Äpfel auf 100g Mehl"; #apfelkuchen #backen)
+- Do Preis: **Marry Me Chicken** — der TikTok-Klassiker schlechthin; ehrliche Rechnung **10,05 € / 4 Portionen = 2,51 €/Portion** (Korpus-Rezept published, echte Zutatenliste; getrocknete Tomaten manuell 1,20 € angesetzt, s. Learning 1); Katalog-Foto statt FLUX (Konsistenz zur Rezeptseite); #marrymechicken
+- Fr Protein: **Schoko-Protein-Pudding** — Kühlregal-Trend als Anker, Preis-Crossover: **32 g Protein für 1,00 €** (Magerquark 0,75 + Kakao 0,10 + Milch 0,05 + Honig 0,10) vs. 20 g im Fertig-Becher; FLUX-Bild (Glas, unbranded, sauber); #proteinpudding #magerquark
+
+**Eskalations-Status (§6):** Die 4-Wochen-Frist endet mit W4 (12.–14.08.). Ø liegt weit unter 200, aber der 149er-Ausreißer ist das erste Lebenszeichen — und er entstand ohne Video. W5 testet das Anker-Prinzip als gezielte letzte Carousel-Iteration (W4 läuft noch ohne Anker-Hooks). Wiederholt sich das Baked-Feta-Muster bei W5 nicht (kein Post > 100 Views), ist ab W6 die Video-Eskalation fällig; Peters Go dafür steht weiter aus (angefragt im Wochenbericht 02.08.).
+
+**Produktions-Learnings:**
+1. **Preis-DB-Falle Zubereitungs-Präfixe:** „sonnengetrocknete Tomaten" matcht via Stopword-Normalisierung auf frische Tomaten (0,20 € statt realer ~1,20 €). Bei Zutaten mit Präfixen (getrocknet/geräuchert/…) den `findPriceEntry`-Treffer prüfen und ggf. manuell mit realem Discounter-Preis ansetzen (auf dem Slide normal ausweisen).
+2. **„Hähnchenbrustfilet" matcht nicht** (Wortgrenzen-Match findet „hähnchenbrust" nicht im Kompositum) → als „Hähnchenbrust" rechnen. Gleiches Risiko bei anderen -filet/-würfel-Komposita.
+3. **Korpus-Check vor FLUX lohnt:** Marry Me Chicken existierte bereits published mit Bild (Katalog seit 07.08. um 157 Gerichte gewachsen — Abfrage auf user_recipes spart FLUX-Läufe und hält Post und Rezeptseite konsistent).
+4. **Sandbox kann Mac-erstellte Dateien im Mount nicht löschen/umbenennen** („Operation not permitted") — Mac-Artefakte (FLUX-Ausgaben, Wegwerf-Skripte) immer via osascript aufräumen.
+
+## Learnings Woche 6 (16.08.2026)
+
+**Datenlage (14 Tage, 02.–16.08., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Views | Likes | Shares |
+|-------|-------|---------|------:|------:|-------:|
+| 05.08. | A Familie | Spätzle | 0 | 0 | 0 |
+| 06.08. | B Preis | Baked Feta Pasta | **150** | 0 | 0 |
+| 07.08. | C Protein | Hüttenkäse-Bowl | 0 | 0 | 0 |
+| 12.08. | A Familie | Scharfe Waldpilzsuppe | 0 | 0 | 0 |
+| 13.08. | B Preis | Meal-Prep-Woche | 0 | 0 | 0 |
+| 14.08. | C Protein | Protein Overnight Oats | 0 | 0 | 0 |
+
+**Zwei harte Befunde:**
+
+1. **Der Baked-Feta-Ausreißer ist eingefroren.** 09.08. standen dort 149 Views, heute 150 — in einer Woche exakt **+1**. Das war kein anlaufender Post, sondern ein einmaliger Algorithmus-Test, der nicht weitergetragen wurde. Ein 150er-Peak ohne Likes und ohne Shares heißt: TikTok hat ausgeliefert, die Zuschauer haben nicht reagiert. Der Hook zog, der Inhalt hielt nicht.
+2. **W4 bestätigt die Anker-These negativ.** Die drei W4-Posts (12.–14.08.) wurden vor der Anker-Erkenntnis produziert und tragen generische Gerichtsnamen — dreimal 0 Views. Damit stehen 11 von 12 Posts bei 0 und der einzige Post mit Trend-Anker bei 150. Die Korrelation ist so sauber, wie sie bei n=12 sein kann.
+
+**Was daraus folgt — der Anker allein reicht nicht.** Die Baked-Feta-Zahlen zeigen zwei getrennte Probleme: Distribution (löst der Anker) und Retention (löst er nicht). Foto-Carousels ohne Bewegung halten niemanden. W6 greift deshalb beide Hebel an: Anker für die Auslieferung **plus Konflikt/Widerspruch im Hook** für die Verweildauer — eine Behauptung, die man nachprüfen will, statt einer, die man nur zur Kenntnis nimmt.
+
+**Produktion W6 (26.–28.08., Posts 16–18):**
+
+- **Mi — Familie: Papas Lasagne** (echtes Foto, 1600×1200). Anker „Lasagne" + Widerspruch: „In der Lasagne meines Vaters sind Erbsen. Klingt falsch. Ist genial." Die Erbsen sind eine echte Zutat aus seinem Rezept — der Hook ist keine Konstruktion. Punch-Slide: „Was mein Vater nie benutzt: Fix-Beutel."
+- **Do — Preis: Hähnchen-Döner-Teller** (Katalog-Foto). Stärkster verfügbarer DE-Anker: Döner ist national ein Preisthema. Recherchierter Bundesschnitt **7,76 €** (Döneratlas 2026) gegen ehrlich gerechnete **2,98 €/Portion** (11,90 € für 4 Teller, 7 Posten einzeln auf dem Slide). Ersparnis 4,78 € pro Teller = 248 € im Jahr bei einmal wöchentlich.
+- **Fr — Protein: Cottage-Cheese-Fladenbrot** (Katalog-Foto). Anker ist der laufende Hüttenkäse-Brot-Trend, nicht die generische Bowl (die im Juli 0 Views hatte). **27 g Protein bei 280 kcal für 1,05 €/Portion**, 3 Zutaten.
+
+**Preis-Notizen (Lücken ehrlich geschlossen):** `lib/ingredient-prices.ts` hat keine Einträge für Naturjoghurt (250 g → 0,30 € angesetzt) und Eisbergsalat (200 g → 0,35 €); Petersilie matcht, liefert für „Bund" aber null (→ 0,50 €). „Hähnchenbrustfilet" wieder als „Hähnchenbrust" gerechnet (W5-Learning 2 bestätigt sich). Hüttenkäse matcht auf Quark — Preisniveau vergleichbar, für den Slide auf reale 0,95 €/250 g angehoben.
+
+**Eskalations-Status (§6):** Die 4-Wochen-Frist ist abgelaufen, der Ø liegt bei ~12 Views/Post statt 200. Die Entscheidung bleibt bewusst **eine Woche ausgesetzt**, weil W5 (19.–21.08.) der eigens gebaute Anker-Test ist und erst am 23.08. auswertbar wird. Klare Regel für den nächsten Lauf: **Bringt kein W5-Post > 100 Views, wird ab W7 (02.–04.09.) auf 15-Sek-Screenrecording-Videos umgestellt** — dann ohne weitere Verlängerung. Peters Go dafür steht seit dem Bericht vom 02.08. aus.
+
+**Produktions-Learnings:**
+1. **Beträge auch in `sub`/`extra` als ein Token schreiben** (`7,76€`), nicht nur im Hook — der Zeilenumbruch trennt sonst mitten im Fließtext Zahl und Währungszeichen (W4-Learning 3 galt bisher nur für den Hook; jetzt für alle Textfelder).
+2. **`user_recipes` hat weder `ready_in_minutes` noch `summary`** — Selects auf diese Spalten scheitern hart und liefern für ALLE Zeilen einen Fehler. Bei Wegwerf-Skripten die Spaltenliste klein halten (`id,title,image_url,ingredients,instructions,servings,nutrition`).
+3. **Papas Korpus ist auf 44 öffentliche Rezepte gewachsen** (vorher 29) und enthält jetzt starke Anker-Titel für Monate: Lasagne (W6), Spaghetti Bolognese, Schnitzel mit Champignons, Mousse au Chocolat, Nussecken, Käse-/Kirschstreuselkuchen, Sushi.
+4. **Node liegt nicht in `/usr/local/bin`**, sondern unter `~/.nvm/versions/node/v24.15.0/bin/node` — osascript-Aufrufe brauchen den vollen Pfad, `PATH`-Export allein reicht nicht.
