@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Link from "next/link";
+import type { Recipe } from "./components/home-types";
 
 // Prevent Vercel from serving a cached HTML snapshot that shows the
 // loading skeleton permanently (the recipe grid is loaded client-side).
@@ -74,6 +75,28 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
   }
 }
 
+// Erste Discover-Karten server-seitig vorladen (E2, SEO-Runde 09.08):
+// Vorher kamen die Karten erst nach Hydration + Client-Fetch - der mobile
+// LCP lag bei ~8,8 s, weil das LCP-Element (erstes Kartenbild) so spaet
+// startete. Der Data-Cache-Fetch (15 min) macht die ersten 6 Karten Teil
+// des SSR-HTML: Das LCP-Bild startet mit dem First Paint, Google sieht die
+// Karten-Links, und die Provider-APIs werden seltener aufgerufen. Fehler
+// degradieren still - das Grid faellt auf den bisherigen Client-Fetch
+// zurueck.
+async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : "en"}&number=6`,
+      { next: { revalidate: 900 } }
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data.recipes) ? data.recipes : [];
+  } catch {
+    return [];
+  }
+}
+
 // ─── Homepage metadata (canonical + hreflang + Open Graph) ───────────────────
 // These used to live in [locale]/layout.tsx, where every child page without
 // its own `alternates` inherited the HOMEPAGE canonical and got deindexed.
@@ -136,8 +159,12 @@ export default async function Page({
 
   const websiteSchema = buildWebsiteSchema(locale);
 
-  // Server-gerenderter SEO-/Interlinking-Block (siehe fetchFeatured oben).
-  const featured = await fetchFeatured(locale);
+  // Server-gerenderter SEO-/Interlinking-Block (siehe fetchFeatured oben) +
+  // erste Discover-Karten (E2) - parallel, beide Antworten aus dem Data Cache.
+  const [featured, initialRecipes] = await Promise.all([
+    fetchFeatured(locale),
+    fetchInitialRecipes(locale),
+  ]);
   const isDE = locale === "de";
   const seoSection = (
     <section className="bg-white border-t border-gray-100 py-14 px-4">
@@ -200,7 +227,7 @@ export default async function Page({
 
       {/* Full interactive page — Next.js SSRs this to real HTML on first load */}
       <ErrorBoundary>
-        <HomeClient seoSection={seoSection} />
+        <HomeClient seoSection={seoSection} initialRecipes={initialRecipes} />
       </ErrorBoundary>
     </>
   );
