@@ -4,6 +4,7 @@ import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Link from "next/link";
 import type { Recipe } from "./components/home-types";
+import { preload } from "react-dom";
 
 // Prevent Vercel from serving a cached HTML snapshot that shows the
 // loading skeleton permanently (the recipe grid is loaded client-side).
@@ -165,6 +166,13 @@ export default async function Page({
     fetchFeatured(locale),
     fetchInitialRecipes(locale),
   ]);
+
+  // LCP-Boost (E2): Das erste Kartenbild ist auf Mobil das LCP-Element.
+  // Per Preload-Hint startet der Download mit dem HTML-Parsen, statt mit
+  // dem JS-Bundle um die Bandbreite zu konkurrieren.
+  if (initialRecipes[0]?.image) {
+    preload(initialRecipes[0].image, { as: "image", fetchPriority: "high" });
+  }
   const isDE = locale === "de";
   const seoSection = (
     <section className="bg-white border-t border-gray-100 py-14 px-4">
