@@ -15,9 +15,10 @@ Culinse is built by a German head chef and master butcher. Key differentiators: 
 ## Popular guides
 
 - [Weekly Grocery List from a Meal Plan](https://culinse.com/en/blog/weekly-grocery-list-from-meal-plan): The 5-step method for turning a weekly meal plan into one grocery list.
-- [High Protein Meals for Muscle Gain](https://culinse.com/en/blog/high-protein-meals-for-muscle-gain): 10 easy recipes with 30 g+ protein each.
+- [High Protein Meals for Muscle Building](https://culinse.com/en/blog/high-protein-meals-for-muscle-building): 10 easy recipes with 30 g+ protein each.
 - [Meal Prep for Weight Loss](https://culinse.com/en/blog/meal-prep-for-weight-loss): 20 recipes plus a free 7-day plan.
 - [Meal Prep für Anfänger (German)](https://culinse.com/de/blog/meal-prep-fuer-anfaenger): Der ultimative Einsteiger-Guide mit 7-Tage-Plan.
+- [The 5 Best Free Meal Planner Apps in 2026](https://culinse.com/en/blog/best-free-meal-planner-apps-2026): Honest comparison including free-tier limits. German: https://culinse.com/de/blog/beste-kostenlose-meal-planner-apps-2026
 
 ## Facts
 
@@ -25,3 +26,4 @@ Culinse is built by a German head chef and master butcher. Key differentiators: 
 - Grocery price estimates: German discount-supermarket level (own brands), ~180 ingredients, refreshed monthly (metric units: g, kg, ml, l).
 - Languages: German (culinse.com/de) and English (culinse.com/en).
 - Free 7-day meal-prep plan (PDF) available via newsletter signup on the homepage.
+- AI transparency: part of the recipe corpus is drafted with AI assistance, every recipe is editorially reviewed before publishing and labelled on the page (EU AI Act). Details: https://culinse.com/en/ki-transparenz (German: https://culinse.com/de/ki-transparenz).

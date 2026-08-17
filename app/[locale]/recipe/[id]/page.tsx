@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
-async function fetchRecipe(id: string): Promise<Recipe | null> {
+async function fetchRecipe(id: string): Promise<Recipe | "missing" | null> {
   try {
     // v=2: Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
@@ -12,6 +13,10 @@ async function fetchRecipe(id: string): Promise<Recipe | null> {
     const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=2`, {
       next: { revalidate: 86400 },
     });
+    // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-
+    // Fix, SEO-Runde 17.08). Andere Fehler bleiben null: transiente Ausfaelle
+    // duerfen kein 404 an Google senden, die Client-Shell rendert mit Retry.
+    if (res.status === 404) return "missing";
     if (!res.ok) return null;
     const { recipe } = await res.json();
     return recipe ?? null;
@@ -70,7 +75,7 @@ export async function generateMetadata(
   };
 
   const recipe = await fetchRecipe(id);
-  if (!recipe) {
+  if (!recipe || recipe === "missing") {
     return {
       title: locale === "de" ? "Rezept" : "Recipe",
       description: "Discover delicious recipes on Culinse.",
@@ -130,7 +135,9 @@ export default async function RecipePage(
   { params }: { params: Promise<{ locale: string; id: string }> }
 ) {
   const { locale, id } = await params;
-  const recipe = await fetchRecipe(id);
+  const fetched = await fetchRecipe(id);
+  if (fetched === "missing") notFound();
+  const recipe = fetched;
   const similarRecipes = recipe ? await fetchSimilar(id, locale, recipe) : [];
 
   // Build Recipe JSON-LD for Google Rich Results — single source of truth,
