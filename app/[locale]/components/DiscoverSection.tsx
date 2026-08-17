@@ -27,11 +27,14 @@ export default function DiscoverSection({
   category,
   setCategory,
   user,
+  initialRecipes,
 }: {
   search: string;
   category: string;
   setCategory: (v: string) => void;
   user: User | null | undefined;
+  // Server-gefetchte Default-Karten (E2) - decken den ersten Render ab.
+  initialRecipes?: Recipe[];
 }) {
   const t = useTranslations();
   const locale = useLocale();
@@ -55,8 +58,10 @@ export default function DiscoverSection({
     label: t(`trendFilters.${d.key}` as Parameters<typeof t>[0]),
   }));
 
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(true);
+  // SSR-Startdaten (E2): Die ersten 6 Karten kommen bereits server-gerendert
+  // an - kein Skeleton, das LCP-Bild startet mit dem ersten Paint.
+  const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes ?? []);
+  const [loading, setLoading] = useState(!(initialRecipes?.length));
   const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(false);
   const [quotaExceeded, setQuotaExceeded] = useState(false);
@@ -165,10 +170,20 @@ export default function DiscoverSection({
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
+  // Der Mount-Run wird uebersprungen, wenn die SSR-Daten den Default-View
+  // abdecken (E2): kein doppelter Fetch, ein Provider-API-Call weniger pro
+  // Besuch. Der URL-Restore-Effekt oben laeuft vorher - bei n > 6 oder
+  // Filtern aus der URL greift der normale Fetch (fetchRecipes aendert sich,
+  // der Effekt laeuft erneut mit skippedInitialFetch = true).
+  const skippedInitialFetch = useRef(false);
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!skippedInitialFetch.current) {
+      skippedInitialFetch.current = true;
+      if ((initialRecipes?.length ?? 0) > 0 && countRef.current === 6) return;
+    }
     setHasMore(true);
     fetchRecipes(countRef.current);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchRecipes]);
 
   // After results load, scroll the previously-clicked recipe card back into
@@ -328,14 +343,14 @@ export default function DiscoverSection({
         </div>
 
         {forYouActive && (userPrefs?.intolerances?.length ?? 0) > 0 && (
-          <a
+          <Link
             href="/profile"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-medium text-red-600 hover:bg-red-100 transition-colors"
           >
             🚫 {(userPrefs?.intolerances?.length ?? 0) === 1
               ? t("discover.allergenFiltered", { count: userPrefs?.intolerances?.length ?? 0 })
               : t("discover.allergensFiltered", { count: userPrefs?.intolerances?.length ?? 0 })}
-          </a>
+          </Link>
         )}
       </div>
 
