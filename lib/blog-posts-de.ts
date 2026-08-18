@@ -112,7 +112,7 @@ export const blogPostsDe: BlogPost[] = [
   {
     slug: "beste-kostenlose-meal-planner-apps-2026",
     title: "Die 5 besten kostenlosen Meal-Planner-Apps 2026 – und ihre Haken",
-    updatedAt: "2026-07-19",
+    updatedAt: "2026-08-18",
     description:
       "5 kostenlose Meal-Planner-Apps ehrlich verglichen: Stärken, versteckte Gratis-Grenzen – und welche App Einkaufsliste samt Preisschätzung dauerhaft kostenlos kann.",
     publishedAt: "2026-05-12",
@@ -741,9 +741,9 @@ export const blogPostsDe: BlogPost[] = [
     slug: "meal-prep-fuer-anfaenger",
     title: "Meal Prepping für Anfänger: Der ultimative Guide (mit 7-Tage-Plan)",
     description:
-      "Meal Prepping für Anfänger leicht gemacht: die 5 Grundprinzipien, die richtige Ausstattung, ein kostenloser 7-Tage-Plan und die häufigsten Fehler. So gelingt dein Einstieg.",
+      "Meal Prepping für Anfänger, vom Küchenchef erklärt: 5 Grundprinzipien, typische Fehler – plus kostenloser 7-Tage-Plan mit fertiger Einkaufsliste.",
     publishedAt: "2026-06-01",
-    updatedAt: "2026-07-16",
+    updatedAt: "2026-08-18",
     readingTime: "8 Min. Lesezeit",
     image: "https://culinse.com/blog/meal-prep-for-beginners.jpg",
     category: "Meal Prep",
