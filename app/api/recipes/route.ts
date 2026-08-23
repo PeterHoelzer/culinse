@@ -4,8 +4,24 @@ import { translateTexts } from "@/lib/translate";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recipeSourceLabel } from "@/lib/culinse";
 
+import { optimizedImageUrl } from "@/lib/imageUrl";
 const API_KEY = process.env.SPOONACULAR_API_KEY;
 const BASE = "https://api.spoonacular.com";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function mapCommunityRow(r: any) {
+  return {
+    id: `user_${r.id}`,
+    title: r.title,
+    image: r.image_url,
+    source: recipeSourceLabel(r.user_id),
+    sourceUrl: "#",
+    time: r.cook_time ? `${r.cook_time} min` : "—",
+    servings: r.servings ?? null,
+    rating: null,
+    imagePosition: r.image_position ?? "50% 50%",
+  };
+}
 
 // Public, user-created recipes whose title matches the search term, mapped to
 // the homepage recipe shape. Searched with the ORIGINAL query (user recipes may
@@ -24,19 +40,74 @@ async function fetchCommunityMatches(query: string, limit: number, lang: string)
       .or(`language.eq.${l},language.is.null`)
       .ilike("title", `%${q}%`)
       .limit(limit);
-    return (data ?? []).map((r) => ({
-      id: `user_${r.id}`,
-      title: r.title,
-      image: r.image_url,
-      source: recipeSourceLabel(r.user_id),
-      sourceUrl: "#",
-      time: r.cook_time ? `${r.cook_time} min` : "—",
-      servings: r.servings ?? null,
-      rating: null,
-      imagePosition: r.image_position ?? "50% 50%",
-    }));
+    return (data ?? []).map(mapCommunityRow);
   } catch (err) {
     console.error("community match failed:", err);
+    return [];
+  }
+}
+
+// One RANDOM public community recipe for the default (landing) view, so member
+// recipes are always represented among the trending cards. PostgREST can't sort
+// randomly, so we load a pool of recent public recipes and pick one in JS.
+// Failure is silent — the landing page then just shows provider recipes.
+async function fetchRandomCommunityRecipe(lang: string) {
+  const l = lang === "de" ? "de" : "en";
+  try {
+    const supabase = createAdminClient();
+    const { data } = await supabase
+      .from("user_recipes")
+      .select("id, user_id, title, image_url, image_position, cook_time, servings")
+      .eq("is_public", true)
+      .not("image_url", "is", null)
+      .or(`language.eq.${l},language.is.null`)
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (!data?.length) return [];
+    return [mapCommunityRow(data[Math.floor(Math.random() * data.length)])];
+  } catch (err) {
+    console.error("random community recipe failed:", err);
+    return [];
+  }
+}
+
+// ─── Failsafe: eigener Katalog (23.08) ────────────────────────────────────────
+// Nutzer duerfen NIE eine leere Rezeptansicht sehen (Vorfall 13.08.: Spoonacular-
+// Quota 402 -> leere Startseite). Oeffentliche Culinse-Rezepte als Auffangnetz:
+// neueste zuerst; mit Suchbegriff erst roh, dann uebersetzt gefiltert, zur Not
+// ungefiltert. Fehler hier sind still — der aufrufende Pfad entscheidet weiter.
+async function fetchOwnCatalog(
+  rawQuery: string,
+  translatedTerm: string | null,
+  lang: string,
+  limit: number
+) {
+  const l = lang === "de" ? "de" : "en";
+  try {
+    const supabase = createAdminClient();
+    const run = async (term: string | null) => {
+      let q = supabase
+        .from("user_recipes")
+        .select("id, user_id, title, image_url, image_position, cook_time, servings")
+        .eq("is_public", true)
+        .not("image_url", "is", null)
+        .or(`language.eq.${l},language.is.null`);
+      const t = term?.trim() ?? "";
+      if (t.length >= 2) q = q.ilike("title", `%${t}%`);
+      const { data } = await q.order("created_at", { ascending: false }).limit(limit);
+      return data ?? [];
+    };
+    let rows = await run(rawQuery || null);
+    if (!rows.length && translatedTerm && translatedTerm !== rawQuery) {
+      rows = await run(translatedTerm);
+    }
+    if (!rows.length && rawQuery) rows = await run(null);
+    return rows.map((r) => ({
+      ...mapCommunityRow(r),
+      image: optimizedImageUrl(r.image_url, 640) ?? r.image_url,
+    }));
+  } catch (err) {
+    console.error("own catalog failsafe failed:", err);
     return [];
   }
 }
@@ -172,6 +243,18 @@ async function fetchEdamam(query: string, category: string): Promise<ReturnType<
 
 export async function GET(req: NextRequest) {
   if (!API_KEY) {
+    // Failsafe (23.08): auch ohne konfigurierten Key keine leere Ansicht —
+    // eigener Katalog, sonst wie bisher 503.
+    const sp = new URL(req.url).searchParams;
+    const fbLang = (sp.get("lang") || "en").toLowerCase();
+    const fbNumber = Math.min(Math.max(Math.floor(Number(sp.get("number")) || 6), 1), 24);
+    const own = await fetchOwnCatalog(sp.get("query") || "", null, fbLang, fbNumber);
+    if (own.length) {
+      return NextResponse.json(
+        { recipes: own.slice(0, fbNumber), quota_exceeded: true, degraded: true, hasMore: false },
+        { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
+      );
+    }
     return NextResponse.json({ error: "Spoonacular API key not configured" }, { status: 503 });
   }
 
@@ -241,8 +324,15 @@ export async function GET(req: NextRequest) {
       spoonUrl = `${BASE}/recipes/complexSearch?number=${number}&addRecipeInformation=true&sort=popularity&minPopularity=50&instructionsRequired=true&offset=${dailyOffset}&apiKey=${API_KEY}`;
     }
 
-    // Matching community (user-created) recipes — only for text searches.
-    const communityPromise = query ? fetchCommunityMatches(query, 4, lang) : Promise.resolve([]);
+    // Community (user-created) recipes: title matches for text searches; on the
+    // default landing view (no query/category/filters) always ONE random public
+    // community recipe — it replaces a provider recipe via the spread+slice below.
+    const isDefaultView = !query && !hasFilters && (!category || category === "All");
+    const communityPromise = query
+      ? fetchCommunityMatches(query, 4, lang)
+      : isDefaultView
+        ? fetchRandomCommunityRecipe(lang)
+        : Promise.resolve([]);
 
     // Fetch Spoonacular + TheMealDB + Edamam in parallel
     const [spoonRes, mdbRecipes, edamamRecipes] = await Promise.all([
@@ -252,14 +342,26 @@ export async function GET(req: NextRequest) {
     ]);
     const communityMatches = await communityPromise;
 
-    // 402 = quota exceeded — return whatever MDB/Edamam already fetched (or empty)
+    // 402 = Quota erschoepft — Failsafe (23.08): eigener Katalog zuerst, dann
+    // MDB/Edamam, damit die Ansicht NIE leer ist (Vorfall 13.08.).
     if (spoonRes.status === 402) {
       const fallback = [
         ...(mdbRecipes as NonNullable<ReturnType<typeof normalizeMDB>>[]).filter(Boolean),
         ...(edamamRecipes as NonNullable<ReturnType<typeof normalizeEdamam>>[]).filter(Boolean),
       ];
+      const own = await fetchOwnCatalog(query, searchTerm || null, lang, number);
+      const seenIds = new Set<string>();
+      const seenTitles = new Set<string>();
+      const pool = [...communityMatches, ...own, ...fallback].filter((r) => {
+        const id = String(r.id);
+        const t = String(r.title || "").toLowerCase().trim();
+        if (seenIds.has(id) || (t && seenTitles.has(t))) return false;
+        seenIds.add(id);
+        if (t) seenTitles.add(t);
+        return true;
+      });
       return NextResponse.json(
-        { recipes: [...communityMatches, ...fallback].slice(0, number), quota_exceeded: true, hasMore: false },
+        { recipes: pool.slice(0, number), quota_exceeded: true, hasMore: false },
         { headers: { "Cache-Control": "s-maxage=300, stale-while-revalidate=600" } }
       );
     }
@@ -314,6 +416,22 @@ export async function GET(req: NextRequest) {
     });
     let combined = spread.slice(0, number);
 
+    // Failsafe (23.08): Standard-Ansicht (ohne Suche/Kategorie/Filter) nie
+    // duenn oder leer lassen — mit eigenem Katalog auffuellen.
+    if (isDefaultView && combined.length < number) {
+      const own = await fetchOwnCatalog("", null, lang, number);
+      const fillIds = new Set(combined.map((r) => String(r.id)));
+      const fillTitles = new Set(combined.map((r) => String(r.title || "").toLowerCase().trim()));
+      for (const r of own) {
+        if (combined.length >= number) break;
+        const t = String(r.title || "").toLowerCase().trim();
+        if (fillIds.has(String(r.id)) || fillTitles.has(t)) continue;
+        fillIds.add(String(r.id));
+        fillTitles.add(t);
+        combined.push(r);
+      }
+    }
+
     // On the German site, translate provider titles to German (cached).
     // Community recipe titles (id "user_…") are left as the author wrote them.
     if (lang === "de" && combined.length) {
@@ -337,6 +455,19 @@ export async function GET(req: NextRequest) {
     });
   } catch (err) {
     console.error(err);
+    // Failsafe (23.08): Provider-Totalausfall (Netzwerk, Nicht-402-Fehler) —
+    // eigener Katalog statt 500er, damit Nutzer nie eine leere Ansicht sehen.
+    try {
+      const own = await fetchOwnCatalog(query, searchTerm || null, lang, number);
+      if (own.length) {
+        return NextResponse.json(
+          { recipes: own.slice(0, number), quota_exceeded: true, degraded: true, hasMore: false },
+          { headers: { "Cache-Control": "no-store" } }
+        );
+      }
+    } catch (fallbackErr) {
+      console.error("own catalog failsafe failed:", fallbackErr);
+    }
     return NextResponse.json({ error: "Failed to fetch recipes" }, { status: 500 });
   }
 }
