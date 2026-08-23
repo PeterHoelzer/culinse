@@ -198,3 +198,40 @@ Nach 4 Wochen (12 Posts) Metricool-Check:
 2. **`user_recipes` hat weder `ready_in_minutes` noch `summary`** — Selects auf diese Spalten scheitern hart und liefern für ALLE Zeilen einen Fehler. Bei Wegwerf-Skripten die Spaltenliste klein halten (`id,title,image_url,ingredients,instructions,servings,nutrition`).
 3. **Papas Korpus ist auf 44 öffentliche Rezepte gewachsen** (vorher 29) und enthält jetzt starke Anker-Titel für Monate: Lasagne (W6), Spaghetti Bolognese, Schnitzel mit Champignons, Mousse au Chocolat, Nussecken, Käse-/Kirschstreuselkuchen, Sushi.
 4. **Node liegt nicht in `/usr/local/bin`**, sondern unter `~/.nvm/versions/node/v24.15.0/bin/node` — osascript-Aufrufe brauchen den vollen Pfad, `PATH`-Export allein reicht nicht.
+
+## Learnings Woche 7 (23.08.2026)
+
+**Datenlage (14 Tage, 09.–23.08., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Anker-Typ | Views | Likes | Shares |
+|-------|-------|---------|-----------|------:|------:|-------:|
+| 12.08. | A Familie | Scharfe Waldpilzsuppe | keiner | 0 | 0 | 0 |
+| 13.08. | B Preis | Meal-Prep-Woche | keiner | 0 | 0 | 0 |
+| 14.08. | C Protein | Protein Overnight Oats | keiner | 0 | 0 | 0 |
+| **19.08.** | **A Familie** | **Apfelkuchen** | **DE-Klassiker** | **284** | **1** | **0** |
+| 20.08. | B Preis | Marry Me Chicken | US-Trend | 0 | 0 | 0 |
+| 21.08. | C Protein | Schoko-Protein-Pudding | Produktkategorie | 0 | 0 | 0 |
+
+**Der Anker-Test ist bestanden — aber anders als vermutet.** Der Apfelkuchen ist mit **284 Views der beste Post überhaupt** (Baked Feta: 150) und trägt den **ersten Like der gesamten Kontohistorie**. Die in W6 gesetzte Abbruchregel („bringt kein W5-Post > 100 Views, ab W7 Video-Umstellung") greift damit nicht: Carousels können ausgeliefert werden, wir wissen jetzt genauer, wann.
+
+**Verfeinerte These — nicht jeder Anker ist gleich viel wert.** Von drei bewusst mit Anker gebauten W5-Posts lief genau einer. Der Unterschied ist die Anker-*Art*:
+
+- **Funktioniert:** ein deutscher Alltagsbegriff mit hohem organischem DE-Suchvolumen (Apfelkuchen, Baked Feta Pasta) — Begriffe, nach denen im DE-Feed tatsächlich gesucht wird.
+- **Funktioniert nicht:** ein importierter US-Trendname (Marry Me Chicken) oder eine Produktkategorie statt eines Gerichtsnamens (Schoko-Protein-Pudding). Beide sind auf US-FoodTok Anker, im DE-Feed aber Rauschen — es ist derselbe Fehler wie in v1 (§1.2), nur eine Ebene tiefer.
+
+**Retention bleibt der zweite, ungelöste Hebel.** 284 Views auf 1 Like ist eine Reaktionsquote von 0,35 %. Der Hook zieht, der Inhalt hält nicht — dieselbe Diagnose wie bei Baked Feta. W6 hat darauf mit Widerspruch-Hooks reagiert; deren Zahlen liegen erst am 30.08. vor. W7 zieht beide Hebel gleichzeitig konsequent durch: **deutscher Alltags-Anker + nachprüfbarer Widerspruch**.
+
+**Produktion W7 (02.–04.09., Posts 19–21):**
+
+- **Mi — Familie: Papas Spaghetti Bolognese** (echtes Foto, 1600×1200). Anker „Bolognese" — stärkster DE-Alltagsbegriff im gesamten Korpus. Widerspruch gegen ein Koch-Dogma statt gegen eine Zutat: „Bolognese muss stundenlang köcheln? Meinem Vater reichen 10 Minuten." Das steht wörtlich so in seinem Rezept (Schritt 3) und lädt zum Widersprechen ein — Kommentare sind der direkteste Retention-Hebel. Punch-Slide: die Paprika, die erst nach dem Köcheln reinkommt.
+- **Do — Preis: Currywurst mit selbstgemachter Sauce** (Katalog-Foto). Anker + nationale Preisdebatte, gleiche Mechanik wie der Döner in W6, aber mit besserem Widerspruch: **Cola in der Sauce** (echte Rezeptzutat). Referenz recherchiert: Bundesschnitt **3,92 €** für eine Currywurst ohne Pommes (Currywurst-Preisindex 2026) gegen ehrlich gerechnete **1,46 €/Teller mit zwei Würsten** (5,85 € für 4 Teller). Sauce allein: 31 Cent pro Portion.
+- **Fr — Protein: Klassische Frikadellen** (Katalog-Foto). Anker „Frikadellen" + Peters echte Fleischermeister-Autorität, die bisher nur in Captions auftauchte und hier den ganzen Punch-Slide trägt: **kein Paniermehl, sondern ein eingeweichtes altbackenes Brötchen**. Crossover Protein+Preis: 26 g Protein bei 350 kcal für 1,10 €/Portion (4,40 € für 4).
+
+**Eskalations-Status (§6):** Video-Umstellung **erneut ausgesetzt, diesmal mit besserem Grund als in W6** — der Rekordpost entstand ohne Video, und die Anker-Art ist erst seit dieser Woche als Stellschraube identifiziert. Neue harte Regel: **Bringt von W6 (26.–28.08.) und W7 (02.–04.09.) zusammen — sechs Posts, alle mit Anker + Widerspruch — kein einziger > 300 Views oder > 10 Likes, sind Foto-Carousels erledigt** und ab W9 laufen 15-Sek-Screenrecordings. Peters Go dafür steht seit dem Bericht vom 02.08. aus und wird hiermit erneut angefragt.
+
+**Produktions-Learnings:**
+
+1. **`estimatePrice` matcht „gemischtes Hackfleisch" auf `ground beef`** (12 €/kg → 6,00 € für 500 g). Gemischtes Hack kostet beim Discounter rund die Hälfte (~3,00 €/500 g). Wie bei den getrockneten Tomaten (W5-Learning 1): Bei Fleischsorten den Treffer prüfen, sonst wird der eigene Preisvorteil kleingerechnet — der Fehler geht hier gegen uns.
+2. **Halbe Bunde werden voll berechnet.** Der Code mappt `bunch`/`Bund` direkt auf `entry.perPiece` und ignoriert `amount` — „0,5 Bund Petersilie" ergibt 1,00 € statt 0,50 €. Bei allen Kräutern in Bund-Einheiten manuell halbieren.
+3. **Preistabellen-Lücken dieser Woche:** Bratwurst, Weißweinessig, Cola und passierte Tomaten (`passata` matcht, liefert aber keinen Preis) fehlen komplett. Angesetzt: 8 Bratwürste 4,60 €, 400 g Passata 0,45 €, Essig/Cola je 0,05 €. **Kandidaten für den nächsten monatlichen Preis-Check am 01.09.**
+4. **Hook-Länge: vier Zeilen sind das Maximum** im Orange-Balken (ab ca. 75 Zeichen bei 58 px). Der Frikadellen-Hook lief in der ersten Fassung bis an die `culinse.com`-Zeile heran und wurde um „pro Portion" gekürzt. Die Caption darf länger sein als der Slide.
