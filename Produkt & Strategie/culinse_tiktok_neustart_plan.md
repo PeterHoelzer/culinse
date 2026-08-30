@@ -235,3 +235,44 @@ Nach 4 Wochen (12 Posts) Metricool-Check:
 2. **Halbe Bunde werden voll berechnet.** Der Code mappt `bunch`/`Bund` direkt auf `entry.perPiece` und ignoriert `amount` — „0,5 Bund Petersilie" ergibt 1,00 € statt 0,50 €. Bei allen Kräutern in Bund-Einheiten manuell halbieren.
 3. **Preistabellen-Lücken dieser Woche:** Bratwurst, Weißweinessig, Cola und passierte Tomaten (`passata` matcht, liefert aber keinen Preis) fehlen komplett. Angesetzt: 8 Bratwürste 4,60 €, 400 g Passata 0,45 €, Essig/Cola je 0,05 €. **Kandidaten für den nächsten monatlichen Preis-Check am 01.09.**
 4. **Hook-Länge: vier Zeilen sind das Maximum** im Orange-Balken (ab ca. 75 Zeichen bei 58 px). Der Frikadellen-Hook lief in der ersten Fassung bis an die `culinse.com`-Zeile heran und wurde um „pro Portion" gekürzt. Die Caption darf länger sein als der Slide.
+
+## Learnings Woche 8 (30.08.2026)
+
+**Datenlage (14 Tage, 16.–30.08., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Anker-Art | Widerspruch | Views | Likes | Shares |
+|-------|-------|---------|-----------|-------------|------:|------:|-------:|
+| 19.08. | A Familie | Apfelkuchen | DE-Alltagsbegriff | nein | **285** | **1** | 0 |
+| 20.08. | B Preis | Marry Me Chicken | US-Trend | nein | 0 | 0 | 0 |
+| 21.08. | C Protein | Schoko-Protein-Pudding | Produktkategorie | nein | 0 | 0 | 0 |
+| 26.08. | A Familie | Lasagne (Papa) | DE-Alltagsbegriff | ja (Erbsen) | 0 | 0 | 0 |
+| 27.08. | B Preis | Döner-Teller | DE-Alltagsbegriff | ja (7,76€) | 0 | 0 | 0 |
+| 28.08. | C Protein | Hüttenkäse-Brot | Trendprodukt | ja (3 Zutaten) | 0 | 0 | 0 |
+
+**Die W6-These ist widerlegt — und das ist die wichtigste Erkenntnis dieser Woche.** W6 war der bewusst gebaute Test „deutscher Alltags-Anker + nachprüfbarer Widerspruch". Alle drei Posts stehen bei 0 Views, der älteste ist vier Tage alt. Zum Vergleich: Der Apfelkuchen stand vier Tage nach Veröffentlichung bereits bei 284. Wenn ein Post ausgeliefert wird, sieht man das binnen 48 Stunden. Es fehlt also nicht an Reifezeit.
+
+Besonders hart trifft es die Anker-Art-These aus W7: **„Lasagne" ist ein mindestens so starker deutscher Alltagsbegriff wie „Apfelkuchen"** — mit echtem Papa-Foto, mit Widerspruch im Hook, mit Nischen-Hashtags. Null Auslieferung. Damit lässt sich der Unterschied zwischen Treffern und Nullen nicht mehr über den Anker erklären.
+
+**Ehrliche Neubewertung nach 18 Posts:** 2 Treffer (Baked Feta 150, Apfelkuchen 285), 16 Nullen. Das sind 11 % — und die zwei Treffer haben außer „gutes Foto, gutes Gericht" kein gemeinsames Merkmal, das die 16 Nullen nicht auch hätten. Die sauberste Deutung ist unbequem: **Die Auslieferung von Foto-Carousels auf diesem Konto ist eine Lotterie mit ~1:9-Quote, die wir über den Inhalt nicht steuern.** Jede Woche eine neue Hook-These zu bauen, war rückblickend Überanpassung an n=1-Ereignisse. Wir sollten aufhören, Muster in Rauschen zu lesen.
+
+Der zweite Hebel bleibt zusätzlich ungelöst: 285 Views auf 1 Like (0,35 %) und 150 Views auf 0 Likes heißt, dass auch die zwei ausgelieferten Posts niemanden gehalten haben.
+
+**Konsequenz für W8 (09.–11.09., Posts 22–24) — Gewinner doppeln statt neu theoretisieren:**
+
+Statt einer neuen These wird das einzige gedoppelt, was messbar am besten lief: **Papas Backwaren als DE-Klassiker.** Der Rekordpost war Papas Apfelkuchen; deshalb ist der Mittwoch wieder ein Papa-Kuchen aus demselben Bestand. Widerspruchs-Hooks bleiben drin (sie kosten nichts), werden aber nicht mehr als Erklärung verkauft.
+
+**Eine neue Sache wird bewusst getestet — Kommentar-Frage statt nur Aussage.** Alle drei Captions enden mit einer direkten Frage („Zu viel Streusel oder genau richtig?", „Mais im Chili: Verbrechen oder genau richtig?"). Kommentare sind das stärkste Retention-Signal, das wir ohne Video erzeugen können, und der Hebel ist auf der Caption-Ebene gratis. Das ist eine Ergänzung, keine Ersatz-These.
+
+- **Mi — Familie: Papas Kirsch-Streuselkuchen** (echtes Foto, 3264×2448, EXIF-Rotation 180° eingebrannt). Anker „Streuselkuchen", Widerspruch aus dem echten Rezept: **1,4 kg Streusel auf 870 g Teig** — die Streusel wiegen mehr als der Teig. Punch-Slide: die Streuselschicht nimmt den Kirschsaft auf, statt ihn in den Boden ziehen zu lassen.
+- **Do — Preis: Pizza Margherita mit selbstgemachtem Teig** (Katalog-Foto). Anker „Pizza", Referenz recherchiert: **ab 9 € beim Italiener** (Lieferdienst mit Gebühren 14–18 €, Quelle papaliebtpizza.de/Preisübersicht 2026) gegen ehrlich gerechnete **4,40 € für vier Pizzen = 1,10 €/Stück**. Widerspruch: **kein Kneten** (steht wörtlich in Schritt 1) und der Teig kostet 45 Cent für alle vier Böden = 11 Cent pro Pizza.
+- **Fr — Protein: Chili con Carne** (Katalog-Foto, Mais deutlich sichtbar). Anker „Chili con Carne", Widerspruch **Mais im Chili** (echte Rezeptzutat, für Puristen ein Aufreger). 28 g Protein / 430 kcal pro Teller, **2,42 €/Portion**. Punch-Slide trägt Peters Fleischermeister-Autorität: Hack in die heiße Pfanne und **nicht rühren**.
+
+**Eskalations-Status (§6):** Die W7-Regel lautete: Bringt von W6 + W7 (sechs Posts) kein einziger > 300 Views oder > 10 Likes, sind Foto-Carousels erledigt. **W6 ist bereits dreimal 0** — die Regel kann nur noch durch W7 (02.–04.09.) gerettet werden, dessen Zahlen am 06.09. vorliegen. W8 wird als Carousel produziert, weil bis dahin nichts anderes deploybar ist und Peters Go für Video seit dem 02.08. aussteht. **Klare Erwartung an den nächsten Lauf (06.09.): Erfüllt W7 die Schwelle nicht, wird ab W9 (16.–18.09.) auf 15-Sek-Screenrecordings umgestellt — ohne weitere Verlängerung.** Diesmal ohne Ausnahme; die letzten beiden Wochen wurden mit jeweils guten Gründen verlängert, ein drittes Mal wäre nur noch Aufschub.
+
+**Produktions-Learnings:**
+
+1. **Dosenware wird systematisch als Frischware bepreist.** `estimatePrice` matcht „geschälte Tomaten" und „gehackte Tomaten" auf `tomato` (2,80 €/kg) statt auf `canned tomatoes` (0,75 €/Dose) — 800 g Dosentomaten kamen mit 2,25 € statt 1,50 € heraus. Der Eintrag `canned tomatoes` existiert, wird aber nur bei exakt „Dosentomaten" getroffen, und dann nur über `perPiece` (bei Einheit `g` liefert er NULL). Gleiches Muster bei Kidneybohnen (400 g → 1,20 € statt 0,79 € Dosenpreis) und Mais (300 g in `g` → NULL, obwohl `perPiece` 0,99 € existiert). **Bei allen Dosenzutaten den Dosenpreis manuell ansetzen.** Kandidat für den Preis-Check am 01.09.: Dosen-Aliase („gehackte Tomaten", „geschälte Tomaten", „passierte Tomaten", „Kidneybohnen", „Mais") mit `perKg` hinterlegen.
+2. **„Rinderhackfleisch" matcht gar nicht** (Kompositum, wie „Hähnchenbrustfilet" in W5) — „Hackfleisch" matcht auf `ground beef` mit 12 €/kg = 6,00 €/500 g. Real beim Discounter ~4,49 €/500 g für reines Rinderhack. Manuell angesetzt. Der Fehler geht wieder gegen uns (W7-Learning 1 bestätigt sich).
+3. **`user_recipes` gibt `nutrition` pro Portion, nicht pro Rezept** — beim Streuselkuchen (20 Portionen) sind die 526 kcal ein Stück, nicht das Blech. Vor jeder Nährwert-Aussage `servings` gegenprüfen.
+4. **Der Slide-Generator bricht `list_items` NICHT um** (anders als Hook, `sub` und `extra`). Über ~38 Zeichen bei 42 px wird rechts abgeschnitten. Listenzeilen entsprechend kurz halten — die Detailtiefe gehört in die Caption.
+5. **Papas Korpus ist auf 51 öffentliche Rezepte gewachsen.** Backwaren-Reserve für die Gewinner-Serie: Nussecken, Maracuja-Torte, Eierlikör-Torte, Obstboden, Zitronensahnecreme, Mousse au Chocolat.
