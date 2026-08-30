@@ -143,3 +143,136 @@ Nach 4 Wochen (12 Posts) Metricool-Check:
 1. **Bildgröße vor Serienplanung prüfen:** Unter ~1000 px kurzer Kante taugt ein Foto nicht als Vollflächen-Hintergrund (Cover-Crop + Upscale). Papas Bestand: 10 von 15 Fotos sind ≥1800 px — reicht für Monate.
 2. **EXIF-Rotation:** Papas Handy-Fotos brauchen `ImageOps.exif_transpose()` vor dem Slide-Bau — der Generator macht das nicht selbst; ggf. zusätzlich manuell rotieren (Waldpilzsuppe: ROTATE_270, Löffel unten rechts).
 3. **Beträge im Hook als ein Token schreiben („12,30€", ohne Leerzeichen)** — sonst trennt der Zeilenumbruch Zahl und €-Zeichen.
+
+## Learnings Woche 5 (09.08.2026)
+
+**Datenlage W2+W3 (Stand 09.08.): DURCHBRUCH.** Erster Post mit echter Distribution: Do 06.08. Preis **Baked Feta Pasta = 149 Views** (0 Likes, 0 Shares). Die anderen fünf Posts der letzten 14 Tage (Rahmgeschnetzeltes, Wocheneinkauf, Gyros-Bowl, Spätzle, Hüttenkäse-Bowl) stehen weiter bei 0. Das Muster ist eindeutig: Der EINZIGE Post mit bekanntem viralem Gerichtsnamen („das virale TikTok-Rezept") + gericht-spezifischem Hashtag (#bakedfeta) wurde vom Algorithmus ausgetestet. TikTok distribuiert Foto-Carousels also doch — aber offenbar nur mit **Trend-/Such-Anker**. Metricool-Sync funktioniert damit nachweislich auch für Foto-Posts (entkräftet die Sync-Lag-Deutung aus W3/W4).
+
+**Deutung:** Nicht die Serie B als Format gewinnt, sondern das Anker-Prinzip: bekannter, gesuchter Gerichtsname im Hook + passender Nischen-Hashtag. Generische Gerichte („Hüttenkäse-Bowl") werden nicht ausgetestet.
+
+**Konsequenz W5 (19.–21.08., Posts 13–15): Gewinner-Element in alle drei Posts gedoppelt** — jede Serie behält ihren Wochentag, aber jeder Post bekommt einen Anker-Namen:
+- Mi Familie: **Apfelkuchen** (Papas echtes Foto 4032×3024, EXIF-transponiert; Hook „1kg Äpfel auf 100g Mehl"; #apfelkuchen #backen)
+- Do Preis: **Marry Me Chicken** — der TikTok-Klassiker schlechthin; ehrliche Rechnung **10,05 € / 4 Portionen = 2,51 €/Portion** (Korpus-Rezept published, echte Zutatenliste; getrocknete Tomaten manuell 1,20 € angesetzt, s. Learning 1); Katalog-Foto statt FLUX (Konsistenz zur Rezeptseite); #marrymechicken
+- Fr Protein: **Schoko-Protein-Pudding** — Kühlregal-Trend als Anker, Preis-Crossover: **32 g Protein für 1,00 €** (Magerquark 0,75 + Kakao 0,10 + Milch 0,05 + Honig 0,10) vs. 20 g im Fertig-Becher; FLUX-Bild (Glas, unbranded, sauber); #proteinpudding #magerquark
+
+**Eskalations-Status (§6):** Die 4-Wochen-Frist endet mit W4 (12.–14.08.). Ø liegt weit unter 200, aber der 149er-Ausreißer ist das erste Lebenszeichen — und er entstand ohne Video. W5 testet das Anker-Prinzip als gezielte letzte Carousel-Iteration (W4 läuft noch ohne Anker-Hooks). Wiederholt sich das Baked-Feta-Muster bei W5 nicht (kein Post > 100 Views), ist ab W6 die Video-Eskalation fällig; Peters Go dafür steht weiter aus (angefragt im Wochenbericht 02.08.).
+
+**Produktions-Learnings:**
+1. **Preis-DB-Falle Zubereitungs-Präfixe:** „sonnengetrocknete Tomaten" matcht via Stopword-Normalisierung auf frische Tomaten (0,20 € statt realer ~1,20 €). Bei Zutaten mit Präfixen (getrocknet/geräuchert/…) den `findPriceEntry`-Treffer prüfen und ggf. manuell mit realem Discounter-Preis ansetzen (auf dem Slide normal ausweisen).
+2. **„Hähnchenbrustfilet" matcht nicht** (Wortgrenzen-Match findet „hähnchenbrust" nicht im Kompositum) → als „Hähnchenbrust" rechnen. Gleiches Risiko bei anderen -filet/-würfel-Komposita.
+3. **Korpus-Check vor FLUX lohnt:** Marry Me Chicken existierte bereits published mit Bild (Katalog seit 07.08. um 157 Gerichte gewachsen — Abfrage auf user_recipes spart FLUX-Läufe und hält Post und Rezeptseite konsistent).
+4. **Sandbox kann Mac-erstellte Dateien im Mount nicht löschen/umbenennen** („Operation not permitted") — Mac-Artefakte (FLUX-Ausgaben, Wegwerf-Skripte) immer via osascript aufräumen.
+
+## Learnings Woche 6 (16.08.2026)
+
+**Datenlage (14 Tage, 02.–16.08., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Views | Likes | Shares |
+|-------|-------|---------|------:|------:|-------:|
+| 05.08. | A Familie | Spätzle | 0 | 0 | 0 |
+| 06.08. | B Preis | Baked Feta Pasta | **150** | 0 | 0 |
+| 07.08. | C Protein | Hüttenkäse-Bowl | 0 | 0 | 0 |
+| 12.08. | A Familie | Scharfe Waldpilzsuppe | 0 | 0 | 0 |
+| 13.08. | B Preis | Meal-Prep-Woche | 0 | 0 | 0 |
+| 14.08. | C Protein | Protein Overnight Oats | 0 | 0 | 0 |
+
+**Zwei harte Befunde:**
+
+1. **Der Baked-Feta-Ausreißer ist eingefroren.** 09.08. standen dort 149 Views, heute 150 — in einer Woche exakt **+1**. Das war kein anlaufender Post, sondern ein einmaliger Algorithmus-Test, der nicht weitergetragen wurde. Ein 150er-Peak ohne Likes und ohne Shares heißt: TikTok hat ausgeliefert, die Zuschauer haben nicht reagiert. Der Hook zog, der Inhalt hielt nicht.
+2. **W4 bestätigt die Anker-These negativ.** Die drei W4-Posts (12.–14.08.) wurden vor der Anker-Erkenntnis produziert und tragen generische Gerichtsnamen — dreimal 0 Views. Damit stehen 11 von 12 Posts bei 0 und der einzige Post mit Trend-Anker bei 150. Die Korrelation ist so sauber, wie sie bei n=12 sein kann.
+
+**Was daraus folgt — der Anker allein reicht nicht.** Die Baked-Feta-Zahlen zeigen zwei getrennte Probleme: Distribution (löst der Anker) und Retention (löst er nicht). Foto-Carousels ohne Bewegung halten niemanden. W6 greift deshalb beide Hebel an: Anker für die Auslieferung **plus Konflikt/Widerspruch im Hook** für die Verweildauer — eine Behauptung, die man nachprüfen will, statt einer, die man nur zur Kenntnis nimmt.
+
+**Produktion W6 (26.–28.08., Posts 16–18):**
+
+- **Mi — Familie: Papas Lasagne** (echtes Foto, 1600×1200). Anker „Lasagne" + Widerspruch: „In der Lasagne meines Vaters sind Erbsen. Klingt falsch. Ist genial." Die Erbsen sind eine echte Zutat aus seinem Rezept — der Hook ist keine Konstruktion. Punch-Slide: „Was mein Vater nie benutzt: Fix-Beutel."
+- **Do — Preis: Hähnchen-Döner-Teller** (Katalog-Foto). Stärkster verfügbarer DE-Anker: Döner ist national ein Preisthema. Recherchierter Bundesschnitt **7,76 €** (Döneratlas 2026) gegen ehrlich gerechnete **2,98 €/Portion** (11,90 € für 4 Teller, 7 Posten einzeln auf dem Slide). Ersparnis 4,78 € pro Teller = 248 € im Jahr bei einmal wöchentlich.
+- **Fr — Protein: Cottage-Cheese-Fladenbrot** (Katalog-Foto). Anker ist der laufende Hüttenkäse-Brot-Trend, nicht die generische Bowl (die im Juli 0 Views hatte). **27 g Protein bei 280 kcal für 1,05 €/Portion**, 3 Zutaten.
+
+**Preis-Notizen (Lücken ehrlich geschlossen):** `lib/ingredient-prices.ts` hat keine Einträge für Naturjoghurt (250 g → 0,30 € angesetzt) und Eisbergsalat (200 g → 0,35 €); Petersilie matcht, liefert für „Bund" aber null (→ 0,50 €). „Hähnchenbrustfilet" wieder als „Hähnchenbrust" gerechnet (W5-Learning 2 bestätigt sich). Hüttenkäse matcht auf Quark — Preisniveau vergleichbar, für den Slide auf reale 0,95 €/250 g angehoben.
+
+**Eskalations-Status (§6):** Die 4-Wochen-Frist ist abgelaufen, der Ø liegt bei ~12 Views/Post statt 200. Die Entscheidung bleibt bewusst **eine Woche ausgesetzt**, weil W5 (19.–21.08.) der eigens gebaute Anker-Test ist und erst am 23.08. auswertbar wird. Klare Regel für den nächsten Lauf: **Bringt kein W5-Post > 100 Views, wird ab W7 (02.–04.09.) auf 15-Sek-Screenrecording-Videos umgestellt** — dann ohne weitere Verlängerung. Peters Go dafür steht seit dem Bericht vom 02.08. aus.
+
+**Produktions-Learnings:**
+1. **Beträge auch in `sub`/`extra` als ein Token schreiben** (`7,76€`), nicht nur im Hook — der Zeilenumbruch trennt sonst mitten im Fließtext Zahl und Währungszeichen (W4-Learning 3 galt bisher nur für den Hook; jetzt für alle Textfelder).
+2. **`user_recipes` hat weder `ready_in_minutes` noch `summary`** — Selects auf diese Spalten scheitern hart und liefern für ALLE Zeilen einen Fehler. Bei Wegwerf-Skripten die Spaltenliste klein halten (`id,title,image_url,ingredients,instructions,servings,nutrition`).
+3. **Papas Korpus ist auf 44 öffentliche Rezepte gewachsen** (vorher 29) und enthält jetzt starke Anker-Titel für Monate: Lasagne (W6), Spaghetti Bolognese, Schnitzel mit Champignons, Mousse au Chocolat, Nussecken, Käse-/Kirschstreuselkuchen, Sushi.
+4. **Node liegt nicht in `/usr/local/bin`**, sondern unter `~/.nvm/versions/node/v24.15.0/bin/node` — osascript-Aufrufe brauchen den vollen Pfad, `PATH`-Export allein reicht nicht.
+
+## Learnings Woche 7 (23.08.2026)
+
+**Datenlage (14 Tage, 09.–23.08., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Anker-Typ | Views | Likes | Shares |
+|-------|-------|---------|-----------|------:|------:|-------:|
+| 12.08. | A Familie | Scharfe Waldpilzsuppe | keiner | 0 | 0 | 0 |
+| 13.08. | B Preis | Meal-Prep-Woche | keiner | 0 | 0 | 0 |
+| 14.08. | C Protein | Protein Overnight Oats | keiner | 0 | 0 | 0 |
+| **19.08.** | **A Familie** | **Apfelkuchen** | **DE-Klassiker** | **284** | **1** | **0** |
+| 20.08. | B Preis | Marry Me Chicken | US-Trend | 0 | 0 | 0 |
+| 21.08. | C Protein | Schoko-Protein-Pudding | Produktkategorie | 0 | 0 | 0 |
+
+**Der Anker-Test ist bestanden — aber anders als vermutet.** Der Apfelkuchen ist mit **284 Views der beste Post überhaupt** (Baked Feta: 150) und trägt den **ersten Like der gesamten Kontohistorie**. Die in W6 gesetzte Abbruchregel („bringt kein W5-Post > 100 Views, ab W7 Video-Umstellung") greift damit nicht: Carousels können ausgeliefert werden, wir wissen jetzt genauer, wann.
+
+**Verfeinerte These — nicht jeder Anker ist gleich viel wert.** Von drei bewusst mit Anker gebauten W5-Posts lief genau einer. Der Unterschied ist die Anker-*Art*:
+
+- **Funktioniert:** ein deutscher Alltagsbegriff mit hohem organischem DE-Suchvolumen (Apfelkuchen, Baked Feta Pasta) — Begriffe, nach denen im DE-Feed tatsächlich gesucht wird.
+- **Funktioniert nicht:** ein importierter US-Trendname (Marry Me Chicken) oder eine Produktkategorie statt eines Gerichtsnamens (Schoko-Protein-Pudding). Beide sind auf US-FoodTok Anker, im DE-Feed aber Rauschen — es ist derselbe Fehler wie in v1 (§1.2), nur eine Ebene tiefer.
+
+**Retention bleibt der zweite, ungelöste Hebel.** 284 Views auf 1 Like ist eine Reaktionsquote von 0,35 %. Der Hook zieht, der Inhalt hält nicht — dieselbe Diagnose wie bei Baked Feta. W6 hat darauf mit Widerspruch-Hooks reagiert; deren Zahlen liegen erst am 30.08. vor. W7 zieht beide Hebel gleichzeitig konsequent durch: **deutscher Alltags-Anker + nachprüfbarer Widerspruch**.
+
+**Produktion W7 (02.–04.09., Posts 19–21):**
+
+- **Mi — Familie: Papas Spaghetti Bolognese** (echtes Foto, 1600×1200). Anker „Bolognese" — stärkster DE-Alltagsbegriff im gesamten Korpus. Widerspruch gegen ein Koch-Dogma statt gegen eine Zutat: „Bolognese muss stundenlang köcheln? Meinem Vater reichen 10 Minuten." Das steht wörtlich so in seinem Rezept (Schritt 3) und lädt zum Widersprechen ein — Kommentare sind der direkteste Retention-Hebel. Punch-Slide: die Paprika, die erst nach dem Köcheln reinkommt.
+- **Do — Preis: Currywurst mit selbstgemachter Sauce** (Katalog-Foto). Anker + nationale Preisdebatte, gleiche Mechanik wie der Döner in W6, aber mit besserem Widerspruch: **Cola in der Sauce** (echte Rezeptzutat). Referenz recherchiert: Bundesschnitt **3,92 €** für eine Currywurst ohne Pommes (Currywurst-Preisindex 2026) gegen ehrlich gerechnete **1,46 €/Teller mit zwei Würsten** (5,85 € für 4 Teller). Sauce allein: 31 Cent pro Portion.
+- **Fr — Protein: Klassische Frikadellen** (Katalog-Foto). Anker „Frikadellen" + Peters echte Fleischermeister-Autorität, die bisher nur in Captions auftauchte und hier den ganzen Punch-Slide trägt: **kein Paniermehl, sondern ein eingeweichtes altbackenes Brötchen**. Crossover Protein+Preis: 26 g Protein bei 350 kcal für 1,10 €/Portion (4,40 € für 4).
+
+**Eskalations-Status (§6):** Video-Umstellung **erneut ausgesetzt, diesmal mit besserem Grund als in W6** — der Rekordpost entstand ohne Video, und die Anker-Art ist erst seit dieser Woche als Stellschraube identifiziert. Neue harte Regel: **Bringt von W6 (26.–28.08.) und W7 (02.–04.09.) zusammen — sechs Posts, alle mit Anker + Widerspruch — kein einziger > 300 Views oder > 10 Likes, sind Foto-Carousels erledigt** und ab W9 laufen 15-Sek-Screenrecordings. Peters Go dafür steht seit dem Bericht vom 02.08. aus und wird hiermit erneut angefragt.
+
+**Produktions-Learnings:**
+
+1. **`estimatePrice` matcht „gemischtes Hackfleisch" auf `ground beef`** (12 €/kg → 6,00 € für 500 g). Gemischtes Hack kostet beim Discounter rund die Hälfte (~3,00 €/500 g). Wie bei den getrockneten Tomaten (W5-Learning 1): Bei Fleischsorten den Treffer prüfen, sonst wird der eigene Preisvorteil kleingerechnet — der Fehler geht hier gegen uns.
+2. **Halbe Bunde werden voll berechnet.** Der Code mappt `bunch`/`Bund` direkt auf `entry.perPiece` und ignoriert `amount` — „0,5 Bund Petersilie" ergibt 1,00 € statt 0,50 €. Bei allen Kräutern in Bund-Einheiten manuell halbieren.
+3. **Preistabellen-Lücken dieser Woche:** Bratwurst, Weißweinessig, Cola und passierte Tomaten (`passata` matcht, liefert aber keinen Preis) fehlen komplett. Angesetzt: 8 Bratwürste 4,60 €, 400 g Passata 0,45 €, Essig/Cola je 0,05 €. **Kandidaten für den nächsten monatlichen Preis-Check am 01.09.**
+4. **Hook-Länge: vier Zeilen sind das Maximum** im Orange-Balken (ab ca. 75 Zeichen bei 58 px). Der Frikadellen-Hook lief in der ersten Fassung bis an die `culinse.com`-Zeile heran und wurde um „pro Portion" gekürzt. Die Caption darf länger sein als der Slide.
+
+## Learnings Woche 8 (30.08.2026)
+
+**Datenlage (14 Tage, 16.–30.08., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Anker-Art | Widerspruch | Views | Likes | Shares |
+|-------|-------|---------|-----------|-------------|------:|------:|-------:|
+| 19.08. | A Familie | Apfelkuchen | DE-Alltagsbegriff | nein | **285** | **1** | 0 |
+| 20.08. | B Preis | Marry Me Chicken | US-Trend | nein | 0 | 0 | 0 |
+| 21.08. | C Protein | Schoko-Protein-Pudding | Produktkategorie | nein | 0 | 0 | 0 |
+| 26.08. | A Familie | Lasagne (Papa) | DE-Alltagsbegriff | ja (Erbsen) | 0 | 0 | 0 |
+| 27.08. | B Preis | Döner-Teller | DE-Alltagsbegriff | ja (7,76€) | 0 | 0 | 0 |
+| 28.08. | C Protein | Hüttenkäse-Brot | Trendprodukt | ja (3 Zutaten) | 0 | 0 | 0 |
+
+**Die W6-These ist widerlegt — und das ist die wichtigste Erkenntnis dieser Woche.** W6 war der bewusst gebaute Test „deutscher Alltags-Anker + nachprüfbarer Widerspruch". Alle drei Posts stehen bei 0 Views, der älteste ist vier Tage alt. Zum Vergleich: Der Apfelkuchen stand vier Tage nach Veröffentlichung bereits bei 284. Wenn ein Post ausgeliefert wird, sieht man das binnen 48 Stunden. Es fehlt also nicht an Reifezeit.
+
+Besonders hart trifft es die Anker-Art-These aus W7: **„Lasagne" ist ein mindestens so starker deutscher Alltagsbegriff wie „Apfelkuchen"** — mit echtem Papa-Foto, mit Widerspruch im Hook, mit Nischen-Hashtags. Null Auslieferung. Damit lässt sich der Unterschied zwischen Treffern und Nullen nicht mehr über den Anker erklären.
+
+**Ehrliche Neubewertung nach 18 Posts:** 2 Treffer (Baked Feta 150, Apfelkuchen 285), 16 Nullen. Das sind 11 % — und die zwei Treffer haben außer „gutes Foto, gutes Gericht" kein gemeinsames Merkmal, das die 16 Nullen nicht auch hätten. Die sauberste Deutung ist unbequem: **Die Auslieferung von Foto-Carousels auf diesem Konto ist eine Lotterie mit ~1:9-Quote, die wir über den Inhalt nicht steuern.** Jede Woche eine neue Hook-These zu bauen, war rückblickend Überanpassung an n=1-Ereignisse. Wir sollten aufhören, Muster in Rauschen zu lesen.
+
+Der zweite Hebel bleibt zusätzlich ungelöst: 285 Views auf 1 Like (0,35 %) und 150 Views auf 0 Likes heißt, dass auch die zwei ausgelieferten Posts niemanden gehalten haben.
+
+**Konsequenz für W8 (09.–11.09., Posts 22–24) — Gewinner doppeln statt neu theoretisieren:**
+
+Statt einer neuen These wird das einzige gedoppelt, was messbar am besten lief: **Papas Backwaren als DE-Klassiker.** Der Rekordpost war Papas Apfelkuchen; deshalb ist der Mittwoch wieder ein Papa-Kuchen aus demselben Bestand. Widerspruchs-Hooks bleiben drin (sie kosten nichts), werden aber nicht mehr als Erklärung verkauft.
+
+**Eine neue Sache wird bewusst getestet — Kommentar-Frage statt nur Aussage.** Alle drei Captions enden mit einer direkten Frage („Zu viel Streusel oder genau richtig?", „Mais im Chili: Verbrechen oder genau richtig?"). Kommentare sind das stärkste Retention-Signal, das wir ohne Video erzeugen können, und der Hebel ist auf der Caption-Ebene gratis. Das ist eine Ergänzung, keine Ersatz-These.
+
+- **Mi — Familie: Papas Kirsch-Streuselkuchen** (echtes Foto, 3264×2448, EXIF-Rotation 180° eingebrannt). Anker „Streuselkuchen", Widerspruch aus dem echten Rezept: **1,4 kg Streusel auf 870 g Teig** — die Streusel wiegen mehr als der Teig. Punch-Slide: die Streuselschicht nimmt den Kirschsaft auf, statt ihn in den Boden ziehen zu lassen.
+- **Do — Preis: Pizza Margherita mit selbstgemachtem Teig** (Katalog-Foto). Anker „Pizza", Referenz recherchiert: **ab 9 € beim Italiener** (Lieferdienst mit Gebühren 14–18 €, Quelle papaliebtpizza.de/Preisübersicht 2026) gegen ehrlich gerechnete **4,40 € für vier Pizzen = 1,10 €/Stück**. Widerspruch: **kein Kneten** (steht wörtlich in Schritt 1) und der Teig kostet 45 Cent für alle vier Böden = 11 Cent pro Pizza.
+- **Fr — Protein: Chili con Carne** (Katalog-Foto, Mais deutlich sichtbar). Anker „Chili con Carne", Widerspruch **Mais im Chili** (echte Rezeptzutat, für Puristen ein Aufreger). 28 g Protein / 430 kcal pro Teller, **2,42 €/Portion**. Punch-Slide trägt Peters Fleischermeister-Autorität: Hack in die heiße Pfanne und **nicht rühren**.
+
+**Eskalations-Status (§6):** Die W7-Regel lautete: Bringt von W6 + W7 (sechs Posts) kein einziger > 300 Views oder > 10 Likes, sind Foto-Carousels erledigt. **W6 ist bereits dreimal 0** — die Regel kann nur noch durch W7 (02.–04.09.) gerettet werden, dessen Zahlen am 06.09. vorliegen. W8 wird als Carousel produziert, weil bis dahin nichts anderes deploybar ist und Peters Go für Video seit dem 02.08. aussteht. **Klare Erwartung an den nächsten Lauf (06.09.): Erfüllt W7 die Schwelle nicht, wird ab W9 (16.–18.09.) auf 15-Sek-Screenrecordings umgestellt — ohne weitere Verlängerung.** Diesmal ohne Ausnahme; die letzten beiden Wochen wurden mit jeweils guten Gründen verlängert, ein drittes Mal wäre nur noch Aufschub.
+
+**Produktions-Learnings:**
+
+1. **Dosenware wird systematisch als Frischware bepreist.** `estimatePrice` matcht „geschälte Tomaten" und „gehackte Tomaten" auf `tomato` (2,80 €/kg) statt auf `canned tomatoes` (0,75 €/Dose) — 800 g Dosentomaten kamen mit 2,25 € statt 1,50 € heraus. Der Eintrag `canned tomatoes` existiert, wird aber nur bei exakt „Dosentomaten" getroffen, und dann nur über `perPiece` (bei Einheit `g` liefert er NULL). Gleiches Muster bei Kidneybohnen (400 g → 1,20 € statt 0,79 € Dosenpreis) und Mais (300 g in `g` → NULL, obwohl `perPiece` 0,99 € existiert). **Bei allen Dosenzutaten den Dosenpreis manuell ansetzen.** Kandidat für den Preis-Check am 01.09.: Dosen-Aliase („gehackte Tomaten", „geschälte Tomaten", „passierte Tomaten", „Kidneybohnen", „Mais") mit `perKg` hinterlegen.
+2. **„Rinderhackfleisch" matcht gar nicht** (Kompositum, wie „Hähnchenbrustfilet" in W5) — „Hackfleisch" matcht auf `ground beef` mit 12 €/kg = 6,00 €/500 g. Real beim Discounter ~4,49 €/500 g für reines Rinderhack. Manuell angesetzt. Der Fehler geht wieder gegen uns (W7-Learning 1 bestätigt sich).
+3. **`user_recipes` gibt `nutrition` pro Portion, nicht pro Rezept** — beim Streuselkuchen (20 Portionen) sind die 526 kcal ein Stück, nicht das Blech. Vor jeder Nährwert-Aussage `servings` gegenprüfen.
+4. **Der Slide-Generator bricht `list_items` NICHT um** (anders als Hook, `sub` und `extra`). Über ~38 Zeichen bei 42 px wird rechts abgeschnitten. Listenzeilen entsprechend kurz halten — die Detailtiefe gehört in die Caption.
+5. **Papas Korpus ist auf 51 öffentliche Rezepte gewachsen.** Backwaren-Reserve für die Gewinner-Serie: Nussecken, Maracuja-Torte, Eierlikör-Torte, Obstboden, Zitronensahnecreme, Mousse au Chocolat.
