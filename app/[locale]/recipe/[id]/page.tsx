@@ -2,6 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 
+// CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
+// Renders in 12 h) und standen fuer ~90 % der Vercel-Fluid-CPU (89 % des
+// Hobby-Limits, Limit-Warnung). ISR statt SSR pro Hit: einmal rendern, 24 h
+// aus dem Full-Route-Cache. Datenfrische unveraendert -- die API-Fetches unten
+// cachen ohnehin schon 12-24 h im Data Cache. Das leere generateStaticParams
+// aktiviert statisches Routing unter [locale]/[id] (on-demand, kein Prerender).
+export const revalidate = 86400;
+
+export function generateStaticParams(): Array<{ locale: string; id: string }> {
+  return [];
+}
+
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
 async function fetchRecipe(id: string): Promise<Recipe | "missing" | null> {
