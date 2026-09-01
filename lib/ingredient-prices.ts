@@ -12,6 +12,14 @@
 // breit gesenkt, Kartoffeln nach Ernte-Überangebot (Erzeugerpreise ≈ −50 %,
 // agrarheute) runter, Eier Bodenhaltung 10er 2,49 € (Vogelgrippe) rauf;
 // Fleisch/Butter/Milch/Öle/Kaffee unverändert im Rahmen.
+// Check 01.09.2026: Lebensmittel gesamt stagnieren (Destatis: +0,1 % ggü. Vj.),
+// aber Dürre 2026 dreht das Freilandgemüse (top agrar/AMI 08. + 27.08.):
+// Kartoffeln zurück auf Niveau von vor 2–3 Jahren (Kehrtwende, kleine Ernte
+// 10,6 Mio. t), Möhren knapp über Vorjahr, Salat- und Kohlgemüse (Brokkoli,
+// Blumenkohl) teurer — dagegen Tomaten und Zucchini günstiger als im Vorjahr.
+// Bestätigt unverändert: Butter 1,19 €/250 g = 4,76 €/kg (Aldi Milsani),
+// Eier Bodenhaltung 10er 2,49 €, Rinderhack 6,19 €/500 g, Kaffee ab 4,79 €/500 g,
+// Milch/Mehl/Zucker/Nudeln/Reis/Öle im Rahmen.
 //
 // PFLEGE: Ein monatlicher automatischer Preis-Check gleicht die wichtigsten
 // Einträge gegen aktuelle Quellen ab und aktualisiert PRICES_UPDATED_AT.
@@ -21,7 +29,7 @@
 // Preislogik: perKg (€/kg) für Feststoffe, perL (€/L) für Flüssigkeiten,
 // perPiece (€/Stück) für Stückware, pieceGrams für Stück→Gewicht-Umrechnung.
 
-export const PRICES_UPDATED_AT = "2026-08-01";
+export const PRICES_UPDATED_AT = "2026-09-01";
 
 export interface PriceEntry {
   /** lowercase Matching-Namen: Englisch zuerst (API-Rohdaten), dann Deutsch */
@@ -73,23 +81,23 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["red onion", "rote zwiebel", "rote zwiebeln"], perKg: 1.8, pieceGrams: 100 },
   { names: ["garlic", "garlic clove", "knoblauch", "knoblauchzehe"], perKg: 6.0, perPiece: 0.08, pieceGrams: 6 },
   { names: ["spring onion", "scallion", "green onion", "frühlingszwiebel", "lauchzwiebel"], perPiece: 0.99, pieceGrams: 100 },
-  { names: ["tomato", "tomatoes", "tomate", "tomaten"], perKg: 2.8, pieceGrams: 120 },
+  { names: ["tomato", "tomatoes", "tomate", "tomaten"], perKg: 2.5, pieceGrams: 120 },
   { names: ["cherry tomatoes", "kirschtomaten", "cocktailtomaten"], perKg: 4.0 },
   { names: ["cucumber", "gurke", "salatgurke"], perPiece: 0.89, pieceGrams: 400 },
   { names: ["bell pepper", "pepper", "paprika"], perKg: 3.3, perPiece: 0.85, pieceGrams: 180 },
-  { names: ["carrot", "carrots", "karotte", "karotten", "möhre", "möhren", "moehren"], perKg: 1.2, pieceGrams: 80 },
-  { names: ["potato", "potatoes", "kartoffel", "kartoffeln"], perKg: 1.0, pieceGrams: 120 },
+  { names: ["carrot", "carrots", "karotte", "karotten", "möhre", "möhren", "moehren"], perKg: 1.45, pieceGrams: 80 },
+  { names: ["potato", "potatoes", "kartoffel", "kartoffeln"], perKg: 1.3, pieceGrams: 120 },
   { names: ["sweet potato", "süßkartoffel", "suesskartoffel"], perKg: 2.6, pieceGrams: 250 },
-  { names: ["zucchini", "courgette"], perKg: 2.5, perPiece: 0.79, pieceGrams: 300 },
+  { names: ["zucchini", "courgette"], perKg: 2.2, perPiece: 0.69, pieceGrams: 300 },
   { names: ["eggplant", "aubergine"], perPiece: 1.19, pieceGrams: 300 },
-  { names: ["broccoli", "brokkoli"], perKg: 2.9, perPiece: 1.09, pieceGrams: 400 },
-  { names: ["cauliflower", "blumenkohl"], perPiece: 1.99, pieceGrams: 800 },
+  { names: ["broccoli", "brokkoli"], perKg: 3.4, perPiece: 1.29, pieceGrams: 400 },
+  { names: ["cauliflower", "blumenkohl"], perPiece: 2.39, pieceGrams: 800 },
   { names: ["spinach", "spinat", "blattspinat"], perKg: 4.5 },
   { names: ["kale", "grünkohl", "gruenkohl"], perKg: 3.5 },
-  { names: ["lettuce", "salad", "kopfsalat", "salat"], perPiece: 1.09, pieceGrams: 300 },
+  { names: ["lettuce", "salad", "kopfsalat", "salat"], perPiece: 1.29, pieceGrams: 300 },
   { names: ["arugula", "rocket", "rucola"], perKg: 9.0 },
-  { names: ["mixed greens", "blattsalat", "salatmix"], perKg: 8.0 },
-  { names: ["cabbage", "white cabbage", "weißkohl", "weisskohl", "kohl"], perKg: 1.3, pieceGrams: 1200 },
+  { names: ["mixed greens", "blattsalat", "salatmix"], perKg: 9.0 },
+  { names: ["cabbage", "white cabbage", "weißkohl", "weisskohl", "kohl"], perKg: 1.5, pieceGrams: 1200 },
   { names: ["red cabbage", "rotkohl"], perKg: 1.5, pieceGrams: 1000 },
   { names: ["mushroom", "mushrooms", "champignons", "pilze"], perKg: 4.5 },
   { names: ["leek", "lauch", "porree"], perPiece: 1.29, pieceGrams: 300 },
