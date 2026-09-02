@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseRecipeFromUrl } from "@/lib/parseRecipeFromUrl";
 import { isSafePublicUrl } from "@/lib/ssrfGuard";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 // Imports count against the same free quota as user-created recipes.
 const FREE_RECIPE_LIMIT = 5;
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest) {
     .select("is_pro")
     .eq("id", user.id)
     .single();
-  if (!(profile?.is_pro ?? false)) {
+  if (!FREE_FOR_ALL && !(profile?.is_pro ?? false)) {
     const { count } = await supabase
       .from("user_recipes")
       .select("id", { count: "exact", head: true })

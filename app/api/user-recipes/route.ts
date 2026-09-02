@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeRecipeInput } from "@/lib/userRecipeInput";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 const FREE_RECIPE_LIMIT = 5;
 
@@ -26,7 +27,7 @@ export async function POST(req: NextRequest) {
 
   const { data: profile } = await supabase
     .from("profiles").select("is_pro").eq("id", user.id).single();
-  const isPro = profile?.is_pro ?? false;
+  const isPro = FREE_FOR_ALL || (profile?.is_pro ?? false);
 
   if (!isPro) {
     const { count } = await supabase

@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import PlanRecipePickerModal from "@/components/PlanRecipePickerModal";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 interface Plan {
   id: string;
@@ -141,7 +142,7 @@ export default function MealPlannerPage() {
         supabase.from("profiles").select("is_pro").eq("id", user.id).single(),
       ]);
 
-      const pro = profile?.is_pro ?? false;
+      const pro = FREE_FOR_ALL || (profile?.is_pro ?? false);
       setIsPro(pro);
 
       let list: Plan[] = plansData || [];
