@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 const DIET_VALUES = ["", "vegetarian", "vegan", "ketogenic", "paleo", "gluten free", "whole30"];
 const DIET_EMOJIS = ["🍽", "🥦", "🌱", "🥑", "🍖", "🌾", "✅"];
@@ -65,7 +66,7 @@ export default function ProfilePage() {
         setMaxTime(prefs.max_time || 0);
       }
       if (profile) {
-        setIsPro(profile.is_pro ?? false);
+        setIsPro(FREE_FOR_ALL || (profile.is_pro ?? false));
         setProExpiry(profile.pro_expires_at ?? null);
       }
       setLoading(false);

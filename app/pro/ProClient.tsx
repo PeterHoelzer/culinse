@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 export default function ProPage() {
   const t = useTranslations("pro");
@@ -77,7 +78,11 @@ export default function ProPage() {
             {t("heroSubtitle")}
           </p>
 
-          {isPro ? (
+          {FREE_FOR_ALL ? (
+            <div className="inline-flex items-center gap-2 bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base">
+              🎉 {t("freeForAllBadge")}
+            </div>
+          ) : isPro ? (
             <div className="inline-flex items-center gap-2 bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base">
               {t("alreadyPro")}
             </div>
@@ -178,7 +183,9 @@ export default function ProPage() {
 
         {/* CTA */}
         <div className="text-center mb-10">
-          {isPro ? (
+          {FREE_FOR_ALL ? (
+            <p className="text-sm text-gray-600">{t("freeForAllNote")}</p>
+          ) : isPro ? (
             <div className="space-y-3">
               <p className="text-sm text-gray-500">{t("activeNote")}</p>
               <button

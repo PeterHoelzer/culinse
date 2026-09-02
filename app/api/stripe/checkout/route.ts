@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export async function POST(req: NextRequest) {
+  // Free-Modus (30.08.): Alle Funktionen sind aktuell kostenlos — Checkout
+  // gesperrt, damit niemand fuer etwas Kostenloses bezahlt.
+  if (FREE_FOR_ALL) {
+    return NextResponse.json({ error: "free_mode_active" }, { status: 409 });
+  }
+
   const supabase = await createClient();
   const {
     data: { user },

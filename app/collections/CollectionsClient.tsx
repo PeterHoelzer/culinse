@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 interface Collection {
   id: string;
@@ -371,7 +372,7 @@ export default function CollectionsPage() {
         .select("is_pro")
         .eq("id", data.user.id)
         .single();
-      setIsPro(profile?.is_pro ?? false);
+      setIsPro(FREE_FOR_ALL || (profile?.is_pro ?? false));
 
       const { data: cols } = await supabase
         .from("collections")

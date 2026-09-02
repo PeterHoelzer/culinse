@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 const FREE_PLAN_LIMIT = 1;
 
@@ -19,7 +20,7 @@ export async function POST(req: NextRequest) {
     .eq("id", user.id)
     .single();
 
-  const isPro = profile?.is_pro ?? false;
+  const isPro = FREE_FOR_ALL || (profile?.is_pro ?? false);
 
   // Count existing plans
   const { count } = await supabase

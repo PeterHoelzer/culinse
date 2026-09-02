@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 export interface ProStatus {
   isPro: boolean;
@@ -23,7 +24,7 @@ export async function getUserProStatus(): Promise<ProStatus> {
   ]);
 
   return {
-    isPro: profile?.is_pro ?? false,
+    isPro: FREE_FOR_ALL || (profile?.is_pro ?? false),
     collectionsCount: count ?? 0,
   };
 }
