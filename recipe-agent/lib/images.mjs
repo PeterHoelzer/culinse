@@ -16,9 +16,57 @@ export const STYLE =
   "45-degree angle, shallow depth of field, plated on a rustic table with linen, " +
   "high detail, photorealistic, no text, no watermark, no people";
 
+/**
+ * Leitplanken fuer heikle Zutaten (Sichtung 09.09.: FLUX.1-schnell macht aus
+ * Garnelen wachsig-rohe, verschmolzene Koerper, aus Fischfilet blasse rohe
+ * Pakete und aus Pilzscheiben dunkle, fleckig wirkende Lappen). Rein positive
+ * Zusaetze: Zutat GEGART, klare Form, Farbe, Glanz. Matching ueber
+ * slug + image_prompt (deckt deutsche Slugs und englische Prompts ab).
+ */
+const RAW_DISH = /poke|sushi|sashimi|tatar|tartare|carpaccio|ceviche|raeucher|smoked|gravlax/i;
+const GUARDS = [
+  {
+    re: /shrimp|prawn|garnele|scampi|krabbe/i,
+    add: "the shrimp are fully cooked, peeled and deveined, plump with a tight even curl, vibrant coral-pink and orange, lightly seared, glossy",
+    rawAdd: "the shrimp are fully cooked, peeled, plump with a tight even curl, vibrant coral-pink, glossy",
+  },
+  {
+    re: /salmon|lachs/i,
+    add: "the salmon is fully cooked, blushing pink-orange and flaky with a golden pan-seared surface",
+    rawAdd: "the salmon is in neat clean-cut glossy slices, vibrant fresh orange-pink",
+  },
+  {
+    re: /\bfish\b|fisch|kabeljau|\bcod\b|\btuna\b|forelle|\btrout\b|zander|seelachs|dorade|hake|haddock/i,
+    add: "the fish is fully cooked, opaque and flaky with a lightly golden-browned surface, in neat tidy pieces",
+    rawAdd: "the fish is in neat clean-cut glossy cubes, vibrant fresh color",
+  },
+  {
+    re: /mushroom|champignon|portobello|pilz|cremini|shiitake|pfifferling|steinpilz/i,
+    add: "the mushrooms are evenly light golden-brown, clean smooth pan-seared slices with caramelized edges, plump and glossy",
+  },
+];
+
+/** Zusaetze fuer erkannte heikle Zutaten — je Zutat genau einer, Reihenfolge stabil. */
+export function ingredientGuards(recipe) {
+  const hay = `${recipe.slug || ""} ${recipe.image_prompt || ""}`;
+  const raw = RAW_DISH.test(hay);
+  const adds = [];
+  for (const g of GUARDS) {
+    if (!g.re.test(hay)) continue;
+    if (raw && !g.rawAdd) continue; // z. B. bewusst rohe Pilz-Gerichte: nichts erzwingen
+    adds.push(raw && g.rawAdd ? g.rawAdd : g.add);
+  }
+  return adds;
+}
+
+/** true = heikle Zutat dabei; der Fotograf erzeugt dann mehr Varianten. */
+export function hasGuards(recipe) {
+  return ingredientGuards(recipe).length > 0;
+}
+
 export function buildPrompt(recipe) {
   if (!recipe.image_prompt) throw new Error(`${recipe.slug}: image_prompt fehlt`);
-  return `${recipe.image_prompt}, ${STYLE}`;
+  return [recipe.image_prompt, ...ingredientGuards(recipe), STYLE].join(", ");
 }
 
 export async function genCloudflare(prompt) {
