@@ -33,6 +33,7 @@ Der Prompt geht an FLUX.1-schnell. Ein fester Stil-Anhang (Food-Fotografie, Tage
 3. **Garnierung explizit benennen** (z. B. „a few fresh basil leaves", „freshly cracked black pepper") — sonst kommt beliebiges Grünzeug drauf.
 4. **Genau EIN einfaches Gefäß** vorgeben, z. B. „served in one simple ceramic bowl on a wooden table" — sonst baut das Modell Schale-auf-Teller-Konstruktionen.
 5. **Nicht verwenden:** „beautifully garnished" (provoziert wilde Deko), Stil-/Kamera-Angaben (kommen automatisch).
+6. **Heikle Zutaten (Garnelen, Fisch, Pilze):** immer **gegart** mit Farbe und Glanz beschreiben, nie roh wirken lassen: Garnelen -> "plump cooked peeled shrimp, tight even curl, coral-pink, lightly seared"; Fischfilet -> "fully cooked flaky fish, lightly golden-browned surface, neat pieces"; Lachs -> "cooked blushing pink-orange salmon, golden seared"; Pilze -> "evenly light golden-brown pan-seared mushroom slices, caramelized edges". Ausnahme bewusst rohe Gerichte (Poke, Sushi, Tatar, Raeucherlachs): "neat clean-cut glossy slices, vibrant fresh color". (Der Fotograf haengt zusaetzlich automatische Leitplanken an - trotzdem hier sauber formulieren.)
 
 ## Ausgabeformat
 

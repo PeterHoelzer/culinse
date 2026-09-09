@@ -22,7 +22,7 @@
  */
 import { ENV, logEvent } from "../lib/env.mjs";
 import * as queue from "../lib/queue.mjs";
-import { generateVariants } from "../lib/images.mjs";
+import { generateVariants, hasGuards } from "../lib/images.mjs";
 import { getSupabase, findUserId } from "../lib/supa.mjs";
 import { authorEmail, resolveChosenFile, uploadOne } from "../lib/publish.mjs";
 
@@ -44,7 +44,10 @@ async function generatePhase() {
 
   for (const item of items) {
     process.stdout.write(`• ${item.slug} … `);
-    const { files, prompt } = await generateVariants(item.recipe, VARIANTS);
+    // Heikle Zutaten (Garnelen/Fisch/Pilze): FLUX streut dort stark -->
+    // mehr Varianten erzeugen, damit die Sichtung eine gute Wahl hat.
+    const n = hasGuards(item.recipe) ? Math.max(VARIANTS, 5) : VARIANTS;
+    const { files, prompt } = await generateVariants(item.recipe, n);
     if (!REROLL)
       queue.move(item.slug, "ready_for_image", "image_ready", "photographer", { image: { prompt, variants: files } });
     else
