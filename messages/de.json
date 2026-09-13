@@ -30,8 +30,8 @@
       "Thai Curry",
       "Schokoladenkuchen"
     ],
-    "sourcesMobile": "Von Spoonacular, MealDB, Edamam & Tasty",
-    "sourcesDesktop": "Quellen:",
+    "sourcesMobile": "Eigene Rezepte · Community · Familie",
+    "sourcesDesktop": "Unsere Rezepte kommen aus:",
     "freeLabel": "Kostenlos nutzbar · Keine Werbebanner",
     "ctaPlan": "📅 Woche kostenlos planen",
     "ctaBrowse": "Rezepte entdecken ↓",
@@ -105,6 +105,9 @@
   },
   "videoSection": {
     "title": "🎬 Video-Rezepte",
+    "comingSoonBadge": "Bald verfügbar",
+    "comingSoonTitle": "Unsere eigenen Koch-Videos sind in Arbeit",
+    "comingSoonText": "Schritt-für-Schritt-Videos frisch aus der Culinse-Küche — nicht von der Stange. Schau bald wieder vorbei!",
     "subtitle": "Zuschauen & kochen — Schritt für Schritt",
     "fullRecipe": "Zum Rezept →",
     "loadMore": "Mehr Videos laden",

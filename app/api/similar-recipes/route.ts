@@ -1,16 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recipeSourceLabel } from "@/lib/culinse";
-import { translateTexts } from "@/lib/translate";
 import { optimizedImageUrl } from "@/lib/imageUrl";
-
-const API_KEY = process.env.SPOONACULAR_API_KEY;
-const BASE = "https://api.spoonacular.com";
-const MDB_OFFSET = 9_000_000;
-
-// Spoonacular's /similar endpoint only works with native Spoonacular ids —
-// numeric and below the TheMealDB offset (same rule as /api/recommendations).
-const isSpoonId = (id: string) => /^\d+$/.test(id) && Number(id) < MDB_OFFSET;
 
 // Words that carry no signal for finding related dishes (EN + DE).
 const STOPWORDS = new Set([
@@ -46,13 +37,6 @@ interface UserRecipeRow {
   tags: string[] | null;
   translation_group: string | null;
   created_at: string | null;
-}
-
-interface SpoonSimilarItem {
-  id: number;
-  title?: string;
-  imageType?: string;
-  readyInMinutes?: number;
 }
 
 interface SimilarCard {
@@ -165,7 +149,7 @@ export async function GET(req: NextRequest) {
       .map((v) => v.row);
 
     // ── Mix: community/corpus first, a few provider recipes for Spoonacular seeds ──
-    const externalTarget = isSpoonId(id) && API_KEY ? 3 : 0;
+    const externalTarget = 0; // externe Provider seit 13.09.2026 entfernt
     const communityTarget = number - externalTarget;
 
     // Fallback fill so every recipe page links into the corpus, even without
@@ -183,33 +167,7 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    let external: SimilarCard[] = [];
-    if (externalTarget > 0) {
-      try {
-        const res = await fetch(`${BASE}/recipes/${id}/similar?number=6&apiKey=${API_KEY}`, {
-          next: { revalidate: 86400 },
-        });
-        if (res.ok) {
-          const arr = (await res.json()) as SpoonSimilarItem[];
-          if (Array.isArray(arr)) {
-            external = arr
-              .filter((c) => c && typeof c.id !== "undefined" && String(c.id) !== id && c.title)
-              .map((c) => ({
-                id: c.id,
-                title: String(c.title),
-                image: c.imageType
-                  ? `https://img.spoonacular.com/recipes/${c.id}-636x393.${c.imageType}`
-                  : null,
-                imagePosition: null,
-                time: c.readyInMinutes ? `${c.readyInMinutes} min` : null,
-                source: "Spoonacular",
-              }));
-          }
-        }
-      } catch {
-        /* provider similar is optional */
-      }
-    }
+    const external: SimilarCard[] = [];
 
     const communityCards: SimilarCard[] = community
       .slice(0, number - Math.min(external.length, externalTarget))
@@ -226,18 +184,6 @@ export async function GET(req: NextRequest) {
       });
 
     const cards = [...communityCards, ...external.slice(0, number - communityCards.length)];
-
-    // German page → translate provider titles (cached); corpus titles are
-    // already stored in the page language.
-    if (lang === "de") {
-      const idx = cards.map((c, i) => (c.source === "Spoonacular" ? i : -1)).filter((i) => i >= 0);
-      if (idx.length) {
-        const de = await translateTexts(idx.map((i) => cards[i].title), "EN", "DE");
-        idx.forEach((ci, j) => {
-          if (de[j] && de[j] !== cards[ci].title) cards[ci] = { ...cards[ci], title: de[j] };
-        });
-      }
-    }
 
     return NextResponse.json(
       { recipes: cards },
