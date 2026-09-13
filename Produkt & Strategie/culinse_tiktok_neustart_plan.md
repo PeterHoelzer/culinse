@@ -276,3 +276,56 @@ Statt einer neuen These wird das einzige gedoppelt, was messbar am besten lief: 
 3. **`user_recipes` gibt `nutrition` pro Portion, nicht pro Rezept** — beim Streuselkuchen (20 Portionen) sind die 526 kcal ein Stück, nicht das Blech. Vor jeder Nährwert-Aussage `servings` gegenprüfen.
 4. **Der Slide-Generator bricht `list_items` NICHT um** (anders als Hook, `sub` und `extra`). Über ~38 Zeichen bei 42 px wird rechts abgeschnitten. Listenzeilen entsprechend kurz halten — die Detailtiefe gehört in die Caption.
 5. **Papas Korpus ist auf 51 öffentliche Rezepte gewachsen.** Backwaren-Reserve für die Gewinner-Serie: Nussecken, Maracuja-Torte, Eierlikör-Torte, Obstboden, Zitronensahnecreme, Mousse au Chocolat.
+
+## Learnings Woche 9 (13.09.2026) — die Eskalation ist vollzogen
+
+**Datenlage (14 Tage, 30.08.–13.09., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Anker + Widerspruch | Views | Likes | Shares |
+|-------|-------|---------|---------------------|------:|------:|-------:|
+| 02.09. | A Familie | Papas Bolognese | ja (10 Minuten köcheln) | 0 | 0 | 0 |
+| 03.09. | B Preis | Currywurst | ja (Cola in der Sauce) | 0 | 0 | 0 |
+| 04.09. | C Protein | Frikadellen | ja (altes Brötchen) | **1** | 0 | 0 |
+| 09.09. | A Familie | Papas Kirsch-Streuselkuchen | ja (1,4 kg Streusel) | 0 | 0 | 0 |
+| 10.09. | B Preis | Pizza Margherita | ja (kein Kneten) | 0 | 0 | 0 |
+| 11.09. | C Protein | Chili con Carne | ja (Mais im Chili) | 0 | 0 | 0 |
+
+**Die W8-Regel ist gerissen — ohne Rest-Auslegung.** Sie lautete: Bringt von W6 + W7 kein Post > 300 Views oder > 10 Likes, sind Foto-Carousels erledigt; erfüllt W7 die Schwelle nicht, wird ab W9 umgestellt, „ohne weitere Verlängerung, diesmal ohne Ausnahme". W7 kam auf **einen einzigen View in drei Posts**. Auch das W8-Doppeln des Gewinners (Papas Backwaren, diesmal Streuselkuchen) und die neu eingeführten Kommentar-Fragen haben nichts bewegt. **Die Umstellung auf Video wurde in diesem Lauf vollzogen.**
+
+**Gesamtbilanz nach 24 Carousels (22.07.–11.09.):** ~450 Views, 2 Likes, 0 Kommentare, 0 Shares. Zwei Ausreißer (Apfelkuchen 286, Baked Feta 150) machen 97 % aller Views aus; die übrigen 22 Posts zusammen kommen auf 14. Acht Wochen Hook-Thesen haben daran nichts geändert — die W8-Deutung („Lotterie, die wir über den Inhalt nicht steuern") hat sich bestätigt.
+
+**Neue Erkenntnis aus einer Diagnose, die acht Wochen lang gefehlt hat.** Erstmals wurde nicht nur Metricool gelesen, sondern das **öffentliche TikTok-Profil selbst** angesehen (tiktok.com/@culinse). Drei Befunde, die keine Content-These erklärt:
+
+1. **1 Follower, 5 Likes in der gesamten Kontohistorie, ~35 Posts.** Ein Konto ohne jede Interaktionshistorie bekommt von TikTok kaum eine Testauslieferung — das erklärt die Nullen besser als jeder Hook.
+2. **Die Bio ist englisch** („Millions of recipes. Personalized for you.") und im SaaS-Ton, während der gesamte Content seit dem 22.07. deutsch ist. Das ist derselbe Fehler wie in v1 §1.2, nur an einer Stelle, auf die nie jemand geschaut hat: Das Profil signalisiert dem Algorithmus EN, die Posts signalisieren DE.
+3. **Metricool untertreibt die Likes.** Die TikTok-Aktivität zeigt einen Like vom 11.09., den Metricool nicht führt. Für Views deckt sich Metricool exakt mit dem Profilraster — die Views-Daten sind belastbar, die Likes-Daten nicht.
+
+**Konsequenz — zwei getrennte Baustellen, die nicht verwechselt werden dürfen:** Format (dieser Lauf) und Konto (Peters Entscheidung, siehe unten). Die acht Wochen Hook-Arbeit haben immer nur an der dritten, kleinsten Stellschraube gedreht.
+
+**Abweichung von §6 (bewusst, mit Begründung):** §6 nennt als Eskalation „15-Sek-Screenrecordings" der App. Produziert wurden stattdessen **gerenderte 15-Sekunden-Videos aus demselben Asset-Stamm** (Foto + Preisdaten + Text, mit Ken-Burns-Zoom, nacheinander einfliegenden Zeilen und hochzählender Kernzahl). Gründe: (a) Ein Screenrecording des Wochenplaners ist Produkt-Marketing — genau der v1-Fehler, den §2 abgestellt hat; Food gehört ins Bild. (b) Der Wechsel bleibt so ein sauberer Ein-Variablen-Test: Gerichte, Serien, Preislogik und Bildquellen sind unverändert, **nur das Format ändert sich**. (c) Es läuft ohne Peters Anwesenheit und ohne Bildschirmaufnahme seines Rechners. Der Screenrecording-Weg bleibt als nächste Stufe offen, wenn auch Video nicht zieht.
+
+**Produktion W9 (16.–18.09., Posts 25–27) — erste Video-Woche:**
+
+- **Mi — Familie: Papas Schnitzel mit Champignons** (echtes Foto, 1470×1200). Anker „Schnitzel", Widerspruch aus dem echten Rezept: **kein Mehl** — nur Ei und Paniermehl, zwei Teller statt drei. Punch trägt Peters Fleischermeister-Autorität: 100 ml Öl, das Schnitzel schwimmt, die Pfanne bleibt in Bewegung → die Panade souffliert.
+- **Do — Preis: Klassischer Beef Burger** (Katalog-Foto). Anker „Burger", Referenz recherchiert: **Big Mac 6,39 €** (Listenpreis Deutschland 2026, burgerpreise.de; Gegenprobe Big-Mac-Index 6,30 € Mai 2026) gegen ehrlich gerechnete **8,59 € für vier Burger = 2,15 €/Stück**. Widerspruch mit Substanz: 150 g Patty gegen zweimal 45 g. Die Burgerladen-Zahl (Ø 9,39 €) wurde **nicht** als Hauptreferenz benutzt — sie stammt aus einer Erhebung von 2023 und wäre unehrlich zugespitzt; sie steht nur als Spanne „8–9 €" im Kleingedruckten.
+- **Fr — Protein: Hähnchen-Reis-Topf** (Katalog-Foto). Anker „Hähnchen-Reis-Topf" + One-Pot-Winkel: **30 g Protein für 2,29 €/Portion**, 475 kcal. Punch: Der Reis kocht in der Brühe und zieht den Bratensatz auf — deshalb ohne Sahne.
+
+**Neue Erfolgs-/Abbruchregel (ersetzt §6 für die Video-Phase):**
+
+- **Ein Video > 500 Views oder > 10 Likes** → Format validiert, Videos werden Standard, Frequenz hoch.
+- **Alle drei unter 100 Views (Stand 27.09.)** → dann ist es nicht das Format. Dann wird **nichts mehr produziert**, bevor die Konto-Baustelle bearbeitet ist: deutsche Bio, deutscher Profilname/Beschreibung, und zwei Wochen manuelles Kommentieren unter DE-FoodTok-Posts, um überhaupt eine Interaktionshistorie aufzubauen. Weitere Wochen-Carousels oder -Videos in ein totes Konto zu schieben, ist Beschäftigung, keine Arbeit.
+
+**Was Peter entscheiden muss (neu, wichtiger als alles bisher):**
+
+1. **Bio auf Deutsch umstellen.** „Millions of recipes. Personalized for you." passt nicht zu einem Konto, das seit acht Wochen deutsch postet. Vorschlag: „Echte Familienrezepte & ehrliche Preise pro Portion. Gratis Wochenplan → culinse.com". Das ist ein Ein-Minuten-Eingriff im TikTok-Profil und kann nicht über die API gemacht werden.
+2. **Ton.** Die Videos sind stumm — Metricool lehnt `autoAddMusic` bei Video-Posts ab (nur Foto/Carousel). Ohne Sound ist die Verweildauer auf TikTok strukturell im Nachteil. Wenn Peter bereit ist, kann er vor dem Publizieren in der TikTok-App einen Trending-Sound drüberlegen, oder wir hinterlegen künftig eine lizenzfreie Tonspur direkt im Render.
+3. Die alte Frage aus §7.3 (Peter vor der Kamera) bleibt offen und wird erst wieder relevant, wenn Format **und** Konto abgearbeitet sind.
+
+**Produktions-Learnings:**
+
+1. **`autoAddMusic` ist Foto-only.** Metricool antwortet bei Video-Posts mit HTTP 400 („Cannot enable autoAddMusic in posts with videos"). Bei Video immer `autoAddMusic: false` senden.
+2. **Die Middleware hat `.mp4` nicht als statische Datei erkannt** — `https://culinse.com/tiktok/w9-familie.mp4` lieferte 307 nach `/en/tiktok/…`. Sowohl `isStaticFile` als auch `config.matcher` in `middleware.ts` kannten nur Bildendungen. Behoben (Commit 3ee22c9 auf main): `mp4|webm|mov|m4v` in beiden Listen. **Merker: Bei jeder neuen Dateiendung unter `public/` beide Stellen anfassen** — das ist derselbe Fehlertyp wie beim Lead-Magnet-PDF.
+3. **Videos werden komplett in der Sandbox gerendert**, ohne Mac: `scripts/generate-tiktok-video.py` schreibt Rohframes per Pipe an ffmpeg (kein Frame landet auf der Platte). 15 s, 1080×1920, 30 fps, H.264 + stille AAC-Spur ≈ **1,2–1,7 MB** pro Video, ~10 s Renderzeit je Post. Die Dateien liegen im Repo wie die Slides.
+4. **Vor dem Schedulen md5 gegen die Live-URL prüfen**, nicht nur den HTTP-Status: Bei einer zweiten Render-Runde (Faktenkorrektur) wäre sonst unbemerkt die alte Datei ausgeliefert worden. Auch die `static.metricool.com`-Kopien wurden byte-genau gegengeprüft.
+5. **Faktencheck vor Ästhetik:** Der Burger-Hook lautete zuerst „dreimal so viel Fleisch" (150 g gegen 2×45 g = 1,7×). In der Sichtung aufgefallen und auf „150 g Fleisch statt 90 g" korrigiert. Bei Vergleichszahlen immer nachrechnen, bevor das Video gerendert wird.
+6. **Papas Nussecken-Foto ist nur 491×321** und damit unbrauchbar — Bildgröße prüfen, bevor ein Gericht eingeplant wird (W4-Learning 1 gilt für Video genauso). Geprüfte Reserve ≥1200 px: Obstboden, Maracuja-Torte, Eierlikör-Torte (je 1800×1200), Zitronensahnecreme (3264×2448), Mousse au Chocolat, Peking-Gulasch-Suppe (je 1600×1200), Hühnersuppe, Spitzkohl-Eintopf, Französische Zwiebelsuppe, Backkartoffel mit Kräuterquark.
