@@ -75,7 +75,16 @@ export default function KernfusionDatenschutz() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">5. Kinder</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">5. In-App-Kauf</h2>
+          <p className="text-gray-600 leading-relaxed">
+            Die Vollversion wird als einmaliger Kauf über Apple abgewickelt. Apple verarbeitet dabei deine
+            Zahlungsdaten nach seinen eigenen Bestimmungen; die App erhält nur die Bestätigung, dass der
+            Kauf vorliegt – keine Zahlungs- oder Kontodaten.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">6. Kinder</h2>
           <p className="text-gray-600 leading-relaxed">
             Die App ist für alle Altersgruppen geeignet (4+). Da keine Daten erhoben werden, gibt es
             auch keine Daten von Kindern.
@@ -83,7 +92,7 @@ export default function KernfusionDatenschutz() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">6. Kontakt</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">7. Kontakt</h2>
           <p className="text-gray-600 leading-relaxed">
             Fragen zum Datenschutz:{" "}
             <a href="mailto:peter@hoelzer.xyz" className="text-orange-500 hover:underline">
