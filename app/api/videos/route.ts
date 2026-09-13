@@ -1,58 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
-import { translateTexts } from "@/lib/translate";
+import { NextResponse } from "next/server";
 
-const TASTY_KEY = process.env.TASTY_API_KEY;
-const TASTY_BASE = "https://tasty.p.rapidapi.com";
-
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const query = searchParams.get("query") || "";
-  const size = Math.min(Math.max(Math.floor(Number(searchParams.get("size")) || 6), 1), 40);
-  const from = Math.max(Math.floor(Number(searchParams.get("from")) || 0), 0);
-  const lang = searchParams.get("lang") === "de" ? "de" : "en";
-
-  try {
-    // Request extra to have enough with videos after filtering
-    const params = new URLSearchParams({ from: String(from), size: "40" });
-    if (query) params.set("q", query);
-
-    const res = await fetch(`${TASTY_BASE}/recipes/list?${params}`, {
-      headers: {
-        "x-rapidapi-host": "tasty.p.rapidapi.com",
-        "x-rapidapi-key": TASTY_KEY || "",
-      },
-      next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) throw new Error(`Tasty error: ${res.status}`);
-    const data = await res.json();
-
-    let videos = (data.results || [])
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .filter((r: any) => (r.original_video_url || r.video_url) && r.thumbnail_url && r.name)
-      .slice(0, size)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((r: any) => ({
-        id: `tasty_${r.id}`,
-        title: r.name,
-        image: r.thumbnail_url,
-        videoUrl: r.original_video_url || r.video_url, // MP4 first, HLS fallback
-        source: "Tasty",
-        sourceUrl: `https://tasty.co/recipe/${r.slug || r.id}`,
-        time: r.total_time_minutes ? `${r.total_time_minutes} min` : null,
-        servings: r.yields || null,
-      }));
-
-    // DE-Seite: Tasty-Titel eindeutschen — persistenter Uebersetzungs-Cache
-    // (DeepL/MyMemory via translateTexts), Review-Paket B9.
-    if (lang === "de" && videos.length) {
-      const de = await translateTexts(videos.map((v: { title: string }) => v.title), "EN", "DE");
-      videos = videos.map((v: { title: string }, i: number) => (de[i] && de[i] !== v.title ? { ...v, title: de[i] } : v));
-    }
-
-    return NextResponse.json({ videos });
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ videos: [] });
-  }
+// Seit 13.09.2026 keine externen Tasty-Videos mehr — eigene Koch-Videos sind
+// in Arbeit (Coming-soon-Sektion auf der Startseite). Die Route bleibt fuer
+// gecachte Clients bestehen und antwortet bewusst leer.
+export async function GET() {
+  return NextResponse.json(
+    { videos: [], comingSoon: true },
+    { headers: { "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400" } }
+  );
 }

@@ -30,8 +30,8 @@
       "Thai curry",
       "Chocolate cake"
     ],
-    "sourcesMobile": "From Spoonacular, MealDB, Edamam & Tasty",
-    "sourcesDesktop": "Sources:",
+    "sourcesMobile": "Our own recipes · Community · Family",
+    "sourcesDesktop": "Our recipes come from:",
     "freeLabel": "Free to use · No ad banners",
     "ctaPlan": "📅 Plan your week free",
     "ctaBrowse": "Browse recipes ↓",
@@ -105,6 +105,9 @@
   },
   "videoSection": {
     "title": "🎬 Video Recipes",
+    "comingSoonBadge": "Coming soon",
+    "comingSoonTitle": "Our own cooking videos are in the making",
+    "comingSoonText": "Step-by-step videos straight from the Culinse kitchen — freshly made, not off the shelf. Check back soon!",
     "subtitle": "Watch & cook — step by step",
     "fullRecipe": "Full Recipe →",
     "loadMore": "Load more videos",

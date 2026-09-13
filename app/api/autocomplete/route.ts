@@ -1,28 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
 
-const API_KEY = process.env.SPOONACULAR_API_KEY;
-const BASE = "https://api.spoonacular.com";
-
+// Autocomplete aus dem eigenen Korpus (13.09.2026; vorher Spoonacular).
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const query = searchParams.get("query") || "";
+  const query = (searchParams.get("query") || "").trim();
   const lang = (searchParams.get("lang") || "en").toLowerCase();
-
   if (query.length < 2) return NextResponse.json({ suggestions: [] });
-
-  // Translate German terms to English so the (English) autocomplete matches.
-  const term = await translateSearchQuery(query, lang === "de" ? "DE" : "EN");
-
+  const l = lang === "de" ? "de" : "en";
   try {
-    const res = await fetch(
-      `${BASE}/recipes/autocomplete?query=${encodeURIComponent(term)}&number=6&apiKey=${API_KEY}`,
-      { next: { revalidate: 86400 } }
+    const supabase = createAdminClient();
+    const run = async (term: string) => {
+      const { data } = await supabase
+        .from("user_recipes")
+        .select("title")
+        .eq("is_public", true)
+        .or(`language.eq.${l},language.is.null`)
+        .ilike("title", `%${term}%`)
+        .limit(12);
+      return (data ?? []).map((r) => String(r.title));
+    };
+    let titles = await run(query);
+    if (!titles.length) {
+      const translated = await translateSearchQuery(query, l === "de" ? "DE" : "EN");
+      if (translated && translated.toLowerCase() !== query.toLowerCase()) {
+        titles = await run(translated);
+      }
+    }
+    const suggestions = Array.from(new Set(titles)).slice(0, 6);
+    return NextResponse.json(
+      { suggestions },
+      { headers: { "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400" } }
     );
-    if (!res.ok) throw new Error();
-    const data = await res.json();
-    const suggestions = data.map((item: { title: string }) => item.title);
-    return NextResponse.json({ suggestions });
   } catch {
     return NextResponse.json({ suggestions: [] });
   }

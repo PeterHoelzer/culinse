@@ -143,7 +143,7 @@ export default function Hero({ search, setSearch, onSearch }: { search: string; 
           {/* Desktop: badge version */}
           <div className="hidden sm:flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
             <span>{t("hero.sourcesDesktop")}</span>
-            {["Spoonacular", "MealDB", "Edamam", "Tasty"].map((src) => (
+            {["Culinse Küche", "Community", "Familienrezepte"].map((src) => (
               <span key={src} className="font-medium text-gray-500 bg-white/60 border border-gray-200 px-2.5 py-1 rounded-full">{src}</span>
             ))}
 

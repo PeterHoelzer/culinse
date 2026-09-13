@@ -1,90 +1,123 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { optimizedImageUrl } from "@/lib/imageUrl";
 
-// Generates a full week meal plan targeting a daily calorie goal (and optional
-// diet) via Spoonacular's meal planner, mapped to our plan-entry shape. The
-// client then replaces the active plan with these entries.
+// Wochenplan-Generator aus dem EIGENEN Korpus (13.09.2026; vorher
+// Spoonacular-Mealplanner). 7 Tage x Fruehstueck/Mittag/Abend aus
+// oeffentlichen user_recipes: Fruehstuecks-Slots bevorzugen passende Tags,
+// der Rest wird ohne Wiederholung ueber die Woche verteilt.
 
-const SPOONACULAR_KEY = process.env.SPOONACULAR_API_KEY;
-const DAY_KEYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 const SLOTS = ["breakfast", "lunch", "dinner"] as const;
 
-interface MealItem {
-  id?: number;
-  title?: string;
-  imageType?: string;
-  readyInMinutes?: number;
+interface Row {
+  id: string;
+  title: string;
+  image_url: string | null;
+  cook_time: number | null;
+  prep_time: number | null;
+  tags: string[] | null;
 }
 
 interface GeneratedEntry {
   day_index: number;
-  meal_slot: "breakfast" | "lunch" | "dinner";
+  meal_slot: (typeof SLOTS)[number];
   recipe_id: string;
   recipe_title: string;
   recipe_image: string | null;
   recipe_time: number | null;
 }
 
-function mapWeekToEntries(week: Record<string, { meals?: MealItem[] }> | undefined): GeneratedEntry[] {
-  const entries: GeneratedEntry[] = [];
-  if (!week) return entries;
-  DAY_KEYS.forEach((dk, dayIndex) => {
-    const meals = week[dk]?.meals ?? [];
-    meals.slice(0, 3).forEach((m, i) => {
-      if (!m?.id || !m?.title) return;
-      entries.push({
-        day_index: dayIndex,
-        meal_slot: SLOTS[i],
-        recipe_id: String(m.id),
-        recipe_title: m.title,
-        recipe_image: m.imageType ? `https://img.spoonacular.com/recipes/${m.id}-312x231.${m.imageType}` : null,
-        recipe_time: typeof m.readyInMinutes === "number" ? m.readyInMinutes : null,
-      });
-    });
-  });
-  return entries;
+const BREAKFAST_TAGS = ["breakfast", "frühstück", "fruehstueck", "porridge", "müsli", "muesli"];
+const DIET_TAGS: Record<string, string[]> = {
+  vegetarian: ["vegetarian", "vegetarisch", "vegan"],
+  vegan: ["vegan"],
+  "gluten free": ["gluten free", "glutenfrei"],
+};
+
+function shuffle<T>(arr: T[]): T[] {
+  const out = [...arr];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
 }
 
-const ALLOWED_DIETS = new Set([
-  "vegetarian", "vegan", "gluten free", "ketogenic", "paleo", "pescetarian", "whole30",
-]);
+function toEntry(r: Row, dayIndex: number, slot: (typeof SLOTS)[number]): GeneratedEntry {
+  const total = (r.cook_time ?? 0) + (r.prep_time ?? 0);
+  return {
+    day_index: dayIndex,
+    meal_slot: slot,
+    recipe_id: `user_${r.id}`,
+    recipe_title: r.title,
+    recipe_image: optimizedImageUrl(r.image_url, 312) ?? r.image_url,
+    recipe_time: total > 0 ? total : null,
+  };
+}
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  if (!SPOONACULAR_KEY) return NextResponse.json({ error: "Not configured" }, { status: 503 });
 
-  let body: { targetCalories?: unknown; diet?: unknown };
+  let body: { targetCalories?: unknown; diet?: unknown; lang?: unknown };
   try {
     body = await req.json();
   } catch {
     body = {};
   }
-  const targetCalories = Math.min(Math.max(Math.round(Number(body.targetCalories) || 2000), 800), 5000);
-  const diet = typeof body.diet === "string" && ALLOWED_DIETS.has(body.diet) ? body.diet : "";
-
-  const params = new URLSearchParams({
-    timeFrame: "week",
-    targetCalories: String(targetCalories),
-    apiKey: SPOONACULAR_KEY,
-  });
-  if (diet) params.set("diet", diet);
+  const diet = typeof body.diet === "string" ? body.diet.toLowerCase() : "";
+  const lang = body.lang === "de" ? "de" : body.lang === "en" ? "en" : null;
 
   try {
-    const res = await fetch(`https://api.spoonacular.com/mealplanner/generate?${params}`, {
-      next: { revalidate: 0 },
-    });
-    if (!res.ok) {
-      return NextResponse.json({ error: "generate_failed" }, { status: 502 });
-    }
-    const data = await res.json();
-    const entries = mapWeekToEntries(data?.week);
-    if (entries.length === 0) {
-      return NextResponse.json({ error: "no_results" }, { status: 422 });
+    const admin = createAdminClient();
+    let q = admin
+      .from("user_recipes")
+      .select("id, title, image_url, cook_time, prep_time, tags")
+      .eq("is_public", true)
+      .not("image_url", "is", null)
+      .order("created_at", { ascending: false })
+      .limit(400);
+    if (lang) q = q.or(`language.eq.${lang},language.is.null`);
+    if (diet && DIET_TAGS[diet]) q = q.overlaps("tags", DIET_TAGS[diet]);
+    const { data } = await q;
+    const pool = shuffle(((data ?? []) as Row[]).filter((r) => r?.id && r.title));
+    if (pool.length < 7) return NextResponse.json({ error: "no_results" }, { status: 422 });
+
+    const isBreakfast = (r: Row) =>
+      (r.tags ?? []).some((t) => BREAKFAST_TAGS.includes(String(t).toLowerCase()));
+    const breakfasts = pool.filter(isBreakfast);
+    const mains = pool.filter((r) => !isBreakfast(r));
+
+    // Verbrauchs-Stacks; wenn ein Stack leer laeuft, wird er neu gemischt
+    // aufgefuellt (kleine Korpusse duerfen sich wiederholen, grosse nicht).
+    const stacks: Record<string, Row[]> = {
+      breakfast: breakfasts.length >= 7 ? [...breakfasts] : [],
+      main: [...mains],
+    };
+    const take = (kind: "breakfast" | "main"): Row => {
+      let stack = stacks[kind];
+      if (!stack.length) {
+        stack = stacks[kind] = shuffle(
+          kind === "breakfast" && breakfasts.length ? breakfasts : pool
+        );
+      }
+      return stack.pop() as Row;
+    };
+
+    const entries: GeneratedEntry[] = [];
+    for (let day = 0; day < 7; day++) {
+      for (const slot of SLOTS) {
+        const r = slot === "breakfast" && stacks.breakfast.length + breakfasts.length > 0
+          ? take(stacks.breakfast.length ? "breakfast" : "main")
+          : take("main");
+        entries.push(toEntry(r, day, slot));
+      }
     }
     return NextResponse.json({ entries });
-  } catch {
+  } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: "generate_failed" }, { status: 502 });
   }
 }
