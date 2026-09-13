@@ -38,10 +38,13 @@ async function proxy(request: NextRequest) {
   // otherwise redirect it to /en/auth/callback (which doesn't exist → 404),
   // so the login code would never be exchanged for a session.
   const isAuthRoute = pathname.startsWith("/auth/");
+  // Kernfusion-Seiten (Support + Datenschutz für die App) leben ohne Locale-Präfix:
+  // die URLs stehen so im App Store und dürfen nicht nach /en/... umgeleitet werden.
+  const isKernfusionRoute = pathname === "/kernfusion" || pathname.startsWith("/kernfusion/");
 
   // ─── next-intl: run first, capture headers it sets ──────────────────────────
   let intlHeaders: Headers | null = null;
-  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute) {
+  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute && !isKernfusionRoute) {
     const intlResponse = intlMiddleware(request);
     // If it's a redirect (e.g. / → /en), return immediately
     if (intlResponse.status !== 200) {
