@@ -13,37 +13,64 @@ function langs(en: string, de: string) {
   return { languages: { en, de, "x-default": en } };
 }
 
+// Sieben Sprachen (14.09.2026): voll uebersetzte statische Seiten bekommen
+// hreflang fuer ALLE Locales; Inhalte, die es nur auf de/en gibt (Blog,
+// Rezepte, Sammlungen, Landingpages mit Inline-Text, Rechtsseiten), behalten
+// bewusst das de/en-Paar — hreflang nie auf unuebersetzte Duplikate.
+const ALL_LOCALES = ["en", "de", "es", "fr", "it", "pl", "tr"] as const;
+function langsAll(path: string) {
+  const languages: Record<string, string> = {};
+  for (const l of ALL_LOCALES) languages[l] = `${baseUrl}/${l}${path}`;
+  languages["x-default"] = `${baseUrl}/en${path}`;
+  return { languages };
+}
+
 // Stable lastmod for non-dated pages. Using `new Date()` on every build tells
 // Google "everything changed today" on each deploy, which makes lastmod
 // untrustworthy and gets ignored. Bump this when static pages actually change.
 const STATIC_LAST_MODIFIED = new Date("2026-07-14");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = [
+  // In allen 7 Sprachen voll uebersetzt (UI aus messages/):
+  const translatedStatic = [
     { path: "", changeFrequency: "daily" as const, priority: 1 },
     { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
+    { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
+    { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
+  ];
+  // Nur de/en (Inline-Texte bzw. deutsche Rechtstexte):
+  const deEnStatic = [
     { path: "/weekly-meal-planner", changeFrequency: "monthly" as const, priority: 0.9 },
     { path: "/grocery-list-calculator", changeFrequency: "monthly" as const, priority: 0.9 },
-    { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
     { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/datenschutz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/ki-transparenz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/agb", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/widerruf", changeFrequency: "yearly" as const, priority: 0.1 },
-    { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
   ];
   // NOTE: /login intentionally excluded — utility page, no SEO value.
 
   // Static pages — one entry per locale with cross-locale alternates
-  const staticEntries: MetadataRoute.Sitemap = staticPages.flatMap(({ path, changeFrequency, priority }) => {
-    const enUrl = `${baseUrl}/en${path}`;
-    const deUrl = `${baseUrl}/de${path}`;
-    return [
-      { url: enUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
-      { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
-    ];
-  });
+  const staticEntries: MetadataRoute.Sitemap = [
+    ...translatedStatic.flatMap(({ path, changeFrequency, priority }) =>
+      ALL_LOCALES.map((l) => ({
+        url: `${baseUrl}/${l}${path}`,
+        lastModified: STATIC_LAST_MODIFIED,
+        changeFrequency,
+        priority,
+        alternates: langsAll(path),
+      }))
+    ),
+    ...deEnStatic.flatMap(({ path, changeFrequency, priority }) => {
+      const enUrl = `${baseUrl}/en${path}`;
+      const deUrl = `${baseUrl}/de${path}`;
+      return [
+        { url: enUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
+        { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
+      ];
+    }),
+  ];
 
   // Blog entries — linked via slug map, real publish dates as lastmod.
   // Some posts exist in only ONE language (12-week content plan): those emit a

@@ -10,7 +10,9 @@ interface Props {
 }
 
 const blogAlternates = (locale: string) => ({
-  canonical: `https://culinse.com/${locale}/blog`,
+  canonical: ["en", "de"].includes(locale)
+    ? `https://culinse.com/${locale}/blog`
+    : "https://culinse.com/en/blog",
   languages: {
     en: "https://culinse.com/en/blog",
     de: "https://culinse.com/de/blog",

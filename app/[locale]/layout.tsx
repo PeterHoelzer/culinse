@@ -37,6 +37,74 @@ const sharedMeta = {
   },
 };
 
+// Default-Title/Description/Keywords je Sprache (14.09.2026). de/en sind
+// BYTE-IDENTISCH zu vorher (Ranking-Schutz), die fuenf neuen lokalisiert.
+const LOCALE_META: Record<string, { title: string; description: string; keywords: string[] }> = {
+  de: {
+    title: "Culinse – Rezepte entdecken, die du lieben wirst",
+    description:
+      "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos nutzbar und ohne Abo-Zwang.",
+    keywords: [
+      "Rezepte", "Rezepte entdecken", "personalisierte Rezepte", "Kochen", "Essen",
+      "Rezeptsuche", "gesunde Rezepte", "schnelle Rezepte", "Wochenplan", "Einkaufsliste",
+    ],
+  },
+  en: {
+    title: "Culinse – Discover Recipes You'll Love",
+    description:
+      "Culinse aggregates millions of recipes from the web's best food sites — filtered to your diet and allergies. Free to use, no subscription required.",
+    keywords: [
+      "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
+      "recipe search", "healthy recipes", "easy recipes", "meal planner", "shopping list",
+    ],
+  },
+  es: {
+    title: "Culinse – Descubre recetas que te encantarán",
+    description:
+      "Culinse reúne recetas de las mejores fuentes — filtradas según tu dieta y tus alergias. Gratis y sin suscripción.",
+    keywords: [
+      "recetas", "descubrir recetas", "recetas personalizadas", "cocina", "comida",
+      "buscador de recetas", "recetas saludables", "recetas fáciles", "planificador semanal", "lista de la compra",
+    ],
+  },
+  fr: {
+    title: "Culinse – Découvre des recettes que tu vas adorer",
+    description:
+      "Culinse rassemble les recettes des meilleures sources — filtrées selon ton alimentation et tes allergies. Gratuit, sans abonnement.",
+    keywords: [
+      "recettes", "découverte de recettes", "recettes personnalisées", "cuisine", "repas",
+      "recherche de recettes", "recettes saines", "recettes faciles", "planning de repas", "liste de courses",
+    ],
+  },
+  it: {
+    title: "Culinse – Scopri ricette che amerai",
+    description:
+      "Culinse raccoglie le ricette dalle fonti migliori — filtrate in base alla tua alimentazione e alle tue allergie. Gratis, senza abbonamento.",
+    keywords: [
+      "ricette", "scoprire ricette", "ricette personalizzate", "cucina", "cibo",
+      "ricerca ricette", "ricette sane", "ricette facili", "planner settimanale", "lista della spesa",
+    ],
+  },
+  pl: {
+    title: "Culinse – Odkrywaj przepisy, które pokochasz",
+    description:
+      "Culinse łączy przepisy z najlepszych źródeł — filtrowane według Twojej diety i alergii. Za darmo, bez abonamentu.",
+    keywords: [
+      "przepisy", "odkrywanie przepisów", "spersonalizowane przepisy", "gotowanie", "jedzenie",
+      "wyszukiwarka przepisów", "zdrowe przepisy", "szybkie przepisy", "planer tygodnia", "lista zakupów",
+    ],
+  },
+  tr: {
+    title: "Culinse – Seveceğin tarifleri keşfet",
+    description:
+      "Culinse, en iyi kaynaklardaki tarifleri bir araya getirir — beslenmene ve alerjilerine göre filtrelenmiş. Ücretsiz, aboneliksiz.",
+    keywords: [
+      "tarifler", "tarif keşfi", "kişiselleştirilmiş tarifler", "yemek pişirme", "yemek",
+      "tarif arama", "sağlıklı tarifler", "kolay tarifler", "haftalık plan", "alışveriş listesi",
+    ],
+  },
+};
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
 
@@ -45,34 +113,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   // by every child page that doesn't define its own — which told Google that
   // /about, /blog, /pro etc. were duplicates of the homepage and got them
   // deindexed ("Alternative Seite mit richtigem kanonischen Tag" in GSC).
-  if (locale === "de") {
-    return {
-      ...sharedMeta,
-      title: {
-        default: "Culinse – Rezepte entdecken, die du lieben wirst",
-        template: "%s | Culinse",
-      },
-      description:
-        "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos nutzbar und ohne Abo-Zwang.",
-      keywords: [
-        "Rezepte", "Rezepte entdecken", "personalisierte Rezepte", "Kochen", "Essen",
-        "Rezeptsuche", "gesunde Rezepte", "schnelle Rezepte", "Wochenplan", "Einkaufsliste",
-      ],
-    };
-  }
-
+  const meta = LOCALE_META[locale] ?? LOCALE_META.en;
   return {
     ...sharedMeta,
     title: {
-      default: "Culinse – Discover Recipes You'll Love",
+      default: meta.title,
       template: "%s | Culinse",
     },
-    description:
-      "Culinse aggregates millions of recipes from the web's best food sites — filtered to your diet and allergies. Free to use, no subscription required.",
-    keywords: [
-      "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
-      "recipe search", "healthy recipes", "easy recipes", "meal planner", "shopping list",
-    ],
+    description: meta.description,
+    keywords: meta.keywords,
   };
 }
 

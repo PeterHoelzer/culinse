@@ -13,6 +13,11 @@ export async function generateMetadata({
     languages: {
       en: "https://culinse.com/en/collections/explore",
       de: "https://culinse.com/de/collections/explore",
+      es: "https://culinse.com/es/collections/explore",
+      fr: "https://culinse.com/fr/collections/explore",
+      it: "https://culinse.com/it/collections/explore",
+      pl: "https://culinse.com/pl/collections/explore",
+      tr: "https://culinse.com/tr/collections/explore",
       "x-default": "https://culinse.com/en/collections/explore",
     },
   };
