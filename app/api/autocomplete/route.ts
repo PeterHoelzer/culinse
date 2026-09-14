@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   const query = (searchParams.get("query") || "").trim();
   const lang = (searchParams.get("lang") || "en").toLowerCase();
   if (query.length < 2) return NextResponse.json({ suggestions: [] });
-  const l = lang === "de" ? "de" : "en";
+  const l = lang === "de" ? "de" : lang === "es" ? "es" : "en";
   try {
     const supabase = createAdminClient();
     const run = async (term: string) => {

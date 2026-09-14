@@ -10,7 +10,7 @@ import { optimizedImageUrl } from "@/lib/imageUrl";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const number = Math.min(Math.max(Number(searchParams.get("number") || 2), 1), 6);
-  const lang = searchParams.get("lang") === "de" ? "de" : "en";
+  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : "en";
 
   try {
     const supabase = createAdminClient();
