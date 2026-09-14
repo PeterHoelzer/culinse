@@ -98,6 +98,40 @@ async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   }
 }
 
+const OG_LOCALES: Record<string, string> = {
+  en: "en_US", de: "de_DE", es: "es_ES", fr: "fr_FR", it: "it_IT", pl: "pl_PL", tr: "tr_TR",
+};
+const HOME_META: Record<string, { title: string; description: string }> = {
+  de: {
+    title: "Culinse – Rezepte entdecken, die du lieben wirst",
+    description: "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich.",
+  },
+  en: {
+    title: "Culinse – Discover Recipes You'll Love",
+    description: "Millions of recipes from the world's best food sites. Personalized for you.",
+  },
+  es: {
+    title: "Culinse – Descubre recetas que te encantarán",
+    description: "Recetas de las mejores fuentes, personalizadas para ti.",
+  },
+  fr: {
+    title: "Culinse – Découvre des recettes que tu vas adorer",
+    description: "Des recettes des meilleures sources, personnalisées pour toi.",
+  },
+  it: {
+    title: "Culinse – Scopri ricette che amerai",
+    description: "Ricette dalle fonti migliori, personalizzate per te.",
+  },
+  pl: {
+    title: "Culinse – Odkrywaj przepisy, które pokochasz",
+    description: "Przepisy z najlepszych źródeł, spersonalizowane dla Ciebie.",
+  },
+  tr: {
+    title: "Culinse – Seveceğin tarifleri keşfet",
+    description: "En iyi kaynaklardan tarifler, sana özel.",
+  },
+};
+
 // ─── Homepage metadata (canonical + hreflang + Open Graph) ───────────────────
 // These used to live in [locale]/layout.tsx, where every child page without
 // its own `alternates` inherited the HOMEPAGE canonical and got deindexed.
@@ -108,14 +142,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const isDE = locale === "de";
   const url = `https://culinse.com/${locale}`;
-  const title = isDE
-    ? "Culinse – Rezepte entdecken, die du lieben wirst"
-    : "Culinse – Discover Recipes You'll Love";
-  const description = isDE
-    ? "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich."
-    : "Millions of recipes from the world's best food sites. Personalized for you.";
+  const { title, description } = HOME_META[locale] ?? HOME_META.en;
 
   return {
     alternates: {
@@ -123,6 +151,11 @@ export async function generateMetadata({
       languages: {
         en: "https://culinse.com/en",
         de: "https://culinse.com/de",
+        es: "https://culinse.com/es",
+        fr: "https://culinse.com/fr",
+        it: "https://culinse.com/it",
+        pl: "https://culinse.com/pl",
+        tr: "https://culinse.com/tr",
         "x-default": "https://culinse.com/en",
       },
     },
@@ -131,7 +164,7 @@ export async function generateMetadata({
       description,
       url,
       siteName: "Culinse",
-      locale: isDE ? "de_DE" : "en_US",
+      locale: OG_LOCALES[locale] ?? "en_US",
       type: "website",
     },
     twitter: {
