@@ -107,7 +107,7 @@ async function proxy(request: NextRequest) {
   } = await supabase.auth.getSession();
 
   // Strip locale prefix (/en/collections → /collections) for route matching
-  const localePattern = /^\/(en|de)(\/|$)/;
+  const localePattern = /^\/(en|de|es|fr|it|pl|tr)(\/|$)/;
   const strippedPath = pathname.replace(localePattern, "/");
 
   // Gate only the user's OWN collections index (/collections or /collections/),
@@ -127,7 +127,7 @@ async function proxy(request: NextRequest) {
 
   if (isProtected && !session) {
     // Detect locale from URL or default to "en"
-    const localeMatch = pathname.match(/^\/(en|de)(\/|$)/);
+    const localeMatch = pathname.match(/^\/(en|de|es|fr|it|pl|tr)(\/|$)/);
     const locale = localeMatch ? localeMatch[1] : "en";
     const loginUrl = new URL(`/${locale}/login`, request.url);
     loginUrl.searchParams.set("redirectTo", pathname);

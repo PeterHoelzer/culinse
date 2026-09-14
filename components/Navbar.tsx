@@ -5,31 +5,29 @@ import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { Link, usePathname, useRouter } from "@/lib/navigation";
+import { routing } from "@/i18n/routing";
 
 function LocaleSwitcher() {
   const pathname = usePathname(); // path WITHOUT locale prefix, e.g. "/about"
-  const locale = useLocale();     // "de" | "en"
+  const locale = useLocale();
   const router = useRouter();
 
-  const switchTo = (newLocale: string) => {
-    router.replace(pathname as "/", { locale: newLocale });
-  };
-
+  // Seit Welle 1 des Sprachausbaus (14.09.2026) sieben Sprachen — als
+  // Dropdown statt Zwei-Knopf-Toggle. Liste kommt aus i18n/routing.ts,
+  // neue Sprachen erscheinen hier automatisch.
   return (
-    <div className="flex items-center gap-0.5 text-xs font-semibold border border-gray-200 rounded-full px-1 py-0.5">
-      <button
-        onClick={() => switchTo("en")}
-        className={`px-2 py-1 rounded-full transition-all ${locale === "en" ? "bg-orange-500 text-white" : "text-gray-400 hover:text-gray-700"}`}
-      >
-        EN
-      </button>
-      <button
-        onClick={() => switchTo("de")}
-        className={`px-2 py-1 rounded-full transition-all ${locale === "de" ? "bg-orange-500 text-white" : "text-gray-400 hover:text-gray-700"}`}
-      >
-        DE
-      </button>
-    </div>
+    <select
+      value={locale}
+      onChange={(e) => router.replace(pathname as "/", { locale: e.target.value })}
+      aria-label="Language"
+      className="text-xs font-semibold border border-gray-200 rounded-full pl-2 pr-1 py-1.5 bg-white text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-400"
+    >
+      {routing.locales.map((l) => (
+        <option key={l} value={l}>
+          {l.toUpperCase()}
+        </option>
+      ))}
+    </select>
   );
 }
 

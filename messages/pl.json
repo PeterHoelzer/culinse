@@ -1,0 +1,693 @@
+{
+  "nav": {
+    "discover": "Odkrywaj",
+    "about": "O nas",
+    "blog": "Blog",
+    "mealPlanner": "Planer tygodnia",
+    "collections": "Kolekcje",
+    "saved": "Zapisane",
+    "profile": "Profil",
+    "login": "Zaloguj się",
+    "getStarted": "Zaczynajmy →",
+    "join": "Dołącz",
+    "logout": "Wyloguj się",
+    "upgrade": "✦ Przejdź na Pro",
+    "myRecipes": "Moje przepisy",
+    "calculator": "Kalkulator",
+    "myRecipesShort": "Przepisy"
+  },
+  "hero": {
+    "badge": "Stworzone przez mistrza rzeźnictwa & szefa kuchni",
+    "headline1": "Jedno miejsce na każdy",
+    "headline2": "przepis, który kochasz.",
+    "subline": "Culinse zbiera przepisy z najlepszych źródeł — filtrowane pod twoją dietę i alergie, bez banerów reklamowych i wszystkie przepisy za darmo.",
+    "searchPlaceholder": "Makaron, curry, stek…",
+    "searchButton": "Szukaj",
+    "tryLabel": "Spróbuj:",
+    "quickPicks": [
+      "Makaron carbonara",
+      "Stek wołowy",
+      "Curry tajskie",
+      "Ciasto czekoladowe"
+    ],
+    "sourcesMobile": "Własne przepisy · Społeczność · Rodzina",
+    "sourcesDesktop": "Nasze przepisy pochodzą z:",
+    "freeLabel": "Korzystasz za darmo · Bez banerów reklamowych",
+    "ctaPlan": "📅 Zaplanuj tydzień za darmo",
+    "ctaBrowse": "Odkrywaj przepisy ↓",
+    "trust1": "Korzystasz za darmo",
+    "trust2": "Bez banerów reklamowych",
+    "trust3": "Realne ceny z dyskontów"
+  },
+  "categories": [
+    "Wszystkie",
+    "Makarony",
+    "Azjatycka",
+    "Koreańska",
+    "Śniadanie",
+    "Owoce morza",
+    "Pizza",
+    "Deser",
+    "Sałatka",
+    "Zupa"
+  ],
+  "trendFilters": {
+    "trending": "🔥 Popularne",
+    "highProtein": "💪 Dużo białka",
+    "lowCarb": "⚡ Low Carb",
+    "keto": "🥑 Keto",
+    "dairyFree": "🥛 Bez laktozy",
+    "mediterranean": "🫒 Śródziemnomorska",
+    "forYou": "✨ Dla ciebie"
+  },
+  "timeFilters": {
+    "15": "≤ 15 min",
+    "30": "≤ 30 min",
+    "60": "≤ 60 min",
+    "any": "Dowolnie"
+  },
+  "dietFilters": {
+    "all": "Wszystkie diety",
+    "vegetarian": "Wegetariańskie",
+    "vegan": "Wegańskie",
+    "glutenFree": "Bezglutenowe"
+  },
+  "discover": {
+    "title": "Dziś na topie",
+    "resultsFor": "Wyniki dla \"{query}\"",
+    "loading": "Ładowanie przepisów…",
+    "recipesFound": "{count} przepisów z najlepszych stron kulinarnych na świecie",
+    "loadMore": "Załaduj więcej",
+    "loadingMore": "Ładowanie…",
+    "noRecipes": "Nie znaleziono przepisów",
+    "noRecipesSub": "Spróbuj innego wyszukiwania lub kategorii",
+    "error": "Nie udało się załadować przepisów",
+    "tryAgain": "Spróbuj ponownie",
+    "quotaWarning": "Aktualizujemy nasz katalog przepisów — pełne wyniki będą znów dostępne wkrótce.",
+    "allergenFiltered": "{count} alergen odfiltrowany",
+    "allergensFiltered": "{count} alergenów odfiltrowanych",
+    "profileCta": "Skonfiguruj swój profil żywieniowy",
+    "profileCtaSub": "Podaj nam swoją dietę & alergeny — otrzymasz spersonalizowany feed."
+  },
+  "recipeCard": {
+    "servings": "{count} porcji",
+    "details": "Szczegóły →",
+    "addToCollection": "Dodaj do kolekcji",
+    "save": "Zapisz przepis",
+    "removeSave": "Usuń z zapisanych",
+    "loginToSave": "Zaloguj się, aby zapisać"
+  },
+  "forYou": {
+    "title": "✨ Dla ciebie",
+    "subtitle": "Spersonalizowane na podstawie twojego profilu żywieniowego",
+    "fromActivity": "Na podstawie twoich zapisanych i zaplanowanych przepisów",
+    "editProfile": "Edytuj profil →"
+  },
+  "videoSection": {
+    "title": "🎬 Przepisy wideo",
+    "comingSoonBadge": "Już wkrótce",
+    "comingSoonTitle": "Pracujemy nad własnymi filmami kulinarnymi",
+    "comingSoonText": "Filmy krok po kroku prosto z kuchni Culinse — nie z półki. Zajrzyj tu wkrótce!",
+    "subtitle": "Oglądaj & gotuj — krok po kroku",
+    "fullRecipe": "Do przepisu →",
+    "loadMore": "Załaduj więcej filmów",
+    "loading": "Ładowanie…",
+    "addToPlan": "+ Zaplanuj"
+  },
+  "howItWorks": {
+    "title": "Jak działa Culinse",
+    "subtitle": "Przynosimy ci najlepsze przepisy z internetu — spersonalizowane, przeszukiwalne, z automatyczną listą zakupów.",
+    "steps": [
+      {
+        "icon": "🔍",
+        "title": "Szukaj & odkrywaj",
+        "desc": "Przeszukuj miliony przepisów z najlepszych stron kulinarnych świata — wszystko w jednym miejscu."
+      },
+      {
+        "icon": "❤️",
+        "title": "Zapisuj & personalizuj",
+        "desc": "Zapisuj przepisy, które kochasz. Culinse uczy się twojego gustu i pokazuje ci ich więcej."
+      },
+      {
+        "icon": "🛒",
+        "title": "Lista zakupów z sumą €",
+        "desc": "Twój plan tygodnia automatycznie zmienia się w listę zakupów — z szacowanymi cenami z dyskontów przy każdym składniku i sumą na cały tydzień."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Odkryj przepisy już teraz.",
+    "subtitle": "Zacznij za darmo, bez przymusu abonamentu. Po prostu wspaniałe jedzenie, spersonalizowane dla ciebie.",
+    "button": "Załóż darmowe konto →",
+    "buttonLoggedIn": "Otwórz swój planer tygodnia →"
+  },
+  "footer": {
+    "about": "O nas",
+    "impressum": "Nota prawna",
+    "datenschutz": "Polityka prywatności",
+    "aiTransparency": "Przejrzystość AI",
+    "agb": "Regulamin",
+    "widerruf": "Odstąpienie od umowy",
+    "contact": "Kontakt",
+    "copyright": "© {year} Culinse. Wszelkie prawa zastrzeżone.",
+    "planner": "Planer tygodnia",
+    "calculator": "Kalkulator zakupów"
+  },
+  "about": {
+    "ourStory": "Nasza historia",
+    "heroTitle1": "Zbudowane przez kucharza.",
+    "heroTitle2": "Dla wszystkich, którzy gotują.",
+    "heroSubtitle": "Culinse powstało z prawdziwej frustracji — 20 minut klikania strona po stronie tylko po to, żeby znaleźć sensowny przepis na kolację.",
+    "founderRole": "Szef kuchni · Mistrz rzeźnictwa · Założyciel",
+    "whereWeGoing": "Dokąd zmierzamy",
+    "visionTitle": "Uniwersalna platforma przepisów",
+    "values": [
+      {
+        "icon": "🍖",
+        "title": "Rzemiosło",
+        "desc": "Stworzone przez kogoś, kto latami stał przy kuchni i za ladą."
+      },
+      {
+        "icon": "❤️",
+        "title": "Pasja",
+        "desc": "Jedzenie to coś więcej niż paliwo. Culinse jest dla ludzi, którzy naprawdę lubią gotować."
+      },
+      {
+        "icon": "✨",
+        "title": "Prostota",
+        "desc": "Bez banerów reklamowych, bez przymusu abonamentu, bez bałaganu. Tylko przepisy, które chcesz ugotować."
+      }
+    ],
+    "visionItems": [
+      {
+        "icon": "📅",
+        "title": "Tygodniowy planer posiłków",
+        "desc": "Zaplanuj cały tydzień w kilka minut. Culinse dobierze przepisy do twojej diety, twojego grafiku i tego, co już masz w lodówce."
+      },
+      {
+        "icon": "🛒",
+        "title": "Inteligentne listy zakupów",
+        "desc": "Twórz automatycznie listę zakupów ze swojego planu tygodnia — albo wyślij ją prosto do ulubionej dostawy."
+      },
+      {
+        "icon": "📚",
+        "title": "Albumy z przepisami",
+        "desc": "Twórz własne kolekcje i dziel się nimi z przyjaciółmi, rodziną albo całym światem."
+      },
+      {
+        "icon": "🌍",
+        "title": "Wszystko w jednym miejscu",
+        "desc": "Jedna platforma. Każdy przepis. Koniec z kartami przeglądarki. Od szybkich kolacji w tygodniu po ambitne projekty na weekend."
+      }
+    ],
+    "discoverCta": "Odkrywaj przepisy →",
+    "feedbackLabel": "Pytania lub uwagi?",
+    "story1": "Najpierw byłem szefem kuchni i gotowałem w restauracjach w całych Niemczech. Potem pociągnęło mnie rzemiosło rzeźnicze — w 2024 roku zdobyłem tytuł mistrza rzeźnictwa, najwyższe kwalifikacje zawodowe w tym fachu. Jedzenie nie jest dla mnie zajęciem na boku. Jest wszystkim.",
+    "story2": "Ale nawet z takim zapleczem codzienny problem był ten sam: znalezienie właściwego przepisu oznaczało żonglowanie tuzinem kart przeglądarki, odklikiwanie banerów cookie i przewijanie czyichś życiorysów, zanim w ogóle dotarło się do samych składników. Jak na coś, co powinno sprawiać radość, było to po prostu wyczerpujące.",
+    "story3": "Ciągle myślałem: dlaczego nie ma platformy, która po prostu działa? Jedno miejsce, świetne przepisy, żadnego szumu. Tak jak działa odkrywanie muzyki — tylko dla jedzenia. Więc ją zbudowałem.",
+    "story4": "To właśnie Culinse.",
+    "name": "Peter"
+  },
+  "login": {
+    "title": "Zaloguj się do Culinse",
+    "subtitle": "Zapisuj przepisy, planuj posiłki i otrzymuj spersonalizowane rekomendacje.",
+    "emailLabel": "Adres e-mail",
+    "emailPlaceholder": "twoj@email.com",
+    "magicLinkButton": "Wyślij Magic Link",
+    "sending": "Wysyłanie…",
+    "checkEmail": "Zajrzyj do swojej skrzynki e-mail — link został wysłany!",
+    "orContinueWith": "lub kontynuuj przez",
+    "googleButton": "Kontynuuj z Google",
+    "noAccount": "Konto nie jest potrzebne — rejestracja odbywa się automatycznie.",
+    "errorLinkExpired": "Ten link wygasł. Poproś o nowy.",
+    "logIn": "Zaloguj się",
+    "signUp": "Zarejestruj się",
+    "welcomeBack": "Witaj ponownie",
+    "createAccount": "Załóż konto",
+    "loginSub": "Zaloguj się, aby zapisywać przepisy i mieć swój osobisty feed.",
+    "signupSub": "Za darmo na zawsze. Karta kredytowa nie jest wymagana.",
+    "passwordLabel": "Hasło",
+    "passwordPlaceholder": "Min. 6 znaków",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "loginButton": "Zaloguj się →",
+    "createButton": "Załóż konto →",
+    "checkInbox": "Zajrzyj do skrzynki!",
+    "sentTo": "Wysłaliśmy link potwierdzający na",
+    "spamNote": "Kliknij link w wiadomości, aby aktywować swoje konto. Sprawdź też folder ze spamem.",
+    "backToLogin": "← Powrót do logowania",
+    "or": "lub",
+    "privacyNote": "Kontynuując, akceptujesz naszą",
+    "privacyLink": "Politykę prywatności",
+    "privacySuffix": ".",
+    "loading": "Ładowanie…"
+  },
+  "profile": {
+    "title": "Profil",
+    "pageTitle": "Twój profil żywieniowy",
+    "welcomeBanner": "🎉 Witaj w Culinse! Skonfiguruj swój profil żywieniowy i otrzymuj spersonalizowane przepisy.",
+    "progress0": "Ustaw swoje preferencje, aby otrzymywać spersonalizowane przepisy",
+    "progress1": "Dobry początek — jeszcze 2 kroki",
+    "progress2": "Prawie gotowe — jeszcze 1 krok",
+    "progress3": "✓ Profil kompletny — sekcja Dla ciebie jest aktywna!",
+    "planPro": "Culinse Pro",
+    "planFree": "Plan darmowy",
+    "renews": "Odnawia się {date}",
+    "active": "✓ Aktywny",
+    "free": "Darmowy",
+    "proFeatures": [
+      "Nieograniczone kolekcje",
+      "Tygodniowy plan posiłków",
+      "Inteligentna lista zakupów",
+      "Zapisywanie przepisów bez limitu",
+      "Pierwszeństwo do nowych funkcji"
+    ],
+    "loading": "Ładowanie…",
+    "manageSubscription": "Zarządzaj subskrypcją",
+    "upgradeButton": "Przejdź na Pro — €4,99 / mies.",
+    "dietTitle": "Dieta",
+    "dietSub": "Pokazuj tylko przepisy, które pasują do twojego stylu życia.",
+    "activeLabel": "Aktywne",
+    "nActive": "{n} aktywnych",
+    "allergenTitle": "Alergeny & nietolerancje",
+    "allergenSub": "Dotknij, aby wykluczyć składniki ze swojego feedu.",
+    "timeTitle": "Maksymalny czas gotowania",
+    "timeSub": "Pokazuj tylko przepisy, które naprawdę zdążysz ugotować.",
+    "saving": "Zapisywanie…",
+    "saved": "✓ Zapisano!",
+    "saveButton": "Zapisz preferencje",
+    "back": "← Wstecz",
+    "dietOptions": [
+      {
+        "label": "Bez preferencji",
+        "desc": "Pokaż wszystko"
+      },
+      {
+        "label": "Wegetariańska",
+        "desc": "Bez mięsa i ryb"
+      },
+      {
+        "label": "Wegańska",
+        "desc": "Wyłącznie roślinne"
+      },
+      {
+        "label": "Keto",
+        "desc": "Mało węglowodanów, dużo tłuszczu"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Powrót do korzeni"
+      },
+      {
+        "label": "Bezglutenowa",
+        "desc": "Bez glutenu"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Czyste jedzenie"
+      }
+    ],
+    "intoleranceOptions": [
+      "Mleko",
+      "Jaja",
+      "Gluten",
+      "Orzeszki ziemne",
+      "Orzechy",
+      "Soja",
+      "Owoce morza",
+      "Skorupiaki",
+      "Pszenica",
+      "Siarczyny"
+    ],
+    "timeOptions": [
+      {
+        "label": "Bez limitu"
+      },
+      {
+        "label": "≤ 15 min"
+      },
+      {
+        "label": "≤ 30 min"
+      },
+      {
+        "label": "≤ 60 min"
+      }
+    ]
+  },
+  "saved": {
+    "title": "Zapisane przepisy",
+    "empty": "Nie masz jeszcze zapisanych przepisów",
+    "emptySub": "Zapisuj przepisy, które kochasz — pojawią się tutaj.",
+    "discover": "Odkrywaj przepisy →"
+  },
+  "collections": {
+    "title": "Moje kolekcje",
+    "newCollection": "Nowa kolekcja",
+    "empty": "Nie masz jeszcze kolekcji",
+    "emptySub": "Utwórz swoją pierwszą kolekcję, aby uporządkować ulubione przepisy.",
+    "deleteConfirm": "Usunąć tę kolekcję?",
+    "delete": "Usuń",
+    "cancel": "Anuluj",
+    "newCollectionTitle": "Nowa kolekcja",
+    "creating": "Tworzenie…",
+    "create": "Utwórz kolekcję",
+    "upgradeTitle": "Nieograniczone kolekcje",
+    "upgradeSubtext": "Plan darmowy obejmuje 1 kolekcję z maksymalnie 10 przepisami. Przejdź na Pro, aby mieć wszystko bez limitu.",
+    "upgradeButton": "Przejdź na Pro →",
+    "createFirst": "+ Utwórz pierwszą kolekcję",
+    "groupDesc": "Grupuj ulubione przepisy w kolekcje — jak playlisty dla jedzenia.",
+    "counter": "{count, plural, one {# kolekcja} few {# kolekcje} many {# kolekcji} other {# kolekcji}}",
+    "newButton": "+ Nowa",
+    "publicLabel": "Ustaw jako publiczną",
+    "publicSub": "Każdy z linkiem może ją zobaczyć",
+    "nameLabel": "Nazwa",
+    "descLabel": "Opis",
+    "descOptional": "(opcjonalnie)",
+    "namePlaceholder": "np. Włoskie ulubione",
+    "descPlaceholder": "Krótki opis…",
+    "iconLabel": "Ikona",
+    "upgradePro": "Przejdź na Pro",
+    "loading": "Ładowanie…",
+    "recipeCount": "{count, plural, one {# przepis} few {# przepisy} many {# przepisów} other {# przepisów}}",
+    "detailBack": "Moje kolekcje",
+    "publicBadge": "Publiczna",
+    "makePrivate": "🔒 Ustaw jako prywatną",
+    "makePublic": "🌍 Ustaw jako publiczną",
+    "share": "↑ Udostępnij",
+    "copied": "✓ Link skopiowany!",
+    "noRecipes": "Nie ma tu jeszcze przepisów",
+    "noRecipesSub": "Dodawaj do tej kolekcji przepisy z dowolnej strony z przepisami.",
+    "discoverCta": "Odkrywaj przepisy →",
+    "deleteThis": "Usuń tę kolekcję",
+    "deleteNamed": "Usunąć \"{name}\"?",
+    "yesDelete": "Tak, usuń",
+    "removeFromCollection": "Usuń z kolekcji",
+    "view": "Zobacz →"
+  },
+  "mealPlanner": {
+    "shareWeek": "Udostępnij",
+    "shareCopied": "✓ Link skopiowany",
+    "title": "Planer tygodnia",
+    "days": [
+      "Pn",
+      "Wt",
+      "Śr",
+      "Cz",
+      "Pt",
+      "So",
+      "Nd"
+    ],
+    "meals": [
+      "Śniadanie",
+      "Obiad",
+      "Kolacja"
+    ],
+    "addRecipe": "+ Dodaj przepis",
+    "shoppingList": "🛒 Lista zakupów",
+    "clearWeek": "Wyczyść tydzień",
+    "thisWeek": "Ten tydzień",
+    "daysFull": [
+      "Poniedziałek",
+      "Wtorek",
+      "Środa",
+      "Czwartek",
+      "Piątek",
+      "Sobota",
+      "Niedziela"
+    ],
+    "clearConfirm": "Usunąć wszystkie posiłki z tego tygodnia?",
+    "noRecipes": "Nie masz jeszcze przepisów w swoim planie.",
+    "planName": "Plan tygodnia",
+    "tapToAdd": "Dotknij pola, aby dodać przepis.",
+    "mealsPlanned": "{n}/21 zaplanowanych posiłków",
+    "namePlanPlaceholder": "Nazwij plan…",
+    "proMorePlans": "✦ Pro — więcej planów",
+    "newPlan": "+ Nowy plan",
+    "dragHint": "Wskazówka: przenoś lub zamieniaj posiłki metodą Drag & Drop.",
+    "move": "Przenieś",
+    "moveHint": "Dotknij pola docelowego, aby przenieść",
+    "moveHere": "Przenieś tutaj",
+    "swapHere": "Zamień",
+    "moving": "Przenoszenie …",
+    "today": "Dziś",
+    "copyWeek": "Kopiuj tydzień",
+    "prevWeek": "Poprzedni tydzień",
+    "nextWeek": "Następny tydzień",
+    "emptyTitle": "Twój plan jest jeszcze pusty",
+    "emptySub": "Dotknij pola, aby dodać przepis ze swoich zapisanych przepisów.",
+    "myRecipes": "♥ Moje przepisy",
+    "collections": "📚 Kolekcje",
+    "proModalTitle": "Więcej planów z Pro",
+    "proModalSub": "Z Culinse Pro możesz tworzyć nieograniczoną liczbę planów posiłków.",
+    "proModalButton": "Przejdź na Pro — €4,99 / mies.",
+    "cancel": "Anuluj",
+    "deletePlanConfirm": "Usunąć plan? Wszystkie wpisy przepadną."
+  },
+  "shoppingList": {
+    "title": "Lista zakupów",
+    "empty": "Dodaj przepisy do swojego planu tygodnia, aby utworzyć listę zakupów.",
+    "checkAll": "Zaznacz wszystko",
+    "uncheckAll": "Odznacz wszystko",
+    "close": "Zamknij"
+  },
+  "onboarding": {
+    "title": "Witaj w Culinse! Jak najchętniej jadasz?",
+    "step1Sub": "Dzięki temu zaproponujemy ci pasujące przepisy. Możesz to później zmienić w profilu.",
+    "diet_all": "Jem wszystko",
+    "diet_all_desc": "Kolorowa mieszanka z różnych kuchni",
+    "diet_vegetarian": "Wegetariańsko",
+    "diet_vegetarian_desc": "Bez mięsa i ryb",
+    "diet_vegan": "Wegańsko",
+    "diet_vegan_desc": "Wyłącznie roślinnie",
+    "diet_protein": "Bogato w białko",
+    "diet_protein_desc": "Dużo białka, np. pod trening",
+    "diet_quick": "Szybko & prosto",
+    "diet_quick_desc": "Kuchnia po pracy w mniej niż 30 minut",
+    "step2Title": "Twój pierwszy tydzień",
+    "step2Sub": "Pięć propozycji od poniedziałku do piątku — odznacz to, co nie pasuje.",
+    "addSelected": "{count, plural, one {Dodaj 1 przepis} few {Dodaj # przepisy} many {Dodaj # przepisów} other {Dodaj # przepisów}} do planu tygodnia",
+    "adding": "Planowanie…",
+    "step3Title": "Twój plan tygodnia gotowy!",
+    "step3Sub": "{count, plural, one {Jedna kolacja jest zaplanowana} few {# kolacje są zaplanowane} many {# kolacji jest zaplanowanych} other {# kolacji jest zaplanowanych}} — a twoja lista zakupów jest automatycznie gotowa, z ilościami i szacowanym kosztem.",
+    "viewList": "🛒 Zobacz listę zakupów",
+    "toPlanner": "Do planera tygodnia →",
+    "skip": "Pomiń — przejdź na stronę główną",
+    "loadError": "Niestety nie udało się. Spróbuj jeszcze raz.",
+    "planName": "Mój plan tygodnia"
+  },
+  "planShare": {
+    "badge": "Udostępniony plan tygodnia",
+    "title": "Mój plan tygodnia",
+    "titleWithCost": "Mój tydzień za {cost}",
+    "subtitle": "{count, plural, one {1 danie} few {# dania} many {# dań} other {# dań}} · Tydzień od {date}",
+    "estCost": "Szacowany koszt zakupów",
+    "estCostHint": "Szacunek na poziomie cen dyskontowych (skalkulowano {priced} z {total} dań). Ceny różnią się w zależności od sklepu.",
+    "ctaTitle": "Zaplanuj własny tydzień — za darmo",
+    "ctaText": "Wybierz przepisy, wypełnij tydzień, odbierz gotową listę zakupów z szacunkiem ceny. Bez banerów reklamowych, bez przymusu abonamentu.",
+    "ctaButton": "Zacznij za darmo"
+  },
+  "recipe": {
+    "cookTime": "Czas gotowania",
+    "servings": "Porcje",
+    "ingredients": "Składniki",
+    "instructions": "Przygotowanie",
+    "saveRecipe": "♡ Zapisz przepis",
+    "savedRecipe": "♥ Zapisano",
+    "saving": "…",
+    "viewOriginal": "Zobacz oryginał ↗",
+    "addToPlan": "+ Do planu tygodnia",
+    "similarRecipes": "Podobne przepisy",
+    "backToDiscover": "← Wstecz",
+    "notFound": "Nie znaleziono przepisu",
+    "source": "Źródło",
+    "collections": "Kolekcje",
+    "share": "Udostępnij",
+    "copied": "Skopiowano!",
+    "print": "Drukuj",
+    "reset": "Resetuj",
+    "forServings": "Na {count} porcji",
+    "moreVideos": "Więcej filmów",
+    "loadingVideos": "Ładowanie filmów…",
+    "instructionsOnSource": "Pełną instrukcję znajdziesz na stronie źródłowej.",
+    "viewFullRecipe": "Zobacz pełny przepis",
+    "printWithImage": "Ze zdjęciem",
+    "printNoImage": "Bez zdjęcia",
+    "aiNotice": "Stworzone z pomocą AI i sprawdzone redakcyjnie",
+    "aiNoticeMore": "Więcej o przejrzystości AI"
+  },
+  "pro": {
+    "title": "Culinse Pro",
+    "subtitle": "Odblokuj pełne doświadczenie Culinse.",
+    "price": "€4,99 / mies.",
+    "features": [
+      "Pełny 7-dniowy planer tygodnia",
+      "Automatyczna lista zakupów ze zsumowanymi ilościami",
+      "Nieograniczone kolekcje przepisów",
+      "Priorytetowe wsparcie"
+    ],
+    "upgradeButton": "Przejdź na Pro →",
+    "processing": "Przetwarzanie…",
+    "currentPlan": "Twój obecny plan: Pro ✦",
+    "manageButton": "Zarządzaj abonamentem →",
+    "heroTitle": "Twoja kuchnia,\nw pełni zorganizowana.",
+    "heroSubtitle": "Zaplanuj swój tydzień, stwórz listę zakupów i uporządkuj każdy przepis, który kochasz — wszystko w jednym miejscu.",
+    "alreadyPro": "✓ Masz już Pro!",
+    "freeForAllBadge": "Wszystkie funkcje Pro są teraz za darmo",
+    "freeForAllNote": "Właśnie rozbudowujemy Culinse — wszystkie funkcje Pro są odblokowane dla wszystkich użytkowników. Po prostu zaloguj się i planuj, całkiem bez abonamentu.",
+    "startButton": "Testuj 7 dni za darmo →",
+    "cancelNote": "7 dni za darmo · Płatność dopiero potem · Rezygnacja w każdej chwili",
+    "legalNote": "Obowiązują nasz",
+    "legalAnd": "oraz",
+    "agbLabel": "Regulamin",
+    "widerrufLabel": "Pouczenie o odstąpieniu od umowy",
+    "activeNote": "Korzystasz z Culinse Pro 🎉",
+    "freeLabel": "Darmowy",
+    "proLabel": "Pro",
+    "everythingInFree": "Wszystko z planu darmowego, plus:",
+    "faqTitle": "FAQ",
+    "faqItems": [
+      {
+        "q": "Czy mogę zrezygnować w każdej chwili?",
+        "a": "Tak, w każdej chwili przez swój profil. Dostęp do Pro zachowujesz do końca swojego okresu rozliczeniowego."
+      },
+      {
+        "q": "Jakie metody płatności są akceptowane?",
+        "a": "Wszystkie popularne karty kredytowe i debetowe przez Stripe. Bezpiecznie, szyfrowane, zgodnie z PCI."
+      },
+      {
+        "q": "Co dzieje się z moimi kolekcjami, gdy zrezygnuję?",
+        "a": "Twoje kolekcje pozostają zapisane. Nie utworzysz tylko nowych ponad darmowy limit."
+      },
+      {
+        "q": "Czy jest darmowy okres próbny?",
+        "a": "Tak — testujesz Pro przez 7 dni za darmo. Płatność pobierana jest dopiero po zakończeniu okresu próbnego, a wcześniej możesz zrezygnować w każdej chwili."
+      }
+    ],
+    "freeFeatures": [
+      "Przepisy z 4 najlepszych źródeł",
+      "Wyszukiwanie & filtry wg diety, czasu, kuchni",
+      "Zapisywanie przepisów (♡)",
+      "1 kolekcja (do 10 przepisów)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Nieograniczone kolekcje",
+        "sub": "Uporządkuj ulubione dokładnie tak, jak chcesz"
+      },
+      {
+        "icon": "📅",
+        "label": "Tygodniowy planer posiłków",
+        "sub": "Zaplanuj śniadanie, obiad & kolację na cały tydzień"
+      },
+      {
+        "icon": "🛒",
+        "label": "Inteligentna lista zakupów",
+        "sub": "Tworzona automatycznie z twojego planu, posortowana wg kategorii"
+      },
+      {
+        "icon": "❤️",
+        "label": "Zapisywanie przepisów bez limitu",
+        "sub": "Żadnego limitu 25 przepisów — zapisuj wszystko, co ci smakuje"
+      },
+      {
+        "icon": "⚡",
+        "label": "Priorytet przy nowych funkcjach",
+        "sub": "Pierwszy dostęp do wszystkiego, co zbudujemy w następnej kolejności"
+      }
+    ],
+    "questions": "Pytania?",
+    "annualLabel": "Rocznie",
+    "monthlyLabel": "Miesięcznie",
+    "annualSave": "Oszczędzasz 35%",
+    "annualPrice": "€3,24 / mies.",
+    "annualTotal": "€38,88 / rok",
+    "monthlyPrice": "€4,99 / mies.",
+    "annualStartButton": "Testuj 7 dni za darmo →",
+    "billedAnnually": "Rozliczane rocznie",
+    "billedMonthly": "Rozliczane miesięcznie"
+  },
+  "blog": {
+    "title": "Blog Culinse",
+    "subtitle": "Porady, poradniki i pomysły na mądrzejsze gotowanie.",
+    "readMore": "Czytaj dalej →",
+    "backToBlog": "← Powrót do bloga",
+    "minRead": "min czytania"
+  },
+  "error": {
+    "notFound": "Nie znaleziono strony",
+    "notFoundSub": "Szukana strona nie istnieje.",
+    "backHome": "Powrót na stronę główną"
+  },
+  "newsletter": {
+    "title": "Odbierz 7-dniowy plan meal prep (PDF)",
+    "subtitle": "Kompletny plan tygodnia z blokiem prep, listą zakupów do odhaczania i wskazówkami szefa kuchni — za darmo w PDF. Do tego co tydzień najlepsze pomysły na przepisy. Bez spamu, wypisujesz się w każdej chwili.",
+    "placeholder": "twoj@email.pl",
+    "button": "Zapisz się",
+    "success": "🎉 Dzięki! Wkrótce dostaniesz od nas wiadomość.",
+    "error": "Coś poszło nie tak. Spróbuj ponownie.",
+    "already": "Ten adres e-mail jest już zapisany.",
+    "sending": "Zapisywanie…",
+    "download": "📄 Pobierz plan teraz (PDF)"
+  },
+  "loginPrompt": {
+    "title": "Zapisz przepis",
+    "subtitle": "Załóż darmowe konto, aby zapisywać przepisy i łatwo do nich wracać.",
+    "login": "Zaloguj się",
+    "signup": "Zarejestruj się za darmo",
+    "cancel": "Anuluj"
+  },
+  "modals": {
+    "ad": "Reklama",
+    "shop": "Shop",
+    "kitchenTools": "Akcesoria kuchenne",
+    "affiliateLinks": "* Linki afiliacyjne",
+    "upgradeTitle": "Przejdź na Pro",
+    "upgradeMessage": "Masz już 25 zapisanych przepisów, czyli limit planu darmowego. Przejdź na Pro, aby zapisywać bez limitu, tworzyć kolekcje i korzystać z więcej funkcji.",
+    "seePlans": "Zobacz plany Pro",
+    "maybeLater": "Może później",
+    "proFeature": "Funkcja Pro",
+    "proUnlock": "Przejdź na Pro, aby odblokować to i więcej.",
+    "proFrom": "Od 4,99 €/mies. →",
+    "addToCollection": "Dodaj do kolekcji",
+    "noCollections": "Nie masz jeszcze kolekcji",
+    "createOneBelow": "Utwórz jedną poniżej",
+    "collectionNamePlaceholder": "Nazwa kolekcji…",
+    "create": "Utwórz",
+    "newCollection": "+ Nowa kolekcja",
+    "fullUpgrade": "Pełna — przejdź na Pro po więcej",
+    "cancel": "Anuluj",
+    "loading": "Ładowanie…",
+    "addToPlanHeader": "Dodaj do planu tygodnia",
+    "plan": "Plan",
+    "day": "Dzień",
+    "meal": "Posiłek",
+    "planNamePlaceholder": "Nazwij swój plan…",
+    "proMorePlans": "✦ Pro — więcej planów",
+    "saving": "Zapisywanie…",
+    "addToPlanButton": "Dodaj do planu",
+    "chooseRecipeFor": "Wybierz przepis na",
+    "myRecipesTab": "Moje przepisy",
+    "noSavedRecipes": "Nie masz jeszcze zapisanych przepisów",
+    "emptyCollection": "Ta kolekcja jest pusta",
+    "saveHint": "Zapisuj przepisy ikoną ♡ na stronie głównej.",
+    "addHint": "Dodawaj przepisy do tej kolekcji ikoną 📚.",
+    "shoppingTitle": "🛒 Lista zakupów",
+    "recipesCount": "{count} przepisów",
+    "done": "gotowe",
+    "reset": "Resetuj",
+    "cantLoad": "Nie udało się załadować składników.",
+    "noRecipesInPlan": "Brak przepisów w planie",
+    "addRecipesFirst": "Najpierw dodaj przepisy do swojego planu tygodnia.",
+    "noIngredients": "Nie znaleziono składników — niektóre źródła nie udostępniają list składników.",
+    "orderGroceries": "🛒 Zamów zakupy w Amazon",
+    "affiliateNote": "Link afiliacyjny — bez dodatkowych kosztów dla ciebie",
+    "allDone": "Wszystko gotowe!",
+    "boughtAll": "Masz już wszystkie składniki."
+  },
+  "proSuccess": {
+    "title": "Witaj w Culinse Pro!",
+    "subtitle": "Twój abonament jest aktywny. Masz teraz dostęp do nieograniczonych kolekcji, planera tygodnia i inteligentnych list zakupów.",
+    "goCollections": "📚 Do moich kolekcji",
+    "discover": "Odkrywaj przepisy"
+  }
+}

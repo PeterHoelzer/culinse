@@ -48,7 +48,7 @@ export default function ProfilePage() {
     supabase.auth.getUser().then(async ({ data }) => {
       if (!data.user) {
         const locale = window.location.pathname.split("/")[1] || "en";
-        const supported = ["en", "de"];
+        const supported = ["en", "de", "es", "fr", "it", "pl", "tr"];
         const l = supported.includes(locale) ? locale : "en";
         window.location.href = `/${l}/login`;
         return;

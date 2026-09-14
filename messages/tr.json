@@ -1,0 +1,693 @@
+{
+  "nav": {
+    "discover": "Keşfet",
+    "about": "Hakkımızda",
+    "blog": "Blog",
+    "mealPlanner": "Haftalık planlayıcı",
+    "collections": "Koleksiyonlar",
+    "saved": "Kaydedilenler",
+    "profile": "Profil",
+    "login": "Giriş yap",
+    "getStarted": "Başla →",
+    "join": "Katıl",
+    "logout": "Çıkış yap",
+    "upgrade": "✦ Yükselt",
+    "myRecipes": "Tariflerim",
+    "calculator": "Hesaplayıcı",
+    "myRecipesShort": "Tarifler"
+  },
+  "hero": {
+    "badge": "Bir usta kasap ve şef tarafından geliştirildi",
+    "headline1": "Sevdiğin her tarif için",
+    "headline2": "tek bir adres.",
+    "subline": "Culinse, en iyi kaynaklardaki tarifleri bir araya getirir — beslenmene ve alerjilerine göre filtrelenmiş, reklam banner'ı olmadan ve tüm tarifler ücretsiz.",
+    "searchPlaceholder": "Makarna, köri, biftek…",
+    "searchButton": "Ara",
+    "tryLabel": "Dene:",
+    "quickPicks": [
+      "Carbonara makarna",
+      "Dana biftek",
+      "Tayland körisi",
+      "Çikolatalı kek"
+    ],
+    "sourcesMobile": "Kendi tariflerimiz · Topluluk · Aile",
+    "sourcesDesktop": "Tariflerimizin kaynakları:",
+    "freeLabel": "Ücretsiz kullanım · Reklam banner'ı yok",
+    "ctaPlan": "📅 Haftanı ücretsiz planla",
+    "ctaBrowse": "Tarifleri keşfet ↓",
+    "trust1": "Ücretsiz kullanım",
+    "trust2": "Reklam banner'ı yok",
+    "trust3": "Gerçek market fiyatları"
+  },
+  "categories": [
+    "Tümü",
+    "Makarna",
+    "Asya",
+    "Kore",
+    "Kahvaltı",
+    "Deniz ürünleri",
+    "Pizza",
+    "Tatlı",
+    "Salata",
+    "Çorba"
+  ],
+  "trendFilters": {
+    "trending": "🔥 Trend",
+    "highProtein": "💪 Bol protein",
+    "lowCarb": "⚡ Low Carb",
+    "keto": "🥑 Keto",
+    "dairyFree": "🥛 Laktozsuz",
+    "mediterranean": "🫒 Akdeniz",
+    "forYou": "✨ Sana özel"
+  },
+  "timeFilters": {
+    "15": "≤ 15 dk",
+    "30": "≤ 30 dk",
+    "60": "≤ 60 dk",
+    "any": "Fark etmez"
+  },
+  "dietFilters": {
+    "all": "Tüm diyetler",
+    "vegetarian": "Vejetaryen",
+    "vegan": "Vegan",
+    "glutenFree": "Glutensiz"
+  },
+  "discover": {
+    "title": "Bugün trend olanlar",
+    "resultsFor": "\"{query}\" için sonuçlar",
+    "loading": "Tarifler yükleniyor…",
+    "recipesFound": "Dünyanın en iyi yemek sitelerinden {count} tarif",
+    "loadMore": "Daha fazla yükle",
+    "loadingMore": "Yükleniyor…",
+    "noRecipes": "Tarif bulunamadı",
+    "noRecipesSub": "Başka bir arama ya da kategori dene",
+    "error": "Tarifler yüklenemedi",
+    "tryAgain": "Tekrar dene",
+    "quotaWarning": "Tarif kataloğumuzu güncelliyoruz — tüm sonuçlar kısa süre içinde yeniden hazır olacak.",
+    "allergenFiltered": "{count} alerjen filtrelendi",
+    "allergensFiltered": "{count} alerjen filtrelendi",
+    "profileCta": "Beslenme profilini oluştur",
+    "profileCtaSub": "Beslenme tercihini ve alerjenlerini seç — sana özel bir akış al."
+  },
+  "recipeCard": {
+    "servings": "{count} porsiyon",
+    "details": "Detaylar →",
+    "addToCollection": "Koleksiyona ekle",
+    "save": "Tarifi kaydet",
+    "removeSave": "Kaydedilenlerden çıkar",
+    "loginToSave": "Kaydetmek için giriş yap"
+  },
+  "forYou": {
+    "title": "✨ Sana özel",
+    "subtitle": "Beslenme profiline göre kişiselleştirildi",
+    "fromActivity": "Kaydettiğin ve planladığın tariflere göre",
+    "editProfile": "Profili düzenle →"
+  },
+  "videoSection": {
+    "title": "🎬 Video tarifler",
+    "comingSoonBadge": "Çok yakında",
+    "comingSoonTitle": "Kendi yemek videolarımız üzerinde çalışıyoruz",
+    "comingSoonText": "Culinse mutfağından taze, adım adım videolar — hazır kalıp değil. Yakında yine uğra!",
+    "subtitle": "İzle ve pişir — adım adım",
+    "fullRecipe": "Tarife git →",
+    "loadMore": "Daha fazla video yükle",
+    "loading": "Yükleniyor…",
+    "addToPlan": "+ Planla"
+  },
+  "howItWorks": {
+    "title": "Culinse nasıl çalışır",
+    "subtitle": "İnternetteki en iyi tarifleri sana getiriyoruz — kişiselleştirilmiş, aranabilir ve otomatik alışveriş listesiyle.",
+    "steps": [
+      {
+        "icon": "🔍",
+        "title": "Ara ve keşfet",
+        "desc": "Dünyanın en iyi yemek sitelerinden milyonlarca tarif arasında ara — hepsi tek bir yerde."
+      },
+      {
+        "icon": "❤️",
+        "title": "Kaydet ve kişiselleştir",
+        "desc": "Sevdiğin tarifleri kaydet. Culinse damak tadını öğrenir ve sana daha fazlasını gösterir."
+      },
+      {
+        "icon": "🛒",
+        "title": "€ toplamlı alışveriş listesi",
+        "desc": "Haftalık planın otomatik olarak alışveriş listesine dönüşür — her malzeme için tahmini market fiyatı ve tüm haftanın toplamıyla birlikte."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Hemen tarifleri keşfet.",
+    "subtitle": "Ücretsiz başla, abonelik zorunluluğu yok. Sadece harika yemekler, sana özel.",
+    "button": "Ücretsiz hesap oluştur →",
+    "buttonLoggedIn": "Haftalık planlayıcını aç →"
+  },
+  "footer": {
+    "about": "Hakkımızda",
+    "impressum": "Künye",
+    "datenschutz": "Gizlilik",
+    "aiTransparency": "Yapay zekâ şeffaflığı",
+    "agb": "Kullanım koşulları",
+    "widerruf": "Cayma hakkı",
+    "contact": "İletişim",
+    "copyright": "© {year} Culinse. Tüm hakları saklıdır.",
+    "planner": "Haftalık planlayıcı",
+    "calculator": "Alışveriş hesaplayıcı"
+  },
+  "about": {
+    "ourStory": "Hikâyemiz",
+    "heroTitle1": "Bir aşçı tarafından yapıldı.",
+    "heroTitle2": "Yemek yapan herkes için.",
+    "heroSubtitle": "Culinse gerçek bir bıkkınlıktan doğdu — akşam yemeği için doğru düzgün bir tarif bulmak uğruna 20 dakika boyunca site site gezmekten.",
+    "founderRole": "Şef · Usta kasap · Kurucu",
+    "whereWeGoing": "Nereye gidiyoruz",
+    "visionTitle": "Evrensel tarif platformu",
+    "values": [
+      {
+        "icon": "🍖",
+        "title": "Zanaat",
+        "desc": "Yıllarca ocak başında ve tezgâh arkasında durmuş biri tarafından geliştirildi."
+      },
+      {
+        "icon": "❤️",
+        "title": "Tutku",
+        "desc": "Yemek yakıttan ibaret değil. Culinse, yemek yapmayı gerçekten seven insanlar için."
+      },
+      {
+        "icon": "✨",
+        "title": "Sadelik",
+        "desc": "Reklam banner'ı yok, abonelik zorunluluğu yok, karmaşa yok. Sadece pişirmek isteyeceğin tarifler."
+      }
+    ],
+    "visionItems": [
+      {
+        "icon": "📅",
+        "title": "Haftalık yemek planlayıcı",
+        "desc": "Tüm haftanı dakikalar içinde planla. Culinse; beslenmene, programına ve buzdolabında hâlihazırda olanlara uygun tarifleri seçer."
+      },
+      {
+        "icon": "🛒",
+        "title": "Akıllı alışveriş listeleri",
+        "desc": "Haftalık planından otomatik olarak bir alışveriş listesi oluştur — ya da doğrudan favori teslimat servisine gönder."
+      },
+      {
+        "icon": "📚",
+        "title": "Tarif albümleri",
+        "desc": "Kendi koleksiyonlarını oluştur ve arkadaşlarınla, ailenle ya da tüm dünyayla paylaş."
+      },
+      {
+        "icon": "🌍",
+        "title": "Her şey tek bir yerde",
+        "desc": "Tek bir platform. Her tarif. Artık onlarca tarayıcı sekmesi yok. Hızlı hafta içi akşam yemeklerinden iddialı hafta sonu projelerine kadar."
+      }
+    ],
+    "discoverCta": "Tarifleri keşfet →",
+    "feedbackLabel": "Sorun ya da geri bildirimin mi var?",
+    "story1": "Önce şeftim ve Almanya'nın dört bir yanındaki restoranlarda yemek yaptım. Sonra yolum kasaplık zanaatına düştü — 2024'te, bu zanaattaki en yüksek mesleki yeterlilik olan usta kasap unvanını aldım. Yemek benim için bir yan uğraş değil. Her şey.",
+    "story2": "Ama bu geçmişe rağmen günlük sorun hep aynıydı: Doğru tarifi bulmak; bir düzine tarayıcı sekmesiyle boğuşmak, çerez uyarılarını kapatmak ve asıl malzemelere gelene kadar sayfalarca hayat hikâyesi arasında kaydırmak demekti. Keyif vermesi gereken bir şey için fazlasıyla yorucuydu.",
+    "story3": "Hep şunu düşündüm: Neden işini gerçekten yapan bir platform yok? Tek bir yer, harika tarifler, gürültü yok. Müzik keşfetmek nasıl işliyorsa öyle — ama yemek için. Ben de onu yaptım.",
+    "story4": "İşte Culinse bu.",
+    "name": "Peter"
+  },
+  "login": {
+    "title": "Culinse'ye giriş yap",
+    "subtitle": "Tarifleri kaydet, öğünlerini planla ve sana özel öneriler al.",
+    "emailLabel": "E-posta adresi",
+    "emailPlaceholder": "senin@eposta.com",
+    "magicLinkButton": "Magic Link gönder",
+    "sending": "Gönderiliyor…",
+    "checkEmail": "E-posta kutuna bak — bağlantı gönderildi!",
+    "orContinueWith": "ya da şununla devam et",
+    "googleButton": "Google ile devam et",
+    "noAccount": "Hesap açmana gerek yok — kayıt otomatik olarak tamamlanır.",
+    "errorLinkExpired": "Bu bağlantının süresi dolmuş. Lütfen yeni bir tane iste.",
+    "logIn": "Giriş yap",
+    "signUp": "Kayıt ol",
+    "welcomeBack": "Tekrar hoş geldin",
+    "createAccount": "Hesap oluştur",
+    "loginSub": "Tarifleri kaydetmek ve kişisel akışına ulaşmak için giriş yap.",
+    "signupSub": "Sonsuza dek ücretsiz. Kredi kartı gerekmez.",
+    "passwordLabel": "Şifre",
+    "passwordPlaceholder": "En az 6 karakter",
+    "forgotPassword": "Şifreni mi unuttun?",
+    "loginButton": "Giriş yap →",
+    "createButton": "Hesap oluştur →",
+    "checkInbox": "Gelen kutuna bak!",
+    "sentTo": "Doğrulama bağlantısını şu adrese gönderdik",
+    "spamNote": "Hesabını etkinleştirmek için e-postadaki bağlantıya tıkla. Spam klasörüne de bakmayı unutma.",
+    "backToLogin": "← Girişe dön",
+    "or": "ya da",
+    "privacyNote": "Devam ederek",
+    "privacyLink": "Gizlilik Politikamızı",
+    "privacySuffix": " kabul etmiş olursun",
+    "loading": "Yükleniyor…"
+  },
+  "profile": {
+    "title": "Profil",
+    "pageTitle": "Beslenme profilin",
+    "welcomeBanner": "🎉 Culinse'ye hoş geldin! Beslenme profilini oluştur ve sana özel tarifler al.",
+    "progress0": "Sana özel tarifler almak için tercihlerini belirle",
+    "progress1": "İyi başlangıç — 2 adım kaldı",
+    "progress2": "Neredeyse bitti — 1 adım kaldı",
+    "progress3": "✓ Profil tamamlandı — Sana özel aktif!",
+    "planPro": "Culinse Pro",
+    "planFree": "Ücretsiz plan",
+    "renews": "{date} tarihinde yenilenir",
+    "active": "✓ Aktif",
+    "free": "Ücretsiz",
+    "proFeatures": [
+      "Sınırsız koleksiyon",
+      "Haftalık yemek planı",
+      "Akıllı alışveriş listesi",
+      "Sınırsız tarif kaydetme",
+      "Yeni özelliklere öncelikli erişim"
+    ],
+    "loading": "Yükleniyor…",
+    "manageSubscription": "Aboneliği yönet",
+    "upgradeButton": "Pro'ya yükselt — €4,99 / ay",
+    "dietTitle": "Beslenme",
+    "dietSub": "Sadece yaşam tarzına uyan tarifleri göster.",
+    "activeLabel": "Aktif",
+    "nActive": "{n} aktif",
+    "allergenTitle": "Alerjenler ve intoleranslar",
+    "allergenSub": "Malzemeleri akışından çıkarmak için dokun.",
+    "timeTitle": "Maksimum pişirme süresi",
+    "timeSub": "Sadece gerçekten pişirebileceğin tarifleri göster.",
+    "saving": "Kaydediliyor…",
+    "saved": "✓ Kaydedildi!",
+    "saveButton": "Tercihleri kaydet",
+    "back": "← Geri",
+    "dietOptions": [
+      {
+        "label": "Tercih yok",
+        "desc": "Her şeyi göster"
+      },
+      {
+        "label": "Vejetaryen",
+        "desc": "Et ve balık yok"
+      },
+      {
+        "label": "Vegan",
+        "desc": "Sadece bitkisel"
+      },
+      {
+        "label": "Keto",
+        "desc": "Az karbonhidrat, bol yağ"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Köklere dönüş"
+      },
+      {
+        "label": "Glutensiz",
+        "desc": "Gluten yok"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Temiz beslenme"
+      }
+    ],
+    "intoleranceOptions": [
+      "Süt",
+      "Yumurta",
+      "Gluten",
+      "Yer fıstığı",
+      "Kuruyemiş",
+      "Soya",
+      "Deniz ürünleri",
+      "Kabuklu deniz ürünleri",
+      "Buğday",
+      "Sülfitler"
+    ],
+    "timeOptions": [
+      {
+        "label": "Limit yok"
+      },
+      {
+        "label": "≤ 15 dk."
+      },
+      {
+        "label": "≤ 30 dk."
+      },
+      {
+        "label": "≤ 60 dk."
+      }
+    ]
+  },
+  "saved": {
+    "title": "Kaydedilen tarifler",
+    "empty": "Henüz kaydedilmiş tarif yok",
+    "emptySub": "Sevdiğin tarifleri kaydet, hepsi burada görünsün.",
+    "discover": "Tarifleri keşfet →"
+  },
+  "collections": {
+    "title": "Koleksiyonlarım",
+    "newCollection": "Yeni koleksiyon",
+    "empty": "Henüz koleksiyon yok",
+    "emptySub": "Favori tariflerini düzenlemek için ilk koleksiyonunu oluştur.",
+    "deleteConfirm": "Bu koleksiyon silinsin mi?",
+    "delete": "Sil",
+    "cancel": "İptal",
+    "newCollectionTitle": "Yeni koleksiyon",
+    "creating": "Oluşturuluyor…",
+    "create": "Koleksiyon oluştur",
+    "upgradeTitle": "Sınırsız koleksiyon",
+    "upgradeSubtext": "Ücretsiz plan, en fazla 10 tarif içeren 1 koleksiyon sunar. Her şeyi sınırsız kullanmak için Pro'ya yükselt.",
+    "upgradeButton": "Pro'ya yükselt →",
+    "createFirst": "+ İlk koleksiyonu oluştur",
+    "groupDesc": "Favori tariflerini koleksiyonlarda topla — yemek için çalma listesi gibi.",
+    "counter": "{count, plural, one {# koleksiyon} other {# koleksiyon}}",
+    "newButton": "+ Yeni",
+    "publicLabel": "Herkese açık yap",
+    "publicSub": "Bağlantıya sahip herkes görüntüleyebilir",
+    "nameLabel": "Ad",
+    "descLabel": "Açıklama",
+    "descOptional": "(isteğe bağlı)",
+    "namePlaceholder": "örn. İtalyan favorileri",
+    "descPlaceholder": "Kısa bir açıklama…",
+    "iconLabel": "Simge",
+    "upgradePro": "Pro'ya yükselt",
+    "loading": "Yükleniyor…",
+    "recipeCount": "{count, plural, one {# tarif} other {# tarif}}",
+    "detailBack": "Koleksiyonlarım",
+    "publicBadge": "Herkese açık",
+    "makePrivate": "🔒 Gizli yap",
+    "makePublic": "🌍 Herkese açık yap",
+    "share": "↑ Paylaş",
+    "copied": "✓ Bağlantı kopyalandı!",
+    "noRecipes": "Henüz tarif yok",
+    "noRecipesSub": "Herhangi bir tarif sayfasından bu koleksiyona tarif ekle.",
+    "discoverCta": "Tarifleri keşfet →",
+    "deleteThis": "Bu koleksiyonu sil",
+    "deleteNamed": "\"{name}\" silinsin mi?",
+    "yesDelete": "Evet, sil",
+    "removeFromCollection": "Koleksiyondan çıkar",
+    "view": "Görüntüle →"
+  },
+  "mealPlanner": {
+    "shareWeek": "Paylaş",
+    "shareCopied": "✓ Bağlantı kopyalandı",
+    "title": "Haftalık planlayıcı",
+    "days": [
+      "Pzt",
+      "Sal",
+      "Çar",
+      "Per",
+      "Cum",
+      "Cmt",
+      "Paz"
+    ],
+    "meals": [
+      "Kahvaltı",
+      "Öğle yemeği",
+      "Akşam yemeği"
+    ],
+    "addRecipe": "+ Tarif ekle",
+    "shoppingList": "🛒 Alışveriş listesi",
+    "clearWeek": "Haftayı temizle",
+    "thisWeek": "Bu hafta",
+    "daysFull": [
+      "Pazartesi",
+      "Salı",
+      "Çarşamba",
+      "Perşembe",
+      "Cuma",
+      "Cumartesi",
+      "Pazar"
+    ],
+    "clearConfirm": "Bu haftanın tüm öğünleri silinsin mi?",
+    "noRecipes": "Planında henüz tarif yok.",
+    "planName": "Haftalık plan",
+    "tapToAdd": "Tarif eklemek için bir kutuya dokun.",
+    "mealsPlanned": "{n}/21 öğün planlandı",
+    "namePlanPlaceholder": "Plana ad ver…",
+    "proMorePlans": "✦ Pro — daha fazla plan",
+    "newPlan": "+ Yeni plan",
+    "dragHint": "İpucu: Öğünleri sürükleyip bırakarak taşı ya da yer değiştir.",
+    "move": "Taşı",
+    "moveHint": "Taşımak için hedef kutuya dokun",
+    "moveHere": "Buraya taşı",
+    "swapHere": "Yer değiştir",
+    "moving": "Taşınıyor …",
+    "today": "Bugün",
+    "copyWeek": "Haftayı kopyala",
+    "prevWeek": "Önceki hafta",
+    "nextWeek": "Sonraki hafta",
+    "emptyTitle": "Planın henüz boş",
+    "emptySub": "Kaydettiğin tariflerden birini eklemek için bir kutuya dokun.",
+    "myRecipes": "♥ Tariflerim",
+    "collections": "📚 Koleksiyonlar",
+    "proModalTitle": "Pro ile daha fazla plan",
+    "proModalSub": "Culinse Pro ile sınırsız yemek planı oluşturabilirsin.",
+    "proModalButton": "Pro'ya yükselt — €4,99 / ay",
+    "cancel": "İptal",
+    "deletePlanConfirm": "Plan silinsin mi? Tüm kayıtlar kaybolur."
+  },
+  "shoppingList": {
+    "title": "Alışveriş listesi",
+    "empty": "Alışveriş listesi oluşturmak için haftalık planına tarif ekle.",
+    "checkAll": "Tümünü işaretle",
+    "uncheckAll": "Tüm işaretleri kaldır",
+    "close": "Kapat"
+  },
+  "onboarding": {
+    "title": "Culinse'ye hoş geldin! Nasıl beslenmeyi seversin?",
+    "step1Sub": "Sana uygun tarifler önerebilmemiz için. Bunu daha sonra profilinden değiştirebilirsin.",
+    "diet_all": "Her şeyi yerim",
+    "diet_all_desc": "Her mutfaktan renkli bir karışım",
+    "diet_vegetarian": "Vejetaryen",
+    "diet_vegetarian_desc": "Etsiz ve balıksız",
+    "diet_vegan": "Vegan",
+    "diet_vegan_desc": "Tamamen bitkisel",
+    "diet_protein": "Bol proteinli",
+    "diet_protein_desc": "Bol protein, örn. antrenman için",
+    "diet_quick": "Hızlı ve kolay",
+    "diet_quick_desc": "30 dakikanın altında iş çıkışı mutfağı",
+    "step2Title": "Başlangıç haftan",
+    "step2Sub": "Pazartesiden cumaya beş öneri — sana uymayanların seçimini kaldır.",
+    "addSelected": "{count, plural, one {1 tarifi} other {# tarifi}} haftalık plana ekle",
+    "adding": "Plana ekleniyor…",
+    "step3Title": "Haftalık planın hazır!",
+    "step3Sub": "{count, plural, one {Bir akşam yemeği} other {# akşam yemeği}} planlandı — ve alışveriş listen miktarlar ile tahmini maliyetler dahil otomatik olarak hazır.",
+    "viewList": "🛒 Alışveriş listesini gör",
+    "toPlanner": "Haftalık planlayıcıya git →",
+    "skip": "Atla — doğrudan ana sayfaya",
+    "loadError": "Maalesef bu işe yaramadı. Birazdan tekrar dene.",
+    "planName": "Haftalık planım"
+  },
+  "planShare": {
+    "badge": "Paylaşılan haftalık plan",
+    "title": "Haftalık planım",
+    "titleWithCost": "Haftam: {cost}",
+    "subtitle": "{count, plural, one {1 yemek} other {# yemek}} · {date} haftası",
+    "estCost": "Tahmini alışveriş maliyeti",
+    "estCostHint": "İndirim marketi fiyat seviyesine göre tahmin ({total} yemeğin {priced} tanesi hesaplandı). Fiyatlar markete göre değişir.",
+    "ctaTitle": "Kendi haftanı planla — ücretsiz",
+    "ctaText": "Tarifleri seç, haftanı doldur, fiyat tahminiyle hazır alışveriş listeni al. Reklam banner'ı yok, abonelik zorunluluğu yok.",
+    "ctaButton": "Ücretsiz başla"
+  },
+  "recipe": {
+    "cookTime": "Pişirme süresi",
+    "servings": "Porsiyon",
+    "ingredients": "Malzemeler",
+    "instructions": "Hazırlanışı",
+    "saveRecipe": "♡ Tarifi kaydet",
+    "savedRecipe": "♥ Kaydedildi",
+    "saving": "…",
+    "viewOriginal": "Orijinali gör ↗",
+    "addToPlan": "+ Haftalık plana",
+    "similarRecipes": "Benzer tarifler",
+    "backToDiscover": "← Geri",
+    "notFound": "Tarif bulunamadı",
+    "source": "Kaynak",
+    "collections": "Koleksiyonlar",
+    "share": "Paylaş",
+    "copied": "Kopyalandı!",
+    "print": "Yazdır",
+    "reset": "Sıfırla",
+    "forServings": "{count} porsiyon için",
+    "moreVideos": "Diğer videolar",
+    "loadingVideos": "Videolar yükleniyor…",
+    "instructionsOnSource": "Hazırlanışın tamamını orijinal sayfada bulabilirsin.",
+    "viewFullRecipe": "Tarifin tamamını gör",
+    "printWithImage": "Görselli",
+    "printNoImage": "Görselsiz",
+    "aiNotice": "Yapay zekâ desteğiyle oluşturuldu ve editör tarafından kontrol edildi",
+    "aiNoticeMore": "Yapay zekâ şeffaflığı hakkında daha fazlası"
+  },
+  "pro": {
+    "title": "Culinse Pro",
+    "subtitle": "Culinse deneyiminin tamamının kilidini aç.",
+    "price": "€4,99 / ay",
+    "features": [
+      "Eksiksiz 7 günlük haftalık planlayıcı",
+      "Miktarları birleştirilmiş otomatik alışveriş listesi",
+      "Sınırsız tarif koleksiyonu",
+      "Öncelikli destek"
+    ],
+    "upgradeButton": "Pro'ya yükselt →",
+    "processing": "İşleniyor…",
+    "currentPlan": "Mevcut planın: Pro ✦",
+    "manageButton": "Aboneliği yönet →",
+    "heroTitle": "Mutfağın,\ntamamen düzenli.",
+    "heroSubtitle": "Haftanı planla, alışveriş listeni oluştur ve sevdiğin her tarifi düzenle — hepsi tek bir yerde.",
+    "alreadyPro": "✓ Zaten Pro üyesin!",
+    "freeForAllBadge": "Tüm Pro özellikleri şu an ücretsiz",
+    "freeForAllNote": "Culinse'yi şu sıralar büyütüyoruz — tüm Pro özellikleri bütün kullanıcılara açık. Giriş yap ve planlamaya başla, abonelik gerekmiyor.",
+    "startButton": "7 gün ücretsiz dene →",
+    "cancelNote": "7 gün ücretsiz · Ücret ancak sonrasında alınır · İstediğin zaman iptal",
+    "legalNote": "Şunlar geçerlidir:",
+    "legalAnd": "ve",
+    "agbLabel": "Kullanım Koşulları",
+    "widerrufLabel": "Cayma Hakkı Bilgilendirmesi",
+    "activeNote": "Culinse Pro kullanıyorsun 🎉",
+    "freeLabel": "Ücretsiz",
+    "proLabel": "Pro",
+    "everythingInFree": "Ücretsiz plandaki her şey, ayrıca:",
+    "faqTitle": "FAQ",
+    "faqItems": [
+      {
+        "q": "İstediğim zaman iptal edebilir miyim?",
+        "a": "Evet, profilinden istediğin zaman iptal edebilirsin. Pro erişimin fatura döneminin sonuna kadar devam eder."
+      },
+      {
+        "q": "Hangi ödeme yöntemleri kabul ediliyor?",
+        "a": "Stripe üzerinden yaygın tüm kredi ve banka kartları. Güvenli, şifreli, PCI uyumlu."
+      },
+      {
+        "q": "İptal edersem koleksiyonlarıma ne olur?",
+        "a": "Koleksiyonların kayıtlı kalır. Sadece ücretsiz limitin ötesinde yenilerini oluşturamazsın."
+      },
+      {
+        "q": "Ücretsiz deneme süresi var mı?",
+        "a": "Evet — Pro'yu 7 gün ücretsiz denersin. Ücret ancak deneme süresi bittikten sonra alınır ve öncesinde istediğin zaman iptal edebilirsin."
+      }
+    ],
+    "freeFeatures": [
+      "4 önde gelen kaynaktan tarifler",
+      "Beslenme, süre ve mutfağa göre arama ve filtreleme",
+      "Tarif kaydetme (♡)",
+      "1 koleksiyon (en fazla 10 tarif)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Sınırsız koleksiyon",
+        "sub": "Favorilerini tam istediğin gibi düzenle"
+      },
+      {
+        "icon": "📅",
+        "label": "Haftalık yemek planlayıcı",
+        "sub": "Tüm hafta için kahvaltı, öğle ve akşam yemeğini planla"
+      },
+      {
+        "icon": "🛒",
+        "label": "Akıllı alışveriş listesi",
+        "sub": "Planından otomatik oluşturulur, kategoriye göre sıralanır"
+      },
+      {
+        "icon": "❤️",
+        "label": "Sınırsız tarif kaydetme",
+        "sub": "25 tarif limiti yok — damak tadına uyan her şeyi kaydet"
+      },
+      {
+        "icon": "⚡",
+        "label": "Yeni özelliklerde öncelik",
+        "sub": "Sırada ne geliştiriyorsak ilk erişim sende"
+      }
+    ],
+    "questions": "Soru mu var?",
+    "annualLabel": "Yıllık",
+    "monthlyLabel": "Aylık",
+    "annualSave": "%35 tasarruf",
+    "annualPrice": "€3,24 / ay",
+    "annualTotal": "€38,88 / yıl",
+    "monthlyPrice": "€4,99 / ay",
+    "annualStartButton": "7 gün ücretsiz dene →",
+    "billedAnnually": "Yıllık faturalandırılır",
+    "billedMonthly": "Aylık faturalandırılır"
+  },
+  "blog": {
+    "title": "Culinse Blog",
+    "subtitle": "Daha akıllı yemek yapmak için ipuçları, rehberler ve fikirler.",
+    "readMore": "Devamını oku →",
+    "backToBlog": "← Blog'a dön",
+    "minRead": "dk. okuma"
+  },
+  "error": {
+    "notFound": "Sayfa bulunamadı",
+    "notFoundSub": "Aradığın sayfa mevcut değil.",
+    "backHome": "Ana sayfaya dön"
+  },
+  "newsletter": {
+    "title": "7 günlük meal prep planını al (PDF)",
+    "subtitle": "Hazırlık bloğu, işaretlenebilir alışveriş listesi ve şef ipuçlarıyla eksiksiz haftalık plan — ücretsiz PDF olarak. Üstelik her hafta en iyi tarif fikirleri. Spam yok, istediğin zaman çıkabilirsin.",
+    "placeholder": "senin@eposta.com",
+    "button": "Abone ol",
+    "success": "🎉 Teşekkürler! Yakında bizden haber alacaksın.",
+    "error": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+    "already": "Bu e-posta zaten kayıtlı.",
+    "sending": "Kaydediliyor…",
+    "download": "📄 Planı hemen indir (PDF)"
+  },
+  "loginPrompt": {
+    "title": "Tarifi kaydet",
+    "subtitle": "Tarifleri kaydetmek ve sonra kolayca bulmak için ücretsiz bir hesap oluştur.",
+    "login": "Giriş yap",
+    "signup": "Ücretsiz kayıt ol",
+    "cancel": "İptal"
+  },
+  "modals": {
+    "ad": "Reklam",
+    "shop": "Shop",
+    "kitchenTools": "Mutfak gereçleri",
+    "affiliateLinks": "* Affiliate bağlantıları",
+    "upgradeTitle": "Pro'ya yükselt",
+    "upgradeMessage": "Ücretsiz planın 25 kayıtlı tarif limitine ulaştın. Sınırsız kaydetme, koleksiyonlar ve daha fazlası için Pro'ya yükselt.",
+    "seePlans": "Pro paketlerini gör",
+    "maybeLater": "Belki sonra",
+    "proFeature": "Pro özelliği",
+    "proUnlock": "Bunun ve daha fazlasının kilidini açmak için Pro'ya yükselt.",
+    "proFrom": "4,99 €/ay'dan itibaren →",
+    "addToCollection": "Koleksiyona ekle",
+    "noCollections": "Henüz koleksiyon yok",
+    "createOneBelow": "Aşağıdan bir tane oluştur",
+    "collectionNamePlaceholder": "Koleksiyonun adı…",
+    "create": "Oluştur",
+    "newCollection": "+ Yeni koleksiyon",
+    "fullUpgrade": "Dolu — daha fazlası için yükselt",
+    "cancel": "İptal",
+    "loading": "Yükleniyor…",
+    "addToPlanHeader": "Haftalık plana ekle",
+    "plan": "Plan",
+    "day": "Gün",
+    "meal": "Öğün",
+    "planNamePlaceholder": "Planına ad ver…",
+    "proMorePlans": "✦ Pro — daha fazla plan",
+    "saving": "Kaydediliyor…",
+    "addToPlanButton": "Plana ekle",
+    "chooseRecipeFor": "Şunun için tarif seç",
+    "myRecipesTab": "Tariflerim",
+    "noSavedRecipes": "Henüz kaydedilmiş tarif yok",
+    "emptyCollection": "Bu koleksiyon boş",
+    "saveHint": "Ana sayfada tarifleri ♡ ile kaydet.",
+    "addHint": "Bu koleksiyona 📚 ile tarif ekle.",
+    "shoppingTitle": "🛒 Alışveriş listesi",
+    "recipesCount": "{count} tarif",
+    "done": "tamamlandı",
+    "reset": "Sıfırla",
+    "cantLoad": "Malzemeler yüklenemedi.",
+    "noRecipesInPlan": "Planda tarif yok",
+    "addRecipesFirst": "Önce haftalık planına tarif ekle.",
+    "noIngredients": "Malzeme bulunamadı — bazı kaynaklar malzeme listesi sunmuyor.",
+    "orderGroceries": "🛒 Amazon'dan market siparişi ver",
+    "affiliateNote": "Affiliate bağlantısı — sana ek maliyeti yok",
+    "allDone": "Her şey tamam!",
+    "boughtAll": "Tüm malzemeleri aldın."
+  },
+  "proSuccess": {
+    "title": "Culinse Pro'ya hoş geldin!",
+    "subtitle": "Aboneliğin aktif. Artık sınırsız koleksiyonlara, haftalık planlayıcıya ve akıllı alışveriş listelerine erişebilirsin.",
+    "goCollections": "📚 Koleksiyonlarıma git",
+    "discover": "Tarifleri keşfet"
+  }
+}

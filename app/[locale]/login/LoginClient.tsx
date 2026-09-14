@@ -38,7 +38,7 @@ export default function LoginClient() {
     const rawRedirect = new URLSearchParams(window.location.search).get("redirectTo");
     const isInternalPath = rawRedirect?.startsWith("/") && !rawRedirect.startsWith("//");
     const redirectTo = isInternalPath
-      ? rawRedirect!.replace(/^\/(en|de)(?=\/|$)/, "") || "/"
+      ? rawRedirect!.replace(/^\/(en|de|es|fr|it|pl|tr)(?=\/|$)/, "") || "/"
       : null;
 
     if (mode === "signup") {

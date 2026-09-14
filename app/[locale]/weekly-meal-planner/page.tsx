@@ -22,7 +22,7 @@ export const dynamic = "force-static";
 export const revalidate = 86400;
 
 export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "de" }];
+  return ["en", "de", "es", "fr", "it", "pl", "tr"].map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
