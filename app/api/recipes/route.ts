@@ -86,7 +86,7 @@ export async function GET(req: NextRequest) {
   const maxTime = Math.floor(Number(searchParams.get("maxTime")) || 0);
   const diet = (searchParams.get("diet") || "").toLowerCase();
   const lang = (searchParams.get("lang") || "en").toLowerCase();
-  const l = lang === "de" ? "de" : "en";
+  const l = lang === "de" ? "de" : lang === "es" ? "es" : "en";
 
   try {
     const supabase = createAdminClient();
