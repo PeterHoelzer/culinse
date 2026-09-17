@@ -65,7 +65,7 @@ interface FeaturedRecipe {
 async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : "en"}&number=12`,
+      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : "en"}&number=12`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return [];
@@ -87,7 +87,7 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
 async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : "en"}&number=6`,
+      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : "en"}&number=6`,
       { next: { revalidate: 900 } }
     );
     if (!res.ok) return [];

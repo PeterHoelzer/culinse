@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     body = {};
   }
   const diet = typeof body.diet === "string" ? body.diet.toLowerCase() : "";
-  const lang = body.lang === "de" ? "de" : body.lang === "en" ? "en" : body.lang === "es" ? "es" : body.lang === "fr" ? "fr" : body.lang === "it" ? "it" : null;
+  const lang = body.lang === "de" ? "de" : body.lang === "en" ? "en" : body.lang === "es" ? "es" : body.lang === "fr" ? "fr" : body.lang === "it" ? "it" : body.lang === "pl" ? "pl" : null;
 
   try {
     const admin = createAdminClient();
