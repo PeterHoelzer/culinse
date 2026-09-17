@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { requireReviewer } from "@/lib/reviewerGate";
 import { CULINSE_OWNER_ID } from "@/lib/culinse";
 
@@ -118,6 +119,7 @@ export async function POST(req: NextRequest) {
       .eq("id", r.id)
       .eq("user_id", CULINSE_OWNER_ID);
     if (updErr) return NextResponse.json({ error: "update_failed" }, { status: 500 });
+    revalidateTag(`recipe-${r.id}`, "max");
   }
   return NextResponse.json({ imageUrl: publicUrl });
 }
