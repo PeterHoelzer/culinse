@@ -465,9 +465,8 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               <img
                 src={heroImage}
                 alt={recipe.title}
-                style={recipe.imagePosition && activeImageIdx === 0 ? { objectPosition: recipe.imagePosition } : undefined}
                 fetchPriority="high"
-                className="w-full h-64 sm:h-96 object-cover"
+                className="w-full h-64 sm:h-96 object-contain bg-neutral-100"
                 onError={() => setImgError(true)}
               />
             ) : (

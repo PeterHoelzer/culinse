@@ -18,8 +18,8 @@ export async function generateMetadata(
   };
 
   try {
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}`, {
-      next: { revalidate: 86400 },
+    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=3`, {
+      next: { revalidate: 86400, tags: [`recipe-${id}`] },
     });
     if (!res.ok) throw new Error("not found");
     const { recipe } = await res.json();
