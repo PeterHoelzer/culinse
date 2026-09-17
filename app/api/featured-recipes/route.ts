@@ -12,7 +12,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const number = Math.min(Math.max(Number(searchParams.get("number") || 12), 1), 24);
-  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : searchParams.get("lang") === "fr" ? "fr" : "en";
+  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : searchParams.get("lang") === "fr" ? "fr" : searchParams.get("lang") === "it" ? "it" : "en";
   try {
     const supabase = createAdminClient();
     const { data, error } = await supabase
