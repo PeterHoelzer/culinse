@@ -18,11 +18,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
 async function fetchRecipe(id: string): Promise<Recipe | "missing" | null> {
   try {
-    // v=3 (17.09.26, Bilder-Werkstatt-Heilung): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // v=4 (17.09.26, Render-API contain-Fix): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu einem Tag lang alte Daten ohne die neuen Felder.
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=3`, {
+    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=4`, {
       next: { revalidate: 86400, tags: [`recipe-${id}`] },
     });
     // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-
