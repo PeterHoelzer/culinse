@@ -96,7 +96,7 @@ export default function OnboardingClient() {
     try {
       const params = new URLSearchParams({
         id: `onboarding-${key}`,
-        lang: locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : "en",
+        lang: locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : "en",
         number: "5",
       });
       if (choice.tags.length) params.set("tags", choice.tags.join(","));
