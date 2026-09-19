@@ -511,8 +511,8 @@
     "viewFullRecipe": "Voir la recette complète",
     "printWithImage": "Avec image",
     "printNoImage": "Sans image",
-    "aiNotice": "Créé avec l'aide de l'IA et vérifié par la rédaction",
-    "aiNoticeMore": "En savoir plus sur la transparence IA"
+    "aiNotice": "Recette et image créées par IA, relues par la rédaction",
+    "aiNoticeMore": "En savoir plus sur notre transparence IA"
   },
   "pro": {
     "title": "Culinse Pro",

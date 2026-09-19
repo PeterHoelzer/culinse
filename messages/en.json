@@ -128,7 +128,11 @@
         "title": "Save & Personalize",
         "desc": "Save recipes you love. Culinse learns your taste and shows you more of what you like."
       },
-      {"icon": "🛒", "title": "Shopping list with € total", "desc": "Your weekly plan becomes a shopping list automatically — with estimated discount-store prices per ingredient and a total for the whole week."}
+      {
+        "icon": "🛒",
+        "title": "Shopping list with € total",
+        "desc": "Your weekly plan becomes a shopping list automatically — with estimated discount-store prices per ingredient and a total for the whole week."
+      }
     ]
   },
   "cta": {
@@ -507,7 +511,7 @@
     "viewFullRecipe": "View Full Recipe",
     "printWithImage": "With image",
     "printNoImage": "Without image",
-    "aiNotice": "Created with AI assistance and editorially reviewed",
+    "aiNotice": "Recipe and image AI-created, editorially reviewed",
     "aiNoticeMore": "About our AI transparency"
   },
   "pro": {

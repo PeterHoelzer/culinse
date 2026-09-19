@@ -61,8 +61,8 @@ export default async function KiTransparenz({
           </h2>
           <p className="text-gray-600 leading-relaxed">
             {de
-              ? "Ein Teil der Rezepte auf Culinse entsteht mit KI-Unterstützung (Recherche und Textentwurf). Jedes dieser Rezepte wird vor der Veröffentlichung redaktionell geprüft — einschließlich Zutaten, Mengen und Zubereitungsschritten — und liegt in unserer redaktionellen Verantwortung. Du erkennst diese Rezepte am Hinweis „Mit KI-Unterstützung erstellt und redaktionell geprüft“ direkt auf der Rezeptseite. Rezepte von Community-Mitgliedern und Rezepte externer Quellen (z. B. Spoonacular, Tasty) sind davon nicht betroffen."
-              : "Some recipes on Culinse are created with AI assistance (research and text drafting). Every one of these recipes is editorially reviewed before publication — including ingredients, quantities and preparation steps — and is published under our editorial responsibility. You can recognise them by the note “Created with AI assistance and editorially reviewed” on the recipe page. Recipes from community members and from external sources (e.g. Spoonacular, Tasty) are not affected."}
+              ? "Die Rezepte unseres Korpus werden mit Künstlicher Intelligenz erstellt (Recherche, Text und Struktur) und vor der Veröffentlichung redaktionell geprüft — einschließlich Zutaten, Mengen und Zubereitungsschritten. Sie erscheinen in unserer redaktionellen Verantwortung und tragen den Hinweis „Rezept und Bild mit KI erstellt, redaktionell geprüft“ direkt auf der Rezeptseite. Von Community-Mitgliedern selbst verfasste Rezepte sind davon ausgenommen und als Community-Inhalte gekennzeichnet."
+              : "The recipes in our corpus are created with artificial intelligence (research, text and structure) and editorially reviewed before publication — including ingredients, quantities and preparation steps. They are published under our editorial responsibility and carry the note “Recipe and image AI-created, editorially reviewed” on the recipe page. Recipes written by community members themselves are exempt and labelled as community content."}
           </p>
         </section>
 
@@ -72,8 +72,8 @@ export default async function KiTransparenz({
           </h2>
           <p className="text-gray-600 leading-relaxed">
             {de
-              ? "Blog-Artikel entstehen teils mit KI-Unterstützung und werden vor der Veröffentlichung redaktionell geprüft und verantwortet. Einzelne Inhalte — etwa Videotitel oder Rezepttitel externer Quellen — werden maschinell übersetzt; Übersetzungsfehler können vorkommen."
-              : "Blog articles are partly created with AI assistance and are editorially reviewed and approved before publication. Some content — such as video titles or recipe titles from external sources — is machine-translated; translation errors may occur."}
+              ? "Blog-Artikel entstehen mit KI-Unterstützung und werden vor der Veröffentlichung redaktionell geprüft und verantwortet. Unsere Inhalte werden außerdem KI-gestützt in mehrere Sprachen übersetzt; Übersetzungsfehler können vorkommen."
+              : "Blog articles are created with AI assistance and are editorially reviewed and approved before publication. Our content is also AI-translated into several languages; translation errors may occur."}
           </p>
         </section>
 
@@ -94,8 +94,8 @@ export default async function KiTransparenz({
           </h2>
           <p className="text-gray-600 leading-relaxed">
             {de
-              ? "Rezeptfotos stammen derzeit aus echten Quellen: eigene Aufnahmen, Uploads von Community-Mitgliedern und Bilddatenbanken der Rezeptquellen. Sollten wir künftig KI-generierte Bilder einsetzen, kennzeichnen wir sie sichtbar auf der Seite und — wo technisch möglich — maschinenlesbar in den Bilddaten (z. B. IPTC digitalSourceType)."
-              : "Recipe photos currently come from real sources: our own shots, uploads by community members and the image libraries of our recipe sources. Should we use AI-generated images in the future, we will label them visibly on the page and — where technically possible — machine-readably in the image metadata (e.g. IPTC digitalSourceType)."}
+              ? "Alle Rezeptbilder unseres Korpus sind KI-generiert. Wir erstellen sie mit Higgsfield und kennzeichnen sie doppelt: sichtbar im Bild selbst („KI-generiert · AI-generated“) und mit dem KI-Hinweis auf der Rezeptseite. Die Bilder sind Serviervorschläge — das gekochte Gericht kann im Detail anders aussehen. Eigene Fotos, die Community-Mitglieder zu ihren Rezepten hochladen, sind von der KI-Kennzeichnung ausgenommen."
+              : "All recipe images in our corpus are AI-generated. We create them with Higgsfield and label them twice: visibly inside the image itself (“KI-generiert · AI-generated”) and with the AI note on the recipe page. The images are serving suggestions — the cooked dish may look different in detail. Photos that community members upload for their own recipes are exempt from the AI label."}
           </p>
         </section>
 
@@ -152,7 +152,7 @@ export default async function KiTransparenz({
         </section>
 
         <p className="text-xs text-gray-400">
-          {de ? "Stand: August 2026" : "Last updated: August 2026"}
+          {de ? "Stand: September 2026" : "Last updated: September 2026"}
         </p>
       </main>
     </div>

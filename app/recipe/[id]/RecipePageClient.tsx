@@ -464,7 +464,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
             ) : heroImage && !imgError ? (
               <img
                 src={heroImage}
-                alt={recipe.title}
+                alt={recipe.aiAssisted ? `${recipe.title} – ${t("aiNotice")}` : recipe.title}
                 fetchPriority="high"
                 className="w-full aspect-[1600/893] object-contain bg-neutral-100"
                 onError={() => setImgError(true)}

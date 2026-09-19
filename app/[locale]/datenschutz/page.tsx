@@ -66,9 +66,9 @@ export default function Datenschutz() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">3a. Rezeptdaten (externe APIs)</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">3a. Rezeptinhalte und KI-Bilder</h2>
           <p className="text-gray-600 leading-relaxed">
-            Rezeptinhalte, Bilder und Metadaten werden über externe APIs bezogen: <strong>Spoonacular</strong>, <strong>MealDB</strong>, <strong>Edamam</strong> und <strong>Tasty</strong>. Anfragen an diese Dienste erfolgen serverseitig. Dabei werden keine personenbezogenen Nutzerdaten übermittelt.
+            Rezeptinhalte und Rezeptbilder unseres Korpus erstellen wir selbst — KI-gestützt und redaktionell geprüft (Bilder: KI-generiert mit Higgsfield). Sie werden in unserer Supabase-Datenbank und im Supabase-Storage gespeichert (siehe Abschnitt 3). Externe Rezept-APIs werden nicht mehr eingebunden. Bei der KI-Erstellung von Rezepten und Bildern werden keine personenbezogenen Nutzerdaten an KI-Anbieter übermittelt.
           </p>
         </section>
 

@@ -511,8 +511,8 @@
     "viewFullRecipe": "Tarifin tamamını gör",
     "printWithImage": "Görselli",
     "printNoImage": "Görselsiz",
-    "aiNotice": "Yapay zekâ desteğiyle oluşturuldu ve editör tarafından kontrol edildi",
-    "aiNoticeMore": "Yapay zekâ şeffaflığı hakkında daha fazlası"
+    "aiNotice": "Tarif ve görsel yapay zekâ ile oluşturuldu, editör tarafından incelendi",
+    "aiNoticeMore": "Yapay zekâ şeffaflığımız hakkında"
   },
   "pro": {
     "title": "Culinse Pro",
