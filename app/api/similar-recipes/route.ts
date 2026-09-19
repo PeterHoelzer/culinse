@@ -63,7 +63,7 @@ interface SimilarCard {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id") || "";
-  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : searchParams.get("lang") === "fr" ? "fr" : searchParams.get("lang") === "it" ? "it" : searchParams.get("lang") === "pl" ? "pl" : "en";
+  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : searchParams.get("lang") === "fr" ? "fr" : searchParams.get("lang") === "it" ? "it" : searchParams.get("lang") === "pl" ? "pl" : searchParams.get("lang") === "tr" ? "tr" : "en";
   const number = Math.min(Math.max(Math.floor(Number(searchParams.get("number")) || 8), 1), 12);
   const tagsParam = (searchParams.get("tags") || "")
     .split(",")
