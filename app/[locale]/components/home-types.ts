@@ -21,7 +21,27 @@ export const GRADIENTS = [
 
 export const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", "🥘", "🍲"];
 
-export const EN_CATEGORIES = ["All", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
+export const EN_CATEGORIES = ["All", "German", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
+
+// Bundesland-Chips (19.09.26): [URL-Wert, Anzeigename] — Eigennamen bleiben in allen Sprachen deutsch.
+export const STATE_CHIPS: [string, string][] = [
+  ["baden-wuerttemberg", "Baden-Württemberg"],
+  ["bayern", "Bayern"],
+  ["berlin", "Berlin"],
+  ["brandenburg", "Brandenburg"],
+  ["bremen", "Bremen"],
+  ["hamburg", "Hamburg"],
+  ["hessen", "Hessen"],
+  ["mecklenburg-vorpommern", "Mecklenburg-Vorpommern"],
+  ["niedersachsen", "Niedersachsen"],
+  ["nordrhein-westfalen", "Nordrhein-Westfalen"],
+  ["rheinland-pfalz", "Rheinland-Pfalz"],
+  ["saarland", "Saarland"],
+  ["sachsen", "Sachsen"],
+  ["sachsen-anhalt", "Sachsen-Anhalt"],
+  ["schleswig-holstein", "Schleswig-Holstein"],
+  ["thueringen", "Thüringen"],
+];
 
 // key   → must match a messages `trendFilters.<key>` label
 // value → unique identity (React key + selection) AND the value sent to the API

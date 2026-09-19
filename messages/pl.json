@@ -41,6 +41,7 @@
   },
   "categories": [
     "Wszystkie",
+    "Kuchnia niemiecka",
     "Makarony",
     "Azjatycka",
     "Koreańska",
@@ -689,5 +690,6 @@
     "subtitle": "Twój abonament jest aktywny. Masz teraz dostęp do nieograniczonych kolekcji, planera tygodnia i inteligentnych list zakupów.",
     "goCollections": "📚 Do moich kolekcji",
     "discover": "Odkrywaj przepisy"
-  }
+  },
+  "allStates": "Wszystkie regiony"
 }

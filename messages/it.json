@@ -41,6 +41,7 @@
   },
   "categories": [
     "Tutte",
+    "Cucina tedesca",
     "Pasta",
     "Asiatico",
     "Coreano",
@@ -689,5 +690,6 @@
     "subtitle": "Il tuo abbonamento è attivo. Ora hai accesso a raccolte illimitate, al planner settimanale e alle liste della spesa intelligenti.",
     "goCollections": "📚 Vai alle mie raccolte",
     "discover": "Scopri le ricette"
-  }
+  },
+  "allStates": "Tutte le regioni"
 }
