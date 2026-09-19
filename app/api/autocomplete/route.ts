@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
+import { isAirfryerQuery, AIRFRYER_TAG } from "@/lib/searchSynonyms";
 
 // Autocomplete aus dem eigenen Korpus (13.09.2026; vorher Spoonacular).
 export async function GET(req: NextRequest) {
@@ -21,7 +22,21 @@ export async function GET(req: NextRequest) {
         .limit(12);
       return (data ?? []).map((r) => String(r.title));
     };
-    let titles = await run(query);
+    // Heißluftfritteusen-Tippfehler (19.09.26): Vorschläge aus dem Tag-Pool,
+    // damit auch "heissluftfriteuse"/"airfryer" sinnvolle Titel zeigen.
+    let titles: string[];
+    if (isAirfryerQuery(query)) {
+      const { data } = await supabase
+        .from("user_recipes")
+        .select("title")
+        .eq("is_public", true)
+        .or(`language.eq.${l},language.is.null`)
+        .overlaps("tags", [AIRFRYER_TAG])
+        .limit(12);
+      titles = (data ?? []).map((r) => String(r.title));
+    } else {
+      titles = await run(query);
+    }
     if (!titles.length) {
       const translated = await translateSearchQuery(query, l === "de" ? "DE" : "EN");
       if (translated && translated.toLowerCase() !== query.toLowerCase()) {

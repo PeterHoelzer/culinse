@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
+import { isAirfryerQuery, AIRFRYER_TAG, AIRFRYER_TITLE_OR } from "@/lib/searchSynonyms";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recipeSourceLabel } from "@/lib/culinse";
 import { optimizedImageUrl } from "@/lib/imageUrl";
@@ -50,6 +51,9 @@ const CATEGORY_TAGS: Record<string, string[]> = {
   Italian: ["italian", "italienisch"],
   Mexican: ["mexican", "mexikanisch"],
   German: ["deutschland"],
+  // Heißluftfritteuse (19.09.26): sprachunabhängig vererbter Korpus-Tag;
+  // Chip "Air Fryer" auf der Startseite (messages categories[2]).
+  "Air Fryer": [AIRFRYER_TAG, "airfryer", "air fryer"],
 };
 
 // Bundesland-Filter (19.09.26): ASCII-URL-Werte -> deutsche Tags im Korpus.
@@ -139,7 +143,18 @@ export async function GET(req: NextRequest) {
           .limit(number + 1);
         return (data ?? []) as Row[];
       };
-      rows = await run(query);
+      // Heißluftfritteuse (19.09.26): "airfryer", "Heißluftfritteuse" und
+      // gängige Tippfehler (heissluftfriteuse, Luftfritteuse …) treffen per
+      // Tag statt nur über den Titel — die Titel variieren je Sprache.
+      if (isAirfryerQuery(query)) {
+        const { data } = await base()
+          .or(`tags.ov.{${AIRFRYER_TAG}},${AIRFRYER_TITLE_OR}`)
+          .order("created_at", { ascending: false })
+          .limit(number + 1);
+        rows = (data ?? []) as Row[];
+      } else {
+        rows = await run(query);
+      }
       if (!rows.length) {
         const translated = await translateSearchQuery(query, l === "de" ? "DE" : "EN");
         if (translated && translated.toLowerCase() !== query.toLowerCase()) {

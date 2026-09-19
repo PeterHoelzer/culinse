@@ -21,7 +21,7 @@ export const GRADIENTS = [
 
 export const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", "🥘", "🍲"];
 
-export const EN_CATEGORIES = ["All", "German", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
+export const EN_CATEGORIES = ["All", "German", "Air Fryer", "Pasta", "Asian", "Korean", "Breakfast", "Seafood", "Pizza", "Dessert", "Salad", "Soup"];
 
 // Bundesland-Chips (19.09.26): [URL-Wert, Anzeigename] — Eigennamen bleiben in allen Sprachen deutsch.
 export const STATE_CHIPS: [string, string][] = [
