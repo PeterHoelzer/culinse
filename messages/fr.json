@@ -41,6 +41,7 @@
   },
   "categories": [
     "Tout",
+    "Cuisine allemande",
     "Pâtes",
     "Asiatique",
     "Coréen",
@@ -689,5 +690,6 @@
     "subtitle": "Ton abonnement est actif. Tu as maintenant accès aux collections illimitées, au planning de la semaine et aux listes de courses intelligentes.",
     "goCollections": "📚 Vers mes collections",
     "discover": "Découvrir les recettes"
-  }
+  },
+  "allStates": "Toutes les régions"
 }

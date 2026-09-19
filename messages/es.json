@@ -41,6 +41,7 @@
   },
   "categories": [
     "Todas",
+    "Cocina alemana",
     "Pasta",
     "Asiática",
     "Coreana",
@@ -689,5 +690,6 @@
     "subtitle": "Tu suscripción está activa. Ya tienes acceso a colecciones ilimitadas, al planificador semanal y a las listas de la compra inteligentes.",
     "goCollections": "📚 Ir a mis colecciones",
     "discover": "Descubrir recetas"
-  }
+  },
+  "allStates": "Todas las regiones"
 }

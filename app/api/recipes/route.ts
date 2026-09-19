@@ -49,6 +49,27 @@ const CATEGORY_TAGS: Record<string, string[]> = {
   Korean: ["korean", "koreanisch"],
   Italian: ["italian", "italienisch"],
   Mexican: ["mexican", "mexikanisch"],
+  German: ["deutschland"],
+};
+
+// Bundesland-Filter (19.09.26): ASCII-URL-Werte -> deutsche Tags im Korpus.
+const REGION_TAGS: Record<string, string[]> = {
+  "baden-wuerttemberg": ["baden-württemberg"],
+  bayern: ["bayern"],
+  berlin: ["berlin"],
+  brandenburg: ["brandenburg"],
+  bremen: ["bremen"],
+  hamburg: ["hamburg"],
+  hessen: ["hessen"],
+  "mecklenburg-vorpommern": ["mecklenburg-vorpommern"],
+  niedersachsen: ["niedersachsen"],
+  "nordrhein-westfalen": ["nordrhein-westfalen"],
+  "rheinland-pfalz": ["rheinland-pfalz"],
+  saarland: ["saarland"],
+  sachsen: ["sachsen"],
+  "sachsen-anhalt": ["sachsen-anhalt"],
+  "schleswig-holstein": ["schleswig-holstein"],
+  thueringen: ["thüringen"],
 };
 
 const DIET_TAGS: Record<string, string[]> = {
@@ -82,6 +103,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const query = (searchParams.get("query") || "").trim();
   const category = searchParams.get("category") || "";
+  const region = searchParams.get("region") || "";
   const number = Math.min(Math.max(Math.floor(Number(searchParams.get("number")) || 6), 1), 24);
   const maxTime = Math.floor(Number(searchParams.get("maxTime")) || 0);
   const diet = (searchParams.get("diet") || "").toLowerCase();
@@ -124,6 +146,15 @@ export async function GET(req: NextRequest) {
           rows = await run(translated);
         }
       }
+      hasMore = rows.length > number;
+      rows = rows.slice(0, number);
+    } else if (region && REGION_TAGS[region]) {
+      // Ein Bundesland gewinnt vor category (German laeuft sonst als overlaps deutschland).
+      const { data } = await base()
+        .overlaps("tags", REGION_TAGS[region])
+        .order("created_at", { ascending: false })
+        .limit(number + 1);
+      rows = (data ?? []) as Row[];
       hasMore = rows.length > number;
       rows = rows.slice(0, number);
     } else if (category && category !== "All") {

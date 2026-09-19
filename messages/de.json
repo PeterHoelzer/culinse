@@ -41,6 +41,7 @@
   },
   "categories": [
     "Alle",
+    "Deutsche Küche",
     "Pasta",
     "Asiatisch",
     "Koreanisch",
@@ -689,5 +690,6 @@
     "subtitle": "Dein Abo ist aktiv. Du hast jetzt Zugriff auf unbegrenzte Sammlungen, den Wochenplaner und smarte Einkaufslisten.",
     "goCollections": "📚 Zu meinen Sammlungen",
     "discover": "Rezepte entdecken"
-  }
+  },
+  "allStates": "Alle Bundesländer"
 }

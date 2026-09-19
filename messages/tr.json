@@ -41,6 +41,7 @@
   },
   "categories": [
     "Tümü",
+    "Alman mutfağı",
     "Makarna",
     "Asya",
     "Kore",
@@ -689,5 +690,6 @@
     "subtitle": "Aboneliğin aktif. Artık sınırsız koleksiyonlara, haftalık planlayıcıya ve akıllı alışveriş listelerine erişebilirsin.",
     "goCollections": "📚 Koleksiyonlarıma git",
     "discover": "Tarifleri keşfet"
-  }
+  },
+  "allStates": "Tüm bölgeler"
 }

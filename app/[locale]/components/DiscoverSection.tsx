@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/lib/navigation";
-import { Recipe, TREND_FILTER_DEFS } from "./home-types";
+import { Recipe, TREND_FILTER_DEFS, STATE_CHIPS } from "./home-types";
 import CategoryChips from "./CategoryChips";
 import RecipeCard from "./RecipeCard";
 
@@ -71,6 +71,7 @@ export default function DiscoverSection({
   const [diet, setDiet] = useState("");
   const [trend, setTrend] = useState("");
   const [forYouActive, setForYouActive] = useState(false);
+  const [region, setRegion] = useState(""); // Bundesland; greift nur bei Kategorie "German"
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
   const [community, setCommunity] = useState<Recipe[]>([]);
 
@@ -105,6 +106,7 @@ export default function DiscoverSection({
       if (search) params.set("query", search);
       params.set("lang", locale);
       if (category && category !== "All") params.set("category", category);
+      if (category === "German" && region) params.set("region", region);
       if (maxTime) params.set("maxTime", maxTime);
       if (diet) params.set("diet", diet);
       if (forYouActive && userPrefs) {
@@ -135,7 +137,7 @@ export default function DiscoverSection({
       setLoadingMore(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, category, maxTime, diet, trend, forYouActive, userPrefs]);
+  }, [search, category, region, maxTime, diet, trend, forYouActive, userPrefs]);
 
   // Keep the loaded count in a ref so the fetch effect can read the latest
   // value without re-running on every Load More. applyCount syncs state, ref
@@ -304,6 +306,24 @@ export default function DiscoverSection({
 
       <div className="mb-4">
         <CategoryChips active={category} setActive={setCategory} />
+        {category === "German" && (
+          <div className="flex gap-2 overflow-x-auto pb-2 mt-1">
+            {([["", t("allStates")]] as [string, string][]).concat(STATE_CHIPS).map(([val, label]) => (
+              <button
+                key={val || "alle"}
+                onClick={() => setRegion(val)}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                  region === val
+                    ? "text-white border-transparent"
+                    : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
+                }`}
+                style={region === val ? { background: "#f97316", borderColor: "#f97316" } : {}}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="flex gap-3 mb-6 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
