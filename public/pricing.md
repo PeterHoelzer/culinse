@@ -4,7 +4,7 @@ Last updated: 2026-07-19. Currency: EUR. Billing via Stripe. Cancel anytime, no 
 
 ## Free
 - Price: €0
-- Recipes from 4 top sources with search & filters (diet, cooking time, cuisine)
+- Full access to the in-house Culinse recipe corpus (AI-created, editorially reviewed) with search & filters (diet, cooking time, cuisine)
 - Save recipes (favorites)
 - 1 collection (up to 10 recipes)
 - Weekly meal planner basics with automatic shopping list (summed quantities + estimated € total at German discounter prices)

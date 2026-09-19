@@ -76,7 +76,7 @@ export default function Impressum() {
           </p>
           <h3 className="font-medium text-gray-700 mb-2">Urheberrecht</h3>
           <p className="text-gray-600 leading-relaxed">
-            Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Rezeptdaten und -bilder werden über die Spoonacular API bezogen und unterliegen den jeweiligen Nutzungsbedingungen der Originalquellen. Alle verlinkten Rezepte verweisen auf die Originalseiten der jeweiligen Autoren.
+            Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Rezepttexte unseres Korpus entstehen mit KI-Unterstützung und werden redaktionell geprüft; die zugehörigen Rezeptbilder sind KI-generiert (erstellt mit Higgsfield) und im Bild als solche gekennzeichnet. Inhalte von Community-Mitgliedern bleiben deren geistiges Eigentum.
           </p>
         </section>
 

@@ -166,7 +166,9 @@ export default async function RecipePage(
         description: recipe.summary
           ? recipe.summary.replace(/<[^>]+>/g, "").slice(0, 300)
           : `Learn how to make ${recipe.title}.`,
-        image: recipe.images?.length ? recipe.images : recipe.image ? [recipe.image] : [],
+        image: (recipe.images?.length ? recipe.images : recipe.image ? [recipe.image] : []).map((u: string) =>
+          recipe.aiAssisted ? { "@type": "ImageObject", url: u, creditText: "KI-generiert / AI-generated" } : u
+        ),
         author: {
           "@type": "Organization",
           name: recipe.source || "Culinse",

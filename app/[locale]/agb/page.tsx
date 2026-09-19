@@ -62,7 +62,7 @@ const DE_SECTIONS: Sec[] = [
   },
   {
     t: "7. Unsere Inhalte, KI-Kennzeichnung und Schätzwerte",
-    b: "Ein Teil der Culinse-Rezepte entsteht mit KI-Unterstützung und wird redaktionell geprüft; diese Rezepte sind auf der Rezeptseite entsprechend gekennzeichnet (siehe KI-Transparenz). Preis- und Nährwertangaben sind unverbindliche algorithmische Schätzungen. Culinse bietet keine Ernährungs-, Gesundheits- oder Allergieberatung; prüfe Zutaten bei Allergien oder Unverträglichkeiten stets selbst.",
+    b: "Die Rezepte unseres Korpus entstehen mit KI-Unterstützung und werden redaktionell geprüft; die zugehörigen Rezeptbilder sind KI-generiert und sichtbar im Bild gekennzeichnet (siehe KI-Transparenz). Bilder sind Serviervorschläge. Preis- und Nährwertangaben sind unverbindliche algorithmische Schätzungen. Culinse bietet keine Ernährungs-, Gesundheits- oder Allergieberatung; prüfe Zutaten bei Allergien oder Unverträglichkeiten stets selbst.",
     link: { href: "/ki-transparenz", label: "Zur KI-Transparenz" },
   },
   {

@@ -128,7 +128,11 @@
         "title": "Speichern & Personalisieren",
         "desc": "Speichere Rezepte, die du liebst. Culinse lernt deinen Geschmack und zeigt dir mehr davon."
       },
-      {"icon": "🛒", "title": "Einkaufsliste mit €-Summe", "desc": "Dein Wochenplan wird automatisch zur Einkaufsliste — mit geschätzten Discounter-Preisen je Zutat und der Summe für die ganze Woche."}
+      {
+        "icon": "🛒",
+        "title": "Einkaufsliste mit €-Summe",
+        "desc": "Dein Wochenplan wird automatisch zur Einkaufsliste — mit geschätzten Discounter-Preisen je Zutat und der Summe für die ganze Woche."
+      }
     ]
   },
   "cta": {
@@ -507,7 +511,7 @@
     "viewFullRecipe": "Vollständiges Rezept ansehen",
     "printWithImage": "Mit Bild",
     "printNoImage": "Ohne Bild",
-    "aiNotice": "Mit KI-Unterstützung erstellt und redaktionell geprüft",
+    "aiNotice": "Rezept und Bild mit KI erstellt, redaktionell geprüft",
     "aiNoticeMore": "Mehr zur KI-Transparenz"
   },
   "pro": {
