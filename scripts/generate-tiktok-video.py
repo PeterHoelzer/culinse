@@ -6,7 +6,11 @@ Ersetzt die Foto-Carousels: erzeugt je Post ein 15-Sekunden-MP4 (1080x1920,
 30 fps, H.264 + stiller AAC-Tonspur) mit vier Szenen, Ken-Burns-Zoom,
 eingeblendeten Listenzeilen und einer hochzaehlenden Kernzahl.
 
-Aufruf:  python3 scripts/generate-tiktok-video.py <posts.json> <src_dir> <out_dir>
+Aufruf:  python3 scripts/generate-tiktok-video.py <posts.json> <src_dir> <out_dir> [audio.wav]
+
+audio.wav (optional, ab W10): Tonspur aus scripts/generate-tiktok-audio.py — ohne
+Angabe bleibt das Video stumm (stille AAC-Spur). Metricool erlaubt autoAddMusic
+nur bei Foto-Posts, deshalb muss der Ton im Video selbst liegen.
 
 posts.json — Liste von Posts:
 [{
@@ -321,14 +325,15 @@ def frame_at(p, photo, bg, t):
     return render(idx, t)
 
 
-def build(p, src, out):
+def build(p, src, out, audio=None):
     photo = ImageOps.exif_transpose(Image.open(f"{src}/{p['photo']}").convert("RGB"))
     bg = blurred_bg(photo)
     path = f"{out}/{p['key']}.mp4"
+    audio_in = ["-i", audio] if audio else ["-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100"]
     cmd = [
         "ffmpeg", "-y", "-loglevel", "error",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-        "-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=44100",
+        *audio_in,
         "-shortest",
         "-c:v", "libx264", "-preset", "medium", "-crf", "23", "-pix_fmt", "yuv420p",
         "-profile:v", "high", "-level", "4.0", "-movflags", "+faststart",
@@ -347,8 +352,9 @@ def build(p, src, out):
 
 def main():
     posts_file, src, out = sys.argv[1], sys.argv[2], sys.argv[3]
+    audio = sys.argv[4] if len(sys.argv) > 4 else None
     for p in json.load(open(posts_file, encoding="utf-8")):
-        build(p, src, out)
+        build(p, src, out, audio)
 
 
 if __name__ == "__main__":
