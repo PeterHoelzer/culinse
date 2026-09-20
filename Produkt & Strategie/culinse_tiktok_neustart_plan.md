@@ -329,3 +329,40 @@ Statt einer neuen These wird das einzige gedoppelt, was messbar am besten lief: 
 4. **Vor dem Schedulen md5 gegen die Live-URL prüfen**, nicht nur den HTTP-Status: Bei einer zweiten Render-Runde (Faktenkorrektur) wäre sonst unbemerkt die alte Datei ausgeliefert worden. Auch die `static.metricool.com`-Kopien wurden byte-genau gegengeprüft.
 5. **Faktencheck vor Ästhetik:** Der Burger-Hook lautete zuerst „dreimal so viel Fleisch" (150 g gegen 2×45 g = 1,7×). In der Sichtung aufgefallen und auf „150 g Fleisch statt 90 g" korrigiert. Bei Vergleichszahlen immer nachrechnen, bevor das Video gerendert wird.
 6. **Papas Nussecken-Foto ist nur 491×321** und damit unbrauchbar — Bildgröße prüfen, bevor ein Gericht eingeplant wird (W4-Learning 1 gilt für Video genauso). Geprüfte Reserve ≥1200 px: Obstboden, Maracuja-Torte, Eierlikör-Torte (je 1800×1200), Zitronensahnecreme (3264×2448), Mousse au Chocolat, Peking-Gulasch-Suppe (je 1600×1200), Hühnersuppe, Spitzkohl-Eintopf, Französische Zwiebelsuppe, Backkartoffel mit Kräuterquark.
+
+## Learnings Woche 10 (20.09.2026) — erste Video-Zahlen, Tonspur nachgerüstet
+
+**Datenlage (14 Tage, 06.–20.09., 6 veröffentlichte Posts):**
+
+| Datum | Serie | Gericht | Format | Views | Likes | Shares |
+|-------|-------|---------|--------|------:|------:|-------:|
+| 09.09. | A Familie | Papas Kirsch-Streuselkuchen | Carousel | 0 | 0 | 0 |
+| 10.09. | B Preis | Pizza Margherita | Carousel | 0 | 0 | 0 |
+| 11.09. | C Protein | Chili con Carne | Carousel | 0 | 0 | 0 |
+| 16.09. | A Familie | Papas Schnitzel mit Champignons | **Video** | 0 | 0 | 0 |
+| 17.09. | B Preis | Beef Burger vs. Big Mac | **Video** | 0 | 0 | 0 |
+| 18.09. | C Protein | Hähnchen-Reis-Topf | **Video** | 0 | 0 | 0 |
+
+**Die ersten drei Videos stehen nach 2–4 Tagen bei 0 Views** — Metricool und das öffentliche Profil (tiktok.com/@culinse, am 20.09. erneut direkt geprüft) sagen dasselbe. Zum Maßstab: Der Apfelkuchen hatte nach vier Tagen 284 Views; ausgelieferte Posts sieht man binnen 48 Stunden. Das Format allein hat also bisher nichts geändert. Die in W9 gesetzte Regel bleibt trotzdem stehen, ihr Stichtag ist der **27.09.** — W10 wird noch produziert, aber als letzte Woche vor der Entscheidung.
+
+**Kontostand unverändert:** 1 Follower, 5 Likes, Bio weiter englisch („Millions of recipes. Personalized for you."). Die Konto-Baustelle aus W9 ist offen — sie ist die wahrscheinlichste Erklärung für die Nullen, nicht der Inhalt.
+
+**Kleine Korrektur zu W9 („Views decken sich exakt mit dem Profilraster"):** Das Profil zeigt Nachzügler, die Metricool nie geführt hat — Waldpilzsuppe 21 Views (Metricool: 0), Lasagne 1, Döner 1. Views-Sync ist also grob richtig, nicht exakt; für Entscheidungen reicht es.
+
+**Was W10 anders macht — die eine bekannte Lücke schließen:** Die W9-Videos liefen **stumm** (Metricool lehnt `autoAddMusic` bei Video ab). Stumme Videos sind auf TikTok strukturell im Nachteil, und das war in W9 ausdrücklich als nächster Hebel notiert. Deshalb gibt es ab W10 eine **eigene, lizenzfreie Tonspur**: `scripts/generate-tiktok-audio.py` synthetisiert (numpy, ohne Samples, ohne Fremdrechte) einen ruhigen Lo-Fi-Beat — 84 BPM, F-Dur-Akkordfolge, E-Piano, Pad, Bass, Kick/Snare/Hats mit Swing, Vinyl-Knistern, Fade-out; −15,6 LUFS integriert, Peak −1,5 dBFS, deterministisch (Seed 7). `generate-tiktok-video.py` nimmt die WAV als optionales 4. Argument; Archivkopie `public/tiktok-src/lofi-84bpm-seed7.m4a`. Alles andere (Gerichte, Serien, Preislogik, Bildquellen, Szenenaufbau) bleibt wie in W9 — der Video-Test läuft damit mit sechs statt drei Posts, drei stumm, drei mit Ton.
+
+**Produktion W10 (23.–25.09., Posts 28–30):**
+
+- **Mi — Familie: Papas Hühnersuppe** (echtes Foto, 1337×1200). Saison-Anker (Herbst, Erkältungszeit) + Widerspruch wörtlich aus dem Rezept: **Das Suppengemüse kocht 2 Stunden und wird dann ausgedrückt und weggeworfen** (Schritt 2) — die Erklärung ist der Punch: Nach 2 Stunden steckt alles in der Brühe, deshalb kommt frischer Blumenkohl erst am Ende dazu. Zweiter echter Kniff: **2 Eier roh in den Wirbel gerührt** (Schritt 6). Hinweis fürs Rezept: In Papas Zutatenliste fehlen die Hähnchenschenkel, sie stehen nur in der Zubereitung — sollte im Rezept ergänzt werden.
+- **Do — Preis: Kürbissuppe mit Ingwer** (Katalog-Bild). Der stärkste Saison-Anker, den es im September gibt. Ehrlich gerechnet **3,89 € für 4 Teller = 0,97 €/Teller** gegen **Fertigsuppe aus der Dose: Erasco Kürbis-Cremesuppe 4,59 €/l = 2,30 € pro 500 ml** (SupermarktCheck, Netto-Eigenmarke 4,71 €/l als Gegenprobe). Hokkaido mit **1,69 €/kg** angesetzt (Aldi Süd Bio laut SupermarktCheck; konventionell ist er in der Saison meist billiger — bewusst konservativ). Widerspruch: **Der Hokkaido wird nicht geschält** (steht so im Rezept).
+- **Fr — Protein: Hackbraten – falscher Hase** (Katalog-Bild). DE-Klassiker mitten in Peters Fleischermeister-Lane: **30 g Protein / 425 kcal für 2,06 €/Portion** (8,25 € für 4). Widerspruch: drei hart gekochte Eier in der Mitte. Punch mit Handwerks-Autorität: **Anders als beim Burger wird hier kräftig geknetet, bis die Masse klebt — sonst zerfällt der Laib beim Schneiden** (deckt sich mit Schritt 1 „zu einem glatten Teig verkneten").
+
+**Regel für den nächsten Lauf (27.09.), unverändert aus W9 plus Ton-Zusatz:** Ein Video > 500 Views oder > 10 Likes → Videos werden Standard. Alle drei W9-Videos unter 100 Views → **keine weitere Produktion**, bis die Konto-Baustelle bearbeitet ist (deutsche Bio, deutscher Profiltext, zwei Wochen manuelles Kommentieren unter DE-FoodTok-Posts). Die W10-Videos mit Ton (auswertbar am 04.10.) sind dann die Gegenprobe, ob der Ton allein etwas ändert — wenn nicht, ist die Sache eindeutig.
+
+**Produktions-Learnings:**
+
+1. **Katalogbilder sind seit dem 19.09. Higgsfield-Bilder (1600×893) mit eingebranntem Wasserzeichen „KI-generiert · AI-generated" unten rechts** (Commit 2a91a99, KI-Transparenz-Policy). Für die Video-Karte auf **4:3 (1191×893) mittig zugeschnitten**, das Wasserzeichen bleibt absichtlich sichtbar — es passt zur Policy und zu `isAigc: true`. Die alten 1024×1024-FLUX-Bilder (bis W9) hatten kein Wasserzeichen.
+2. **`generate-tiktok-video.py` verträgt Querformat schlecht:** Bei 16:9 wird die Foto-Karte nur 547 px hoch und zwischen Karte und Hook klafft ein 400-px-Loch. Quellbilder vor dem Rendern auf 4:3 oder 1:1 bringen.
+3. **Preistabellen-Lücken dieser Woche:** kein Eintrag für **Kürbis/Hokkaido** (das meistgesuchte Herbstgemüse!), „gemischtes Hackfleisch" matcht auf `hackfleisch` (12 €/kg) statt auf den vorhandenen Eintrag `gemischtes hack` (10,50 €/kg) → Alias fehlt; Einheit „Zehen" liefert null; „Rinderbrühe" matcht nicht (nur „Brühe"); „Hähnchenschenkel" per Stück liefert null (kein `pieceGrams`). **Kandidaten für den Preis-Check am 01.10.**
+4. **Das Familienrezepte-Backup läuft seit Juni nicht mehr:** `Geld verdienen/Familienrezepte/backup.log` besteht aus „env: node: No such file or directory" — der Job findet das nvm-Node nicht (gleiche Ursache wie W6-Learning 4). Lokaler Stand ist vom 05.06. mit 15 Rezepten, der Korpus hat inzwischen 59. Fix: vollen Pfad `~/.nvm/versions/node/v24.15.0/bin/node` im Job eintragen.
+5. **Sandbox-Render mit Ton:** drei Videos in ~30 s, 1,37–1,51 MB je Datei, AAC 96 kbit/s stereo. md5 vor dem Schedulen wieder gegen die Live-URL geprüft (W9-Learning 4).
