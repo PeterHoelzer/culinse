@@ -1,0 +1,696 @@
+{
+  "nav": {
+    "discover": "Ontdekken",
+    "about": "Over ons",
+    "blog": "Blog",
+    "mealPlanner": "Weekplanner",
+    "collections": "Collecties",
+    "saved": "Opgeslagen",
+    "profile": "Profiel",
+    "login": "Inloggen",
+    "getStarted": "Aan de slag →",
+    "join": "Doe mee",
+    "logout": "Uitloggen",
+    "upgrade": "✦ Upgrade",
+    "myRecipes": "Mijn recepten",
+    "calculator": "Calculator",
+    "myRecipesShort": "Recepten"
+  },
+  "hero": {
+    "badge": "Ontwikkeld door een meesterslager & chef-kok",
+    "headline1": "Eén plek voor elk",
+    "headline2": "recept waar je van houdt.",
+    "subline": "Culinse bundelt recepten uit de beste bronnen — gefilterd op jouw voedingswijze en allergieën, zonder reclamebanners en alle recepten gratis.",
+    "searchPlaceholder": "Pasta, curry, biefstuk…",
+    "searchButton": "Zoeken",
+    "tryLabel": "Probeer:",
+    "quickPicks": [
+      "Pasta carbonara",
+      "Biefstuk",
+      "Thaise curry",
+      "Chocoladetaart"
+    ],
+    "sourcesMobile": "Eigen recepten · Community · Familie",
+    "sourcesDesktop": "Onze recepten komen van:",
+    "freeLabel": "Gratis te gebruiken · Geen reclamebanners",
+    "ctaPlan": "📅 Plan je week gratis",
+    "ctaBrowse": "Recepten ontdekken ↓",
+    "trust1": "Gratis te gebruiken",
+    "trust2": "Geen reclamebanners",
+    "trust3": "Echte discounterprijzen"
+  },
+  "categories": [
+    "Alles",
+    "Duitse keuken",
+    "Airfryer",
+    "Pasta",
+    "Aziatisch",
+    "Koreaans",
+    "Ontbijt",
+    "Zeevruchten",
+    "Pizza",
+    "Dessert",
+    "Salade",
+    "Soep"
+  ],
+  "trendFilters": {
+    "trending": "🔥 Trending",
+    "highProtein": "💪 Eiwitrijk",
+    "lowCarb": "⚡ Koolhydraatarm",
+    "keto": "🥑 Keto",
+    "dairyFree": "🥛 Lactosevrij",
+    "mediterranean": "🫒 Mediterraans",
+    "forYou": "✨ Voor jou"
+  },
+  "timeFilters": {
+    "15": "≤ 15 min",
+    "30": "≤ 30 min",
+    "60": "≤ 60 min",
+    "any": "Maakt niet uit"
+  },
+  "dietFilters": {
+    "all": "Alle diëten",
+    "vegetarian": "Vegetarisch",
+    "vegan": "Vegan",
+    "glutenFree": "Glutenvrij"
+  },
+  "discover": {
+    "title": "Vandaag populair",
+    "resultsFor": "Resultaten voor \"{query}\"",
+    "loading": "Recepten laden…",
+    "recipesFound": "{count} recepten van de beste foodsites ter wereld",
+    "loadMore": "Meer laden",
+    "loadingMore": "Laden…",
+    "noRecipes": "Geen recepten gevonden",
+    "noRecipesSub": "Probeer een andere zoekopdracht of categorie",
+    "error": "Recepten konden niet worden geladen",
+    "tryAgain": "Opnieuw proberen",
+    "quotaWarning": "We werken onze receptencatalogus bij — binnenkort zijn alle resultaten weer beschikbaar.",
+    "allergenFiltered": "{count} allergeen gefilterd",
+    "allergensFiltered": "{count} allergenen gefilterd",
+    "profileCta": "Stel je voedingsprofiel in",
+    "profileCtaSub": "Vertel ons wat je eet en welke allergenen je vermijdt — en krijg een persoonlijke feed."
+  },
+  "recipeCard": {
+    "servings": "{count} porties",
+    "details": "Details →",
+    "addToCollection": "Aan collectie toevoegen",
+    "save": "Recept opslaan",
+    "removeSave": "Uit opgeslagen verwijderen",
+    "loginToSave": "Log in om op te slaan"
+  },
+  "forYou": {
+    "title": "✨ Voor jou",
+    "subtitle": "Afgestemd op je voedingsprofiel",
+    "fromActivity": "Op basis van je opgeslagen en geplande recepten",
+    "editProfile": "Profiel bewerken →"
+  },
+  "videoSection": {
+    "title": "🎬 Videorecepten",
+    "comingSoonBadge": "Binnenkort beschikbaar",
+    "comingSoonTitle": "We werken aan onze eigen kookvideo's",
+    "comingSoonText": "Stap-voor-stapvideo's vers uit de Culinse-keuken — geen standaardwerk. Kom snel nog eens kijken!",
+    "subtitle": "Kijken & koken — stap voor stap",
+    "fullRecipe": "Naar het recept →",
+    "loadMore": "Meer video's laden",
+    "loading": "Laden…",
+    "addToPlan": "+ Inplannen"
+  },
+  "howItWorks": {
+    "title": "Zo werkt Culinse",
+    "subtitle": "We brengen de beste recepten van het internet naar je toe — gepersonaliseerd, doorzoekbaar en met een automatische boodschappenlijst.",
+    "steps": [
+      {
+        "icon": "🔍",
+        "title": "Zoeken & ontdekken",
+        "desc": "Zoek in miljoenen recepten van de beste foodsites wereldwijd — alles op één plek."
+      },
+      {
+        "icon": "❤️",
+        "title": "Opslaan & personaliseren",
+        "desc": "Sla recepten op waar je dol op bent. Culinse leert je smaak kennen en laat je er meer van zien."
+      },
+      {
+        "icon": "🛒",
+        "title": "Boodschappenlijst met €-totaal",
+        "desc": "Je weekplan wordt automatisch een boodschappenlijst — met geschatte discounterprijzen per ingrediënt en het totaal voor de hele week."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ontdek nu recepten.",
+    "subtitle": "Start gratis, geen verplicht abonnement. Gewoon heerlijk eten, afgestemd op jou.",
+    "button": "Gratis account aanmaken →",
+    "buttonLoggedIn": "Open je weekplanner →"
+  },
+  "footer": {
+    "about": "Over ons",
+    "impressum": "Colofon",
+    "datenschutz": "Privacy",
+    "aiTransparency": "AI-transparantie",
+    "agb": "Algemene voorwaarden",
+    "widerruf": "Herroepingsrecht",
+    "contact": "Contact",
+    "copyright": "© {year} Culinse. Alle rechten voorbehouden.",
+    "planner": "Weekplanner",
+    "calculator": "Boodschappencalculator"
+  },
+  "about": {
+    "ourStory": "Ons verhaal",
+    "heroTitle1": "Gebouwd door een kok.",
+    "heroTitle2": "Voor iedereen die kookt.",
+    "heroSubtitle": "Culinse ontstond uit pure frustratie — 20 minuten lang de ene na de andere site afstruinen, alleen om een fatsoenlijk recept voor het avondeten te vinden.",
+    "founderRole": "Chef-kok · Meesterslager · Oprichter",
+    "whereWeGoing": "Waar we naartoe gaan",
+    "visionTitle": "Het universele receptenplatform",
+    "values": [
+      {
+        "icon": "🍖",
+        "title": "Vakmanschap",
+        "desc": "Ontwikkeld door iemand die jarenlang achter het fornuis en de toonbank heeft gestaan."
+      },
+      {
+        "icon": "❤️",
+        "title": "Passie",
+        "desc": "Eten is meer dan brandstof. Culinse is voor mensen die echt graag koken."
+      },
+      {
+        "icon": "✨",
+        "title": "Eenvoud",
+        "desc": "Geen reclamebanners, geen verplicht abonnement, geen rommel. Alleen recepten die je wilt koken."
+      }
+    ],
+    "visionItems": [
+      {
+        "icon": "📅",
+        "title": "Wekelijkse maaltijdplanner",
+        "desc": "Plan je hele week in een paar minuten. Culinse kiest recepten die passen bij je voedingswijze, je planning en wat je al in je koelkast hebt."
+      },
+      {
+        "icon": "🛒",
+        "title": "Slimme boodschappenlijsten",
+        "desc": "Maak automatisch een boodschappenlijst van je weekplan — of stuur die direct naar je favoriete bezorgdienst."
+      },
+      {
+        "icon": "📚",
+        "title": "Receptenalbums",
+        "desc": "Maak je eigen collecties en deel ze met vrienden, familie of de hele wereld."
+      },
+      {
+        "icon": "🌍",
+        "title": "Alles op één plek",
+        "desc": "Eén platform. Elk recept. Geen browsertabs meer. Van snelle doordeweekse avondmaaltijden tot ambitieuze weekendprojecten."
+      }
+    ],
+    "discoverCta": "Recepten ontdekken →",
+    "feedbackLabel": "Vragen of feedback?",
+    "story1": "Eerst was ik chef-kok en kookte ik in restaurants door heel Duitsland. Daarna raakte ik in de ban van het slagersambacht — in 2024 behaalde ik de titel meesterslager, de hoogste beroepskwalificatie in het vak. Eten is voor mij geen bijzaak. Het is alles.",
+    "story2": "Maar ook met die achtergrond was het dagelijkse probleem steeds hetzelfde: het juiste recept vinden betekende jongleren met een tiental browsertabs, cookiebanners wegklikken en door levensverhalen scrollen voordat je bij de eigenlijke ingrediënten kwam. Voor iets wat plezier zou moeten geven, was het gewoon uitputtend.",
+    "story3": "Ik dacht altijd: waarom is er geen platform dat gewoon werkt? Eén plek, geweldige recepten, geen ruis. Zoals muziek ontdekken werkt — maar dan voor eten. Dus heb ik het zelf gebouwd.",
+    "story4": "Dat is Culinse.",
+    "name": "Peter"
+  },
+  "login": {
+    "title": "Inloggen bij Culinse",
+    "subtitle": "Sla recepten op, plan je maaltijden en krijg persoonlijke aanbevelingen.",
+    "emailLabel": "E-mailadres",
+    "emailPlaceholder": "jouw@email.com",
+    "magicLinkButton": "Magic Link versturen",
+    "sending": "Versturen…",
+    "checkEmail": "Kijk in je mailbox — de link is verstuurd!",
+    "orContinueWith": "of ga verder met",
+    "googleButton": "Doorgaan met Google",
+    "noAccount": "Geen account nodig — je wordt automatisch geregistreerd.",
+    "errorLinkExpired": "Deze link is verlopen. Vraag een nieuwe aan.",
+    "logIn": "Inloggen",
+    "signUp": "Registreren",
+    "welcomeBack": "Welkom terug",
+    "createAccount": "Account aanmaken",
+    "loginSub": "Log in om recepten op te slaan en je persoonlijke feed te zien.",
+    "signupSub": "Voor altijd gratis. Geen creditcard nodig.",
+    "passwordLabel": "Wachtwoord",
+    "passwordPlaceholder": "Min. 6 tekens",
+    "forgotPassword": "Wachtwoord vergeten?",
+    "loginButton": "Inloggen →",
+    "createButton": "Account aanmaken →",
+    "checkInbox": "Check je inbox!",
+    "sentTo": "We hebben een bevestigingslink gestuurd naar",
+    "spamNote": "Klik op de link in de e-mail om je account te activeren. Kijk ook even in je spammap.",
+    "backToLogin": "← Terug naar inloggen",
+    "or": "of",
+    "privacyNote": "Door verder te gaan, ga je akkoord met onze",
+    "privacyLink": "privacyverklaring",
+    "privacySuffix": ".",
+    "loading": "Laden…"
+  },
+  "profile": {
+    "title": "Profiel",
+    "pageTitle": "Jouw voedingsprofiel",
+    "welcomeBanner": "🎉 Welkom bij Culinse! Stel je voedingsprofiel in en ontvang recepten op maat.",
+    "progress0": "Stel je voorkeuren in om recepten op maat te krijgen",
+    "progress1": "Goed begin — nog 2 stappen",
+    "progress2": "Bijna klaar — nog 1 stap",
+    "progress3": "✓ Profiel compleet — Voor jou is actief!",
+    "planPro": "Culinse Pro",
+    "planFree": "Gratis plan",
+    "renews": "Wordt verlengd op {date}",
+    "active": "✓ Actief",
+    "free": "Gratis",
+    "proFeatures": [
+      "Onbeperkte collecties",
+      "Wekelijks maaltijdplan",
+      "Slimme boodschappenlijst",
+      "Onbeperkt recepten opslaan",
+      "Voorrang bij nieuwe functies"
+    ],
+    "loading": "Laden…",
+    "manageSubscription": "Abonnement beheren",
+    "upgradeButton": "Upgrade naar Pro — €4,99 / maand",
+    "dietTitle": "Voedingswijze",
+    "dietSub": "Toon alleen recepten die bij je levensstijl passen.",
+    "activeLabel": "Actief",
+    "nActive": "{n} actief",
+    "allergenTitle": "Allergenen & intoleranties",
+    "allergenSub": "Tik om ingrediënten uit je feed uit te sluiten.",
+    "timeTitle": "Maximale kooktijd",
+    "timeSub": "Toon alleen recepten waar je echt tijd voor hebt.",
+    "saving": "Opslaan…",
+    "saved": "✓ Opgeslagen!",
+    "saveButton": "Voorkeuren opslaan",
+    "back": "← Terug",
+    "dietOptions": [
+      {
+        "label": "Geen voorkeur",
+        "desc": "Alles tonen"
+      },
+      {
+        "label": "Vegetarisch",
+        "desc": "Geen vlees of vis"
+      },
+      {
+        "label": "Vegan",
+        "desc": "Alleen plantaardig"
+      },
+      {
+        "label": "Keto",
+        "desc": "Weinig koolhydraten, veel vet"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Terug naar de basis"
+      },
+      {
+        "label": "Glutenvrij",
+        "desc": "Geen gluten"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Puur eten"
+      }
+    ],
+    "intoleranceOptions": [
+      "Melk",
+      "Eieren",
+      "Gluten",
+      "Pinda's",
+      "Noten",
+      "Soja",
+      "Zeevruchten",
+      "Schaaldieren",
+      "Tarwe",
+      "Sulfieten"
+    ],
+    "timeOptions": [
+      {
+        "label": "Geen limiet"
+      },
+      {
+        "label": "≤ 15 min."
+      },
+      {
+        "label": "≤ 30 min."
+      },
+      {
+        "label": "≤ 60 min."
+      }
+    ]
+  },
+  "saved": {
+    "title": "Opgeslagen recepten",
+    "empty": "Nog geen opgeslagen recepten",
+    "emptySub": "Sla recepten op waar je dol op bent, dan verschijnen ze hier.",
+    "discover": "Recepten ontdekken →"
+  },
+  "collections": {
+    "title": "Mijn collecties",
+    "newCollection": "Nieuwe collectie",
+    "empty": "Nog geen collecties",
+    "emptySub": "Maak je eerste collectie om je favoriete recepten te ordenen.",
+    "deleteConfirm": "Deze collectie verwijderen?",
+    "delete": "Verwijderen",
+    "cancel": "Annuleren",
+    "newCollectionTitle": "Nieuwe collectie",
+    "creating": "Aanmaken…",
+    "create": "Collectie aanmaken",
+    "upgradeTitle": "Onbeperkte collecties",
+    "upgradeSubtext": "Het gratis plan bevat 1 collectie met maximaal 10 recepten. Upgrade naar Pro en alles is onbeperkt.",
+    "upgradeButton": "Upgrade naar Pro →",
+    "createFirst": "+ Eerste collectie aanmaken",
+    "groupDesc": "Bundel je favoriete recepten in collecties — zoals playlists, maar dan voor eten.",
+    "counter": "{count, plural, one {# collectie} other {# collecties}}",
+    "newButton": "+ Nieuw",
+    "publicLabel": "Openbaar maken",
+    "publicSub": "Iedereen met de link kan deze bekijken",
+    "nameLabel": "Naam",
+    "descLabel": "Beschrijving",
+    "descOptional": "(optioneel)",
+    "namePlaceholder": "bijv. Italiaanse favorieten",
+    "descPlaceholder": "Een korte beschrijving…",
+    "iconLabel": "Icoon",
+    "upgradePro": "Upgrade naar Pro",
+    "loading": "Laden…",
+    "recipeCount": "{count, plural, one {# recept} other {# recepten}}",
+    "detailBack": "Mijn collecties",
+    "publicBadge": "Openbaar",
+    "makePrivate": "🔒 Privé maken",
+    "makePublic": "🌍 Openbaar maken",
+    "share": "↑ Delen",
+    "copied": "✓ Link gekopieerd!",
+    "noRecipes": "Nog geen recepten",
+    "noRecipesSub": "Voeg vanaf elke receptpagina recepten toe aan deze collectie.",
+    "discoverCta": "Recepten ontdekken →",
+    "deleteThis": "Deze collectie verwijderen",
+    "deleteNamed": "\"{name}\" verwijderen?",
+    "yesDelete": "Ja, verwijderen",
+    "removeFromCollection": "Uit collectie verwijderen",
+    "view": "Bekijken →"
+  },
+  "mealPlanner": {
+    "shareWeek": "Delen",
+    "shareCopied": "✓ Link gekopieerd",
+    "title": "Weekplanner",
+    "days": [
+      "Ma",
+      "Di",
+      "Wo",
+      "Do",
+      "Vr",
+      "Za",
+      "Zo"
+    ],
+    "meals": [
+      "Ontbijt",
+      "Lunch",
+      "Diner"
+    ],
+    "addRecipe": "+ Recept toevoegen",
+    "shoppingList": "🛒 Boodschappenlijst",
+    "clearWeek": "Week leegmaken",
+    "thisWeek": "Deze week",
+    "daysFull": [
+      "Maandag",
+      "Dinsdag",
+      "Woensdag",
+      "Donderdag",
+      "Vrijdag",
+      "Zaterdag",
+      "Zondag"
+    ],
+    "clearConfirm": "Alle maaltijden van deze week verwijderen?",
+    "noRecipes": "Nog geen recepten in je plan.",
+    "planName": "Weekplan",
+    "tapToAdd": "Tik op een vak om een recept toe te voegen.",
+    "mealsPlanned": "{n}/21 maaltijden gepland",
+    "namePlanPlaceholder": "Plan een naam geven…",
+    "proMorePlans": "✦ Pro — meer plannen",
+    "newPlan": "+ Nieuw plan",
+    "dragHint": "Tip: versleep maaltijden om ze te verplaatsen of te wisselen.",
+    "move": "Verplaatsen",
+    "moveHint": "Tik op het doelvak om te verplaatsen",
+    "moveHere": "Hierheen verplaatsen",
+    "swapHere": "Wisselen",
+    "moving": "Wordt verplaatst …",
+    "today": "Vandaag",
+    "copyWeek": "Week kopiëren",
+    "prevWeek": "Vorige week",
+    "nextWeek": "Volgende week",
+    "emptyTitle": "Je plan is nog leeg",
+    "emptySub": "Tik op een vak om een recept uit je opgeslagen recepten toe te voegen.",
+    "myRecipes": "♥ Mijn recepten",
+    "collections": "📚 Collecties",
+    "proModalTitle": "Meer plannen met Pro",
+    "proModalSub": "Met Culinse Pro maak je onbeperkt maaltijdplannen.",
+    "proModalButton": "Upgrade naar Pro — €4,99 / maand",
+    "cancel": "Annuleren",
+    "deletePlanConfirm": "Plan verwijderen? Alle items gaan verloren."
+  },
+  "shoppingList": {
+    "title": "Boodschappenlijst",
+    "empty": "Voeg recepten toe aan je weekplan om een boodschappenlijst te maken.",
+    "checkAll": "Alles afvinken",
+    "uncheckAll": "Alle vinkjes weghalen",
+    "close": "Sluiten"
+  },
+  "onboarding": {
+    "title": "Welkom bij Culinse! Hoe eet jij het liefst?",
+    "step1Sub": "Zo kunnen we recepten voorstellen die bij je passen. Je kunt dit later aanpassen in je profiel.",
+    "diet_all": "Ik eet alles",
+    "diet_all_desc": "Een bonte mix uit alle keukens",
+    "diet_vegetarian": "Vegetarisch",
+    "diet_vegetarian_desc": "Zonder vlees en vis",
+    "diet_vegan": "Vegan",
+    "diet_vegan_desc": "Volledig plantaardig",
+    "diet_protein": "Eiwitrijk",
+    "diet_protein_desc": "Veel eiwit, bijv. voor je training",
+    "diet_quick": "Snel & makkelijk",
+    "diet_quick_desc": "Doordeweeks koken in minder dan 30 minuten",
+    "step2Title": "Je startweek",
+    "step2Sub": "Vijf suggesties voor maandag t/m vrijdag — vink uit wat niet past.",
+    "addSelected": "{count, plural, one {1 recept} other {# recepten}} toevoegen aan je weekplan",
+    "adding": "Inplannen…",
+    "step3Title": "Je weekplan staat klaar!",
+    "step3Sub": "{count, plural, one {Er staat één avondmaaltijd} other {Er staan # avondmaaltijden}} gepland — en je boodschappenlijst is automatisch klaar, met hoeveelheden en geschatte kosten.",
+    "viewList": "🛒 Boodschappenlijst bekijken",
+    "toPlanner": "Naar de weekplanner →",
+    "skip": "Overslaan — direct naar de startpagina",
+    "loadError": "Dat is helaas niet gelukt. Probeer het zo nog een keer.",
+    "planName": "Mijn weekplan"
+  },
+  "planShare": {
+    "badge": "Gedeeld weekplan",
+    "title": "Mijn weekplan",
+    "titleWithCost": "Mijn week voor {cost}",
+    "subtitle": "{count, plural, one {1 gerecht} other {# gerechten}} · week van {date}",
+    "estCost": "Geschatte boodschappenkosten",
+    "estCostHint": "Schatting op basis van discounterprijzen ({priced} van {total} gerechten berekend). Prijzen verschillen per supermarkt.",
+    "ctaTitle": "Plan je eigen week — gratis",
+    "ctaText": "Kies recepten, vul je week en krijg een kant-en-klare boodschappenlijst met prijsschatting. Zonder reclamebanners, zonder verplicht abonnement.",
+    "ctaButton": "Gratis beginnen"
+  },
+  "recipe": {
+    "cookTime": "Kooktijd",
+    "servings": "Porties",
+    "ingredients": "Ingrediënten",
+    "instructions": "Bereiding",
+    "saveRecipe": "♡ Recept opslaan",
+    "savedRecipe": "♥ Opgeslagen",
+    "saving": "…",
+    "viewOriginal": "Origineel bekijken ↗",
+    "addToPlan": "+ In je weekplan",
+    "similarRecipes": "Vergelijkbare recepten",
+    "backToDiscover": "← Terug",
+    "notFound": "Recept niet gevonden",
+    "source": "Bron",
+    "collections": "Collecties",
+    "share": "Delen",
+    "copied": "Gekopieerd!",
+    "print": "Afdrukken",
+    "reset": "Resetten",
+    "forServings": "Voor {count} porties",
+    "moreVideos": "Meer video's",
+    "loadingVideos": "Video's laden…",
+    "instructionsOnSource": "De volledige bereiding vind je op de originele pagina.",
+    "viewFullRecipe": "Volledig recept bekijken",
+    "printWithImage": "Met afbeelding",
+    "printNoImage": "Zonder afbeelding",
+    "aiNotice": "Recept en afbeelding gemaakt met AI, redactioneel gecontroleerd",
+    "aiNoticeMore": "Meer over AI-transparantie"
+  },
+  "pro": {
+    "title": "Culinse Pro",
+    "subtitle": "Ontgrendel de volledige Culinse-ervaring.",
+    "price": "€4,99 / maand",
+    "features": [
+      "Complete 7-daagse weekplanner",
+      "Automatische boodschappenlijst met samengevoegde hoeveelheden",
+      "Onbeperkte receptencollecties",
+      "Support met voorrang"
+    ],
+    "upgradeButton": "Upgrade naar Pro →",
+    "processing": "Verwerken…",
+    "currentPlan": "Je huidige plan: Pro ✦",
+    "manageButton": "Abonnement beheren →",
+    "heroTitle": "Jouw keuken,\nhelemaal op orde.",
+    "heroSubtitle": "Plan je week, maak je boodschappenlijst en orden elk recept waar je van houdt — alles op één plek.",
+    "alreadyPro": "✓ Je bent al Pro!",
+    "freeForAllBadge": "Alle Pro-functies nu gratis",
+    "freeForAllNote": "We bouwen Culinse op dit moment verder uit — alle Pro-functies zijn voor iedereen ontgrendeld. Log gewoon in en begin met plannen, helemaal zonder abonnement.",
+    "startButton": "7 dagen gratis proberen →",
+    "cancelNote": "7 dagen gratis · Pas daarna wordt er afgeschreven · Altijd opzegbaar",
+    "legalNote": "Hierbij gelden onze",
+    "legalAnd": "en het",
+    "agbLabel": "algemene voorwaarden",
+    "widerrufLabel": "herroepingsrecht",
+    "activeNote": "Je gebruikt Culinse Pro 🎉",
+    "freeLabel": "Gratis",
+    "proLabel": "Pro",
+    "everythingInFree": "Alles uit Gratis, plus:",
+    "faqTitle": "Veelgestelde vragen",
+    "faqItems": [
+      {
+        "q": "Kan ik op elk moment opzeggen?",
+        "a": "Ja, je kunt altijd opzeggen via je profiel. Je houdt toegang tot Pro tot het einde van je factuurperiode."
+      },
+      {
+        "q": "Welke betaalmethoden worden geaccepteerd?",
+        "a": "Alle gangbare credit- en debitcards via Stripe. Veilig, versleuteld en PCI-conform."
+      },
+      {
+        "q": "Wat gebeurt er met mijn collecties als ik opzeg?",
+        "a": "Je collecties blijven bewaard. Je kunt alleen geen nieuwe meer aanmaken boven de gratis limiet."
+      },
+      {
+        "q": "Is er een gratis proefperiode?",
+        "a": "Ja — je probeert Pro 7 dagen gratis. Er wordt pas afgeschreven als de proefperiode voorbij is, en je kunt altijd al eerder opzeggen."
+      }
+    ],
+    "freeFeatures": [
+      "Recepten uit 4 topbronnen",
+      "Zoeken & filteren op voeding, tijd en keuken",
+      "Recepten opslaan (♡)",
+      "1 collectie (max. 10 recepten)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Onbeperkte collecties",
+        "sub": "Orden je favorieten precies zoals jij wilt"
+      },
+      {
+        "icon": "📅",
+        "label": "Wekelijkse maaltijdplanner",
+        "sub": "Plan ontbijt, lunch & diner voor de hele week"
+      },
+      {
+        "icon": "🛒",
+        "label": "Slimme boodschappenlijst",
+        "sub": "Automatisch gemaakt op basis van je plan, gesorteerd op categorie"
+      },
+      {
+        "icon": "❤️",
+        "label": "Onbeperkt recepten opslaan",
+        "sub": "Geen limiet van 25 recepten — bewaar alles wat je lekker vindt"
+      },
+      {
+        "icon": "⚡",
+        "label": "Voorrang bij nieuwe functies",
+        "sub": "Als eerste toegang tot alles wat we hierna bouwen"
+      }
+    ],
+    "questions": "Vragen?",
+    "annualLabel": "Jaarlijks",
+    "monthlyLabel": "Maandelijks",
+    "annualSave": "Bespaar 35%",
+    "annualPrice": "€3,24 / maand",
+    "annualTotal": "€38,88 / jaar",
+    "monthlyPrice": "€4,99 / maand",
+    "annualStartButton": "7 dagen gratis proberen →",
+    "billedAnnually": "Jaarlijks gefactureerd",
+    "billedMonthly": "Maandelijks gefactureerd"
+  },
+  "blog": {
+    "title": "Culinse Blog",
+    "subtitle": "Tips, handleidingen en ideeën om slimmer te koken.",
+    "readMore": "Lees verder →",
+    "backToBlog": "← Terug naar de blog",
+    "minRead": "min. leestijd"
+  },
+  "error": {
+    "notFound": "Pagina niet gevonden",
+    "notFoundSub": "De pagina die je zoekt bestaat niet.",
+    "backHome": "Terug naar de startpagina"
+  },
+  "newsletter": {
+    "title": "Ontvang het 7-daagse mealprepschema (PDF)",
+    "subtitle": "Compleet weekplan met prepsessie, afvinkbare boodschappenlijst en tips van de chef — gratis als PDF. Plus elke week de beste receptideeën. Geen spam, je kunt je altijd afmelden.",
+    "placeholder": "jouw@email.nl",
+    "button": "Aanmelden",
+    "success": "🎉 Bedankt! Je hoort snel van ons.",
+    "error": "Er ging iets mis. Probeer het opnieuw.",
+    "already": "Dit e-mailadres is al aangemeld.",
+    "sending": "Aanmelden…",
+    "download": "📄 Download nu het schema (PDF)"
+  },
+  "loginPrompt": {
+    "title": "Recept opslaan",
+    "subtitle": "Maak een gratis account aan om recepten op te slaan en later terug te vinden.",
+    "login": "Inloggen",
+    "signup": "Gratis registreren",
+    "cancel": "Annuleren"
+  },
+  "modals": {
+    "ad": "Advertentie",
+    "shop": "Shop",
+    "kitchenTools": "Keukengerei",
+    "affiliateLinks": "* Affiliatelinks",
+    "upgradeTitle": "Upgrade naar Pro",
+    "upgradeMessage": "Je hebt de limiet van het gratis plan bereikt: 25 opgeslagen recepten. Upgrade naar Pro voor onbeperkt opslaan, collecties en meer.",
+    "seePlans": "Pro-abonnementen bekijken",
+    "maybeLater": "Misschien later",
+    "proFeature": "Pro-functie",
+    "proUnlock": "Upgrade naar Pro om dit en meer te ontgrendelen.",
+    "proFrom": "Vanaf €4,99/maand →",
+    "addToCollection": "Aan collectie toevoegen",
+    "noCollections": "Nog geen collecties",
+    "createOneBelow": "Maak er hieronder een aan",
+    "collectionNamePlaceholder": "Naam van de collectie…",
+    "create": "Aanmaken",
+    "newCollection": "+ Nieuwe collectie",
+    "fullUpgrade": "Vol — upgrade voor meer",
+    "cancel": "Annuleren",
+    "loading": "Laden…",
+    "addToPlanHeader": "Aan weekplan toevoegen",
+    "plan": "Plan",
+    "day": "Dag",
+    "meal": "Maaltijd",
+    "planNamePlaceholder": "Geef je plan een naam…",
+    "proMorePlans": "✦ Pro — meer plannen",
+    "saving": "Opslaan…",
+    "addToPlanButton": "Aan plan toevoegen",
+    "chooseRecipeFor": "Kies een recept voor",
+    "myRecipesTab": "Mijn recepten",
+    "noSavedRecipes": "Nog geen opgeslagen recepten",
+    "emptyCollection": "Deze collectie is leeg",
+    "saveHint": "Sla recepten op met ♡ op de startpagina.",
+    "addHint": "Voeg recepten toe aan deze collectie met 📚.",
+    "shoppingTitle": "🛒 Boodschappenlijst",
+    "recipesCount": "{count} recepten",
+    "done": "afgevinkt",
+    "reset": "Resetten",
+    "cantLoad": "Ingrediënten konden niet worden geladen.",
+    "noRecipesInPlan": "Geen recepten in het plan",
+    "addRecipesFirst": "Voeg eerst recepten toe aan je weekplan.",
+    "noIngredients": "Geen ingrediënten gevonden — sommige bronnen bieden geen ingrediëntenlijst.",
+    "orderGroceries": "🛒 Boodschappen bestellen bij Amazon",
+    "affiliateNote": "Affiliatelink — geen extra kosten voor jou",
+    "allDone": "Alles afgevinkt!",
+    "boughtAll": "Je hebt alle ingrediënten gehaald."
+  },
+  "proSuccess": {
+    "title": "Welkom bij Culinse Pro!",
+    "subtitle": "Je abonnement is actief. Je hebt nu toegang tot onbeperkte collecties, de weekplanner en slimme boodschappenlijsten.",
+    "goCollections": "📚 Naar mijn collecties",
+    "discover": "Recepten ontdekken"
+  },
+  "allStates": "Alle regio's"
+}
