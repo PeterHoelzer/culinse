@@ -103,6 +103,15 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
       "tarif arama", "sağlıklı tarifler", "kolay tarifler", "haftalık plan", "alışveriş listesi",
     ],
   },
+  nl: {
+    title: "Culinse – Ontdek recepten waar je van houdt",
+    description:
+      "Culinse bundelt recepten uit de beste bronnen — gefilterd op jouw dieet en allergieën. Gratis, zonder abonnement.",
+    keywords: [
+      "recepten", "recepten ontdekken", "gepersonaliseerde recepten", "koken", "eten",
+      "recepten zoeken", "gezonde recepten", "snelle recepten", "weekplanner", "boodschappenlijst",
+    ],
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
