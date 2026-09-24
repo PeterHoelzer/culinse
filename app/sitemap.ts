@@ -17,7 +17,7 @@ function langs(en: string, de: string) {
 // hreflang fuer ALLE Locales; Inhalte, die es nur auf de/en gibt (Blog,
 // Rezepte, Sammlungen, Landingpages mit Inline-Text, Rechtsseiten), behalten
 // bewusst das de/en-Paar — hreflang nie auf unuebersetzte Duplikate.
-const ALL_LOCALES = ["en", "de", "es", "fr", "it", "pl", "tr", "nl"] as const;
+const ALL_LOCALES = ["en", "de", "es", "fr", "it", "pl", "tr", "nl", "cs"] as const;
 function langsAll(path: string) {
   const languages: Record<string, string> = {};
   for (const l of ALL_LOCALES) languages[l] = `${baseUrl}/${l}${path}`;

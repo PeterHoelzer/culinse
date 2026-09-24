@@ -65,7 +65,7 @@ interface FeaturedRecipe {
 async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : "en"}&number=12`,
+      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : "en"}&number=12`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return [];
@@ -87,7 +87,7 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
 async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : "en"}&number=6`,
+      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : "en"}&number=6`,
       { next: { revalidate: 900 } }
     );
     if (!res.ok) return [];
@@ -99,7 +99,7 @@ async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
 }
 
 const OG_LOCALES: Record<string, string> = {
-  en: "en_US", de: "de_DE", es: "es_ES", fr: "fr_FR", it: "it_IT", pl: "pl_PL", tr: "tr_TR", nl: "nl_NL",
+  en: "en_US", de: "de_DE", es: "es_ES", fr: "fr_FR", it: "it_IT", pl: "pl_PL", tr: "tr_TR", nl: "nl_NL", cs: "cs_CZ",
 };
 const HOME_META: Record<string, { title: string; description: string }> = {
   de: {
@@ -134,6 +134,10 @@ const HOME_META: Record<string, { title: string; description: string }> = {
     title: "Culinse – Ontdek recepten waar je van houdt",
     description: "Recepten uit de beste bronnen, op jou afgestemd.",
   },
+  cs: {
+    title: "Culinse – Objevuj recepty, které si zamiluješ",
+    description: "Recepty z nejlepších zdrojů, šité na míru.",
+  },
 };
 
 // ─── Homepage metadata (canonical + hreflang + Open Graph) ───────────────────
@@ -161,6 +165,7 @@ export async function generateMetadata({
         pl: "https://culinse.com/pl",
         tr: "https://culinse.com/tr",
         nl: "https://culinse.com/nl",
+        cs: "https://culinse.com/cs",
         "x-default": "https://culinse.com/en",
       },
     },

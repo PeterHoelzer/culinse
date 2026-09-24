@@ -37,6 +37,7 @@ export function isAirfryerQuery(raw: string): boolean {
     "frytk", // pl frytkownica
     "frytow", // pl frytownica
     "fritoz", // tr fritöz
+    "fritez", // cs fritéza/horkovzdušná fritéza (nach Diakritik-Strip)
   ];
   if (hits.some((h) => norm.includes(h))) return true;
   return /^heis?sluft/.test(norm);
