@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const query = (searchParams.get("query") || "").trim();
   const lang = (searchParams.get("lang") || "en").toLowerCase();
   if (query.length < 2) return NextResponse.json({ suggestions: [] });
-  const l = lang === "de" ? "de" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "it" ? "it" : lang === "pl" ? "pl" : lang === "tr" ? "tr" : lang === "nl" ? "nl" : "en";
+  const l = lang === "de" ? "de" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "it" ? "it" : lang === "pl" ? "pl" : lang === "tr" ? "tr" : lang === "nl" ? "nl" : lang === "cs" ? "cs" : "en";
   try {
     const supabase = createAdminClient();
     const run = async (term: string) => {
