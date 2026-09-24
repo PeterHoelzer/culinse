@@ -51,6 +51,15 @@ const CATEGORY_TAGS: Record<string, string[]> = {
   Italian: ["italian", "italienisch"],
   Mexican: ["mexican", "mexikanisch"],
   German: ["deutschland"],
+  // Korpus-Erweiterung (24.09.26): Chips für die starken Tags des 1368er-
+  // Korpus; Salad/Pizza zusätzlich per Tag statt nur Titel-Fallback.
+  "Main Dishes": ["hauptgericht", "main course", "main dish"],
+  Vegetarian: ["vegetarisch", "vegetarian", "vegan"],
+  Quick: ["schnell", "quick"],
+  "Sides & Snacks": ["beilage", "side dish", "snack", "snacks", "fingerfood"],
+  Festive: ["festlich", "festive"],
+  Salad: ["salat", "salad"],
+  Pizza: ["pizza"],
   // Heißluftfritteuse (19.09.26): sprachunabhängig vererbter Korpus-Tag;
   // Chip "Air Fryer" auf der Startseite (messages categories[2]).
   "Air Fryer": [AIRFRYER_TAG, "airfryer", "air fryer"],
@@ -191,11 +200,24 @@ export async function GET(req: NextRequest) {
       hasMore = rows.length > number;
       rows = rows.slice(0, number);
     } else {
-      // Standard-Ansicht (Trending): taeglich rotierende Auswahl aus dem
-      // neuesten Pool — nie leer, solange der Korpus lebt.
+      // Standard-Ansicht (Trending, 24.09.26): taeglich rotierende Auswahl
+      // aus dem GESAMTEN Korpus. order by id = stabile Quasi-Zufallsfolge
+      // (uuid v4), der Tages-Offset wandert durch alle Rezepte — deutsch und
+      // international gemischt, tagsueber stabil und damit cachebar.
+      let cq = supabase
+        .from("user_recipes")
+        .select("id", { count: "exact", head: true })
+        .eq("is_public", true)
+        .not("image_url", "is", null)
+        .or(`language.eq.${l},language.is.null`);
+      if (maxTime > 0) cq = cq.lte("cook_time", maxTime);
+      if (diet && DIET_TAGS[diet]) cq = cq.overlaps("tags", DIET_TAGS[diet]);
+      const { count } = await cq;
+      const total = count ?? 0;
+      const offset = total > 120 ? daySeed() % (total - 119) : 0;
       const { data } = await base()
-        .order("created_at", { ascending: false })
-        .limit(120);
+        .order("id", { ascending: true })
+        .range(offset, offset + 119);
       const pool = (data ?? []) as Row[];
       rows = seededShuffle(pool, daySeed()).slice(0, number);
       hasMore = pool.length > number;
