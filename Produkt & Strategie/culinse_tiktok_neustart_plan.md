@@ -366,3 +366,33 @@ Statt einer neuen These wird das einzige gedoppelt, was messbar am besten lief: 
 3. **Preistabellen-Lücken dieser Woche:** kein Eintrag für **Kürbis/Hokkaido** (das meistgesuchte Herbstgemüse!), „gemischtes Hackfleisch" matcht auf `hackfleisch` (12 €/kg) statt auf den vorhandenen Eintrag `gemischtes hack` (10,50 €/kg) → Alias fehlt; Einheit „Zehen" liefert null; „Rinderbrühe" matcht nicht (nur „Brühe"); „Hähnchenschenkel" per Stück liefert null (kein `pieceGrams`). **Kandidaten für den Preis-Check am 01.10.**
 4. **Das Familienrezepte-Backup läuft seit Juni nicht mehr:** `Geld verdienen/Familienrezepte/backup.log` besteht aus „env: node: No such file or directory" — der Job findet das nvm-Node nicht (gleiche Ursache wie W6-Learning 4). Lokaler Stand ist vom 05.06. mit 15 Rezepten, der Korpus hat inzwischen 59. Fix: vollen Pfad `~/.nvm/versions/node/v24.15.0/bin/node` im Job eintragen.
 5. **Sandbox-Render mit Ton:** drei Videos in ~30 s, 1,37–1,51 MB je Datei, AAC 96 kbit/s stereo. md5 vor dem Schedulen wieder gegen die Live-URL geprüft (W9-Learning 4).
+
+
+## Learnings Woche 11 (27.09.2026) — Stichtag erreicht: Produktion pausiert
+
+**Datenlage (14 Tage, 13.–27.09., Stand 27.09.):**
+
+| Datum | Serie | Gericht | Format | Views | Likes | Kommentare | Shares |
+|-------|-------|---------|--------|------:|------:|-----------:|-------:|
+| 16.09. | A Familie | Papas Schnitzel mit Champignons | Video (stumm) | 1 | 0 | 0 | 0 |
+| 17.09. | B Preis | Beef Burger vs. Big Mac | Video (stumm) | 2 | 0 | 0 | 0 |
+| 18.09. | C Protein | Hähnchen-Reis-Topf | Video (stumm) | 1 | 0 | 0 | 0 |
+| 23.09. | A Familie | Papas Hühnersuppe | Video (Ton) | 2 | 0 | 0 | 0 |
+| 24.09. | B Preis | Kürbissuppe mit Ingwer | Video (Ton) | 2 | 0 | 0 | 0 |
+| 24.09. | — Sonderpost | Rindersteaks-Rohschnitt (KI, EN, um Feedback bittend) | Video (Ton) | **254** | 2 | 0 | 0 |
+| 25.09. | C Protein | Hackbraten – falscher Hase | Video (Ton) | 1 | 0 | 0 | 0 |
+
+**Die W9-Regel greift — exakt zum gesetzten Stichtag.** Die Regel aus Woche 9/10 lautete wörtlich: „Alle drei W9-Videos unter 100 Views (Stand 27.09.) → dann ist es nicht das Format. Dann wird nichts mehr produziert, bevor die Konto-Baustelle bearbeitet ist." Die drei W9-Videos (16.–18.09., inzwischen 9–11 Tage alt, weit über das 48-Stunden-Auslieferungsfenster hinaus) stehen bei **1 / 2 / 1 Views**. Die Regel ist damit erfüllt, nicht knapp verpasst. Die W10-Gegenprobe mit Tonspur (23.–25.09.) ändert daran nichts — auch mit Ton stehen die drei Serien-Videos bei **2 / 2 / 1 Views**, nach 2–4 Tagen bereits im üblichen Distributionsfenster. Die Tonspur hat die Auslieferung nicht verändert; die Frage aus W10 ist damit beantwortet.
+
+**Konto-Check wiederholt (tiktok.com/@culinse, direkt im Profil geprüft):** Bio ist weiterhin **Englisch** („Millions of recipes. Personalized for you. 🍳 culinse.com") — die seit W9 offene Konto-Baustelle ist unverändert nicht bearbeitet. Follower weiterhin **1**. Likes-Gesamtstand **7** (war 5 in W9/W10) — im Aktivitätsfeed zwei neue, nicht-Metricool-geführte Reaktionen sichtbar (ein Video-Like „Saphirexus, escalator", ein Foto-Like „阿内奇卡😜", beide vor 2 Tagen) — die erste erkennbare Reaktion von echten Fremd-Accounts seit Kontostart, aber weiterhin **0 Kommentare** auf allen Posts.
+
+**Sonderpost-Auswertung (Rindersteak-Video, 24.09., Peters Wunsch):** Mit 254 Views und 2 Likes ist das der zweitbeste Post der Kontohistorie (nach Apfelkuchen 286) — aber das eigentliche Ziel des Posts war ausdrücklich, Bewertungen/Kommentare zu sammeln (Caption fragt explizit danach), und das ist mit **0 Kommentaren** nicht eingetreten. Der Post bestätigt eher die Konto-These als eine Content-These: Auch ein Post, der ausgeliefert wird, bekommt auf einem 1-Follower-Konto ohne Interaktionshistorie keine Reaktionen. Kein Hinweis darauf, dass Englisch oder das lange Format an sich der Hebel wären — zu wenig Daten (n=1), und der Post steht außerhalb der Serien-Systematik.
+
+**Entscheidung — Produktion diese Woche ausgesetzt.** Die Regel ist eindeutig: kein neuer Serien-Post (Familie/Preis/Protein) wird diese Woche produziert oder in Metricool geplant. Die nächste freie Mi/Do/Fr-Serie (30.09./01.10./02.10.) bleibt bewusst unbelegt. Grund: Content-Iteration in ein Konto ohne Interaktionshistorie und mit falscher Bio ist laut eigener W9-Diagnose „Beschäftigung, keine Arbeit" — zehn Wochen und zwei Formate (Carousel, Video mit/ohne Ton) haben das ohne Kontokorrektur nicht widerlegt.
+
+**Was jetzt konkret nötig ist, bevor die Produktion wieder aufnimmt (nur von Peter machbar, nicht über die API):**
+1. **Bio auf Deutsch umstellen** im TikTok-Profil — Vorschlag unverändert aus W9: „Echte Familienrezepte & ehrliche Preise pro Portion. Gratis Wochenplan → culinse.com". Ein-Minuten-Eingriff in der App.
+2. **Zwei Wochen manuell unter DE-FoodTok-Videos kommentieren** (fremde Accounts, nicht die eigenen Posts), um überhaupt eine Interaktionshistorie/ein Signal an den Algorithmus aufzubauen.
+3. Erst danach nimmt der nächste Sonntagslauf die Produktion wieder auf — der Lauf prüft dafür jedes Mal erneut Bio-Text und Kommentar-Aktivität, bevor er weiterproduziert.
+
+**Damit kein wöchentliches Rauschen entsteht:** Solange die Konto-Baustelle offen ist, produziert/plant der nächste Lauf ebenfalls nichts Neues und meldet sich nur, wenn sich etwas Relevantes ändert (Bio gefixt, neue Zahlen, ein Ausreißer) — nicht mit einem weiteren „nichts verändert"-Bericht.
