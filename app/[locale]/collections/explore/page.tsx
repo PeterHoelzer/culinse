@@ -20,6 +20,7 @@ export async function generateMetadata({
       tr: "https://culinse.com/tr/collections/explore",
       nl: "https://culinse.com/nl/collections/explore",
       cs: "https://culinse.com/cs/collections/explore",
+      ru: "https://culinse.com/ru/collections/explore",
       "x-default": "https://culinse.com/en/collections/explore",
     },
   };
