@@ -41,6 +41,7 @@ export function isAirfryerQuery(raw: string): boolean {
     "аэрогрил", // ru аэрогриль/аэрогрили
     "аэрофритюр", // ru аэрофритюрница
     "фритюрниц", // ru фритюрница
+    "fritadeir", // pt fritadeira/fritadeiras
   ];
   if (hits.some((h) => norm.includes(h))) return true;
   return /^heis?sluft/.test(norm);

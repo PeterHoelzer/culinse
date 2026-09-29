@@ -130,6 +130,15 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
       "здоровые рецепты", "быстрые рецепты", "план на неделю", "список покупок", "аэрогриль",
     ],
   },
+  pt: {
+    title: "Culinse – Descubra receitas que você vai amar",
+    description:
+      "O Culinse reúne receitas das melhores fontes — filtradas pela sua dieta e alergias. Grátis, sem assinatura.",
+    keywords: [
+      "receitas", "descoberta de receitas", "receitas personalizadas", "cozinhar", "comida",
+      "busca de receitas", "receitas saudáveis", "receitas rápidas", "plano semanal", "lista de compras", "airfryer",
+    ],
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
