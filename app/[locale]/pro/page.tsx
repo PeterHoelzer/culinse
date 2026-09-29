@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       tr: "https://culinse.com/tr/pro",
       nl: "https://culinse.com/nl/pro",
       cs: "https://culinse.com/cs/pro",
+      ru: "https://culinse.com/ru/pro",
       "x-default": "https://culinse.com/en/pro",
     },
   };
