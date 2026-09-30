@@ -65,7 +65,7 @@ interface FeaturedRecipe {
 async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : "en"}&number=12`,
+      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : "en"}&number=12`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return [];
@@ -87,7 +87,7 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
 async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : "en"}&number=6`,
+      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : "en"}&number=6`,
       { next: { revalidate: 900 } }
     );
     if (!res.ok) return [];
@@ -99,7 +99,7 @@ async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
 }
 
 const OG_LOCALES: Record<string, string> = {
-  en: "en_US", de: "de_DE", es: "es_ES", fr: "fr_FR", it: "it_IT", pl: "pl_PL", tr: "tr_TR", nl: "nl_NL", cs: "cs_CZ", ru: "ru_RU", pt: "pt_BR",
+  en: "en_US", de: "de_DE", es: "es_ES", fr: "fr_FR", it: "it_IT", pl: "pl_PL", tr: "tr_TR", nl: "nl_NL", cs: "cs_CZ", ru: "ru_RU", pt: "pt_BR", zh: "zh_CN",
 };
 const HOME_META: Record<string, { title: string; description: string }> = {
   de: {
@@ -146,6 +146,10 @@ const HOME_META: Record<string, { title: string; description: string }> = {
     title: "Culinse – Descubra receitas que você vai amar",
     description: "Receitas das melhores fontes, feitas para você.",
   },
+  zh: {
+    title: "Culinse – 发现你会爱上的食谱",
+    description: "来自优质来源的食谱，为你量身定制。",
+  },
 };
 
 // ─── Homepage metadata (canonical + hreflang + Open Graph) ───────────────────
@@ -176,6 +180,7 @@ export async function generateMetadata({
         cs: "https://culinse.com/cs",
         ru: "https://culinse.com/ru",
         pt: "https://culinse.com/pt",
+        zh: "https://culinse.com/zh",
         "x-default": "https://culinse.com/en",
       },
     },
