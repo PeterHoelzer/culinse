@@ -20,6 +20,18 @@
 // Bestätigt unverändert: Butter 1,19 €/250 g = 4,76 €/kg (Aldi Milsani),
 // Eier Bodenhaltung 10er 2,49 €, Rinderhack 6,19 €/500 g, Kaffee ab 4,79 €/500 g,
 // Milch/Mehl/Zucker/Nudeln/Reis/Öle im Rahmen.
+// Check 01.10.2026: Destatis Sept. (vorl.) Nahrungsmittel +0,4 % ggü. Vj.; AMI-
+// Frischeindex Sept. −2,5 % (Kartoffeln/Gemüse/Butter ziehen an). Butter wieder
+// 1,19 €/250 g (Aldi seit 07.09., = 4,76 €/kg → Tabellenwert passt), Vollmilch
+// stabil 0,95 €/L (LZ 11.09.), Eier 2,49 €/10er. Aldi Fleisch-Senkung 20.08.:
+// gemischtes Hack 4,99 €/500 g (9,98 €/kg, −5 % → unter Schwelle, belassen),
+// Rinderhack 5,79 €/500 g (Lidl 6,19 → Mittel ≈ 12 €/kg passt). Kaffee seit
+// 01.07.: Barissimo Classic 4,49 €/500 g, Gold 5,49, Bohnen 8,99–10,99 €/kg.
+// Käse: Gouda-Scheiben 6,23 €/kg, Emmentaler 8,7–9,2, Cheddar ≈ 11 → 7,00 als
+// Mischwert passt. KORRIGIERT: Raps-/Sonnenblumenöl 2,20 → 1,70 €/L (Aldi
+// Bellasan Rapsöl 1,49 €/L lt. dispix 03/2026, Sonnenblumenöl 1,49, Lidl Vita
+// D'or 1,79), Mandeln 10 → 12 €/kg (Lidl Belbake 200 g 2,49 € nach Senkung
+// 23.09. = 12,45 €/kg). Kartoffeln 2,5 kg 2,99 € (Lidl) = 1,20 €/kg → 1,30 ok.
 //
 // PFLEGE: Ein monatlicher automatischer Preis-Check gleicht die wichtigsten
 // Einträge gegen aktuelle Quellen ab und aktualisiert PRICES_UPDATED_AT.
@@ -29,7 +41,7 @@
 // Preislogik: perKg (€/kg) für Feststoffe, perL (€/L) für Flüssigkeiten,
 // perPiece (€/Stück) für Stückware, pieceGrams für Stück→Gewicht-Umrechnung.
 
-export const PRICES_UPDATED_AT = "2026-09-01";
+export const PRICES_UPDATED_AT = "2026-10-01";
 
 export interface PriceEntry {
   /** lowercase Matching-Namen: Englisch zuerst (API-Rohdaten), dann Deutsch */
@@ -154,7 +166,7 @@ export const PRICE_TABLE: PriceEntry[] = [
   { names: ["broth", "stock", "chicken broth", "vegetable broth", "brühe", "bruehe", "gemüsebrühe", "hühnerbrühe"], perL: 0.6 },
   { names: ["soy sauce", "sojasauce", "sojasoße"], perL: 6.0 },
   { names: ["olive oil", "olivenöl", "olivenoel"], perL: 6.0 },
-  { names: ["vegetable oil", "sunflower oil", "rapsöl", "rapsoel", "sonnenblumenöl", "pflanzenöl", "öl", "oel", "oil"], perL: 2.2 },
+  { names: ["vegetable oil", "sunflower oil", "rapsöl", "rapsoel", "sonnenblumenöl", "pflanzenöl", "öl", "oel", "oil"], perL: 1.7 },
   { names: ["sesame oil", "sesamöl"], perL: 12.0 },
   { names: ["vinegar", "essig"], perL: 1.6 },
   { names: ["balsamic vinegar", "balsamico"], perL: 4.5 },
@@ -197,7 +209,7 @@ export const PRICE_TABLE: PriceEntry[] = [
 
   // ── Nüsse, Samen & Snacks ──
   { names: ["nuts", "mixed nuts", "nüsse", "nuesse"], perKg: 12.0 },
-  { names: ["almonds", "mandeln"], perKg: 10.0 },
+  { names: ["almonds", "mandeln"], perKg: 12.0 },
   { names: ["walnuts", "walnüsse", "walnuesse"], perKg: 11.0 },
   { names: ["cashews", "cashewkerne"], perKg: 12.0 },
   { names: ["peanuts", "erdnüsse", "erdnuesse"], perKg: 5.0 },
