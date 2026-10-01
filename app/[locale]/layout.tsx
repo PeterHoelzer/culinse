@@ -148,6 +148,15 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
       "食谱搜索", "健康食谱", "快手菜", "每周计划", "购物清单", "空气炸锅",
     ],
   },
+  ja: {
+    title: "Culinse – きっと好きになるレシピと出会おう",
+    description:
+      "Culinseは厳選されたレシピを集め、あなたの食生活やアレルギーに合わせて絞り込めます。無料・サブスク不要。",
+    keywords: [
+      "レシピ", "料理", "レシピ検索", "献立", "時短レシピ",
+      "ヘルシーレシピ", "週間プラン", "買い物リスト", "エアフライヤー", "ドイツ料理",
+    ],
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

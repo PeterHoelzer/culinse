@@ -63,7 +63,7 @@ interface SimilarCard {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const id = searchParams.get("id") || "";
-  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : searchParams.get("lang") === "fr" ? "fr" : searchParams.get("lang") === "it" ? "it" : searchParams.get("lang") === "pl" ? "pl" : searchParams.get("lang") === "tr" ? "tr" : searchParams.get("lang") === "nl" ? "nl" : searchParams.get("lang") === "cs" ? "cs" : searchParams.get("lang") === "ru" ? "ru" : searchParams.get("lang") === "pt" ? "pt" : searchParams.get("lang") === "zh" ? "zh" : "en";
+  const lang = searchParams.get("lang") === "de" ? "de" : searchParams.get("lang") === "es" ? "es" : searchParams.get("lang") === "fr" ? "fr" : searchParams.get("lang") === "it" ? "it" : searchParams.get("lang") === "pl" ? "pl" : searchParams.get("lang") === "tr" ? "tr" : searchParams.get("lang") === "nl" ? "nl" : searchParams.get("lang") === "cs" ? "cs" : searchParams.get("lang") === "ru" ? "ru" : searchParams.get("lang") === "pt" ? "pt" : searchParams.get("lang") === "zh" ? "zh" : searchParams.get("lang") === "ja" ? "ja" : "en";
   const number = Math.min(Math.max(Math.floor(Number(searchParams.get("number")) || 8), 1), 12);
   const tagsParam = (searchParams.get("tags") || "")
     .split(",")

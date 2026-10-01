@@ -23,7 +23,7 @@ export function isAirfryerQuery(raw: string): boolean {
     .replace(/ß/g, "ss")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z\u0430-\u044f\u0451\u4e00-\u9fff]/g, "");
+    .replace(/[^a-z\u0430-\u044f\u0451\u3040-\u30ff\u4e00-\u9fff]/g, "");
   if (norm.length < 4) return false;
   const hits = [
     "airfr", // airfryer, air fryer, air-frier …
@@ -44,6 +44,8 @@ export function isAirfryerQuery(raw: string): boolean {
     "fritadeir", // pt fritadeira/fritadeiras
     "空气炸锅", // zh Airfryer
     "气炸锅", // zh Kurzform 空气炸锅/气炸锅
+    "エアフライヤ", // ja エアフライヤー
+    "ノンフライヤ", // ja ノンフライヤー (gaengiges Synonym)
   ];
   if (hits.some((h) => norm.includes(h))) return true;
   return /^heis?sluft/.test(norm);

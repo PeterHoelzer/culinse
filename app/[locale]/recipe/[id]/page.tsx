@@ -43,7 +43,7 @@ async function fetchRecipe(id: string): Promise<Recipe | "missing" | null> {
 async function fetchSimilar(id: string, locale: string, recipe: Recipe): Promise<SimilarRecipe[]> {
   const params = new URLSearchParams({
     id,
-    lang: locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : "en",
+    lang: locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : "en",
     number: "8",
   });
   const tags = Array.from(
