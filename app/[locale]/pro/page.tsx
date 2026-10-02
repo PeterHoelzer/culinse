@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       pt: "https://culinse.com/pt/pro",
       zh: "https://culinse.com/zh/pro",
       ja: "https://culinse.com/ja/pro",
+      id: "https://culinse.com/id/pro",
       "x-default": "https://culinse.com/en/pro",
     },
   };

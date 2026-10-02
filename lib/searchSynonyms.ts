@@ -46,6 +46,7 @@ export function isAirfryerQuery(raw: string): boolean {
     "气炸锅", // zh Kurzform 空气炸锅/气炸锅
     "エアフライヤ", // ja エアフライヤー
     "ノンフライヤ", // ja ノンフライヤー (gaengiges Synonym)
+    "penggoreng", // id penggoreng udara (Air Fryer)
   ];
   if (hits.some((h) => norm.includes(h))) return true;
   return /^heis?sluft/.test(norm);

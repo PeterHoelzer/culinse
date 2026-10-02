@@ -1,0 +1,700 @@
+{
+  "nav": {
+    "discover": "Jelajahi",
+    "about": "Tentang kami",
+    "blog": "Blog",
+    "mealPlanner": "Perencana menu",
+    "collections": "Koleksi",
+    "saved": "Tersimpan",
+    "profile": "Profil",
+    "login": "Masuk",
+    "getStarted": "Mulai →",
+    "join": "Bergabung",
+    "logout": "Keluar",
+    "upgrade": "✦ Upgrade",
+    "myRecipes": "Resep saya",
+    "calculator": "Kalkulator",
+    "myRecipesShort": "Resep"
+  },
+  "hero": {
+    "badge": "Dikembangkan oleh seorang master pengolah daging & kepala koki",
+    "headline1": "Satu tempat untuk",
+    "headline2": "semua resep favoritmu.",
+    "subline": "Culinse menghimpun resep dari sumber-sumber terbaik — disaring sesuai pola makan dan alergimu, tanpa banner iklan, dan semua resepnya gratis.",
+    "searchPlaceholder": "Pasta, kari, steak…",
+    "searchButton": "Cari",
+    "tryLabel": "Coba:",
+    "quickPicks": [
+      "Pasta carbonara",
+      "Steak sapi",
+      "Kari Thailand",
+      "Kue cokelat"
+    ],
+    "sourcesMobile": "Resep orisinal · Komunitas · Keluarga",
+    "sourcesDesktop": "Resep kami berasal dari:",
+    "freeLabel": "Gratis digunakan · Tanpa banner iklan",
+    "ctaPlan": "📅 Rencanakan menu mingguan gratis",
+    "ctaBrowse": "Jelajahi resep ↓",
+    "trust1": "Gratis digunakan",
+    "trust2": "Tanpa banner iklan",
+    "trust3": "Harga riil supermarket diskon"
+  },
+  "categories": [
+    "Semua",
+    "Masakan Jerman",
+    "Air fryer",
+    "Hidangan utama",
+    "Vegetarian",
+    "Cepat",
+    "Pendamping & camilan",
+    "Hidangan pesta",
+    "Sarapan",
+    "Hidangan penutup",
+    "Salad",
+    "Sup",
+    "Pasta",
+    "Makanan laut",
+    "Pizza",
+    "Masakan Asia"
+  ],
+  "trendFilters": {
+    "trending": "🔥 Sedang tren",
+    "highProtein": "💪 Tinggi protein",
+    "lowCarb": "⚡ Rendah karbo",
+    "keto": "🥑 Keto",
+    "dairyFree": "🥛 Bebas laktosa",
+    "mediterranean": "🫒 Mediterania",
+    "forYou": "✨ Untukmu"
+  },
+  "timeFilters": {
+    "15": "≤ 15 menit",
+    "30": "≤ 30 menit",
+    "60": "≤ 60 menit",
+    "any": "Semua durasi"
+  },
+  "dietFilters": {
+    "all": "Semua pola makan",
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "glutenFree": "Bebas gluten"
+  },
+  "discover": {
+    "title": "Tren hari ini",
+    "resultsFor": "Hasil untuk “{query}”",
+    "loading": "Memuat resep…",
+    "recipesFound": "{count} resep dari situs kuliner terbaik di dunia",
+    "loadMore": "Muat lebih banyak",
+    "loadingMore": "Memuat…",
+    "noRecipes": "Resep tidak ditemukan",
+    "noRecipesSub": "Coba kata kunci atau kategori lain",
+    "error": "Resep tidak dapat dimuat",
+    "tryAgain": "Coba lagi",
+    "quotaWarning": "Kami sedang memperbarui katalog resep — hasil lengkap akan segera tersedia kembali.",
+    "allergenFiltered": "{count} alergen disaring",
+    "allergensFiltered": "{count} alergen disaring",
+    "profileCta": "Atur profil pola makanmu",
+    "profileCtaSub": "Beri tahu kami pola makan & alergenmu — dapatkan feed yang dipersonalisasi."
+  },
+  "recipeCard": {
+    "servings": "{count} porsi",
+    "details": "Detail →",
+    "addToCollection": "Tambahkan ke koleksi",
+    "save": "Simpan resep",
+    "removeSave": "Hapus dari resep tersimpan",
+    "loginToSave": "Masuk untuk menyimpan"
+  },
+  "forYou": {
+    "title": "✨ Untukmu",
+    "subtitle": "Dipersonalisasi berdasarkan profil pola makanmu",
+    "fromActivity": "Berdasarkan resep yang kamu simpan dan rencanakan",
+    "editProfile": "Ubah profil →"
+  },
+  "videoSection": {
+    "title": "🎬 Resep video",
+    "comingSoonBadge": "Segera hadir",
+    "comingSoonTitle": "Video memasak orisinal kami sedang dibuat",
+    "comingSoonText": "Video langkah demi langkah langsung dari dapur Culinse — bukan konten pasaran. Jangan lupa mampir lagi, ya!",
+    "subtitle": "Tonton & masak — langkah demi langkah",
+    "fullRecipe": "Lihat resep →",
+    "loadMore": "Muat video lainnya",
+    "loading": "Memuat…",
+    "addToPlan": "+ Rencanakan"
+  },
+  "howItWorks": {
+    "title": "Cara kerja Culinse",
+    "subtitle": "Kami menghadirkan resep terbaik dari internet untukmu — dipersonalisasi, mudah dicari, dan dilengkapi daftar belanja otomatis.",
+    "steps": [
+      {
+        "icon": "🔍",
+        "title": "Cari & jelajahi",
+        "desc": "Cari di antara jutaan resep dari situs kuliner terbaik di seluruh dunia — semuanya di satu tempat."
+      },
+      {
+        "icon": "❤️",
+        "title": "Simpan & personalisasi",
+        "desc": "Simpan resep favoritmu. Culinse mempelajari seleramu dan menampilkan lebih banyak resep yang sesuai."
+      },
+      {
+        "icon": "🛒",
+        "title": "Daftar belanja dengan total biaya (€)",
+        "desc": "Rencana menu mingguanmu otomatis menjadi daftar belanja — lengkap dengan perkiraan harga supermarket diskon untuk tiap bahan dan total biaya untuk seminggu penuh."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Jelajahi resep sekarang.",
+    "subtitle": "Mulai gratis, tanpa wajib berlangganan. Hanya hidangan lezat yang dipersonalisasi untukmu.",
+    "button": "Buat akun gratis →",
+    "buttonLoggedIn": "Buka perencana menu mingguanmu →"
+  },
+  "footer": {
+    "about": "Tentang kami",
+    "impressum": "Informasi pengelola",
+    "datenschutz": "Kebijakan privasi",
+    "aiTransparency": "Transparansi AI",
+    "agb": "Syarat & ketentuan",
+    "widerruf": "Hak pembatalan",
+    "contact": "Kontak",
+    "copyright": "© {year} Culinse. Hak cipta dilindungi undang-undang.",
+    "planner": "Perencana menu mingguan",
+    "calculator": "Kalkulator belanja"
+  },
+  "about": {
+    "ourStory": "Kisah kami",
+    "heroTitle1": "Dibuat oleh seorang koki.",
+    "heroTitle2": "Untuk siapa pun yang memasak.",
+    "heroSubtitle": "Culinse lahir dari rasa frustrasi yang nyata — 20 menit berpindah dari satu situs ke situs lain, hanya untuk menemukan satu resep makan malam yang layak.",
+    "founderRole": "Kepala koki · Master pengolah daging · Pendiri",
+    "whereWeGoing": "Ke mana kami melangkah",
+    "visionTitle": "Platform resep universal",
+    "values": [
+      {
+        "icon": "🍖",
+        "title": "Keahlian",
+        "desc": "Dikembangkan oleh seseorang yang bertahun-tahun berdiri di depan kompor dan di balik konter toko daging."
+      },
+      {
+        "icon": "❤️",
+        "title": "Semangat",
+        "desc": "Makanan lebih dari sekadar bahan bakar. Culinse dibuat untuk orang-orang yang benar-benar suka memasak."
+      },
+      {
+        "icon": "✨",
+        "title": "Kesederhanaan",
+        "desc": "Tanpa banner iklan, tanpa wajib berlangganan, tanpa kekacauan. Hanya resep yang ingin kamu masak."
+      }
+    ],
+    "visionItems": [
+      {
+        "icon": "📅",
+        "title": "Perencana menu mingguan",
+        "desc": "Rencanakan menu seminggu penuh dalam hitungan menit. Culinse memilihkan resep yang sesuai dengan pola makan, jadwal, dan bahan yang sudah ada di kulkasmu."
+      },
+      {
+        "icon": "🛒",
+        "title": "Daftar belanja pintar",
+        "desc": "Buat daftar belanja secara otomatis dari rencana menu mingguanmu — atau kirim langsung ke layanan pesan-antar favoritmu."
+      },
+      {
+        "icon": "📚",
+        "title": "Album resep",
+        "desc": "Buat koleksimu sendiri dan bagikan kepada teman, keluarga, atau seluruh dunia."
+      },
+      {
+        "icon": "🌍",
+        "title": "Semua di satu tempat",
+        "desc": "Satu platform. Semua resep. Tidak ada lagi deretan tab browser. Dari makan malam kilat di hari kerja hingga proyek masak ambisius di akhir pekan."
+      }
+    ],
+    "discoverCta": "Jelajahi resep →",
+    "feedbackLabel": "Ada pertanyaan atau masukan?",
+    "story1": "Awalnya saya bekerja sebagai kepala koki dan memasak di berbagai restoran di seluruh Jerman. Setelah itu, saya tertarik mendalami keterampilan mengolah daging — pada 2024 saya meraih gelar master pengolah daging, kualifikasi profesi tertinggi di bidang keterampilan ini. Bagi saya, makanan bukan sekadar urusan sampingan. Makanan adalah segalanya.",
+    "story2": "Namun, meski dengan latar belakang itu, masalah sehari-harinya tetap sama: menemukan resep yang tepat berarti harus berpindah-pindah di antara belasan tab browser, menutup banner cookie satu per satu, dan menggulir kisah hidup yang panjang sebelum akhirnya sampai ke daftar bahan. Untuk sesuatu yang seharusnya menyenangkan, semua itu sungguh melelahkan.",
+    "story3": "Saya selalu berpikir: mengapa tidak ada platform yang simpel dan langsung berfungsi? Satu tempat, resep-resep hebat, tanpa hiruk-pikuk. Seperti cara kita menemukan musik baru — hanya saja untuk makanan. Jadi, saya membangunnya sendiri.",
+    "story4": "Itulah Culinse.",
+    "name": "Peter"
+  },
+  "login": {
+    "title": "Masuk ke Culinse",
+    "subtitle": "Simpan resep, rencanakan menu, dan dapatkan rekomendasi yang dipersonalisasi.",
+    "emailLabel": "Alamat email",
+    "emailPlaceholder": "nama@example.com",
+    "magicLinkButton": "Kirim tautan masuk",
+    "sending": "Mengirim…",
+    "checkEmail": "Periksa kotak masuk email kamu — tautan sudah dikirim!",
+    "orContinueWith": "atau lanjutkan dengan",
+    "googleButton": "Lanjutkan dengan Google",
+    "noAccount": "Tidak perlu punya akun — pendaftaran dilakukan secara otomatis.",
+    "errorLinkExpired": "Tautan ini sudah kedaluwarsa. Silakan minta tautan baru.",
+    "logIn": "Masuk",
+    "signUp": "Daftar",
+    "welcomeBack": "Selamat datang kembali",
+    "createAccount": "Buat akun",
+    "loginSub": "Masuk untuk menyimpan resep dan mendapatkan feed pribadimu.",
+    "signupSub": "Gratis selamanya. Tidak perlu kartu kredit.",
+    "passwordLabel": "Kata sandi",
+    "passwordPlaceholder": "Min. 6 karakter",
+    "forgotPassword": "Lupa kata sandi?",
+    "loginButton": "Masuk →",
+    "createButton": "Buat akun →",
+    "checkInbox": "Periksa kotak masukmu!",
+    "sentTo": "Kami telah mengirim tautan konfirmasi ke",
+    "spamNote": "Klik tautan di email tersebut untuk mengaktifkan akunmu. Periksa juga folder spam.",
+    "backToLogin": "← Kembali ke halaman masuk",
+    "or": "atau",
+    "privacyNote": "Dengan melanjutkan, kamu menyetujui",
+    "privacyLink": "Kebijakan Privasi",
+    "privacySuffix": " kami.",
+    "loading": "Memuat…"
+  },
+  "profile": {
+    "title": "Profil",
+    "pageTitle": "Profil pola makanmu",
+    "welcomeBanner": "🎉 Selamat datang di Culinse! Atur profil pola makanmu dan dapatkan resep yang dipersonalisasi.",
+    "progress0": "Tentukan preferensimu untuk mendapatkan resep yang dipersonalisasi",
+    "progress1": "Awal yang bagus — tinggal 2 langkah lagi",
+    "progress2": "Hampir selesai — tinggal 1 langkah lagi",
+    "progress3": "✓ Profil lengkap — fitur “Untukmu” sudah aktif!",
+    "planPro": "Culinse Pro",
+    "planFree": "Paket gratis",
+    "renews": "Diperpanjang otomatis pada {date}",
+    "active": "✓ Aktif",
+    "free": "Gratis",
+    "proFeatures": [
+      "Koleksi tanpa batas",
+      "Rencana menu mingguan",
+      "Daftar belanja pintar",
+      "Simpan resep tanpa batas",
+      "Akses prioritas ke fitur baru"
+    ],
+    "loading": "Memuat…",
+    "manageSubscription": "Kelola langganan",
+    "upgradeButton": "Upgrade ke Pro — €4,99 / bulan",
+    "dietTitle": "Pola makan",
+    "dietSub": "Tampilkan hanya resep yang sesuai dengan gaya hidupmu.",
+    "activeLabel": "Aktif",
+    "nActive": "{n} aktif",
+    "allergenTitle": "Alergen & intoleransi",
+    "allergenSub": "Ketuk untuk mengecualikan bahan dari feed kamu.",
+    "timeTitle": "Waktu memasak maksimal",
+    "timeSub": "Tampilkan hanya resep yang benar-benar sempat kamu masak.",
+    "saving": "Menyimpan…",
+    "saved": "✓ Tersimpan!",
+    "saveButton": "Simpan preferensi",
+    "back": "← Kembali",
+    "dietOptions": [
+      {
+        "label": "Tanpa preferensi",
+        "desc": "Tampilkan semua"
+      },
+      {
+        "label": "Vegetarian",
+        "desc": "Tanpa daging atau ikan"
+      },
+      {
+        "label": "Vegan",
+        "desc": "Hanya bahan nabati"
+      },
+      {
+        "label": "Keto",
+        "desc": "Rendah karbohidrat, tinggi lemak"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Kembali ke pola makan purba"
+      },
+      {
+        "label": "Bebas gluten",
+        "desc": "Tanpa gluten"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Pola makan bersih"
+      }
+    ],
+    "intoleranceOptions": [
+      "Susu",
+      "Telur",
+      "Gluten",
+      "Kacang tanah",
+      "Kacang-kacangan",
+      "Kedelai",
+      "Makanan laut",
+      "Kerang & udang-udangan",
+      "Gandum",
+      "Sulfit"
+    ],
+    "timeOptions": [
+      {
+        "label": "Tanpa batas"
+      },
+      {
+        "label": "≤ 15 menit"
+      },
+      {
+        "label": "≤ 30 menit"
+      },
+      {
+        "label": "≤ 60 menit"
+      }
+    ]
+  },
+  "saved": {
+    "title": "Resep tersimpan",
+    "empty": "Belum ada resep tersimpan",
+    "emptySub": "Simpan resep favoritmu, nanti resepnya akan muncul di sini.",
+    "discover": "Jelajahi resep →"
+  },
+  "collections": {
+    "title": "Koleksi saya",
+    "newCollection": "Koleksi baru",
+    "empty": "Belum ada koleksi",
+    "emptySub": "Buat koleksi pertamamu untuk mengatur resep-resep favoritmu.",
+    "deleteConfirm": "Hapus koleksi ini?",
+    "delete": "Hapus",
+    "cancel": "Batal",
+    "newCollectionTitle": "Koleksi baru",
+    "creating": "Membuat…",
+    "create": "Buat koleksi",
+    "upgradeTitle": "Koleksi tanpa batas",
+    "upgradeSubtext": "Paket gratis mencakup 1 koleksi dengan maksimal 10 resep. Upgrade ke Pro untuk menikmati semuanya tanpa batas.",
+    "upgradeButton": "Upgrade ke Pro →",
+    "createFirst": "+ Buat koleksi pertama",
+    "groupDesc": "Kelompokkan resep favoritmu ke dalam koleksi — ibarat playlist, tetapi untuk makanan.",
+    "counter": "{count, plural, other {# koleksi}}",
+    "newButton": "+ Baru",
+    "publicLabel": "Jadikan publik",
+    "publicSub": "Siapa pun yang memiliki tautan bisa melihatnya",
+    "nameLabel": "Nama",
+    "descLabel": "Deskripsi",
+    "descOptional": "(opsional)",
+    "namePlaceholder": "Contoh: Favorit ala Italia",
+    "descPlaceholder": "Deskripsi singkat…",
+    "iconLabel": "Ikon",
+    "upgradePro": "Upgrade ke Pro",
+    "loading": "Memuat…",
+    "recipeCount": "{count, plural, other {# resep}}",
+    "detailBack": "Koleksi saya",
+    "publicBadge": "Publik",
+    "makePrivate": "🔒 Jadikan privat",
+    "makePublic": "🌍 Jadikan publik",
+    "share": "↑ Bagikan",
+    "copied": "✓ Tautan disalin!",
+    "noRecipes": "Belum ada resep",
+    "noRecipesSub": "Tambahkan resep ke koleksi ini dari halaman resep mana pun.",
+    "discoverCta": "Jelajahi resep →",
+    "deleteThis": "Hapus koleksi ini",
+    "deleteNamed": "Hapus “{name}”?",
+    "yesDelete": "Ya, hapus",
+    "removeFromCollection": "Hapus dari koleksi",
+    "view": "Lihat →"
+  },
+  "mealPlanner": {
+    "shareWeek": "Bagikan",
+    "shareCopied": "✓ Tautan disalin",
+    "title": "Perencana menu mingguan",
+    "days": [
+      "Sen",
+      "Sel",
+      "Rab",
+      "Kam",
+      "Jum",
+      "Sab",
+      "Min"
+    ],
+    "meals": [
+      "Sarapan",
+      "Makan siang",
+      "Makan malam"
+    ],
+    "addRecipe": "+ Tambah resep",
+    "shoppingList": "🛒 Daftar belanja",
+    "clearWeek": "Kosongkan minggu ini",
+    "thisWeek": "Minggu ini",
+    "daysFull": [
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+      "Minggu"
+    ],
+    "clearConfirm": "Hapus semua menu minggu ini?",
+    "noRecipes": "Belum ada resep di rencana menumu.",
+    "planName": "Rencana menu mingguan",
+    "tapToAdd": "Ketuk salah satu kotak untuk menambahkan resep.",
+    "mealsPlanned": "{n}/21 menu direncanakan",
+    "namePlanPlaceholder": "Beri nama rencana…",
+    "proMorePlans": "✦ Pro — lebih banyak rencana",
+    "newPlan": "+ Rencana baru",
+    "dragHint": "Tip: seret & lepas menu untuk memindahkan atau menukarnya.",
+    "move": "Pindahkan",
+    "moveHint": "Ketuk kotak tujuan untuk memindahkan",
+    "moveHere": "Pindahkan ke sini",
+    "swapHere": "Tukar",
+    "moving": "Memindahkan…",
+    "today": "Hari ini",
+    "copyWeek": "Salin minggu ini",
+    "prevWeek": "Minggu sebelumnya",
+    "nextWeek": "Minggu berikutnya",
+    "emptyTitle": "Rencanamu masih kosong",
+    "emptySub": "Ketuk salah satu kotak untuk menambahkan resep dari resep tersimpanmu.",
+    "myRecipes": "♥ Resep saya",
+    "collections": "📚 Koleksi",
+    "proModalTitle": "Lebih banyak rencana dengan Pro",
+    "proModalSub": "Dengan Culinse Pro, kamu bisa membuat rencana menu tanpa batas.",
+    "proModalButton": "Upgrade ke Pro — €4,99 / bulan",
+    "cancel": "Batal",
+    "deletePlanConfirm": "Hapus rencana? Semua isinya akan hilang."
+  },
+  "shoppingList": {
+    "title": "Daftar belanja",
+    "empty": "Tambahkan resep ke rencana menu mingguanmu untuk membuat daftar belanja.",
+    "checkAll": "Centang semua",
+    "uncheckAll": "Hapus semua centang",
+    "close": "Tutup"
+  },
+  "onboarding": {
+    "title": "Selamat datang di Culinse! Pola makan seperti apa yang kamu suka?",
+    "step1Sub": "Agar kami bisa menyarankan resep yang cocok untukmu. Kamu bisa mengubahnya nanti di profil.",
+    "diet_all": "Saya makan apa saja",
+    "diet_all_desc": "Aneka hidangan dari berbagai jenis masakan",
+    "diet_vegetarian": "Vegetarian",
+    "diet_vegetarian_desc": "Tanpa daging dan ikan",
+    "diet_vegan": "Vegan",
+    "diet_vegan_desc": "Sepenuhnya nabati",
+    "diet_protein": "Tinggi protein",
+    "diet_protein_desc": "Kaya protein, misalnya untuk menunjang latihan",
+    "diet_quick": "Cepat & praktis",
+    "diet_quick_desc": "Masakan sepulang kerja, kurang dari 30 menit",
+    "step2Title": "Minggu pertamamu",
+    "step2Sub": "Lima saran menu untuk Senin sampai Jumat — hapus centang pada yang tidak cocok.",
+    "addSelected": "Masukkan {count, plural, other {# resep}} ke rencana menu mingguan",
+    "adding": "Menambahkan ke rencana…",
+    "step3Title": "Rencana menu mingguanmu sudah siap!",
+    "step3Sub": "{count, plural, other {# menu makan malam}} sudah direncanakan — dan daftar belanjamu otomatis siap, lengkap dengan jumlah bahan dan perkiraan biaya.",
+    "viewList": "🛒 Lihat daftar belanja",
+    "toPlanner": "Ke perencana menu mingguan →",
+    "skip": "Lewati — langsung ke beranda",
+    "loadError": "Maaf, ada kendala. Silakan coba lagi dalam beberapa saat.",
+    "planName": "Rencana menu mingguan saya"
+  },
+  "planShare": {
+    "badge": "Rencana menu mingguan yang dibagikan",
+    "title": "Rencana menu mingguan saya",
+    "titleWithCost": "Menu seminggu saya seharga {cost}",
+    "subtitle": "{count, plural, other {# hidangan}} · minggu mulai {date}",
+    "estCost": "Perkiraan biaya belanja",
+    "estCostHint": "Perkiraan berdasarkan tingkat harga supermarket diskon ({priced} dari {total} hidangan dihitung). Harga dapat berbeda di tiap toko.",
+    "ctaTitle": "Rencanakan menu mingguanmu sendiri — gratis",
+    "ctaText": "Pilih resep, isi minggumu, dan dapatkan daftar belanja siap pakai lengkap dengan perkiraan harga. Tanpa banner iklan, tanpa wajib berlangganan.",
+    "ctaButton": "Mulai gratis"
+  },
+  "recipe": {
+    "cookTime": "Waktu memasak",
+    "servings": "Porsi",
+    "ingredients": "Bahan-bahan",
+    "instructions": "Cara membuat",
+    "saveRecipe": "♡ Simpan resep",
+    "savedRecipe": "♥ Tersimpan",
+    "saving": "…",
+    "viewOriginal": "Lihat sumber asli ↗",
+    "addToPlan": "+ Ke rencana menu mingguan",
+    "similarRecipes": "Resep serupa",
+    "backToDiscover": "← Kembali",
+    "notFound": "Resep tidak ditemukan",
+    "source": "Sumber",
+    "collections": "Koleksi",
+    "share": "Bagikan",
+    "copied": "Disalin!",
+    "print": "Cetak",
+    "reset": "Atur ulang",
+    "forServings": "Untuk {count} porsi",
+    "moreVideos": "Video lainnya",
+    "loadingVideos": "Memuat video…",
+    "instructionsOnSource": "Petunjuk lengkapnya bisa kamu temukan di halaman aslinya.",
+    "viewFullRecipe": "Lihat resep lengkap",
+    "printWithImage": "Dengan gambar",
+    "printNoImage": "Tanpa gambar",
+    "aiNotice": "Resep dan gambar dibuat dengan AI, telah diperiksa oleh tim redaksi",
+    "aiNoticeMore": "Selengkapnya tentang transparansi AI"
+  },
+  "pro": {
+    "title": "Culinse Pro",
+    "subtitle": "Nikmati pengalaman Culinse secara utuh.",
+    "price": "€4,99 / bulan",
+    "features": [
+      "Perencana menu mingguan lengkap 7 hari",
+      "Daftar belanja otomatis dengan jumlah bahan yang sudah digabungkan",
+      "Koleksi resep tanpa batas",
+      "Dukungan prioritas"
+    ],
+    "upgradeButton": "Upgrade ke Pro →",
+    "processing": "Memproses…",
+    "currentPlan": "Paketmu saat ini: Pro ✦",
+    "manageButton": "Kelola langganan →",
+    "heroTitle": "Dapurmu,\ntertata sepenuhnya.",
+    "heroSubtitle": "Rencanakan menu mingguanmu, buat daftar belanja, dan atur semua resep favoritmu — semuanya di satu tempat.",
+    "alreadyPro": "✓ Kamu sudah berlangganan Pro!",
+    "freeForAllBadge": "Semua fitur Pro saat ini gratis",
+    "freeForAllNote": "Kami sedang mengembangkan Culinse — seluruh fitur Pro terbuka untuk semua pengguna. Cukup masuk dan mulai merencanakan, tanpa perlu berlangganan.",
+    "startButton": "Coba gratis 7 hari →",
+    "cancelNote": "Gratis 7 hari · Tagihan baru dimulai setelahnya · Bisa dibatalkan kapan saja",
+    "legalNote": "Berlaku",
+    "legalAnd": "serta",
+    "agbLabel": "Syarat & Ketentuan",
+    "widerrufLabel": "Informasi Hak Pembatalan",
+    "activeNote": "Kamu sedang menggunakan Culinse Pro 🎉",
+    "freeLabel": "Gratis",
+    "proLabel": "Pro",
+    "everythingInFree": "Semua fitur paket Gratis, plus:",
+    "faqTitle": "Pertanyaan umum",
+    "faqItems": [
+      {
+        "q": "Apakah saya bisa membatalkan langganan kapan saja?",
+        "a": "Ya, kamu bisa membatalkannya kapan saja melalui profilmu. Akses Pro tetap berlaku hingga akhir periode penagihanmu."
+      },
+      {
+        "q": "Metode pembayaran apa saja yang diterima?",
+        "a": "Semua kartu kredit dan debit utama melalui Stripe. Aman, terenkripsi, dan sesuai standar PCI."
+      },
+      {
+        "q": "Apa yang terjadi pada koleksi saya jika saya berhenti berlangganan?",
+        "a": "Koleksimu tetap tersimpan. Hanya saja, kamu tidak bisa lagi membuat koleksi baru melebihi batas paket gratis."
+      },
+      {
+        "q": "Apakah ada masa uji coba gratis?",
+        "a": "Ya — kamu bisa mencoba Pro gratis selama 7 hari. Tagihan baru dikenakan setelah masa uji coba berakhir, dan kamu bisa membatalkannya kapan saja sebelum itu."
+      }
+    ],
+    "freeFeatures": [
+      "Resep dari 4 sumber terbaik",
+      "Cari & saring berdasarkan pola makan, waktu, dan jenis masakan",
+      "Simpan resep (♡)",
+      "1 koleksi (maksimal 10 resep)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Koleksi tanpa batas",
+        "sub": "Atur resep favoritmu persis seperti yang kamu mau"
+      },
+      {
+        "icon": "📅",
+        "label": "Perencana menu mingguan",
+        "sub": "Rencanakan sarapan, makan siang & makan malam untuk seminggu penuh"
+      },
+      {
+        "icon": "🛒",
+        "label": "Daftar belanja pintar",
+        "sub": "Dibuat otomatis dari rencanamu, diurutkan per kategori"
+      },
+      {
+        "icon": "❤️",
+        "label": "Simpan resep tanpa batas",
+        "sub": "Tanpa batas 25 resep — simpan semua yang kamu suka"
+      },
+      {
+        "icon": "⚡",
+        "label": "Prioritas untuk fitur baru",
+        "sub": "Akses pertama ke semua yang kami bangun selanjutnya"
+      }
+    ],
+    "questions": "Ada pertanyaan?",
+    "annualLabel": "Tahunan",
+    "monthlyLabel": "Bulanan",
+    "annualSave": "Hemat 35%",
+    "annualPrice": "€3,24 / bulan",
+    "annualTotal": "€38,88 / tahun",
+    "monthlyPrice": "€4,99 / bulan",
+    "annualStartButton": "Coba gratis 7 hari →",
+    "billedAnnually": "Ditagih per tahun",
+    "billedMonthly": "Ditagih per bulan"
+  },
+  "blog": {
+    "title": "Blog Culinse",
+    "subtitle": "Kiat, panduan, dan ide untuk memasak dengan lebih cerdas.",
+    "readMore": "Baca selengkapnya →",
+    "backToBlog": "← Kembali ke blog",
+    "minRead": "menit baca"
+  },
+  "error": {
+    "notFound": "Halaman tidak ditemukan",
+    "notFoundSub": "Halaman yang kamu cari tidak ada.",
+    "backHome": "Kembali ke beranda"
+  },
+  "newsletter": {
+    "title": "Dapatkan rencana meal prep 7 hari (PDF)",
+    "subtitle": "Rencana menu mingguan lengkap dengan sesi persiapan, daftar belanja yang bisa dicentang, dan kiat dari chef — gratis dalam format PDF. Plus ide resep terbaik setiap minggu. Tanpa spam, bisa berhenti berlangganan kapan saja.",
+    "placeholder": "nama@example.com",
+    "button": "Berlangganan",
+    "success": "🎉 Terima kasih! Sebentar lagi kamu akan menerima email dari kami.",
+    "error": "Terjadi kesalahan. Silakan coba lagi.",
+    "already": "Email ini sudah terdaftar.",
+    "sending": "Mendaftarkan…",
+    "download": "📄 Unduh rencananya sekarang (PDF)"
+  },
+  "loginPrompt": {
+    "title": "Simpan resep",
+    "subtitle": "Buat akun gratis untuk menyimpan resep dan menemukannya lagi dengan mudah.",
+    "login": "Masuk",
+    "signup": "Daftar gratis",
+    "cancel": "Batal"
+  },
+  "modals": {
+    "ad": "Iklan",
+    "shop": "Toko",
+    "kitchenTools": "Peralatan dapur",
+    "affiliateLinks": "* Tautan afiliasi",
+    "upgradeTitle": "Upgrade ke Pro",
+    "upgradeMessage": "Kamu telah mencapai batas paket gratis, yaitu 25 resep tersimpan. Upgrade ke Pro untuk menyimpan tanpa batas, membuat koleksi, dan banyak lagi.",
+    "seePlans": "Lihat paket Pro",
+    "maybeLater": "Nanti saja",
+    "proFeature": "Fitur Pro",
+    "proUnlock": "Upgrade ke Pro untuk membuka fitur ini dan lainnya.",
+    "proFrom": "Mulai €4,99/bulan →",
+    "addToCollection": "Tambahkan ke koleksi",
+    "noCollections": "Belum ada koleksi",
+    "createOneBelow": "Buat koleksi di bawah ini",
+    "collectionNamePlaceholder": "Nama koleksi…",
+    "create": "Buat",
+    "newCollection": "+ Koleksi baru",
+    "fullUpgrade": "Penuh — upgrade untuk lebih banyak",
+    "cancel": "Batal",
+    "loading": "Memuat…",
+    "addToPlanHeader": "Tambahkan ke rencana menu mingguan",
+    "plan": "Rencana",
+    "day": "Hari",
+    "meal": "Waktu makan",
+    "planNamePlaceholder": "Beri nama rencanamu…",
+    "proMorePlans": "✦ Pro — lebih banyak rencana",
+    "saving": "Menyimpan…",
+    "addToPlanButton": "Tambahkan ke rencana",
+    "chooseRecipeFor": "Pilih resep untuk",
+    "myRecipesTab": "Resep saya",
+    "noSavedRecipes": "Belum ada resep tersimpan",
+    "emptyCollection": "Koleksi ini masih kosong",
+    "saveHint": "Simpan resep dengan ♡ di beranda.",
+    "addHint": "Tambahkan resep ke koleksi ini dengan 📚.",
+    "shoppingTitle": "🛒 Daftar belanja",
+    "recipesCount": "{count} resep",
+    "done": "selesai",
+    "reset": "Atur ulang",
+    "cantLoad": "Bahan tidak dapat dimuat.",
+    "noRecipesInPlan": "Belum ada resep di rencana",
+    "addRecipesFirst": "Tambahkan resep ke rencana menu mingguanmu terlebih dahulu.",
+    "noIngredients": "Bahan tidak ditemukan — beberapa sumber tidak menyediakan daftar bahan.",
+    "orderGroceries": "🛒 Pesan bahan makanan di Amazon",
+    "affiliateNote": "Tautan afiliasi — tanpa biaya tambahan untukmu",
+    "allDone": "Semua selesai!",
+    "boughtAll": "Kamu sudah membeli semua bahan."
+  },
+  "proSuccess": {
+    "title": "Selamat datang di Culinse Pro!",
+    "subtitle": "Langgananmu sudah aktif. Sekarang kamu bisa mengakses koleksi tanpa batas, perencana menu mingguan, dan daftar belanja pintar.",
+    "goCollections": "📚 Ke koleksi saya",
+    "discover": "Jelajahi resep"
+  },
+  "allStates": "Semua negara bagian"
+}
