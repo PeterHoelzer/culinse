@@ -51,6 +51,9 @@ const CATEGORY_TAGS: Record<string, string[]> = {
   Italian: ["italian", "italienisch"],
   Mexican: ["mexican", "mexikanisch"],
   German: ["deutschland"],
+  // Kurdische Küche (04.10.26): 250 Berwar-/Kurdistan-Rezepte je Sprache,
+  // Tag "kurdistan" sprachunabhängig vererbt; Chip categories[2].
+  Kurdish: ["kurdistan", "kurdisch", "kurdish"],
   // Korpus-Erweiterung (24.09.26): Chips für die starken Tags des 1368er-
   // Korpus; Salad/Pizza zusätzlich per Tag statt nur Titel-Fallback.
   "Main Dishes": ["hauptgericht", "main course", "main dish"],
@@ -61,7 +64,7 @@ const CATEGORY_TAGS: Record<string, string[]> = {
   Salad: ["salat", "salad"],
   Pizza: ["pizza"],
   // Heißluftfritteuse (19.09.26): sprachunabhängig vererbter Korpus-Tag;
-  // Chip "Air Fryer" auf der Startseite (messages categories[2]).
+  // Chip "Air Fryer" auf der Startseite (messages categories[3]).
   "Air Fryer": [AIRFRYER_TAG, "airfryer", "air fryer"],
 };
 
