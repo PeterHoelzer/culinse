@@ -8,6 +8,7 @@ import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
 import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
 import { renderRichText } from "@/lib/renderRichText";
 import BlogAffiliateBox from "@/components/BlogAffiliateBox";
+import { getVideoBySlug } from "@/lib/videos";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -86,6 +87,9 @@ export default async function BlogPostPage({ params }: Props) {
     }
     notFound();
   }
+
+  // Eigenes Koch-Video zum Artikel (12.10.2026) — ersetzt das Hero-Bild.
+  const video = post.video ? getVideoBySlug(post.video) : undefined;
 
   const allPosts = locale === "de" ? blogPostsDe : blogPosts;
   // Themen-Cluster: Artikel derselben Kategorie zuerst, dann der Rest — so
@@ -167,6 +171,26 @@ export default async function BlogPostPage({ params }: Props) {
         }
       : null;
 
+  // VideoObject-JSON-LD (12.10.2026): macht den Artikel fuer Video-Rich-
+  // Results und KI-Zitate auffindbar; Daten aus lib/videos.ts.
+  const videoSchema = video
+    ? {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: locale === "de" ? video.title.de : video.title.en,
+        description: locale === "de" ? video.description.de : video.description.en,
+        thumbnailUrl: [`https://culinse.com${video.poster}`],
+        contentUrl: video.src,
+        uploadDate: video.uploadDate,
+        duration: video.durationIso,
+        publisher: {
+          "@type": "Organization",
+          name: "Culinse",
+          logo: { "@type": "ImageObject", url: "https://culinse.com/culinse-logo.png" },
+        },
+      }
+    : null;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <script
@@ -193,6 +217,18 @@ export default async function BlogPostPage({ params }: Props) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(faqSchema)
+              .replace(/</g, "\\u003c")
+              .replace(/>/g, "\\u003e")
+              .replace(/&/g, "\\u0026"),
+          }}
+        />
+      )}
+
+      {videoSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(videoSchema)
               .replace(/</g, "\\u003c")
               .replace(/>/g, "\\u003e")
               .replace(/&/g, "\\u0026"),
@@ -237,8 +273,32 @@ export default async function BlogPostPage({ params }: Props) {
           <p className="text-gray-500 leading-relaxed">{post.description}</p>
         </div>
 
+        {/* Eigenes Koch-Video: ersetzt das Hero-Bild durch den Player
+            (Untertitel de/en, Poster lokal, MP4 aus Supabase Storage). */}
+        {video && (
+          <video
+            controls
+            preload="metadata"
+            playsInline
+            poster={video.poster}
+            className="w-full aspect-video bg-black rounded-2xl border border-gray-100 shadow-sm mb-8"
+          >
+            <source src={video.src} type="video/mp4" />
+            {video.subtitles.map((s) => (
+              <track
+                key={s.lang}
+                kind="subtitles"
+                srcLang={s.lang}
+                label={s.label}
+                src={s.src}
+                default={locale === "de" ? s.lang === "de" : s.lang === "en"}
+              />
+            ))}
+          </video>
+        )}
+
         {/* Header image (FLUX-generiert, eigene Rechte) */}
-        {post.image && (
+        {!video && post.image && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={post.image}
@@ -301,6 +361,7 @@ export default async function BlogPostPage({ params }: Props) {
           title={post.title}
           category={post.category}
           headings={post.sections.map((s) => s.heading ?? "").filter(Boolean)}
+          productNames={post.affiliateNames}
           locale={locale}
         />
 

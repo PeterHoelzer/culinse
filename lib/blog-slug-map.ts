@@ -34,6 +34,10 @@ export const EN_TO_DE_BLOG_SLUGS: Record<string, string> = {
   "easy-student-recipes": "rezepte-fuer-studenten",
   "what-to-cook-on-the-weekend": "was-koche-ich-am-wochenende",
   "how-to-stock-a-pantry": "vorratshaltung-speisekammer",
+  // Kochschule / Kitchen Skills (Video-Trilogie, 12.10.2026)
+  "knife-skills-how-to-cut-like-a-chef": "schneiden-lernen-messerhaltung-schnitttechniken",
+  "steak-doneness-temperatures-guide": "steak-braten-kerntemperatur-garstufen",
+  "kitchen-knives-sharpening-cutting-boards-guide": "messer-schaerfen-schneidebretter-kaufberatung",
 };
 
 // Reverse lookup (DE slug → EN slug), derived automatically so it can never

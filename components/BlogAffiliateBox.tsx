@@ -9,7 +9,10 @@ import {
 /**
  * Affiliate-Empfehlungsbox für Blog-Artikel (Server-Komponente, kein JS-Bundle).
  *
- * Matching: versucht zuerst kontextuelle Tools über den Artikel-Haystack
+ * Matching: `productNames` (12.10.2026) erlaubt dem Artikel eine explizite,
+ * kuratierte Produktliste (Name-Match gegen AFFILIATE_PRODUCTS, Reihenfolge =
+ * Anzeige) — genutzt von den Kochschul-Artikeln (Messer/Bretter/Schärfen).
+ * Ohne `productNames`: kontextuelle Tools über den Artikel-Haystack
  * (Titel + Kategorie + Headings, gleiche Logik wie auf Rezeptseiten).
  * Liefert das Matching < 2 Treffer, fällt die Box auf drei Evergreen-
  * Essentials zurück (Messer, Pfanne, Waage) — breit relevant für jedes
@@ -26,19 +29,24 @@ interface Props {
   category: string;
   headings: string[];
   locale: string;
+  /** Explizite Produktauswahl (AffiliateProduct.name), überstimmt das Matching. */
+  productNames?: string[];
 }
 
-export default function BlogAffiliateBox({ title, category, headings, locale }: Props) {
+export default function BlogAffiliateBox({ title, category, headings, locale, productNames }: Props) {
   const de = locale === "de";
 
-  let products: AffiliateProduct[] = getToolsForRecipe(
-    [category],
-    [],
-    `${title} ${headings.join(" ")}`
-  );
-
-  if (products.length < 2) {
-    products = AFFILIATE_PRODUCTS.filter((p) => FALLBACK_NAMES.includes(p.name));
+  let products: AffiliateProduct[];
+  if (productNames && productNames.length > 0) {
+    const byName = new Map(AFFILIATE_PRODUCTS.map((p) => [p.name, p]));
+    products = productNames
+      .map((n) => byName.get(n))
+      .filter((p): p is AffiliateProduct => Boolean(p));
+  } else {
+    products = getToolsForRecipe([category], [], `${title} ${headings.join(" ")}`);
+    if (products.length < 2) {
+      products = AFFILIATE_PRODUCTS.filter((p) => FALLBACK_NAMES.includes(p.name));
+    }
   }
 
   if (products.length === 0) return null;
@@ -55,7 +63,7 @@ export default function BlogAffiliateBox({ title, category, headings, locale }: 
       </div>
 
       <div className="grid sm:grid-cols-3 gap-3">
-        {products.slice(0, 3).map((p) => (
+        {products.slice(0, 9).map((p) => (
           <a
             key={p.name}
             href={trackedUrl(getAffiliateUrl(p), "blog")}

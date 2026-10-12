@@ -143,6 +143,15 @@ Nur Tools mit ≥ 2 passenden Tags zum Rezept werden angezeigt.
 | 15 | Sous-Vide Stick 🌊 | **B094921FYY** | Wancle Sous-Vide Stick 1100W | ~€60 | ✅ | 26.05.26 |
 | 16 | Wok 🥘 | **B08C46DHNL** | pasoli handgehämmert Wok 30cm | ~€65 | ✅ | 26.05.26 |
 | 17 | Stabmixer 🪄 | **B0D9VZG1NC** | Braun MultiQuick 5 Stabmixer | ~€50 | ✅ | 26.05.26 |
+| 18 | Zwilling Vier Sterne Kochmesser 🔪 | **B00008S0T3** | ZWILLING Vier Sterne Kochmesser 20 cm | ~€51 | ✅ | 12.10.26 |
+| 19 | Victorinox Officemesser 🥕 | **B000WLDOXM** | Victorinox Swiss Classic Gemüsemesser 10 cm | ~€8 | ✅ | 12.10.26 |
+| 20 | Victorinox Schälmesser 🍎 | **B000WLFNK4** | Victorinox Swiss Classic Tourniermesser | ~€9 | ✅ | 12.10.26 |
+| 21 | Victorinox Brotmesser 🍞 | **B0050DLERU** | Victorinox Swiss Classic Brotmesser Wellenschliff | ~€26 | ✅ | 12.10.26 |
+| 22 | Wüsthof Wetzstahl 🗡️ | **B09162Y72H** | WÜSTHOF Wetzstahl 26 cm | ~€31 | ✅ | 12.10.26 |
+| 23 | Schleifstein-Set 🪨 | **B089HQ3G7R** | Amazon Basics Schleifstein-Set 400/1000 + 3000/8000 (Winkelhilfe) | ~€26 | ✅ | 12.10.26 |
+| 24 | HORL 3 Cruise Rollschleifer 🛞 | **B0DK7P1TMC** | HORL 3 Cruise Rollschleifer (magnetische Winkelhilfe) | ~€119 | ✅ | 12.10.26 |
+| 25 | Continenta Stirnholz-Brett 🪵 | **B013GKPTYW** | Continenta Schneidebrett Stirnholz 54×29×2,7 cm | ~€55 | ✅ | 12.10.26 |
+| 26 | OXO Kunststoff-Brett 🧼 | **B082WMNWFP** | OXO Good Grips Mehrzweck-Schneidebrett 37,5×26,4 cm | ~€23 | ✅ | 12.10.26 |
 
 ---
 

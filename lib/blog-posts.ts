@@ -12,6 +12,12 @@ export interface BlogPost {
   // JSON-LD (rich-result / AI-citation eligibility). The text MUST match what is
   // shown on the page — keep these in sync with the visible FAQ sections.
   faq?: { question: string; answer: string }[];
+  // Slug eines eigenen Koch-Videos (lib/videos.ts): ersetzt das Hero-Bild
+  // durch den Player und emittiert VideoObject-JSON-LD (12.10.2026).
+  video?: string;
+  // Explizite Produktauswahl fuer die BlogAffiliateBox (Name-Match gegen
+  // AFFILIATE_PRODUCTS, Reihenfolge = Anzeige); ohne Angabe: Tag-Matching.
+  affiliateNames?: string[];
 }
 
 interface Section {
@@ -21,6 +27,437 @@ interface Section {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "knife-skills-how-to-cut-like-a-chef",
+    title: "Knife Skills: How to Hold a Knife and Cut Like a Chef",
+    description:
+      "Learn the pinch grip, the claw, and the classic cuts from julienne to brunoise — cut faster and safer with this step-by-step video guide.",
+    publishedAt: "2026-10-12",
+    readingTime: "8 min read",
+    image: "https://culinse.com/blog/knife-skills-how-to-cut-like-a-chef.jpg",
+    category: "Kitchen Skills",
+    video: "richtig-schneiden",
+    affiliateNames: [
+      "Zwilling Vier Sterne Kochmesser",
+      "Victorinox Officemesser",
+      "Victorinox Schälmesser",
+      "Continenta Stirnholz-Schneidebrett",
+      "OXO Kunststoff-Schneidebrett",
+      "Wüsthof Wetzstahl",
+    ],
+    sections: [
+      {
+        content:
+          "Same onion, same knife — the difference is the hands. In the US alone, knives send over 400,000 people to the emergency room every year, two thirds of them with cuts to fingers and thumbs. It is almost always the same story: the knife slipped. A dull blade, a wobbly board, or a hand in the wrong place.",
+      },
+      {
+        content:
+          "The good news: safe cutting is not a talent, it is technique — two grips, one system, a little practice. This guide (and the video above) covers exactly that: how to hold the knife, how to protect your fingers, and how the classic cuts from julienne to brunoise work. Not sure your knives are up to it? Start with our [buyer's guide to knives, sharpening and cutting boards](/en/blog/kitchen-knives-sharpening-cutting-boards-guide).",
+      },
+      {
+        heading: "The Five Safety Rules",
+        content:
+          "Before technique comes the foundation. These five rules prevent almost every accident:",
+        list: [
+          "Use a sharp knife — dull blades slip instead of cutting.",
+          "A board that cannot wander: put a damp towel underneath.",
+          "Flat side down — create a flat surface first so nothing rolls.",
+          "Cut away from your body, never towards the holding hand.",
+          "If a knife falls: step back. Never catch it.",
+        ],
+      },
+      {
+        heading: "The Pinch Grip: How to Hold the Knife",
+        content:
+          "Pinch the blade right in front of the handle with your thumb and index finger, and wrap the other three fingers around the handle. That is the pinch grip. Control comes from the blade, not the handle — the knife can no longer twist in your hand. Grab the knife at the end of the handle like a hammer and you lose exactly that control.",
+      },
+      {
+        heading: "The Claw: The Hand That Never Bleeds",
+        content:
+          "The other hand is the most important one. Curl your fingertips in like a claw, knuckles facing the blade. The flat side of the blade glides along your knuckles — it can never reach your fingertips. The thumb stays behind the fingers. After every slice the claw walks back a step; your knuckles set the thickness. And: watch your knuckles, not the blade. If the knife never rises above your knuckles, it can never find your fingers.",
+      },
+      {
+        heading: "The System: Flatten, Slices, Sticks, Dice",
+        content:
+          "Every classic cut starts the same way: cut a thin slice off the round side so the food sits flat and stable. Then slices — as thick as you want the final dice. Stack the slices, cut sticks, cut the sticks crosswise: dice. Keep the same thickness at every stage and every cube comes out the same size. And equal pieces cook at the same speed — that is what all the fuss about size is about.",
+      },
+      {
+        heading: "Julienne, Brunoise, Bâtonnet: The Classic Cuts",
+        content:
+          "The names sound like culinary school; the measurements behind them are simple:",
+        list: [
+          "Julienne: matchsticks, 2 millimetres thick and about 5 centimetres long — perfect for stir-fries and salads.",
+          "Brunoise: julienne cut crosswise — the finest dice there is, ideal for sauces and vinaigrettes.",
+          "Bâtonnet: three times as thick (about 6 millimetres) — vegetable sticks and fries; cut crosswise they become small dice.",
+          "Mirepoix: rough chunks for stock and soup that gets strained anyway.",
+        ],
+      },
+      {
+        heading: "Rock or Pull: The Two Motions",
+        content:
+          "The chef's knife rocks: the tip stays on the board, the heel comes down and glides forward — no hacking, no lifting. Rock and glide is the rhythm for everything firm. Soft things — tomato, meat, fish — get a pull instead: set the blade down and draw it towards you in one long stroke. Never press. For herbs, rest the fingertips of your free hand on the spine of the blade — never on the edge — and rock the heel up and down.",
+      },
+      {
+        heading: "The Onion: The Practice Test",
+        content:
+          "The onion shows everything at once. Here is the pro dice:",
+        list: [
+          "Halve it through the root and leave the root on — it holds the layers together while you cut.",
+          "Cut side down.",
+          "Two horizontal cuts towards the root — not through it.",
+          "Vertical cuts, again up to the root.",
+          "Now cut across with the claw — the dice falls apart on its own, and the root goes in the compost.",
+        ],
+      },
+      {
+        content:
+          "Fine cuts make fine dice — your brunoise for a sauce. Wider cuts make bigger dice for a stew. Round vegetables get slices, straight down or at a 45-degree angle for more searing surface. Leaves like basil or spinach: stack, roll tightly, slice thin — the chiffonade. One cut, ten ribbons.",
+      },
+      {
+        heading: "What Sends People to the ER — and How to Avoid It",
+        content:
+          "The cuts that end badly rarely happen while dicing. They are these classics:",
+        list: [
+          "Cutting avocados, bagels or rolls in your hand — always on the board.",
+          "Leaving a knife in the sink: your hand finds it first.",
+          "Trying to catch a falling knife — step back, it is just a knife.",
+          "Forcing a dull knife through a squash — the blade wins.",
+          "On the board, the knife always rests with the edge facing away.",
+        ],
+      },
+      {
+        content:
+          "If it happens anyway: press with a clean towel, raise the hand, rinse, plaster. Deep, gaping, or still bleeding after ten minutes — see a doctor.",
+      },
+      {
+        heading: "Practice: Ten Minutes a Week",
+        content:
+          "Practise slowly. Speed comes from rhythm, not from hurry. Ten minutes of carrots a week — and within a month the knife does what you tell it. The short version: blade in the pinch grip, claw on the food, flat side down, rock instead of hack, pull for soft things — and never catch a falling knife. As for what to cook with those skills, the [free weekly meal planner](/en/weekly-meal-planner) has you covered.",
+      },
+      {
+        heading: "Frequently Asked Questions",
+      },
+      {
+        heading: "How do I hold a chef's knife correctly?",
+        content:
+          "With the pinch grip: thumb and index finger pinch the blade right in front of the handle, the other three fingers wrap around the handle. The knife cannot twist in your hand, and you steer the blade instead of the handle.",
+      },
+      {
+        heading: "What is the difference between julienne and brunoise?",
+        content:
+          "Julienne are fine strips about 2 millimetres thick and 5 centimetres long. Cut those strips crosswise and you get brunoise — the finest dice there is, ideal for sauces and vinaigrettes.",
+      },
+      {
+        heading: "Why should all pieces be the same size?",
+        content:
+          "Equal pieces cook at the same speed. Uneven dice means the small pieces are already soft while the big ones are still raw. For stocks that get strained anyway, rough mirepoix chunks are enough.",
+      },
+      {
+        heading: "How do I protect my fingers while cutting?",
+        content:
+          "With the claw grip: curl your fingertips in, knuckles towards the blade, thumb behind the fingers. The flat side of the blade glides along the knuckles and cannot reach the fingertips — as long as the knife never rises above the knuckles.",
+      },
+    ],
+    faq: [
+      {
+        question: "How do I hold a chef's knife correctly?",
+        answer:
+          "With the pinch grip: thumb and index finger pinch the blade right in front of the handle, the other three fingers wrap around the handle. The knife cannot twist in your hand, and you steer the blade instead of the handle.",
+      },
+      {
+        question: "What is the difference between julienne and brunoise?",
+        answer:
+          "Julienne are fine strips about 2 millimetres thick and 5 centimetres long. Cut those strips crosswise and you get brunoise — the finest dice there is, ideal for sauces and vinaigrettes.",
+      },
+      {
+        question: "Why should all pieces be the same size?",
+        answer:
+          "Equal pieces cook at the same speed. Uneven dice means the small pieces are already soft while the big ones are still raw. For stocks that get strained anyway, rough mirepoix chunks are enough.",
+      },
+      {
+        question: "How do I protect my fingers while cutting?",
+        answer:
+          "With the claw grip: curl your fingertips in, knuckles towards the blade, thumb behind the fingers. The flat side of the blade glides along the knuckles and cannot reach the fingertips — as long as the knife never rises above the knuckles.",
+      },
+    ],
+  },
+  {
+    slug: "steak-doneness-temperatures-guide",
+    title: "Steak Doneness Temperatures: How to Cook Every Steak Perfectly",
+    description:
+      "Every doneness level with its exact core temperature, the thickness rule, and three methods — pan only, forward sear, and reverse sear — plus a whole roast beef.",
+    publishedAt: "2026-10-12",
+    readingTime: "8 min read",
+    image: "https://culinse.com/blog/steak-doneness-temperatures-guide.jpg",
+    category: "Kitchen Skills",
+    video: "rindersteaks-auf-den-punkt",
+    affiliateNames: [
+      "Fleischthermometer",
+      "Gusseisenpfanne",
+      "Zwilling Vier Sterne Kochmesser",
+      "Continenta Stirnholz-Schneidebrett",
+      "OXO Kunststoff-Schneidebrett",
+      "Wüsthof Wetzstahl",
+    ],
+    sections: [
+      {
+        content:
+          "The perfect steak is not luck — it is a number. As a certified German master butcher (Fleischermeister) I can promise you: know your core temperature, measure your steak's thickness, and every cut comes out exactly how you like it. Filet, rump steak, rib-eye, T-bone, sirloin or flank — the names change from country to country, but the name matters far less than the thickness. A thin steak and a thick steak need completely different treatment.",
+      },
+      {
+        content:
+          "The video above shows all three methods on real cuts — from a 2-centimetre sirloin to a whole roast beef. Here are the numbers to look up any time. And if your knife no longer glides through for carving: check your [cutting technique](/en/blog/knife-skills-how-to-cut-like-a-chef) first, then your [edge](/en/blog/kitchen-knives-sharpening-cutting-boards-guide).",
+      },
+      {
+        heading: "The Five Doneness Levels and Their Core Temperatures",
+        content:
+          "There are five doneness levels — and each has its own core temperature:",
+        list: [
+          "Rare: 48 °C (118 °F) — deep red and very soft.",
+          "Medium rare: 54 °C (129 °F) — rosy pink, warm and properly juicy.",
+          "Medium: 58 °C (136 °F) — pink throughout.",
+          "Medium well: 63 °C (145 °F) — just a hint of pink left.",
+          "Well done: from 70 °C (158 °F) — cooked through.",
+        ],
+      },
+      {
+        heading: "Only a Thermometer Knows for Sure",
+        content:
+          "The only reliable way to know your doneness is a meat thermometer: in from the side, right into the thickest part — and never touching the bone, which skews the reading. Whole steaks and roasts may stay pink inside as long as every surface is well seared. Minced meat, on the other hand, must always be cooked through. Cooking for small children, pregnant women or anyone immunocompromised? Go well done.",
+      },
+      {
+        heading: "The Golden Rule: Thickness Decides the Method",
+        content:
+          "Measure your steak before you turn on the pan:",
+        list: [
+          "Under 2.5 centimetres (about an inch): pan only.",
+          "Up to 4 centimetres: forward sear — hard sear first, then into the oven.",
+          "Anything thicker, and every roast: reverse sear — oven first, pan last.",
+        ],
+      },
+      {
+        heading: "Prep: Dry, Salted, Unpeppered",
+        content:
+          "Whatever the method: pat the meat dry — a wet steak steams, a dry steak sears. Salt either right before cooking or a full day ahead, uncovered in the fridge. Pepper goes on at the end, otherwise it burns in the hot pan.",
+      },
+      {
+        heading: "Method 1: Thin Steaks — Pan Only",
+        content:
+          "A 2-centimetre sirloin needs no oven. Get the pan as hot as possible, add a little high-heat oil — and in. About two minutes per side for medium rare, flip, done. Then let it rest for two to three minutes so the juices settle.",
+      },
+      {
+        heading: "Method 2: Forward — Pan First, Then Oven",
+        content:
+          "The classic 3-centimetre rump steak: sear hard, about two minutes per side — and do not forget the fat cap. If you like, add a knob of butter or margarine, garlic and thyme, and baste the steak with it. Then into the oven at 110 °C (230 °F). For medium rare, pull it at 51 °C core temperature (124 °F) — it keeps cooking while it rests, and after five minutes you are at 54 °C (129 °F).",
+      },
+      {
+        heading: "Method 3: Reverse — Oven First, Then Pan",
+        content:
+          "A 5-centimetre T-bone gets the reverse sear: first the oven at 110 °C (230 °F) on a rack, slowly up to 49 °C (120 °F) — five degrees under the target. Then a screaming-hot pan: one minute per side, plus the edges. The sear brings it right to the point. The difference is visible: forward leaves a grey band under the crust, reverse is pink almost edge to edge — and needs only a short rest.",
+      },
+      {
+        heading: "The Whole Roast Beef",
+        content:
+          "The biggest cut of all is cooked the same reverse way: score the fat cap, salt it, into the oven. One and a half kilos take about two hours — but trust the thermometer, not the clock. Then sear on all sides, the ends too, and rest for ten minutes. Slice thinly, across the grain: pink from edge to edge.",
+      },
+      {
+        heading: "The Short Version",
+        content:
+          "How every steak succeeds:",
+        list: [
+          "Measure the thickness and pick the method accordingly.",
+          "Pat dry, salt before, pepper after.",
+          "Trust the thermometer, not the clock.",
+          "Pull it a little early — it keeps cooking while it rests.",
+          "Slice across the grain.",
+        ],
+      },
+      {
+        heading: "Frequently Asked Questions",
+      },
+      {
+        heading: "What core temperature is medium rare?",
+        content:
+          "54 °C (129 °F). Pull the steak from the oven or pan at about 51 °C — the temperature climbs roughly three more degrees while it rests.",
+      },
+      {
+        heading: "What is reverse searing?",
+        content:
+          "The steak first cooks slowly in a 110 °C oven until about five degrees under the target temperature, then hits a screaming-hot pan for one minute per side. The result: pink almost edge to edge, with no grey band under the crust.",
+      },
+      {
+        heading: "Why does a steak need to rest?",
+        content:
+          "Resting lets the juices redistribute through the meat while the core temperature climbs a little further. Thin steaks need two to three minutes, a roast beef ten — cut immediately and the juice ends up on the board instead of in the meat.",
+      },
+      {
+        heading: "Does minced meat have to be cooked through?",
+        content:
+          "Yes, always. On whole steaks and roasts, germs sit only on the surface and are killed during searing — that is why they may stay pink inside. Minced meat has its surface mixed all the way through, so it must be fully cooked. For children, pregnant women and the immunocompromised: well done across the board.",
+      },
+    ],
+    faq: [
+      {
+        question: "What core temperature is medium rare?",
+        answer:
+          "54 °C (129 °F). Pull the steak from the oven or pan at about 51 °C — the temperature climbs roughly three more degrees while it rests.",
+      },
+      {
+        question: "What is reverse searing?",
+        answer:
+          "The steak first cooks slowly in a 110 °C oven until about five degrees under the target temperature, then hits a screaming-hot pan for one minute per side. The result: pink almost edge to edge, with no grey band under the crust.",
+      },
+      {
+        question: "Why does a steak need to rest?",
+        answer:
+          "Resting lets the juices redistribute through the meat while the core temperature climbs a little further. Thin steaks need two to three minutes, a roast beef ten — cut immediately and the juice ends up on the board instead of in the meat.",
+      },
+      {
+        question: "Does minced meat have to be cooked through?",
+        answer:
+          "Yes, always. On whole steaks and roasts, germs sit only on the surface and are killed during searing — that is why they may stay pink inside. Minced meat has its surface mixed all the way through, so it must be fully cooked. For children, pregnant women and the immunocompromised: well done across the board.",
+      },
+    ],
+  },
+  {
+    slug: "kitchen-knives-sharpening-cutting-boards-guide",
+    title: "Kitchen Knives, Sharpening and Cutting Boards: What You Really Need",
+    description:
+      "Three knives do 90% of the work. What to buy, what to spend, how to sharpen with steel and whetstone — and which cutting board protects your edge.",
+    publishedAt: "2026-10-12",
+    readingTime: "9 min read",
+    image: "https://culinse.com/blog/kitchen-knives-sharpening-cutting-boards-guide.jpg",
+    category: "Kitchen Skills",
+    video: "messer-schaerfen-schneidbretter",
+    affiliateNames: [
+      "Zwilling Vier Sterne Kochmesser",
+      "Victorinox Officemesser",
+      "Victorinox Schälmesser",
+      "Victorinox Brotmesser",
+      "Wüsthof Wetzstahl",
+      "Schleifstein-Set 1000/3000",
+      "HORL 3 Cruise Rollschleifer",
+      "Continenta Stirnholz-Schneidebrett",
+      "OXO Kunststoff-Schneidebrett",
+    ],
+    sections: [
+      {
+        content:
+          "Same tomato, two knives: one crushes, the other cuts. The difference is rarely the price and almost always steel, edge and care. This guide shows you which knives you actually need, what they should cost, and how two simple tools keep them sharp for good — plus the cutting board that protects your edge instead of ruining it.",
+      },
+      {
+        heading: "How to Recognise a Good Knife",
+        content:
+          "Steel first: hard, stainless knife steel at 56 to 58 Rockwell stays sharp for weeks and is easy to resharpen at home. Look for a blade that runs through the entire handle — the full tang — and a handle that fits your hand without a gap. Forged or stamped? Forged knives are heavier and stiffer, but a good stamped knife cuts just as well.",
+      },
+      {
+        heading: "Japanese, Carbon, Ceramic: The Exceptions",
+        content:
+          "Japanese steels are harder — 60 Rockwell and up. They hold their edge longer but are brittle: no bones, no frozen food, no twisting. Carbon steel is the sharpest of all, but it rusts and wants to be dried after every use. And ceramic stays sharp forever — until it hits the floor.",
+      },
+      {
+        heading: "What a Good Knife Should Cost",
+        content:
+          "Forget the two-euro supermarket knife: soft steel, dull after a week, impossible to sharpen. A good chef's knife starts at around 40 euros. Between 60 and 100 euros you get a knife for life — the classic in this league is the Zwilling Four Star, the standard in German professional kitchens for decades. Above 150 euros you are paying for beauty, not for better cuts.",
+      },
+      {
+        heading: "Three Knives Are Enough",
+        content:
+          "You do not need a block full of knives. Three do 90 percent of the work:",
+        list: [
+          "A chef's knife, 20 centimetres — the workhorse for meat and vegetables. If you cook a lot, spend the most on this one.",
+          "A small utility knife, about 10 centimetres — for everything fine: garlic, mushrooms, strawberries, a lemon.",
+          "A paring knife with a short, curved blade — for everything round.",
+          "Bonus: if you love crusty bread, add a serrated bread knife — the one knife that stays sharp for years with zero maintenance.",
+        ],
+      },
+      {
+        heading: "Plain Edge, Serrated, Granton: The Grind",
+        content:
+          "Almost every kitchen knife has a plain edge, ground from both sides into a V. European knives are ground at 15 to 20 degrees per side — robust and forgiving. Japanese at 10 to 15 — sharper but more delicate. A serrated edge saws through crusts. The dimples on a santoku keep slices from sticking to the blade. Single-bevel blades are specialist tools — sushi, filleting. For the home kitchen: double-bevel, plain edge.",
+      },
+      {
+        heading: "Sharpening: The Steel Hones, the Stone Sharpens",
+        content:
+          "A knife is only as good as its edge. Two tools and you are set. First, the honing steel: it does not grind metal away, it straightens the edge back up. Before cooking, five or six light strokes per side at about 20 degrees. Hard Japanese steel? Use a ceramic rod instead. Second, the whetstone: soak it for ten minutes, then push the edge across the stone from heel to tip. Grit 1000 sharpens, 3000 polishes. Keep the angle constant — a clip-on angle guide helps. Every few months is enough.",
+      },
+      {
+        heading: "Pull-Through Sharpeners, Rolling Sharpeners and the Tomato Test",
+        content:
+          "Pull-through sharpeners are fast but crude — they eat steel. A rolling sharpener with a magnetic angle guide is the gentler shortcut if the stone feels like too much handwork. Serrated and ceramic blades go to a professional. And the test is always the same: a ripe tomato. If the knife is sharp, it glides in under its own weight.",
+      },
+      {
+        heading: "The Board Matters as Much as the Knife",
+        content:
+          "Wood is best — end-grain wood is gentlest on the edge, because the blade dips between the fibres instead of hitting them. Plastic is fine and can go in the dishwasher. Bamboo is harder on the blade than most people think. And glass, stone or ceramic? Never. They destroy an edge in minutes. Buy a big board — at least 40 by 30 centimetres and nice and thick so it sits solidly. A damp towel underneath keeps it in place.",
+      },
+      {
+        heading: "Hygiene and Care",
+        content:
+          "One rule for raw things: meat, poultry and fish get their own plastic board that you can wash at 60 degrees in the dishwasher. Vegetables and bread stay on the wood. Wash wooden boards by hand, dry them upright, and rub them with food-safe oil once a month. Deep grooves? Sand them out — or replace the board. The knives themselves never go in the dishwasher: wash by hand, dry immediately. Store them on a magnetic strip or in a block, never loose in a drawer. And push food off the board with the spine of the blade, not the edge.",
+      },
+      {
+        heading: "The Buy-It-Once Shopping List",
+        content:
+          "The complete setup — bought once, good for decades:",
+        list: [
+          "Three knives: chef's knife (20 cm), utility knife (10 cm), paring knife — plus a serrated bread knife for the crust.",
+          "Stainless steel, 40 to 100 euros for the big one.",
+          "A honing steel for every day and a 1000-grit whetstone for every few months.",
+          "A big wooden board for vegetables and bread, a plastic board for raw meat.",
+        ],
+      },
+      {
+        content:
+          "Our specific, verified product picks for exactly this setup are in the box right below the article. And once your knives are sharp, [learn to use them like a chef](/en/blog/knife-skills-how-to-cut-like-a-chef).",
+      },
+      {
+        heading: "Frequently Asked Questions",
+      },
+      {
+        heading: "How many kitchen knives do you really need?",
+        content:
+          "Three: a chef's knife (20 cm) for meat and vegetables, a utility knife (about 10 cm) for fine work, and a paring knife with a curved blade. A serrated bread knife is a worthwhile fourth — a home kitchen needs nothing more.",
+      },
+      {
+        heading: "How often should I sharpen my knife?",
+        content:
+          "Use the honing steel before every cooking session: five or six light strokes per side straighten the edge. Real sharpening happens on the whetstone (grit 1000, then 3000 to polish) — every few months is enough.",
+      },
+      {
+        heading: "What is the best cutting board for knives?",
+        content:
+          "Wood — end-grain boards are gentlest on the edge. Plastic is fine and dishwasher-safe, bamboo is harder on the blade. Glass, stone or ceramic boards ruin an edge within minutes.",
+      },
+      {
+        heading: "Why can't knives go in the dishwasher?",
+        content:
+          "Hot water, aggressive salt and rattling against cutlery dull the edge and attack handle and steel. Washing by hand and drying immediately takes ten seconds and adds years to a knife's life.",
+      },
+    ],
+    faq: [
+      {
+        question: "How many kitchen knives do you really need?",
+        answer:
+          "Three: a chef's knife (20 cm) for meat and vegetables, a utility knife (about 10 cm) for fine work, and a paring knife with a curved blade. A serrated bread knife is a worthwhile fourth — a home kitchen needs nothing more.",
+      },
+      {
+        question: "How often should I sharpen my knife?",
+        answer:
+          "Use the honing steel before every cooking session: five or six light strokes per side straighten the edge. Real sharpening happens on the whetstone (grit 1000, then 3000 to polish) — every few months is enough.",
+      },
+      {
+        question: "What is the best cutting board for knives?",
+        answer:
+          "Wood — end-grain boards are gentlest on the edge. Plastic is fine and dishwasher-safe, bamboo is harder on the blade. Glass, stone or ceramic boards ruin an edge within minutes.",
+      },
+      {
+        question: "Why can't knives go in the dishwasher?",
+        answer:
+          "Hot water, aggressive salt and rattling against cutlery dull the edge and attack handle and steel. Washing by hand and drying immediately takes ten seconds and adds years to a knife's life.",
+      },
+    ],
+  },
   {
     slug: "how-to-meal-prep-for-the-week",
     title: "How to Meal Prep for the Week: A Complete Beginner's Guide",

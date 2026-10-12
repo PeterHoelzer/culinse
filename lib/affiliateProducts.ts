@@ -176,6 +176,82 @@ export const AFFILIATE_PRODUCTS: AffiliateProduct[] = [
     price: "ab €50", emoji: "🪄",
     tags: ["soup", "puree", "sauce", "blend", "smoothie", "hollandaise", "mayonnaise", "bisque"],
   },
+  // ── Messer, Schaerfen & Schneidebretter (Video-Trilogie 12.10.2026) ────────
+  // Tags bewusst de+en: die BlogAffiliateBox matcht gegen deutsche UND
+  // englische Artikel-Headings; Rezept-Matching (en) profitiert von den
+  // en-Tags. ASINs am 12.10.2026 verifiziert (Prime + Warenkorb + Preis).
+  {
+    type: "tool",
+    name: "Zwilling Vier Sterne Kochmesser",
+    asin: "B00008S0T3",  // 20 cm, Made in Germany, verifiziert 12.10.2026
+    search: "Zwilling Vier Sterne Kochmesser 20 cm",
+    price: "ab €51", emoji: "🔪",
+    tags: ["messer", "kochmesser", "chef knife", "knife", "schneiden", "knife skills", "beef", "steak", "chop", "dice"],
+  },
+  {
+    type: "tool",
+    name: "Victorinox Officemesser",
+    asin: "B000WLDOXM",  // Swiss Classic Gemuesemesser 10 cm, glatt
+    search: "Victorinox Swiss Classic Gemüsemesser 10 cm",
+    price: "ab €8", emoji: "🥕",
+    tags: ["officemesser", "gemüsemesser", "paring knife", "utility knife", "messer", "schälen", "garlic", "mushrooms"],
+  },
+  {
+    type: "tool",
+    name: "Victorinox Schälmesser",
+    asin: "B000WLFNK4",  // Swiss Classic Tourniermesser, gebogene Klinge
+    search: "Victorinox Swiss Classic Tourniermesser",
+    price: "ab €9", emoji: "🍎",
+    tags: ["schälmesser", "tourniermesser", "peeling knife", "schälen", "peel", "messer"],
+  },
+  {
+    type: "tool",
+    name: "Victorinox Brotmesser",
+    asin: "B0050DLERU",  // Swiss Classic, Wellenschliff
+    search: "Victorinox Swiss Classic Brotmesser Wellenschliff",
+    price: "ab €26", emoji: "🍞",
+    tags: ["brotmesser", "bread knife", "wellenschliff", "serrated", "brot", "bread", "kruste", "crust"],
+  },
+  {
+    type: "tool",
+    name: "Wüsthof Wetzstahl",
+    asin: "B09162Y72H",  // 26 cm
+    search: "Wüsthof Wetzstahl 26 cm",
+    price: "ab €31", emoji: "🗡️",
+    tags: ["wetzstahl", "honing", "honing steel", "schärfen", "sharpen", "messerpflege", "messer"],
+  },
+  {
+    type: "tool",
+    name: "Schleifstein-Set 1000/3000",
+    asin: "B089HQ3G7R",  // Amazon Basics 400/1000 + 3000/8000 inkl. Winkelhilfe
+    search: "Amazon Basics Schleifstein Set Winkelhilfe",
+    price: "ab €26", emoji: "🪨",
+    tags: ["schleifstein", "wasserstein", "whetstone", "sharpening stone", "schärfen", "sharpen", "körnung"],
+  },
+  {
+    type: "tool",
+    name: "HORL 3 Cruise Rollschleifer",
+    asin: "B0DK7P1TMC",  // magnetische Winkelhilfe 15/20 Grad
+    search: "HORL Rollschleifer Messerschärfer",
+    price: "ab €119", emoji: "🛞",
+    tags: ["rollschleifer", "rolling sharpener", "messerschärfer", "knife sharpener", "schärfen", "sharpen"],
+  },
+  {
+    type: "tool",
+    name: "Continenta Stirnholz-Schneidebrett",
+    asin: "B013GKPTYW",  // 54 x 29 x 2,7 cm Gummibaum, Gummifuesse
+    search: "Continenta Schneidebrett Stirnholz Gummibaum",
+    price: "ab €55", emoji: "🪵",
+    tags: ["schneidebrett", "cutting board", "stirnholz", "end grain", "holzbrett", "brett", "schneiden", "chop"],
+  },
+  {
+    type: "tool",
+    name: "OXO Kunststoff-Schneidebrett",
+    asin: "B082WMNWFP",  // Good Grips 26,4 x 37,5 cm, spuelmaschinenfest
+    search: "OXO Good Grips Schneidebrett Kunststoff",
+    price: "ab €23", emoji: "🧼",
+    tags: ["schneidebrett", "cutting board", "kunststoffbrett", "spülmaschine", "dishwasher", "hygiene", "raw meat", "rohes fleisch"],
+  },
 ];
 
 // ─── Zutat → Amazon-Produkt (Direktlink) ─────────────────────────────────────

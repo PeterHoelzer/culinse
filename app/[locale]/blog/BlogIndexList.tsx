@@ -32,6 +32,8 @@ const CATEGORY_EMOJI: Record<string, string> = {
   "Vegetarian": "🥦",
   "Saisonale Küche": "🌽",
   "Tools & Apps": "🛠️",
+  Kochschule: "🔪",
+  "Kitchen Skills": "🔪",
 };
 
 export default function BlogIndexList({ posts, locale }: { posts: LitePost[]; locale: string }) {
