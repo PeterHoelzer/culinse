@@ -175,6 +175,15 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
       "món ăn nhanh", "thực đơn tuần", "danh sách mua sắm", "nồi chiên không dầu", "ẩm thực Đức",
     ],
   },
+  bn: {
+    title: "Culinse – আপনার ভালো লাগবে এমন রেসিপি খুঁজে নিন",
+    description:
+      "সেরা সব উৎস থেকে রেসিপি জোগাড় করে Culinse — আপনার খাদ্যাভ্যাস আর অ্যালার্জি অনুযায়ী বাছাই করা। বিনামূল্যে, কোনো সাবস্ক্রিপশন লাগে না।",
+    keywords: [
+      "রেসিপি", "রান্নার রেসিপি", "রান্না", "খাবার", "রেসিপি খোঁজা", "স্বাস্থ্যকর রেসিপি",
+      "ঝটপট রান্না", "সাপ্তাহিক খাবারের প্ল্যান", "কেনাকাটার তালিকা", "এয়ার ফ্রায়ার", "জার্মান রান্না",
+    ],
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

@@ -124,7 +124,7 @@ export async function GET(req: NextRequest) {
   const maxTime = Math.floor(Number(searchParams.get("maxTime")) || 0);
   const diet = (searchParams.get("diet") || "").toLowerCase();
   const lang = (searchParams.get("lang") || "en").toLowerCase();
-  const l = lang === "de" ? "de" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "it" ? "it" : lang === "pl" ? "pl" : lang === "tr" ? "tr" : lang === "nl" ? "nl" : lang === "cs" ? "cs" : lang === "ru" ? "ru" : lang === "pt" ? "pt" : lang === "zh" ? "zh" : lang === "ja" ? "ja" : lang === "id" ? "id" : lang === "vi" ? "vi" : "en";
+  const l = lang === "de" ? "de" : lang === "es" ? "es" : lang === "fr" ? "fr" : lang === "it" ? "it" : lang === "pl" ? "pl" : lang === "tr" ? "tr" : lang === "nl" ? "nl" : lang === "cs" ? "cs" : lang === "ru" ? "ru" : lang === "pt" ? "pt" : lang === "zh" ? "zh" : lang === "ja" ? "ja" : lang === "id" ? "id" : lang === "vi" ? "vi" : lang === "bn" ? "bn" : "en";
 
   try {
     const supabase = createAdminClient();

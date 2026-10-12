@@ -24,7 +24,7 @@ export function isAirfryerQuery(raw: string): boolean {
     .replace(/đ/g, "d") // vi: đ zerfaellt nicht per NFD
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z\u0430-\u044f\u0451\u3040-\u30ff\u4e00-\u9fff]/g, "");
+    .replace(/[^a-z\u0430-\u044f\u0451\u3040-\u30ff\u4e00-\u9fff\u0980-\u09ff]/g, "");
   if (norm.length < 4) return false;
   const hits = [
     "airfr", // airfryer, air fryer, air-frier …
@@ -50,6 +50,8 @@ export function isAirfryerQuery(raw: string): boolean {
     "penggoreng", // id penggoreng udara (Air Fryer)
     "noichien", // vi nồi chiên (không dầu), nach Diakritik-Strip
     "chienkhongdau", // vi chiên không dầu
+    "এয়ারফ্রায়ার", // bn এয়ার ফ্রায়ার, nach Leerzeichen-Strip
+    "ফ্রায়ার", // bn ফ্রায়ার allein
   ];
   if (hits.some((h) => norm.includes(h))) return true;
   return /^heis?sluft/.test(norm);

@@ -11,7 +11,7 @@ export const dynamic = "force-static";
 export const revalidate = 86400;
 
 export function generateStaticParams() {
-  return ["en", "de", "es", "fr", "it", "pl", "tr", "nl", "cs", "ru", "pt", "zh", "ja", "id", "vi"].map((locale) => ({ locale }));
+  return ["en", "de", "es", "fr", "it", "pl", "tr", "nl", "cs", "ru", "pt", "zh", "ja", "id", "vi", "bn"].map((locale) => ({ locale }));
 }
 
 
@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ja: "https://culinse.com/ja/about",
       id: "https://culinse.com/id/about",
       vi: "https://culinse.com/vi/about",
+      bn: "https://culinse.com/bn/about",
       "x-default": "https://culinse.com/en/about",
     },
   };
