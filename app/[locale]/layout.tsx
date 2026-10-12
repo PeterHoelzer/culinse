@@ -166,6 +166,15 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
       "cari resep", "resep sehat", "resep cepat", "rencana menu mingguan", "daftar belanja", "air fryer",
     ],
   },
+  vi: {
+    title: "Culinse – Khám phá công thức bạn sẽ yêu thích",
+    description:
+      "Culinse tổng hợp công thức nấu ăn từ những nguồn hay nhất — lọc theo chế độ ăn và dị ứng của bạn. Miễn phí, không cần thuê bao.",
+    keywords: [
+      "công thức nấu ăn", "nấu ăn", "món ăn", "tìm công thức", "công thức lành mạnh",
+      "món ăn nhanh", "thực đơn tuần", "danh sách mua sắm", "nồi chiên không dầu", "ẩm thực Đức",
+    ],
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

@@ -1,0 +1,701 @@
+{
+  "nav": {
+    "discover": "Khám phá",
+    "about": "Về chúng tôi",
+    "blog": "Blog",
+    "mealPlanner": "Thực đơn tuần",
+    "collections": "Bộ sưu tập",
+    "saved": "Đã lưu",
+    "profile": "Hồ sơ",
+    "login": "Đăng nhập",
+    "getStarted": "Bắt đầu ngay →",
+    "join": "Tham gia",
+    "logout": "Đăng xuất",
+    "upgrade": "✦ Nâng cấp",
+    "myRecipes": "Công thức của tôi",
+    "calculator": "Tính chi phí",
+    "myRecipesShort": "Công thức"
+  },
+  "hero": {
+    "badge": "Do một bếp trưởng kiêm bậc thầy chế biến thịt phát triển",
+    "headline1": "Một nơi cho mọi",
+    "headline2": "công thức bạn yêu thích.",
+    "subline": "Culinse tập hợp công thức từ những nguồn tốt nhất — lọc theo chế độ ăn và dị ứng của bạn, không banner quảng cáo, mọi công thức đều miễn phí.",
+    "searchPlaceholder": "Mì Ý, cà ri, bít tết…",
+    "searchButton": "Tìm kiếm",
+    "tryLabel": "Thử tìm:",
+    "quickPicks": [
+      "Mì Ý carbonara",
+      "Bít tết bò",
+      "Cà ri Thái",
+      "Bánh sô-cô-la"
+    ],
+    "sourcesMobile": "Công thức riêng · Cộng đồng · Gia đình",
+    "sourcesDesktop": "Công thức của chúng tôi đến từ:",
+    "freeLabel": "Dùng miễn phí · Không banner quảng cáo",
+    "ctaPlan": "📅 Lên thực đơn tuần miễn phí",
+    "ctaBrowse": "Khám phá công thức ↓",
+    "trust1": "Dùng miễn phí",
+    "trust2": "Không banner quảng cáo",
+    "trust3": "Giá thật tại siêu thị bình dân"
+  },
+  "categories": [
+    "Tất cả",
+    "Ẩm thực Đức",
+    "Ẩm thực Kurd",
+    "Nồi chiên không dầu",
+    "Món chính",
+    "Món chay",
+    "Nấu nhanh",
+    "Món ăn kèm & ăn vặt",
+    "Món ngày lễ",
+    "Bữa sáng",
+    "Tráng miệng",
+    "Salad",
+    "Súp",
+    "Mì Ý",
+    "Hải sản",
+    "Pizza",
+    "Ẩm thực châu Á"
+  ],
+  "trendFilters": {
+    "trending": "🔥 Thịnh hành",
+    "highProtein": "💪 Giàu protein",
+    "lowCarb": "⚡ Ít tinh bột",
+    "keto": "🥑 Keto",
+    "dairyFree": "🥛 Không lactose",
+    "mediterranean": "🫒 Địa Trung Hải",
+    "forYou": "✨ Dành cho bạn"
+  },
+  "timeFilters": {
+    "15": "≤ 15 phút",
+    "30": "≤ 30 phút",
+    "60": "≤ 60 phút",
+    "any": "Không giới hạn"
+  },
+  "dietFilters": {
+    "all": "Mọi chế độ ăn",
+    "vegetarian": "Ăn chay",
+    "vegan": "Thuần chay",
+    "glutenFree": "Không gluten"
+  },
+  "discover": {
+    "title": "Thịnh hành hôm nay",
+    "resultsFor": "Kết quả cho \"{query}\"",
+    "loading": "Đang tải công thức…",
+    "recipesFound": "{count} công thức từ những trang ẩm thực hàng đầu thế giới",
+    "loadMore": "Tải thêm",
+    "loadingMore": "Đang tải…",
+    "noRecipes": "Không tìm thấy công thức nào",
+    "noRecipesSub": "Hãy thử từ khóa hoặc danh mục khác",
+    "error": "Không thể tải công thức",
+    "tryAgain": "Thử lại",
+    "quotaWarning": "Chúng tôi đang cập nhật kho công thức — kết quả đầy đủ sẽ sớm trở lại.",
+    "allergenFiltered": "Đã lọc {count} chất gây dị ứng",
+    "allergensFiltered": "Đã lọc {count} chất gây dị ứng",
+    "profileCta": "Thiết lập hồ sơ ăn uống của bạn",
+    "profileCtaSub": "Cho chúng tôi biết chế độ ăn & dị ứng của bạn — nhận bảng tin dành riêng cho bạn."
+  },
+  "recipeCard": {
+    "servings": "{count} khẩu phần",
+    "details": "Chi tiết →",
+    "addToCollection": "Thêm vào bộ sưu tập",
+    "save": "Lưu công thức",
+    "removeSave": "Bỏ lưu",
+    "loginToSave": "Đăng nhập để lưu"
+  },
+  "forYou": {
+    "title": "✨ Dành cho bạn",
+    "subtitle": "Cá nhân hóa theo hồ sơ ăn uống của bạn",
+    "fromActivity": "Dựa trên các công thức bạn đã lưu và đã lên thực đơn",
+    "editProfile": "Chỉnh sửa hồ sơ →"
+  },
+  "videoSection": {
+    "title": "🎬 Video công thức",
+    "comingSoonBadge": "Sắp ra mắt",
+    "comingSoonTitle": "Video nấu ăn của riêng chúng tôi đang được thực hiện",
+    "comingSoonText": "Video hướng dẫn từng bước, nóng hổi từ căn bếp Culinse — không phải hàng đại trà. Hãy sớm quay lại nhé!",
+    "subtitle": "Xem & nấu theo — từng bước một",
+    "fullRecipe": "Xem công thức →",
+    "loadMore": "Tải thêm video",
+    "loading": "Đang tải…",
+    "addToPlan": "+ Lên thực đơn"
+  },
+  "howItWorks": {
+    "title": "Cách Culinse hoạt động",
+    "subtitle": "Chúng tôi mang đến cho bạn những công thức ngon nhất trên mạng — cá nhân hóa, dễ tìm kiếm, kèm danh sách mua sắm tự động.",
+    "steps": [
+      {
+        "icon": "🔍",
+        "title": "Tìm kiếm & khám phá",
+        "desc": "Tìm trong hàng triệu công thức từ những trang ẩm thực hàng đầu thế giới — tất cả ở cùng một nơi."
+      },
+      {
+        "icon": "❤️",
+        "title": "Lưu & cá nhân hóa",
+        "desc": "Lưu những công thức bạn yêu thích. Culinse sẽ hiểu khẩu vị của bạn và gợi ý thêm những món tương tự."
+      },
+      {
+        "icon": "🛒",
+        "title": "Danh sách mua sắm kèm tổng tiền (€)",
+        "desc": "Thực đơn tuần của bạn tự động trở thành danh sách mua sắm — kèm giá ước tính tại siêu thị bình dân cho từng nguyên liệu và tổng chi phí cả tuần."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Khám phá công thức ngay.",
+    "subtitle": "Bắt đầu miễn phí, không bắt buộc đăng ký trả phí. Chỉ có món ngon, cá nhân hóa cho riêng bạn.",
+    "button": "Tạo tài khoản miễn phí →",
+    "buttonLoggedIn": "Mở thực đơn tuần của bạn →"
+  },
+  "footer": {
+    "about": "Về chúng tôi",
+    "impressum": "Thông tin pháp lý",
+    "datenschutz": "Chính sách bảo mật",
+    "aiTransparency": "Minh bạch AI",
+    "agb": "Điều khoản dịch vụ",
+    "widerruf": "Quyền hủy hợp đồng",
+    "contact": "Liên hệ",
+    "copyright": "© {year} Culinse. Bảo lưu mọi quyền.",
+    "planner": "Thực đơn tuần",
+    "calculator": "Tính chi phí đi chợ"
+  },
+  "about": {
+    "ourStory": "Câu chuyện của chúng tôi",
+    "heroTitle1": "Do một đầu bếp tạo nên.",
+    "heroTitle2": "Dành cho tất cả những ai vào bếp.",
+    "heroSubtitle": "Culinse ra đời từ một nỗi bực bội rất thật — mất 20 phút lướt hết trang này đến trang khác chỉ để tìm một công thức ra hồn cho bữa tối.",
+    "founderRole": "Bếp trưởng · Bậc thầy chế biến thịt · Nhà sáng lập",
+    "whereWeGoing": "Hướng đi của chúng tôi",
+    "visionTitle": "Nền tảng công thức toàn diện",
+    "values": [
+      {
+        "icon": "🍖",
+        "title": "Tay nghề",
+        "desc": "Do một người nhiều năm đứng bếp và đứng quầy thịt tạo nên."
+      },
+      {
+        "icon": "❤️",
+        "title": "Đam mê",
+        "desc": "Ăn uống không chỉ để no bụng. Culinse dành cho những người thực sự thích nấu ăn."
+      },
+      {
+        "icon": "✨",
+        "title": "Đơn giản",
+        "desc": "Không banner quảng cáo, không ép đăng ký trả phí, không rối mắt. Chỉ có những công thức bạn muốn nấu."
+      }
+    ],
+    "visionItems": [
+      {
+        "icon": "📅",
+        "title": "Lập thực đơn hằng tuần",
+        "desc": "Lên thực đơn cho cả tuần chỉ trong vài phút. Culinse chọn công thức phù hợp với chế độ ăn, lịch trình của bạn và những gì sẵn có trong tủ lạnh."
+      },
+      {
+        "icon": "🛒",
+        "title": "Danh sách mua sắm thông minh",
+        "desc": "Tự động tạo danh sách mua sắm từ thực đơn tuần — hoặc gửi thẳng đến dịch vụ giao hàng bạn yêu thích."
+      },
+      {
+        "icon": "📚",
+        "title": "Album công thức",
+        "desc": "Tạo bộ sưu tập của riêng bạn và chia sẻ với bạn bè, gia đình hoặc cả thế giới."
+      },
+      {
+        "icon": "🌍",
+        "title": "Tất cả ở một nơi",
+        "desc": "Một nền tảng. Mọi công thức. Không còn cả rừng tab trình duyệt. Từ bữa tối nhanh gọn ngày thường đến những món cầu kỳ dịp cuối tuần."
+      }
+    ],
+    "discoverCta": "Khám phá công thức →",
+    "feedbackLabel": "Có câu hỏi hay góp ý?",
+    "story1": "Ban đầu, tôi làm bếp trưởng và đứng bếp tại nhiều nhà hàng khắp nước Đức. Rồi tôi bén duyên với nghề chế biến thịt — năm 2024, tôi đạt danh hiệu bậc thầy chế biến thịt, bằng cấp nghề cao nhất trong ngành. Với tôi, ẩm thực chẳng phải việc tay trái. Ẩm thực là tất cả.",
+    "story2": "Nhưng dù có kinh nghiệm như vậy, vấn đề hằng ngày vẫn y nguyên: muốn tìm đúng công thức thì phải xoay xở với cả chục tab trình duyệt, tắt hết banner cookie và cuộn qua những câu chuyện đời dài lê thê mới tới được phần nguyên liệu. Với một việc lẽ ra phải mang lại niềm vui, điều đó thật quá mệt mỏi.",
+    "story3": "Tôi luôn tự hỏi: Sao lại chẳng có nền tảng nào đơn giản mà hiệu quả? Một nơi duy nhất, công thức tuyệt vời, không ồn ào. Giống như cách ta khám phá âm nhạc — chỉ khác là dành cho ẩm thực. Thế là tôi tự xây dựng nó.",
+    "story4": "Đó chính là Culinse.",
+    "name": "Peter"
+  },
+  "login": {
+    "title": "Đăng nhập vào Culinse",
+    "subtitle": "Lưu công thức, lên thực đơn và nhận gợi ý dành riêng cho bạn.",
+    "emailLabel": "Địa chỉ email",
+    "emailPlaceholder": "ban@email.com",
+    "magicLinkButton": "Gửi liên kết đăng nhập",
+    "sending": "Đang gửi…",
+    "checkEmail": "Hãy kiểm tra hộp thư — liên kết đã được gửi!",
+    "orContinueWith": "hoặc tiếp tục với",
+    "googleButton": "Tiếp tục với Google",
+    "noAccount": "Không cần tạo tài khoản trước — bạn sẽ được đăng ký tự động.",
+    "errorLinkExpired": "Liên kết này đã hết hạn. Vui lòng yêu cầu liên kết mới.",
+    "logIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "welcomeBack": "Chào mừng bạn trở lại",
+    "createAccount": "Tạo tài khoản",
+    "loginSub": "Đăng nhập để lưu công thức và nhận bảng tin dành riêng cho bạn.",
+    "signupSub": "Miễn phí trọn đời. Không cần thẻ tín dụng.",
+    "passwordLabel": "Mật khẩu",
+    "passwordPlaceholder": "Tối thiểu 6 ký tự",
+    "forgotPassword": "Quên mật khẩu?",
+    "loginButton": "Đăng nhập →",
+    "createButton": "Tạo tài khoản →",
+    "checkInbox": "Hãy kiểm tra hộp thư của bạn!",
+    "sentTo": "Chúng tôi đã gửi liên kết xác nhận đến",
+    "spamNote": "Nhấn vào liên kết trong email để kích hoạt tài khoản. Nhớ kiểm tra cả thư mục spam nhé.",
+    "backToLogin": "← Quay lại đăng nhập",
+    "or": "hoặc",
+    "privacyNote": "Khi tiếp tục, bạn đồng ý với",
+    "privacyLink": "Chính sách bảo mật",
+    "privacySuffix": " của chúng tôi",
+    "loading": "Đang tải…"
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "pageTitle": "Hồ sơ ăn uống của bạn",
+    "welcomeBanner": "🎉 Chào mừng bạn đến với Culinse! Hãy thiết lập hồ sơ ăn uống để nhận công thức dành riêng cho bạn.",
+    "progress0": "Chọn sở thích ăn uống để nhận công thức dành riêng cho bạn",
+    "progress1": "Khởi đầu tốt — còn 2 bước",
+    "progress2": "Sắp xong — còn 1 bước",
+    "progress3": "✓ Hồ sơ đã hoàn tất — mục Dành cho bạn đã được bật!",
+    "planPro": "Culinse Pro",
+    "planFree": "Gói miễn phí",
+    "renews": "Gia hạn vào {date}",
+    "active": "✓ Đang hoạt động",
+    "free": "Miễn phí",
+    "proFeatures": [
+      "Bộ sưu tập không giới hạn",
+      "Thực đơn hằng tuần",
+      "Danh sách mua sắm thông minh",
+      "Lưu công thức không giới hạn",
+      "Ưu tiên trải nghiệm tính năng mới"
+    ],
+    "loading": "Đang tải…",
+    "manageSubscription": "Quản lý gói đăng ký",
+    "upgradeButton": "Nâng cấp lên Pro — €4,99 / tháng",
+    "dietTitle": "Chế độ ăn",
+    "dietSub": "Chỉ hiển thị công thức phù hợp với lối sống của bạn.",
+    "activeLabel": "Đang bật",
+    "nActive": "{n} đang bật",
+    "allergenTitle": "Dị ứng & không dung nạp",
+    "allergenSub": "Chạm để loại nguyên liệu khỏi bảng tin của bạn.",
+    "timeTitle": "Thời gian nấu tối đa",
+    "timeSub": "Chỉ hiển thị những công thức bạn thực sự kịp nấu.",
+    "saving": "Đang lưu…",
+    "saved": "✓ Đã lưu!",
+    "saveButton": "Lưu tùy chọn",
+    "back": "← Quay lại",
+    "dietOptions": [
+      {
+        "label": "Không kiêng",
+        "desc": "Hiển thị tất cả"
+      },
+      {
+        "label": "Ăn chay",
+        "desc": "Không thịt, không cá"
+      },
+      {
+        "label": "Thuần chay",
+        "desc": "Hoàn toàn từ thực vật"
+      },
+      {
+        "label": "Keto",
+        "desc": "Ít tinh bột, nhiều chất béo"
+      },
+      {
+        "label": "Paleo",
+        "desc": "Ăn như thời nguyên thủy"
+      },
+      {
+        "label": "Không gluten",
+        "desc": "Không chứa gluten"
+      },
+      {
+        "label": "Whole30",
+        "desc": "Ăn sạch"
+      }
+    ],
+    "intoleranceOptions": [
+      "Sữa",
+      "Trứng",
+      "Gluten",
+      "Đậu phộng",
+      "Các loại hạt",
+      "Đậu nành",
+      "Hải sản",
+      "Hải sản có vỏ",
+      "Lúa mì",
+      "Sulfit"
+    ],
+    "timeOptions": [
+      {
+        "label": "Không giới hạn"
+      },
+      {
+        "label": "≤ 15 phút"
+      },
+      {
+        "label": "≤ 30 phút"
+      },
+      {
+        "label": "≤ 60 phút"
+      }
+    ]
+  },
+  "saved": {
+    "title": "Công thức đã lưu",
+    "empty": "Chưa có công thức nào được lưu",
+    "emptySub": "Lưu những công thức bạn yêu thích, chúng sẽ xuất hiện ở đây.",
+    "discover": "Khám phá công thức →"
+  },
+  "collections": {
+    "title": "Bộ sưu tập của tôi",
+    "newCollection": "Bộ sưu tập mới",
+    "empty": "Chưa có bộ sưu tập nào",
+    "emptySub": "Tạo bộ sưu tập đầu tiên để sắp xếp các công thức yêu thích của bạn.",
+    "deleteConfirm": "Xóa bộ sưu tập này?",
+    "delete": "Xóa",
+    "cancel": "Hủy",
+    "newCollectionTitle": "Bộ sưu tập mới",
+    "creating": "Đang tạo…",
+    "create": "Tạo bộ sưu tập",
+    "upgradeTitle": "Bộ sưu tập không giới hạn",
+    "upgradeSubtext": "Gói miễn phí gồm 1 bộ sưu tập với tối đa 10 công thức. Nâng cấp lên Pro để dùng mọi thứ không giới hạn.",
+    "upgradeButton": "Nâng cấp lên Pro →",
+    "createFirst": "+ Tạo bộ sưu tập đầu tiên",
+    "groupDesc": "Gom công thức yêu thích thành từng bộ sưu tập — như playlist, nhưng dành cho món ăn.",
+    "counter": "{count, plural, one {# bộ sưu tập} other {# bộ sưu tập}}",
+    "newButton": "+ Tạo mới",
+    "publicLabel": "Công khai bộ sưu tập",
+    "publicSub": "Ai có liên kết đều xem được",
+    "nameLabel": "Tên",
+    "descLabel": "Mô tả",
+    "descOptional": "(không bắt buộc)",
+    "namePlaceholder": "Ví dụ: Món Ý yêu thích",
+    "descPlaceholder": "Mô tả ngắn…",
+    "iconLabel": "Biểu tượng",
+    "upgradePro": "Nâng cấp lên Pro",
+    "loading": "Đang tải…",
+    "recipeCount": "{count, plural, one {# công thức} other {# công thức}}",
+    "detailBack": "Bộ sưu tập của tôi",
+    "publicBadge": "Công khai",
+    "makePrivate": "🔒 Chuyển sang riêng tư",
+    "makePublic": "🌍 Chuyển sang công khai",
+    "share": "↑ Chia sẻ",
+    "copied": "✓ Đã sao chép liên kết!",
+    "noRecipes": "Chưa có công thức nào",
+    "noRecipesSub": "Thêm công thức vào bộ sưu tập này từ trang chi tiết của bất kỳ công thức nào.",
+    "discoverCta": "Khám phá công thức →",
+    "deleteThis": "Xóa bộ sưu tập này",
+    "deleteNamed": "Xóa \"{name}\"?",
+    "yesDelete": "Có, xóa",
+    "removeFromCollection": "Xóa khỏi bộ sưu tập",
+    "view": "Xem →"
+  },
+  "mealPlanner": {
+    "shareWeek": "Chia sẻ",
+    "shareCopied": "✓ Đã sao chép liên kết",
+    "title": "Thực đơn tuần",
+    "days": [
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7",
+      "CN"
+    ],
+    "meals": [
+      "Bữa sáng",
+      "Bữa trưa",
+      "Bữa tối"
+    ],
+    "addRecipe": "+ Thêm công thức",
+    "shoppingList": "🛒 Danh sách mua sắm",
+    "clearWeek": "Xóa cả tuần",
+    "thisWeek": "Tuần này",
+    "daysFull": [
+      "Thứ Hai",
+      "Thứ Ba",
+      "Thứ Tư",
+      "Thứ Năm",
+      "Thứ Sáu",
+      "Thứ Bảy",
+      "Chủ Nhật"
+    ],
+    "clearConfirm": "Xóa tất cả bữa ăn trong tuần này?",
+    "noRecipes": "Thực đơn của bạn chưa có công thức nào.",
+    "planName": "Thực đơn tuần",
+    "tapToAdd": "Chạm vào một ô để thêm công thức.",
+    "mealsPlanned": "{n}/21 bữa đã lên thực đơn",
+    "namePlanPlaceholder": "Đặt tên thực đơn…",
+    "proMorePlans": "✦ Pro — nhiều thực đơn hơn",
+    "newPlan": "+ Thực đơn mới",
+    "dragHint": "Mẹo: Kéo & thả để di chuyển hoặc đổi chỗ các bữa ăn.",
+    "move": "Di chuyển",
+    "moveHint": "Chạm vào ô đích để di chuyển",
+    "moveHere": "Chuyển đến đây",
+    "swapHere": "Đổi chỗ",
+    "moving": "Đang di chuyển…",
+    "today": "Hôm nay",
+    "copyWeek": "Sao chép tuần",
+    "prevWeek": "Tuần trước",
+    "nextWeek": "Tuần sau",
+    "emptyTitle": "Thực đơn của bạn vẫn còn trống",
+    "emptySub": "Chạm vào một ô để thêm món từ các công thức bạn đã lưu.",
+    "myRecipes": "♥ Công thức của tôi",
+    "collections": "📚 Bộ sưu tập",
+    "proModalTitle": "Nhiều thực đơn hơn với Pro",
+    "proModalSub": "Với Culinse Pro, bạn có thể tạo thực đơn không giới hạn.",
+    "proModalButton": "Nâng cấp lên Pro — €4,99 / tháng",
+    "cancel": "Hủy",
+    "deletePlanConfirm": "Xóa thực đơn này? Mọi món đã thêm sẽ bị mất."
+  },
+  "shoppingList": {
+    "title": "Danh sách mua sắm",
+    "empty": "Thêm công thức vào thực đơn tuần để tạo danh sách mua sắm.",
+    "checkAll": "Đánh dấu tất cả",
+    "uncheckAll": "Bỏ đánh dấu tất cả",
+    "close": "Đóng"
+  },
+  "onboarding": {
+    "title": "Chào mừng bạn đến với Culinse! Bạn thích ăn theo kiểu nào?",
+    "step1Sub": "Để chúng tôi gợi ý những công thức hợp với bạn. Bạn có thể thay đổi sau trong hồ sơ.",
+    "diet_all": "Tôi ăn mọi thứ",
+    "diet_all_desc": "Đa dạng món từ mọi nền ẩm thực",
+    "diet_vegetarian": "Ăn chay",
+    "diet_vegetarian_desc": "Không thịt, không cá",
+    "diet_vegan": "Thuần chay",
+    "diet_vegan_desc": "Hoàn toàn từ thực vật",
+    "diet_protein": "Giàu protein",
+    "diet_protein_desc": "Nhiều đạm, lý tưởng khi tập luyện",
+    "diet_quick": "Nhanh & đơn giản",
+    "diet_quick_desc": "Bữa tối sau giờ làm, dưới 30 phút",
+    "step2Title": "Tuần đầu tiên của bạn",
+    "step2Sub": "Năm gợi ý từ thứ Hai đến thứ Sáu — bỏ chọn món không hợp với bạn.",
+    "addSelected": "Thêm {count, plural, one {1 công thức} other {# công thức}} vào thực đơn tuần",
+    "adding": "Đang thêm vào thực đơn…",
+    "step3Title": "Thực đơn tuần của bạn đã sẵn sàng!",
+    "step3Sub": "{count, plural, one {Đã lên thực đơn một bữa tối} other {Đã lên thực đơn # bữa tối}} — và danh sách mua sắm của bạn đã tự động hoàn tất, kèm số lượng và chi phí ước tính.",
+    "viewList": "🛒 Xem danh sách mua sắm",
+    "toPlanner": "Đến thực đơn tuần →",
+    "skip": "Bỏ qua — về thẳng trang chủ",
+    "loadError": "Rất tiếc, đã có lỗi xảy ra. Bạn hãy thử lại sau giây lát nhé.",
+    "planName": "Thực đơn tuần của tôi"
+  },
+  "planShare": {
+    "badge": "Thực đơn tuần được chia sẻ",
+    "title": "Thực đơn tuần của tôi",
+    "titleWithCost": "Cả tuần của tôi chỉ với {cost}",
+    "subtitle": "{count, plural, one {1 món} other {# món}} · Tuần từ ngày {date}",
+    "estCost": "Chi phí mua sắm ước tính",
+    "estCostHint": "Ước tính theo mức giá siêu thị bình dân (đã tính giá {priced} trên {total} món). Giá có thể khác nhau tùy cửa hàng.",
+    "ctaTitle": "Lên thực đơn tuần của riêng bạn — miễn phí",
+    "ctaText": "Chọn công thức, xếp kín cả tuần, nhận ngay danh sách mua sắm kèm giá ước tính. Không banner quảng cáo, không bắt buộc đăng ký trả phí.",
+    "ctaButton": "Bắt đầu miễn phí"
+  },
+  "recipe": {
+    "cookTime": "Thời gian nấu",
+    "servings": "Khẩu phần",
+    "ingredients": "Nguyên liệu",
+    "instructions": "Cách làm",
+    "saveRecipe": "♡ Lưu công thức",
+    "savedRecipe": "♥ Đã lưu",
+    "saving": "…",
+    "viewOriginal": "Xem bản gốc ↗",
+    "addToPlan": "+ Thêm vào thực đơn tuần",
+    "similarRecipes": "Công thức tương tự",
+    "backToDiscover": "← Quay lại",
+    "notFound": "Không tìm thấy công thức",
+    "source": "Nguồn",
+    "collections": "Bộ sưu tập",
+    "share": "Chia sẻ",
+    "copied": "Đã sao chép!",
+    "print": "In",
+    "reset": "Đặt lại",
+    "forServings": "Cho {count} khẩu phần",
+    "moreVideos": "Video khác",
+    "loadingVideos": "Đang tải video…",
+    "instructionsOnSource": "Bạn có thể xem hướng dẫn đầy đủ trên trang gốc.",
+    "viewFullRecipe": "Xem toàn bộ công thức",
+    "printWithImage": "Kèm hình ảnh",
+    "printNoImage": "Không kèm hình ảnh",
+    "aiNotice": "Công thức và hình ảnh được tạo bằng AI, đã được biên tập viên kiểm duyệt",
+    "aiNoticeMore": "Tìm hiểu thêm về minh bạch AI"
+  },
+  "pro": {
+    "title": "Culinse Pro",
+    "subtitle": "Mở khóa trọn vẹn trải nghiệm Culinse.",
+    "price": "€4,99 / tháng",
+    "features": [
+      "Lập thực đơn tuần trọn vẹn 7 ngày",
+      "Danh sách mua sắm tự động, gộp sẵn số lượng",
+      "Bộ sưu tập công thức không giới hạn",
+      "Hỗ trợ ưu tiên"
+    ],
+    "upgradeButton": "Nâng cấp lên Pro →",
+    "processing": "Đang xử lý…",
+    "currentPlan": "Gói hiện tại của bạn: Pro ✦",
+    "manageButton": "Quản lý gói đăng ký →",
+    "heroTitle": "Căn bếp của bạn,\nngăn nắp từ A đến Z.",
+    "heroSubtitle": "Lên thực đơn cả tuần, tạo danh sách mua sắm và sắp xếp mọi công thức bạn yêu thích — tất cả ở cùng một nơi.",
+    "alreadyPro": "✓ Bạn đã là thành viên Pro!",
+    "freeForAllBadge": "Mọi tính năng Pro hiện đang miễn phí",
+    "freeForAllNote": "Chúng tôi đang mở rộng Culinse — mọi tính năng Pro đều được mở cho tất cả người dùng. Chỉ cần đăng nhập và bắt đầu lên thực đơn, hoàn toàn không cần đăng ký trả phí.",
+    "startButton": "Dùng thử miễn phí 7 ngày →",
+    "cancelNote": "Miễn phí 7 ngày · Chỉ trừ tiền sau thời gian dùng thử · Hủy bất cứ lúc nào",
+    "legalNote": "Việc đăng ký tuân theo",
+    "legalAnd": "và",
+    "agbLabel": "Điều khoản dịch vụ",
+    "widerrufLabel": "Chính sách hủy hợp đồng",
+    "activeNote": "Bạn đang dùng Culinse Pro 🎉",
+    "freeLabel": "Miễn phí",
+    "proLabel": "Pro",
+    "everythingInFree": "Mọi thứ trong gói Miễn phí, cộng thêm:",
+    "faqTitle": "Câu hỏi thường gặp",
+    "faqItems": [
+      {
+        "q": "Tôi có thể hủy bất cứ lúc nào không?",
+        "a": "Có, bạn có thể hủy bất cứ lúc nào trong phần hồ sơ. Bạn vẫn dùng được Pro đến hết kỳ thanh toán hiện tại."
+      },
+      {
+        "q": "Có những phương thức thanh toán nào?",
+        "a": "Tất cả các loại thẻ tín dụng và thẻ ghi nợ phổ biến qua Stripe. An toàn, được mã hóa, đạt chuẩn PCI."
+      },
+      {
+        "q": "Bộ sưu tập của tôi sẽ ra sao nếu tôi hủy gói?",
+        "a": "Các bộ sưu tập của bạn vẫn được giữ nguyên. Bạn chỉ không thể tạo thêm bộ sưu tập mới vượt quá giới hạn của gói miễn phí."
+      },
+      {
+        "q": "Có thời gian dùng thử miễn phí không?",
+        "a": "Có — bạn được dùng thử Pro miễn phí 7 ngày. Tiền chỉ bị trừ khi hết thời gian dùng thử, và bạn có thể hủy bất cứ lúc nào trước đó."
+      }
+    ],
+    "freeFeatures": [
+      "Công thức từ 4 nguồn hàng đầu",
+      "Tìm kiếm & lọc theo chế độ ăn, thời gian, nền ẩm thực",
+      "Lưu công thức (♡)",
+      "1 bộ sưu tập (tối đa 10 công thức)"
+    ],
+    "proFeatures": [
+      {
+        "icon": "📚",
+        "label": "Bộ sưu tập không giới hạn",
+        "sub": "Sắp xếp món yêu thích theo đúng cách bạn muốn"
+      },
+      {
+        "icon": "📅",
+        "label": "Lập thực đơn hằng tuần",
+        "sub": "Lên bữa sáng, bữa trưa & bữa tối cho cả tuần"
+      },
+      {
+        "icon": "🛒",
+        "label": "Danh sách mua sắm thông minh",
+        "sub": "Tự động tạo từ thực đơn của bạn, sắp xếp theo danh mục"
+      },
+      {
+        "icon": "❤️",
+        "label": "Lưu công thức không giới hạn",
+        "sub": "Không còn giới hạn 25 công thức — lưu mọi món bạn thấy ngon"
+      },
+      {
+        "icon": "⚡",
+        "label": "Ưu tiên trải nghiệm tính năng mới",
+        "sub": "Được dùng sớm nhất mọi thứ chúng tôi phát triển tiếp theo"
+      }
+    ],
+    "questions": "Có thắc mắc?",
+    "annualLabel": "Theo năm",
+    "monthlyLabel": "Theo tháng",
+    "annualSave": "Tiết kiệm 35%",
+    "annualPrice": "€3,24 / tháng",
+    "annualTotal": "€38,88 / năm",
+    "monthlyPrice": "€4,99 / tháng",
+    "annualStartButton": "Dùng thử miễn phí 7 ngày →",
+    "billedAnnually": "Thanh toán hằng năm",
+    "billedMonthly": "Thanh toán hằng tháng"
+  },
+  "blog": {
+    "title": "Blog Culinse",
+    "subtitle": "Mẹo, hướng dẫn và ý tưởng để nấu ăn thông minh hơn.",
+    "readMore": "Đọc tiếp →",
+    "backToBlog": "← Quay lại blog",
+    "minRead": "phút đọc"
+  },
+  "error": {
+    "notFound": "Không tìm thấy trang",
+    "notFoundSub": "Trang bạn tìm kiếm không tồn tại.",
+    "backHome": "Về trang chủ"
+  },
+  "newsletter": {
+    "title": "Nhận ngay kế hoạch meal prep 7 ngày (PDF)",
+    "subtitle": "Thực đơn tuần trọn vẹn kèm buổi sơ chế, danh sách mua sắm có ô đánh dấu và mẹo từ bếp trưởng — miễn phí dạng PDF. Thêm vào đó, mỗi tuần bạn sẽ nhận những ý tưởng công thức hay nhất. Không spam, hủy đăng ký bất cứ lúc nào.",
+    "placeholder": "ban@email.com",
+    "button": "Đăng ký",
+    "success": "🎉 Cảm ơn bạn! Bạn sẽ sớm nhận được email từ chúng tôi.",
+    "error": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "already": "Email này đã được đăng ký.",
+    "sending": "Đang đăng ký…",
+    "download": "📄 Tải kế hoạch ngay (PDF)"
+  },
+  "loginPrompt": {
+    "title": "Lưu công thức",
+    "subtitle": "Tạo tài khoản miễn phí để lưu công thức và dễ dàng tìm lại.",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký miễn phí",
+    "cancel": "Hủy"
+  },
+  "modals": {
+    "ad": "Quảng cáo",
+    "shop": "Cửa hàng",
+    "kitchenTools": "Dụng cụ nhà bếp",
+    "affiliateLinks": "* Liên kết affiliate",
+    "upgradeTitle": "Nâng cấp lên Pro",
+    "upgradeMessage": "Bạn đã đạt giới hạn 25 công thức đã lưu của gói miễn phí. Nâng cấp lên Pro để lưu không giới hạn, tạo bộ sưu tập và nhiều hơn nữa.",
+    "seePlans": "Xem các gói Pro",
+    "maybeLater": "Để sau",
+    "proFeature": "Tính năng Pro",
+    "proUnlock": "Nâng cấp lên Pro để mở khóa tính năng này và nhiều hơn nữa.",
+    "proFrom": "Chỉ từ 4,99 €/tháng →",
+    "addToCollection": "Thêm vào bộ sưu tập",
+    "noCollections": "Chưa có bộ sưu tập nào",
+    "createOneBelow": "Hãy tạo một bộ sưu tập bên dưới",
+    "collectionNamePlaceholder": "Tên bộ sưu tập…",
+    "create": "Tạo",
+    "newCollection": "+ Bộ sưu tập mới",
+    "fullUpgrade": "Đã đầy — nâng cấp để thêm",
+    "cancel": "Hủy",
+    "loading": "Đang tải…",
+    "addToPlanHeader": "Thêm vào thực đơn tuần",
+    "plan": "Thực đơn",
+    "day": "Ngày",
+    "meal": "Bữa ăn",
+    "planNamePlaceholder": "Đặt tên cho thực đơn…",
+    "proMorePlans": "✦ Pro — nhiều thực đơn hơn",
+    "saving": "Đang lưu…",
+    "addToPlanButton": "Thêm vào thực đơn",
+    "chooseRecipeFor": "Chọn công thức cho",
+    "myRecipesTab": "Công thức của tôi",
+    "noSavedRecipes": "Chưa có công thức nào được lưu",
+    "emptyCollection": "Bộ sưu tập này đang trống",
+    "saveHint": "Lưu công thức bằng nút ♡ trên trang chủ.",
+    "addHint": "Thêm công thức vào bộ sưu tập này bằng nút 📚.",
+    "shoppingTitle": "🛒 Danh sách mua sắm",
+    "recipesCount": "{count} công thức",
+    "done": "đã xong",
+    "reset": "Đặt lại",
+    "cantLoad": "Không thể tải nguyên liệu.",
+    "noRecipesInPlan": "Thực đơn chưa có công thức nào",
+    "addRecipesFirst": "Trước tiên, hãy thêm công thức vào thực đơn tuần của bạn.",
+    "noIngredients": "Không tìm thấy nguyên liệu — một số nguồn không hỗ trợ danh sách nguyên liệu.",
+    "orderGroceries": "🛒 Đặt mua thực phẩm trên Amazon",
+    "affiliateNote": "Liên kết affiliate — bạn không mất thêm chi phí",
+    "allDone": "Xong hết rồi!",
+    "boughtAll": "Bạn đã mua đủ tất cả nguyên liệu."
+  },
+  "proSuccess": {
+    "title": "Chào mừng bạn đến với Culinse Pro!",
+    "subtitle": "Gói đăng ký của bạn đã được kích hoạt. Giờ đây bạn có thể dùng bộ sưu tập không giới hạn, công cụ lập thực đơn tuần và danh sách mua sắm thông minh.",
+    "goCollections": "📚 Đến bộ sưu tập của tôi",
+    "discover": "Khám phá công thức"
+  },
+  "allStates": "Tất cả các bang"
+}

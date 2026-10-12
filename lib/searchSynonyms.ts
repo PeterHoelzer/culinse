@@ -21,6 +21,7 @@ export function isAirfryerQuery(raw: string): boolean {
   const norm = raw
     .toLowerCase()
     .replace(/ß/g, "ss")
+    .replace(/đ/g, "d") // vi: đ zerfaellt nicht per NFD
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z\u0430-\u044f\u0451\u3040-\u30ff\u4e00-\u9fff]/g, "");
@@ -47,6 +48,8 @@ export function isAirfryerQuery(raw: string): boolean {
     "エアフライヤ", // ja エアフライヤー
     "ノンフライヤ", // ja ノンフライヤー (gaengiges Synonym)
     "penggoreng", // id penggoreng udara (Air Fryer)
+    "noichien", // vi nồi chiên (không dầu), nach Diakritik-Strip
+    "chienkhongdau", // vi chiên không dầu
   ];
   if (hits.some((h) => norm.includes(h))) return true;
   return /^heis?sluft/.test(norm);

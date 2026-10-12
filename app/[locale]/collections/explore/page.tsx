@@ -25,6 +25,7 @@ export async function generateMetadata({
       zh: "https://culinse.com/zh/collections/explore",
       ja: "https://culinse.com/ja/collections/explore",
       id: "https://culinse.com/id/collections/explore",
+      vi: "https://culinse.com/vi/collections/explore",
       "x-default": "https://culinse.com/en/collections/explore",
     },
   };
