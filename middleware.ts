@@ -30,7 +30,7 @@ async function proxy(request: NextRequest) {
   // Skip locale middleware for API routes and static files
   const isApiRoute = pathname.startsWith("/api/");
   const isStaticFile =
-    /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff|woff2|mp4|webm|mov|m4v)$/.test(pathname);
+    /\.(?:svg|png|jpg|jpeg|gif|webp|ico|js|css|woff|woff2|mp4|webm|mov|m4v|vtt)$/.test(pathname);
   // Skip locale middleware for SEO files (sitemap, robots) — must stay at root
   const isSeoFile = pathname === "/sitemap.xml" || pathname === "/robots.txt";
   // Skip locale middleware for the OAuth/magic-link callback. It lives at
@@ -141,6 +141,6 @@ export default proxy;
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|pdf|xml|txt|md|mp4|webm|mov|m4v)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|pdf|xml|txt|md|mp4|webm|mov|m4v|vtt)$).*)",
   ],
 };
