@@ -41,10 +41,12 @@ async function proxy(request: NextRequest) {
   // Kernfusion-Seiten (Support + Datenschutz für die App) leben ohne Locale-Präfix:
   // die URLs stehen so im App Store und dürfen nicht nach /en/... umgeleitet werden.
   const isKernfusionRoute = pathname === "/kernfusion" || pathname.startsWith("/kernfusion/");
+  // Copper City (Papas Detektivspiel): Support + Datenschutz, ebenfalls feste URLs ohne Locale (01.11.2026)
+  const isCopperCityRoute = pathname === "/copper-city" || pathname.startsWith("/copper-city/");
 
   // ─── next-intl: run first, capture headers it sets ──────────────────────────
   let intlHeaders: Headers | null = null;
-  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute && !isKernfusionRoute) {
+  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute && !isKernfusionRoute && !isCopperCityRoute) {
     const intlResponse = intlMiddleware(request);
     // If it's a redirect (e.g. / → /en), return immediately
     if (intlResponse.status !== 200) {
