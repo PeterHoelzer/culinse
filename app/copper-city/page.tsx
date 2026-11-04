@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LanguageLinks from "@/components/copper-city/LanguageLinks";
 
 export const metadata: Metadata = {
   title: "Copper City – Support & Kontakt · Support & Contact",
@@ -343,6 +344,8 @@ export default function CopperCitySupport() {
             </p>
           </section>
         </div>
+
+        <LanguageLinks kind="support" current={["de", "en"]} label="Diese Seite in anderen Sprachen · This page in other languages" />
       </main>
     </div>
   );

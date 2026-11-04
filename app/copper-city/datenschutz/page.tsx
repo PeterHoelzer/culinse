@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import LanguageLinks from "@/components/copper-city/LanguageLinks";
 
 export const metadata: Metadata = {
   title: "Copper City – Datenschutz · Privacy Policy",
@@ -273,6 +274,8 @@ export default function CopperCityDatenschutz() {
             </p>
           </section>
         </div>
+
+        <LanguageLinks kind="privacy" current={["de", "en"]} label="Diese Seite in anderen Sprachen · This page in other languages" />
       </main>
     </div>
   );
