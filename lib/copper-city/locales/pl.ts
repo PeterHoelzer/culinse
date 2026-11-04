@@ -175,7 +175,7 @@ Na iPhone’a, iPada i Maca. Gra opowiada o morderstwach i pokazuje malowane mie
 Wsparcie i prywatność: culinse.com/support`,
     keywords: "detektyw,zagadka,śledztwo,zbrodnia,morderca,steampunk,wiktoriański,offline,logika,tajemnica,alibi",
     promotionalText:
-      "Copper City, 1893: jedno morderstwo, sześciu podejrzanych, jedna Maszyna Prawdy. Każda sprawa generowana od nowa. Dwie godziny za darmo, potem jeden zakup – bez subskrypcji.",
+      "Copper City, 1893: jedno morderstwo, sześciu podejrzanych, jedna Maszyna Prawdy. Każda sprawa od nowa. Dwie godziny za darmo, potem jeden zakup – bez subskrypcji.",
     whatsNew: `• Copper City mówi teraz w 17 językach – aplikacja używa języka urządzenia, a w Ustawieniach możesz go zmienić w każdej chwili.
 • Nowość: graj dwie godziny za darmo, potem odblokuj pełną wersję jednym zakupem. Wcześniej kupione pełne wersje pozostają odblokowane – w razie potrzeby stuknij „Odtwórz zakupy” w Ustawieniach.
 • Drobne poprawki i ulepszenia tekstów oraz wyświetlania.`,
