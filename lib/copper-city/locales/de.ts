@@ -182,7 +182,7 @@ Support und Datenschutz: culinse.com/support`,
 • Neu: zwei Stunden kostenlos spielen, danach einmaliger Kauf der Vollversion. Bereits gekaufte Vollversionen bleiben frei – bei Bedarf „Käufe wiederherstellen“ in den Einstellungen antippen.
 • Kleinere Korrekturen und Verbesserungen an Texten und Darstellung.`,
     iapDisplayName: "Copper City – Vollversion",
-    iapDescription: "Unbegrenzt ermitteln. Einmal kaufen, kein Abo.",
+    iapDescription: "Unbegrenzt ermitteln. Einmal kaufen, kein Abo",
   },
 };
 
