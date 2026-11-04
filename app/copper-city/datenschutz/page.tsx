@@ -40,7 +40,8 @@ export default function CopperCityDatenschutz() {
           <p className="text-gray-600 leading-relaxed">
             Copper City („Ungelöste Mordfälle 1893“) ist ein Detektivspiel für iPhone, iPad und Mac. Es läuft
             vollständig auf dem Gerät. Kurz gesagt:{" "}
-            <b className="text-gray-800">Die App erhebt keine Daten.</b>
+            <b className="text-gray-800">Die App erhebt keine Daten.</b> Einzige Ausnahme ist der
+            einmalige Kauf der Vollversion, den Apple abwickelt (Abschnitt 6).
           </p>
         </section>
 
@@ -64,15 +65,16 @@ export default function CopperCityDatenschutz() {
           <h2 className="text-lg font-semibold text-gray-800 mb-3">2. Keine Datenerhebung</h2>
           <p className="text-gray-600 leading-relaxed">
             Die App erhebt, speichert oder übermittelt keine personenbezogenen Daten. Sie enthält keine
-            Konten, keine Anmeldung, keine Werbung, keine Analyse- oder Absturzberichte und keine Käufe.
+            Konten, keine Anmeldung, keine Werbung und keine Analyse- oder Absturzberichte.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-lg font-semibold text-gray-800 mb-3">3. Keine Verbindung zu Servern</h2>
           <p className="text-gray-600 leading-relaxed">
-            Die App baut keine Verbindung ins Internet auf. Alle Fälle, Bilder, Filme und Texte liegen in der
-            App selbst; jeder Fall wird auf dem Gerät erzeugt.
+            Die App baut keine Verbindung zu eigenen Servern auf. Alle Fälle, Bilder, Filme und Texte liegen in
+            der App selbst; jeder Fall wird auf dem Gerät erzeugt. Die einzige Verbindung ins Internet ist die
+            zu Apples App Store beim Kauf oder Wiederherstellen der Vollversion (Abschnitt 6).
           </p>
         </section>
 
@@ -97,10 +99,31 @@ export default function CopperCityDatenschutz() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-800 mb-3">6. App Store</h2>
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">6. In-App-Kauf und App Store</h2>
+          <p className="text-gray-600 leading-relaxed mb-3">
+            Die ersten zwei Stunden Spielzeit sind kostenlos. Damit die App weiß, wie viel davon verbraucht
+            ist, zählt sie die gespielte Zeit lokal auf dem Gerät mit; dieser Wert verlässt das Gerät nicht.
+            Danach lässt sich die Vollversion durch einen einmaligen In-App-Kauf freischalten.
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-3">
+            Den Kauf wickelt Apple (Apple Distribution International Ltd., Hollyhill Industrial Estate, Cork,
+            Irland) über den App Store ab. Apple verarbeitet dabei deine Zahlungs- und Kontodaten nach seinen
+            eigenen Datenschutzbestimmungen; die App erhält von Apple lediglich die Bestätigung, dass der Kauf
+            vorliegt – keine Zahlungsdaten, keinen Namen, keine Apple-ID. Diese Bestätigung wird auf dem Gerät
+            gespeichert und bei „Käufe wiederherstellen“ erneut bei Apple abgefragt. Rechtsgrundlage ist die
+            Erfüllung des Vertrags mit dir (Art. 6 Abs. 1 lit. b DSGVO). Mehr dazu:{" "}
+            <a
+              href="https://www.apple.com/legal/privacy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-500 hover:underline"
+            >
+              apple.com/legal/privacy
+            </a>
+          </p>
           <p className="text-gray-600 leading-relaxed">
-            Beim Laden der App über den App Store verarbeitet Apple Daten nach seinen eigenen Bestimmungen.
-            Darauf haben wir keinen Einfluss; Copper City selbst erhält davon nichts.
+            Auch beim Laden der App über den App Store verarbeitet Apple Daten nach seinen eigenen
+            Bestimmungen. Darauf haben wir keinen Einfluss; Copper City selbst erhält davon nichts.
           </p>
         </section>
 
@@ -142,7 +165,8 @@ export default function CopperCityDatenschutz() {
           <section className="mb-8">
             <p className="text-gray-600 leading-relaxed">
               Copper City (“Unsolved Murders of 1893”) is a detective game for iPhone, iPad and Mac. It runs
-              entirely on your device. In short: <b className="text-gray-800">the app does not collect any data.</b>
+              entirely on your device. In short: <b className="text-gray-800">the app does not collect any data.</b> The only exception is
+              the one-time purchase of the full version, which is handled by Apple (section 6).
             </p>
           </section>
 
@@ -160,15 +184,16 @@ export default function CopperCityDatenschutz() {
             <h3 className="text-lg font-semibold text-gray-800 mb-3">2. No data collection</h3>
             <p className="text-gray-600 leading-relaxed">
               The app does not collect, store or transmit any personal data. It has no accounts, no sign-in,
-              no advertising, no analytics or crash reporting and no purchases.
+              no advertising and no analytics or crash reporting.
             </p>
           </section>
 
           <section className="mb-8">
             <h3 className="text-lg font-semibold text-gray-800 mb-3">3. No server connection</h3>
             <p className="text-gray-600 leading-relaxed">
-              The app does not connect to the internet. All cases, images, films and texts are contained in
-              the app itself; every case is generated on the device.
+              The app does not connect to any servers of our own. All cases, images, films and texts are
+              contained in the app itself; every case is generated on the device. The only internet
+              connection is to Apple’s App Store when you buy or restore the full version (section 6).
             </p>
           </section>
 
@@ -191,10 +216,31 @@ export default function CopperCityDatenschutz() {
           </section>
 
           <section className="mb-8">
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">6. App Store</h3>
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">6. In-app purchase and App Store</h3>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              The first two hours of play are free. To know how much of that time has been used, the app
+              counts play time locally on the device; this value never leaves the device. After that, the
+              full version can be unlocked with a single in-app purchase.
+            </p>
+            <p className="text-gray-600 leading-relaxed mb-3">
+              The purchase is processed by Apple (Apple Distribution International Ltd., Hollyhill Industrial
+              Estate, Cork, Ireland) through the App Store. Apple processes your payment and account data
+              under its own privacy policy; the app receives from Apple only the confirmation that the
+              purchase exists – no payment details, no name, no Apple ID. This confirmation is stored on the
+              device and is queried from Apple again when you use “Restore Purchases”. The legal basis is the
+              performance of our contract with you (Art. 6(1)(b) GDPR). More:{" "}
+              <a
+                href="https://www.apple.com/legal/privacy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:underline"
+              >
+                apple.com/legal/privacy
+              </a>
+            </p>
             <p className="text-gray-600 leading-relaxed">
-              When you download the app from the App Store, Apple processes data under its own terms. We
-              have no influence on this; Copper City itself receives none of it.
+              When you download the app from the App Store, Apple likewise processes data under its own
+              terms. We have no influence on this; Copper City itself receives none of it.
             </p>
           </section>
 

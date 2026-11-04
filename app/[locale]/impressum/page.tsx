@@ -81,6 +81,41 @@ export default function Impressum() {
         </section>
 
         <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">Apps im App Store</h2>
+          <p className="text-gray-600 leading-relaxed mb-3">
+            Peter Hölzer ist außerdem Anbieter folgender Apps im Apple App Store (iPhone, iPad, Mac). Dieses
+            Impressum gilt auch für sie; Support und Datenschutzerklärung findest du auf der jeweiligen
+            Seite:
+          </p>
+          <ul className="text-gray-600 leading-relaxed list-disc pl-5 space-y-1 mb-3">
+            <li>
+              <b className="text-gray-800">Copper City – Ungelöste Mordfälle 1893</b> ·{" "}
+              <Link href="/copper-city" className="text-orange-500 hover:underline">Support</Link> ·{" "}
+              <Link href="/copper-city/datenschutz" className="text-orange-500 hover:underline">Datenschutz</Link>
+            </li>
+            <li>
+              <b className="text-gray-800">Kernfusion</b> ·{" "}
+              <Link href="/kernfusion" className="text-orange-500 hover:underline">Support</Link> ·{" "}
+              <Link href="/kernfusion/datenschutz" className="text-orange-500 hover:underline">Datenschutz</Link>
+            </li>
+          </ul>
+          <p className="text-gray-600 leading-relaxed">
+            Käufe in diesen Apps (einmaliger Kauf der Vollversion) werden ausschließlich über Apple
+            abgewickelt; Vertragspartner für den Kauf ist Apple Distribution International Ltd., Cork, Irland.
+            Preise werden vor dem Kauf in der App und im App Store angezeigt. Rückerstattungen laufen über
+            Apple (reportaproblem.apple.com).
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">Verbraucherstreitbeilegung</h2>
+          <p className="text-gray-600 leading-relaxed">
+            Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+            Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).
+          </p>
+        </section>
+
+        <section className="mb-8">
           <h2 className="text-lg font-semibold text-gray-800 mb-3">Affiliate-Links / Werbung</h2>
           <p className="text-gray-600 leading-relaxed">
             Diese Website enthält Affiliate-Links, insbesondere zu Amazon.de (Amazon Associates Partnerprogramm) und Ninja Kitchen. Wenn Sie über einen solchen Link ein Produkt kaufen, erhalten wir eine kleine Provision – für Sie entstehen keine Mehrkosten. Alle Empfehlungen basieren auf redaktioneller Einschätzung und nicht auf Zahlungen der Hersteller. Affiliate-Links sind mit dem Hinweis „Affiliate link" oder „Ad" gekennzeichnet.

@@ -47,8 +47,8 @@ export default function CopperCitySupport() {
               {SUPPORT_MAIL}
             </a>
             . Wir antworten in der Regel innerhalb von 1–3 Tagen – auf Deutsch oder Englisch. Hilfreich sind:
-            Gerät (iPhone, iPad oder Mac), Version der App (Einstellungen → unten), bei einem Fall die
-            Fallnummer (z. B. 1893-0427) und eine kurze Beschreibung, was passiert ist.
+            Gerät (iPhone, iPad oder Mac), bei einem Fall die Fallnummer (z. B. 1893-0427) und eine kurze
+            Beschreibung, was passiert ist.
           </p>
           <a
             href={MAILTO_DE}
@@ -57,7 +57,8 @@ export default function CopperCitySupport() {
             ✉️ Support-Anfrage per E-Mail senden
           </a>
           <p className="text-gray-500 text-sm mt-4">
-            Kein Konto, kein Login nötig. Die App enthält keine Käufe und keine Werbung.
+            Kein Konto, kein Login nötig, keine Werbung. Die ersten zwei Stunden spielst du kostenlos; danach
+            schaltet ein einmaliger Kauf die Vollversion dauerhaft frei – kein Abo.
           </p>
         </section>
 
@@ -68,7 +69,8 @@ export default function CopperCitySupport() {
             Verdächtige, eine Wahrheitsmaschine aus Messing. Jeder Fall wird auf deinem Gerät neu erzeugt; du
             untersuchst den Tatort, forderst Berichte über die Rohrpost an, vernimmst Verdächtige und legst
             der Wahrheitsmaschine Täter, Tatwaffe, Tatzeit und Motiv vor. Das Spiel läuft vollständig offline,
-            ohne Konto, ohne Werbung und ohne In-App-Käufe – auf Deutsch und Englisch.
+            ohne Konto und ohne Werbung – auf Deutsch und Englisch. Die ersten zwei Stunden sind kostenlos;
+            danach schaltet ein einmaliger In-App-Kauf die Vollversion dauerhaft frei.
           </p>
         </section>
 
@@ -107,14 +109,14 @@ export default function CopperCitySupport() {
             <p>
               <b className="text-gray-800">Kann ich einen Fall noch einmal spielen oder mit jemandem teilen?</b>
               <br />
-              Ja – jeder Fall hat eine Fallnummer (z. B. 1893-0427). Wer dieselbe Nummer eingibt, bekommt genau
-              diesen Fall. Leer gelassen entscheidet der Zufall.
+              Ja – jeder Fall hat eine Fallnummer (z. B. 1893-0427). Wer dieselbe Nummer eingibt, bekommt meist
+              denselben Fall. Leer gelassen entscheidet der Zufall.
             </p>
             <p>
               <b className="text-gray-800">Das Flackern stört mich / mein Gerät ist älter.</b>
               <br />
-              Unter Einstellungen die „ruhige Darstellung“ einschalten – sie nimmt Gaslicht-Flackern und
-              Effekte zurück.
+              In der Wachstube auf „Ton und Darstellung …“ tippen und dort die „ruhige Darstellung“ einschalten –
+              sie nimmt Gaslicht-Flackern und Effekte zurück.
             </p>
             <p>
               <b className="text-gray-800">Sind die Bilder echt? Gibt es die Personen?</b>
@@ -128,6 +130,43 @@ export default function CopperCitySupport() {
               <br />
               Es behandelt Mordfälle mit gemalten Tatorten, ohne bewegte Gewalt, ohne Horror. Es ist nicht
               für Kinder unter 13 Jahren gestaltet; die Altersfreigabe steht im App Store.
+            </p>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-lg font-semibold text-gray-800 mb-3">Kostenlose Spielzeit und Vollversion</h2>
+          <div className="space-y-4 text-gray-600 leading-relaxed">
+            <p>
+              <b className="text-gray-800">Was kostet Copper City?</b>
+              <br />
+              Das Laden ist kostenlos, und die ersten zwei Stunden Spielzeit sind es auch – mit allem, was das
+              Spiel kann. Danach fragt die App einmalig, ob du die Vollversion kaufen möchtest. Es ist ein
+              einziger Kauf über den App Store, kein Abo; den Preis in deiner Landeswährung zeigt die App vor
+              dem Kauf an. Wer nicht kauft, kann seine bisherigen Fälle weiter ansehen, aber keine neuen
+              übernehmen.
+            </p>
+            <p>
+              <b className="text-gray-800">Ich habe schon gekauft, die App fragt aber wieder (neues Gerät, Neuinstallation).</b>
+              <br />
+              In den Einstellungen der App auf „Käufe wiederherstellen“ tippen. Voraussetzung ist dieselbe
+              Apple-ID, mit der du gekauft hast. Danach ist die Vollversion wieder frei – ohne erneute
+              Zahlung.
+            </p>
+            <p>
+              <b className="text-gray-800">Kann ich den Kauf zurückgeben?</b>
+              <br />
+              Käufe wickelt Apple ab, deshalb läuft auch eine Rückerstattung über Apple:{" "}
+              <a
+                href="https://reportaproblem.apple.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-orange-500 hover:underline"
+              >
+                reportaproblem.apple.com
+              </a>
+              . Wir selbst sehen keine Zahlungsdaten und können keine Erstattung auslösen – bei Problemen
+              hilf uns aber gern per E-Mail weiter, wir schauen uns das an.
             </p>
           </div>
         </section>
@@ -165,8 +204,8 @@ export default function CopperCitySupport() {
                 {SUPPORT_MAIL}
               </a>
               . We usually reply within 1–3 days, in English or German. Please include your device (iPhone,
-              iPad or Mac), the app version (Settings → bottom), the case number if a case is affected (e.g.
-              1893-0427) and a short description of what happened.
+              iPad or Mac), the case number if a case is affected (e.g. 1893-0427) and a short description
+              of what happened.
             </p>
             <a
               href={MAILTO_EN}
@@ -175,7 +214,9 @@ export default function CopperCitySupport() {
               ✉️ Send a support request by email
             </a>
             <p className="text-gray-500 text-sm mt-4">
-              No account or login is required. The app has no purchases and no advertising.
+              No account or login is required, and there is no advertising. The first two hours are free to
+              play; after that a single one-time purchase unlocks the full version for good – no
+              subscription.
             </p>
           </section>
 
@@ -185,8 +226,9 @@ export default function CopperCitySupport() {
               Copper City is a single-player detective game: Copper City, 1893 – one murder, four to six
               suspects, a Truth Machine of brass. Every case is generated on your device; you inspect the crime
               scene, request reports by pneumatic post, question suspects and put culprit, weapon, time and
-              motive before the Truth Machine. The game runs entirely offline – no account, no ads, no in-app
-              purchases – in English and German.
+              motive before the Truth Machine. The game runs entirely offline – no account, no ads – in English and
+              German. The first two hours are free; after that a single in-app purchase unlocks the full
+              version permanently.
             </p>
           </section>
 
@@ -224,13 +266,14 @@ export default function CopperCitySupport() {
               <p>
                 <b className="text-gray-800">Can I replay a case or share it with someone?</b>
                 <br />
-                Yes – every case has a case number (e.g. 1893-0427). Entering the same number gives exactly
-                that case; leave it blank and chance decides.
+                Yes – every case has a case number (e.g. 1893-0427). Entering the same number usually gives the
+                same case; leave it blank and chance decides.
               </p>
               <p>
                 <b className="text-gray-800">The flicker bothers me / my device is older.</b>
                 <br />
-                Turn on the “calm display” in Settings – it tones down gaslight flicker and effects.
+                In the station house, tap “Sound & Display …” and turn on the “calm display” – it tones down
+                gaslight flicker and effects.
               </p>
               <p>
                 <b className="text-gray-800">Are the pictures real? Do these people exist?</b>
@@ -244,6 +287,42 @@ export default function CopperCitySupport() {
                 <br />
                 It deals with murder cases and shows painted crime scenes – no moving violence, no horror.
                 It is not designed for children under 13; see the age rating in the App Store.
+              </p>
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Free play time and full version</h3>
+            <div className="space-y-4 text-gray-600 leading-relaxed">
+              <p>
+                <b className="text-gray-800">How much does Copper City cost?</b>
+                <br />
+                Downloading is free, and so are the first two hours of play – with everything the game can
+                do. After that the app asks once whether you would like to buy the full version. It is a
+                single purchase through the App Store, not a subscription; the app shows the price in your
+                local currency before you buy. If you decide not to, you can still look at your previous
+                cases but cannot take on new ones.
+              </p>
+              <p>
+                <b className="text-gray-800">I already bought it, but the app asks again (new device, reinstall).</b>
+                <br />
+                Tap “Restore Purchases” in the app’s settings. You need to be signed in with the same Apple
+                ID you bought with. The full version is then unlocked again – no second payment.
+              </p>
+              <p>
+                <b className="text-gray-800">Can I get a refund?</b>
+                <br />
+                Purchases are handled by Apple, so refunds are too:{" "}
+                <a
+                  href="https://reportaproblem.apple.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-orange-500 hover:underline"
+                >
+                  reportaproblem.apple.com
+                </a>
+                . We never see your payment details and cannot issue refunds ourselves – but if something
+                went wrong, do email us and we will look into it.
               </p>
             </div>
           </section>
