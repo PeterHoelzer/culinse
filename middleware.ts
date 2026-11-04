@@ -43,10 +43,12 @@ async function proxy(request: NextRequest) {
   const isKernfusionRoute = pathname === "/kernfusion" || pathname.startsWith("/kernfusion/");
   // Copper City (Papas Detektivspiel): Support + Datenschutz, ebenfalls feste URLs ohne Locale (01.11.2026)
   const isCopperCityRoute = pathname === "/copper-city" || pathname.startsWith("/copper-city/");
+  // Impressum, Datenschutz, Support: feste Adressen ohne Locale (stehen in den Apps und im App Store)
+  const isLegalRoute = /^\/(impressum|datenschutz|support)\/?$/.test(pathname);
 
   // ─── next-intl: run first, capture headers it sets ──────────────────────────
   let intlHeaders: Headers | null = null;
-  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute && !isKernfusionRoute && !isCopperCityRoute) {
+  if (!isApiRoute && !isStaticFile && !isSeoFile && !isAuthRoute && !isKernfusionRoute && !isCopperCityRoute && !isLegalRoute) {
     const intlResponse = intlMiddleware(request);
     // If it's a redirect (e.g. / → /en), return immediately
     if (intlResponse.status !== 200) {

@@ -150,7 +150,7 @@ export default function CopperCityDatenschutz() {
               peter@hoelzer.xyz
             </a>{" "}
             ·{" "}
-            <Link href="/de/impressum" className="text-orange-500 hover:underline">
+            <Link href="/impressum" className="text-orange-500 hover:underline">
               Impressum
             </Link>
           </p>
@@ -267,7 +267,7 @@ export default function CopperCityDatenschutz() {
                 peter@hoelzer.xyz
               </a>{" "}
               ·{" "}
-              <Link href="/de/impressum" className="text-orange-500 hover:underline">
+              <Link href="/impressum" className="text-orange-500 hover:underline">
                 Legal notice / Impressum
               </Link>
             </p>

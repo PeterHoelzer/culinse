@@ -118,7 +118,7 @@ export default function KernfusionSupport() {
               Datenschutzerklärung
             </Link>{" "}
             ·{" "}
-            <Link href="/de/impressum" className="text-orange-500 hover:underline">
+            <Link href="/impressum" className="text-orange-500 hover:underline">
               Impressum
             </Link>
             <br />
@@ -207,7 +207,7 @@ export default function KernfusionSupport() {
                 Privacy policy (German)
               </Link>{" "}
               ·{" "}
-              <Link href="/de/impressum" className="text-orange-500 hover:underline">
+              <Link href="/impressum" className="text-orange-500 hover:underline">
                 Legal notice / Impressum
               </Link>
               <br />

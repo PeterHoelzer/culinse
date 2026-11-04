@@ -178,7 +178,7 @@ export default function CopperCitySupport() {
               Datenschutzerklärung
             </Link>{" "}
             ·{" "}
-            <Link href="/de/impressum" className="text-orange-500 hover:underline">
+            <Link href="/impressum" className="text-orange-500 hover:underline">
               Impressum
             </Link>
             <br />
@@ -334,7 +334,7 @@ export default function CopperCitySupport() {
                 Privacy policy (German and English)
               </Link>{" "}
               ·{" "}
-              <Link href="/de/impressum" className="text-orange-500 hover:underline">
+              <Link href="/impressum" className="text-orange-500 hover:underline">
                 Legal notice / Impressum
               </Link>
               <br />
