@@ -10,63 +10,67 @@ const pl: CopperCityLocale = {
     languageName: "Polski",
     heading: "Copper City – Wsparcie i kontakt",
     subheading: "Strona wsparcia aplikacji „Copper City – Nierozwiązane morderstwa z 1893 roku” na iPhone’a, iPada i Maca",
-    contactHeading: "Pytania, problemy, uwagi – napisz do nas",
+    contactHeading: "Pytania? Problem? Życzenie? – Tak się z nami skontaktować",
     contactBody:
-      "Napisz do nas na adres {mail}. Zwykle odpowiadamy w ciągu 1–3 dni, po angielsku lub niemiecku. Podaj proszę urządzenie (iPhone, iPad lub Mac), numer sprawy, jeśli problem dotyczy konkretnej sprawy (np. 1893-0427), oraz krótki opis tego, co się stało.",
+      "Proszę napisać do nas e-mail na adres {mail}. Odpowiadamy zwykle w ciągu 1–3 dni, po niemiecku lub angielsku. Pomocne są: urządzenie (iPhone, iPad lub Mac), w przypadku sprawy jej numer (np. 1893-0427) oraz krótki opis tego, co się stało.",
     contactButton: "Wyślij zgłoszenie e-mailem",
     contactNote:
-      "Nie potrzebujesz konta ani logowania, nie ma reklam. Pierwsze dwie godziny grasz za darmo; potem jednorazowy zakup odblokowuje pełną wersję na zawsze – bez subskrypcji.",
+      "Nie jest potrzebne konto ani logowanie, nie ma reklam. Pierwsze dwie godziny gry są bezpłatne; potem jednorazowy zakup na stałe odblokowuje pełną wersję – bez abonamentu.",
     aboutHeading: "O grze",
     aboutBody:
-      "Copper City to gra detektywistyczna dla jednego gracza: Copper City, rok 1893 – jedno morderstwo, od czterech do sześciu podejrzanych i mosiężna Maszyna Prawdy. Każda sprawa jest generowana na Twoim urządzeniu; badasz miejsce zbrodni, zamawiasz raporty pocztą pneumatyczną, przesłuchujesz podejrzanych i przedstawiasz Maszynie Prawdy sprawcę, narzędzie, czas i motyw. Gra działa w pełni offline, bez konta i bez reklam, w 17 językach. Pierwsze dwie godziny są darmowe; potem jeden zakup w aplikacji odblokowuje pełną wersję na stałe.",
+      "Copper City to gra detektywistyczna dla jednej osoby: Miedziogród, rok 1893 – jedno morderstwo, od czterech do sześciu podejrzanych i Maszyna Prawdy z mosiądzu. Każda sprawa powstaje od nowa na urządzeniu; oględziny miejsca zbrodni, zamawianie raportów pocztą pneumatyczną, przesłuchania podejrzanych i przedstawienie Maszynie Prawdy sprawcy, narzędzia zbrodni, czasu i motywu – wszystko to należy do gry. Gra działa całkowicie offline, bez konta i bez reklam – w 17 językach. Pierwsze dwie godziny są bezpłatne; potem jednorazowy zakup w aplikacji na stałe odblokowuje pełną wersję.",
     faqHeading: "Najczęstsze pytania",
     faq: [
       {
-        q: "Gdzie są zapisane moje sprawy i mój dziennik służby?",
-        a: "Wyłącznie na Twoim urządzeniu, w pamięci aplikacji. Nic nie jest wysyłane do internetu. Usunięcie aplikacji kasuje też zapisane gry – najpierw zrób kopię zapasową.",
+        q: "Gdzie są moje sprawy i moja Książeczka?",
+        a: "Tylko na urządzeniu, w pamięci aplikacji. Nic nie jest wysyłane do nas ani na żaden inny serwer. Usunięcie aplikacji usuwa także zapisane gry – wcześniej proszę zrobić kopię.",
       },
       {
-        q: "Jak zrobić kopię zapasową postępów lub przenieść je na inne urządzenie?",
-        a: "Ustawienia → „Utwórz kopię”. Na iPhonie i iPadzie otworzy się arkusz udostępniania, na Macu okno zapisu; plik możesz zapisać np. w iCloud Drive. Na drugim urządzeniu wybierz Ustawienia → „Przywróć kopię” i wskaż plik – nazwa profilu i sprawy przeniosą się razem z nim. Aplikacja zapisuje też do trzech automatycznych kopii, gdy przechodzi w tło (iPhone/iPad: Pliki → „Na moim iPhonie/iPadzie” → Copper City → Kopie; Mac: menu „Plik → Pokaż kopie w Finderze”).",
+        q: "Jak zapisać kopię postępów albo przenieść je na inne urządzenie?",
+        a: "Ustawienia → „Zapisz kopię”. Na iPhonie i iPadzie otwiera się arkusz udostępniania, na Macu okno zapisu; plik można zapisać np. w iCloud Drive. Na drugim urządzeniu: Ustawienia → „Przywróć” i wybór pliku – nazwa profilu i sprawy zostaną przeniesione. Dodatkowo aplikacja przy przejściu w tło sama tworzy do trzech kopii (iPhone/iPad: Pliki → „Na moim iPhonie/iPadzie” → Copper City → Sicherungen; Mac: menu „Plik → Pokaż kopie zapasowe w Finderze”).",
+      },
+      {
+        q: "Gdzie są ustawienia?",
+        a: "W Wartowni proszę dotknąć „Dźwięk i widok …”. Otworzy się arkusz „Ustawienia”. Na samym dole jest wiersz „Wersja … · Kompilacja …” – prosimy podać go w wiadomości do nas.",
       },
       {
         q: "Jak zmienić język?",
-        a: "Aplikacja używa języka urządzenia. Możesz go przełączyć u góry arkusza „Zanim zaczniemy” albo w Ustawieniach → Język. Trwająca sprawa zachowuje swój język; kolejna pojawi się już w nowym.",
+        a: "Aplikacja oferuje 17 języków. Przy pierwszym uruchomieniu wybiera się go u góry arkusza „Zanim się zacznie”; później proszę dotknąć globusa w prawym górnym rogu Wartowni albo przejść do Ustawienia → Język. Trwająca sprawa zostaje w swoim języku; następna pojawi się w nowym.",
       },
       {
         q: "Poczta pneumatyczna trwa za długo.",
-        a: "Zanim podejmiesz sprawę, wybierz krótszy czas oczekiwania w menu „Poczta pneumatyczna”. W czasie oczekiwania możesz przesłuchiwać podejrzanych.",
+        a: "Przy zakładaniu nowej sprawy w polu wyboru „Poczta pneumatyczna” można wybrać krótszy czas oczekiwania, np. „Krótko”. W międzyczasie można przesłuchiwać podejrzanych.",
       },
       {
-        q: "Czy mogę zagrać w sprawę ponownie albo podzielić się nią z kimś?",
-        a: "Tak – każda sprawa ma numer (np. 1893-0427). Wpisanie tego samego numeru daje zazwyczaj tę samą sprawę; zostaw pole puste, a zdecyduje los.",
+        q: "Czy mogę zagrać sprawę jeszcze raz albo komuś ją udostępnić?",
+        a: "Tak – każda sprawa ma numer (np. 1893-0427). Po wpisaniu tego samego numeru zwykle otrzymuje się tę samą sprawę (przy tym samym stopniu). Pole puste oznacza, że decyduje przypadek.",
       },
       {
-        q: "Migotanie mi przeszkadza / mam starsze urządzenie.",
-        a: "Na posterunku stuknij „Dźwięk i obraz …” i włącz „spokojny obraz” – wycisza migotanie gazowych latarni i efekty.",
+        q: "Migotanie mi przeszkadza / moje urządzenie jest starsze.",
+        a: "W Wartowni proszę dotknąć „Dźwięk i widok …” i włączyć „Spokojny widok (bez migotania, bez kurzu)” – ogranicza migotanie lamp gazowych i kurz w świetle.",
       },
       {
-        q: "Czy zdjęcia są prawdziwe? Czy te osoby istnieją?",
-        a: "Nie. Wszystkie obrazy i filmy zostały stworzone za pomocą sztucznej inteligencji; Copper City, jego mieszkańcy i wszystkie sprawy są całkowicie fikcyjne, a przedstawione osoby nie istnieją. Aplikacja informuje o tym przy pierwszym uruchomieniu oraz w Ustawieniach → Informacje prawne.",
+        q: "Czy obrazy są prawdziwe? Czy te osoby istnieją?",
+        a: "Nie. Wszystkie obrazy i filmy wygenerowano za pomocą sztucznej inteligencji; Miedziogród, jego mieszkańcy i wszystkie sprawy są całkowicie zmyślone, a przedstawione osoby nie istnieją. Informuje o tym też aplikacja przy pierwszym uruchomieniu oraz w Ustawienia → Informacje prawne.",
       },
       {
         q: "Dla kogo jest ta gra?",
-        a: "Opowiada o morderstwach i pokazuje malowane miejsca zbrodni – bez animowanej przemocy, bez horroru. Nie jest przeznaczona dla dzieci poniżej 13 lat; ocena wiekowa znajduje się w App Store.",
+        a: "Dotyczy spraw o zabójstwo i pokazuje malowane miejsca zbrodni – bez ruchomej przemocy, bez grozy. Nie została zaprojektowana dla dzieci poniżej 13 lat; ocena wiekowa widnieje w App Store.",
       },
     ],
-    purchaseHeading: "Darmowy czas gry i pełna wersja",
+    purchaseHeading: "Bezpłatny czas gry i pełna wersja",
     purchaseFaq: [
       {
         q: "Ile kosztuje Copper City?",
-        a: "Pobranie jest darmowe, tak samo jak pierwsze dwie godziny gry – ze wszystkim, co gra potrafi. Potem aplikacja raz zapyta, czy chcesz kupić pełną wersję. To pojedynczy zakup w App Store, nie subskrypcja; cenę w Twojej walucie aplikacja pokazuje przed zakupem. Jeśli nie kupisz, nadal możesz przeglądać dotychczasowe sprawy, ale nie podejmiesz nowych.",
+        a: "Pobranie jest bezpłatne, podobnie jak pierwsze dwie godziny gry – ze wszystkim, co gra potrafi. Potem aplikacja raz pyta, czy kupić pełną wersję. To jeden zakup przez App Store, nie abonament, bez reklam; cenę w lokalnej walucie aplikacja pokazuje przed zakupem. Kto nie kupi, może nadal oglądać dotychczasowe sprawy, ale nie może przyjmować nowych.",
       },
       {
-        q: "Już kupiłem, ale aplikacja pyta znowu (nowe urządzenie, ponowna instalacja).",
-        a: "W ustawieniach aplikacji stuknij „Odtwórz zakupy”. Musisz być zalogowany tym samym kontem Apple, którym dokonano zakupu. Pełna wersja zostanie ponownie odblokowana – bez drugiej płatności.",
+        q: "Zakup został już dokonany, a aplikacja znowu pyta (nowe urządzenie, ponowna instalacja).",
+        a: "Proszę otworzyć Ustawienia → Pełna wersja i dotknąć „Przywróć zakupy”. Konieczne jest to samo Apple ID, którego użyto przy zakupie. Pełna wersja zostanie ponownie odblokowana – bez ponownej płatności.",
       },
       {
-        q: "Czy mogę dostać zwrot pieniędzy?",
-        a: "Zakupy obsługuje Apple, więc zwroty również: reportaproblem.apple.com. Nigdy nie widzimy Twoich danych płatniczych i nie możemy sami dokonać zwrotu – ale jeśli coś poszło nie tak, napisz do nas, a przyjrzymy się sprawie.",
+        q: "Czy można zwrócić zakup?",
+        a: "Zakupy obsługuje Apple, więc zwrot także odbywa się przez Apple: reportaproblem.apple.com. Nie widzimy danych płatności i sami nie możemy zwrócić pieniędzy – jeśli jednak coś poszło nie tak, prosimy napisać e-mail, sprawdzimy to.",
       },
     ],
     legalHeading: "Informacje prawne",
@@ -105,7 +109,7 @@ const pl: CopperCityLocale = {
       {
         heading: "4. Zapisy gry zostają na urządzeniu",
         paragraphs: [
-          "Twoje sprawy, dziennik służby i opcjonalna nazwa profilu są przechowywane wyłącznie lokalnie na Twoim urządzeniu, w kontenerze danych aplikacji. Za pomocą „Utwórz kopię” w ustawieniach możesz wyeksportować postępy jako plik do wybranego miejsca; aplikacja zapisuje też do trzech automatycznych kopii we własnym kontenerze danych, gdy przechodzi w tło. Te pliki opuszczają urządzenie tylko wtedy, gdy sam je udostępnisz. Usunięcie aplikacji kasuje zapisane gry.",
+          "Twoje sprawy, dziennik służby i opcjonalna nazwa profilu są przechowywane wyłącznie lokalnie na Twoim urządzeniu, w kontenerze danych aplikacji. Za pomocą „Utwórz kopię” w ustawieniach możesz wyeksportować postępy jako plik do wybranego miejsca; aplikacja zapisuje też do trzech automatycznych kopii we własnym kontenerze danych, gdy przechodzi w tło. Te pliki opuszczają urządzenie tylko wtedy, gdy sam je udostępnisz. Usunięcie aplikacji kasuje zapisane gry. Zużyty czas gry aplikacja liczy sama i zapisuje wyłącznie na urządzeniu (także w łańcuchu kluczy urządzenia, aby przetrwał ponowną instalację aplikacji).",
         ],
       },
       {

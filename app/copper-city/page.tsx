@@ -48,8 +48,8 @@ export default function CopperCitySupport() {
               {SUPPORT_MAIL}
             </a>
             . Wir antworten in der Regel innerhalb von 1–3 Tagen – auf Deutsch oder Englisch. Hilfreich sind:
-            Gerät (iPhone, iPad oder Mac), bei einem Fall die Fallnummer (z. B. 1893-0427) und eine kurze
-            Beschreibung, was passiert ist.
+            Gerät (iPhone, iPad oder Mac), die Versionszeile ganz unten im Blatt „Einstellungen“, bei einem Fall
+            die Fallnummer (z. B. 1893-0427) und eine kurze Beschreibung, was passiert ist.
           </p>
           <a
             href={MAILTO_DE}
@@ -70,7 +70,7 @@ export default function CopperCitySupport() {
             Verdächtige, eine Wahrheitsmaschine aus Messing. Jeder Fall wird auf deinem Gerät neu erzeugt; du
             untersuchst den Tatort, forderst Berichte über die Rohrpost an, vernimmst Verdächtige und legst
             der Wahrheitsmaschine Täter, Tatwaffe, Tatzeit und Motiv vor. Das Spiel läuft vollständig offline,
-            ohne Konto und ohne Werbung – auf Deutsch und Englisch. Die ersten zwei Stunden sind kostenlos;
+            ohne Konto und ohne Werbung – in 17 Sprachen. Die ersten zwei Stunden sind kostenlos;
             danach schaltet ein einmaliger In-App-Kauf die Vollversion dauerhaft frei.
           </p>
         </section>
@@ -95,17 +95,23 @@ export default function CopperCitySupport() {
               „Ablage → Sicherungen im Finder zeigen“).
             </p>
             <p>
+              <b className="text-gray-800">Wo finde ich die Einstellungen?</b>
+              <br />
+              In der Wachstube auf „Ton und Darstellung …“ tippen. Es öffnet sich das Blatt „Einstellungen“. Ganz
+              unten steht die Versionszeile „Version … · Build …“ – bitte nenne sie, wenn du uns schreibst.
+            </p>
+            <p>
               <b className="text-gray-800">Wie wechsle ich die Sprache?</b>
               <br />
-              Die App folgt der Gerätesprache (Deutsch oder Englisch). Umschalten geht oben im Blatt „Bevor
-              es losgeht“ oder unter Einstellungen → Sprache. Ein laufender Fall bleibt in seiner Sprache;
-              der nächste erscheint in der neuen.
+              Die App bietet 17 Sprachen. Beim ersten Start wählst du oben im Blatt „Bevor es losgeht“; später
+              tippst du auf die Weltkugel oben rechts in der Wachstube oder gehst auf Einstellungen → Sprache.
+              Ein laufender Fall bleibt in seiner Sprache; der nächste erscheint in der neuen.
             </p>
             <p>
               <b className="text-gray-800">Die Rohrpost dauert mir zu lange.</b>
               <br />
-              Vor dem Übernehmen eines Falls kannst du im Menü „Rohrpost“ eine kürzere Wartezeit wählen.
-              Wer wartet, kann in der Zwischenzeit vernehmen.
+              Beim Anlegen eines neuen Falls kannst du im Auswahlfeld „Rohrpost“ eine kürzere Wartezeit wählen,
+              z. B. „Kurz“. Wer wartet, kann in der Zwischenzeit vernehmen.
             </p>
             <p>
               <b className="text-gray-800">Kann ich einen Fall noch einmal spielen oder mit jemandem teilen?</b>
@@ -116,8 +122,8 @@ export default function CopperCitySupport() {
             <p>
               <b className="text-gray-800">Das Flackern stört mich / mein Gerät ist älter.</b>
               <br />
-              In der Wachstube auf „Ton und Darstellung …“ tippen und dort die „ruhige Darstellung“ einschalten –
-              sie nimmt Gaslicht-Flackern und Effekte zurück.
+              In der Wachstube auf „Ton und Darstellung …“ tippen und dort die „Ruhige Darstellung“ einschalten –
+              sie nimmt das Flackern der Gaslampen und den Staub im Licht zurück.
             </p>
             <p>
               <b className="text-gray-800">Sind die Bilder echt? Gibt es die Personen?</b>
@@ -150,7 +156,7 @@ export default function CopperCitySupport() {
             <p>
               <b className="text-gray-800">Ich habe schon gekauft, die App fragt aber wieder (neues Gerät, Neuinstallation).</b>
               <br />
-              In den Einstellungen der App auf „Käufe wiederherstellen“ tippen. Voraussetzung ist dieselbe
+              Öffne Einstellungen → Vollversion und tippe auf „Käufe wiederherstellen“. Voraussetzung ist dieselbe
               Apple-ID, mit der du gekauft hast. Danach ist die Vollversion wieder frei – ohne erneute
               Zahlung.
             </p>
@@ -194,7 +200,7 @@ export default function CopperCitySupport() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Copper City – Support &amp; Contact</h2>
           <p className="text-gray-400 text-sm mb-8">
             Support page for the app “Copper City – Unsolved Murders of 1893” for iPhone, iPad and Mac. The
-            game is available in English and German.
+            game is available in 17 languages.
           </p>
 
           <section className="mb-10 rounded-2xl border border-orange-200 bg-orange-50 p-6">
@@ -205,8 +211,8 @@ export default function CopperCitySupport() {
                 {SUPPORT_MAIL}
               </a>
               . We usually reply within 1–3 days, in English or German. Please include your device (iPhone,
-              iPad or Mac), the case number if a case is affected (e.g. 1893-0427) and a short description
-              of what happened.
+              iPad or Mac), the version line at the bottom of the “Settings” sheet, the case number if a case
+              is affected (e.g. 1893-0427) and a short description of what happened.
             </p>
             <a
               href={MAILTO_EN}
@@ -227,8 +233,8 @@ export default function CopperCitySupport() {
               Copper City is a single-player detective game: Copper City, 1893 – one murder, four to six
               suspects, a Truth Machine of brass. Every case is generated on your device; you inspect the crime
               scene, request reports by pneumatic post, question suspects and put culprit, weapon, time and
-              motive before the Truth Machine. The game runs entirely offline – no account, no ads – in English and
-              German. The first two hours are free; after that a single in-app purchase unlocks the full
+              motive before the Truth Machine. The game runs entirely offline – no account, no ads – in 17 languages.
+              The first two hours are free; after that a single in-app purchase unlocks the full
               version permanently.
             </p>
           </section>
@@ -252,17 +258,23 @@ export default function CopperCitySupport() {
                 iPhone/iPad” → Copper City → Sicherungen; Mac: menu “File → Show Backups in Finder”).
               </p>
               <p>
+                <b className="text-gray-800">Where do I find the settings?</b>
+                <br />
+                In the station house, tap “Sound and display …”. The “Settings” sheet opens. At the very bottom
+                is the version line “Version … · Build …” – please include it when you write to us.
+              </p>
+              <p>
                 <b className="text-gray-800">How do I change the language?</b>
                 <br />
-                The app follows your device language (English or German). You can switch at the top of the
-                “Before we begin” sheet or under Settings → Language. A running case keeps its language; the
-                next one appears in the new language.
+                The app offers 17 languages. On first launch you choose at the top of the “Before we begin”
+                sheet; later, tap the globe at the top right of the station house or go to Settings → Language.
+                A running case keeps its language; the next one appears in the new language.
               </p>
               <p>
                 <b className="text-gray-800">The pneumatic post takes too long.</b>
                 <br />
-                Before taking a case, choose a shorter waiting time in the “Pneumatic post” menu. While you
-                wait, you can question suspects.
+                When you open a new case, choose a shorter waiting time in the “Pneumatic post” selection field,
+                for example “Short”. While you wait, you can question suspects.
               </p>
               <p>
                 <b className="text-gray-800">Can I replay a case or share it with someone?</b>
@@ -273,8 +285,8 @@ export default function CopperCitySupport() {
               <p>
                 <b className="text-gray-800">The flicker bothers me / my device is older.</b>
                 <br />
-                In the station house, tap “Sound & Display …” and turn on the “calm display” – it tones down
-                gaslight flicker and effects.
+                In the station house, tap “Sound and display …” and turn on “Calm display” – it tones down the
+                flicker of the gaslights and the dust in the light.
               </p>
               <p>
                 <b className="text-gray-800">Are the pictures real? Do these people exist?</b>
@@ -307,8 +319,8 @@ export default function CopperCitySupport() {
               <p>
                 <b className="text-gray-800">I already bought it, but the app asks again (new device, reinstall).</b>
                 <br />
-                Tap “Restore Purchases” in the app’s settings. You need to be signed in with the same Apple
-                ID you bought with. The full version is then unlocked again – no second payment.
+                Open Settings → Full Version and tap “Restore purchases”. You need to be signed in with the same
+                Apple ID you bought with. The full version is then unlocked again – no second payment.
               </p>
               <p>
                 <b className="text-gray-800">Can I get a refund?</b>

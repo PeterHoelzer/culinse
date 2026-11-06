@@ -10,63 +10,67 @@ const nl: CopperCityLocale = {
     languageName: "Nederlands",
     heading: "Copper City – Support & contact",
     subheading: "Supportpagina voor de app ‘Copper City – Onopgeloste moorden van 1893’ voor iPhone, iPad en Mac",
-    contactHeading: "Vragen, problemen, feedback – zo bereik je ons",
+    contactHeading: "Vragen? Problemen? Wensen? – Zo bereikt u ons",
     contactBody:
-      "Stuur een e-mail naar {mail}. We antwoorden meestal binnen 1–3 dagen, in het Engels of Duits. Handig om te vermelden: je apparaat (iPhone, iPad of Mac), bij een zaak het zaaknummer (bijv. 1893-0427) en een korte beschrijving van wat er is gebeurd.",
+      "Stuur ons een e-mail via {mail}. Wij antwoorden doorgaans binnen 1 tot 3 dagen, in het Duits of Engels. Handig zijn: het toestel (iPhone, iPad of Mac), bij een zaak het zaaknummer (bijv. 1893-0427) en een korte beschrijving van wat er gebeurde.",
     contactButton: "Supportverzoek per e-mail versturen",
     contactNote:
-      "Geen account of login nodig, en geen reclame. De eerste twee uur speel je gratis; daarna ontgrendelt één eenmalige aankoop de volledige versie voorgoed – geen abonnement.",
+      "Geen account, geen aanmelding nodig, geen reclame. De eerste twee uur speelt u gratis; daarna ontgrendelt een eenmalige aankoop de volledige versie blijvend – geen abonnement.",
     aboutHeading: "Over het spel",
     aboutBody:
-      "Copper City is een detectivespel voor één speler: Copper City, 1893 – één moord, vier tot zes verdachten, een Waarheidsmachine van messing. Elke zaak wordt op je apparaat gegenereerd; je onderzoekt de plaats delict, vraagt rapporten aan via de buizenpost, verhoort verdachten en legt dader, wapen, tijdstip en motief voor aan de Waarheidsmachine. Het spel werkt volledig offline, zonder account en zonder reclame, in 17 talen. De eerste twee uur zijn gratis; daarna ontgrendelt één in-app-aankoop de volledige versie voorgoed.",
+      "Copper City is een detectivespel voor één persoon: Koperstad, 1893 – een moord, vier tot zes verdachten, een Waarheidsmachine van messing. Elke zaak wordt op uw toestel nieuw gegenereerd; u onderzoekt de plaats delict, vraagt rapporten aan via de buizenpost, verhoort verdachten en legt de Waarheidsmachine dader, wapen, tijdstip en motief voor. Het spel werkt volledig offline, zonder account en zonder reclame – in 17 talen. De eerste twee uur zijn gratis; daarna ontgrendelt een eenmalige aankoop in de app de volledige versie blijvend.",
     faqHeading: "Veelgestelde vragen",
     faq: [
       {
-        q: "Waar worden mijn zaken en mijn dienstboek bewaard?",
-        a: "Alleen op je apparaat, in de eigen opslag van de app. Er wordt niets naar internet verstuurd. Als je de app verwijdert, verdwijnen de opgeslagen spellen mee – maak dus eerst een back-up.",
+        q: "Waar staan mijn zaken en mijn Dienstboek?",
+        a: "Alleen op uw toestel, in de opslag van de app. Er wordt niets naar ons of naar andere servers verzonden. Als u de app verwijdert, worden ook de spelstanden verwijderd – maak eerst een reservekopie.",
       },
       {
-        q: "Hoe maak ik een back-up van mijn voortgang of neem ik die mee naar een ander apparaat?",
-        a: "Instellingen → ‘Back-up maken’. Op iPhone en iPad opent het deelvenster, op de Mac het bewaardialoogvenster; je kunt het bestand bijvoorbeeld in iCloud Drive zetten. Kies op het andere apparaat Instellingen → ‘Terugzetten’ en selecteer het bestand – profielnaam en zaken komen mee. Daarnaast bewaart de app zelf tot drie automatische back-ups wanneer hij naar de achtergrond gaat (iPhone/iPad: Bestanden → ‘Op mijn iPhone/iPad’ → Copper City → Back-ups; Mac: menu ‘Archief → Toon back-ups in Finder’).",
+        q: "Hoe sla ik mijn spelstand op of neem ik die mee naar een ander toestel?",
+        a: "Instellingen → “Opslaan”. Op iPhone en iPad opent het deelblad, op de Mac het bewaardialoogvenster; het bestand kunt u bijvoorbeeld in iCloud Drive zetten. Kies op het andere toestel Instellingen → “Terugzetten” en selecteer het bestand – profielnaam en zaken komen mee. Daarnaast maakt de app zelf tot drie reservekopieën aan wanneer ze naar de achtergrond gaat (iPhone/iPad: Bestanden → “Op mijn iPhone/iPad” → Copper City → Sicherungen; Mac: menu “Archief → Toon reservekopieën in Finder”).",
+      },
+      {
+        q: "Waar vind ik de instellingen?",
+        a: "Tik in het Wachtlokaal op “Geluid en weergave …”. Het blad “Instellingen” opent. Helemaal onderaan staat de versieregel “Versie … · Build …” – vermeld die alstublieft als u ons schrijft.",
       },
       {
         q: "Hoe wissel ik van taal?",
-        a: "De app volgt de taal van je apparaat. Omschakelen kan bovenaan het venster ‘Voordat we beginnen’ of via Instellingen → Taal. Een lopende zaak houdt zijn taal; de volgende verschijnt in de nieuwe taal.",
+        a: "De app biedt 17 talen. Bij de eerste start kiest u bovenaan in het blad “Voordat het begint”; later tikt u op de wereldbol rechtsboven in het Wachtlokaal of gaat u naar Instellingen → Taal. Een lopende zaak blijft in zijn taal; de volgende verschijnt in de nieuwe.",
       },
       {
-        q: "De buizenpost duurt me te lang.",
-        a: "Kies vóór je een zaak aanneemt een kortere wachttijd in het menu ‘Buizenpost’. Terwijl je wacht, kun je alvast verdachten verhoren.",
+        q: "De buizenpost duurt mij te lang.",
+        a: "Bij het openen van een nieuwe zaak kunt u in het keuzeveld “Buizenpost” een kortere wachttijd kiezen, bijv. “Kort”. Wie wacht, kan intussen verhoren.",
       },
       {
         q: "Kan ik een zaak opnieuw spelen of met iemand delen?",
-        a: "Ja – elke zaak heeft een zaaknummer (bijv. 1893-0427). Wie hetzelfde nummer invoert, krijgt meestal dezelfde zaak; laat je het leeg, dan beslist het toeval.",
+        a: "Ja – elke zaak heeft een zaaknummer (bijv. 1893-0427). Wie hetzelfde nummer invoert, krijgt meestal dezelfde zaak (bij dezelfde rang). Als u het veld leeg laat, beslist het toeval.",
       },
       {
-        q: "Het geflikker stoort me / mijn apparaat is ouder.",
-        a: "Tik in het politiebureau op ‘Geluid en weergave …’ en schakel daar de ‘rustige weergave’ in – die tempert het flikkerende gaslicht en de effecten.",
+        q: "Het geflakker stoort mij / mijn toestel is ouder.",
+        a: "Tik in het Wachtlokaal op “Geluid en weergave …” en zet daar de “Rustige weergave” aan – die vermindert het geflakker van de gaslampen en het stof in het licht.",
       },
       {
-        q: "Zijn de afbeeldingen echt? Bestaan deze mensen?",
-        a: "Nee. Alle afbeeldingen en films zijn gemaakt met kunstmatige intelligentie; Copper City, zijn inwoners en alle zaken zijn volledig verzonnen, en de afgebeelde personen bestaan niet. Dat staat ook bij de eerste start en onder Instellingen → Juridische informatie.",
+        q: "Zijn de beelden echt? Bestaan die personen?",
+        a: "Nee. Alle beelden en films zijn met kunstmatige intelligentie gemaakt; Koperstad, zijn bewoners en alle zaken zijn volledig verzonnen, de afgebeelde personen bestaan niet. Dat staat ook bij de eerste start en onder Instellingen → Juridisch.",
       },
       {
         q: "Voor wie is het spel geschikt?",
-        a: "Het gaat over moordzaken en toont geschilderde plaatsen delict – geen bewegend geweld, geen horror. Het is niet ontworpen voor kinderen onder de 13; de leeftijdsclassificatie staat in de App Store.",
+        a: "Het behandelt moordzaken met geschilderde plaatsen delict, zonder bewegend geweld, zonder horror. Het is niet ontworpen voor kinderen onder de 13 jaar; de leeftijdsclassificatie staat in de App Store.",
       },
     ],
     purchaseHeading: "Gratis speeltijd en volledige versie",
     purchaseFaq: [
       {
         q: "Wat kost Copper City?",
-        a: "Downloaden is gratis, en de eerste twee uur spelen ook – met alles wat het spel kan. Daarna vraagt de app één keer of je de volledige versie wilt kopen. Het is één enkele aankoop via de App Store, geen abonnement; de app toont de prijs in je eigen valuta voordat je koopt. Koop je niet, dan kun je je eerdere zaken nog steeds bekijken, maar geen nieuwe aannemen.",
+        a: "Downloaden is gratis, en de eerste twee uur spelen ook – met alles wat het spel kan. Daarna vraagt de app eenmalig of u de volledige versie wilt kopen. Het is één enkele aankoop via de App Store, geen abonnement en zonder reclame; de app toont de prijs in uw eigen valuta vóór de aankoop. Wie niet koopt, kan zijn eerdere zaken blijven bekijken, maar geen nieuwe aannemen.",
       },
       {
-        q: "Ik heb al gekocht, maar de app vraagt het opnieuw (nieuw apparaat, herinstallatie).",
-        a: "Tik in de instellingen van de app op ‘Herstel aankopen’. Je moet ingelogd zijn met hetzelfde Apple Account waarmee je hebt gekocht. Daarna is de volledige versie weer ontgrendeld – zonder opnieuw te betalen.",
+        q: "Ik heb al gekocht, maar de app vraagt het opnieuw (nieuw toestel, herinstallatie).",
+        a: "Open Instellingen → Volledige versie en tik op “Aankopen herstellen”. Voorwaarde is dezelfde Apple-account waarmee u hebt gekocht. Daarna is de volledige versie weer ontgrendeld – zonder opnieuw te betalen.",
       },
       {
-        q: "Kan ik mijn geld terugkrijgen?",
-        a: "Aankopen lopen via Apple, dus terugbetalingen ook: reportaproblem.apple.com. Wij zien nooit je betaalgegevens en kunnen zelf geen terugbetaling doen – maar is er iets misgegaan, mail ons dan gerust, dan kijken we ernaar.",
+        q: "Kan ik de aankoop terugdraaien?",
+        a: "Aankopen worden door Apple afgehandeld, dus ook een terugbetaling loopt via Apple: reportaproblem.apple.com. Wijzelf zien geen betaalgegevens en kunnen geen terugbetaling in gang zetten – bij problemen helpt u ons echter graag per e-mail verder, dan kijken wij ernaar.",
       },
     ],
     legalHeading: "Juridisch",
@@ -105,7 +109,7 @@ const nl: CopperCityLocale = {
       {
         heading: "4. Opgeslagen spellen blijven op het apparaat",
         paragraphs: [
-          "Je zaken, je dienstboek en een optionele profielnaam worden uitsluitend lokaal op je apparaat bewaard, in de datacontainer van de app. Via ‘Back-up maken’ in de instellingen kun je je voortgang als bestand exporteren naar een plek naar keuze; daarnaast bewaart de app tot drie automatische back-ups in zijn eigen datacontainer wanneer hij naar de achtergrond gaat. Deze bestanden verlaten het apparaat alleen als je ze zelf deelt. Als je de app verwijdert, verdwijnen de opgeslagen spellen mee.",
+          "Je zaken, je dienstboek en een optionele profielnaam worden uitsluitend lokaal op je apparaat bewaard, in de datacontainer van de app. Via ‘Back-up maken’ in de instellingen kun je je voortgang als bestand exporteren naar een plek naar keuze; daarnaast bewaart de app tot drie automatische back-ups in zijn eigen datacontainer wanneer hij naar de achtergrond gaat. Deze bestanden verlaten het apparaat alleen als je ze zelf deelt. Als je de app verwijdert, verdwijnen de opgeslagen spellen mee. De verbruikte speeltijd telt de app zelf bij en bewaart die alleen op het toestel (ook in de sleutelhanger van het toestel, zodat die een herinstallatie overleeft).",
         ],
       },
       {

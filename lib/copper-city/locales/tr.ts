@@ -10,63 +10,67 @@ const tr: CopperCityLocale = {
     languageName: "Türkçe",
     heading: "Copper City – Destek ve İletişim",
     subheading: "iPhone, iPad ve Mac için “Copper City – 1893’ün Çözülmemiş Cinayetleri” uygulamasının destek sayfası",
-    contactHeading: "Soru, sorun, geri bildirim – bize ulaş",
+    contactHeading: "Sorunuz, probleminiz ya da isteğiniz mi var? – Bize şöyle ulaşabilirsiniz",
     contactBody:
-      "Bize {mail} adresinden e-posta gönder. Genellikle 1–3 gün içinde İngilizce veya Almanca yanıt veriyoruz. Lütfen cihazını (iPhone, iPad veya Mac), bir vakayla ilgiliyse vaka numarasını (örn. 1893-0427) ve ne olduğuna dair kısa bir açıklama ekle.",
+      "Bize {mail} adresinden e-posta yazın. Genellikle 1–3 gün içinde Almanca veya İngilizce yanıt veriyoruz. Şunları belirtirseniz çok yardımcı olur: cihazınız (iPhone, iPad veya Mac), bir davayla ilgiliyse dava numarası (örn. 1893-0427) ve ne olduğuna dair kısa bir açıklama.",
     contactButton: "E-posta ile destek talebi gönder",
     contactNote:
-      "Hesap ya da giriş gerekmez, reklam yoktur. İlk iki saat ücretsiz oynarsın; sonrasında tek seferlik bir satın alma tam sürümü kalıcı olarak açar – abonelik yok.",
+      "Hesap ve giriş gerekmez, reklam yoktur. İlk iki saat ücretsiz oynarsınız; ardından tek seferlik bir satın alma tam sürümü kalıcı olarak açar – abonelik yoktur.",
     aboutHeading: "Oyun hakkında",
     aboutBody:
-      "Copper City tek kişilik bir dedektiflik oyunudur: Copper City, 1893 – bir cinayet, dört ila altı şüpheli ve pirinçten bir Hakikat Makinesi. Her vaka cihazında üretilir; olay yerini incelersin, pnömatik posta ile raporlar istersin, şüphelileri sorgularsın ve faili, silahı, saati ve nedeni Hakikat Makinesi’ne sunarsın. Oyun tamamen çevrimdışı çalışır, hesap ve reklam yoktur, 17 dilde oynanır. İlk iki saat ücretsizdir; sonrasında tek bir uygulama içi satın alma tam sürümü kalıcı olarak açar.",
+      "Copper City tek kişilik bir dedektif oyunudur: Bakırşehir, 1893 – bir cinayet, dört ila altı şüpheli, pirinçten bir Hakikat Makinesi. Her dava cihazınızda yeniden oluşturulur; olay yerini inceler, boru postasıyla rapor istersiniz, şüphelileri sorgular ve Hakikat Makinesi'ne fail, silah, zaman ve saik sunarsınız. Oyun tamamen çevrimdışı çalışır, hesap ve reklam yoktur; 17 dilde sunulur. İlk iki saat ücretsizdir; ardından tek seferlik bir uygulama içi satın alma tam sürümü kalıcı olarak açar.",
     faqHeading: "Sık sorulan sorular",
     faq: [
       {
-        q: "Vakalarım ve hizmet sicilim nerede saklanıyor?",
-        a: "Yalnızca cihazında, uygulamanın kendi depolama alanında. İnternete hiçbir şey gönderilmez. Uygulamayı silmek kayıtlı oyunları da siler – önce yedek al.",
+        q: "Davalarım ve Hizmet Defterim nerede saklanıyor?",
+        a: "Yalnızca cihazınızda, uygulamanın kendi depolama alanında. Bize ya da başka bir sunucuya hiçbir şey gönderilmez. Uygulamayı silmek kayıtlı oyunları da siler – önce yedekleyin.",
       },
       {
-        q: "İlerlememi nasıl yedekler veya başka bir cihaza taşırım?",
-        a: "Ayarlar → “Yedekle”. iPhone ve iPad’de paylaşım sayfası, Mac’te kaydetme penceresi açılır; dosyayı örneğin iCloud Drive’a kaydedebilirsin. Diğer cihazda Ayarlar → “Geri Yükle” seçeneğini seçip dosyayı belirle – profil adı ve vakalar birlikte gelir. Uygulama arka plana geçtiğinde ayrıca en fazla üç otomatik yedek tutar (iPhone/iPad: Dosyalar → “iPhone’umda/iPad’imde” → Copper City → Yedekler; Mac: menü “Dosya → Yedekleri Finder’da Göster”).",
+        q: "İlerlememi nasıl yedeklerim veya başka bir cihaza nasıl taşırım?",
+        a: "Ayarlar → “Yedekle”. iPhone ve iPad'de paylaşım sayfası, Mac'te kaydetme penceresi açılır; dosyayı örneğin iCloud Drive'a koyabilirsiniz. Diğer cihazda Ayarlar → “Geri yükle” deyip dosyayı seçin – profil adı ve davalar birlikte gelir. Uygulama ayrıca arka plana geçtiğinde kendiliğinden en fazla üç yedek oluşturur (iPhone/iPad: Dosyalar → “iPhone'umda/iPad'imde” → Copper City → Sicherungen; Mac: “Dosya → Yedekleri Finder'da Göster” menüsü).",
+      },
+      {
+        q: "Ayarlar nerede?",
+        a: "Karakolda “Ses ve görünüm …” düğmesine dokunun. “Ayarlar” sayfası açılır. En altta “Sürüm … · Yapı …” satırı bulunur – bize yazarken lütfen bunu da belirtin.",
       },
       {
         q: "Dili nasıl değiştiririm?",
-        a: "Uygulama cihaz dilini kullanır. “Başlamadan önce” sayfasının üst kısmından veya Ayarlar → Dil altından değiştirebilirsin. Devam eden bir vaka kendi dilinde kalır; bir sonraki vaka yeni dilde görünür.",
+        a: "Uygulama 17 dil sunar. İlk açılışta “Başlamadan önce” sayfasının üstünden seçersiniz; sonrasında karakoldaki sağ üst köşedeki dünya simgesine dokunun ya da Ayarlar → Dil'e gidin. Sürmekte olan dava kendi dilinde kalır; bir sonraki dava yeni dilde görünür.",
       },
       {
-        q: "Pnömatik posta çok uzun sürüyor.",
-        a: "Bir vakayı üstlenmeden önce “Pnömatik posta” menüsünden daha kısa bir bekleme süresi seç. Beklerken şüphelileri sorgulayabilirsin.",
+        q: "Boru postası çok uzun sürüyor.",
+        a: "Yeni bir dava açarken “Boru postası” seçim alanından daha kısa bir bekleme süresi, örneğin “Kısa”, seçebilirsiniz. Beklerken şüphelileri sorgulayabilirsiniz.",
       },
       {
-        q: "Bir vakayı yeniden oynayabilir veya biriyle paylaşabilir miyim?",
-        a: "Evet – her vakanın bir vaka numarası vardır (örn. 1893-0427). Aynı numarayı girmek genellikle aynı vakayı verir; boş bırakırsan şans karar verir.",
+        q: "Bir davayı yeniden oynayabilir veya biriyle paylaşabilir miyim?",
+        a: "Evet – her davanın bir dava numarası vardır (örn. 1893-0427). Aynı numarayı giren genellikle aynı davayı alır (rütbe aynıysa). Boş bırakırsanız şans belirler.",
       },
       {
-        q: "Titreme beni rahatsız ediyor / cihazım eski.",
-        a: "Karakolda “Ses ve Görüntü …” seçeneğine dokun ve “sakin görüntü” ayarını aç – gaz lambası titremesini ve efektleri azaltır.",
+        q: "Titreşim beni rahatsız ediyor / cihazım eski.",
+        a: "Karakolda “Ses ve görünüm …” düğmesine dokunun ve “Sakin görünüm (titreşim yok, toz yok)” seçeneğini açın – gaz lambalarının titreşimini ve ışıktaki tozu azaltır.",
       },
       {
         q: "Resimler gerçek mi? Bu kişiler var mı?",
-        a: "Hayır. Tüm görseller ve filmler yapay zekâ ile oluşturuldu; Copper City, sakinleri ve tüm vakalar tamamen kurgusaldır, tasvir edilen kişiler gerçekte yoktur. Uygulama bunu ilk açılışta ve Ayarlar → Yasal bilgiler altında belirtir.",
+        a: "Hayır. Tüm resimler ve filmler yapay zekâ ile üretilmiştir; Bakırşehir, sakinleri ve tüm davalar tamamen kurgudur, gösterilen kişiler gerçekte yoktur. Uygulama bunu ilk açılışta ve Ayarlar → Yasal bilgiler altında da belirtir.",
       },
       {
         q: "Oyun kimler için uygun?",
-        a: "Cinayet vakalarını konu alır ve resmedilmiş olay yerleri gösterir – hareketli şiddet yok, korku yok. 13 yaşından küçük çocuklar için tasarlanmamıştır; yaş derecelendirmesi App Store’da yer alır.",
+        a: "Cinayet davalarını işler ve çizilmiş olay yerlerini gösterir – hareketli şiddet yok, korku yok. 13 yaşından küçük çocuklar için tasarlanmamıştır; yaş derecelendirmesi App Store'da yer alır.",
       },
     ],
-    purchaseHeading: "Ücretsiz oyun süresi ve tam sürüm",
+    purchaseHeading: "Ücretsiz oynama süresi ve tam sürüm",
     purchaseFaq: [
       {
         q: "Copper City ne kadar?",
-        a: "İndirmek ücretsiz, ilk iki saatlik oyun da öyle – oyunun yapabildiği her şeyle birlikte. Sonrasında uygulama tam sürümü satın almak isteyip istemediğini bir kez sorar. App Store üzerinden tek seferlik bir satın almadır, abonelik değildir; uygulama satın almadan önce fiyatı yerel para biriminde gösterir. Satın almazsan önceki vakalarına bakmaya devam edebilirsin ama yeni vaka üstlenemezsin.",
+        a: "İndirmek ücretsizdir, ilk iki saatlik oyun süresi de – oyunun yapabildiği her şeyle birlikte. Ardından uygulama tam sürümü satın almak isteyip istemediğinizi bir kez sorar. App Store üzerinden tek bir satın almadır; abonelik değildir ve reklam yoktur; fiyatı uygulama, satın almadan önce kendi para biriminizle gösterir. Satın almazsanız önceki davalarınıza bakmaya devam edebilirsiniz, ancak yeni dava alamazsınız.",
       },
       {
-        q: "Zaten satın aldım ama uygulama tekrar soruyor (yeni cihaz, yeniden yükleme).",
-        a: "Uygulamanın ayarlarında “Satın Alımları Geri Yükle” seçeneğine dokun. Satın alırken kullandığın Apple Hesabı ile giriş yapmış olman gerekir. Tam sürüm yeniden açılır – ikinci bir ödeme yoktur.",
+        q: "Zaten satın aldım ama uygulama yine soruyor (yeni cihaz, yeniden kurulum).",
+        a: "Ayarlar → Tam sürüm bölümünü açın ve “Satın alımları geri yükle” düğmesine dokunun. Satın alırken kullandığınız Apple Kimliği ile oturum açmış olmanız gerekir. Tam sürüm yeniden açılır – ikinci kez ödeme yapmazsınız.",
       },
       {
-        q: "Para iadesi alabilir miyim?",
-        a: "Satın alma işlemlerini Apple yürütür, dolayısıyla iadeleri de: reportaproblem.apple.com. Ödeme bilgilerini hiçbir zaman görmeyiz ve kendimiz iade yapamayız – ama bir şeyler ters gittiyse bize e-posta gönder, inceleriz.",
+        q: "İade alabilir miyim?",
+        a: "Satın almaları Apple yürütür, bu yüzden iadeler de Apple üzerinden yapılır: reportaproblem.apple.com. Ödeme bilgilerinizi biz görmeyiz ve kendimiz iade yapamayız – ama bir aksilik olduysa bize e-posta yazın, bakalım.",
       },
     ],
     legalHeading: "Yasal",
@@ -105,7 +109,7 @@ const tr: CopperCityLocale = {
       {
         heading: "4. Kayıtlı oyunlar cihazda kalır",
         paragraphs: [
-          "Vakaların, hizmet sicilin ve isteğe bağlı profil adın yalnızca cihazında, uygulamanın veri kapsayıcısında yerel olarak saklanır. Ayarlardaki “Yedekle” ile ilerlemeni dosya olarak istediğin bir konuma dışa aktarabilirsin; uygulama arka plana geçtiğinde ayrıca kendi veri kapsayıcısında en fazla üç otomatik yedek tutar. Bu dosyalar yalnızca sen kendin paylaşırsan cihazdan çıkar. Uygulamayı silmek kayıtlı oyunları siler.",
+          "Vakaların, hizmet sicilin ve isteğe bağlı profil adın yalnızca cihazında, uygulamanın veri kapsayıcısında yerel olarak saklanır. Ayarlardaki “Yedekle” ile ilerlemeni dosya olarak istediğin bir konuma dışa aktarabilirsin; uygulama arka plana geçtiğinde ayrıca kendi veri kapsayıcısında en fazla üç otomatik yedek tutar. Bu dosyalar yalnızca sen kendin paylaşırsan cihazdan çıkar. Uygulamayı silmek kayıtlı oyunları siler. Kullanılan oyun süresini uygulama kendisi sayar ve yalnızca cihazda saklar (uygulama yeniden kurulsa da korunması için cihazın anahtar zincirinde de).",
         ],
       },
       {

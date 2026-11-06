@@ -10,63 +10,67 @@ const ptBR: CopperCityLocale = {
     languageName: "Português (Brasil)",
     heading: "Copper City – Suporte e contato",
     subheading: "Página de suporte do app “Copper City – Assassinatos sem solução de 1893” para iPhone, iPad e Mac",
-    contactHeading: "Dúvidas, problemas, sugestões? Fale com a gente",
+    contactHeading: "Dúvidas? Problemas? Sugestões? – Como falar conosco",
     contactBody:
-      "Mande um e-mail para {mail}. Normalmente respondemos em 1 a 3 dias, em português, inglês ou alemão. Ajuda muito informar seu dispositivo (iPhone, iPad ou Mac), o número do caso se for sobre um caso específico (por ex. 1893-0427) e uma breve descrição do que aconteceu.",
+      "Escreva para nós por e-mail em {mail}. Em geral respondemos em 1 a 3 dias, em alemão ou inglês. Ajuda se você informar: o aparelho (iPhone, iPad ou Mac), no caso de um problema com um caso, o número do caso (por exemplo, 1893-0427) e uma breve descrição do que aconteceu.",
     contactButton: "Enviar uma solicitação de suporte por e-mail",
     contactNote:
-      "Não é preciso conta nem login, e não há anúncios. As duas primeiras horas são grátis; depois, uma única compra libera a versão completa para sempre, sem assinatura.",
+      "Sem conta, sem login, sem publicidade. As duas primeiras horas são gratuitas; depois, uma compra única libera a versão completa de forma permanente, sem assinatura.",
     aboutHeading: "Sobre o jogo",
     aboutBody:
-      "Copper City é um jogo de detetive para um jogador: Copper City, 1893 – um assassinato, de quatro a seis suspeitos, uma Máquina da Verdade de latão. Cada caso é gerado no seu dispositivo; você examina a cena do crime, pede relatórios pelo correio pneumático, interroga os suspeitos e apresenta culpado, arma, hora e motivo à Máquina da Verdade. O jogo funciona totalmente offline, sem conta e sem anúncios, em 17 idiomas. As duas primeiras horas são grátis; depois, uma única compra dentro do app libera a versão completa de forma permanente.",
+      "Copper City é um jogo de detetive para uma pessoa: Cidade do Cobre, 1893 – um assassinato, de quatro a seis suspeitos, uma Máquina da Verdade de latão. Cada caso é gerado de novo no seu aparelho; você examina a cena do crime, solicita relatórios pelo correio pneumático, interroga suspeitos e apresenta à Máquina da Verdade o culpado, a arma, a hora e o motivo. O jogo funciona totalmente offline, sem conta e sem publicidade, em 17 idiomas. As duas primeiras horas são gratuitas; depois, uma compra única dentro do app libera a versão completa de forma permanente.",
     faqHeading: "Perguntas frequentes",
     faq: [
       {
-        q: "Onde ficam salvos meus casos e minha ficha de serviço?",
-        a: "Somente no seu dispositivo, no armazenamento do próprio app. Nada é enviado para a internet. Ao apagar o app, os jogos salvos são removidos junto – faça um backup antes.",
+        q: "Onde ficam meus casos e minha Caderneta de Serviço?",
+        a: "Somente no seu aparelho, no armazenamento do app. Nada é enviado a nós nem a outros servidores. Ao excluir o app, os jogos salvos também são removidos; faça um backup antes.",
       },
       {
-        q: "Como faço backup do meu progresso ou levo para outro dispositivo?",
-        a: "Ajustes → “Fazer backup”. No iPhone e no iPad abre-se a tela de compartilhamento; no Mac, a caixa de diálogo para salvar. Você pode guardar o arquivo no iCloud Drive, por exemplo. No outro dispositivo, escolha Ajustes → “Restaurar” e selecione o arquivo – o nome do perfil e os casos vêm junto. O app também guarda até três backups automáticos quando vai para segundo plano (iPhone/iPad: Arquivos → “No Meu iPhone/iPad” → Copper City → Backups; Mac: menu “Arquivo → Mostrar Backups no Finder”).",
+        q: "Como salvo meu jogo ou o levo para outro aparelho?",
+        a: "Ajustes → “Salvar”. No iPhone e no iPad abre-se a folha de compartilhamento; no Mac, a caixa de diálogo de salvamento; você pode guardar o arquivo, por exemplo, no iCloud Drive. No outro aparelho, escolha Ajustes → “Restaurar” e selecione o arquivo – nome do perfil e casos acompanham. Além disso, o app cria por conta própria até três backups quando vai para segundo plano (iPhone/iPad: Arquivos → “No Meu iPhone/iPad” → Copper City → Sicherungen; Mac: menu “Arquivo → Mostrar Backups no Finder”).",
       },
       {
-        q: "Como mudo o idioma?",
-        a: "O app segue o idioma do seu dispositivo. Você pode trocar no alto da tela “Antes de começar” ou em Ajustes → Idioma. Um caso em andamento mantém o idioma; o próximo aparece no novo idioma.",
+        q: "Onde encontro os ajustes?",
+        a: "No Posto de Guarda, toque em “Som e exibição …”. Abre-se a folha “Ajustes”. Bem embaixo fica a linha de versão “Versão … · Build …” – informe-a, por favor, quando nos escrever.",
+      },
+      {
+        q: "Como troco o idioma?",
+        a: "O app oferece 17 idiomas. Na primeira abertura, você escolhe no alto da folha “Antes de começar”; depois, toque no globo no canto superior direito do Posto de Guarda ou vá em Ajustes → Idioma. Um caso em andamento permanece em seu idioma; o próximo aparece no novo.",
       },
       {
         q: "O correio pneumático demora demais.",
-        a: "Antes de assumir um caso, escolha um tempo de espera menor no menu “Correio pneumático”. Enquanto espera, você pode interrogar os suspeitos.",
+        a: "Ao abrir um novo caso, você pode escolher um tempo de espera menor no campo de seleção “Tubo pneumático”, por exemplo “Curto”. Enquanto espera, você pode interrogar suspeitos.",
       },
       {
-        q: "Posso jogar um caso de novo ou compartilhar com alguém?",
-        a: "Sim – todo caso tem um número de caso (por ex. 1893-0427). Digitar o mesmo número normalmente dá o mesmo caso; deixe em branco e o acaso decide.",
+        q: "Posso jogar um caso de novo ou compartilhá-lo com alguém?",
+        a: "Sim – cada caso tem um número (por exemplo, 1893-0427). Quem digitar o mesmo número normalmente recebe o mesmo caso (com a mesma patente). Se você deixar o campo vazio, o acaso decide.",
       },
       {
-        q: "A cintilação me incomoda / meu dispositivo é antigo.",
-        a: "Na delegacia, toque em “Som e tela…” e ative a “tela calma” – ela reduz a cintilação dos lampiões a gás e os efeitos.",
+        q: "A tremulação me incomoda / meu aparelho é mais antigo.",
+        a: "No Posto de Guarda, toque em “Som e exibição …” e ative a “Exibição calma” – ela reduz a tremulação dos lampiões a gás e a poeira na luz.",
       },
       {
         q: "As imagens são reais? Essas pessoas existem?",
-        a: "Não. Todas as imagens e filmes foram criados com inteligência artificial; Copper City, seus habitantes e todos os casos são inteiramente fictícios, e as pessoas retratadas não existem. O app informa isso na primeira abertura e em Ajustes → Avisos legais.",
+        a: "Não. Todas as imagens e filmes foram criados com inteligência artificial; a Cidade do Cobre, seus habitantes e todos os casos são inteiramente fictícios, e as pessoas retratadas não existem. Isso também é informado na primeira abertura e em Ajustes → Avisos legais.",
       },
       {
         q: "Para quem o jogo é indicado?",
-        a: "Ele trata de casos de assassinato e mostra cenas de crime pintadas – sem violência em movimento, sem terror. Não foi feito para crianças menores de 13 anos; veja a classificação etária na App Store.",
+        a: "Ele trata de casos de assassinato com cenas do crime pintadas, sem violência em movimento, sem horror. Não foi concebido para crianças menores de 13 anos; a classificação etária consta na App Store.",
       },
     ],
-    purchaseHeading: "Tempo de jogo grátis e versão completa",
+    purchaseHeading: "Tempo de jogo gratuito e versão completa",
     purchaseFaq: [
       {
         q: "Quanto custa o Copper City?",
-        a: "O download é grátis, e as duas primeiras horas de jogo também – com tudo o que o jogo oferece. Depois, o app pergunta uma única vez se você quer comprar a versão completa. É uma única compra pela App Store, não uma assinatura; o app mostra o preço na sua moeda local antes da compra. Se decidir não comprar, você ainda pode rever seus casos anteriores, mas não assumir novos.",
+        a: "Baixar é gratuito, e as duas primeiras horas de jogo também – com tudo o que o jogo oferece. Depois, o app pergunta uma única vez se você deseja comprar a versão completa. É uma única compra pela App Store, sem assinatura e sem publicidade; o app mostra o preço na sua moeda local antes da compra. Se você não comprar, ainda poderá ver seus casos anteriores, mas não assumir novos.",
       },
       {
-        q: "Já comprei, mas o app pergunta de novo (dispositivo novo, reinstalação).",
-        a: "Toque em “Restaurar Compras” nos ajustes do app. Você precisa estar com a mesma Conta Apple usada na compra. A versão completa é liberada de novo – sem pagar outra vez.",
+        q: "Já comprei, mas o app pergunta de novo (aparelho novo, reinstalação).",
+        a: "Abra Ajustes → Versão completa e toque em “Restaurar compras”. É preciso usar a mesma conta Apple com a qual você comprou. Depois disso, a versão completa volta a ficar liberada, sem novo pagamento.",
       },
       {
-        q: "Posso pedir reembolso?",
-        a: "As compras são processadas pela Apple, então os reembolsos também: reportaproblem.apple.com. Nós nunca vemos seus dados de pagamento e não podemos fazer reembolsos – mas, se algo deu errado, mande um e-mail que a gente verifica.",
+        q: "Posso devolver a compra?",
+        a: "As compras são processadas pela Apple; por isso, o reembolso também passa pela Apple: reportaproblem.apple.com. Nós mesmos não vemos nenhum dado de pagamento e não podemos conceder reembolsos – mas, se houver algum problema, ajude-nos com prazer por e-mail, que vamos verificar.",
       },
     ],
     legalHeading: "Informações legais",
@@ -105,7 +109,7 @@ const ptBR: CopperCityLocale = {
       {
         heading: "4. Os jogos salvos ficam no dispositivo",
         paragraphs: [
-          "Seus casos, sua ficha de serviço e um nome de perfil opcional são armazenados apenas localmente no seu dispositivo, no contêiner de dados do app. Com “Fazer backup” nos ajustes, você pode exportar seu progresso como arquivo para o local que quiser; o app também guarda até três backups automáticos no próprio contêiner de dados quando vai para segundo plano. Esses arquivos só saem do dispositivo se você mesmo os compartilhar. Ao apagar o app, os jogos salvos são removidos.",
+          "Seus casos, sua ficha de serviço e um nome de perfil opcional são armazenados apenas localmente no seu dispositivo, no contêiner de dados do app. Com “Fazer backup” nos ajustes, você pode exportar seu progresso como arquivo para o local que quiser; o app também guarda até três backups automáticos no próprio contêiner de dados quando vai para segundo plano. Esses arquivos só saem do dispositivo se você mesmo os compartilhar. Ao apagar o app, os jogos salvos são removidos. O app conta por conta própria o tempo de jogo utilizado e o guarda somente no aparelho (também no chaveiro do aparelho, para que ele sobreviva a uma reinstalação).",
         ],
       },
       {

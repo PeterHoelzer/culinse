@@ -10,63 +10,67 @@ const sv: CopperCityLocale = {
     languageName: "Svenska",
     heading: "Copper City – Support & kontakt",
     subheading: "Supportsida för appen ”Copper City – Olösta mord 1893” för iPhone, iPad och Mac",
-    contactHeading: "Frågor, problem, synpunkter – så når du oss",
+    contactHeading: "Frågor? Problem? Önskemål? – Så når ni oss",
     contactBody:
-      "Mejla oss på {mail}. Vi svarar normalt inom 1–3 dagar, på engelska eller tyska. Bra att ta med: din enhet (iPhone, iPad eller Mac), fallnumret om det gäller ett fall (t.ex. 1893-0427) och en kort beskrivning av vad som hände.",
+      "Skriv ett e-postmeddelande till {mail}. Vi svarar vanligtvis inom 1–3 dagar, på tyska eller engelska. Det hjälper om ni anger: enhet (iPhone, iPad eller Mac), vid ett fall fallnumret (t.ex. 1893-0427) och en kort beskrivning av vad som hände.",
     contactButton: "Skicka en supportförfrågan via e-post",
     contactNote:
-      "Inget konto eller inloggning behövs, och det finns ingen reklam. De första två timmarna spelar du gratis; sedan låser ett enda engångsköp upp fullversionen för gott – ingen prenumeration.",
+      "Inget konto, ingen inloggning, ingen reklam. De två första timmarna spelar ni gratis; därefter låser ett engångsköp upp fullversionen för gott – ingen prenumeration.",
     aboutHeading: "Om spelet",
     aboutBody:
-      "Copper City är ett detektivspel för en spelare: Copper City, 1893 – ett mord, fyra till sex misstänkta, en sanningsmaskin av mässing. Varje fall skapas på din enhet; du undersöker brottsplatsen, beställer rapporter via rörposten, förhör misstänkta och lägger fram gärningsman, vapen, tidpunkt och motiv för sanningsmaskinen. Spelet fungerar helt offline, utan konto och utan reklam, på 17 språk. De första två timmarna är gratis; sedan låser ett enda köp i appen upp fullversionen permanent.",
+      "Copper City är ett detektivspel för en person: Kopparstad, 1893 – ett mord, fyra till sex misstänkta, en sanningsmaskin av mässing. Varje fall skapas på nytt på er enhet; ni undersöker brottsplatsen, begär rapporter via rörposten, förhör misstänkta och lägger fram gärningsman, vapen, tidpunkt och motiv för Sanningsmaskinen. Spelet fungerar helt offline, utan konto och utan reklam – på 17 språk. De två första timmarna är gratis; därefter låser ett engångsköp i appen upp fullversionen för gott.",
     faqHeading: "Vanliga frågor",
     faq: [
       {
-        q: "Var sparas mina fall och min tjänstejournal?",
-        a: "Bara på din enhet, i appens eget lagringsutrymme. Inget skickas ut på internet. Om du raderar appen försvinner de sparade spelen också – säkerhetskopiera först.",
+        q: "Var finns mina fall och min tjänstebok?",
+        a: "Bara på er enhet, i appens eget lagringsutrymme. Ingenting skickas till oss eller till andra servrar. När appen raderas tas de sparade spelen också bort – säkerhetskopiera först.",
       },
       {
-        q: "Hur säkerhetskopierar jag mina framsteg eller flyttar dem till en annan enhet?",
-        a: "Inställningar → ”Säkerhetskopiera”. På iPhone och iPad öppnas delningsvyn, på Mac dialogrutan för att spara; du kan till exempel lägga filen i iCloud Drive. På den andra enheten väljer du Inställningar → ”Återställ” och pekar ut filen – profilnamn och fall följer med. Appen sparar dessutom upp till tre automatiska säkerhetskopior när den går till bakgrunden (iPhone/iPad: Filer → ”På min iPhone/iPad” → Copper City → Säkerhetskopior; Mac: menyn ”Arkiv → Visa säkerhetskopior i Finder”).",
+        q: "Hur säkerhetskopierar jag mitt spel eller tar med det till en annan enhet?",
+        a: "Inställningar → ”Säkerhetskopiera”. På iPhone och iPad öppnas delningsarket, på Mac sparadialogen; filen kan ni lägga till exempel i iCloud Drive. På den andra enheten väljer ni Inställningar → ”Återställa” och markerar filen – profilnamn och fall följer med. Dessutom skapar appen själv upp till tre säkerhetskopior när den går över till bakgrunden (iPhone/iPad: Filer → ”På min iPhone/iPad” → Copper City → Sicherungen; Mac: menyn ”Arkiv → Visa säkerhetskopior i Finder”).",
+      },
+      {
+        q: "Var hittar jag inställningarna?",
+        a: "I vaktrummet trycker ni på ”Ljud och visning …”. Arket ”Inställningar” öppnas. Längst ned står versionsraden ”Version … · Build …” – uppge den gärna när ni skriver till oss.",
       },
       {
         q: "Hur byter jag språk?",
-        a: "Appen följer enhetens språk. Du kan byta högst upp i vyn ”Innan vi börjar” eller under Inställningar → Språk. Ett pågående fall behåller sitt språk; nästa visas på det nya språket.",
+        a: "Appen erbjuder 17 språk. Vid första start väljer ni överst i arket ”Innan det börjar”; senare trycker ni på jordgloben uppe till höger i vaktrummet eller går till Inställningar → Språk. Ett pågående fall behåller sitt språk; nästa visas på det nya.",
       },
       {
         q: "Rörposten tar för lång tid.",
-        a: "Innan du tar dig an ett fall kan du välja en kortare väntetid i menyn ”Rörpost”. Medan du väntar kan du förhöra misstänkta.",
+        a: "När ni öppnar ett nytt fall kan ni i urvalsfältet ”Rörpost” välja en kortare väntetid, t.ex. ”Kort”. Den som väntar kan under tiden förhöra.",
       },
       {
         q: "Kan jag spela ett fall igen eller dela det med någon?",
-        a: "Ja – varje fall har ett fallnummer (t.ex. 1893-0427). Den som anger samma nummer får oftast samma fall; lämnar du fältet tomt avgör slumpen.",
+        a: "Ja – varje fall har ett fallnummer (t.ex. 1893-0427). Den som anger samma nummer får oftast samma fall (med samma tjänstegrad). Lämnas fältet tomt avgör slumpen.",
       },
       {
-        q: "Flimret stör mig / min enhet är äldre.",
-        a: "På polisstationen trycker du på ”Ljud och bild …” och slår på ”lugn visning” – då tonas gasljusets flimmer och effekterna ner.",
+        q: "Fladdret stör mig / min enhet är äldre.",
+        a: "Tryck i vaktrummet på ”Ljud och visning …” och slå på ”Lugn visning” – den dämpar gaslampornas fladder och dammet i ljuset.",
       },
       {
-        q: "Är bilderna äkta? Finns de här personerna?",
-        a: "Nej. Alla bilder och filmer har skapats med artificiell intelligens; Copper City, dess invånare och alla fall är helt påhittade, och personerna som avbildas finns inte. Det står också när appen startas första gången och under Inställningar → Juridisk information.",
+        q: "Är bilderna äkta? Finns personerna?",
+        a: "Nej. Alla bilder och filmer har skapats med artificiell intelligens; Kopparstad, dess invånare och alla fall är helt påhittade, de avbildade personerna finns inte. Det står också vid första start och under Inställningar → Juridisk information.",
       },
       {
         q: "Vem passar spelet för?",
-        a: "Det handlar om mordfall och visar målade brottsplatser – inget rörligt våld, ingen skräck. Det är inte utformat för barn under 13 år; se åldersgränsen i App Store.",
+        a: "Det behandlar mordfall med målade brottsplatser, utan rörligt våld, utan skräck. Det är inte utformat för barn under 13 år; åldersgränsen anges i App Store.",
       },
     ],
     purchaseHeading: "Gratis speltid och fullversion",
     purchaseFaq: [
       {
         q: "Vad kostar Copper City?",
-        a: "Det är gratis att ladda ner, och de första två timmarnas speltid är också gratis – med allt spelet kan. Sedan frågar appen en gång om du vill köpa fullversionen. Det är ett enda köp via App Store, ingen prenumeration; appen visar priset i din lokala valuta innan du köper. Väljer du att inte köpa kan du fortfarande titta på dina tidigare fall, men inte ta dig an nya.",
+        a: "Att ladda ned är gratis, och det är de två första timmarnas speltid också – med allt spelet kan. Därefter frågar appen en enda gång om ni vill köpa fullversionen. Det är ett enda köp via App Store, ingen prenumeration och ingen reklam; appen visar priset i er lokala valuta före köpet. Den som inte köper kan fortsätta titta på sina tidigare fall men inte ta emot nya.",
       },
       {
         q: "Jag har redan köpt, men appen frågar igen (ny enhet, ominstallation).",
-        a: "Tryck på ”Återställ köp” i appens inställningar. Du måste vara inloggad med samma Apple-konto som du köpte med. Sedan är fullversionen upplåst igen – utan att du betalar en gång till.",
+        a: "Öppna Inställningar → Fullversion och tryck på ”Återställ köp”. Förutsättningen är samma Apple-konto som ni köpte med. Därefter är fullversionen upplåst igen – utan ny betalning.",
       },
       {
-        q: "Kan jag få pengarna tillbaka?",
-        a: "Köpen hanteras av Apple, och det gör återbetalningar också: reportaproblem.apple.com. Vi ser aldrig dina betalningsuppgifter och kan inte göra återbetalningar själva – men om något gått fel, mejla oss gärna så tittar vi på det.",
+        q: "Kan jag lämna tillbaka köpet?",
+        a: "Köp hanteras av Apple, därför går också en återbetalning via Apple: reportaproblem.apple.com. Vi ser själva inga betalningsuppgifter och kan inte utlösa någon återbetalning – om något går fel hjälper ni oss gärna vidare via e-post, så tittar vi på det.",
       },
     ],
     legalHeading: "Juridiskt",
@@ -105,7 +109,7 @@ const sv: CopperCityLocale = {
       {
         heading: "4. Sparade spel stannar på enheten",
         paragraphs: [
-          "Dina fall, din tjänstejournal och ett valfritt profilnamn lagras enbart lokalt på din enhet, i appens databehållare. Med ”Säkerhetskopiera” i inställningarna kan du exportera dina framsteg som en fil till en plats du väljer själv; appen sparar dessutom upp till tre automatiska säkerhetskopior i sin egen databehållare när den går till bakgrunden. Dessa filer lämnar enheten bara om du själv delar dem. Om du raderar appen försvinner de sparade spelen.",
+          "Dina fall, din tjänstejournal och ett valfritt profilnamn lagras enbart lokalt på din enhet, i appens databehållare. Med ”Säkerhetskopiera” i inställningarna kan du exportera dina framsteg som en fil till en plats du väljer själv; appen sparar dessutom upp till tre automatiska säkerhetskopior i sin egen databehållare när den går till bakgrunden. Dessa filer lämnar enheten bara om du själv delar dem. Om du raderar appen försvinner de sparade spelen. Den förbrukade speltiden räknar appen själv och sparar den endast på enheten (även i enhetens nyckelring, så att den överlever en ominstallation).",
         ],
       },
       {

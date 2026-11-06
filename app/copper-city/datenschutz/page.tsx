@@ -87,7 +87,9 @@ export default function CopperCityDatenschutz() {
             deinen Spielstand als Datei an einen Ort deiner Wahl legen; die App legt außerdem beim Wechsel in
             den Hintergrund bis zu drei Sicherungen im eigenen Datenbereich an. Diese Dateien verlassen das
             Gerät nur, wenn du sie selbst weitergibst. Beim Löschen der App werden die Spielstände mit
-            entfernt.
+            entfernt. Die verbrauchte Spielzeit zählt die App selbst und speichert sie nur auf dem Gerät –
+            auch im Schlüsselbund des Geräts, damit der Zähler eine Neuinstallation übersteht; übertragen
+            wird er nicht.
           </p>
         </section>
 
@@ -205,7 +207,9 @@ export default function CopperCityDatenschutz() {
               device, in the app’s data container. Using “Back up” in the settings you can export your
               progress as a file to a location of your choice; the app also keeps up to three automatic
               backups in its own data container when it goes to the background. These files leave the device
-              only if you share them yourself. Deleting the app removes the saved games.
+              only if you share them yourself. Deleting the app removes the saved games. The app counts the
+              playing time used itself and stores it only on the device – also in the device’s keychain, so
+              that the counter survives reinstalling the app; it is never transmitted.
             </p>
           </section>
 

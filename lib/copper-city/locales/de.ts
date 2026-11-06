@@ -18,32 +18,36 @@ const de: CopperCityLocale = {
       "Kein Konto, kein Login nötig, keine Werbung. Die ersten zwei Stunden spielst du kostenlos; danach schaltet ein einmaliger Kauf die Vollversion dauerhaft frei – kein Abo.",
     aboutHeading: "Über das Spiel",
     aboutBody:
-      "Copper City ist ein Detektivspiel für eine Person: Kupferstadt, 1893 – ein Mord, vier bis sechs Verdächtige, eine Wahrheitsmaschine aus Messing. Jeder Fall wird auf deinem Gerät neu erzeugt; du untersuchst den Tatort, forderst Berichte über die Rohrpost an, vernimmst Verdächtige und legst der Wahrheitsmaschine Täter, Tatwaffe, Tatzeit und Motiv vor. Das Spiel läuft vollständig offline, ohne Konto und ohne Werbung, in 17 Sprachen. Die ersten zwei Stunden sind kostenlos; danach schaltet ein einmaliger In-App-Kauf die Vollversion dauerhaft frei.",
+      "Copper City ist ein Detektivspiel für eine Person: Kupferstadt, 1893 – ein Mord, vier bis sechs Verdächtige, eine Wahrheitsmaschine aus Messing. Jeder Fall wird auf deinem Gerät neu erzeugt; du untersuchst den Tatort, forderst Berichte über die Rohrpost an, vernimmst Verdächtige und legst der Wahrheitsmaschine Täter, Tatwaffe, Tatzeit und Motiv vor. Das Spiel läuft vollständig offline, ohne Konto und ohne Werbung – in 17 Sprachen. Die ersten zwei Stunden sind kostenlos; danach schaltet ein einmaliger In-App-Kauf die Vollversion dauerhaft frei.",
     faqHeading: "Häufige Fragen",
     faq: [
       {
         q: "Wo liegen meine Fälle und mein Dienstbuch?",
-        a: "Nur auf deinem Gerät, im Speicher der App. Nichts wird ins Internet übertragen. Beim Löschen der App werden die Spielstände mit entfernt – vorher sichern.",
+        a: "Nur auf deinem Gerät, im Speicher der App. Nichts wird an uns oder an andere Server übertragen. Beim Löschen der App werden die Spielstände mit entfernt – vorher sichern.",
       },
       {
         q: "Wie sichere ich meinen Spielstand oder nehme ihn auf ein anderes Gerät mit?",
         a: "Einstellungen → „Sichern“. Auf iPhone und iPad öffnet sich das Teilen-Blatt, am Mac der Sichern-Dialog; die Datei kannst du z. B. in iCloud Drive ablegen. Auf dem anderen Gerät Einstellungen → „Einspielen“ und die Datei auswählen – Profilname und Fälle kommen mit. Zusätzlich legt die App beim Wechsel in den Hintergrund selbst bis zu drei Sicherungen an (iPhone/iPad: Dateien → „Auf meinem iPhone/iPad“ → Copper City → Sicherungen; Mac: Menü „Ablage → Sicherungen im Finder zeigen“).",
       },
       {
+        q: "Wo finde ich die Einstellungen?",
+        a: "In der Wachstube auf „Ton und Darstellung …“ tippen. Es öffnet sich das Blatt „Einstellungen“. Ganz unten steht die Versionszeile „Version … · Build …“ – bitte nenne sie, wenn du uns schreibst.",
+      },
+      {
         q: "Wie wechsle ich die Sprache?",
-        a: "Die App folgt der Gerätesprache. Umschalten geht oben im Blatt „Bevor es losgeht“ oder unter Einstellungen → Sprache. Ein laufender Fall bleibt in seiner Sprache; der nächste erscheint in der neuen.",
+        a: "Die App bietet 17 Sprachen. Beim ersten Start wählst du oben im Blatt „Bevor es losgeht“; später tippst du auf die Weltkugel oben rechts in der Wachstube oder gehst auf Einstellungen → Sprache. Ein laufender Fall bleibt in seiner Sprache; der nächste erscheint in der neuen.",
       },
       {
         q: "Die Rohrpost dauert mir zu lange.",
-        a: "Vor dem Übernehmen eines Falls kannst du im Menü „Rohrpost“ eine kürzere Wartezeit wählen. Wer wartet, kann in der Zwischenzeit vernehmen.",
+        a: "Beim Anlegen eines neuen Falls kannst du im Auswahlfeld „Rohrpost“ eine kürzere Wartezeit wählen, z. B. „Kurz“. Wer wartet, kann in der Zwischenzeit vernehmen.",
       },
       {
         q: "Kann ich einen Fall noch einmal spielen oder mit jemandem teilen?",
-        a: "Ja – jeder Fall hat eine Fallnummer (z. B. 1893-0427). Wer dieselbe Nummer eingibt, bekommt meist denselben Fall. Leer gelassen entscheidet der Zufall.",
+        a: "Ja – jeder Fall hat eine Fallnummer (z. B. 1893-0427). Wer dieselbe Nummer eingibt, bekommt meist denselben Fall (bei gleichem Dienstgrad). Leer gelassen entscheidet der Zufall.",
       },
       {
         q: "Das Flackern stört mich / mein Gerät ist älter.",
-        a: "In der Wachstube auf „Ton und Darstellung …“ tippen und dort die „ruhige Darstellung“ einschalten – sie nimmt Gaslicht-Flackern und Effekte zurück.",
+        a: "In der Wachstube auf „Ton und Darstellung …“ tippen und dort die „Ruhige Darstellung“ einschalten – sie nimmt das Flackern der Gaslampen und den Staub im Licht zurück.",
       },
       {
         q: "Sind die Bilder echt? Gibt es die Personen?",
@@ -58,11 +62,11 @@ const de: CopperCityLocale = {
     purchaseFaq: [
       {
         q: "Was kostet Copper City?",
-        a: "Das Laden ist kostenlos, und die ersten zwei Stunden Spielzeit sind es auch – mit allem, was das Spiel kann. Danach fragt die App einmalig, ob du die Vollversion kaufen möchtest. Es ist ein einziger Kauf über den App Store, kein Abo; den Preis in deiner Landeswährung zeigt die App vor dem Kauf an. Wer nicht kauft, kann seine bisherigen Fälle weiter ansehen, aber keine neuen übernehmen.",
+        a: "Das Laden ist kostenlos, und die ersten zwei Stunden Spielzeit sind es auch – mit allem, was das Spiel kann. Danach fragt die App einmalig, ob du die Vollversion kaufen möchtest. Es ist ein einziger Kauf über den App Store, kein Abo und ohne Werbung; den Preis in deiner Landeswährung zeigt die App vor dem Kauf an. Wer nicht kauft, kann seine bisherigen Fälle weiter ansehen, aber keine neuen übernehmen.",
       },
       {
         q: "Ich habe schon gekauft, die App fragt aber wieder (neues Gerät, Neuinstallation).",
-        a: "In den Einstellungen der App auf „Käufe wiederherstellen“ tippen. Voraussetzung ist dieselbe Apple-ID, mit der du gekauft hast. Danach ist die Vollversion wieder frei – ohne erneute Zahlung.",
+        a: "Öffne Einstellungen → Vollversion und tippe auf „Käufe wiederherstellen“. Voraussetzung ist dieselbe Apple-ID, mit der du gekauft hast. Danach ist die Vollversion wieder frei – ohne erneute Zahlung.",
       },
       {
         q: "Kann ich den Kauf zurückgeben?",
@@ -105,7 +109,7 @@ const de: CopperCityLocale = {
       {
         heading: "4. Spielstände auf dem Gerät",
         paragraphs: [
-          "Deine Fälle, dein Dienstbuch und ein frei wählbarer Profilname werden ausschließlich lokal auf deinem Gerät gespeichert, im Datenbereich der App. Über „Sichern“ in den Einstellungen kannst du deinen Spielstand als Datei an einen Ort deiner Wahl legen; die App legt außerdem beim Wechsel in den Hintergrund bis zu drei Sicherungen im eigenen Datenbereich an. Diese Dateien verlassen das Gerät nur, wenn du sie selbst weitergibst. Beim Löschen der App werden die Spielstände mit entfernt.",
+          "Deine Fälle, dein Dienstbuch und ein frei wählbarer Profilname werden ausschließlich lokal auf deinem Gerät gespeichert, im Datenbereich der App. Über „Sichern“ in den Einstellungen kannst du deinen Spielstand als Datei an einen Ort deiner Wahl legen; die App legt außerdem beim Wechsel in den Hintergrund bis zu drei Sicherungen im eigenen Datenbereich an. Diese Dateien verlassen das Gerät nur, wenn du sie selbst weitergibst. Beim Löschen der App werden die Spielstände mit entfernt. Die verbrauchte Spielzeit zählt die App selbst und speichert sie nur auf dem Gerät (auch im Schlüsselbund des Geräts, damit sie eine Neuinstallation übersteht).",
         ],
       },
       {

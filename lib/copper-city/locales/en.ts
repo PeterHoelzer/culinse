@@ -18,32 +18,36 @@ const en: CopperCityLocale = {
       "No account or login is required, and there is no advertising. The first two hours are free to play; after that a single one-time purchase unlocks the full version for good – no subscription.",
     aboutHeading: "About the game",
     aboutBody:
-      "Copper City is a single-player detective game: Copper City, 1893 – one murder, four to six suspects, a Truth Machine of brass. Every case is generated on your device; you inspect the crime scene, request reports by pneumatic post, question suspects and put culprit, weapon, time and motive before the Truth Machine. The game runs entirely offline, with no account and no ads, in 17 languages. The first two hours are free; after that a single in-app purchase unlocks the full version permanently.",
+      "Copper City is a single-player detective game: Copper City, 1893 – one murder, four to six suspects, a Truth Machine of brass. Every case is generated on your device; you inspect the crime scene, request reports by pneumatic post, question suspects and put culprit, weapon, time and motive before the Truth Machine. The game runs entirely offline – no account, no ads – in 17 languages. The first two hours are free; after that a single in-app purchase unlocks the full version permanently.",
     faqHeading: "Frequently asked questions",
     faq: [
       {
         q: "Where are my cases and my service record stored?",
-        a: "Only on your device, in the app’s own storage. Nothing is sent to the internet. Deleting the app removes the saved games – back up first.",
+        a: "Only on your device, in the app’s own storage. Nothing is sent to us or to any other server. Deleting the app removes the saved games – back up first.",
       },
       {
         q: "How do I back up my progress or move it to another device?",
-        a: "Settings → “Back up”. On iPhone and iPad the share sheet opens, on the Mac the save dialog; you can store the file in iCloud Drive, for example. On the other device choose Settings → “Restore” and pick the file – profile name and cases come along. The app also keeps up to three automatic backups when it goes to the background (iPhone/iPad: Files → “On My iPhone/iPad” → Copper City → Backups; Mac: menu “File → Show Backups in Finder”).",
+        a: "Settings → “Back up”. On iPhone and iPad the share sheet opens, on the Mac the save dialog; you can store the file in iCloud Drive, for example. On the other device choose Settings → “Restore” and pick the file – profile name and cases come along. The app also keeps up to three automatic backups when it goes to the background (iPhone/iPad: Files → “On My iPhone/iPad” → Copper City → Sicherungen; Mac: menu “File → Show Backups in Finder”).",
+      },
+      {
+        q: "Where do I find the settings?",
+        a: "In the station house, tap “Sound and display …”. The “Settings” sheet opens. At the very bottom is the version line “Version … · Build …” – please include it when you write to us.",
       },
       {
         q: "How do I change the language?",
-        a: "The app follows your device language. You can switch at the top of the “Before we begin” sheet or under Settings → Language. A running case keeps its language; the next one appears in the new language.",
+        a: "The app offers 17 languages. On first launch you choose at the top of the “Before we begin” sheet; later, tap the globe at the top right of the station house or go to Settings → Language. A running case keeps its language; the next one appears in the new language.",
       },
       {
         q: "The pneumatic post takes too long.",
-        a: "Before taking a case, choose a shorter waiting time in the “Pneumatic post” menu. While you wait, you can question suspects.",
+        a: "When you open a new case, choose a shorter waiting time in the “Pneumatic post” selection field, for example “Short”. While you wait, you can question suspects.",
       },
       {
         q: "Can I replay a case or share it with someone?",
-        a: "Yes – every case has a case number (e.g. 1893-0427). Entering the same number usually gives the same case; leave it blank and chance decides.",
+        a: "Yes – every case has a case number (e.g. 1893-0427). Entering the same number usually gives the same case (at the same rank). Leave it blank and chance decides.",
       },
       {
         q: "The flicker bothers me / my device is older.",
-        a: "In the station house, tap “Sound & Display …” and turn on the “calm display” – it tones down gaslight flicker and effects.",
+        a: "In the station house, tap “Sound and display …” and turn on “Calm display” – it tones down the flicker of the gaslights and the dust in the light.",
       },
       {
         q: "Are the pictures real? Do these people exist?",
@@ -58,11 +62,11 @@ const en: CopperCityLocale = {
     purchaseFaq: [
       {
         q: "How much does Copper City cost?",
-        a: "Downloading is free, and so are the first two hours of play – with everything the game can do. After that the app asks once whether you would like to buy the full version. It is a single purchase through the App Store, not a subscription; the app shows the price in your local currency before you buy. If you decide not to, you can still look at your previous cases but cannot take on new ones.",
+        a: "Downloading is free, and so are the first two hours of play – with everything the game can do. After that the app asks once whether you would like to buy the full version. It is a single purchase through the App Store, not a subscription, and there is no advertising; the app shows the price in your local currency before you buy. If you decide not to, you can still look at your previous cases but cannot take on new ones.",
       },
       {
         q: "I already bought it, but the app asks again (new device, reinstall).",
-        a: "Tap “Restore Purchases” in the app’s settings. You need to be signed in with the same Apple ID you bought with. The full version is then unlocked again – no second payment.",
+        a: "Open Settings → Full Version and tap “Restore purchases”. You need to be signed in with the same Apple ID you bought with. The full version is then unlocked again – no second payment.",
       },
       {
         q: "Can I get a refund?",
@@ -105,7 +109,7 @@ const en: CopperCityLocale = {
       {
         heading: "4. Saved games stay on the device",
         paragraphs: [
-          "Your cases, your service record and an optional profile name are stored only locally on your device, in the app’s data container. Using “Back up” in the settings you can export your progress as a file to a location of your choice; the app also keeps up to three automatic backups in its own data container when it goes to the background. These files leave the device only if you share them yourself. Deleting the app removes the saved games.",
+          "Your cases, your service record and an optional profile name are stored only locally on your device, in the app’s data container. Using “Back up” in the settings you can export your progress as a file to a location of your choice; the app also keeps up to three automatic backups in its own data container when it goes to the background. These files leave the device only if you share them yourself. Deleting the app removes the saved games. The app counts the playing time used itself and stores it only on the device (also in the device’s keychain, so that it survives reinstalling the app).",
         ],
       },
       {

@@ -10,63 +10,67 @@ const nb: CopperCityLocale = {
     languageName: "Norsk",
     heading: "Copper City – Støtte og kontakt",
     subheading: "Støtteside for appen «Copper City – Uoppklarte drap fra 1893» for iPhone, iPad og Mac",
-    contactHeading: "Spørsmål, problemer, tilbakemeldinger – slik når du oss",
+    contactHeading: "Spørsmål? Problemer? Ønsker? – Slik når De oss",
     contactBody:
-      "Send en e-post til {mail}. Vi svarer som regel innen 1–3 dager, på engelsk eller tysk. Ta gjerne med enheten din (iPhone, iPad eller Mac), saksnummeret hvis det gjelder en sak (f.eks. 1893-0427) og en kort beskrivelse av hva som skjedde.",
+      "Skriv en e-post til {mail}. Vi svarer vanligvis innen 1–3 dager, på tysk eller engelsk. Det hjelper om De oppgir: enhet (iPhone, iPad eller Mac), ved en sak saksnummeret (f.eks. 1893-0427) og en kort beskrivelse av hva som skjedde.",
     contactButton: "Send en støtteforespørsel på e-post",
     contactNote:
-      "Ingen konto eller innlogging nødvendig, og ingen reklame. De første to timene spiller du gratis; deretter låser ett engangskjøp opp fullversjonen for godt – ikke noe abonnement.",
+      "Ingen konto, ingen pålogging, ingen reklame. De to første timene spiller De gratis; deretter låser et engangskjøp opp fullversjonen for alltid – intet abonnement.",
     aboutHeading: "Om spillet",
     aboutBody:
-      "Copper City er et detektivspill for én spiller: Copper City, 1893 – ett drap, fire til seks mistenkte, en sannhetsmaskin av messing. Hver sak lages på enheten din; du undersøker åstedet, bestiller rapporter via rørposten, avhører mistenkte og legger fram gjerningsperson, våpen, tidspunkt og motiv for sannhetsmaskinen. Spillet kjører helt frakoblet, uten konto og uten reklame, på 17 språk. De første to timene er gratis; deretter låser ett enkelt kjøp i appen opp fullversjonen for godt.",
-    faqHeading: "Vanlige spørsmål",
+      "Copper City er et detektivspill for én person: Kobberstad, 1893 – et mord, fire til seks mistenkte, en sannhetsmaskin av messing. Hver sak opprettes på nytt på Deres enhet; De undersøker åstedet, rekvirerer rapporter med rørposten, avhører mistenkte og forelegger Sannhetsmaskinen gjerningsmann, våpen, tidspunkt og motiv. Spillet kjører helt offline, uten konto og uten reklame – på 17 språk. De to første timene er gratis; deretter låser et engangskjøp i appen opp fullversjonen for alltid.",
+    faqHeading: "Ofte stilte spørsmål",
     faq: [
       {
-        q: "Hvor lagres sakene mine og tjenesteboka mi?",
-        a: "Bare på enheten din, i appens eget lagringsområde. Ingenting sendes til internett. Sletter du appen, forsvinner de lagrede spillene også – ta sikkerhetskopi først.",
+        q: "Hvor ligger sakene mine og tjenesteboken min?",
+        a: "Bare på Deres enhet, i appens eget lager. Ingenting sendes til oss eller til andre servere. Når appen slettes, fjernes de lagrede spillene også – ta en sikkerhetskopi først.",
       },
       {
-        q: "Hvordan sikkerhetskopierer jeg fremgangen min eller flytter den til en annen enhet?",
-        a: "Innstillinger → «Sikkerhetskopier». På iPhone og iPad åpnes delingsarket, på Mac arkiveringsdialogen; du kan for eksempel legge filen i iCloud Drive. På den andre enheten velger du Innstillinger → «Gjenopprett» og peker ut filen – profilnavn og saker følger med. Appen lagrer dessuten selv opptil tre automatiske sikkerhetskopier når den går i bakgrunnen (iPhone/iPad: Filer → «På min iPhone/iPad» → Copper City → Sikkerhetskopier; Mac: menyen «Arkiv → Vis sikkerhetskopier i Finder»).",
+        q: "Hvordan sikkerhetskopierer jeg spillet mitt eller tar det med til en annen enhet?",
+        a: "Innstillinger → «Sikkerhetskopiere». På iPhone og iPad åpnes delingsarket, på Mac lagringsdialogen; filen kan De for eksempel legge i iCloud Drive. På den andre enheten velger De Innstillinger → «Gjenopprette» og peker på filen – profilnavn og saker følger med. Dessuten oppretter appen selv opptil tre sikkerhetskopier når den går i bakgrunnen (iPhone/iPad: Filer → «På min iPhone/iPad» → Copper City → Sicherungen; Mac: menyen «Arkiv → Vis sikkerhetskopier i Finder»).",
+      },
+      {
+        q: "Hvor finner jeg innstillingene?",
+        a: "I vaktstuen trykker De på «Lyd og visning …». Arket «Innstillinger» åpnes. Nederst står versjonslinjen «Versjon … · Build …» – oppgi den gjerne når De skriver til oss.",
       },
       {
         q: "Hvordan bytter jeg språk?",
-        a: "Appen følger språket på enheten. Du kan bytte øverst i arket «Før vi begynner» eller under Innstillinger → Språk. En pågående sak beholder språket sitt; den neste vises på det nye språket.",
+        a: "Appen tilbyr 17 språk. Ved første oppstart velger De øverst i arket «Før det begynner»; senere trykker De på jordkloden øverst til høyre i vaktstuen eller går til Innstillinger → Språk. En pågående sak beholder sitt språk; den neste vises på det nye.",
       },
       {
         q: "Rørposten tar for lang tid.",
-        a: "Før du tar på deg en sak, kan du velge kortere ventetid i menyen «Rørpost». Mens du venter, kan du avhøre mistenkte.",
+        a: "Når De oppretter en ny sak, kan De i valgfeltet «Rørpost» velge en kortere ventetid, f.eks. «Kort». Mens De venter, kan De avhøre mistenkte.",
       },
       {
-        q: "Kan jeg spille en sak på nytt eller dele den med noen?",
-        a: "Ja – hver sak har et saksnummer (f.eks. 1893-0427). Den som taster inn samme nummer, får som regel samme sak; lar du feltet stå tomt, avgjør tilfeldighetene.",
+        q: "Kan jeg spille en sak om igjen eller dele den med noen?",
+        a: "Ja – hver sak har et saksnummer (f.eks. 1893-0427). Den som skriver inn samme nummer, får vanligvis den samme saken (med samme tjenestegrad). Lar De feltet stå tomt, avgjør tilfeldighetene.",
       },
       {
         q: "Flimringen plager meg / enheten min er eldre.",
-        a: "Trykk på «Lyd og visning …» på politistasjonen, og slå på «rolig visning» – den demper flimringen fra gasslyset og effektene.",
+        a: "Trykk i vaktstuen på «Lyd og visning …» og slå på «Rolig visning» – den demper flimringen fra gasslyktene og støvet i lyset.",
       },
       {
-        q: "Er bildene ekte? Finnes disse menneskene?",
-        a: "Nei. Alle bilder og filmer er laget med kunstig intelligens; Copper City, innbyggerne og alle sakene er helt oppdiktet, og personene som vises, finnes ikke. Det står også ved første oppstart og under Innstillinger → Juridisk informasjon.",
+        q: "Er bildene ekte? Finnes personene?",
+        a: "Nei. Alle bilder og filmer er laget med kunstig intelligens; Kobberstad, innbyggerne og alle sakene er helt og holdent diktet opp, de avbildede personene finnes ikke. Det står også ved første oppstart og under Innstillinger → Juridisk informasjon.",
       },
       {
         q: "Hvem passer spillet for?",
-        a: "Det handler om drapssaker og viser malte åsteder – ingen vold i bevegelse, ingen skrekk. Det er ikke laget for barn under 13 år; se aldersgrensen i App Store.",
+        a: "Det behandler mordsaker med malte åsteder, uten bevegelig vold, uten skrekk. Det er ikke utformet for barn under 13 år; aldersgrensen står i App Store.",
       },
     ],
     purchaseHeading: "Gratis spilletid og fullversjon",
     purchaseFaq: [
       {
         q: "Hva koster Copper City?",
-        a: "Det er gratis å laste ned, og de første to timene med spilletid er også gratis – med alt spillet kan. Deretter spør appen én gang om du vil kjøpe fullversjonen. Det er ett enkelt kjøp via App Store, ikke noe abonnement; appen viser prisen i din lokale valuta før du kjøper. Velger du å ikke kjøpe, kan du fortsatt se på de tidligere sakene dine, men ikke ta på deg nye.",
+        a: "Det er gratis å laste ned, og de to første timene med spilletid er det også – med alt spillet kan. Deretter spør appen én gang om De vil kjøpe fullversjonen. Det er ett enkelt kjøp via App Store, intet abonnement og ingen reklame; appen viser prisen i Deres lokale valuta før kjøpet. Kjøper De ikke, kan De fortsatt se de tidligere sakene sine, men ikke overta nye.",
       },
       {
-        q: "Jeg har allerede kjøpt, men appen spør igjen (ny enhet, reinstallering).",
-        a: "Trykk på «Gjenopprett kjøp» i innstillingene i appen. Du må være logget inn med den samme Apple-kontoen som du kjøpte med. Deretter er fullversjonen låst opp igjen – uten å betale en gang til.",
+        q: "Jeg har allerede kjøpt, men appen spør på nytt (ny enhet, ominstallering).",
+        a: "Åpne Innstillinger → Fullversjon og trykk på «Gjenopprett kjøp». Forutsetningen er den samme Apple-kontoen som De kjøpte med. Deretter er fullversjonen låst opp igjen – uten ny betaling.",
       },
       {
-        q: "Kan jeg få pengene tilbake?",
-        a: "Kjøp håndteres av Apple, og det gjør refusjoner også: reportaproblem.apple.com. Vi ser aldri betalingsopplysningene dine og kan ikke refundere selv – men hvis noe har gått galt, send oss gjerne en e-post, så ser vi på det.",
+        q: "Kan jeg levere tilbake kjøpet?",
+        a: "Kjøp håndteres av Apple, derfor går også en refusjon via Apple: reportaproblem.apple.com. Vi ser selv ingen betalingsopplysninger og kan ikke utløse noen refusjon – men hvis noe går galt, hjelp oss gjerne videre per e-post, så ser vi på det.",
       },
     ],
     legalHeading: "Juridisk",
@@ -105,7 +109,7 @@ const nb: CopperCityLocale = {
       {
         heading: "4. Lagrede spill blir på enheten",
         paragraphs: [
-          "Sakene dine, tjenesteboka di og et valgfritt profilnavn lagres kun lokalt på enheten din, i appens databeholder. Med «Sikkerhetskopier» i innstillingene kan du eksportere fremgangen din som en fil til et sted du velger selv; appen lagrer dessuten opptil tre automatiske sikkerhetskopier i sin egen databeholder når den går i bakgrunnen. Disse filene forlater enheten bare hvis du selv deler dem. Sletter du appen, forsvinner de lagrede spillene.",
+          "Sakene dine, tjenesteboka di og et valgfritt profilnavn lagres kun lokalt på enheten din, i appens databeholder. Med «Sikkerhetskopier» i innstillingene kan du eksportere fremgangen din som en fil til et sted du velger selv; appen lagrer dessuten opptil tre automatiske sikkerhetskopier i sin egen databeholder når den går i bakgrunnen. Disse filene forlater enheten bare hvis du selv deler dem. Sletter du appen, forsvinner de lagrede spillene. Den brukte spilletiden teller appen selv og lagrer den bare på enheten (også i enhetens nøkkelring, slik at den overlever en ominstallering).",
         ],
       },
       {
