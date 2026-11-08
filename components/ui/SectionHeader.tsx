@@ -25,6 +25,7 @@ export default function SectionHeader({
   return (
     <div className={["mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-2", className].join(" ")}>
       <div className="min-w-0">
+        <span aria-hidden="true" className="mb-3 block h-[3px] w-10 bg-brand" />
         <Heading id={id} className={Heading === "h1" ? "text-h1-sm sm:text-h1" : Heading === "h2" ? "text-h2-sm sm:text-h2" : "text-h3"}>
           {title}
         </Heading>

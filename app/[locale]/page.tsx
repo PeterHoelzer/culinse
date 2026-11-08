@@ -87,7 +87,7 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
 async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=7`,
+      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=10`,
       { next: { revalidate: 900 } }
     );
     if (!res.ok) return [];
@@ -266,7 +266,7 @@ export default async function Page({
   }
   const isDE = locale === "de";
   const seoSection = (
-    <section className="mx-auto max-w-content border-t border-line px-4 py-12 sm:px-6 sm:py-16">
+    <section className="mx-auto max-w-content border-t border-line px-4 py-10 sm:px-6 sm:py-12">
       <div>
         <h2 className="text-h2-sm sm:text-h2 mb-2">
           {isDE ? "Neu im Rezeptkatalog" : "New in the recipe catalog"}
@@ -277,7 +277,7 @@ export default async function Page({
             : "Freshly reviewed recipes — each with nutrition facts, an automatic shopping list and a discount-store price estimate."}
         </p>
         {featured.length > 0 && (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-2.5 mb-8">
+          <ul className="mb-8 grid grid-cols-1 gap-x-8 gap-y-1.5 text-sm text-ink-2 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((r) => (
               <li key={r.id}>
                 <Link

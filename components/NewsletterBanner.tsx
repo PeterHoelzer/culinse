@@ -44,7 +44,7 @@ export default function NewsletterBanner() {
 
   return (
     <section className="mx-auto max-w-content px-4 py-12 sm:px-6 sm:py-16">
-      <div className="rounded-2 bg-surface-soft p-6 sm:p-10">
+      <div className="rounded-2 border border-line bg-surface p-6 sm:p-10">
         <div className="grid gap-8 md:grid-cols-2 md:items-start md:gap-12">
           <div className="flex flex-col gap-3">
             <h2 className="text-h2-sm sm:text-h2">{t("title")}</h2>

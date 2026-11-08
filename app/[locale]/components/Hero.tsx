@@ -83,12 +83,13 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
   const meta = [time, servings].filter(Boolean).join(" · ");
 
   return (
-    <section className="mx-auto max-w-content px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16">
+    <section className="bg-surface-soft">
+      <div className="mx-auto max-w-content px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16">
       {featured ? (
-        <div className="grid gap-8 md:grid-cols-2 md:items-center md:gap-12">
+        <div className="grid gap-8 md:grid-cols-[5fr_7fr] md:items-center md:gap-12">
           <div className="order-2 flex flex-col items-start gap-4 md:order-1">
             <p className="text-sm text-ink-3">{featuredLabel}</p>
-            <h1 className="text-display-sm md:text-display">{featured.title}</h1>
+            <h1 className="text-display-sm font-bold md:text-display">{featured.title}</h1>
             {meta && <p className="tabular text-sm text-ink-3">{meta}</p>}
             <div className="mt-2 flex flex-wrap gap-3">
               <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
@@ -105,11 +106,11 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
                 src={featured.image}
                 alt={featured.title}
                 width={1200}
-                height={800}
+                height={900}
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
-                className="aspect-[3/2] w-full rounded-2 object-cover"
+                className="aspect-[4/3] w-full rounded-2 object-cover"
                 style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
               />
             ) : (
@@ -133,7 +134,7 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
       {/* Suche */}
       <form
         role="search"
-        className="mt-12 flex max-w-3xl flex-col gap-3 sm:mt-16"
+        className="mt-10 flex max-w-3xl flex-col gap-3 sm:mt-12"
         onSubmit={(e) => {
           e.preventDefault();
           submit();
@@ -195,6 +196,7 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
           ))}
         </ChipRow>
       </form>
+      </div>
     </section>
   );
 }

@@ -14,7 +14,8 @@ export default function HowItWorks() {
   const steps = t.raw("howItWorks.steps") as Array<{ icon?: string; title: string; desc: string }>;
 
   return (
-    <section id="how-it-works" className="mx-auto max-w-content px-4 py-12 sm:px-6 sm:py-16">
+    <section id="how-it-works" className="bg-surface-soft">
+      <div className="mx-auto max-w-content px-4 py-12 sm:px-6 sm:py-16">
       <SectionHeader title={t("howItWorks.title")} subtitle={t("howItWorks.subtitle")} />
       <ol className="grid gap-8 md:grid-cols-3">
         {steps.map((step, i) => (
@@ -25,6 +26,7 @@ export default function HowItWorks() {
           </li>
         ))}
       </ol>
+      </div>
     </section>
   );
 }
