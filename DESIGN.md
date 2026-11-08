@@ -368,8 +368,8 @@ macht. Knapp, konkret, ohne Marketing-Dampf.
 
 ---
 
-## 10. Nachtrag 08.11.2026: Hero als Bühne
+## 10. Nachtrag 08.11.2026: Hero nur Foto
 
-Nach Peters Rückmeldung („zu weiß, zu plain; schau dir Apple an“) ist der Startseiten-Hero eine **Bühne**: dunkles Panel (`--c-dark`), zentrierter Titel in Serife bis 96 px, Metazeile, zwei Buttons, darunter das Foto über die volle Breite (46–58 vh), das oben weich ins Dunkel ausläuft. Das ist die eine erlaubte Ausnahme von „linksbündig“ und vom Verlaufsverbot: der Übergang ist ein funktionaler Schleier zwischen Panel und Foto, kein Deko-Verlauf. Dazu der eine orchestrierte Auftritt der Seite: das Hero-Foto blendet in 900 ms ein (`.animate-hero-in`, bei `prefers-reduced-motion` aus).
+Nach Peters Rückmeldungen („zu weiß, zu plain; schau dir Apple an; der graue Teil ist zu düster; können wir nur das Bild nehmen?“) ist der Startseiten-Hero **ein einziges Foto über die volle Breite** (70–78 vh). Titel, Metazeile und zwei Buttons liegen unten links direkt auf dem Foto, lesbar durch einen Schleier von unten (`--c-dark` 90 % → transparent). Das ist die eine Ausnahme vom Verlaufsverbot: der Schleier dient der Lesbarkeit, nicht der Dekoration. Der KI-Hinweis steht oben rechts im Bild in `caption`. Das Foto blendet beim Laden in 900 ms ein (`.animate-hero-in`, bei `prefers-reduced-motion` aus). Die Suche folgt zentriert auf Weiß direkt darunter.
 
-Rhythmus der Startseite: Bühne dunkel → Suche weiß → Rezeptkarten weiß (9) → Familienrezepte dunkles Band → Kochschule weiß mit großem Hauptvideo → So funktioniert warm → Newsletter weiße Box → Fußzeile dunkel. Abschnittstitel tragen einen 40 × 3 px Markenstrich.
+Rhythmus der Startseite: Hero-Foto → Suche weiß → Rezeptkarten weiß (9) → Familienrezepte dunkles Band mit vier Fotos → Kochschule weiß mit großem Hauptvideo → So funktioniert warm → Newsletter weiße Box → Fußzeile dunkel. Abschnittstitel tragen einen 40 × 3 px Markenstrich. Dieselbe Logik gilt künftig für das Rezeptfoto auf der Rezeptseite.

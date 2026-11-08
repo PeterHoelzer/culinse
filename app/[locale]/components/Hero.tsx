@@ -88,54 +88,54 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
       {/* Bühne: dunkles Panel, großer Titel, Foto füllt den Rest (Apple-Rhythmus) */}
       <section className="bg-dark text-white">
         {featured ? (
-          <>
-            <div className="mx-auto flex max-w-content flex-col items-center px-4 pt-8 pb-6 text-center sm:px-6 sm:pt-10 sm:pb-8">
-              <p className="text-sm text-dark-text">{featuredLabel}</p>
-              <h1
-                className="mt-3 max-w-5xl text-balance font-bold text-white"
-                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)", lineHeight: 1, letterSpacing: "-0.02em" }}
-              >
-                {featured.title}
-              </h1>
-              {meta && <p className="tabular mt-3 text-base text-dark-text">{meta}</p>}
-              <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
-                <Link
-                  href="/weekly-meal-planner"
-                  className="inline-flex h-11 items-center rounded-1 border border-dark-text px-5 text-base font-semibold text-white transition-colors hover:bg-surface hover:text-ink"
+          <figure className="relative m-0 h-[70vh] min-h-[480px] w-full sm:h-[78vh] sm:max-h-[900px]">
+            {featured.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={featured.image}
+                alt={featured.title}
+                width={1600}
+                height={1000}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="animate-hero-in absolute inset-0 h-full w-full object-cover"
+                style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center bg-dark">
+                <Icon name="utensils" size={32} className="text-dark-text" />
+              </div>
+            )}
+            {/* Schleier von unten: macht Titel und Buttons auf jedem Foto lesbar */}
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-linear-to-t from-dark/90 via-dark/35 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0">
+              <div className="mx-auto flex max-w-content flex-col items-start gap-3 px-4 pb-10 sm:px-6 sm:pb-14">
+                <p className="text-sm text-dark-text">{featuredLabel}</p>
+                <h1
+                  className="max-w-4xl text-balance font-bold text-white"
+                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)", lineHeight: 1, letterSpacing: "-0.02em" }}
                 >
-                  {t("hero.ctaPlan")}
-                </Link>
+                  {featured.title}
+                </h1>
+                {meta && <p className="tabular text-base text-dark-text">{meta}</p>}
+                <div className="mt-2 flex flex-wrap gap-3">
+                  <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
+                  <Link
+                    href="/weekly-meal-planner"
+                    className="inline-flex h-11 items-center rounded-1 border border-dark-text px-5 text-base font-semibold text-white transition-colors hover:bg-surface hover:text-ink"
+                  >
+                    {t("hero.ctaPlan")}
+                  </Link>
+                </div>
               </div>
             </div>
-            <figure className="relative m-0">
-              {featured.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={featured.image}
-                  alt={featured.title}
-                  width={1600}
-                  height={900}
-                  fetchPriority="high"
-                  loading="eager"
-                  decoding="async"
-                  className="animate-hero-in h-[48vh] min-h-[320px] w-full object-cover sm:h-[62vh] sm:max-h-[800px]"
-                  style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
-                />
-              ) : (
-                <div className="flex h-[40vh] w-full items-center justify-center bg-dark">
-                  <Icon name="utensils" size={32} className="text-dark-text" />
-                </div>
-              )}
-              {/* Weicher Übergang vom schwarzen Panel ins Foto, wie bei Produktfotos auf Schwarz */}
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-linear-to-b from-dark to-transparent" />
-              {aiNotice && (
-                <figcaption className="mx-auto max-w-content px-4 py-3 text-caption text-dark-text sm:px-6">{aiNotice}</figcaption>
-              )}
-            </figure>
-          </>
+            {aiNotice && (
+              <figcaption className="absolute right-4 top-3 text-caption text-white/90 sm:right-6">{aiNotice}</figcaption>
+            )}
+          </figure>
         ) : (
-          <div className="mx-auto flex max-w-content flex-col items-center px-4 py-20 text-center sm:px-6">
+          <div className="mx-auto flex max-w-content flex-col items-start px-4 py-20 sm:px-6">
             <h1 className="max-w-4xl text-balance font-bold text-white" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.02 }}>
               {t("hero.headline1")} {t("hero.headline2")}
             </h1>
