@@ -21,18 +21,8 @@ interface ChipBase {
 type ChipButton = ChipBase & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & { href?: undefined };
 type ChipLink = ChipBase & { href: string };
 
-export function chipClasses(active = false, size: "md" | "sm" = "md", className = "") {
-  return [
-    "inline-flex shrink-0 items-center gap-1.5 rounded-pill border font-semibold whitespace-nowrap transition-colors duration-150",
-    size === "md" ? "h-9 px-3.5 text-sm" : "h-8 px-3 text-sm",
-    active
-      ? "bg-brand border-brand text-white hover:bg-brand-hover hover:border-brand-hover"
-      : "bg-surface border-line-strong text-ink hover:bg-surface-soft",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-}
+import { chipClasses } from "./styles";
+export { chipClasses };
 
 export default function Chip(props: ChipButton | ChipLink) {
   const { active = false, icon, size = "md", className = "", children } = props;

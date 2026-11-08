@@ -1,8 +1,10 @@
 export { default as Icon } from "./Icon";
 export type { IconName } from "./Icon";
-export { default as Button, buttonClasses } from "./Button";
+export { default as Button } from "./Button";
+export { buttonClasses, chipClasses } from "./styles";
+export type { ButtonVariant, ButtonSize, ButtonBaseProps } from "./styles";
 export type { ButtonProps } from "./Button";
-export { default as Chip, ChipRow, chipClasses } from "./Chip";
+export { default as Chip, ChipRow } from "./Chip";
 export { Input, Textarea, Select, Checkbox } from "./Field";
 export { default as SectionHeader } from "./SectionHeader";
 export { default as EmptyState, Skeleton, Notice } from "./EmptyState";

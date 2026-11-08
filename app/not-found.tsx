@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { EmptyState } from "@/components/ui";
-import { buttonClasses } from "@/components/ui/Button";
+import { buttonClasses } from "@/components/ui/styles";
 
 export const metadata: Metadata = {
   title: "Page not found",

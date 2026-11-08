@@ -13,49 +13,12 @@ import Icon, { type IconName } from "./Icon";
   Beschriftung nennt die Handlung ("Rezept speichern"), ohne Pfeil, ohne Emoji.
 */
 
-type Variant = "primary" | "secondary" | "quiet" | "icon";
-type Size = "md" | "sm";
-
-interface BaseProps {
-  variant?: Variant;
-  size?: Size;
-  icon?: IconName;
-  iconFilled?: boolean;
-  loading?: boolean;
-  fullWidth?: boolean;
-  className?: string;
-  children?: ReactNode;
-}
+import { buttonClasses, type ButtonBaseProps as BaseProps, type ButtonVariant as Variant, type ButtonSize as Size } from "./styles";
+export { buttonClasses };
 
 type ButtonAsButton = BaseProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & { href?: undefined };
 type ButtonAsLink = BaseProps & { href: string; target?: string; rel?: string; onClick?: () => void; "aria-label"?: string; title?: string };
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
-
-const base =
-  "inline-flex items-center justify-center gap-2 font-semibold whitespace-nowrap select-none " +
-  "transition-colors duration-150 disabled:cursor-not-allowed rounded-1";
-
-const variants: Record<Variant, string> = {
-  primary: "bg-brand text-white hover:bg-brand-hover disabled:bg-line disabled:text-ink-3",
-  secondary: "bg-surface text-ink border border-line-strong hover:bg-surface-soft disabled:text-ink-3 disabled:border-line",
-  quiet: "bg-transparent text-brand hover:text-brand-hover hover:underline underline-offset-[3px] disabled:text-ink-3 px-0",
-  icon: "bg-surface text-ink border border-line-strong hover:bg-surface-soft disabled:text-ink-3 disabled:border-line p-0",
-};
-
-const sizes: Record<Size, string> = {
-  md: "h-11 px-5 text-base",
-  sm: "h-10 px-4 text-sm",
-};
-
-const iconSizes: Record<Size, string> = {
-  md: "h-11 w-11",
-  sm: "h-10 w-10",
-};
-
-export function buttonClasses({ variant = "primary", size = "md", fullWidth = false, className = "" }: BaseProps) {
-  const sizeClass = variant === "icon" ? iconSizes[size] : variant === "quiet" ? "h-auto text-base" : sizes[size];
-  return [base, variants[variant], sizeClass, fullWidth ? "w-full" : "", className].filter(Boolean).join(" ");
-}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {
   const { variant = "primary", size = "md", icon, iconFilled, loading = false, fullWidth, className, children, ...rest } = props as BaseProps & Record<string, unknown>;
