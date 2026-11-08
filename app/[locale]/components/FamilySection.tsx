@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/lib/navigation";
+import { Button } from "@/components/ui";
 
 interface CommunityRecipe {
   id: string;
@@ -13,10 +14,9 @@ interface CommunityRecipe {
 }
 
 /**
- * Familienrezepte & Community: ein dunkles, warmes Band über die volle Breite.
- * Links die Geschichte (Serife, weiß), rechts vier echte Fotos als 1:1-Kacheln.
- * Das Band gibt der Startseite Rhythmus (hell, dunkel, hell) und lässt die
- * Fotos leuchten. Kein Verlauf, kein Emoji. Rendert nur mit Bildern.
+ * Familienrezepte: Peters Stimme als großes Zitat in Fraunces auf Creme,
+ * daneben vier echte Fotos. Keine Marketing-Überschrift, ein Satz, der stimmt.
+ * Rendert nur, wenn Community-Rezepte mit Bild existieren.
  */
 export default function FamilySection() {
   const locale = useLocale();
@@ -41,28 +41,22 @@ export default function FamilySection() {
   const single = recipes.length === 1;
 
   return (
-    <section className="bg-dark text-white">
-      <div className="mx-auto grid max-w-content gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-[5fr_7fr] md:items-center md:gap-16">
-        {/* Text */}
-        <div className="flex flex-col items-start gap-5">
-          <p className="text-sm text-dark-text">{de ? "Familienrezepte und Community" : "Family recipes and community"}</p>
-          <h2 className="text-h2 text-white sm:text-display-sm">
-            {de ? "Echte Rezepte von echten Menschen, nicht aus der Datenbank." : "Real recipes from real people, not from a database."}
-          </h2>
-          <p className="max-w-prose text-body-lg text-dark-text">
+    <section className="bg-surface-soft">
+      <div className="mx-auto grid max-w-content gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-[7fr_5fr] md:items-center md:gap-16">
+        <blockquote className="m-0 flex flex-col items-start gap-6">
+          <p className="max-w-[30ch] font-serif text-h2 font-medium text-ink sm:text-display-sm" style={{ lineHeight: 1.08 }}>
             {de
-              ? "Culinse wird von Küchenchef und Fleischermeister Peter gebaut. Die ersten Community-Rezepte kommen von seinem Vater: Familienklassiker, seit Jahrzehnten gekocht und für dich aufgeschrieben. Jedes Mitglied kann eigene Rezepte veröffentlichen und landet damit hier auf der Startseite."
-              : "Culinse is built by head chef and master butcher Peter. The first community recipes come from his father: family classics, cooked for decades and written down for you. Every member can publish their own recipes and land right here on the homepage."}
+              ? "„Die ersten Rezepte hier sind die meines Vaters. Senfsauce, Spitzkohl, Hühnersuppe. Seit vierzig Jahren gleich gekocht.“"
+              : "“The first recipes here are my father’s. Mustard sauce, pointed cabbage, chicken soup. Cooked the same way for forty years.”"}
           </p>
-          <Link
-            href="/my-recipes"
-            className="inline-flex h-11 items-center rounded-1 border border-dark-text px-5 text-base font-semibold text-white transition-colors hover:bg-surface hover:text-ink"
-          >
+          <footer className="text-base text-ink-2">
+            {de ? "Peter Hölzer, Fleischermeister und Küchenchef" : "Peter Hölzer, master butcher and head chef"}
+          </footer>
+          <Button variant="quiet" href="/my-recipes">
             {de ? "Eigenes Rezept veröffentlichen" : "Publish your own recipe"}
-          </Link>
-        </div>
+          </Button>
+        </blockquote>
 
-        {/* Fotos */}
         <div className={single ? "" : "grid grid-cols-2 gap-3 sm:gap-4"}>
           {recipes.map((r) => (
             <Link key={r.id} href={`/recipe/${r.id}`} className="group block">
@@ -74,11 +68,11 @@ export default function FamilySection() {
                 decoding="async"
                 width={single ? 960 : 600}
                 height={single ? 960 : 600}
-                className="aspect-square w-full rounded-2 object-cover"
+                className="aspect-square w-full rounded-1 object-cover"
                 style={{ objectPosition: r.imagePosition ?? "50% 50%" }}
               />
-              <p className="mt-2 line-clamp-1 text-sm text-white group-hover:underline underline-offset-[3px]">{r.title}</p>
-              <p className="text-caption text-dark-text">Community</p>
+              <p className="mt-2 line-clamp-1 text-sm text-ink group-hover:underline underline-offset-[3px]">{r.title}</p>
+              <p className="text-caption text-ink-3">Community</p>
             </Link>
           ))}
         </div>

@@ -4,7 +4,7 @@ import { useId, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
 import { Link } from "@/lib/navigation";
-import type { Recipe } from "./home-types";
+import type { DishColors, Recipe } from "./home-types";
 
 /*
   Hero der Startseite (DESIGN.md §0, §5 „Suche“): weiß, zweispaltig ab md.
@@ -19,6 +19,8 @@ export interface HeroProps {
   onSearch: () => void;
   /** Hervorgehobenes Rezept (serverseitig geladen, initialRecipes[0]). */
   featured?: Recipe | null;
+  /** Farben aus dem Foto (DESIGN.md §11); null = Markenfarben. */
+  colors?: DishColors | null;
 }
 
 /** Aus "45 min" wird "45 Min." (de) bzw. "45 min"; alles andere bleibt unverändert. */
@@ -29,7 +31,9 @@ function formatTime(time: string, locale: string): string | null {
   return locale === "de" ? `${minutes} Min.` : `${minutes} min`;
 }
 
-export default function Hero({ search, setSearch, onSearch, featured }: HeroProps) {
+export default function Hero({ search, setSearch, onSearch, featured, colors }: HeroProps) {
+  const stage = colors?.stage ?? "#7a2e0e";
+  const tint = colors?.tint ?? "#fbede4";
   const t = useTranslations();
   const locale = useLocale();
   const isDE = locale === "de";
@@ -86,77 +90,97 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
   return (
     <>
       {/* Bühne: dunkles Panel, großer Titel, Foto füllt den Rest (Apple-Rhythmus) */}
-      <section className="bg-dark text-white">
+      {/* Bühne in der Farbe des Gerichts: links Titel und große Zahlen, rechts das Foto */}
+      <section style={{ backgroundColor: stage }} className="text-white">
         {featured ? (
-          <figure className="relative m-0 h-[70vh] min-h-[480px] w-full sm:h-[78vh] sm:max-h-[900px]">
-            {featured.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={featured.image}
-                alt={featured.title}
-                width={1600}
-                height={1000}
-                fetchPriority="high"
-                loading="eager"
-                decoding="async"
-                className="animate-hero-in absolute inset-0 h-full w-full object-cover"
-                style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-dark">
-                <Icon name="utensils" size={32} className="text-dark-text" />
-              </div>
-            )}
-            {/* Schleier von unten: macht Titel und Buttons auf jedem Foto lesbar */}
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-linear-to-t from-dark/90 via-dark/35 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0">
-              <div className="mx-auto flex max-w-content flex-col items-start gap-3 px-4 pb-10 sm:px-6 sm:pb-14">
-                <p className="text-sm text-dark-text">{featuredLabel}</p>
-                <h1
-                  className="max-w-4xl text-balance font-bold text-white"
-                  style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)", lineHeight: 1, letterSpacing: "-0.02em" }}
-                >
-                  {featured.title}
-                </h1>
-                {meta && <p className="tabular text-base text-dark-text">{meta}</p>}
-                <div className="mt-2 flex flex-wrap gap-3">
-                  <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
-                  <Link
-                    href="/weekly-meal-planner"
-                    className="inline-flex h-11 items-center rounded-1 border border-dark-text px-5 text-base font-semibold text-white transition-colors hover:bg-surface hover:text-ink"
-                  >
-                    {t("hero.ctaPlan")}
-                  </Link>
+          <div className="grid md:h-[76vh] md:max-h-[840px] md:min-h-[560px] md:grid-cols-[minmax(0,520px)_1fr]">
+            <div className="order-2 flex flex-col justify-end gap-5 px-4 pb-10 pt-8 sm:px-10 sm:pb-12 md:order-1">
+              <p className="text-sm text-white/80">{featuredLabel}</p>
+              <h1
+                className="text-balance font-serif font-semibold text-white"
+                style={{ fontSize: "clamp(2.5rem, 6.2vw, 5.75rem)", lineHeight: 0.95, letterSpacing: "-0.01em" }}
+              >
+                {featured.title}
+              </h1>
+              {(time || servings) && (
+                <div className="mt-1 flex gap-10">
+                  {time && (
+                    <div>
+                      <p className="tabular font-serif text-[52px] font-medium leading-none text-white">{parseInt(time, 10)}</p>
+                      <p className="mt-1.5 text-sm text-white/80">{isDE ? "Minuten" : "minutes"}</p>
+                    </div>
+                  )}
+                  {featured.servings && (
+                    <div>
+                      <p className="tabular font-serif text-[52px] font-medium leading-none text-white">{featured.servings}</p>
+                      <p className="mt-1.5 text-sm text-white/80">{isDE ? "Portionen" : "servings"}</p>
+                    </div>
+                  )}
                 </div>
+              )}
+              <div className="mt-2 flex flex-wrap gap-3">
+                <Link
+                  href={`/recipe/${featured.id}`}
+                  className="inline-flex h-12 items-center rounded-1 bg-surface px-6 text-base font-bold transition-colors hover:bg-surface-soft"
+                  style={{ color: stage }}
+                >
+                  {toRecipe}
+                </Link>
+                <Link
+                  href="/weekly-meal-planner"
+                  className="inline-flex h-12 items-center rounded-1 border border-white/60 px-6 text-base font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  {t("hero.ctaPlan")}
+                </Link>
               </div>
             </div>
-            {aiNotice && (
-              <figcaption className="absolute right-4 top-3 text-caption text-white/90 sm:right-6">{aiNotice}</figcaption>
-            )}
-          </figure>
+            <figure className="relative order-1 m-0 md:order-2 md:h-full">
+              {featured.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  width={1600}
+                  height={1200}
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
+                  className="animate-hero-in aspect-[4/3] w-full object-cover md:absolute md:inset-0 md:aspect-auto md:h-full"
+                  style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
+                />
+              ) : (
+                <div className="flex aspect-[4/3] w-full items-center justify-center md:absolute md:inset-0 md:aspect-auto md:h-full">
+                  <Icon name="utensils" size={32} className="text-white/60" />
+                </div>
+              )}
+              {aiNotice && (
+                <figcaption className="absolute right-4 top-3 rounded-1 bg-dark/55 px-2 py-1 text-caption text-white sm:right-6">{aiNotice}</figcaption>
+              )}
+            </figure>
+          </div>
         ) : (
           <div className="mx-auto flex max-w-content flex-col items-start px-4 py-20 sm:px-6">
-            <h1 className="max-w-4xl text-balance font-bold text-white" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.02 }}>
+            <h1 className="max-w-4xl text-balance font-serif font-semibold text-white" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1 }}>
               {t("hero.headline1")} {t("hero.headline2")}
             </h1>
-            <p className="mt-5 max-w-prose text-body-lg text-dark-text">{t("hero.subline")}</p>
+            <p className="mt-5 max-w-prose text-body-lg text-white/85">{t("hero.subline")}</p>
             <Button href="/weekly-meal-planner" className="mt-6">{t("hero.ctaPlan")}</Button>
           </div>
         )}
       </section>
 
-      <section className="bg-surface">
-      <div className="mx-auto max-w-content px-4 pt-12 pb-12 sm:px-6 sm:pt-16 sm:pb-16">
+      <section style={{ backgroundColor: tint }}>
+      <div className="mx-auto max-w-content px-4 py-10 sm:px-6 sm:py-12">
       {/* Suche */}
       <form
         role="search"
-        className="mx-auto flex max-w-3xl flex-col gap-4"
+        className="mx-auto flex max-w-4xl flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
           submit();
         }}
       >
-        <label htmlFor={inputId} className="text-center font-serif text-h2-sm sm:text-h2">
+        <label htmlFor={inputId} className="text-center font-serif text-h2-sm font-medium sm:text-h2" style={{ color: stage }}>
           {searchLabel}
         </label>
         <div className="relative">

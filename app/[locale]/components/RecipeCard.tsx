@@ -116,6 +116,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
           </div>
 
           <div className="flex flex-col gap-1">
+            <span aria-hidden="true" className="mb-1 block h-1 w-14 bg-brand" style={{ backgroundColor: recipe.accent ?? undefined }} />
             <p className="tabular flex flex-wrap items-center gap-x-2 text-sm text-ink-3">
               {metaTop.length > 0 && <span>{metaTop.join(" · ")}</span>}
               {dietLabel && (

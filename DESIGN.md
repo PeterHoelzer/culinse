@@ -373,3 +373,18 @@ macht. Knapp, konkret, ohne Marketing-Dampf.
 Nach Peters Rückmeldungen („zu weiß, zu plain; schau dir Apple an; der graue Teil ist zu düster; können wir nur das Bild nehmen?“) ist der Startseiten-Hero **ein einziges Foto über die volle Breite** (70–78 vh). Titel, Metazeile und zwei Buttons liegen unten links direkt auf dem Foto, lesbar durch einen Schleier von unten (`--c-dark` 90 % → transparent). Das ist die eine Ausnahme vom Verlaufsverbot: der Schleier dient der Lesbarkeit, nicht der Dekoration. Der KI-Hinweis steht oben rechts im Bild in `caption`. Das Foto blendet beim Laden in 900 ms ein (`.animate-hero-in`, bei `prefers-reduced-motion` aus). Die Suche folgt zentriert auf Weiß direkt darunter.
 
 Rhythmus der Startseite: Hero-Foto → Suche weiß → Rezeptkarten weiß (9) → Familienrezepte dunkles Band mit vier Fotos → Kochschule weiß mit großem Hauptvideo → So funktioniert warm → Newsletter weiße Box → Fußzeile dunkel. Abschnittstitel tragen einen 40 × 3 px Markenstrich. Dieselbe Logik gilt künftig für das Rezeptfoto auf der Rezeptseite.
+
+---
+
+## 11. Richtung A: Die Farbe des Gerichts (Freigabe Peter, 08.11.2026)
+
+Peters Urteil zum ersten Umbau: „immer noch nichts Besonderes“. Die Signatur, die nur Culinse hat:
+
+- **Jedes Rezept färbt seine Seite.** Aus dem Rezeptfoto zieht `lib/dishColor.ts` serverseitig den prägenden Farbton (Bildmitte stärker gewichtet, Randfarbe des Tisches abgezogen, sharp, 48-px-Bild, 24 h Cache). Daraus drei Töne: `stage` (dunkel, L 0,22, Bühne hinter dem Titel; Weiß darauf ≥ 9:1), `tint` (sehr hell, L 0,94, Hintergrund der Suchzeile), `accent` (mittel, L 0,40, Farbstreifen auf Karten). Fällt die Analyse aus, gelten Markenfarben (`#7a2e0e`, `#fbede4`, `--c-brand`).
+- **Schrift mit Charakter:** Fraunces (variable, opsz/SOFT/WONK) für alle Überschriften und großen Zahlen, Einstellung `SOFT 30, WONK 1`: weich, breit, nach alten Handwerker-Schildern. Source Sans 3 bleibt Textschrift. Kyrillisch und Bengali fallen auf Georgia bzw. System zurück.
+- **Große Zahlen:** Zeit und Portionen stehen in 52 px Fraunces mit kleiner Einheit darunter, wie Produktdaten bei Apple.
+- **Hero:** Raster 520 px Bühne in `stage` links (Label, Titel bis 92 px, Zahlen, weißer Button mit Text in `stage`, Umriss-Button), rechts das Foto in voller Höhe (76 vh). Mobil Foto oben, Bühne darunter.
+- **Suche:** Band in `tint`, Frage „Was willst du kochen?“ in Fraunces in `stage`, weißes Feld, Chips.
+- **Karten:** 56 × 4 px Streifen in der Akzentfarbe des eigenen Fotos über der Metazeile; nachgeladene Karten ohne Farbe nutzen `--c-brand`.
+- **Familie:** Peters Satz als Zitat in Fraunces auf `--c-bg-soft`, daneben vier echte Fotos.
+- Dieselbe Logik gilt für die Rezeptseite: Titelblock in `stage`, Foto daneben, Zutatenkasten in `tint`.

@@ -1,3 +1,10 @@
+/** Farben aus dem Rezeptfoto (lib/dishColor.ts): Bühne dunkel, Ton hell, Akzent mittel. */
+export interface DishColors {
+  stage: string;
+  tint: string;
+  accent: string;
+}
+
 export interface Recipe {
   id: number | string;
   title: string;
@@ -8,6 +15,8 @@ export interface Recipe {
   servings: number | null;
   rating: number | null;
   imagePosition?: string | null;
+  /** Akzentfarbe aus dem Foto, serverseitig gesetzt; fehlt bei nachgeladenen Karten. */
+  accent?: string | null;
   /** Kategorie als Wort für die Metazeile der Karte („Suppe“); optional, liefert die API derzeit nicht. */
   category?: string | null;
   /** Ernährungskennzeichnung für die Metazeile (grün); optional. */

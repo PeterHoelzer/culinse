@@ -12,7 +12,7 @@ import VideoSection from "./components/VideoSection";
 import HowItWorks from "./components/HowItWorks";
 import FamilySection from "./components/FamilySection";
 import HomeFooter from "./components/HomeFooter";
-import type { Recipe } from "./components/home-types";
+import type { DishColors, Recipe } from "./components/home-types";
 
 // Merge the given keys into the current URL query string without triggering a
 // navigation. Empty/undefined values remove the key. Used so the user's search
@@ -38,11 +38,14 @@ export default function Home({
   seoSection,
   initialRecipes,
   featured,
+  heroColors,
 }: {
   seoSection?: ReactNode;
   initialRecipes?: Recipe[];
   /** Rezept des Tages für den Hero; fällt auf die erste Discover-Karte zurück. */
   featured?: Recipe | null;
+  /** Farben aus dem Foto des Tagesrezepts (serverseitig). */
+  heroColors?: DishColors | null;
 }) {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
@@ -101,7 +104,7 @@ export default function Home({
     <>
       <SharedNavbar />
       <main className="flex-1">
-        <Hero search={search} setSearch={setSearch} onSearch={handleSearch} featured={featured ?? initialRecipes?.[0] ?? null} />
+        <Hero search={search} setSearch={setSearch} onSearch={handleSearch} featured={featured ?? initialRecipes?.[0] ?? null} colors={heroColors ?? null} />
         <ForYouSection user={user} onLoaded={() => {}} />
         <DiscoverSection search={activeSearch} category={category} setCategory={handleSetCategory} user={user} initialRecipes={initialRecipes} />
         <FamilySection />

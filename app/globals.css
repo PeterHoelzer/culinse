@@ -6,9 +6,9 @@
   keine Hex-Werte und keine Tailwind-Standardfarben mehr.
 */
 @theme {
-  /* Schrift: Source Sans 3 für Text/UI, Source Serif 4 für Überschriften */
+  /* Schrift: Source Sans 3 für Text/UI, Fraunces für Überschriften (DESIGN.md §11) */
   --font-sans: var(--font-source-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: var(--font-source-serif), Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
   /* Marke / Aktion */
   --color-brand: #bf4a14;
@@ -98,6 +98,7 @@
   h3 {
     font-family: var(--font-serif);
     font-optical-sizing: auto;
+    font-variation-settings: "SOFT" 30, "WONK" 1;
     font-weight: 600;
     color: var(--color-ink);
   }

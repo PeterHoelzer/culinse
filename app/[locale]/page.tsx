@@ -5,6 +5,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Link from "next/link";
 import type { Recipe } from "./components/home-types";
 import { preload } from "react-dom";
+import { dishColorsWithin } from "@/lib/dishColor";
 
 // Prevent Vercel from serving a cached HTML snapshot that shows the
 // loading skeleton permanently (the recipe grid is loaded client-side).
@@ -258,6 +259,15 @@ export default async function Page({
     ? { ...initialRecipes[0], image: heroImageUrl(initialRecipes[0].image) }
     : null;
 
+  // Die Farbe des Gerichts (DESIGN.md §11): Bühne und Suchzeile tragen den Ton
+  // des Tagesfotos, jede Karte einen Streifen in ihrer eigenen Farbe.
+  const cardRecipes = heroRecipe ? initialRecipes.slice(1) : initialRecipes;
+  const [heroColors, cardAccents] = await Promise.all([
+    dishColorsWithin(heroRecipe?.image ?? null),
+    Promise.all(cardRecipes.map((r) => dishColorsWithin(r.image, 1200))),
+  ]);
+  const cards: Recipe[] = cardRecipes.map((r, i) => ({ ...r, accent: cardAccents[i]?.accent ?? null }));
+
   // LCP-Boost: Das Hero-Foto ist das LCP-Element. Per Preload-Hint startet
   // der Download mit dem HTML-Parsen, statt mit dem JS-Bundle um die
   // Bandbreite zu konkurrieren.
@@ -326,7 +336,7 @@ export default async function Page({
 
       {/* Full interactive page — Next.js SSRs this to real HTML on first load */}
       <ErrorBoundary>
-        <HomeClient seoSection={seoSection} initialRecipes={heroRecipe ? initialRecipes.slice(1) : initialRecipes} featured={heroRecipe} />
+        <HomeClient seoSection={seoSection} initialRecipes={cards} featured={heroRecipe} heroColors={heroColors} />
       </ErrorBoundary>
     </>
   );
