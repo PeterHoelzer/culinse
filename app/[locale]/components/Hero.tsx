@@ -4,6 +4,7 @@ import { useId, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
 import { Link } from "@/lib/navigation";
+import { heroSrcSet, HERO_SIZES } from "@/lib/heroImage";
 import type { DishColors, Recipe } from "./home-types";
 
 /*
@@ -139,6 +140,8 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={featured.image}
+                  srcSet={heroSrcSet(featured.image)}
+                  sizes={HERO_SIZES}
                   alt={featured.title}
                   width={1600}
                   height={1200}

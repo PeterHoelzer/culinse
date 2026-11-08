@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Recipe } from "./components/home-types";
 import { preload } from "react-dom";
 import { dishColorsWithin } from "@/lib/dishColor";
+import { heroSrcSet, HERO_SIZES } from "@/lib/heroImage";
 
 // Prevent Vercel from serving a cached HTML snapshot that shows the
 // loading skeleton permanently (the recipe grid is loaded client-side).
@@ -272,7 +273,7 @@ export default async function Page({
   // der Download mit dem HTML-Parsen, statt mit dem JS-Bundle um die
   // Bandbreite zu konkurrieren.
   if (heroRecipe?.image) {
-    preload(heroRecipe.image, { as: "image", fetchPriority: "high" });
+    preload(heroRecipe.image, { as: "image", fetchPriority: "high", imageSrcSet: heroSrcSet(heroRecipe.image), imageSizes: HERO_SIZES });
   }
   const isDE = locale === "de";
   const seoSection = (
