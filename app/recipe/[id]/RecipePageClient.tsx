@@ -16,6 +16,7 @@ import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { Link as LocaleLink } from "@/lib/navigation";
+import type { DishColors } from "@/app/[locale]/components/home-types";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 import { optimizedImageUrl } from "@/lib/imageUrl";
@@ -223,7 +224,10 @@ function SimilarCard({ recipe: s, locale }: { recipe: SimilarRecipe; locale: str
   );
 }
 
-export default function RecipePageClient({ serverTitle, initialRecipe, similarRecipes }: { serverTitle?: string | null; initialRecipe?: Recipe | null; similarRecipes?: SimilarRecipe[] | null }) {
+export default function RecipePageClient({ serverTitle, initialRecipe, similarRecipes, colors }: { serverTitle?: string | null; initialRecipe?: Recipe | null; similarRecipes?: SimilarRecipe[] | null; colors?: DishColors | null }) {
+  // Die Farbe des Gerichts (DESIGN.md §11): Bühne hinter dem Titel, heller Ton im Zutatenkasten.
+  const stage = colors?.stage ?? "#7a2e0e";
+  const tint = colors?.tint ?? "#fbede4";
   const { id } = useParams();
   const locale = useLocale();
   const [recipe, setRecipe] = useState<Recipe | null>(initialRecipe ?? null);
@@ -612,9 +616,47 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
             {t("backToDiscover")}
           </LocaleLink>
 
-          {/* Foto / Video, 3:2, volle Inhaltsbreite */}
-          <figure className="mb-6">
-            <div className="aspect-[3/2] w-full overflow-hidden rounded-2 bg-surface-soft">
+          {/* Bühne in der Farbe des Gerichts: Titel links, Foto rechts (DESIGN.md §11) */}
+          <section className="relative left-1/2 mb-8 w-screen -translate-x-1/2 text-white" style={{ backgroundColor: stage }}>
+            <div className="mx-auto grid max-w-content lg:grid-cols-[minmax(0,520px)_1fr]">
+            <div className="order-2 flex flex-col items-start gap-5 px-4 pb-10 pt-8 sm:px-10 sm:pb-12 lg:order-1 lg:justify-end">
+            {tagLine.length > 0 && (
+              <p className="text-sm text-white/80">
+                {tagLine.map((tag, i) => (
+                  <span key={`${tag.text}-${i}`}>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <span className={`capitalize ${tag.green ? "font-semibold text-green-soft" : ""}`}>{tag.text}</span>
+                  </span>
+                ))}
+              </p>
+            )}
+            <h1 className="text-balance font-serif font-semibold text-white" style={{ fontSize: "clamp(2.25rem, 5vw, 4.5rem)", lineHeight: 0.98, letterSpacing: "-0.01em" }}>{recipe.title}</h1>
+            {cleanSummary && (
+              <p className="max-w-prose text-body-lg text-white/85">{cleanSummary}</p>
+            )}
+            <div className="mt-1 flex flex-wrap gap-10 tabular">
+              {recipe.time && (
+                <div>
+                  <p className="font-serif text-[48px] font-medium leading-none text-white">{parseInt(recipe.time, 10) || recipe.time}</p>
+                  <p className="mt-1.5 text-sm text-white/80">{locale === "de" ? "Minuten" : "minutes"}</p>
+                </div>
+              )}
+              {recipe.servings && (
+                <div>
+                  <p className="font-serif text-[48px] font-medium leading-none text-white">{recipe.servings}</p>
+                  <p className="mt-1.5 text-sm text-white/80">{locale === "de" ? "Portionen" : "servings"}</p>
+                </div>
+              )}
+              {recipe.ingredients.length > 0 && (
+                <div>
+                  <p className="font-serif text-[48px] font-medium leading-none text-white">{recipe.ingredients.length}</p>
+                  <p className="mt-1.5 text-sm text-white/80">{t("ingredients")}</p>
+                </div>
+              )}
+            </div>
+            </div>
+          <figure className="relative order-1 m-0 lg:order-2 lg:min-h-[560px]">
+            <div className="aspect-[4/3] w-full overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
               {activeVideoUrl ? (
                 <video
                   key={activeVideoUrl}
@@ -649,14 +691,16 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
 
             {/* Freiwillige KI-Kennzeichnung (EU AI Act Art. 50) fuer Korpus-Rezepte */}
             {recipe.aiAssisted && (
-              <figcaption className="print-hide mt-2 text-caption text-ink-3">
+              <figcaption className="print-hide absolute right-4 top-3 rounded-1 bg-dark/55 px-2 py-1 text-caption text-white sm:right-6">
                 {t("aiNotice")} ·{" "}
-                <LocaleLink href="/ki-transparenz" className="underline underline-offset-[3px] transition-colors hover:text-ink">
+                <LocaleLink href="/ki-transparenz" className="underline underline-offset-[3px] transition-colors hover:text-white/80">
                   {t("aiNoticeMore")}
                 </LocaleLink>
               </figcaption>
             )}
           </figure>
+            </div>
+          </section>
 
           {/* Bildergalerie — nur wenn das Rezept mehrere Fotos hat (Community) */}
           {gallery.length > 1 && !activeVideoUrl && (
@@ -725,50 +769,8 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
             </div>
           )}
 
-          {/* Kopf: Tags · Titel · Einleitung · Metazeile · Aktionen */}
+          {/* Aktionen */}
           <header className="mb-12">
-            {tagLine.length > 0 && (
-              <p className="mb-3 text-sm text-ink-3">
-                {tagLine.map((tag, i) => (
-                  <span key={`${tag.text}-${i}`}>
-                    {i > 0 && <span aria-hidden="true"> · </span>}
-                    <span className={`capitalize ${tag.green ? "font-semibold text-green" : ""}`}>{tag.text}</span>
-                  </span>
-                ))}
-              </p>
-            )}
-
-            <h1 className="text-display-sm text-ink md:text-display">{recipe.title}</h1>
-
-            {cleanSummary && (
-              <p className="mt-5 max-w-prose text-body-lg text-ink-2">{cleanSummary}</p>
-            )}
-
-            <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-3 tabular">
-              {recipe.time && (
-                <span className="inline-flex items-center gap-1.5">
-                  <Icon name="clock" size={18} />
-                  <span className="sr-only">{t("cookTime")}: </span>
-                  {formatTime(recipe.time, locale)}
-                </span>
-              )}
-              {recipe.servings && (
-                <>
-                  {recipe.time && <span aria-hidden="true">·</span>}
-                  <span className="inline-flex items-center gap-1.5">
-                    <Icon name="users" size={18} />
-                    {tCard("servings", { count: recipe.servings })}
-                  </span>
-                </>
-              )}
-              {recipe.ingredients.length > 0 && (
-                <>
-                  {(recipe.time || recipe.servings) && <span aria-hidden="true">·</span>}
-                  <span>{recipe.ingredients.length} {t("ingredients")}</span>
-                </>
-              )}
-            </p>
-
             <div className="print-hide mt-6 flex flex-wrap items-center gap-3">
               <Button
                 variant={saved ? "secondary" : "primary"}
@@ -861,7 +863,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
           <div className="print-ingredients-grid grid gap-12 lg:grid-cols-[5fr_7fr]">
             <aside className="print-col-ingredients min-w-0">
               <div className="print-sticky space-y-8 lg:sticky lg:top-20">
-                <section className="rounded-2 bg-surface-soft p-6" aria-labelledby="ingredients-heading">
+                <section className="rounded-2 p-6" style={{ backgroundColor: tint }} aria-labelledby="ingredients-heading">
                   <div className="flex items-baseline justify-between gap-4">
                     <h2 id="ingredients-heading" className="text-h2-sm">{t("ingredients")}</h2>
                     {checkedIngredients.size > 0 && (

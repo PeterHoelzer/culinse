@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
+import { dishColorsWithin } from "@/lib/dishColor";
 
 // CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
 // Renders in 12 h) und standen fuer ~90 % der Vercel-Fluid-CPU (89 % des
@@ -150,7 +151,10 @@ export default async function RecipePage(
   const fetched = await fetchRecipe(id);
   if (fetched === "missing") notFound();
   const recipe = fetched;
-  const similarRecipes = recipe ? await fetchSimilar(id, locale, recipe) : [];
+  const [similarRecipes, colors] = await Promise.all([
+    recipe ? fetchSimilar(id, locale, recipe) : Promise.resolve([] as SimilarRecipe[]),
+    recipe ? dishColorsWithin(recipe.image ?? null) : Promise.resolve(null),
+  ]);
 
   // Build Recipe JSON-LD for Google Rich Results — single source of truth,
   // rendered server-side so it's in the crawlable HTML.
@@ -269,6 +273,7 @@ export default async function RecipePage(
         serverTitle={recipe?.title ?? null}
         initialRecipe={recipe}
         similarRecipes={similarRecipes}
+        colors={colors}
       />
     </>
   );
