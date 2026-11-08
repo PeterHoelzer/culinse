@@ -137,6 +137,15 @@
   }
 }
 
+/* Der eine orchestrierte Auftritt: Hero-Foto blendet ein (DESIGN.md §7) */
+@keyframes hero-in {
+  from { opacity: 0; transform: scale(1.03); }
+  to { opacity: 1; transform: none; }
+}
+.animate-hero-in {
+  animation: hero-in 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
 /* Horizontale Chip-Reihen ohne sichtbaren Scrollbalken */
 @utility scrollbar-none {
   scrollbar-width: none;

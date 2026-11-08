@@ -3,6 +3,7 @@
 import { useId, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
+import { Link } from "@/lib/navigation";
 import type { Recipe } from "./home-types";
 
 /*
@@ -83,64 +84,79 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
   const meta = [time, servings].filter(Boolean).join(" · ");
 
   return (
-    <section className="bg-surface-soft">
-      <div className="mx-auto max-w-content px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16">
-      {featured ? (
-        <div className="grid gap-8 md:grid-cols-[5fr_7fr] md:items-center md:gap-12">
-          <div className="order-2 flex flex-col items-start gap-4 md:order-1">
-            <p className="text-sm text-ink-3">{featuredLabel}</p>
-            <h1 className="text-display-sm font-bold md:text-display">{featured.title}</h1>
-            {meta && <p className="tabular text-sm text-ink-3">{meta}</p>}
-            <div className="mt-2 flex flex-wrap gap-3">
-              <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
-              <Button variant="secondary" href="/weekly-meal-planner">
-                {t("hero.ctaPlan")}
-              </Button>
-            </div>
-          </div>
-
-          <figure className="order-1 m-0 md:order-2">
-            {featured.image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={featured.image}
-                alt={featured.title}
-                width={1200}
-                height={900}
-                fetchPriority="high"
-                loading="eager"
-                decoding="async"
-                className="aspect-[4/3] w-full rounded-2 object-cover"
-                style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
-              />
-            ) : (
-              <div className="flex aspect-[3/2] w-full items-center justify-center rounded-2 bg-surface-soft">
-                <Icon name="utensils" size={32} className="text-line-strong" />
+    <>
+      {/* Bühne: dunkles Panel, großer Titel, Foto füllt den Rest (Apple-Rhythmus) */}
+      <section className="bg-dark text-white">
+        {featured ? (
+          <>
+            <div className="mx-auto flex max-w-content flex-col items-center px-4 pt-12 pb-8 text-center sm:px-6 sm:pt-16 sm:pb-10">
+              <p className="text-sm text-dark-text">{featuredLabel}</p>
+              <h1
+                className="mt-3 max-w-5xl text-balance font-bold text-white"
+                style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)", lineHeight: 1, letterSpacing: "-0.02em" }}
+              >
+                {featured.title}
+              </h1>
+              {meta && <p className="tabular mt-4 text-body-lg text-dark-text">{meta}</p>}
+              <div className="mt-6 flex flex-wrap justify-center gap-3">
+                <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
+                <Link
+                  href="/weekly-meal-planner"
+                  className="inline-flex h-11 items-center rounded-1 border border-dark-text px-5 text-base font-semibold text-white transition-colors hover:bg-surface hover:text-ink"
+                >
+                  {t("hero.ctaPlan")}
+                </Link>
               </div>
-            )}
-            {aiNotice && <figcaption className="mt-2 text-caption text-ink-3">{aiNotice}</figcaption>}
-          </figure>
-        </div>
-      ) : (
-        <div className="flex max-w-prose flex-col items-start gap-5">
-          <h1 className="text-display-sm md:text-display">
-            {t("hero.headline1")} {t("hero.headline2")}
-          </h1>
-          <p className="text-body-lg text-ink-2">{t("hero.subline")}</p>
-          <Button href="/weekly-meal-planner">{t("hero.ctaPlan")}</Button>
-        </div>
-      )}
+            </div>
+            <figure className="relative m-0">
+              {featured.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                  width={1600}
+                  height={900}
+                  fetchPriority="high"
+                  loading="eager"
+                  decoding="async"
+                  className="animate-hero-in h-[46vh] min-h-[320px] w-full object-cover sm:h-[58vh] sm:max-h-[760px]"
+                  style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
+                />
+              ) : (
+                <div className="flex h-[40vh] w-full items-center justify-center bg-dark">
+                  <Icon name="utensils" size={32} className="text-dark-text" />
+                </div>
+              )}
+              {/* Weicher Übergang vom schwarzen Panel ins Foto, wie bei Produktfotos auf Schwarz */}
+              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-linear-to-b from-dark to-transparent" />
+              {aiNotice && (
+                <figcaption className="mx-auto max-w-content px-4 py-3 text-caption text-dark-text sm:px-6">{aiNotice}</figcaption>
+              )}
+            </figure>
+          </>
+        ) : (
+          <div className="mx-auto flex max-w-content flex-col items-center px-4 py-20 text-center sm:px-6">
+            <h1 className="max-w-4xl text-balance font-bold text-white" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.02 }}>
+              {t("hero.headline1")} {t("hero.headline2")}
+            </h1>
+            <p className="mt-5 max-w-prose text-body-lg text-dark-text">{t("hero.subline")}</p>
+            <Button href="/weekly-meal-planner" className="mt-6">{t("hero.ctaPlan")}</Button>
+          </div>
+        )}
+      </section>
 
+      <section className="bg-surface">
+      <div className="mx-auto max-w-content px-4 pt-12 pb-12 sm:px-6 sm:pt-16 sm:pb-16">
       {/* Suche */}
       <form
         role="search"
-        className="mt-10 flex max-w-3xl flex-col gap-3 sm:mt-12"
+        className="mx-auto flex max-w-3xl flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
           submit();
         }}
       >
-        <label htmlFor={inputId} className="text-h3">
+        <label htmlFor={inputId} className="text-center font-serif text-h2-sm sm:text-h2">
           {searchLabel}
         </label>
         <div className="relative">
@@ -188,7 +204,7 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
           )}
         </div>
 
-        <ChipRow className="mt-1">
+        <ChipRow className="mt-1 sm:justify-center">
           {quickPicks.map((pick) => (
             <Chip key={pick} onClick={() => handleSelect(pick)}>
               {pick}
@@ -197,6 +213,7 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
         </ChipRow>
       </form>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

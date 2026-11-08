@@ -14,7 +14,7 @@ import { CULINSE_VIDEOS, type CulinseVideo } from "@/lib/videos";
 
 const formatDuration = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
 
-function VideoCard({ video, de, playLabel }: { video: CulinseVideo; de: boolean; playLabel: string }) {
+function VideoCard({ video, de, playLabel, featured = false }: { video: CulinseVideo; de: boolean; playLabel: string; featured?: boolean }) {
   const [playing, setPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -24,7 +24,7 @@ function VideoCard({ video, de, playLabel }: { video: CulinseVideo; de: boolean;
   }, [playing]);
 
   return (
-    <article className="flex flex-col gap-2">
+    <article className={featured ? "flex flex-col gap-3 md:col-span-2 md:row-span-2" : "flex flex-col gap-2"}>
       {playing ? (
         <video
           ref={videoRef}
@@ -55,7 +55,7 @@ function VideoCard({ video, de, playLabel }: { video: CulinseVideo; de: boolean;
       )}
 
       <p className="tabular mt-1 text-sm text-ink-3">Video · {formatDuration(video.durationSec)}</p>
-      <h3 className="text-h3">{de ? video.title.de : video.title.en}</h3>
+      <h3 className={featured ? "text-h2-sm sm:text-h2" : "text-h3"}>{de ? video.title.de : video.title.en}</h3>
       <p className="text-base text-ink-2">{de ? video.description.de : video.description.en}</p>
       <Link
         href={`/blog/${de ? video.blogSlug.de : video.blogSlug.en}`}
@@ -76,9 +76,9 @@ export default function VideoSection() {
   return (
     <section className="mx-auto max-w-content px-4 py-12 sm:px-6 sm:py-16">
       <SectionHeader title={t("videoSection.title")} subtitle={t("videoSection.subtitle")} />
-      <div className="grid gap-8 md:grid-cols-3">
-        {CULINSE_VIDEOS.map((v) => (
-          <VideoCard key={v.slug} video={v} de={de} playLabel={playLabel} />
+      <div className="grid gap-8 md:grid-cols-3 md:grid-rows-2">
+        {CULINSE_VIDEOS.map((v, i) => (
+          <VideoCard key={v.slug} video={v} de={de} playLabel={playLabel} featured={i === 0} />
         ))}
       </div>
     </section>

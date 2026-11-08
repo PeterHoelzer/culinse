@@ -365,3 +365,11 @@ macht. Knapp, konkret, ohne Marketing-Dampf.
   zu bekommen.
 - Vor jedem Merge: Lighthouse Mobile Accessibility ≥ 95, keine `color-contrast`-
   Fehler, kein `button-name`-Fehler; Screenshots bei 375/768/1440 angesehen.
+
+---
+
+## 10. Nachtrag 08.11.2026: Hero als Bühne
+
+Nach Peters Rückmeldung („zu weiß, zu plain; schau dir Apple an“) ist der Startseiten-Hero eine **Bühne**: dunkles Panel (`--c-dark`), zentrierter Titel in Serife bis 96 px, Metazeile, zwei Buttons, darunter das Foto über die volle Breite (46–58 vh), das oben weich ins Dunkel ausläuft. Das ist die eine erlaubte Ausnahme von „linksbündig“ und vom Verlaufsverbot: der Übergang ist ein funktionaler Schleier zwischen Panel und Foto, kein Deko-Verlauf. Dazu der eine orchestrierte Auftritt der Seite: das Hero-Foto blendet in 900 ms ein (`.animate-hero-in`, bei `prefers-reduced-motion` aus).
+
+Rhythmus der Startseite: Bühne dunkel → Suche weiß → Rezeptkarten weiß (9) → Familienrezepte dunkles Band → Kochschule weiß mit großem Hauptvideo → So funktioniert warm → Newsletter weiße Box → Fußzeile dunkel. Abschnittstitel tragen einen 40 × 3 px Markenstrich.
