@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { optimizedImageUrl } from "@/lib/imageUrl";
+import { Button, Chip, EmptyState, Icon, Input, Notice, SectionHeader, Skeleton } from "@/components/ui";
 
 /**
  * Bilder-Werkstatt (14.09.2026): Übersicht aller Culinse-Gerichte mit
@@ -115,115 +116,112 @@ export default function BilderClient() {
   }
 
   if (phase === "loading")
-    return <main className="max-w-5xl mx-auto px-4 py-16 text-center text-gray-500">Lade Gerichte …</main>;
+    return (
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12" aria-busy="true">
+        <Skeleton className="h-24" />
+      </main>
+    );
   if (phase === "forbidden")
     return (
-      <main className="max-w-md mx-auto px-4 py-16 text-center">
-        <div className="text-5xl mb-4">🔒</div>
-        <h1 className="text-xl font-bold text-gray-900 mb-2">Kein Zugriff</h1>
-        <p className="text-gray-500 text-sm">
-          Bitte zuerst mit deinem Culinse-Konto anmelden. Diese Seite ist nur für
-          Peter und seinen Vater freigeschaltet.
-        </p>
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <EmptyState
+          icon="lock"
+          title="Kein Zugriff"
+          text="Bitte zuerst mit deinem Culinse-Konto anmelden. Diese Seite ist nur für Peter und seinen Vater freigeschaltet."
+        />
       </main>
     );
   if (phase === "error")
-    return <main className="max-w-5xl mx-auto px-4 py-16 text-center text-gray-500">Fehler beim Laden — Seite bitte neu laden.</main>;
+    return (
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <Notice tone="error">Fehler beim Laden. Seite bitte neu laden.</Notice>
+      </main>
+    );
 
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
-      <h1 className="text-3xl font-bold text-gray-900">Bilder-Werkstatt</h1>
-      <p className="text-gray-500 text-sm mt-1">
-        Bild in Higgsfield erstellen und herunterladen, hier beim Gericht auf
-        „Neues Bild" klicken — das war&apos;s. Das neue Bild gilt sofort für Deutsch
-        und Englisch gemeinsam. Am besten Querformat verwenden.
-      </p>
+    <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+      <SectionHeader
+        as="h1"
+        title="Bilder-Werkstatt"
+        subtitle="Bild in Higgsfield erstellen und herunterladen, hier beim Gericht auf „Neues Bild“ klicken. Das neue Bild gilt sofort für Deutsch und Englisch gemeinsam. Am besten Querformat verwenden."
+      />
 
-      <div className="mt-6 bg-white rounded-2xl border border-gray-200 shadow-sm p-4">
-        <div className="flex items-center justify-between text-sm font-semibold text-gray-700">
+      <div className="mt-6 border-y border-line py-4">
+        <div className="flex items-center justify-between text-base font-semibold text-ink">
           <span>Fortschritt</span>
-          <span>{done} von {items.length} getauscht</span>
+          <span className="tabular">{done} von {items.length} getauscht</span>
         </div>
-        <div className="mt-2 h-2 rounded-full bg-gray-100 overflow-hidden">
-          <div
-            className="h-full bg-orange-500 transition-all"
-            style={{ width: items.length ? `${(done / items.length) * 100}%` : "0%" }}
-          />
+        <div
+          className="mt-2 h-1.5 overflow-hidden rounded-1 bg-line"
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={items.length}
+          aria-valuenow={done}
+          aria-label="Fortschritt"
+        >
+          <div className="h-full bg-brand" style={{ width: items.length ? `${(done / items.length) * 100}%` : "0%" }} />
         </div>
       </div>
 
-      <div className="mt-6 flex flex-col sm:flex-row gap-3 sm:items-center">
-        <input
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end">
+        <Input
+          className="flex-1"
+          label="Gericht suchen"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Gericht suchen …"
-          className="flex-1 rounded-full border border-gray-200 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+          leadingIcon="search"
+          autoComplete="off"
         />
-        <div className="flex gap-1 rounded-full bg-gray-100 p-1 text-xs font-semibold self-start">
+        <div className="flex gap-2" role="group" aria-label="Filter">
           {([["alle", "Alle"], ["alt", "Noch alt"], ["neu", "Getauscht"]] as [Tab, string][]).map(([key, label]) => (
-            <button
-              key={key}
-              onClick={() => setTab(key)}
-              className={`px-3 py-1.5 rounded-full transition-colors ${tab === key ? "bg-white shadow text-orange-600" : "text-gray-500"}`}
-            >
+            <Chip key={key} active={tab === key} onClick={() => setTab(key)}>
               {label}
-            </button>
+            </Chip>
           ))}
         </div>
       </div>
 
-      {uploadError && (
-        <p className="mt-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{uploadError}</p>
-      )}
+      {uploadError && <Notice tone="error" className="mt-4">{uploadError}</Notice>}
 
-      <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={onFile} />
+      <input ref={fileRef} type="file" accept="image/*" className="sr-only" tabIndex={-1} aria-label="Bilddatei" onChange={onFile} />
 
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {shown.map((g) => (
-          <article key={g.group} className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
-            <div className="relative h-44 bg-gray-100">
+          <article key={g.group} className="flex flex-col">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
               {g.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={optimizedImageUrl(g.image, 640) ?? g.image}
-                  alt={g.titleDe || g.titleEn}
-                  className="w-full h-full object-cover"
+                  alt=""
+                  className="h-full w-full object-cover"
                   loading="lazy"
                 />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-4xl">🍽️</div>
-              )}
-              {g.swapped && (
-                <span className="absolute top-2 right-2 rounded-full bg-green-600 text-white text-xs font-semibold px-2.5 py-1 shadow">
-                  Getauscht ✓
-                </span>
+                <div className="flex h-full w-full items-center justify-center">
+                  <Icon name="utensils" size={32} className="text-line-strong" />
+                </div>
               )}
               {busy === g.group && (
-                <div className="absolute inset-0 bg-white/70 flex items-center justify-center text-sm font-semibold text-gray-700">
+                <div className="absolute inset-0 flex items-center justify-center bg-surface/80 text-base font-semibold text-ink" role="status">
                   Lädt hoch …
                 </div>
               )}
             </div>
-            <div className="p-4 flex-1 flex flex-col">
-              <h2 className="font-semibold text-gray-900 leading-snug">{g.titleDe || g.titleEn}</h2>
-              {g.titleEn && g.titleDe && (
-                <p className="text-xs text-gray-400 mt-0.5">{g.titleEn}</p>
-              )}
-              <button
-                onClick={() => pick(g.group)}
-                disabled={busy !== null}
-                className="mt-3 self-start px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 disabled:opacity-50 transition-colors"
-              >
+            <div className="mt-3 flex flex-1 flex-col">
+              <p className="text-sm text-ink-3">{g.swapped ? "Getauscht" : "Noch altes Bild"}</p>
+              <h2 className="text-h3">{g.titleDe || g.titleEn}</h2>
+              {g.titleEn && g.titleDe && <p className="mt-0.5 text-sm text-ink-3">{g.titleEn}</p>}
+              <Button className="mt-3 self-start" variant="secondary" size="sm" icon="image" onClick={() => pick(g.group)} disabled={busy !== null}>
                 Neues Bild
-              </button>
+              </Button>
             </div>
           </article>
         ))}
       </div>
 
-      {shown.length === 0 && (
-        <p className="mt-10 text-center text-gray-500 text-sm">Nichts gefunden.</p>
-      )}
+      {shown.length === 0 && <p className="mt-10 text-base text-ink-2">Nichts gefunden.</p>}
     </main>
   );
 }

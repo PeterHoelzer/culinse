@@ -11,7 +11,6 @@ import ForYouSection from "./components/ForYouSection";
 import VideoSection from "./components/VideoSection";
 import HowItWorks from "./components/HowItWorks";
 import FamilySection from "./components/FamilySection";
-import CTA from "./components/CTA";
 import HomeFooter from "./components/HomeFooter";
 import type { Recipe } from "./components/home-types";
 
@@ -35,7 +34,16 @@ function scrollToDiscover(smooth = true) {
     ?.scrollIntoView({ behavior: smooth ? "smooth" : "auto" });
 }
 
-export default function Home({ seoSection, initialRecipes }: { seoSection?: ReactNode; initialRecipes?: Recipe[] }) {
+export default function Home({
+  seoSection,
+  initialRecipes,
+  featured,
+}: {
+  seoSection?: ReactNode;
+  initialRecipes?: Recipe[];
+  /** Rezept des Tages für den Hero; fällt auf die erste Discover-Karte zurück. */
+  featured?: Recipe | null;
+}) {
   const [search, setSearch] = useState("");
   const [activeSearch, setActiveSearch] = useState("");
   const [category, setCategory] = useState("All");
@@ -93,14 +101,13 @@ export default function Home({ seoSection, initialRecipes }: { seoSection?: Reac
     <>
       <SharedNavbar />
       <main className="flex-1">
-        <Hero search={search} setSearch={setSearch} onSearch={handleSearch} />
+        <Hero search={search} setSearch={setSearch} onSearch={handleSearch} featured={featured ?? initialRecipes?.[0] ?? null} />
         <ForYouSection user={user} onLoaded={() => {}} />
         <DiscoverSection search={activeSearch} category={category} setCategory={handleSetCategory} user={user} initialRecipes={initialRecipes} />
-        <VideoSection />
         <FamilySection />
+        <VideoSection />
         <HowItWorks />
         <NewsletterBanner />
-        <CTA />
         {seoSection}
       </main>
       <HomeFooter />

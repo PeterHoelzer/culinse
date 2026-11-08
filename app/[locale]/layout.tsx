@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Source_Sans_3, Source_Serif_4 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -8,9 +8,19 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+// Schriftpaar laut DESIGN.md: Source Sans 3 (Text/UI) und Source Serif 4
+// (Überschriften, optische Größe). Beide variabel, selbst gehostet über
+// next/font. Bengali/CJK fallen auf Systemschriften zurück (siehe globals.css).
+const sourceSans = Source_Sans_3({
+  variable: "--font-source-sans",
+  subsets: ["latin", "latin-ext", "cyrillic", "vietnamese"],
+  display: "swap",
+});
+const sourceSerif = Source_Serif_4({
+  variable: "--font-source-serif",
+  subsets: ["latin", "latin-ext", "cyrillic", "vietnamese"],
+  axes: ["opsz"],
+  display: "swap",
 });
 
 const sharedMeta = {
@@ -233,9 +243,9 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = (await import(`../../messages/${locale}.json`)).default;
 
   return (
-    <html lang={locale} className={`${geist.variable} h-full antialiased`}>
+    <html lang={locale} className={`${sourceSans.variable} ${sourceSerif.variable} h-full antialiased`}>
       <head />
-      <body className="min-h-full flex flex-col bg-white text-gray-900">
+      <body className="min-h-full flex flex-col bg-surface text-ink">
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

@@ -28,7 +28,7 @@ export function renderRichText(text: string): ReactNode {
         <Link
           key={key++}
           href={href}
-          className="text-orange-600 font-medium underline decoration-orange-200 underline-offset-2 hover:decoration-orange-500 transition-colors"
+          className="text-brand font-semibold underline underline-offset-[3px] hover:text-brand-hover transition-colors"
         >
           {label}
         </Link>

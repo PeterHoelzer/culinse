@@ -4,9 +4,10 @@ import { useEffect, useState, Fragment } from "react";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Navbar from "@/components/Navbar";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import { Button, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
 
 interface SavedRecipe {
   id: string;
@@ -19,62 +20,45 @@ interface SavedRecipe {
   created_at: string;
 }
 
-const GRADIENTS = [
-  "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
-  "linear-gradient(135deg, #10b981 0%, #065f46 100%)",
-  "linear-gradient(135deg, #84cc16 0%, #15803d 100%)",
-  "linear-gradient(135deg, #f97316 0%, #dc2626 100%)",
-  "linear-gradient(135deg, #ef4444 0%, #7c3aed 100%)",
-  "linear-gradient(135deg, #78350f 0%, #1c1917 100%)",
-];
-const EMOJIS = ["🍝", "🍛", "🥑", "🐟", "🍕", "🍫", "🥗", "🍜", "🥘", "🍲"];
-
-function SavedCard({ recipe, index, onRemove }: { recipe: SavedRecipe; index: number; onRemove: (id: string) => void }) {
+function SavedCard({ recipe, onRemove }: { recipe: SavedRecipe; onRemove: (id: string) => void }) {
+  const t = useTranslations("saved");
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
-  const gradient = GRADIENTS[index % GRADIENTS.length];
-  const emoji = EMOJIS[index % EMOJIS.length];
+  const hasTime = recipe.time && recipe.time !== "—";
+  const meta = [recipe.source, hasTime ? recipe.time : null].filter(Boolean).join(" · ");
+  const addLabel = t.has("addToCollection") ? t("addToCollection") : "Zu Sammlung hinzufügen";
+  const removeLabel = t.has("removeFromSaved") ? t("removeFromSaved") : "Aus Gespeichert entfernen";
 
   return (
     <Fragment>
-      <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:-translate-y-1 hover:shadow-md transition-all duration-200">
-        <Link href={`/recipe/${recipe.recipe_id}`} className="relative h-44 block">
-          {recipe.image && !imgError ? (
-            <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover" onError={() => setImgError(true)} />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center" style={{ background: gradient }}>
-              <span className="text-6xl drop-shadow-lg">{emoji}</span>
-            </div>
-          )}
-          {/* Action buttons */}
-          <div className="absolute top-3 right-3 flex gap-1.5">
-            <button
-              onClick={(e) => { e.preventDefault(); setShowCollectionModal(true); }}
-              title="Add to collection"
-              className="w-8 h-8 rounded-full bg-white/80 hover:bg-white text-gray-400 hover:text-orange-500 flex items-center justify-center text-sm transition-all shadow-sm"
-            >
-              📚
-            </button>
-            <button
-              onClick={(e) => { e.preventDefault(); onRemove(recipe.id); }}
-              title="Remove from saved"
-              className="w-8 h-8 rounded-full bg-white text-orange-500 flex items-center justify-center text-sm hover:bg-red-50 hover:text-red-400 transition-colors shadow-sm"
-            >
-              ♥
-            </button>
+      <div className="relative">
+        <Link href={`/recipe/${recipe.recipe_id}` as "/"} className="group block">
+          <div className="aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
+            {recipe.image && !imgError ? (
+              <img src={recipe.image} alt="" className="h-full w-full object-cover" onError={() => setImgError(true)} />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <Icon name="utensils" size={32} className="text-line-strong" />
+              </div>
+            )}
           </div>
-          <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
-            {recipe.source}
+          <div className="mt-3">
+            {meta && <p className="text-sm text-ink-3 tabular">{meta}</p>}
+            <h3 className="mt-0.5 line-clamp-2 text-h3 group-hover:underline underline-offset-[3px]">{recipe.title}</h3>
           </div>
         </Link>
-        <div className="p-4 flex flex-col gap-2 flex-1">
-          <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">{recipe.title}</h3>
-          <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
-            {recipe.time && recipe.time !== "—" && <span>⏱ {recipe.time}</span>}
-            <Link href={`/recipe/${recipe.recipe_id}`} className="ml-auto text-orange-500 font-medium hover:text-orange-700 transition-colors">
-              Details →
-            </Link>
-          </div>
+        <div className="absolute right-3 top-3 flex gap-2">
+          <Button variant="icon" size="sm" icon="book" aria-label={addLabel} title={addLabel} onClick={() => setShowCollectionModal(true)} />
+          <Button
+            variant="icon"
+            size="sm"
+            icon="heart"
+            iconFilled
+            aria-label={removeLabel}
+            title={removeLabel}
+            onClick={() => onRemove(recipe.id)}
+            className="text-green"
+          />
         </div>
       </div>
 
@@ -123,51 +107,36 @@ export default function SavedPage() {
     setRecipes((prev) => prev.filter((r) => r.id !== id));
   };
 
+  const countLabel = t.has("recipeCount") ? t("recipeCount", { count: recipes.length }) : `${recipes.length} Rezepte`;
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
 
-      {/* Header */}
-      <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="py-10 px-4">
-        <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-1">♥ {t("title")}</h1>
-          <p className="text-orange-100 text-sm">
-            {loading ? "…" : recipes.length === 0 ? t("empty") : `${recipes.length} Rezepte`}
-          </p>
-        </div>
-      </div>
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <SectionHeader as="h1" title={t("title")} subtitle={loading ? t.has("loading") ? t("loading") : "Lädt…" : recipes.length > 0 ? countLabel : undefined} />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        {/* Loading */}
         {loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="bg-gray-100 rounded-2xl h-64 animate-pulse" />
+              <Skeleton key={i} className="aspect-[4/3]" />
             ))}
           </div>
         )}
 
-        {/* Empty state */}
         {!loading && recipes.length === 0 && (
-          <div className="text-center py-24">
-            <div className="text-6xl mb-4">♡</div>
-            <p className="text-xl font-semibold text-gray-800 mb-2">{t("empty")}</p>
-            <p className="text-sm text-gray-500 mb-8">{t("emptySub")}</p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-              style={{ background: "#f97316" }}
-            >
-              {t("discover")}
-            </Link>
-          </div>
+          <EmptyState
+            icon="heart"
+            title={t("empty")}
+            text={t("emptySub")}
+            action={<Button href="/">{t("discover")}</Button>}
+          />
         )}
 
-        {/* Recipe grid */}
         {!loading && recipes.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {recipes.map((recipe, i) => (
-              <SavedCard key={recipe.id} recipe={recipe} index={i} onRemove={handleRemove} />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {recipes.map((recipe) => (
+              <SavedCard key={recipe.id} recipe={recipe} onRemove={handleRemove} />
             ))}
           </div>
         )}

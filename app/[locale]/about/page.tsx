@@ -2,6 +2,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/Navbar";
+import { Button, Icon, type IconName } from "@/components/ui";
+
+// Feste Icon-Zuordnung (die Emoji-Felder in messages werden ignoriert, DESIGN.md §6)
+const VALUE_ICONS: IconName[] = ["utensils", "heart", "star"];
+const VISION_ICONS: IconName[] = ["calendar", "cart", "book", "globe"];
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -92,7 +97,7 @@ export default async function AboutPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -104,96 +109,72 @@ export default async function AboutPage({ params }: Props) {
       />
       <Navbar />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pt-14 pb-20 px-4">
-        <div className="max-w-2xl mx-auto">
-          <span className="text-xs font-semibold uppercase tracking-widest text-orange-200 mb-4 block">
-            {t("ourStory")}
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">
+      <main className="max-w-prose mx-auto px-4 pt-12 sm:pt-16 pb-24">
+        {/* Kopf */}
+        <header>
+          <p className="text-sm text-ink-3 mb-3">{t("ourStory")}</p>
+          <h1 className="text-h1-sm sm:text-h1 mb-5">
             {t("heroTitle1")}<br />{t("heroTitle2")}
           </h1>
-          <p className="text-orange-100 text-lg leading-relaxed max-w-xl">
-            {t("heroSubtitle")}
-          </p>
-        </div>
-      </div>
+          <p className="text-body-lg text-ink-2">{t("heroSubtitle")}</p>
+        </header>
 
-      <main className="max-w-2xl mx-auto px-4 -mt-6 pb-24">
-
-        {/* Story card */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 rounded-full flex items-center justify-center text-2xl font-bold text-white flex-shrink-0" style={{ background: "#f97316" }}>
-              P
-            </div>
-            <div>
-              <p className="font-bold text-gray-900">{t("name")}</p>
-              <p className="text-sm text-gray-400">{t("founderRole")}</p>
-            </div>
-          </div>
-
-          <div className="space-y-5 text-gray-700 leading-relaxed text-base">
-            <p>{t("story1")}</p>
-            <p>{t("story2")}</p>
-            <p>{t("story3")}</p>
-            <p className="font-medium text-gray-900">{t("story4")}</p>
-          </div>
+        {/* Geschichte */}
+        <p className="text-sm text-ink-3 mt-10 mb-4">
+          <span className="font-semibold text-ink">{t("name")}</span> · {t("founderRole")}
+        </p>
+        <div className="space-y-5 text-body-lg">
+          <p>{t("story1")}</p>
+          <p>{t("story2")}</p>
+          <p>{t("story3")}</p>
+          <p className="font-semibold">{t("story4")}</p>
         </div>
 
-        {/* Values */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-          {values.map((v) => (
-            <div key={v.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <div className="text-3xl mb-3">{v.icon}</div>
-              <h3 className="font-bold text-gray-900 mb-1">{v.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{v.desc}</p>
-            </div>
+        {/* Werte */}
+        <ul className="mt-12 space-y-6">
+          {values.map((v, idx) => (
+            <li key={v.title} className="flex gap-4">
+              <Icon name={VALUE_ICONS[idx] ?? "star"} size={24} className="text-ink-3 shrink-0 mt-0.5" />
+              <div>
+                <h3 className="text-h3 mb-1">{v.title}</h3>
+                <p className="text-base text-ink-2">{v.desc}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {/* Vision */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
-          <span className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-4 block">
-            {t("whereWeGoing")}
-          </span>
-          <h2 className="text-2xl font-bold text-gray-900 mb-5">{t("visionTitle")}</h2>
-          <div className="space-y-4">
-            {visionItems.map((item) => (
-              <div key={item.title} className="flex gap-4">
-                <span className="text-2xl flex-shrink-0 mt-0.5">{item.icon}</span>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-0.5">{item.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
-                </div>
+        <p className="text-sm text-ink-3 mt-12 mb-2">{t("whereWeGoing")}</p>
+        <h2 className="text-h2-sm sm:text-h2 mb-6">{t("visionTitle")}</h2>
+        <ul className="space-y-6">
+          {visionItems.map((item, idx) => (
+            <li key={item.title} className="flex gap-4">
+              <Icon name={VISION_ICONS[idx] ?? "star"} size={24} className="text-ink-3 shrink-0 mt-0.5" />
+              <div>
+                <h3 className="text-h3 mb-1">{item.title}</h3>
+                <p className="text-base text-ink-2">{item.desc}</p>
               </div>
-            ))}
-          </div>
-        </div>
+            </li>
+          ))}
+        </ul>
 
         {/* CTA */}
-        <div className="text-center">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "#f97316" }}
-          >
-            {t("discoverCta")}
-          </Link>
-          <p className="text-sm text-gray-400 mt-4">
+        <div className="mt-12">
+          <Button href="/">{t("discoverCta")}</Button>
+          <p className="text-base text-ink-2 mt-5">
             {t("feedbackLabel")}{" "}
-            <a href="mailto:peter@hoelzer.xyz" className="text-orange-500 hover:text-orange-700 transition-colors">
+            <a href="mailto:peter@hoelzer.xyz" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">
               peter@hoelzer.xyz
             </a>
           </p>
         </div>
       </main>
 
-      <footer className="border-t border-gray-100 py-8 px-4 bg-white">
-        <div className="max-w-2xl mx-auto flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-          <Link href="/impressum" className="hover:text-gray-900 transition-colors">Impressum</Link>
-          <Link href="/datenschutz" className="hover:text-gray-900 transition-colors">Datenschutz</Link>
-          <a href="mailto:peter@hoelzer.xyz" className="hover:text-gray-900 transition-colors">Contact</a>
+      <footer className="border-t border-line py-8 px-4">
+        <div className="max-w-prose mx-auto flex flex-wrap gap-6 text-sm text-ink-3">
+          <Link href="/impressum" className="hover:text-ink hover:underline underline-offset-[3px]">Impressum</Link>
+          <Link href="/datenschutz" className="hover:text-ink hover:underline underline-offset-[3px]">Datenschutz</Link>
+          <a href="mailto:peter@hoelzer.xyz" className="hover:text-ink hover:underline underline-offset-[3px]">Contact</a>
         </div>
       </footer>
     </div>

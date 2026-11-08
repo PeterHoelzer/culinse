@@ -8,13 +8,15 @@
     "saved": "Uložené",
     "profile": "Profil",
     "login": "Přihlásit se",
-    "getStarted": "Začít →",
+    "getStarted": "Začít",
     "join": "Přidej se",
     "logout": "Odhlásit se",
-    "upgrade": "✦ Přejít na Pro",
+    "upgrade": "Přejít na Pro",
     "myRecipes": "Moje recepty",
     "calculator": "Kalkulačka",
-    "myRecipesShort": "Recepty"
+    "myRecipesShort": "Recepty",
+    "menu": "Menu",
+    "language": "Jazyk"
   },
   "hero": {
     "badge": "Vytvořeno řeznickým mistrem a šéfkuchařem",
@@ -33,11 +35,15 @@
     "sourcesMobile": "Vlastní recepty · Komunita · Rodina",
     "sourcesDesktop": "Zdroje našich receptů:",
     "freeLabel": "Zdarma k používání · Bez reklamních bannerů",
-    "ctaPlan": "📅 Naplánovat týden zdarma",
-    "ctaBrowse": "Objevit recepty ↓",
+    "ctaPlan": "Naplánovat týden zdarma",
+    "ctaBrowse": "Objevit recepty",
     "trust1": "Zdarma k používání",
     "trust2": "Bez reklamních bannerů",
-    "trust3": "Skutečné ceny z diskontů"
+    "trust3": "Skutečné ceny z diskontů",
+    "featuredLabel": "Recept dne",
+    "searchLabel": "Co chceš vařit?",
+    "toRecipe": "K receptu",
+    "imageNote": "Obrázek vytvořila AI, recept zkontrolovala redakce"
   },
   "categories": [
     "Vše",
@@ -59,13 +65,13 @@
     "Asijská"
   ],
   "trendFilters": {
-    "trending": "🔥 Trendy",
-    "highProtein": "💪 Hodně bílkovin",
-    "lowCarb": "⚡ Málo sacharidů",
-    "keto": "🥑 Keto",
-    "dairyFree": "🥛 Bez laktózy",
-    "mediterranean": "🫒 Středomořské",
-    "forYou": "✨ Pro tebe"
+    "trending": "Trendy",
+    "highProtein": "Hodně bílkovin",
+    "lowCarb": "Málo sacharidů",
+    "keto": "Keto",
+    "dairyFree": "Bez laktózy",
+    "mediterranean": "Středomořské",
+    "forYou": "Pro tebe"
   },
   "timeFilters": {
     "15": "≤ 15 min",
@@ -83,7 +89,7 @@
     "title": "Dnes v trendu",
     "resultsFor": "Výsledky pro „{query}“",
     "loading": "Načítání receptů…",
-    "recipesFound": "Nalezeno receptů: {count} — z nejlepších kulinářských webů světa",
+    "recipesFound": "{count} receptů",
     "loadMore": "Načíst další",
     "loadingMore": "Načítání…",
     "noRecipes": "Nenašli jsme žádné recepty",
@@ -94,49 +100,54 @@
     "allergenFiltered": "{count} alergen odfiltrován",
     "allergensFiltered": "Odfiltrované alergeny: {count}",
     "profileCta": "Nastav si svůj stravovací profil",
-    "profileCtaSub": "Řekni nám, jak se stravuješ a jakým alergenům se vyhýbáš — a dostaneš přehled receptů na míru."
+    "profileCtaSub": "Řekni nám, jak se stravuješ a jakým alergenům se vyhýbáš — a dostaneš přehled receptů na míru.",
+    "allRecipes": "Všechny recepty",
+    "filters": "Filtry",
+    "filtersActive": "{count} aktivní"
   },
   "recipeCard": {
     "servings": "Porce: {count}",
-    "details": "Detail →",
+    "details": "Detail",
     "addToCollection": "Přidat do sbírky",
     "save": "Uložit recept",
     "removeSave": "Odebrat z uložených",
-    "loginToSave": "Pro uložení se přihlas"
+    "loginToSave": "Pro uložení se přihlas",
+    "minutes": "{count} min"
   },
   "forYou": {
-    "title": "✨ Pro tebe",
+    "title": "Pro tebe",
     "subtitle": "Vybráno na míru podle tvého stravovacího profilu",
     "fromActivity": "Podle tvých uložených a naplánovaných receptů",
-    "editProfile": "Upravit profil →"
+    "editProfile": "Upravit profil"
   },
   "videoSection": {
-    "title": "🎬 Videorecepty",
+    "title": "Videorecepty",
     "comingSoonBadge": "Již brzy",
     "comingSoonTitle": "Připravujeme vlastní kuchařská videa",
     "comingSoonText": "Videa krok za krokem čerstvě z kuchyně Culinse — nic konfekčního. Brzy se sem zase podívej!",
     "subtitle": "Sleduj a vař — krok za krokem",
-    "fullRecipe": "Zobrazit recept →",
+    "fullRecipe": "Zobrazit recept",
     "loadMore": "Načíst další videa",
     "loading": "Načítání…",
-    "addToPlan": "+ Naplánovat"
+    "addToPlan": "Naplánovat",
+    "play": "Přehrát video"
   },
   "howItWorks": {
     "title": "Jak Culinse funguje",
     "subtitle": "Přinášíme ti nejlepší recepty z internetu — na míru, snadno dohledatelné a s automatickým nákupním seznamem.",
     "steps": [
       {
-        "icon": "🔍",
+        "icon": "",
         "title": "Hledej a objevuj",
         "desc": "Prohledávej miliony receptů z nejlepších kulinářských webů z celého světa — vše na jednom místě."
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "title": "Ukládej a přizpůsobuj",
         "desc": "Ukládej si recepty, které miluješ. Culinse se naučí tvůj vkus a ukáže ti víc podobných."
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "title": "Nákupní seznam s celkovou cenou v €",
         "desc": "Z tvého týdenního plánu se automaticky stane nákupní seznam — s odhadovanými cenami z diskontů u každé suroviny a celkovou částkou za celý týden."
       }
@@ -145,8 +156,8 @@
   "cta": {
     "title": "Objev recepty ještě dnes.",
     "subtitle": "Začni zdarma, bez povinného předplatného. Prostě skvělé jídlo, vybrané na míru pro tebe.",
-    "button": "Vytvořit účet zdarma →",
-    "buttonLoggedIn": "Otevři svůj týdenní plánovač →"
+    "button": "Vytvořit účet zdarma",
+    "buttonLoggedIn": "Otevři svůj týdenní plánovač"
   },
   "footer": {
     "about": "O nás",
@@ -158,7 +169,14 @@
     "contact": "Kontakt",
     "copyright": "© {year} Culinse. Všechna práva vyhrazena.",
     "planner": "Týdenní plánovač",
-    "calculator": "Nákupní kalkulačka"
+    "calculator": "Nákupní kalkulačka",
+    "explore": "Objevovat",
+    "tools": "Nástroje",
+    "legal": "Právní informace",
+    "tagline": "Recepty z kuchyně, z obchodu a z rodiny. Bez bannerů.",
+    "videos": "Škola vaření",
+    "family": "Rodinné recepty",
+    "collections": "Sbírky receptů"
   },
   "about": {
     "ourStory": "Náš příběh",
@@ -170,44 +188,44 @@
     "visionTitle": "Univerzální platforma pro recepty",
     "values": [
       {
-        "icon": "🍖",
+        "icon": "",
         "title": "Řemeslo",
         "desc": "Vytvořeno někým, kdo léta stál u plotny i za řeznickým pultem."
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "title": "Vášeň",
         "desc": "Jídlo je víc než palivo. Culinse je pro lidi, kteří opravdu rádi vaří."
       },
       {
-        "icon": "✨",
+        "icon": "",
         "title": "Jednoduchost",
         "desc": "Žádné reklamní bannery, žádné povinné předplatné, žádný chaos. Jen recepty, které chceš uvařit."
       }
     ],
     "visionItems": [
       {
-        "icon": "📅",
+        "icon": "",
         "title": "Týdenní plánovač jídel",
         "desc": "Naplánuj si celý týden během pár minut. Culinse vybere recepty podle tvého stravování, tvého rozvrhu a toho, co už máš v lednici."
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "title": "Chytré nákupní seznamy",
         "desc": "Vytvoř si z týdenního plánu automaticky nákupní seznam — nebo ho pošli rovnou své oblíbené službě pro rozvoz nákupů."
       },
       {
-        "icon": "📚",
+        "icon": "",
         "title": "Alba receptů",
         "desc": "Vytvářej vlastní sbírky a sdílej je s přáteli, rodinou nebo s celým světem."
       },
       {
-        "icon": "🌍",
+        "icon": "",
         "title": "Vše na jednom místě",
         "desc": "Jedna platforma. Každý recept. Už žádné záložky v prohlížeči. Od rychlých večeří ve všední den až po ambiciózní víkendové projekty."
       }
     ],
-    "discoverCta": "Objevit recepty →",
+    "discoverCta": "Objevit recepty",
     "feedbackLabel": "Máš dotaz nebo zpětnou vazbu?",
     "story1": "Nejdřív jsem byl šéfkuchařem a vařil jsem v restauracích po celém Německu. Pak mě to táhlo k řeznickému řemeslu — v roce 2024 jsem získal titul řeznického mistra, nejvyšší profesní kvalifikaci v oboru. Jídlo pro mě není nic vedlejšího. Je to všechno.",
     "story2": "Ale i s touhle průpravou byl každodenní problém pořád stejný: najít ten správný recept znamenalo žonglovat s tuctem záložek v prohlížeči, odklikávat cookie lišty a prokousávat se životními příběhy, než se člověk dostal k samotným surovinám. Na něco, co má přinášet radost, to bylo prostě vyčerpávající.",
@@ -236,12 +254,12 @@
     "passwordLabel": "Heslo",
     "passwordPlaceholder": "Min. 6 znaků",
     "forgotPassword": "Zapomenuté heslo?",
-    "loginButton": "Přihlásit se →",
-    "createButton": "Vytvořit účet →",
+    "loginButton": "Přihlásit se",
+    "createButton": "Vytvořit účet",
     "checkInbox": "Zkontroluj si e-mail!",
     "sentTo": "Poslali jsme potvrzovací odkaz na",
     "spamNote": "Klikni na odkaz v e-mailu a aktivuj si účet. Podívej se i do složky se spamem.",
-    "backToLogin": "← Zpět na přihlášení",
+    "backToLogin": "Zpět na přihlášení",
     "or": "nebo",
     "privacyNote": "Pokračováním souhlasíš s našimi",
     "privacyLink": "zásadami ochrany osobních údajů",
@@ -251,15 +269,15 @@
   "profile": {
     "title": "Profil",
     "pageTitle": "Tvůj stravovací profil",
-    "welcomeBanner": "🎉 Vítej v Culinse! Nastav si stravovací profil a dostávej recepty na míru.",
+    "welcomeBanner": "Vítej v Culinse! Nastav si stravovací profil a dostávej recepty na míru.",
     "progress0": "Nastav si své preference a dostávej recepty na míru",
     "progress1": "Dobrý začátek — zbývají 2 kroky",
     "progress2": "Skoro hotovo — zbývá 1 krok",
-    "progress3": "✓ Profil je kompletní — „Pro tebe“ je aktivní!",
+    "progress3": "Profil je kompletní — „Pro tebe“ je aktivní!",
     "planPro": "Culinse Pro",
     "planFree": "Bezplatný tarif",
     "renews": "Obnoví se {date}",
-    "active": "✓ Aktivní",
+    "active": "Aktivní",
     "free": "Zdarma",
     "proFeatures": [
       "Neomezené sbírky",
@@ -280,9 +298,9 @@
     "timeTitle": "Maximální doba vaření",
     "timeSub": "Zobrazovat jen recepty, které opravdu stihneš uvařit.",
     "saving": "Ukládání…",
-    "saved": "✓ Uloženo!",
+    "saved": "Uloženo!",
     "saveButton": "Uložit preference",
-    "back": "← Zpět",
+    "back": "Zpět",
     "dietOptions": [
       {
         "label": "Bez preferencí",
@@ -344,7 +362,7 @@
     "title": "Uložené recepty",
     "empty": "Zatím nemáš žádné uložené recepty",
     "emptySub": "Ulož si recepty, které miluješ, a objeví se tady.",
-    "discover": "Objevit recepty →"
+    "discover": "Objevit recepty"
   },
   "collections": {
     "title": "Moje sbírky",
@@ -359,11 +377,11 @@
     "create": "Vytvořit sbírku",
     "upgradeTitle": "Neomezené sbírky",
     "upgradeSubtext": "Bezplatný tarif zahrnuje 1 sbírku s až 10 recepty. Přejdi na Pro a máš všechno bez omezení.",
-    "upgradeButton": "Přejít na Pro →",
-    "createFirst": "+ Vytvořit první sbírku",
+    "upgradeButton": "Přejít na Pro",
+    "createFirst": "Vytvořit první sbírku",
     "groupDesc": "Seskup své oblíbené recepty do sbírek — jako playlisty, jen pro jídlo.",
     "counter": "{count, plural, one {# sbírka} few {# sbírky} many {# sbírky} other {# sbírek}}",
-    "newButton": "+ Nová",
+    "newButton": "Nová",
     "publicLabel": "Zveřejnit",
     "publicSub": "Kdokoli s odkazem ji uvidí",
     "nameLabel": "Název",
@@ -377,22 +395,22 @@
     "recipeCount": "{count, plural, one {# recept} few {# recepty} many {# receptu} other {# receptů}}",
     "detailBack": "Moje sbírky",
     "publicBadge": "Veřejná",
-    "makePrivate": "🔒 Nastavit jako soukromou",
-    "makePublic": "🌍 Zveřejnit",
-    "share": "↑ Sdílet",
-    "copied": "✓ Odkaz zkopírován!",
+    "makePrivate": "Nastavit jako soukromou",
+    "makePublic": "Zveřejnit",
+    "share": "Sdílet",
+    "copied": "Odkaz zkopírován!",
     "noRecipes": "Zatím žádné recepty",
     "noRecipesSub": "Recepty do této sbírky přidáš na stránce kteréhokoli receptu.",
-    "discoverCta": "Objevit recepty →",
+    "discoverCta": "Objevit recepty",
     "deleteThis": "Smazat tuto sbírku",
     "deleteNamed": "Smazat „{name}“?",
     "yesDelete": "Ano, smazat",
     "removeFromCollection": "Odebrat ze sbírky",
-    "view": "Zobrazit →"
+    "view": "Zobrazit"
   },
   "mealPlanner": {
     "shareWeek": "Sdílet",
-    "shareCopied": "✓ Odkaz zkopírován",
+    "shareCopied": "Odkaz zkopírován",
     "title": "Týdenní plánovač",
     "days": [
       "Po",
@@ -408,8 +426,8 @@
       "Oběd",
       "Večeře"
     ],
-    "addRecipe": "+ Přidat recept",
-    "shoppingList": "🛒 Nákupní seznam",
+    "addRecipe": "Přidat recept",
+    "shoppingList": "Nákupní seznam",
     "clearWeek": "Vyprázdnit týden",
     "thisWeek": "Tento týden",
     "daysFull": [
@@ -427,8 +445,8 @@
     "tapToAdd": "Klepni na políčko a přidej recept.",
     "mealsPlanned": "{n}/21 naplánovaných jídel",
     "namePlanPlaceholder": "Pojmenuj plán…",
-    "proMorePlans": "✦ Pro — více plánů",
-    "newPlan": "+ Nový plán",
+    "proMorePlans": "Pro — více plánů",
+    "newPlan": "Nový plán",
     "dragHint": "Tip: Jídla můžeš přetažením přesouvat nebo prohazovat.",
     "move": "Přesunout",
     "moveHint": "Klepnutím na cílové políčko jídlo přesuneš",
@@ -441,8 +459,8 @@
     "nextWeek": "Další týden",
     "emptyTitle": "Tvůj plán je zatím prázdný",
     "emptySub": "Klepni na políčko a přidej recept ze svých uložených receptů.",
-    "myRecipes": "♥ Moje recepty",
-    "collections": "📚 Sbírky",
+    "myRecipes": "Moje recepty",
+    "collections": "Sbírky",
     "proModalTitle": "Více plánů s Pro",
     "proModalSub": "S Culinse Pro můžeš vytvářet neomezený počet plánů jídel.",
     "proModalButton": "Přejít na Pro — 4,99 € / měsíc",
@@ -475,8 +493,8 @@
     "adding": "Přidávání do plánu…",
     "step3Title": "Tvůj týdenní plán je hotový!",
     "step3Sub": "{count, plural, one {Jedna večeře je naplánována} few {# večeře jsou naplánovány} many {# večeře je naplánováno} other {# večeří je naplánováno}} — a tvůj nákupní seznam je automaticky hotový, včetně množství a odhadovaných nákladů.",
-    "viewList": "🛒 Zobrazit nákupní seznam",
-    "toPlanner": "Do týdenního plánovače →",
+    "viewList": "Zobrazit nákupní seznam",
+    "toPlanner": "Do týdenního plánovače",
     "skip": "Přeskočit — rovnou na úvodní stránku",
     "loadError": "To se bohužel nepovedlo. Zkus to za chvíli znovu.",
     "planName": "Můj týdenní plán"
@@ -497,13 +515,13 @@
     "servings": "Porce",
     "ingredients": "Suroviny",
     "instructions": "Postup",
-    "saveRecipe": "♡ Uložit recept",
-    "savedRecipe": "♥ Uloženo",
+    "saveRecipe": "Uložit recept",
+    "savedRecipe": "Uloženo",
     "saving": "…",
-    "viewOriginal": "Zobrazit originál ↗",
-    "addToPlan": "+ Do týdenního plánu",
+    "viewOriginal": "Zobrazit originál",
+    "addToPlan": "Do týdenního plánu",
     "similarRecipes": "Podobné recepty",
-    "backToDiscover": "← Zpět",
+    "backToDiscover": "Zpět",
     "notFound": "Recept nebyl nalezen",
     "source": "Zdroj",
     "collections": "Sbírky",
@@ -531,22 +549,22 @@
       "Neomezené sbírky receptů",
       "Přednostní podpora"
     ],
-    "upgradeButton": "Přejít na Pro →",
+    "upgradeButton": "Přejít na Pro",
     "processing": "Zpracování…",
-    "currentPlan": "Tvůj aktuální tarif: Pro ✦",
-    "manageButton": "Spravovat předplatné →",
+    "currentPlan": "Tvůj aktuální tarif: Pro",
+    "manageButton": "Spravovat předplatné",
     "heroTitle": "Tvoje kuchyně,\ndokonale zorganizovaná.",
     "heroSubtitle": "Naplánuj si týden, vytvoř nákupní seznam a uspořádej všechny recepty, které miluješ — vše na jednom místě.",
-    "alreadyPro": "✓ Už máš Pro!",
+    "alreadyPro": "Už máš Pro!",
     "freeForAllBadge": "Všechny funkce Pro teď zdarma",
     "freeForAllNote": "Culinse právě rozšiřujeme — všechny funkce Pro jsou odemčené pro všechny uživatele. Stačí se přihlásit a začít plánovat, úplně bez předplatného.",
-    "startButton": "Vyzkoušet 7 dní zdarma →",
+    "startButton": "Vyzkoušet 7 dní zdarma",
     "cancelNote": "7 dní zdarma · Platba až po zkušební době · Zrušit můžeš kdykoli",
     "legalNote": "Platí naše",
     "legalAnd": "a",
     "agbLabel": "obchodní podmínky",
     "widerrufLabel": "poučení o odstoupení od smlouvy",
-    "activeNote": "Používáš Culinse Pro 🎉",
+    "activeNote": "Používáš Culinse Pro",
     "freeLabel": "Zdarma",
     "proLabel": "Pro",
     "everythingInFree": "Vše z tarifu Zdarma a navíc:",
@@ -572,32 +590,32 @@
     "freeFeatures": [
       "Recepty ze 4 špičkových zdrojů",
       "Hledání a filtry podle stravování, času a kuchyně",
-      "Ukládání receptů (♡)",
+      "Ukládání receptů",
       "1 sbírka (až 10 receptů)"
     ],
     "proFeatures": [
       {
-        "icon": "📚",
+        "icon": "",
         "label": "Neomezené sbírky",
         "sub": "Uspořádej si oblíbené recepty přesně podle sebe"
       },
       {
-        "icon": "📅",
+        "icon": "",
         "label": "Týdenní plánovač jídel",
         "sub": "Naplánuj snídaně, obědy a večeře na celý týden"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "label": "Chytrý nákupní seznam",
         "sub": "Automaticky vytvořený z tvého plánu, seřazený podle kategorií"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "label": "Neomezené ukládání receptů",
         "sub": "Žádný limit 25 receptů — ulož si všechno, co ti chutná"
       },
       {
-        "icon": "⚡",
+        "icon": "",
         "label": "Přednostní přístup k novinkám",
         "sub": "Jako první vyzkoušíš všechno, na čem pracujeme"
       }
@@ -609,32 +627,36 @@
     "annualPrice": "3,24 € / měsíc",
     "annualTotal": "38,88 € / rok",
     "monthlyPrice": "4,99 € / měsíc",
-    "annualStartButton": "Vyzkoušet 7 dní zdarma →",
+    "annualStartButton": "Vyzkoušet 7 dní zdarma",
     "billedAnnually": "Účtováno ročně",
     "billedMonthly": "Účtováno měsíčně"
   },
   "blog": {
     "title": "Blog Culinse",
     "subtitle": "Tipy, návody a nápady, jak vařit chytřeji.",
-    "readMore": "Číst dál →",
-    "backToBlog": "← Zpět na blog",
-    "minRead": "min čtení"
+    "readMore": "Číst dál",
+    "backToBlog": "Zpět na blog",
+    "minRead": "min čtení",
+    "loadMore": "Zobrazit další články"
   },
   "error": {
     "notFound": "Stránka nenalezena",
     "notFoundSub": "Stránka, kterou hledáš, neexistuje.",
-    "backHome": "Zpět na úvodní stránku"
+    "backHome": "Zpět na úvodní stránku",
+    "title": "Něco se pokazilo",
+    "retry": "Zkusit znovu"
   },
   "newsletter": {
     "title": "Získej 7denní plán na meal prep (PDF)",
     "subtitle": "Kompletní týdenní plán s blokem na předpřípravu, nákupním seznamem k odškrtávání a tipy od šéfkuchaře — zdarma v PDF. K tomu každý týden ty nejlepší nápady na recepty. Žádný spam, odhlásit se můžeš kdykoli.",
     "placeholder": "tvuj@email.cz",
     "button": "Přihlásit k odběru",
-    "success": "🎉 Díky! Brzy ti od nás přijde e-mail.",
+    "success": "Díky! Brzy ti od nás přijde e-mail.",
     "error": "Něco se pokazilo. Zkus to prosím znovu.",
     "already": "Tento e-mail už je přihlášený k odběru.",
     "sending": "Přihlašování…",
-    "download": "📄 Stáhnout plán teď (PDF)"
+    "download": "Stáhnout plán teď (PDF)",
+    "emailLabel": "E-mailová adresa"
   },
   "loginPrompt": {
     "title": "Uložit recept",
@@ -654,13 +676,13 @@
     "maybeLater": "Možná později",
     "proFeature": "Funkce Pro",
     "proUnlock": "Přejdi na Pro a odemkni tohle i mnohem víc.",
-    "proFrom": "Od 4,99 €/měsíc →",
+    "proFrom": "Od 4,99 €/měsíc",
     "addToCollection": "Přidat do sbírky",
     "noCollections": "Zatím žádné sbírky",
     "createOneBelow": "Níže si jednu vytvoř",
     "collectionNamePlaceholder": "Název sbírky…",
     "create": "Vytvořit",
-    "newCollection": "+ Nová sbírka",
+    "newCollection": "Nová sbírka",
     "fullUpgrade": "Plná — víc místa s Pro",
     "cancel": "Zrušit",
     "loading": "Načítání…",
@@ -669,16 +691,16 @@
     "day": "Den",
     "meal": "Jídlo",
     "planNamePlaceholder": "Pojmenuj svůj plán…",
-    "proMorePlans": "✦ Pro — více plánů",
+    "proMorePlans": "Pro — více plánů",
     "saving": "Ukládání…",
     "addToPlanButton": "Přidat do plánu",
     "chooseRecipeFor": "Výběr receptu:",
     "myRecipesTab": "Moje recepty",
     "noSavedRecipes": "Zatím žádné uložené recepty",
     "emptyCollection": "Tato sbírka je prázdná",
-    "saveHint": "Recepty si ulož pomocí ♡ na úvodní stránce.",
-    "addHint": "Recepty do této sbírky přidáš pomocí 📚.",
-    "shoppingTitle": "🛒 Nákupní seznam",
+    "saveHint": "Recepty si ulož pomocí na úvodní stránce.",
+    "addHint": "Recepty do této sbírky přidáš pomocí .",
+    "shoppingTitle": "Nákupní seznam",
     "recipesCount": "Počet receptů: {count}",
     "done": "hotovo",
     "reset": "Resetovat",
@@ -686,15 +708,22 @@
     "noRecipesInPlan": "V plánu nejsou žádné recepty",
     "addRecipesFirst": "Nejdřív přidej recepty do svého týdenního plánu.",
     "noIngredients": "Nenašli jsme žádné suroviny — některé zdroje seznamy surovin nepodporují.",
-    "orderGroceries": "🛒 Objednat potraviny na Amazonu",
+    "orderGroceries": "Objednat potraviny na Amazonu",
     "affiliateNote": "Affiliate odkaz — nic tě nestojí navíc",
     "allDone": "Vše hotovo!",
-    "boughtAll": "Máš nakoupené všechny suroviny."
+    "boughtAll": "Máš nakoupené všechny suroviny.",
+    "close": "Zavřít",
+    "collectionName": "Název sbírky",
+    "planName": "Název plánu",
+    "newPlan": "Nový plán",
+    "upgradeFeatureSave": "Ukládej recepty bez omezení",
+    "upgradeFeatureCollections": "Sbírky bez omezení",
+    "upgradeFeaturePlans": "Více týdenních plánů"
   },
   "proSuccess": {
     "title": "Vítej v Culinse Pro!",
     "subtitle": "Tvoje předplatné je aktivní. Teď máš přístup k neomezeným sbírkám, týdennímu plánovači a chytrým nákupním seznamům.",
-    "goCollections": "📚 Do mých sbírek",
+    "goCollections": "Do mých sbírek",
     "discover": "Objevit recepty"
   },
   "allStates": "Všechny spolkové země"

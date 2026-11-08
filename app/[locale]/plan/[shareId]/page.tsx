@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/navigation";
 import Navbar from "@/components/Navbar";
+import { Button, Icon, Notice } from "@/components/ui";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
@@ -103,82 +104,80 @@ export default async function SharedPlanPage(
   const dayIndexes = [...byDay.keys()].sort((a, b) => a - b);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
-      <main className="max-w-3xl mx-auto px-4 py-10">
-        <p className="text-xs font-semibold text-orange-500 uppercase tracking-wide text-center mb-2">
-          {t("badge")}
-        </p>
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-2">
-          {share.estTotal != null
-            ? t("titleWithCost", { cost: formatEuro(share.estTotal, locale) })
-            : t("title")}
-        </h1>
-        <p className="text-sm text-gray-500 text-center mb-8">
-          {t("subtitle", { count: share.totalRecipes, date: formatWeek(share.weekStart, locale) })}
-        </p>
-
-        {share.estTotal != null && (
-          <div className="bg-orange-50 border border-orange-100 rounded-2xl px-5 py-4 mb-8 flex items-baseline justify-between">
-            <span className="text-sm font-semibold text-gray-700">{t("estCost")}</span>
-            <span className="text-xl font-bold text-orange-600">{formatEuro(share.estTotal, locale)}</span>
-          </div>
-        )}
-
-        <div className="space-y-6 mb-10">
-          {dayIndexes.map((day) => (
-            <section key={day}>
-              <h2 className="text-sm font-bold text-gray-900 mb-2">{DAYS_FULL[day] ?? `Tag ${day + 1}`}</h2>
-              <div className="space-y-2">
-                {(byDay.get(day) ?? [])
-                  .sort((a, b) => (SLOT_INDEX[a.slot] ?? 9) - (SLOT_INDEX[b.slot] ?? 9))
-                  .map((r) => (
-                    <Link
-                      key={`${day}-${r.slot}`}
-                      href={`/recipe/${r.id}`}
-                      className="flex items-center gap-4 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-200 transition-all p-3"
-                    >
-                      {r.image ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={r.image} alt={r.title} loading="lazy" className="w-16 h-16 rounded-xl object-cover flex-shrink-0" />
-                      ) : (
-                        <span className="w-16 h-16 rounded-xl bg-orange-50 flex items-center justify-center text-2xl flex-shrink-0">🍳</span>
-                      )}
-                      <span className="flex-1 min-w-0">
-                        <span className="block text-xs font-semibold text-orange-500 mb-0.5">
-                          {MEALS[SLOT_INDEX[r.slot] ?? 2] ?? r.slot}
-                        </span>
-                        <span className="block text-sm font-semibold text-gray-900 leading-snug line-clamp-2">{r.title}</span>
-                        {r.time ? <span className="block text-xs text-gray-400 mt-0.5">⏱ {r.time} min</span> : null}
-                      </span>
-                      <span className="text-gray-300 flex-shrink-0">→</span>
-                    </Link>
-                  ))}
-              </div>
-            </section>
-          ))}
-        </div>
-
-        {share.estTotal != null && (
-          <p className="text-xs text-gray-400 text-center mb-10">
-            {t("estCostHint", { priced: share.pricedRecipes, total: share.totalRecipes })}
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-prose">
+          <p className="mb-2 text-sm text-ink-3">{t("badge")}</p>
+          <h1 className="text-h1-sm sm:text-h1">
+            {share.estTotal != null
+              ? t("titleWithCost", { cost: formatEuro(share.estTotal, locale) })
+              : t("title")}
+          </h1>
+          <p className="mt-2 mb-8 text-body-lg text-ink-2">
+            {t("subtitle", { count: share.totalRecipes, date: formatWeek(share.weekStart, locale) })}
           </p>
-        )}
 
-        {/* Viraler Loop: Jede geteilte Woche wirbt fuer den Planer. */}
-        <section
-          className="rounded-3xl p-8 text-center text-white"
-          style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-        >
-          <h2 className="text-xl sm:text-2xl font-bold mb-2">{t("ctaTitle")}</h2>
-          <p className="text-sm text-orange-50 mb-6 max-w-md mx-auto">{t("ctaText")}</p>
-          <Link
-            href="/"
-            className="inline-block px-8 py-3.5 rounded-full bg-white text-orange-600 text-sm font-bold shadow-lg hover:scale-105 transition-transform"
-          >
-            {t("ctaButton")}
-          </Link>
-        </section>
+          {share.estTotal != null && (
+            <Notice tone="info" className="mb-8">
+              <span className="flex flex-wrap items-baseline justify-between gap-2">
+                <span className="font-semibold">{t("estCost")}</span>
+                <span className="text-h3 font-serif tabular">{formatEuro(share.estTotal, locale)}</span>
+              </span>
+            </Notice>
+          )}
+
+          <div className="mb-10 space-y-8">
+            {dayIndexes.map((day) => (
+              <section key={day} aria-labelledby={`share-day-${day}`}>
+                <h2 id={`share-day-${day}`} className="mb-3 border-b border-line pb-2 text-h3">
+                  {DAYS_FULL[day] ?? `Tag ${day + 1}`}
+                </h2>
+                <ul className="divide-y divide-line">
+                  {(byDay.get(day) ?? [])
+                    .sort((a, b) => (SLOT_INDEX[a.slot] ?? 9) - (SLOT_INDEX[b.slot] ?? 9))
+                    .map((r) => (
+                      <li key={`${day}-${r.slot}`}>
+                        <Link href={`/recipe/${r.id}` as "/"} className="group flex items-center gap-4 py-3">
+                          <span className="h-16 w-16 shrink-0 overflow-hidden rounded-2 bg-surface-soft">
+                            {r.image ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={r.image} alt="" loading="lazy" className="h-full w-full object-cover" />
+                            ) : (
+                              <span className="flex h-full w-full items-center justify-center">
+                                <Icon name="utensils" size={24} className="text-line-strong" />
+                              </span>
+                            )}
+                          </span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-sm text-ink-3 tabular">
+                              {MEALS[SLOT_INDEX[r.slot] ?? 2] ?? r.slot}
+                              {r.time ? ` · ${r.time} min` : ""}
+                            </span>
+                            <span className="line-clamp-2 block text-base font-semibold text-ink group-hover:underline underline-offset-[3px]">{r.title}</span>
+                          </span>
+                          <Icon name="chevronRight" size={20} className="shrink-0 text-ink-3" />
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+
+          {share.estTotal != null && (
+            <p className="mb-10 text-caption text-ink-3">
+              {t("estCostHint", { priced: share.pricedRecipes, total: share.totalRecipes })}
+            </p>
+          )}
+
+          {/* Jede geteilte Woche wirbt für den Planer. */}
+          <section className="rounded-2 bg-surface-soft p-6">
+            <h2 className="text-h2-sm">{t("ctaTitle")}</h2>
+            <p className="mt-2 mb-5 text-base text-ink-2">{t("ctaText")}</p>
+            <Button href="/">{t("ctaButton")}</Button>
+          </section>
+        </div>
       </main>
     </div>
   );

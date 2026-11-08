@@ -87,7 +87,7 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
 async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=6`,
+      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=7`,
       { next: { revalidate: 900 } }
     );
     if (!res.ok) return [];
@@ -96,6 +96,13 @@ async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   } catch {
     return [];
   }
+}
+
+// Die Rezept-API liefert Supabase-Render-URLs mit width/height=640 (Karten).
+// Fürs Hero-Foto heben wir die Größe an; fremde URLs bleiben unverändert.
+function heroImageUrl(url: string | null): string | null {
+  if (!url || !url.includes("/storage/v1/render/image/public/")) return url;
+  return url.replace(/width=\d+&height=\d+/, "width=1280&height=1280");
 }
 
 const OG_LOCALES: Record<string, string> = {
@@ -245,20 +252,26 @@ export default async function Page({
     fetchInitialRecipes(locale),
   ]);
 
-  // LCP-Boost (E2): Das erste Kartenbild ist auf Mobil das LCP-Element.
-  // Per Preload-Hint startet der Download mit dem HTML-Parsen, statt mit
-  // dem JS-Bundle um die Bandbreite zu konkurrieren.
-  if (initialRecipes[0]?.image) {
-    preload(initialRecipes[0].image, { as: "image", fetchPriority: "high" });
+  // Rezept des Tages = erste Discover-Karte, fürs Hero-Foto (3:2, volle
+  // Spaltenbreite) in höherer Auflösung als die 640er-Kartenvariante.
+  const heroRecipe: Recipe | null = initialRecipes[0]
+    ? { ...initialRecipes[0], image: heroImageUrl(initialRecipes[0].image) }
+    : null;
+
+  // LCP-Boost: Das Hero-Foto ist das LCP-Element. Per Preload-Hint startet
+  // der Download mit dem HTML-Parsen, statt mit dem JS-Bundle um die
+  // Bandbreite zu konkurrieren.
+  if (heroRecipe?.image) {
+    preload(heroRecipe.image, { as: "image", fetchPriority: "high" });
   }
   const isDE = locale === "de";
   const seoSection = (
-    <section className="bg-white border-t border-gray-100 py-14 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
+    <section className="mx-auto max-w-content border-t border-line px-4 py-12 sm:px-6 sm:py-16">
+      <div>
+        <h2 className="text-h2-sm sm:text-h2 mb-2">
           {isDE ? "Neu im Rezeptkatalog" : "New in the recipe catalog"}
         </h2>
-        <p className="text-sm text-gray-500 mb-6 max-w-2xl">
+        <p className="mb-6 max-w-prose text-base text-ink-2">
           {isDE
             ? "Frisch redaktionell geprüfte Rezepte – jedes mit Nährwerten, automatischer Einkaufsliste und Preisschätzung auf Discounter-Niveau."
             : "Freshly reviewed recipes — each with nutrition facts, an automatic shopping list and a discount-store price estimate."}
@@ -269,7 +282,7 @@ export default async function Page({
               <li key={r.id}>
                 <Link
                   href={`/${locale}/recipe/${r.id}`}
-                  className="text-sm text-gray-700 hover:text-orange-600 transition-colors"
+                  className="text-base text-ink transition-colors hover:underline underline-offset-[3px]"
                 >
                   {r.title}
                 </Link>
@@ -277,20 +290,20 @@ export default async function Page({
             ))}
           </ul>
         )}
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium">
-          <Link href={`/${locale}/grocery-list-calculator`} className="text-orange-600 hover:text-orange-700">
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-base font-semibold">
+          <Link href={`/${locale}/grocery-list-calculator`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
             {isDE ? "Einkaufsrechner für Lebensmittel" : "Grocery cost calculator"}
           </Link>
-          <Link href={`/${locale}/weekly-meal-planner`} className="text-orange-600 hover:text-orange-700">
+          <Link href={`/${locale}/weekly-meal-planner`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
             {isDE ? "Wochenplaner mit Einkaufsliste" : "Weekly meal planner with shopping list"}
           </Link>
-          <Link href={`/${locale}/blog/${isDE ? "meal-prep-fuer-anfaenger" : "meal-prep-for-beginners"}`} className="text-orange-600 hover:text-orange-700">
+          <Link href={`/${locale}/blog/${isDE ? "meal-prep-fuer-anfaenger" : "meal-prep-for-beginners"}`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
             {isDE ? "Meal Prepping für Anfänger" : "Meal prep for beginners"}
           </Link>
-          <Link href={`/${locale}/blog`} className="text-orange-600 hover:text-orange-700">
+          <Link href={`/${locale}/blog`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
             {isDE ? "Ratgeber: Planung, Budget & Meal Prep" : "Guides: planning, budget & meal prep"}
           </Link>
-          <Link href={`/${locale}/collections/explore`} className="text-orange-600 hover:text-orange-700">
+          <Link href={`/${locale}/collections/explore`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
             {isDE ? "Rezept-Kollektionen" : "Recipe collections"}
           </Link>
         </div>
@@ -313,7 +326,7 @@ export default async function Page({
 
       {/* Full interactive page — Next.js SSRs this to real HTML on first load */}
       <ErrorBoundary>
-        <HomeClient seoSection={seoSection} initialRecipes={initialRecipes} />
+        <HomeClient seoSection={seoSection} initialRecipes={heroRecipe ? initialRecipes.slice(1) : initialRecipes} featured={heroRecipe} />
       </ErrorBoundary>
     </>
   );

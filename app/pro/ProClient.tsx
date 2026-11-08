@@ -7,6 +7,7 @@ import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { FREE_FOR_ALL } from "@/lib/freeMode";
+import { Button, Chip, Icon, Notice } from "@/components/ui";
 
 export default function ProPage() {
   const t = useTranslations("pro");
@@ -56,192 +57,142 @@ export default function ProPage() {
     else setLoading(false);
   };
 
+  const primaryLabel = plan === "annual" ? t("annualStartButton") : t("startButton");
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
 
-      {/* Hero */}
-      <div
-        className="py-16 px-4 text-center"
-        style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-      >
-        <div className="max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-white/20 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
-            ✦ Culinse Pro
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">
+      <main className="max-w-content mx-auto px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16 pb-24">
+        {/* Hero */}
+        <header className="max-w-prose">
+          <p className="text-sm text-ink-3 mb-3">Culinse Pro</p>
+          <h1 className="text-display-sm md:text-display mb-5">
             {t("heroTitle").split("\n").map((line, i) => (
               <span key={i}>{line}{i === 0 && <br />}</span>
             ))}
           </h1>
-          <p className="text-orange-100 text-lg mb-8 max-w-md mx-auto">
-            {t("heroSubtitle")}
-          </p>
+          <p className="text-body-lg text-ink-2 mb-8">{t("heroSubtitle")}</p>
 
           {FREE_FOR_ALL ? (
-            <div className="inline-flex items-center gap-2 bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base">
-              🎉 {t("freeForAllBadge")}
-            </div>
+            <Notice tone="success">{t("freeForAllBadge")}</Notice>
           ) : isPro ? (
-            <div className="inline-flex items-center gap-2 bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base">
-              {t("alreadyPro")}
-            </div>
+            <Notice tone="success">{t("alreadyPro")}</Notice>
           ) : (
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-start gap-4">
               {/* Plan toggle */}
-              <div className="inline-flex bg-white/20 rounded-full p-1 gap-1">
-                <button
-                  onClick={() => setPlan("monthly")}
-                  className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                    plan === "monthly"
-                      ? "bg-white text-orange-500 shadow"
-                      : "text-white/80 hover:text-white"
-                  }`}
-                >
+              <div role="group" aria-label={`${t("monthlyLabel")} / ${t("annualLabel")}`} className="flex flex-wrap gap-2">
+                <Chip active={plan === "monthly"} onClick={() => setPlan("monthly")}>
                   {t("monthlyLabel")}
-                </button>
-                <button
-                  onClick={() => setPlan("annual")}
-                  className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all flex items-center gap-1.5 ${
-                    plan === "annual"
-                      ? "bg-white text-orange-500 shadow"
-                      : "text-white/80 hover:text-white"
-                  }`}
-                >
-                  {t("annualLabel")}
-                  <span className="text-xs bg-green-400 text-white px-1.5 py-0.5 rounded-full font-bold">
-                    {t("annualSave")}
-                  </span>
-                </button>
+                </Chip>
+                <Chip active={plan === "annual"} onClick={() => setPlan("annual")}>
+                  {t("annualLabel")}, {t("annualSave")}
+                </Chip>
               </div>
 
-              <button
-                onClick={handleUpgrade}
-                disabled={loading}
-                className="bg-white text-orange-500 font-bold px-8 py-3.5 rounded-full text-base hover:bg-orange-50 transition-colors shadow-lg disabled:opacity-60"
-              >
-                {loading ? t("processing") : plan === "annual" ? t("annualStartButton") : t("startButton")}
-              </button>
-              <p className="text-orange-200 text-xs">{t("cancelNote")}</p>
+              <Button onClick={handleUpgrade} loading={loading}>
+                {primaryLabel}
+              </Button>
+              <p className="text-caption text-ink-3">{t("cancelNote")}</p>
             </div>
           )}
-        </div>
-      </div>
+        </header>
 
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-
-        {/* Comparison table */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
-
+        {/* Tarife */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-14 max-w-4xl">
           {/* Free */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">{t("freeLabel")}</p>
-            <p className="text-2xl font-bold text-gray-900 mb-4">€0</p>
-            <ul className="space-y-2.5">
+          <section aria-labelledby="plan-free" className="border border-line rounded-2 p-8">
+            <h2 id="plan-free" className="text-h3 mb-2">{t("freeLabel")}</h2>
+            <p className="font-serif text-display-sm tabular mb-6">€0</p>
+            <ul className="space-y-3">
               {freeFeatures.map((f) => (
-                <li key={f} className="flex items-start gap-2.5 text-sm text-gray-600">
-                  <span className="text-gray-300 flex-shrink-0 mt-0.5">✓</span>
+                <li key={f} className="flex items-start gap-3 text-base text-ink">
+                  <Icon name="check" size={20} className="text-green shrink-0 mt-0.5" />
                   {f}
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
 
           {/* Pro */}
-          <div
-            className="rounded-2xl p-6 relative overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)", border: "2px solid #f97316" }}
-          >
-            <div className="absolute top-4 right-4 bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">
-              PRO
-            </div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-1">{t("proLabel")}</p>
-            <div className="flex items-baseline gap-1 mb-0.5">
-              <p className="text-2xl font-bold text-gray-900">
-                {plan === "annual" ? t("annualPrice") : t("monthlyPrice")}
-              </p>
-            </div>
+          <section aria-labelledby="plan-pro" className="border-2 border-brand rounded-2 p-8">
+            <h2 id="plan-pro" className="text-h3 mb-2">{t("proLabel")}</h2>
+            <p className="font-serif text-display-sm tabular">
+              {plan === "annual" ? t("annualPrice") : t("monthlyPrice")}
+            </p>
             {plan === "annual" && (
-              <p className="text-xs text-green-600 font-semibold mb-0.5">{t("annualTotal")}</p>
+              <p className="text-sm text-green font-semibold tabular mt-1">{t("annualTotal")}</p>
             )}
-            <p className="text-xs text-gray-400 mb-4">
+            <p className="text-sm text-ink-3 mt-1 mb-6">
               {plan === "annual" ? t("billedAnnually") : t("billedMonthly")}
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {proFeatures.map((f) => (
                 <li key={f.label} className="flex items-start gap-3">
-                  <span className="text-xl flex-shrink-0">{f.icon}</span>
+                  <Icon name="check" size={20} className="text-green shrink-0 mt-0.5" />
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">{f.label}</p>
-                    <p className="text-xs text-gray-500">{f.sub}</p>
+                    <p className="text-base font-semibold text-ink">{f.label}</p>
+                    <p className="text-sm text-ink-2">{f.sub}</p>
                   </div>
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
         </div>
 
         {/* CTA */}
-        <div className="text-center mb-10">
+        <div className="max-w-prose mt-10">
           {FREE_FOR_ALL ? (
-            <p className="text-sm text-gray-600">{t("freeForAllNote")}</p>
+            <p className="text-body-lg text-ink-2">{t("freeForAllNote")}</p>
           ) : isPro ? (
-            <div className="space-y-3">
-              <p className="text-sm text-gray-500">{t("activeNote")}</p>
-              <button
-                onClick={handlePortal}
-                disabled={loading}
-                className="px-6 py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-60"
-              >
-                {loading ? t("processing") : t("manageButton")}
-              </button>
+            <div className="flex flex-col items-start gap-3">
+              <p className="text-base text-ink-2">{t("activeNote")}</p>
+              <Button variant="secondary" onClick={handlePortal} loading={loading}>
+                {t("manageButton")}
+              </Button>
             </div>
           ) : (
-            <div className="space-y-3">
-              <button
-                onClick={handleUpgrade}
-                disabled={loading}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-bold text-base hover:opacity-90 transition-opacity shadow-md disabled:opacity-60"
-                style={{ background: "#f97316" }}
-              >
-                {loading ? t("processing") : plan === "annual" ? t("annualStartButton") : t("upgradeButton")}
-              </button>
-              <p className="text-xs text-gray-400">{t("cancelNote")}</p>
-              <p className="text-[11px] text-gray-400 mt-1">
+            <div className="flex flex-col items-start gap-3">
+              <Button onClick={handleUpgrade} loading={loading}>
+                {primaryLabel}
+              </Button>
+              <p className="text-caption text-ink-3">{t("cancelNote")}</p>
+              <p className="text-caption text-ink-3">
                 {t("legalNote")}{" "}
-                <Link href="/agb" className="underline hover:text-orange-500">{t("agbLabel")}</Link>
+                <Link href="/agb" className="underline underline-offset-[3px] hover:text-brand">{t("agbLabel")}</Link>
                 {" "}{t("legalAnd")}{" "}
-                <Link href="/widerruf" className="underline hover:text-orange-500">{t("widerrufLabel")}</Link>.
+                <Link href="/widerruf" className="underline underline-offset-[3px] hover:text-brand">{t("widerrufLabel")}</Link>.
               </p>
             </div>
           )}
         </div>
 
         {/* FAQ */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-5">
-          <h2 className="text-lg font-bold text-gray-900">{t("faqTitle")}</h2>
-          {faqItems.map(({ q, a }) => (
-            <div key={q} className="border-b border-gray-50 last:border-0 pb-4 last:pb-0">
-              <p className="text-sm font-semibold text-gray-800 mb-1">{q}</p>
-              <p className="text-sm text-gray-500 leading-relaxed">{a}</p>
-            </div>
-          ))}
-        </div>
+        <div className="max-w-prose">
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{t("faqTitle")}</h2>
+          <div className="border-b border-line">
+            {faqItems.map(({ q, a }) => (
+              <details key={q} className="border-t border-line py-4">
+                <summary className="cursor-pointer font-serif text-h3 text-ink">{q}</summary>
+                <p className="text-body-lg text-ink-2 mt-3">{a}</p>
+              </details>
+            ))}
+          </div>
 
-        {/* Footer note */}
-        <p className="text-center text-xs text-gray-400 mt-8">
-          {t("questions")}{" "}
-          <a href="mailto:peter@hoelzer.xyz" className="text-orange-500 hover:underline">
-            peter@hoelzer.xyz
-          </a>
-        </p>
+          <p className="text-base text-ink-2 mt-8">
+            {t("questions")}{" "}
+            <a href="mailto:peter@hoelzer.xyz" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">
+              peter@hoelzer.xyz
+            </a>
+          </p>
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 py-8 px-4 bg-white">
-        <div className="max-w-2xl mx-auto flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-          <Link href="/impressum" className="hover:text-gray-900 transition-colors">Impressum</Link>
-          <Link href="/datenschutz" className="hover:text-gray-900 transition-colors">Datenschutz</Link>
+      <footer className="border-t border-line py-8 px-4">
+        <div className="max-w-content mx-auto sm:px-6 lg:px-10 flex flex-wrap gap-6 text-sm text-ink-3">
+          <Link href="/impressum" className="hover:text-ink hover:underline underline-offset-[3px]">Impressum</Link>
+          <Link href="/datenschutz" className="hover:text-ink hover:underline underline-offset-[3px]">Datenschutz</Link>
         </div>
       </footer>
     </div>

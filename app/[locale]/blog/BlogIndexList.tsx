@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Link } from "@/lib/navigation";
+import { Button, Chip, ChipRow } from "@/components/ui";
 
 // Leichtgewichtige Post-Daten für den Index — die vollen BlogPost-Objekte
 // (mit sections) bleiben auf dem Server.
@@ -14,30 +15,16 @@ export interface LitePost {
   image?: string;
 }
 
-// Dezente visuelle Anker pro Kategorie (DE + EN)
-const CATEGORY_EMOJI: Record<string, string> = {
-  "Meal Prep": "🍱",
-  "Wochenplanung": "📅",
-  "Meal Planning": "📅",
-  "Mahlzeitenplanung": "📋",
-  "Ernährung": "💪",
-  "Nutrition": "💪",
-  "Gesunde Ernährung": "🥗",
-  "Healthy Eating": "🥗",
-  "Budgetküche": "💶",
-  "Budget Cooking": "💶",
-  "Abendessen-Ideen": "🍽️",
-  "Dinner Ideas": "🍽️",
-  "Vegetarisch": "🥦",
-  "Vegetarian": "🥦",
-  "Saisonale Küche": "🌽",
-  "Tools & Apps": "🛠️",
-  Kochschule: "🔪",
-  "Kitchen Skills": "🔪",
-};
+const PAGE_SIZE = 12;
+
+// Emojis (Piktogramme, Variationsselektoren, Joiner) aus Kategorienamen entfernen.
+const EMOJI_RE = /[\p{Extended_Pictographic}‍️]/gu;
+const plain = (s: string) => s.replace(EMOJI_RE, "").replace(/\s+/g, " ").trim();
 
 export default function BlogIndexList({ posts, locale }: { posts: LitePost[]; locale: string }) {
+  const de = locale === "de";
   const [active, setActive] = useState<string | null>(null);
+  const [limit, setLimit] = useState(PAGE_SIZE);
 
   // Kategorien nach Häufigkeit sortiert — die wichtigsten Chips zuerst
   const categories = useMemo(() => {
@@ -47,75 +34,66 @@ export default function BlogIndexList({ posts, locale }: { posts: LitePost[]; lo
   }, [posts]);
 
   const visible = active ? posts.filter((p) => p.category === active) : posts;
+  const remaining = Math.max(0, visible.length - limit);
+
+  const select = (cat: string | null) => {
+    setActive(cat);
+    setLimit(PAGE_SIZE);
+  };
 
   return (
     <>
-      {/* Kategorie-Filter */}
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
-        <button
-          onClick={() => setActive(null)}
-          className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
-            active === null
-              ? "text-white border-orange-500"
-              : "bg-white text-gray-600 border-gray-200 hover:border-orange-200"
-          }`}
-          style={active === null ? { background: "#f97316" } : {}}
-        >
-          {locale === "de" ? "Alle" : "All"} ({posts.length})
-        </button>
+      <ChipRow className="mb-10" >
+        <Chip active={active === null} onClick={() => select(null)}>
+          {de ? "Alle" : "All"} ({posts.length})
+        </Chip>
         {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActive(active === cat ? null : cat)}
-            className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
-              active === cat
-                ? "text-white border-orange-500"
-                : "bg-white text-gray-600 border-gray-200 hover:border-orange-200"
-            }`}
-            style={active === cat ? { background: "#f97316" } : {}}
-          >
-            {CATEGORY_EMOJI[cat] ?? "📄"} {cat}
-          </button>
+          <Chip key={cat} active={active === cat} onClick={() => select(active === cat ? null : cat)}>
+            {plain(cat)}
+          </Chip>
         ))}
-      </div>
+      </ChipRow>
 
-      <div className="space-y-6">
-        {visible.map((post) => (
-          <Link
-            key={post.slug}
-            // Explicit locale — siehe hreflang-Bug-Historie im alten Index:
-            // ohne locale löste SSR die Links gegen "en" auf.
-            locale={locale as "en" | "de"}
-            href={`/blog/${post.slug}`}
-            className="block bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:border-orange-200 hover:shadow-md transition-all group"
-          >
-            {post.image && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={post.image}
-                alt=""
-                loading="lazy"
-                className="w-full aspect-[1.91/1] object-cover rounded-xl mb-4"
-              />
-            )}
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full">
-                {CATEGORY_EMOJI[post.category] ?? "📄"} {post.category}
-              </span>
-              <span className="text-xs text-gray-400">{post.readingTime}</span>
-            </div>
-            <h2 className="text-lg font-bold text-gray-900 group-hover:text-orange-600 transition-colors mb-2 leading-snug">
-              {post.title}
-            </h2>
-            <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
-              {post.description}
-            </p>
-            <span className="inline-block mt-3 text-sm font-medium text-orange-500 group-hover:underline">
-              {locale === "de" ? "Artikel lesen →" : "Read article →"}
-            </span>
-          </Link>
+      <ul className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {visible.map((post, i) => (
+          // Alle Karten bleiben im HTML (interne Links für Crawler); jenseits
+          // des Limits nur ausgeblendet.
+          <li key={post.slug} hidden={i >= limit}>
+            <Link
+              // Explicit locale — siehe hreflang-Bug-Historie im alten Index:
+              // ohne locale löste SSR die Links gegen "en" auf.
+              locale={locale as "en" | "de"}
+              href={`/blog/${post.slug}`}
+              className="group block"
+            >
+              {post.image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={post.image}
+                  alt=""
+                  width={1200}
+                  height={628}
+                  loading={i < 3 ? "eager" : "lazy"}
+                  className="mb-4 aspect-[1.91/1] w-full rounded-2 object-cover"
+                />
+              )}
+              <p className="text-sm text-ink-3">
+                {plain(post.category)} · {post.readingTime}
+              </p>
+              <h2 className="mt-1 text-h3 text-ink group-hover:underline underline-offset-[3px]">{post.title}</h2>
+              <p className="mt-2 line-clamp-2 text-ink-2">{post.description}</p>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      {remaining > 0 && (
+        <div className="mt-12">
+          <Button variant="secondary" onClick={() => setLimit((l) => l + PAGE_SIZE)}>
+            {de ? "Mehr anzeigen" : "Show more"} ({remaining})
+          </Button>
+        </div>
+      )}
     </>
   );
 }

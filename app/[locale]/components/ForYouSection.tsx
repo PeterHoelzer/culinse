@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
-import { Recipe } from "./home-types";
-import { Link } from "@/lib/navigation";
+import type { Recipe } from "./home-types";
 import { createClient } from "@/lib/supabase/client";
+import { SectionHeader } from "@/components/ui";
 import RecipeCard from "./RecipeCard";
 
 export default function ForYouSection({ user, onLoaded }: { user: User | null | undefined; onLoaded: (ids: (number | string)[]) => void }) {
@@ -67,41 +67,20 @@ export default function ForYouSection({ user, onLoaded }: { user: User | null | 
   if (!user || !hasContent) return null;
 
   return (
-    <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
-      <div className="bg-gradient-to-b from-orange-50/70 to-transparent border border-orange-100/70 rounded-3xl p-4 sm:p-6">
-      <div className="flex items-center justify-between mb-5">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            {t("forYou.title")}
-          </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            {fromActivity ? t("forYou.fromActivity") : t("forYou.subtitle")}
-          </p>
-        </div>
-        <Link href="/profile" className="text-sm text-orange-500 hover:text-orange-700 transition-colors">
-          {t("forYou.editProfile")}
-        </Link>
-      </div>
+    <section aria-labelledby="for-you-title" className="mx-auto max-w-content px-4 pb-12 sm:px-6 lg:px-10">
+      <SectionHeader
+        id="for-you-title"
+        title={t("forYou.title")}
+        subtitle={fromActivity ? t("forYou.fromActivity") : t("forYou.subtitle")}
+        linkHref="/profile"
+        linkLabel={t("forYou.editProfile")}
+      />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {recipes.map((r, i) => (
           <RecipeCard key={r.id} recipe={r} index={i} user={user} />
         ))}
       </div>
-
-      <div className="border-b border-gray-100 mt-10" />
-      </div>
     </section>
   );
 }
-
-// ─── Video Section ────────────────────────────────────────────────────────────
-interface VideoRecipe {
-  id: string;
-  title: string;
-  image: string;
-  videoUrl: string;
-  time: string | null;
-  servings: string | null;
-}
-

@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback, useRef, KeyboardEvent } from "react";
 import { useRouter } from "@/lib/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { Button, Checkbox, Icon, Input, Notice, SectionHeader, Textarea, chipClasses } from "@/components/ui";
 
 interface Ingredient { name: string; amount: string; unit: string; }
 interface Instruction { step: number; text: string; timer_minutes: number | null; }
@@ -257,338 +258,348 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
   }));
 
   const videoUrlError = recipe.video_url && !isValidVideoUrl(recipe.video_url);
+  const ingredientCount = recipe.ingredients.filter(i => i.name).length;
+  const stepCount = recipe.instructions.filter(i => i.text).length;
+
+  const addRowButton = "flex h-11 w-full items-center justify-center gap-2 rounded-2 border border-dashed border-line-strong text-base font-semibold text-ink-2 transition-colors hover:bg-surface-soft";
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-100 px-4 py-4">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-gray-900">{mode === "create" ? "Create Recipe" : "Edit Recipe"}</h1>
-            <p className="text-xs text-gray-400">Step {step + 1} of {STEP_NAMES.length} — {STEP_NAMES[step]}</p>
-          </div>
+    <div className="min-h-screen bg-surface">
+      <div className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <SectionHeader
+            as="h1"
+            className="mb-0!"
+            title={mode === "create" ? "Create Recipe" : "Edit Recipe"}
+            subtitle={<span className="tabular">Step {step + 1} of {STEP_NAMES.length}: {STEP_NAMES[step]}</span>}
+          />
           <div className="flex items-center gap-3">
-            {saved && <span className="text-xs text-green-500">✓ Saved</span>}
-            <button onClick={() => saveDraft(recipe)} className="text-xs text-gray-400 hover:text-gray-600">Save draft</button>
+            <span aria-live="polite" className="text-sm font-semibold text-green-deep">{saved ? "Saved" : ""}</span>
+            <Button variant="secondary" size="sm" onClick={() => saveDraft(recipe)}>Save draft</Button>
           </div>
         </div>
-        {/* Progress bar */}
-        <div className="max-w-2xl mx-auto mt-3">
-          <div className="flex gap-1">
-            {STEP_NAMES.map((s, i) => (
-              <div key={s} onClick={() => i < step && setStep(i)}
-                className={`flex-1 h-1.5 rounded-full transition-all ${i <= step ? "bg-orange-500" : "bg-gray-200"} ${i < step ? "cursor-pointer" : ""}`} />
-            ))}
-          </div>
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        {/* Step 0: Basics */}
-        {step === 0 && (
-          <div className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Recipe title *</label>
-              <input type="text" value={recipe.title} onChange={e => setRecipe(p => ({ ...p, title: e.target.value }))}
+        <ol className="mb-8 flex max-w-prose gap-2" aria-label="Steps">
+          {STEP_NAMES.map((name, i) => (
+            <li key={name} className="flex-1">
+              <button
+                type="button"
+                disabled={i >= step}
+                onClick={() => setStep(i)}
+                aria-current={i === step ? "step" : undefined}
+                aria-label={`${name}${i < step ? " (done)" : i === step ? " (current)" : ""}`}
+                className={`block h-1.5 w-full rounded-1 transition-colors ${i <= step ? "bg-brand" : "bg-line"} ${i < step ? "cursor-pointer" : "cursor-default"}`}
+              />
+            </li>
+          ))}
+        </ol>
+
+        <div className="max-w-prose">
+          {/* Step 0: Basics */}
+          {step === 0 && (
+            <div className="space-y-5">
+              <Input
+                label="Recipe title"
+                type="text"
+                required
+                value={recipe.title}
+                onChange={e => setRecipe(p => ({ ...p, title: e.target.value }))}
                 placeholder="e.g. Grandma's Spaghetti Carbonara"
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Short description</label>
-              <textarea value={recipe.description} onChange={e => setRecipe(p => ({ ...p, description: e.target.value }))}
+                autoComplete="off"
+              />
+              <Textarea
+                label="Short description"
+                value={recipe.description}
+                onChange={e => setRecipe(p => ({ ...p, description: e.target.value }))}
                 placeholder="What makes this recipe special?"
-                rows={3} className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300 resize-none" />
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Prep time (min)</label>
-                <input type="number" value={recipe.prep_time} onChange={e => setRecipe(p => ({ ...p, prep_time: e.target.value }))}
-                  placeholder="15" className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
+                rows={3}
+              />
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <Input label="Prep time (min)" type="number" inputMode="numeric" min={0} value={recipe.prep_time}
+                  onChange={e => setRecipe(p => ({ ...p, prep_time: e.target.value }))} placeholder="15" />
+                <Input label="Cook time (min)" type="number" inputMode="numeric" min={0} value={recipe.cook_time}
+                  onChange={e => setRecipe(p => ({ ...p, cook_time: e.target.value }))} placeholder="30" />
+                <Input label="Servings" type="number" inputMode="numeric" min={1} value={recipe.servings}
+                  onChange={e => setRecipe(p => ({ ...p, servings: e.target.value }))} placeholder="4" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Cook time (min)</label>
-                <input type="number" value={recipe.cook_time} onChange={e => setRecipe(p => ({ ...p, cook_time: e.target.value }))}
-                  placeholder="30" className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">Servings</label>
-                <input type="number" value={recipe.servings} onChange={e => setRecipe(p => ({ ...p, servings: e.target.value }))}
-                  placeholder="4" className="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Tags</label>
-              <div
-                className="flex flex-wrap gap-1.5 px-3 py-2 rounded-xl border border-gray-200 focus-within:border-orange-300 bg-white min-h-[44px] cursor-text"
-                onClick={() => document.getElementById("tag-input")?.focus()}>
-                {recipe.tags.map(tag => (
-                  <span key={tag} className="inline-flex items-center gap-1 bg-orange-50 text-orange-700 text-xs px-2 py-0.5 rounded-full">
-                    {tag}
-                    <button type="button" onClick={e => { e.stopPropagation(); removeTag(tag); }} className="hover:text-red-500 leading-none">×</button>
-                  </span>
-                ))}
-                <input
-                  id="tag-input"
+                <Input
+                  label="Tags"
                   type="text"
                   value={tagInput}
                   onChange={e => setTagInput(e.target.value)}
                   onKeyDown={handleTagKeyDown}
                   onBlur={() => tagInput && addTag(tagInput)}
-                  placeholder={recipe.tags.length === 0 ? "pasta, italian, quick…" : ""}
-                  className="flex-1 min-w-[100px] text-sm outline-none bg-transparent py-0.5"
+                  placeholder="pasta, italian, quick"
+                  hint="Press Enter or comma to add a tag"
+                  autoComplete="off"
                 />
-              </div>
-              <p className="text-xs text-gray-400 mt-1">Press Enter or comma to add a tag</p>
-            </div>
-          </div>
-        )}
-
-        {/* Step 1: Ingredients */}
-        {step === 1 && (
-          <div>
-            <p className="text-sm text-gray-500 mb-4">Add all ingredients with amounts and units.</p>
-            <div className="space-y-2 mb-4">
-              {recipe.ingredients.map((ing, i) => (
-                <div key={i} className="flex gap-2 items-center">
-                  <input type="text" value={ing.amount} onChange={e => updateIngredient(i, "amount", e.target.value)}
-                    placeholder="200" className="w-20 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-                  <input type="text" value={ing.unit} onChange={e => updateIngredient(i, "unit", e.target.value)}
-                    placeholder="g" className="w-16 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-                  <input type="text" value={ing.name} onChange={e => updateIngredient(i, "name", e.target.value)}
-                    placeholder="Ingredient name" className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300" />
-                  <button onClick={() => removeIngredient(i)} className="text-gray-300 hover:text-red-400 text-lg px-1">×</button>
-                </div>
-              ))}
-            </div>
-            <button onClick={addIngredient}
-              className="w-full py-2.5 border border-dashed border-gray-300 rounded-xl text-sm text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-colors">
-              + Add ingredient
-            </button>
-          </div>
-        )}
-
-        {/* Step 2: Instructions */}
-        {step === 2 && (
-          <div>
-            <p className="text-sm text-gray-500 mb-4">Write clear step-by-step instructions. Add optional timers for steps that require waiting.</p>
-            <div className="space-y-4 mb-4">
-              {recipe.instructions.map((inst, i) => (
-                <div key={i} className="bg-white rounded-2xl border border-gray-100 p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full">Step {inst.step}</span>
-                    <button onClick={() => removeInstruction(i)} className="text-gray-300 hover:text-red-400 text-sm">Remove</button>
-                  </div>
-                  <textarea value={inst.text} onChange={e => updateInstruction(i, "text", e.target.value)}
-                    placeholder="Describe this step clearly..."
-                    rows={3} className="w-full text-sm text-gray-700 bg-transparent resize-none focus:outline-none placeholder-gray-300" />
-                  <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-50">
-                    <span className="text-xs text-gray-400">⏱ Timer (optional):</span>
-                    <input type="number" value={inst.timer_minutes ?? ""} onChange={e => updateInstruction(i, "timer_minutes", e.target.value ? parseInt(e.target.value) : null)}
-                      placeholder="–" className="w-16 px-2 py-1 rounded-lg border border-gray-200 text-xs text-center focus:outline-none focus:border-orange-300" />
-                    <span className="text-xs text-gray-400">min</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <button onClick={addInstruction}
-              className="w-full py-2.5 border border-dashed border-gray-300 rounded-xl text-sm text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-colors">
-              + Add step
-            </button>
-          </div>
-        )}
-
-        {/* Step 3: Media */}
-        {step === 3 && (
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Recipe photos
-                {recipe.is_public && <span className="ml-1 text-xs text-orange-500">* required for public</span>}
-              </label>
-              <div
-                ref={previewRef}
-                onClick={recipe.images[0] ? undefined : () => fileRef.current?.click()}
-                style={{ cursor: recipe.images[0] ? "move" : "pointer" }}
-                className="relative w-full h-48 bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center hover:border-orange-300 transition-colors overflow-hidden">
-                {recipe.images[0] ? (
-                  <>
-                    <img
-                      src={recipe.images[0]}
-                      alt="preview"
-                      draggable={false}
-                      onPointerDown={onImgDragStart}
-                      onPointerMove={onImgDragMove}
-                      onPointerUp={onImgDragEnd}
-                      onPointerCancel={onImgDragEnd}
-                      style={{ objectPosition: recipe.image_position }}
-                      className="absolute inset-0 w-full h-full object-cover select-none touch-none"
-                    />
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/55 text-white text-[11px] px-3 py-1 rounded-full pointer-events-none">
-                      ✥ Ziehen, um das Bild zu positionieren
-                    </div>
-                  </>
-                ) : uploading ? (
-                  <div className="text-sm text-gray-400 animate-pulse">Uploading...</div>
-                ) : (
-                  <>
-                    <div className="text-3xl mb-2">📷</div>
-                    <p className="text-sm text-gray-400">Click to upload a photo</p>
-                    <p className="text-xs text-gray-300 mt-1">JPG, PNG, WebP · Max 5 MB · up to 6 photos</p>
-                  </>
+                {recipe.tags.length > 0 && (
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {recipe.tags.map(tag => (
+                      <li key={tag}>
+                        <button type="button" onClick={() => removeTag(tag)} aria-label={`Remove tag ${tag}`} className={chipClasses(false, "sm")}>
+                          {tag}
+                          <Icon name="x" size={16} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
-              <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleImageUpload} />
-              {recipe.images.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {recipe.images.map((url, i) => (
-                    <div key={url} className="relative group">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={url} alt={`Photo ${i + 1}`}
-                        onClick={() => makeCover(i)}
-                        className={`w-20 h-20 rounded-xl object-cover cursor-pointer ${i === 0 ? "ring-2 ring-orange-500" : "opacity-80 hover:opacity-100"}`} />
-                      {i === 0 && (
-                        <span className="absolute bottom-1 left-1 bg-orange-500 text-white text-[9px] font-semibold px-1.5 py-0.5 rounded-full pointer-events-none">Cover</span>
-                      )}
-                      <button onClick={() => removeImage(i)}
-                        className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-black/60 text-white text-[11px] leading-none hidden group-hover:flex items-center justify-center">×</button>
-                    </div>
-                  ))}
-                  {recipe.images.length < MAX_IMAGES && (
-                    <button onClick={() => fileRef.current?.click()} disabled={uploading}
-                      className="w-20 h-20 rounded-xl border-2 border-dashed border-gray-200 text-gray-300 text-2xl hover:border-orange-300 hover:text-orange-400 transition-colors disabled:opacity-50">
-                      {uploading ? "…" : "+"}
-                    </button>
-                  )}
-                </div>
-              )}
-              {recipe.images.length > 1 && (
-                <p className="text-xs text-gray-400 mt-1.5">Tap a photo to make it the cover — visitors see all photos as a gallery.</p>
-              )}
             </div>
+          )}
+
+          {/* Step 1: Ingredients */}
+          {step === 1 && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Video URL <span className="text-gray-400 font-normal">(optional)</span></label>
-              <input type="url" value={recipe.video_url} onChange={e => setRecipe(p => ({ ...p, video_url: e.target.value }))}
-                placeholder="https://youtube.com/watch?v=... or https://tiktok.com/..."
-                className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none transition-colors ${videoUrlError ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-300"}`} />
-              {videoUrlError ? (
-                <p className="text-xs text-red-500 mt-1">Please enter a valid YouTube or TikTok URL.</p>
-              ) : (
-                <p className="text-xs text-gray-400 mt-1">Paste a YouTube or TikTok link — it will be embedded on your recipe page.</p>
-              )}
-              {recipe.video_url && !videoUrlError && (
-                <div className="mt-3 p-3 bg-green-50 border border-green-100 rounded-xl text-xs text-green-700">✓ Video link added</div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Step 4: Publish */}
-        {step === 4 && (
-          <div className="space-y-5">
-            <div className="bg-white rounded-2xl border border-gray-100 p-5">
-              <h2 className="font-semibold text-gray-900 mb-1">{recipe.title || "Untitled Recipe"}</h2>
-              <div className="flex flex-wrap gap-3 text-sm text-gray-500 mb-3">
-                {recipe.prep_time && <span>⏱ Prep: {recipe.prep_time}min</span>}
-                {recipe.cook_time && <span>🍳 Cook: {recipe.cook_time}min</span>}
-                {recipe.servings && <span>🍽 {recipe.servings} servings</span>}
-                <span>📋 {recipe.ingredients.filter(i => i.name).length} ingredients</span>
-                <span>📝 {recipe.instructions.filter(i => i.text).length} steps</span>
-              </div>
-              {recipe.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1 mb-3">
-                  {recipe.tags.map(tag => (
-                    <span key={tag} className="text-xs bg-orange-50 text-orange-600 px-2 py-0.5 rounded-full">{tag}</span>
-                  ))}
-                </div>
-              )}
-              {recipe.images[0] && (
-                <div className="relative">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={recipe.images[0]} alt="" className="w-full h-32 object-cover rounded-xl" />
-                  {recipe.images.length > 1 && (
-                    <span className="absolute bottom-2 right-2 bg-black/55 text-white text-[11px] px-2 py-0.5 rounded-full">📷 {recipe.images.length}</span>
-                  )}
-                </div>
-              )}
-            </div>
-            {recipe.source_type === "imported" ? (
-            <div className="bg-white rounded-2xl border border-gray-100 p-5">
-              <p className="font-medium text-gray-900">Visibility</p>
-              <p className="text-sm text-gray-500 mt-0.5">🔒 Private — imported recipes stay private to you.</p>
-              <div className="mt-3 p-3 bg-blue-50 border border-blue-100 rounded-xl text-xs text-blue-700">
-                Imported from another site, so it cannot be made public — only recipes you create yourself can be published. You can still cook from it, search it, and add it to your meal plan.
-              </div>
-            </div>
-            ) : (
-            <div className="bg-white rounded-2xl border border-gray-100 p-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium text-gray-900">Visibility</p>
-                  <p className="text-sm text-gray-500 mt-0.5">
-                    {recipe.is_public
-                      ? "Public — visible to everyone and appears in the discover feed"
-                      : "Private — only you can see this recipe"}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setRecipe(p => ({ ...p, is_public: !p.is_public }))}
-                  className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${recipe.is_public ? "bg-orange-500" : "bg-gray-200"}`}>
-                  <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${recipe.is_public ? "translate-x-6" : "translate-x-0.5"}`} />
-                </button>
-              </div>
-              {recipe.is_public && (
-                <div className="mt-3 space-y-2">
-                  <div className="p-3 bg-orange-50 border border-orange-100 rounded-xl text-xs text-orange-700">
-                    Your recipe will be reviewed against our quality standards: photo required, clear instructions, and a proper title.
+              <p className="mb-4 text-base text-ink-2">Add all ingredients with amounts and units.</p>
+              <div className="mb-4 space-y-3">
+                {recipe.ingredients.map((ing, i) => (
+                  <div key={i} className="flex items-end gap-2">
+                    <Input className="w-24" label={i === 0 ? "Amount" : `Amount, ingredient ${i + 1}`} hideLabel={i !== 0} type="text" inputMode="decimal"
+                      value={ing.amount} onChange={e => updateIngredient(i, "amount", e.target.value)} placeholder="200" />
+                    <Input className="w-20" label={i === 0 ? "Unit" : `Unit, ingredient ${i + 1}`} hideLabel={i !== 0} type="text"
+                      value={ing.unit} onChange={e => updateIngredient(i, "unit", e.target.value)} placeholder="g" />
+                    <Input className="min-w-0 flex-1" label={i === 0 ? "Ingredient" : `Ingredient ${i + 1}`} hideLabel={i !== 0} type="text"
+                      value={ing.name} onChange={e => updateIngredient(i, "name", e.target.value)} placeholder="Ingredient name" autoComplete="off" />
+                    <Button variant="icon" icon="trash" aria-label={`Remove ingredient ${i + 1}`} onClick={() => removeIngredient(i)} />
                   </div>
-                  {!recipe.images.length && (
-                    <div className="p-3 bg-red-50 border border-red-100 rounded-xl text-xs text-red-600 flex items-center gap-2">
-                      <span>⚠️</span>
-                      <span>No photo added — a photo is required to publish publicly.</span>
-                      <button onClick={() => setStep(3)} className="underline ml-auto flex-shrink-0">Add photo</button>
+                ))}
+              </div>
+              <button type="button" onClick={addIngredient} className={addRowButton}>
+                <Icon name="plus" size={18} />
+                Add ingredient
+              </button>
+            </div>
+          )}
+
+          {/* Step 2: Instructions */}
+          {step === 2 && (
+            <div>
+              <p className="mb-4 text-base text-ink-2">Write clear step-by-step instructions. Add optional timers for steps that require waiting.</p>
+              <div className="mb-4 space-y-6">
+                {recipe.instructions.map((inst, i) => (
+                  <div key={i} className="border-t border-line pt-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <h2 className="text-h3 tabular">Step {inst.step}</h2>
+                      <Button variant="quiet" onClick={() => removeInstruction(i)} aria-label={`Remove step ${inst.step}`}>Remove</Button>
+                    </div>
+                    <Textarea
+                      label={`Instruction, step ${inst.step}`}
+                      hideLabel
+                      value={inst.text}
+                      onChange={e => updateInstruction(i, "text", e.target.value)}
+                      placeholder="Describe this step clearly..."
+                      rows={3}
+                    />
+                    <Input
+                      className="mt-3 w-40"
+                      label="Timer (min, optional)"
+                      type="number"
+                      inputMode="numeric"
+                      min={0}
+                      value={inst.timer_minutes ?? ""}
+                      onChange={e => updateInstruction(i, "timer_minutes", e.target.value ? parseInt(e.target.value) : null)}
+                    />
+                  </div>
+                ))}
+              </div>
+              <button type="button" onClick={addInstruction} className={addRowButton}>
+                <Icon name="plus" size={18} />
+                Add step
+              </button>
+            </div>
+          )}
+
+          {/* Step 3: Media */}
+          {step === 3 && (
+            <div className="space-y-8">
+              <div>
+                <p className="mb-2 text-base font-semibold text-ink">
+                  Recipe photos
+                  {recipe.is_public && <span className="ml-2 text-sm font-normal text-ink-3">required for public recipes</span>}
+                </p>
+                {recipe.images[0] ? (
+                  <>
+                    <div
+                      ref={previewRef}
+                      style={{ cursor: "move" }}
+                      className="relative aspect-[3/2] w-full overflow-hidden rounded-2 bg-surface-soft">
+                      <img
+                        src={recipe.images[0]}
+                        alt="Cover photo preview"
+                        draggable={false}
+                        onPointerDown={onImgDragStart}
+                        onPointerMove={onImgDragMove}
+                        onPointerUp={onImgDragEnd}
+                        onPointerCancel={onImgDragEnd}
+                        style={{ objectPosition: recipe.image_position }}
+                        className="absolute inset-0 h-full w-full select-none touch-none object-cover"
+                      />
+                    </div>
+                    <p className="mt-2 text-caption text-ink-3">Ziehen, um das Bild zu positionieren</p>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => fileRef.current?.click()}
+                    disabled={uploading}
+                    className="flex aspect-[3/2] w-full flex-col items-center justify-center gap-2 rounded-2 border border-dashed border-line-strong text-ink-2 transition-colors hover:bg-surface-soft"
+                  >
+                    <Icon name="image" size={32} />
+                    <span className="text-base font-semibold">{uploading ? "Uploading..." : "Upload a photo"}</span>
+                    <span className="text-caption text-ink-3">JPG, PNG, WebP · Max 5 MB · up to 6 photos</span>
+                  </button>
+                )}
+                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" tabIndex={-1} aria-label="Photo files" onChange={handleImageUpload} />
+                {recipe.images.length > 0 && (
+                  <ul className="mt-3 flex flex-wrap gap-3">
+                    {recipe.images.map((url, i) => (
+                      <li key={url} className="relative">
+                        <button
+                          type="button"
+                          onClick={() => makeCover(i)}
+                          aria-label={i === 0 ? `Photo ${i + 1}, cover` : `Make photo ${i + 1} the cover`}
+                          aria-pressed={i === 0}
+                          className={`block h-20 w-20 overflow-hidden rounded-2 border-2 ${i === 0 ? "border-brand" : "border-transparent"}`}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={url} alt="" className="h-full w-full object-cover" />
+                        </button>
+                        {i === 0 && <span className="mt-1 block text-caption font-semibold text-brand">Cover</span>}
+                        <Button
+                          variant="icon"
+                          size="sm"
+                          icon="x"
+                          aria-label={`Remove photo ${i + 1}`}
+                          onClick={() => removeImage(i)}
+                          className="absolute -right-3 -top-3 h-8! w-8!"
+                        />
+                      </li>
+                    ))}
+                    {recipe.images.length < MAX_IMAGES && (
+                      <li>
+                        <button type="button" onClick={() => fileRef.current?.click()} disabled={uploading}
+                          aria-label="Add photo"
+                          className="flex h-20 w-20 items-center justify-center rounded-2 border border-dashed border-line-strong text-ink-2 transition-colors hover:bg-surface-soft disabled:text-ink-3">
+                          <Icon name="plus" size={24} />
+                        </button>
+                      </li>
+                    )}
+                  </ul>
+                )}
+                {recipe.images.length > 1 && (
+                  <p className="mt-2 text-caption text-ink-3">Select a photo to make it the cover. Visitors see all photos as a gallery.</p>
+                )}
+              </div>
+              <div>
+                <Input
+                  label={<>Video URL <span className="font-normal text-ink-3">(optional)</span></>}
+                  type="url"
+                  value={recipe.video_url}
+                  onChange={e => setRecipe(p => ({ ...p, video_url: e.target.value }))}
+                  placeholder="https://youtube.com/watch?v=... or https://tiktok.com/..."
+                  error={videoUrlError ? "Please enter a valid YouTube or TikTok URL." : undefined}
+                  hint="Paste a YouTube or TikTok link. It will be embedded on your recipe page."
+                  autoComplete="url"
+                />
+                {recipe.video_url && !videoUrlError && <Notice tone="success" className="mt-3">Video link added</Notice>}
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: Publish */}
+          {step === 4 && (
+            <div className="space-y-6">
+              <div className="border-t border-line pt-4">
+                <h2 className="text-h2-sm mb-2">{recipe.title || "Untitled Recipe"}</h2>
+                <p className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-3 tabular">
+                  {recipe.prep_time && <span className="inline-flex items-center gap-1.5"><Icon name="clock" size={16} />Prep: {recipe.prep_time} min</span>}
+                  {recipe.cook_time && <span className="inline-flex items-center gap-1.5"><Icon name="flame" size={16} />Cook: {recipe.cook_time} min</span>}
+                  {recipe.servings && <span className="inline-flex items-center gap-1.5"><Icon name="users" size={16} />{recipe.servings} servings</span>}
+                  <span>{ingredientCount} ingredients</span>
+                  <span>{stepCount} steps</span>
+                </p>
+                {recipe.tags.length > 0 && <p className="mb-3 text-sm text-ink-2">{recipe.tags.join(", ")}</p>}
+                {recipe.images[0] && (
+                  <div>
+                    <div className="aspect-[3/2] overflow-hidden rounded-2 bg-surface-soft">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={recipe.images[0]} alt="" style={{ objectPosition: recipe.image_position }} className="h-full w-full object-cover" />
+                    </div>
+                    {recipe.images.length > 1 && <p className="mt-2 text-caption text-ink-3 tabular">{recipe.images.length} photos</p>}
+                  </div>
+                )}
+              </div>
+
+              {recipe.source_type === "imported" ? (
+                <div className="border-t border-line pt-4">
+                  <h2 className="text-h3">Visibility</h2>
+                  <p className="mt-1 mb-3 flex items-center gap-1.5 text-base text-ink-2"><Icon name="lock" size={18} />Private. Imported recipes stay private to you.</p>
+                  <Notice tone="info">
+                    Imported from another site, so it cannot be made public. Only recipes you create yourself can be published. You can still cook from it, search it, and add it to your meal plan.
+                  </Notice>
+                </div>
+              ) : (
+                <div className="border-t border-line pt-4">
+                  <h2 className="text-h3 mb-3">Visibility</h2>
+                  <Checkbox
+                    label="Make this recipe public"
+                    checked={recipe.is_public}
+                    onChange={e => setRecipe(p => ({ ...p, is_public: e.target.checked }))}
+                  />
+                  <p className="mt-1 pl-8 text-sm text-ink-3">
+                    {recipe.is_public
+                      ? "Public: visible to everyone and appears in the discover feed."
+                      : "Private: only you can see this recipe."}
+                  </p>
+                  {recipe.is_public && (
+                    <div className="mt-3 space-y-2">
+                      <Notice tone="info">
+                        Your recipe will be reviewed against our quality standards: photo required, clear instructions, and a proper title.
+                      </Notice>
+                      {!recipe.images.length && (
+                        <Notice tone="error">
+                          <span>No photo added. A photo is required to publish publicly. </span>
+                          <button type="button" onClick={() => setStep(3)} className="font-semibold underline underline-offset-[3px]">Add photo</button>
+                        </Notice>
+                      )}
                     </div>
                   )}
                 </div>
               )}
+              {errors.length > 0 && (
+                <Notice tone="error">
+                  <p className="font-semibold">Cannot publish:</p>
+                  <ul className="list-disc pl-5">
+                    {errors.map((e, i) => <li key={i}>{e}</li>)}
+                  </ul>
+                </Notice>
+              )}
             </div>
+          )}
+
+          {/* Inline step errors (steps 0–3) */}
+          {errors.length > 0 && step < 4 && (
+            <Notice tone="error" className="mt-4">
+              {errors.map((e, i) => <p key={i}>{e}</p>)}
+            </Notice>
+          )}
+
+          {/* Navigation */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            {step > 0 && (
+              <Button variant="secondary" onClick={() => { setErrors([]); setStep(s => s - 1); }}>Back</Button>
             )}
-            {errors.length > 0 && (
-              <div className="bg-red-50 border border-red-100 rounded-xl p-4">
-                <p className="text-sm font-medium text-red-700 mb-1">Cannot publish:</p>
-                {errors.map((e, i) => <p key={i} className="text-xs text-red-600">• {e}</p>)}
-              </div>
+            {step < STEP_NAMES.length - 1 ? (
+              <Button onClick={handleNext}>Next</Button>
+            ) : (
+              <Button onClick={handlePublish} loading={saving} disabled={saving || (recipe.is_public && !recipe.images.length)}>
+                {recipe.is_public ? "Publish Recipe" : "Save as Draft"}
+              </Button>
             )}
           </div>
-        )}
-
-        {/* Inline step errors (steps 0–3) */}
-        {errors.length > 0 && step < 4 && (
-          <div className="mt-4 bg-red-50 border border-red-100 rounded-xl p-3">
-            {errors.map((e, i) => <p key={i} className="text-xs text-red-600">• {e}</p>)}
-          </div>
-        )}
-
-        {/* Navigation */}
-        <div className="flex gap-3 mt-8">
-          {step > 0 && (
-            <button onClick={() => { setErrors([]); setStep(s => s - 1); }}
-              className="flex-1 py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:border-gray-300 transition-colors">
-              ← Back
-            </button>
-          )}
-          {step < STEP_NAMES.length - 1 ? (
-            <button onClick={handleNext}
-              className="flex-1 py-3 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}>
-              Next →
-            </button>
-          ) : (
-            <button onClick={handlePublish} disabled={saving || (recipe.is_public && !recipe.images.length)}
-              className="flex-1 py-3 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90 disabled:opacity-60"
-              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}>
-              {saving ? "Saving..." : recipe.is_public ? "Publish Recipe 🌍" : "Save as Draft 🔒"}
-            </button>
-          )}
         </div>
       </div>
     </div>

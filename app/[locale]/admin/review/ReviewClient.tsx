@@ -8,7 +8,7 @@
  */
 
 import { useState, useEffect, useCallback } from "react";
-import { Link } from "@/lib/navigation";
+import { Button, Chip, EmptyState, Icon, Notice, SectionHeader, Skeleton } from "@/components/ui";
 
 interface Ingredient { amount: string; unit: string; name: string }
 interface Step { step: number; text: string; timer_minutes: number | null }
@@ -63,83 +63,72 @@ function GroupCard({ g, onDone, canEdit }: { g: Group; onDone: (group: string) =
     onDone(g.group);
   };
 
+  const factClass = "inline-flex items-center gap-1.5 text-sm text-ink-2 tabular";
+
   return (
-    <article className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+    <article className="overflow-hidden rounded-2 border border-line">
       {r.image_url && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={r.image_url} alt={r.title} className="w-full aspect-[4/3] sm:aspect-[16/9] object-cover" />
+        <img src={r.image_url} alt={r.title} className="aspect-[4/3] w-full object-cover sm:aspect-[16/9]" />
       )}
       <div className="p-4 sm:p-6">
-        <div className="flex items-center justify-between gap-3 mb-2">
-          <div className="flex gap-1 rounded-full bg-gray-100 p-1 text-xs font-semibold">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex gap-2" role="group" aria-label="Sprache">
             {(["de", "en"] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLang(l)}
-                className={`px-3 py-1 rounded-full transition-colors ${lang === l ? "bg-white shadow text-orange-600" : "text-gray-500"}`}
-              >
+              <Chip key={l} size="sm" active={lang === l} onClick={() => setLang(l)}>
                 {l.toUpperCase()}
-              </button>
+              </Chip>
             ))}
           </div>
-          <span className="text-xs text-gray-400">
+          <span className="text-sm text-ink-3 tabular">
             {new Date(g.created_at).toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" })}
             {" · "}{g.group}
           </span>
         </div>
 
-        <h2 className="text-xl font-bold text-gray-900">{r.title}</h2>
-        {r.description && <p className="text-gray-600 text-sm mt-1">{r.description}</p>}
+        <h2 className="text-h2-sm">{r.title}</h2>
+        {r.description && <p className="mt-1 text-base text-ink-2">{r.description}</p>}
 
-        <div className="flex flex-wrap gap-2 mt-3 text-xs">
-          <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">🔪 {r.prep_time ?? 0} min</span>
-          <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">🍳 {r.cook_time ?? 0} min</span>
-          <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">🍽 {r.servings ?? "?"} Portionen</span>
-          {r.nutrition && (
-            <span
-              className={`px-2 py-1 rounded-full ${macro?.ok ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}
-              title={`4/4/9-Check: berechnet ${macro?.calc} kcal, Abweichung ${macro?.devPct} %`}
-            >
-              {r.nutrition.calories} kcal · P {r.nutrition.protein} · F {r.nutrition.fat} · KH {r.nutrition.carbs}
-              {macro ? (macro.ok ? " ✓" : ` ⚠ ${macro.devPct} %`) : ""}
-            </span>
-          )}
-        </div>
-
-        {!!r.tags?.length && (
-          <div className="flex flex-wrap gap-1.5 mt-2">
-            {r.tags.map((t) => (
-              <span key={t} className="px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 text-xs">#{t}</span>
-            ))}
-          </div>
+        <p className="mt-3 flex flex-wrap gap-x-5 gap-y-1">
+          <span className={factClass}><Icon name="clock" size={16} />Vorbereiten {r.prep_time ?? 0} min</span>
+          <span className={factClass}><Icon name="flame" size={16} />Kochen {r.cook_time ?? 0} min</span>
+          <span className={factClass}><Icon name="users" size={16} />{r.servings ?? "?"} Portionen</span>
+        </p>
+        {r.nutrition && (
+          <p className={`mt-2 text-sm tabular ${macro?.ok ? "text-green-deep" : "text-error"}`} title={`4/4/9-Check: berechnet ${macro?.calc} kcal, Abweichung ${macro?.devPct} %`}>
+            {r.nutrition.calories} kcal · P {r.nutrition.protein} · F {r.nutrition.fat} · KH {r.nutrition.carbs}
+            {macro ? (macro.ok ? ", 4/4/9-Check bestanden" : `, 4/4/9-Check: Abweichung ${macro.devPct} %`) : ""}
+          </p>
         )}
 
-        <div className="grid sm:grid-cols-2 gap-4 mt-4">
-          <details open className="rounded-xl border border-gray-100 p-3">
-            <summary className="text-sm font-semibold text-gray-800 cursor-pointer select-none">
+        {!!r.tags?.length && (
+          <p className="mt-2 text-sm text-ink-3">{r.tags.map((t) => `#${t}`).join(" ")}</p>
+        )}
+
+        <div className="mt-5 grid gap-6 sm:grid-cols-2">
+          <details open>
+            <summary className="cursor-pointer select-none border-b border-line pb-2 text-base font-semibold text-ink">
               Zutaten ({r.ingredients?.length ?? 0})
             </summary>
-            <ul className="mt-2 space-y-1 text-sm text-gray-700">
+            <ul className="mt-2 space-y-1 text-base text-ink">
               {r.ingredients?.map((i, idx) => (
-                <li key={idx}>
-                  <span className="font-medium">{i.amount} {i.unit}</span> {i.name}
+                <li key={idx} className="border-b border-line py-1 tabular">
+                  <span className="font-semibold">{i.amount} {i.unit}</span> {i.name}
                 </li>
               ))}
             </ul>
           </details>
-          <details open className="rounded-xl border border-gray-100 p-3">
-            <summary className="text-sm font-semibold text-gray-800 cursor-pointer select-none">
+          <details open>
+            <summary className="cursor-pointer select-none border-b border-line pb-2 text-base font-semibold text-ink">
               Schritte ({r.instructions?.length ?? 0})
             </summary>
-            <ol className="mt-2 space-y-2 text-sm text-gray-700">
+            <ol className="mt-2 space-y-2 text-base text-ink">
               {r.instructions?.map((s) => (
-                <li key={s.step} className="flex gap-2">
-                  <span className="shrink-0 w-5 h-5 rounded-full bg-orange-100 text-orange-700 text-xs flex items-center justify-center font-semibold">
-                    {s.step}
-                  </span>
+                <li key={s.step} className="flex gap-3 border-b border-line py-1">
+                  <span className="w-5 shrink-0 font-serif font-semibold text-ink-3 tabular">{s.step}</span>
                   <span>
                     {s.text}
-                    {s.timer_minutes != null && <span className="text-gray-400"> ⏱ {s.timer_minutes} min</span>}
+                    {s.timer_minutes != null && <span className="text-ink-3"> ({s.timer_minutes} min Timer)</span>}
                   </span>
                 </li>
               ))}
@@ -147,37 +136,23 @@ function GroupCard({ g, onDone, canEdit }: { g: Group; onDone: (group: string) =
           </details>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 mt-5">
-          <button
-            onClick={() => act("approve")}
-            disabled={busy !== null}
-            className="flex-1 sm:flex-none px-5 py-2.5 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 disabled:opacity-50 transition-colors"
-          >
-            {busy === "approve" ? "Veröffentliche …" : "✓ Freigeben (DE+EN öffentlich)"}
-          </button>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <Button onClick={() => act("approve")} disabled={busy !== null} loading={busy === "approve"}>
+            {busy === "approve" ? "Veröffentliche …" : "Freigeben (DE+EN öffentlich)"}
+          </Button>
           {canEdit && (
-            <Link
-              href={`/recipes/${r.id}/edit`}
-              className="px-4 py-2.5 rounded-full border border-gray-200 text-gray-700 text-sm font-semibold hover:bg-gray-50 transition-colors"
-            >
-              ✏️ Bearbeiten ({r.language.toUpperCase()})
-            </Link>
+            <Button variant="secondary" href={`/recipes/${r.id}/edit`} icon="pencil">
+              Bearbeiten ({r.language.toUpperCase()})
+            </Button>
           )}
           {canEdit && other && (
-            <Link
-              href={`/recipes/${other.id}/edit`}
-              className="px-4 py-2.5 rounded-full border border-gray-200 text-gray-500 text-sm hover:bg-gray-50 transition-colors"
-            >
-              ✏️ {other.language.toUpperCase()}
-            </Link>
+            <Button variant="secondary" href={`/recipes/${other.id}/edit`} icon="pencil">
+              {other.language.toUpperCase()}
+            </Button>
           )}
-          <button
-            onClick={() => act("discard")}
-            disabled={busy !== null}
-            className="ml-auto px-4 py-2.5 rounded-full border border-red-200 text-red-600 text-sm font-semibold hover:bg-red-50 disabled:opacity-50 transition-colors"
-          >
+          <Button variant="secondary" className="sm:ml-auto" onClick={() => act("discard")} disabled={busy !== null} loading={busy === "discard"}>
             {busy === "discard" ? "Verwerfe …" : "Verwerfen"}
-          </button>
+          </Button>
         </div>
       </div>
     </article>
@@ -205,33 +180,31 @@ export default function ReviewClient() {
   useEffect(() => { load(); }, [load]);
 
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Rezept-Review</h1>
-        <p className="text-gray-500 text-sm mt-1">
-          {state === "ok" ? `${groups.length} Rezept${groups.length === 1 ? "" : "e"} warten auf deine Entscheidung` : "Rezept-Agent · pending_review"}
-        </p>
-      </div>
+    <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+      <SectionHeader
+        as="h1"
+        title="Rezept-Review"
+        subtitle={state === "ok" ? `${groups.length} Rezept${groups.length === 1 ? "" : "e"} warten auf deine Entscheidung` : "Rezept-Agent, pending_review"}
+      />
 
-      {state === "loading" && <p className="text-gray-400">Lade Queue …</p>}
-      {state === "forbidden" && (
-        <p className="text-gray-500">
-          Kein Zugriff — diese Seite ist nur für das Culinse-Konto und freigeschaltete
-          Reviewer. Bitte mit dem richtigen Konto einloggen.
-        </p>
-      )}
-      {state === "error" && <p className="text-red-600">Fehler beim Laden der Queue.</p>}
-      {state === "ok" && groups.length === 0 && (
-        <div className="text-center py-16 text-gray-400">
-          <p className="text-4xl mb-3">🧑‍🍳</p>
-          <p>Queue leer — der nächste Agent-Lauf füllt sie wieder.</p>
+      <div className="max-w-3xl">
+        {state === "loading" && <Skeleton className="h-40" />}
+        {state === "forbidden" && (
+          <Notice tone="warn">
+            Kein Zugriff. Diese Seite ist nur für das Culinse-Konto und freigeschaltete
+            Reviewer. Bitte mit dem richtigen Konto einloggen.
+          </Notice>
+        )}
+        {state === "error" && <Notice tone="error">Fehler beim Laden der Queue.</Notice>}
+        {state === "ok" && groups.length === 0 && (
+          <EmptyState icon="check" title="Queue leer" text="Der nächste Agent-Lauf füllt sie wieder." />
+        )}
+
+        <div className="space-y-8">
+          {groups.map((g) => (
+            <GroupCard key={g.group} g={g} canEdit={canEdit} onDone={(group) => setGroups((prev) => prev.filter((x) => x.group !== group))} />
+          ))}
         </div>
-      )}
-
-      <div className="space-y-6">
-        {groups.map((g) => (
-          <GroupCard key={g.group} g={g} canEdit={canEdit} onDone={(group) => setGroups((prev) => prev.filter((x) => x.group !== group))} />
-        ))}
       </div>
     </main>
   );

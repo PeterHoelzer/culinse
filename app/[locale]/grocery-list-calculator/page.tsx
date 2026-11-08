@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import Button from "@/components/ui/Button";
 import GroceryCalculator from "@/components/GroceryCalculator";
 import { PRICES_UPDATED_AT } from "@/lib/ingredient-prices";
 
@@ -101,7 +102,7 @@ function getCopy(locale: string, priceDate: string): Copy {
       plannerHeading: "Automatisch statt von Hand: der Wochenplaner",
       plannerText:
         "Diesen Rechner brauchst du nur für schnelle Überschläge. Im Culinse-Wochenplaner passiert das Ganze automatisch: Du wählst Rezepte für die Woche, Culinse erstellt die Einkaufsliste mit zusammengerechneten Mengen – inklusive Preisschätzung für die ganze Woche. Kostenlos.",
-      plannerCta: "Woche kostenlos planen →",
+      plannerCta: "Woche kostenlos planen",
       guidesHeading: "Passende Guides",
       guides: [
         {
@@ -175,7 +176,7 @@ function getCopy(locale: string, priceDate: string): Copy {
     plannerHeading: "Automatic instead of by hand: the weekly planner",
     plannerText:
       "This calculator is for quick estimates. In the Culinse weekly planner it all happens automatically: you pick recipes for the week, Culinse builds the shopping list with combined amounts — including a price estimate for the whole week. Free.",
-    plannerCta: "Plan your week free →",
+    plannerCta: "Plan your week free",
     guidesHeading: "Related guides",
     guides: [
       {
@@ -239,7 +240,6 @@ export default async function GroceryCalculatorPage({ params }: Props) {
   );
   const c = getCopy(locale, priceDate);
   const url = `${BASE}/${locale}/${SLUG}`;
-  const plannerHref = `/${locale}/weekly-meal-planner`;
 
   const webAppSchema = {
     "@context": "https://schema.org",
@@ -275,95 +275,68 @@ export default async function GroceryCalculatorPage({ params }: Props) {
     JSON.stringify(obj).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(faqSchema) }} />
 
       <Navbar />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pt-14 pb-24 px-4">
-        <div className="max-w-2xl mx-auto">
-          <span className="text-xs font-semibold uppercase tracking-widest text-orange-200 mb-4 block">
-            {c.badge}
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">{c.h1}</h1>
-          <p className="text-orange-100 text-lg leading-relaxed max-w-xl">{c.sub}</p>
-        </div>
-      </div>
+      <main className="max-w-content mx-auto px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16 pb-24">
+        {/* Hero */}
+        <header className="max-w-prose">
+          <p className="text-sm text-ink-3 mb-3">{c.badge}</p>
+          <h1 className="text-display-sm md:text-display mb-5">{c.h1}</h1>
+          <p className="text-body-lg text-ink-2 max-w-prose">{c.sub}</p>
+        </header>
 
-      <main className="max-w-2xl mx-auto px-4 -mt-10 pb-24">
         {/* Rechner */}
-        <div className="mb-5">
+        <div className="max-w-prose mt-10">
           <GroceryCalculator locale={locale} />
         </div>
 
-        {/* So funktioniert's */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{c.howHeading}</h2>
-          <p className="text-gray-700 leading-relaxed">{c.how}</p>
-        </div>
+        <div className="max-w-prose">
+          {/* So funktioniert's */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.howHeading}</h2>
+          <p className="text-body-lg">{c.how}</p>
 
-        {/* Methodik */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{c.methodHeading}</h2>
-          <p className="text-gray-700 leading-relaxed">{c.method}</p>
-        </div>
+          {/* Methodik */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.methodHeading}</h2>
+          <p className="text-body-lg">{c.method}</p>
 
-        {/* Spar-Tipps */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 mb-5">{c.tipsHeading}</h2>
-          <ul className="space-y-2.5">
+          {/* Spar-Tipps */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.tipsHeading}</h2>
+          <ul className="list-disc pl-5 space-y-2 text-body-lg">
             {c.tips.map((t) => (
-              <li key={t} className="flex items-start gap-2.5 text-gray-700">
-                <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                <span className="leading-relaxed">{t}</span>
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+
+          {/* Planer-Funnel */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.plannerHeading}</h2>
+          <p className="text-body-lg text-ink-2 mb-6">{c.plannerText}</p>
+          <Button href="/weekly-meal-planner">{c.plannerCta}</Button>
+
+          {/* Guides */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.guidesHeading}</h2>
+          <ul className="border-b border-line">
+            {c.guides.map((g) => (
+              <li key={g.href} className="border-t border-line py-4">
+                <Link href={g.href} className="font-serif text-h3 text-ink hover:underline underline-offset-[3px]">
+                  {g.title}
+                </Link>
+                <p className="text-base text-ink-2 mt-1">{g.text}</p>
               </li>
             ))}
           </ul>
-        </div>
 
-        {/* Planer-Funnel */}
-        <div className="bg-orange-50 border border-orange-100 rounded-2xl p-8 mb-5 text-center">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">{c.plannerHeading}</h2>
-          <p className="text-sm text-gray-600 mb-5 max-w-md mx-auto leading-relaxed">{c.plannerText}</p>
-          <Link
-            href={plannerHref}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "#f97316" }}
-          >
-            {c.plannerCta}
-          </Link>
-        </div>
-
-        {/* Guides */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">{c.guidesHeading}</h2>
-          <div className="space-y-3">
-            {c.guides.map((g) => (
-              <Link
-                key={g.href}
-                href={g.href}
-                className="block bg-gray-50 rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-              >
-                <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
-                  {g.title}
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5">{g.text}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* FAQ (sichtbar — deckt sich mit FAQPage JSON-LD) */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-5">{c.faqHeading}</h2>
-          <div className="space-y-5">
+          {/* FAQ (sichtbar — deckt sich mit FAQPage JSON-LD) */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.faqHeading}</h2>
+          <div className="border-b border-line">
             {c.faq.map((f) => (
-              <div key={f.question}>
-                <h3 className="font-semibold text-gray-900 mb-1">{f.question}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{f.answer}</p>
-              </div>
+              <details key={f.question} className="border-t border-line py-4">
+                <summary className="cursor-pointer font-serif text-h3 text-ink">{f.question}</summary>
+                <p className="text-body-lg text-ink-2 mt-3">{f.answer}</p>
+              </details>
             ))}
           </div>
         </div>

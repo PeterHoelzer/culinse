@@ -1,3 +1,4 @@
+import { buttonClasses, Icon } from "@/components/ui";
 import {
   AFFILIATE_PRODUCTS,
   getAffiliateUrl,
@@ -52,39 +53,38 @@ export default function BlogAffiliateBox({ title, category, headings, locale, pr
   if (products.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-900">
-          {de ? "Küchen-Empfehlungen der Redaktion" : "Kitchen picks from the editor"}
-        </h3>
-        <span className="text-xs text-gray-300 border border-gray-200 rounded px-1.5 py-0.5">
-          {de ? "Werbung" : "Ad"}
-        </span>
-      </div>
+    <aside className="mb-12 rounded-2 border border-line p-6">
+      <h2 className="mb-1 text-h3 text-ink">
+        {de ? "Küchen-Empfehlungen der Redaktion" : "Kitchen picks from the editor"}
+      </h2>
+      <p className="mb-5 text-caption text-ink-3">{de ? "Werbung · Affiliate-Link" : "Ad · Affiliate link"}</p>
 
-      <div className="grid sm:grid-cols-3 gap-3">
+      <ul className="grid gap-4 sm:grid-cols-3">
         {products.slice(0, 9).map((p) => (
-          <a
-            key={p.name}
-            href={trackedUrl(getAffiliateUrl(p), "blog")}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="block rounded-xl border border-gray-100 p-4 hover:border-orange-200 hover:bg-orange-50/40 transition-colors group"
-          >
-            <span className="text-2xl">{p.emoji}</span>
-            <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors mt-2 leading-snug">
-              {p.name}
-            </p>
-            <p className="text-xs text-gray-400 mt-0.5">{p.price} · Amazon</p>
-          </a>
+          <li key={p.name} className="flex flex-col justify-between gap-3 rounded-2 bg-surface-soft p-4">
+            <div>
+              <p className="font-semibold leading-snug text-ink">{p.name}</p>
+              <p className="mt-0.5 text-sm text-ink-3">{p.price} · Amazon</p>
+            </div>
+            {/* Plain <a>: /api/out ist kein lokalisierter Pfad (kein i18n-Link). */}
+            <a
+              href={trackedUrl(getAffiliateUrl(p), "blog")}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className={buttonClasses({ variant: "secondary", size: "sm", className: "self-start" })}
+            >
+              {de ? "Ansehen" : "View"}
+              <Icon name="externalLink" size={16} />
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <p className="text-xs text-gray-300 mt-4">
+      <p className="mt-5 text-caption text-ink-3">
         {de
-          ? "Als Amazon-Partner verdienen wir an qualifizierten Käufen — für dich ändert sich der Preis nicht."
-          : "As an Amazon Associate we earn from qualifying purchases — the price stays the same for you."}
+          ? "Als Amazon-Partner verdienen wir an qualifizierten Käufen. Für dich ändert sich der Preis nicht."
+          : "As an Amazon Associate we earn from qualifying purchases. The price stays the same for you."}
       </p>
-    </div>
+    </aside>
   );
 }

@@ -1,157 +1,200 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
+import { useId, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
+import type { Recipe } from "./home-types";
 
-export default function Hero({ search, setSearch, onSearch }: { search: string; setSearch: (v: string) => void; onSearch: () => void }) {
+/*
+  Hero der Startseite (DESIGN.md §0, §5 „Suche“): weiß, zweispaltig ab md.
+  Links das Rezept des Tages mit Serifen-Titel, rechts das Foto 3:2.
+  Darunter die Suche mit sichtbarem Label, 56-px-Feld und Chips.
+  Kein Verlauf, kein Badge, keine Häkchen, keine Quellen-Pillen.
+*/
+
+export interface HeroProps {
+  search: string;
+  setSearch: (value: string) => void;
+  onSearch: () => void;
+  /** Hervorgehobenes Rezept (serverseitig geladen, initialRecipes[0]). */
+  featured?: Recipe | null;
+}
+
+/** Aus "45 min" wird "45 Min." (de) bzw. "45 min"; alles andere bleibt unverändert. */
+function formatTime(time: string, locale: string): string | null {
+  if (!time || time === "—") return null;
+  const minutes = parseInt(time, 10);
+  if (Number.isNaN(minutes)) return time;
+  return locale === "de" ? `${minutes} Min.` : `${minutes} min`;
+}
+
+export default function Hero({ search, setSearch, onSearch, featured }: HeroProps) {
   const t = useTranslations();
   const locale = useLocale();
+  const isDE = locale === "de";
+  const inputId = useId();
+  const listId = `${inputId}-suggestions`;
+
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleChange = (val: string) => {
-    setSearch(val);
+  const handleChange = (value: string) => {
+    setSearch(value);
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    if (val.length < 2) { setSuggestions([]); return; }
+    if (value.length < 2) {
+      setSuggestions([]);
+      return;
+    }
     debounceRef.current = setTimeout(async () => {
-      const res = await fetch(`/api/autocomplete?query=${encodeURIComponent(val)}&lang=${locale}`);
-      const data = await res.json();
-      setSuggestions(data.suggestions || []);
-      setShowSuggestions(true);
+      try {
+        const res = await fetch(`/api/autocomplete?query=${encodeURIComponent(value)}&lang=${locale}`);
+        const data = await res.json();
+        setSuggestions(Array.isArray(data.suggestions) ? data.suggestions : []);
+        setShowSuggestions(true);
+      } catch {
+        setSuggestions([]);
+      }
     }, 250);
   };
 
-  const handleSelect = (s: string) => {
-    setSearch(s);
+  const submit = () => {
+    setShowSuggestions(false);
+    onSearch();
+  };
+
+  const handleSelect = (value: string) => {
+    setSearch(value);
     setSuggestions([]);
     setShowSuggestions(false);
     onSearch();
   };
 
-  const quickPicks = t.raw("hero.quickPicks") as string[];
+  const quickPicks = (t.raw("hero.quickPicks") as string[]).slice(0, 6);
+
+  // Texte mit Fallback, bis die Schlüssel in messages/*.json liegen (siehe Bericht).
+  const featuredLabel = t.has("hero.featuredLabel") ? t("hero.featuredLabel") : isDE ? "Rezept des Tages" : "Recipe of the day";
+  const toRecipe = t.has("hero.toRecipe") ? t("hero.toRecipe") : t("videoSection.fullRecipe");
+  const searchLabel = t.has("hero.searchLabel") ? t("hero.searchLabel") : isDE ? "Was willst du kochen?" : "What do you want to cook?";
+  const aiNotice = t.has("recipe.aiNotice") ? t("recipe.aiNotice") : null;
+
+  const time = featured ? formatTime(featured.time, locale) : null;
+  const servings = featured?.servings ? t("recipeCard.servings", { count: featured.servings }) : null;
+  const meta = [time, servings].filter(Boolean).join(" · ");
 
   return (
-    <section className="hero-gradient py-20 sm:py-28 px-4">
-      <div className="max-w-3xl mx-auto text-center">
-
-        {/* Credibility badge */}
-        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-orange-700 bg-white/70 border border-orange-200 rounded-full px-4 py-1.5 mb-6 shadow-sm">
-          <span>👨‍🍳</span>
-          <span>{t("hero.badge")}</span>
-        </div>
-
-        {/* Headline */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 leading-tight mb-5">
-          {t("hero.headline1")}<br />
-          <span style={{ color: "#f97316" }}>{t("hero.headline2")}</span>
-        </h1>
-
-        {/* Subline */}
-        <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-lg mx-auto leading-relaxed">
-          {t("hero.subline")}
-        </p>
-
-        {/* Search bar */}
-        <div className="relative max-w-xl mx-auto">
-          <div className="flex items-center gap-2 bg-white rounded-2xl shadow-lg p-2 border border-orange-100">
-            <span className="pl-1 text-gray-400 text-xl flex-shrink-0">🔍</span>
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => handleChange(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") { setShowSuggestions(false); onSearch(); } }}
-              onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-              placeholder={t("hero.searchPlaceholder")}
-              className="search-input flex-1 min-w-0 text-sm sm:text-base text-gray-700 bg-transparent py-2 px-1 placeholder-gray-400"
-            />
-            <button
-              onClick={() => { setShowSuggestions(false); onSearch(); }}
-              className="flex-shrink-0 px-5 py-2.5 text-sm font-semibold text-white rounded-xl transition-colors"
-              style={{ background: "#f97316" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#ea6c00")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#f97316")}
-            >
-              {t("hero.searchButton")}
-            </button>
+    <section className="mx-auto max-w-content px-4 pt-8 pb-12 sm:px-6 sm:pt-12 sm:pb-16">
+      {featured ? (
+        <div className="grid gap-8 md:grid-cols-2 md:items-center md:gap-12">
+          <div className="order-2 flex flex-col items-start gap-4 md:order-1">
+            <p className="text-sm text-ink-3">{featuredLabel}</p>
+            <h1 className="text-display-sm md:text-display">{featured.title}</h1>
+            {meta && <p className="tabular text-sm text-ink-3">{meta}</p>}
+            <div className="mt-2 flex flex-wrap gap-3">
+              <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
+              <Button variant="secondary" href="/weekly-meal-planner">
+                {t("hero.ctaPlan")}
+              </Button>
+            </div>
           </div>
 
-          {/* Suggestions dropdown */}
+          <figure className="order-1 m-0 md:order-2">
+            {featured.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={featured.image}
+                alt={featured.title}
+                width={1200}
+                height={800}
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                className="aspect-[3/2] w-full rounded-2 object-cover"
+                style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
+              />
+            ) : (
+              <div className="flex aspect-[3/2] w-full items-center justify-center rounded-2 bg-surface-soft">
+                <Icon name="utensils" size={32} className="text-line-strong" />
+              </div>
+            )}
+            {aiNotice && <figcaption className="mt-2 text-caption text-ink-3">{aiNotice}</figcaption>}
+          </figure>
+        </div>
+      ) : (
+        <div className="flex max-w-prose flex-col items-start gap-5">
+          <h1 className="text-display-sm md:text-display">
+            {t("hero.headline1")} {t("hero.headline2")}
+          </h1>
+          <p className="text-body-lg text-ink-2">{t("hero.subline")}</p>
+          <Button href="/weekly-meal-planner">{t("hero.ctaPlan")}</Button>
+        </div>
+      )}
+
+      {/* Suche */}
+      <form
+        role="search"
+        className="mt-12 flex max-w-3xl flex-col gap-3 sm:mt-16"
+        onSubmit={(e) => {
+          e.preventDefault();
+          submit();
+        }}
+      >
+        <label htmlFor={inputId} className="text-h3">
+          {searchLabel}
+        </label>
+        <div className="relative">
+          <Input
+            id={inputId}
+            type="text"
+            inputMode="search"
+            name="q"
+            value={search}
+            onChange={(e) => handleChange(e.target.value)}
+            onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+            placeholder={t("hero.searchPlaceholder")}
+            leadingIcon="search"
+            autoComplete="off"
+            enterKeyHint="search"
+            aria-autocomplete="list"
+            aria-controls={showSuggestions && suggestions.length > 0 ? listId : undefined}
+            aria-expanded={showSuggestions && suggestions.length > 0}
+            inputClassName="h-14 pr-32"
+          />
+          <Button type="submit" className="absolute right-1.5 top-1.5">
+            {t("hero.searchButton")}
+          </Button>
+
           {showSuggestions && suggestions.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden z-50">
-              {suggestions.map((s, i) => (
-                <button
-                  key={i}
-                  onMouseDown={() => handleSelect(s)}
-                  className="w-full text-left px-5 py-3 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition-colors flex items-center gap-3"
-                >
-                  <span className="text-gray-300">🔍</span>
-                  {s}
-                </button>
+            <ul
+              id={listId}
+              role="listbox"
+              className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2 border border-line bg-surface shadow-float"
+            >
+              {suggestions.map((s) => (
+                <li key={s} role="option" aria-selected={false}>
+                  <button
+                    type="button"
+                    onMouseDown={() => handleSelect(s)}
+                    className="flex w-full items-center gap-3 px-4 py-3 text-left text-base text-ink transition-colors hover:bg-surface-soft"
+                  >
+                    <Icon name="search" size={18} className="shrink-0 text-ink-3" />
+                    <span className="min-w-0 truncate">{s}</span>
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
         </div>
 
-        {/* Quick picks */}
-        <div className="flex flex-wrap justify-center gap-2 mt-4 text-sm text-gray-500">
-          <span>{t("hero.tryLabel")}</span>
-          {quickPicks.map((s) => (
-            <button
-              key={s}
-              onClick={() => handleSelect(s)}
-              className="text-orange-500 hover:text-orange-700 hover:underline transition-colors"
-            >
-              {s}
-            </button>
+        <ChipRow className="mt-1">
+          {quickPicks.map((pick) => (
+            <Chip key={pick} onClick={() => handleSelect(pick)}>
+              {pick}
+            </Chip>
           ))}
-        </div>
-
-        {/* Primary CTAs — the planner+shopping-list funnel is the product's core
-            value; before this the hero offered search only (no conversion path). */}
-        <div className="flex flex-wrap justify-center gap-3 mt-7">
-          <Link
-            href={`/${locale}/weekly-meal-planner`}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-white text-sm sm:text-base font-semibold shadow-md shadow-orange-200 transition-all hover:opacity-90 hover:scale-[1.02]"
-            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-          >
-            {t("hero.ctaPlan")}
-          </Link>
-          <button
-            onClick={() => document.querySelector(".discover-anchor")?.scrollIntoView({ behavior: "smooth" })}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-orange-200 bg-white/70 text-orange-600 text-sm sm:text-base font-semibold transition-colors hover:bg-orange-50"
-          >
-            {t("hero.ctaBrowse")}
-          </button>
-        </div>
-
-        {/* CRO: ehrliche Trust-Signale direkt unter den CTAs */}
-        <div className="flex flex-wrap justify-center gap-x-5 gap-y-1 mt-5 text-xs sm:text-sm text-gray-500">
-          <span className="inline-flex items-center gap-1.5"><span className="text-green-500 font-bold">✓</span>{t("hero.trust1")}</span>
-          <span className="inline-flex items-center gap-1.5"><span className="text-green-500 font-bold">✓</span>{t("hero.trust2")}</span>
-          <span className="inline-flex items-center gap-1.5"><span className="text-green-500 font-bold">✓</span>{t("hero.trust3")}</span>
-        </div>
-
-        {/* Source trust row */}
-        <div className="mt-8 text-xs text-gray-400">
-          {/* Mobile: compact version */}
-          <div className="sm:hidden flex flex-wrap justify-center items-center gap-2">
-            <span>{t("hero.sourcesMobile")}</span>
-          </div>
-          {/* Desktop: badge version */}
-          <div className="hidden sm:flex flex-wrap justify-center items-center gap-x-3 gap-y-2">
-            <span>{t("hero.sourcesDesktop")}</span>
-            {["Culinse Küche", "Community", "Familienrezepte"].map((src) => (
-              <span key={src} className="font-medium text-gray-500 bg-white/60 border border-gray-200 px-2.5 py-1 rounded-full">{src}</span>
-            ))}
-
-          </div>
-        </div>
-      </div>
+        </ChipRow>
+      </form>
     </section>
   );
 }
-
-// ─── Category Chips ───────────────────────────────────────────────────────────

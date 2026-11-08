@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo, type ReactNode } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/lib/navigation";
+import { Button, Chip, EmptyState, Notice, SectionHeader, Skeleton } from "@/components/ui";
 import { Recipe, TREND_FILTER_DEFS, STATE_CHIPS } from "./home-types";
 import CategoryChips from "./CategoryChips";
 import RecipeCard from "./RecipeCard";
@@ -20,6 +21,32 @@ function updateUrlParams(updates: Record<string, string | undefined>) {
   }
   const qs = params.toString();
   window.history.replaceState(null, "", `${window.location.pathname}${qs ? `?${qs}` : ""}`);
+}
+
+const FILTER_PANEL_ID = "discover-filters";
+const FILTER_TOGGLE_ID = "discover-filters-toggle";
+
+/** Eine Chip-Gruppe im Filter-Panel; der erste Chip („Alle …“) benennt die Gruppe. */
+function FilterGroup({ children, divider = true }: { children: ReactNode; divider?: boolean }) {
+  return (
+    <div role="group" className={["flex flex-wrap gap-2", divider ? "border-t border-line pt-4" : ""].filter(Boolean).join(" ")}>
+      {children}
+    </div>
+  );
+}
+
+/** Skeleton in Kartenhöhe: Bild 4:3 plus drei Textzeilen */
+function CardSkeleton() {
+  return (
+    <div className="flex flex-col gap-3">
+      <Skeleton className="aspect-[4/3] w-full" />
+      <div className="flex flex-col gap-2">
+        <Skeleton className="h-4 w-1/3" />
+        <Skeleton className="h-6 w-5/6" />
+        <Skeleton className="h-4 w-1/2" />
+      </div>
+    </div>
+  );
 }
 
 export default function DiscoverSection({
@@ -74,6 +101,7 @@ export default function DiscoverSection({
   const [region, setRegion] = useState(""); // Bundesland; greift nur bei Kategorie "German"
   const [userPrefs, setUserPrefs] = useState<{ diet: string; intolerances: string[]; max_time: number } | null>(null);
   const [community, setCommunity] = useState<Recipe[]>([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   // Load a couple of public, user-created recipes once, to sprinkle into the
   // default discover view. Failure is silent — they're a bonus, not required.
@@ -242,188 +270,177 @@ export default function DiscoverSection({
     return out;
   }, [recipes, community, isDefaultView]);
 
+  // ── Filter-Panel (DESIGN.md §5: nur eine sichtbare Chip-Reihe) ───────────
+  const showStates = category === "German";
+  const activeFilterCount =
+    (maxTime ? 1 : 0) + (diet ? 1 : 0) + (trend ? 1 : 0) + (showStates && region ? 1 : 0);
+  const hasForYouChip =
+    !!user && !!userPrefs && (!!userPrefs.diet || (userPrefs.intolerances?.length ?? 0) > 0 || !!userPrefs.max_time);
+  const intoleranceCount = userPrefs?.intolerances?.length ?? 0;
+
+  const closeFilters = (returnFocus = false) => {
+    setFiltersOpen(false);
+    if (returnFocus) document.getElementById(FILTER_TOGGLE_ID)?.focus();
+  };
+
   return (
-    <section id="discover" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <section id="discover" aria-labelledby="discover-title" className="mx-auto max-w-content px-4 py-12 sm:px-6 sm:py-16 lg:px-10">
 
       {user && !userPrefs && (
-        <Link
-          href="/profile"
-          className="flex items-center justify-between gap-4 mb-6 px-5 py-4 rounded-2xl border border-orange-200 bg-orange-50 hover:bg-orange-100 transition-colors group"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">👤</span>
-            <div>
-              <p className="text-sm font-semibold text-orange-800">{t("discover.profileCta")}</p>
-              <p className="text-xs text-orange-600">{t("discover.profileCtaSub")}</p>
-            </div>
-          </div>
-          <span className="text-orange-400 group-hover:translate-x-1 transition-transform text-sm">→</span>
-        </Link>
+        <Notice tone="info" className="mb-6">
+          <Link href="/profile" className="font-semibold text-brand underline underline-offset-[3px] hover:text-brand-hover">
+            {t("discover.profileCta")}
+          </Link>{" "}
+          <span className="text-ink-2">{t("discover.profileCtaSub")}</span>
+        </Notice>
       )}
 
-      <div className="discover-anchor flex items-center justify-between mb-6 scroll-mt-24">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">
-            {search ? t("discover.resultsFor", { query: search }) : t("discover.title")}
-          </h2>
-          <p className="text-sm text-gray-500 mt-1">
-            {loading
-              ? t("discover.loading")
-              : t("discover.recipesFound", { count: recipes.length })}
-          </p>
-        </div>
-      </div>
+      <SectionHeader
+        id="discover-title"
+        className="discover-anchor scroll-mt-24"
+        title={search ? t("discover.resultsFor", { query: search }) : t("discover.title")}
+        subtitle={loading ? t("discover.loading") : t("discover.recipesFound", { count: recipes.length })}
+      />
 
-      <div className="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
-        {user && userPrefs && (userPrefs.diet || (userPrefs.intolerances?.length ?? 0) > 0 || userPrefs.max_time) && (
-          <button
-            onClick={() => { setForYouActive(v => !v); applyCount(6); }}
-            className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
-              forYouActive
-                ? "text-white border-transparent"
-                : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
-            }`}
-            style={forYouActive ? { background: "#f97316", borderColor: "#f97316" } : {}}
-          >
-            {t("trendFilters.forYou")}
-          </button>
-        )}
-        {TREND_FILTERS.map((f) => (
-          <button
-            key={f.value}
-            onClick={() => selectTrend(f.value)}
-            className={`flex-shrink-0 text-sm font-medium px-4 py-2 rounded-full border transition-all ${
-              trend === f.value
-                ? "text-white border-transparent"
-                : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
-            }`}
-            style={trend === f.value ? { background: "#f97316", borderColor: "#f97316" } : {}}
-          >
-            {f.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="mb-4">
-        <CategoryChips active={category} setActive={setCategory} />
-        {category === "German" && (
-          <div className="flex gap-2 overflow-x-auto pb-2 mt-1">
-            {([["", t("allStates")]] as [string, string][]).concat(STATE_CHIPS).map(([val, label]) => (
-              <button
-                key={val || "alle"}
-                onClick={() => setRegion(val)}
-                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
-                  region === val
-                    ? "text-white border-transparent"
-                    : "bg-white text-gray-600 border-gray-200 hover:border-orange-300 hover:text-orange-500"
-                }`}
-                style={region === val ? { background: "#f97316", borderColor: "#f97316" } : {}}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="flex gap-3 mb-6 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden">
-        <div className="flex-shrink-0 flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
-          {TIME_FILTERS.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => selectMaxTime(f.value)}
-              className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
-                maxTime === f.value
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
+      {/* Die eine Chip-Reihe: Filter-Schalter, „Für dich“, Kategorien */}
+      <CategoryChips
+        active={category}
+        setActive={setCategory}
+        leading={
+          <>
+            <Chip
+              id={FILTER_TOGGLE_ID}
+              icon="sliders"
+              active={activeFilterCount > 0}
+              aria-pressed={undefined}
+              aria-expanded={filtersOpen}
+              aria-controls={FILTER_PANEL_ID}
+              onClick={() => setFiltersOpen((v) => !v)}
+              onKeyDown={(e) => { if (e.key === "Escape" && filtersOpen) closeFilters(); }}
             >
-              {f.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex-shrink-0 flex items-center gap-1 bg-gray-50 rounded-full px-1 py-1 border border-gray-100">
-          {DIET_FILTERS.map((f) => (
-            <button
-              key={f.value}
-              onClick={() => selectDiet(f.value)}
-              className={`text-xs font-medium px-3 py-1.5 rounded-full transition-all ${
-                diet === f.value
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {f.label}
-              {userPrefs?.diet === f.value && f.value !== "" && (
-                <span className="ml-1 text-orange-400">●</span>
+              {t("discover.filters")}
+              {activeFilterCount > 0 && (
+                <>
+                  <span aria-hidden="true" className="tabular">({activeFilterCount})</span>
+                  <span className="sr-only">{t("discover.filtersActive", { count: activeFilterCount })}</span>
+                </>
               )}
-            </button>
-          ))}
-        </div>
+            </Chip>
+            {hasForYouChip && (
+              <Chip
+                icon="user"
+                active={forYouActive}
+                onClick={() => { setForYouActive(v => !v); applyCount(6); }}
+              >
+                {t("trendFilters.forYou")}
+              </Chip>
+            )}
+          </>
+        }
+      />
 
-        {forYouActive && (userPrefs?.intolerances?.length ?? 0) > 0 && (
-          <Link
-            href="/profile"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-xs font-medium text-red-600 hover:bg-red-100 transition-colors"
-          >
-            🚫 {(userPrefs?.intolerances?.length ?? 0) === 1
-              ? t("discover.allergenFiltered", { count: userPrefs?.intolerances?.length ?? 0 })
-              : t("discover.allergensFiltered", { count: userPrefs?.intolerances?.length ?? 0 })}
+      {forYouActive && intoleranceCount > 0 && (
+        <p className="mt-3 text-sm text-ink-3">
+          <Link href="/profile" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">
+            {intoleranceCount === 1
+              ? t("discover.allergenFiltered", { count: intoleranceCount })
+              : t("discover.allergensFiltered", { count: intoleranceCount })}
           </Link>
+        </p>
+      )}
+
+      {/* Panel mit Trend-, Zeit-, Diät- und Bundesland-Filtern */}
+      <div
+        id={FILTER_PANEL_ID}
+        hidden={!filtersOpen}
+        onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); closeFilters(true); } }}
+        className="mt-4 flex flex-col gap-4 rounded-2 bg-surface-soft p-4"
+      >
+        <FilterGroup divider={false}>
+          {TREND_FILTERS.map((f) => (
+            <Chip key={f.value} size="sm" active={trend === f.value} onClick={() => selectTrend(f.value)}>
+              {f.label}
+            </Chip>
+          ))}
+        </FilterGroup>
+
+        <FilterGroup>
+          {TIME_FILTERS.map((f) => (
+            <Chip key={f.value} size="sm" active={maxTime === f.value} onClick={() => selectMaxTime(f.value)}>
+              <span className="tabular">{f.label}</span>
+            </Chip>
+          ))}
+        </FilterGroup>
+
+        <FilterGroup>
+          {DIET_FILTERS.map((f) => (
+            <Chip
+              key={f.value}
+              size="sm"
+              active={diet === f.value}
+              icon={userPrefs?.diet === f.value && f.value !== "" ? "user" : undefined}
+              onClick={() => selectDiet(f.value)}
+            >
+              {f.label}
+            </Chip>
+          ))}
+        </FilterGroup>
+
+        {showStates && (
+          <FilterGroup>
+            {([["", t("allStates")]] as [string, string][]).concat(STATE_CHIPS).map(([val, label]) => (
+              <Chip key={val || "alle"} size="sm" active={region === val} onClick={() => setRegion(val)}>
+                {label}
+              </Chip>
+            ))}
+          </FilterGroup>
         )}
       </div>
 
       {quotaExceeded && !loading && (
-        <div className="mb-5 px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700 flex items-center gap-2">
-          <span>⏳</span>
-          <span>{t("discover.quotaWarning")}</span>
-        </div>
+        <Notice tone="warn" className="mt-6">
+          {t("discover.quotaWarning")}
+        </Notice>
       )}
 
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[...Array(6)].map((_, i) => (
-            <div key={i} className="bg-gray-100 rounded-2xl h-64 animate-pulse" />
-          ))}
-        </div>
-      ) : error ? (
-        <div className="text-center py-16 text-gray-400">
-          <div className="text-5xl mb-3">⚠️</div>
-          <p className="text-lg font-medium">{t("discover.error")}</p>
-          <button onClick={() => fetchRecipes(count)} className="text-sm text-orange-500 mt-2 hover:underline">
-            {t("discover.tryAgain")}
-          </button>
-        </div>
-      ) : recipes.length > 0 ? (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {displayedRecipes.map((r, i) => (
-              <RecipeCard key={r.id} recipe={r} index={i} user={user} />
+      <div className="mt-8">
+        {loading ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[...Array(6)].map((_, i) => (
+              <CardSkeleton key={i} />
             ))}
           </div>
-
-          {hasMore && (
-            <div className="mt-8 flex justify-center">
-              <button
-                onClick={handleLoadMore}
-                disabled={loadingMore}
-                className="px-8 py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loadingMore ? t("discover.loadingMore") : t("discover.loadMore")}
-              </button>
+        ) : error ? (
+          <EmptyState
+            tone="error"
+            icon="alert"
+            title={t("discover.error")}
+            action={
+              <Button variant="secondary" onClick={() => fetchRecipes(count)}>
+                {t("discover.tryAgain")}
+              </Button>
+            }
+          />
+        ) : recipes.length > 0 ? (
+          <>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {displayedRecipes.map((r, i) => (
+                <RecipeCard key={r.id} recipe={r} index={i} user={user} />
+              ))}
             </div>
-          )}
-        </>
-      ) : (
-        <div className="text-center py-16 text-gray-400">
-          <div className="text-5xl mb-3">🍳</div>
-          <p className="text-lg font-medium">{t("discover.noRecipes")}</p>
-          <p className="text-sm mt-1">{t("discover.noRecipesSub")}</p>
-        </div>
-      )}
+
+            {hasMore && (
+              <div className="mt-8 flex justify-center">
+                <Button variant="secondary" onClick={handleLoadMore} loading={loadingMore}>
+                  {t("discover.loadMore")}
+                </Button>
+              </div>
+            )}
+          </>
+        ) : (
+          <EmptyState title={t("discover.noRecipes")} text={t("discover.noRecipesSub")} />
+        )}
+      </div>
     </section>
   );
 }
-
-// ─── For You Section ──────────────────────────────────────────────────────────

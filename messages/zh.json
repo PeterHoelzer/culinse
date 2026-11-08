@@ -8,13 +8,15 @@
     "saved": "收藏",
     "profile": "个人资料",
     "login": "登录",
-    "getStarted": "开始使用 →",
+    "getStarted": "开始使用",
     "join": "加入",
     "logout": "退出登录",
-    "upgrade": "✦ 升级",
+    "upgrade": "升级",
     "myRecipes": "我的食谱",
     "calculator": "计算器",
-    "myRecipesShort": "食谱"
+    "myRecipesShort": "食谱",
+    "menu": "菜单",
+    "language": "语言"
   },
   "hero": {
     "badge": "由肉类加工大师兼主厨打造",
@@ -33,11 +35,15 @@
     "sourcesMobile": "原创食谱 · 社区 · 家庭",
     "sourcesDesktop": "我们的食谱来自：",
     "freeLabel": "免费使用 · 无广告横幅",
-    "ctaPlan": "📅 免费规划你的一周",
-    "ctaBrowse": "发现食谱 ↓",
+    "ctaPlan": "免费规划你的一周",
+    "ctaBrowse": "发现食谱",
     "trust1": "免费使用",
     "trust2": "无广告横幅",
-    "trust3": "真实折扣超市价格"
+    "trust3": "真实折扣超市价格",
+    "featuredLabel": "今日食谱",
+    "searchLabel": "你想做什么菜？",
+    "toRecipe": "查看食谱",
+    "imageNote": "图片由 AI 生成，食谱经编辑审核"
   },
   "categories": [
     "全部",
@@ -59,13 +65,13 @@
     "亚洲菜"
   ],
   "trendFilters": {
-    "trending": "🔥 热门",
-    "highProtein": "💪 高蛋白",
-    "lowCarb": "⚡ 低碳水",
-    "keto": "🥑 生酮",
-    "dairyFree": "🥛 无乳糖",
-    "mediterranean": "🫒 地中海风味",
-    "forYou": "✨ 为你推荐"
+    "trending": "热门",
+    "highProtein": "高蛋白",
+    "lowCarb": "低碳水",
+    "keto": "生酮",
+    "dairyFree": "无乳糖",
+    "mediterranean": "地中海风味",
+    "forYou": "为你推荐"
   },
   "timeFilters": {
     "15": "≤ 15 分钟",
@@ -83,7 +89,7 @@
     "title": "今日热门",
     "resultsFor": "“{query}”的搜索结果",
     "loading": "正在加载食谱…",
-    "recipesFound": "来自全球顶尖美食网站的 {count} 道食谱",
+    "recipesFound": "{count} 道食谱",
     "loadMore": "加载更多",
     "loadingMore": "加载中…",
     "noRecipes": "未找到食谱",
@@ -94,49 +100,54 @@
     "allergenFiltered": "已过滤 {count} 种过敏原",
     "allergensFiltered": "已过滤 {count} 种过敏原",
     "profileCta": "设置你的饮食档案",
-    "profileCtaSub": "告诉我们你的饮食偏好和过敏原，即可获得个性化推荐。"
+    "profileCtaSub": "告诉我们你的饮食偏好和过敏原，即可获得个性化推荐。",
+    "allRecipes": "全部食谱",
+    "filters": "筛选",
+    "filtersActive": "已选 {count} 项"
   },
   "recipeCard": {
     "servings": "{count} 人份",
-    "details": "详情 →",
+    "details": "详情",
     "addToCollection": "添加到合集",
     "save": "收藏食谱",
     "removeSave": "取消收藏",
-    "loginToSave": "登录后即可收藏"
+    "loginToSave": "登录后即可收藏",
+    "minutes": "{count} 分钟"
   },
   "forYou": {
-    "title": "✨ 为你推荐",
+    "title": "为你推荐",
     "subtitle": "根据你的饮食档案为你量身推荐",
     "fromActivity": "根据你收藏和计划的食谱推荐",
-    "editProfile": "编辑资料 →"
+    "editProfile": "编辑资料"
   },
   "videoSection": {
-    "title": "🎬 视频食谱",
+    "title": "视频食谱",
     "comingSoonBadge": "即将上线",
     "comingSoonTitle": "我们的原创烹饪视频正在制作中",
     "comingSoonText": "来自 Culinse 厨房的分步教学视频——原创出品，而非千篇一律。敬请期待！",
     "subtitle": "边看边做，一步一步来",
-    "fullRecipe": "查看食谱 →",
+    "fullRecipe": "查看食谱",
     "loadMore": "加载更多视频",
     "loading": "加载中…",
-    "addToPlan": "+ 加入计划"
+    "addToPlan": "加入计划",
+    "play": "播放视频"
   },
   "howItWorks": {
     "title": "Culinse 如何运作",
     "subtitle": "我们为你汇集网上最好的食谱——个性化推荐、便捷搜索，还能自动生成购物清单。",
     "steps": [
       {
-        "icon": "🔍",
+        "icon": "",
         "title": "搜索与发现",
         "desc": "在全球顶尖美食网站的数百万道食谱中搜索——一站搞定。"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "title": "收藏与个性化",
         "desc": "收藏你喜爱的食谱。Culinse 会了解你的口味，为你推荐更多同类食谱。"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "title": "购物清单（含 € 总价）",
         "desc": "你的每周计划会自动变成购物清单——列出每种食材的折扣超市预估价格，以及整周总价。"
       }
@@ -145,8 +156,8 @@
   "cta": {
     "title": "立即发现食谱。",
     "subtitle": "免费开始，无需订阅。只有为你量身推荐的美味佳肴。",
-    "button": "免费创建账户 →",
-    "buttonLoggedIn": "打开你的每周计划 →"
+    "button": "免费创建账户",
+    "buttonLoggedIn": "打开你的每周计划"
   },
   "footer": {
     "about": "关于我们",
@@ -158,7 +169,14 @@
     "contact": "联系我们",
     "copyright": "© {year} Culinse。保留所有权利。",
     "planner": "每周计划",
-    "calculator": "购物计算器"
+    "calculator": "购物计算器",
+    "explore": "发现",
+    "tools": "工具",
+    "legal": "法律信息",
+    "tagline": "来自厨房、超市和家庭的食谱。没有横幅广告。",
+    "videos": "烹饪课堂",
+    "family": "家庭食谱",
+    "collections": "食谱合集"
   },
   "about": {
     "ourStory": "我们的故事",
@@ -170,44 +188,44 @@
     "visionTitle": "一站式食谱平台",
     "values": [
       {
-        "icon": "🍖",
+        "icon": "",
         "title": "匠心",
         "desc": "由一位多年站在灶台前、柜台后的行家打造。"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "title": "热爱",
         "desc": "食物不只是充饥的燃料。Culinse 属于真正热爱下厨的人。"
       },
       {
-        "icon": "✨",
+        "icon": "",
         "title": "简单",
         "desc": "没有广告横幅，没有强制订阅，没有杂乱干扰。只有你想做的食谱。"
       }
     ],
     "visionItems": [
       {
-        "icon": "📅",
+        "icon": "",
         "title": "每周餐食计划",
         "desc": "几分钟就能规划好一整周。Culinse 会根据你的饮食偏好、日程安排和冰箱里的现有食材为你挑选食谱。"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "title": "智能购物清单",
         "desc": "根据你的每周计划自动生成购物清单——或直接发送给你常用的生鲜配送服务。"
       },
       {
-        "icon": "📚",
+        "icon": "",
         "title": "食谱合集",
         "desc": "创建属于你的合集，与朋友、家人甚至全世界分享。"
       },
       {
-        "icon": "🌍",
+        "icon": "",
         "title": "尽在一处",
         "desc": "一个平台，所有食谱，告别满屏的浏览器标签页。从工作日的快手晚餐，到周末用心挑战的大菜。"
       }
     ],
-    "discoverCta": "发现食谱 →",
+    "discoverCta": "发现食谱",
     "feedbackLabel": "有问题或建议？",
     "story1": "我最初是一名主厨，在德国各地的餐厅掌勺。后来我转入肉类加工行业——2024 年获得了肉类加工大师资格，这是该行业最高的职业资格。对我来说，美食不是副业，而是一切。",
     "story2": "但即便有这样的背景，日常的烦恼依旧：想找到合适的食谱，就得在十几个浏览器标签页之间来回切换，不停关掉 Cookie 弹窗，还要划过一大段生活故事，才能看到真正的食材。本该是件乐事，却让人身心俱疲。",
@@ -236,12 +254,12 @@
     "passwordLabel": "密码",
     "passwordPlaceholder": "至少 6 个字符",
     "forgotPassword": "忘记密码？",
-    "loginButton": "登录 →",
-    "createButton": "创建账户 →",
+    "loginButton": "登录",
+    "createButton": "创建账户",
     "checkInbox": "请查收邮件！",
     "sentTo": "我们已将确认链接发送至",
     "spamNote": "点击邮件中的链接即可激活账户。也请检查一下垃圾邮件文件夹。",
-    "backToLogin": "← 返回登录",
+    "backToLogin": "返回登录",
     "or": "或",
     "privacyNote": "继续即表示你同意我们的",
     "privacyLink": "隐私政策",
@@ -251,15 +269,15 @@
   "profile": {
     "title": "个人资料",
     "pageTitle": "你的饮食档案",
-    "welcomeBanner": "🎉 欢迎来到 Culinse！设置你的饮食档案，获取个性化食谱推荐。",
+    "welcomeBanner": "欢迎来到 Culinse！设置你的饮食档案，获取个性化食谱推荐。",
     "progress0": "设置你的偏好，获取个性化食谱",
     "progress1": "开了个好头——还差 2 步",
     "progress2": "快完成了——还差 1 步",
-    "progress3": "✓ 档案已完善——“为你推荐”已开启！",
+    "progress3": "档案已完善——“为你推荐”已开启！",
     "planPro": "Culinse Pro",
     "planFree": "免费版",
     "renews": "将于 {date} 自动续订",
-    "active": "✓ 已开通",
+    "active": "已开通",
     "free": "免费",
     "proFeatures": [
       "无限合集",
@@ -280,9 +298,9 @@
     "timeTitle": "最长烹饪时间",
     "timeSub": "只显示你真正有时间做的食谱。",
     "saving": "保存中…",
-    "saved": "✓ 已保存！",
+    "saved": "已保存！",
     "saveButton": "保存偏好",
-    "back": "← 返回",
+    "back": "返回",
     "dietOptions": [
       {
         "label": "无偏好",
@@ -344,7 +362,7 @@
     "title": "收藏的食谱",
     "empty": "还没有收藏的食谱",
     "emptySub": "收藏你喜爱的食谱，它们会显示在这里。",
-    "discover": "发现食谱 →"
+    "discover": "发现食谱"
   },
   "collections": {
     "title": "我的合集",
@@ -359,11 +377,11 @@
     "create": "创建合集",
     "upgradeTitle": "无限合集",
     "upgradeSubtext": "免费版包含 1 个合集，最多可收录 10 道食谱。升级到 Pro，一切不设上限。",
-    "upgradeButton": "升级到 Pro →",
-    "createFirst": "+ 创建第一个合集",
+    "upgradeButton": "升级到 Pro",
+    "createFirst": "创建第一个合集",
     "groupDesc": "把你最爱的食谱分组整理成合集——就像美食版的歌单。",
     "counter": "{count, plural, other {# 个合集}}",
-    "newButton": "+ 新建",
+    "newButton": "新建",
     "publicLabel": "设为公开",
     "publicSub": "任何拿到链接的人都能查看",
     "nameLabel": "名称",
@@ -377,22 +395,22 @@
     "recipeCount": "{count, plural, other {# 道食谱}}",
     "detailBack": "我的合集",
     "publicBadge": "公开",
-    "makePrivate": "🔒 设为私密",
-    "makePublic": "🌍 设为公开",
-    "share": "↑ 分享",
-    "copied": "✓ 链接已复制！",
+    "makePrivate": "设为私密",
+    "makePublic": "设为公开",
+    "share": "分享",
+    "copied": "链接已复制！",
     "noRecipes": "还没有食谱",
     "noRecipesSub": "在任意食谱页面都能把食谱添加到此合集。",
-    "discoverCta": "发现食谱 →",
+    "discoverCta": "发现食谱",
     "deleteThis": "删除此合集",
     "deleteNamed": "删除“{name}”？",
     "yesDelete": "确认删除",
     "removeFromCollection": "从合集中移除",
-    "view": "查看 →"
+    "view": "查看"
   },
   "mealPlanner": {
     "shareWeek": "分享",
-    "shareCopied": "✓ 链接已复制",
+    "shareCopied": "链接已复制",
     "title": "每周计划",
     "days": [
       "周一",
@@ -408,8 +426,8 @@
       "午餐",
       "晚餐"
     ],
-    "addRecipe": "+ 添加食谱",
-    "shoppingList": "🛒 购物清单",
+    "addRecipe": "添加食谱",
+    "shoppingList": "购物清单",
     "clearWeek": "清空本周",
     "thisWeek": "本周",
     "daysFull": [
@@ -427,8 +445,8 @@
     "tapToAdd": "点按任意格子即可添加食谱。",
     "mealsPlanned": "已计划 {n}/21 餐",
     "namePlanPlaceholder": "为计划命名…",
-    "proMorePlans": "✦ Pro 解锁更多计划",
-    "newPlan": "+ 新建计划",
+    "proMorePlans": "Pro 解锁更多计划",
+    "newPlan": "新建计划",
     "dragHint": "提示：拖放即可移动或交换餐食。",
     "move": "移动",
     "moveHint": "点按目标格子即可移动",
@@ -441,8 +459,8 @@
     "nextWeek": "下一周",
     "emptyTitle": "你的计划还是空的",
     "emptySub": "点按任意格子，从你收藏的食谱中添加。",
-    "myRecipes": "♥ 我的食谱",
-    "collections": "📚 合集",
+    "myRecipes": "我的食谱",
+    "collections": "合集",
     "proModalTitle": "Pro 解锁更多计划",
     "proModalSub": "有了 Culinse Pro，你可以创建不限数量的餐食计划。",
     "proModalButton": "升级到 Pro（€4.99/月）",
@@ -475,8 +493,8 @@
     "adding": "正在加入计划…",
     "step3Title": "你的每周计划已就绪！",
     "step3Sub": "已计划 {count, plural, other {# 顿晚餐}}——你的购物清单也已自动生成，附带用量和预估费用。",
-    "viewList": "🛒 查看购物清单",
-    "toPlanner": "前往每周计划 →",
+    "viewList": "查看购物清单",
+    "toPlanner": "前往每周计划",
     "skip": "跳过，直接进入首页",
     "loadError": "抱歉，出了点问题。请稍后再试一次。",
     "planName": "我的每周计划"
@@ -497,13 +515,13 @@
     "servings": "份数",
     "ingredients": "食材",
     "instructions": "做法",
-    "saveRecipe": "♡ 收藏食谱",
-    "savedRecipe": "♥ 已收藏",
+    "saveRecipe": "收藏食谱",
+    "savedRecipe": "已收藏",
     "saving": "…",
-    "viewOriginal": "查看原文 ↗",
-    "addToPlan": "+ 加入每周计划",
+    "viewOriginal": "查看原文",
+    "addToPlan": "加入每周计划",
     "similarRecipes": "相似食谱",
-    "backToDiscover": "← 返回",
+    "backToDiscover": "返回",
     "notFound": "未找到该食谱",
     "source": "来源",
     "collections": "合集",
@@ -531,22 +549,22 @@
       "无限食谱合集",
       "优先支持"
     ],
-    "upgradeButton": "升级到 Pro →",
+    "upgradeButton": "升级到 Pro",
     "processing": "处理中…",
-    "currentPlan": "你当前的方案：Pro ✦",
-    "manageButton": "管理订阅 →",
+    "currentPlan": "你当前的方案：Pro",
+    "manageButton": "管理订阅",
     "heroTitle": "你的厨房，\n井井有条。",
     "heroSubtitle": "规划一周餐食、生成购物清单、整理你喜爱的每一道食谱——一站搞定。",
-    "alreadyPro": "✓ 你已经是 Pro 会员！",
+    "alreadyPro": "你已经是 Pro 会员！",
     "freeForAllBadge": "目前所有 Pro 功能免费开放",
     "freeForAllNote": "Culinse 正在扩展建设中——所有 Pro 功能已向全部用户开放。登录即可开始规划，无需订阅。",
-    "startButton": "免费试用 7 天 →",
+    "startButton": "免费试用 7 天",
     "cancelNote": "7 天免费 · 试用结束后才扣款 · 随时可取消",
     "legalNote": "本服务适用我们的",
     "legalAnd": "和",
     "agbLabel": "使用条款",
     "widerrufLabel": "撤回权须知",
-    "activeNote": "你正在使用 Culinse Pro 🎉",
+    "activeNote": "你正在使用 Culinse Pro",
     "freeLabel": "免费版",
     "proLabel": "Pro",
     "everythingInFree": "包含免费版全部功能，另加：",
@@ -572,32 +590,32 @@
     "freeFeatures": [
       "来自 4 个优质来源的食谱",
       "按饮食、时间、菜系搜索和筛选",
-      "收藏食谱（♡）",
+      "收藏食谱（）",
       "1 个合集（最多 10 道食谱）"
     ],
     "proFeatures": [
       {
-        "icon": "📚",
+        "icon": "",
         "label": "无限合集",
         "sub": "按你喜欢的方式整理最爱的食谱"
       },
       {
-        "icon": "📅",
+        "icon": "",
         "label": "每周餐食计划",
         "sub": "规划一整周的早餐、午餐和晚餐"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "label": "智能购物清单",
         "sub": "根据你的计划自动生成，按类别整理"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "label": "无限收藏食谱",
         "sub": "告别 25 道食谱的上限——喜欢的都能收藏"
       },
       {
-        "icon": "⚡",
+        "icon": "",
         "label": "抢先体验新功能",
         "sub": "第一时间体验我们接下来推出的所有新功能"
       }
@@ -609,32 +627,36 @@
     "annualPrice": "€3.24/月",
     "annualTotal": "€38.88/年",
     "monthlyPrice": "€4.99/月",
-    "annualStartButton": "免费试用 7 天 →",
+    "annualStartButton": "免费试用 7 天",
     "billedAnnually": "按年计费",
     "billedMonthly": "按月计费"
   },
   "blog": {
     "title": "Culinse 博客",
     "subtitle": "让烹饪更聪明的技巧、指南与灵感。",
-    "readMore": "阅读全文 →",
-    "backToBlog": "← 返回博客",
-    "minRead": "分钟阅读"
+    "readMore": "阅读全文",
+    "backToBlog": "返回博客",
+    "minRead": "分钟阅读",
+    "loadMore": "显示更多文章"
   },
   "error": {
     "notFound": "页面未找到",
     "notFoundSub": "你要找的页面不存在。",
-    "backHome": "返回首页"
+    "backHome": "返回首页",
+    "title": "出了点问题",
+    "retry": "重试"
   },
   "newsletter": {
     "title": "免费领取 7 天备餐计划（PDF）",
     "subtitle": "完整的每周计划，含集中备餐时段、可勾选的购物清单和主厨秘诀——PDF 免费下载。此外，每周为你送上精选食谱灵感。绝无垃圾邮件，可随时退订。",
     "placeholder": "you@example.com",
     "button": "订阅",
-    "success": "🎉 谢谢！你很快就会收到我们的邮件。",
+    "success": "谢谢！你很快就会收到我们的邮件。",
     "error": "出错了，请重试。",
     "already": "该邮箱已订阅。",
     "sending": "订阅中…",
-    "download": "📄 立即下载计划（PDF）"
+    "download": "立即下载计划（PDF）",
+    "emailLabel": "电子邮箱"
   },
   "loginPrompt": {
     "title": "收藏食谱",
@@ -654,13 +676,13 @@
     "maybeLater": "以后再说",
     "proFeature": "Pro 功能",
     "proUnlock": "升级到 Pro，解锁此功能及更多特权。",
-    "proFrom": "€4.99/月起 →",
+    "proFrom": "€4.99/月起",
     "addToCollection": "添加到合集",
     "noCollections": "还没有合集",
     "createOneBelow": "在下方新建一个",
     "collectionNamePlaceholder": "合集名称…",
     "create": "创建",
-    "newCollection": "+ 新建合集",
+    "newCollection": "新建合集",
     "fullUpgrade": "已满——升级解锁更多",
     "cancel": "取消",
     "loading": "加载中…",
@@ -669,16 +691,16 @@
     "day": "星期",
     "meal": "餐次",
     "planNamePlaceholder": "为你的计划命名…",
-    "proMorePlans": "✦ Pro 解锁更多计划",
+    "proMorePlans": "Pro 解锁更多计划",
     "saving": "保存中…",
     "addToPlanButton": "加入计划",
     "chooseRecipeFor": "选择食谱：",
     "myRecipesTab": "我的食谱",
     "noSavedRecipes": "还没有收藏的食谱",
     "emptyCollection": "此合集为空",
-    "saveHint": "在首页点 ♡ 即可收藏食谱。",
-    "addHint": "点 📚 即可将食谱添加到此合集。",
-    "shoppingTitle": "🛒 购物清单",
+    "saveHint": "在首页点 即可收藏食谱。",
+    "addHint": "点 即可将食谱添加到此合集。",
+    "shoppingTitle": "购物清单",
     "recipesCount": "{count} 道食谱",
     "done": "已完成",
     "reset": "重置",
@@ -686,15 +708,22 @@
     "noRecipesInPlan": "计划中没有食谱",
     "addRecipesFirst": "请先将食谱添加到每周计划。",
     "noIngredients": "未找到食材——部分来源不提供食材清单。",
-    "orderGroceries": "🛒 在亚马逊订购食材",
+    "orderGroceries": "在亚马逊订购食材",
     "affiliateNote": "推广链接——不会让你多花一分钱",
     "allDone": "全部完成！",
-    "boughtAll": "所有食材都已买齐。"
+    "boughtAll": "所有食材都已买齐。",
+    "close": "关闭",
+    "collectionName": "合集名称",
+    "planName": "计划名称",
+    "newPlan": "新建计划",
+    "upgradeFeatureSave": "无限保存食谱",
+    "upgradeFeatureCollections": "不限数量的合集",
+    "upgradeFeaturePlans": "多个每周计划"
   },
   "proSuccess": {
     "title": "欢迎加入 Culinse Pro！",
     "subtitle": "你的订阅已生效。现在可以使用无限合集、每周计划和智能购物清单。",
-    "goCollections": "📚 前往我的合集",
+    "goCollections": "前往我的合集",
     "discover": "发现食谱"
   },
   "allStates": "所有联邦州"

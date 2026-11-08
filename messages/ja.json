@@ -8,13 +8,15 @@
     "saved": "保存済み",
     "profile": "プロフィール",
     "login": "ログイン",
-    "getStarted": "はじめる →",
+    "getStarted": "はじめる",
     "join": "参加する",
     "logout": "ログアウト",
-    "upgrade": "✦ アップグレード",
+    "upgrade": "アップグレード",
     "myRecipes": "マイレシピ",
     "calculator": "計算ツール",
-    "myRecipesShort": "レシピ"
+    "myRecipesShort": "レシピ",
+    "menu": "メニュー",
+    "language": "言語"
   },
   "hero": {
     "badge": "食肉マイスター兼シェフが開発",
@@ -33,11 +35,15 @@
     "sourcesMobile": "オリジナルレシピ · コミュニティ · 家族の味",
     "sourcesDesktop": "レシピの提供元：",
     "freeLabel": "無料で使える · 広告バナーなし",
-    "ctaPlan": "📅 週間プランを無料で作成",
-    "ctaBrowse": "レシピを探す ↓",
+    "ctaPlan": "週間プランを無料で作成",
+    "ctaBrowse": "レシピを探す",
     "trust1": "無料で使える",
     "trust2": "広告バナーなし",
-    "trust3": "ディスカウントスーパーの実売価格"
+    "trust3": "ディスカウントスーパーの実売価格",
+    "featuredLabel": "今日のレシピ",
+    "searchLabel": "何を作りますか？",
+    "toRecipe": "レシピを見る",
+    "imageNote": "画像はAI生成、レシピは編集部が確認済み"
   },
   "categories": [
     "すべて",
@@ -59,13 +65,13 @@
     "アジア料理"
   ],
   "trendFilters": {
-    "trending": "🔥 トレンド",
-    "highProtein": "💪 高タンパク",
-    "lowCarb": "⚡ 低糖質",
-    "keto": "🥑 ケトジェニック",
-    "dairyFree": "🥛 ラクトースフリー",
-    "mediterranean": "🫒 地中海風",
-    "forYou": "✨ おすすめ"
+    "trending": "トレンド",
+    "highProtein": "高タンパク",
+    "lowCarb": "低糖質",
+    "keto": "ケトジェニック",
+    "dairyFree": "ラクトースフリー",
+    "mediterranean": "地中海風",
+    "forYou": "おすすめ"
   },
   "timeFilters": {
     "15": "15分以内",
@@ -83,7 +89,7 @@
     "title": "今日のトレンド",
     "resultsFor": "「{query}」の検索結果",
     "loading": "レシピを読み込み中…",
-    "recipesFound": "世界中の人気料理サイトから集めた{count}件のレシピ",
+    "recipesFound": "{count} 件のレシピ",
     "loadMore": "もっと見る",
     "loadingMore": "読み込み中…",
     "noRecipes": "レシピが見つかりません",
@@ -94,49 +100,54 @@
     "allergenFiltered": "{count}種類のアレルゲンを除外中",
     "allergensFiltered": "{count}種類のアレルゲンを除外中",
     "profileCta": "食事プロフィールを設定しましょう",
-    "profileCtaSub": "食事スタイルとアレルゲンを教えてください。あなたに合わせたフィードをお届けします。"
+    "profileCtaSub": "食事スタイルとアレルゲンを教えてください。あなたに合わせたフィードをお届けします。",
+    "allRecipes": "すべてのレシピ",
+    "filters": "絞り込み",
+    "filtersActive": "{count} 件適用中"
   },
   "recipeCard": {
     "servings": "{count}人分",
-    "details": "詳細 →",
+    "details": "詳細",
     "addToCollection": "コレクションに追加",
     "save": "レシピを保存",
     "removeSave": "保存済みから削除",
-    "loginToSave": "ログインして保存"
+    "loginToSave": "ログインして保存",
+    "minutes": "{count} 分"
   },
   "forYou": {
-    "title": "✨ あなたへのおすすめ",
+    "title": "あなたへのおすすめ",
     "subtitle": "あなたの食事プロフィールに合わせてパーソナライズしています",
     "fromActivity": "保存したレシピやプランに入れたレシピをもとに表示しています",
-    "editProfile": "プロフィールを編集 →"
+    "editProfile": "プロフィールを編集"
   },
   "videoSection": {
-    "title": "🎬 動画レシピ",
+    "title": "動画レシピ",
     "comingSoonBadge": "近日公開",
     "comingSoonTitle": "オリジナルの料理動画を制作中です",
     "comingSoonText": "Culinseのキッチンで撮りおろした、手順がよくわかるオリジナル動画をお届けします。また見に来てくださいね！",
     "subtitle": "見ながら作れる、ステップごとの動画",
-    "fullRecipe": "レシピを見る →",
+    "fullRecipe": "レシピを見る",
     "loadMore": "動画をもっと見る",
     "loading": "読み込み中…",
-    "addToPlan": "+ プランに追加"
+    "addToPlan": "プランに追加",
+    "play": "動画を再生"
   },
   "howItWorks": {
     "title": "Culinseの使い方",
     "subtitle": "ネット上の選りすぐりのレシピを、あなた好みにお届けします。検索もかんたんで、買い物リストも自動で作成できます。",
     "steps": [
       {
-        "icon": "🔍",
+        "icon": "",
         "title": "検索して見つける",
         "desc": "世界中の人気料理サイトから集めた数百万件のレシピを、ひとつの場所でまとめて検索できます。"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "title": "保存してパーソナライズ",
         "desc": "お気に入りのレシピを保存しましょう。Culinseがあなたの好みを学習して、ぴったりのレシピをもっと提案します。"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "title": "合計金額つき買い物リスト",
         "desc": "週間プランから買い物リストを自動作成。材料ごとのディスカウントスーパー価格の目安と、1週間分の合計金額もひと目でわかります。"
       }
@@ -145,8 +156,8 @@
   "cta": {
     "title": "さっそくレシピを探してみましょう。",
     "subtitle": "無料で始められて、サブスク登録も不要です。あなた好みのおいしい料理を、シンプルに。",
-    "button": "無料アカウントを作成 →",
-    "buttonLoggedIn": "週間プランナーを開く →"
+    "button": "無料アカウントを作成",
+    "buttonLoggedIn": "週間プランナーを開く"
   },
   "footer": {
     "about": "Culinseについて",
@@ -158,7 +169,14 @@
     "contact": "お問い合わせ",
     "copyright": "© {year} Culinse. All rights reserved.",
     "planner": "週間プランナー",
-    "calculator": "買い物計算ツール"
+    "calculator": "買い物計算ツール",
+    "explore": "見つける",
+    "tools": "ツール",
+    "legal": "法的情報",
+    "tagline": "キッチン、スーパー、家族から生まれたレシピ。バナー広告なし。",
+    "videos": "料理教室",
+    "family": "家庭のレシピ",
+    "collections": "レシピコレクション"
   },
   "about": {
     "ourStory": "私たちのストーリー",
@@ -170,44 +188,44 @@
     "visionTitle": "あらゆるレシピが集まるプラットフォーム",
     "values": [
       {
-        "icon": "🍖",
+        "icon": "",
         "title": "職人技",
         "desc": "長年、厨房と精肉店のカウンターに立ち続けてきた料理人が開発しました。"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "title": "情熱",
         "desc": "食事は単なる燃料ではありません。Culinseは、心から料理を楽しむ人のためのサービスです。"
       },
       {
-        "icon": "✨",
+        "icon": "",
         "title": "シンプルさ",
         "desc": "広告バナーも、サブスクの縛りも、ごちゃごちゃした画面もありません。あるのは、作りたくなるレシピだけです。"
       }
     ],
     "visionItems": [
       {
-        "icon": "📅",
+        "icon": "",
         "title": "週間プランナー",
         "desc": "1週間分の献立を数分で。あなたの食事スタイルやスケジュール、冷蔵庫にある食材に合わせて、Culinseがレシピを選びます。"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "title": "スマート買い物リスト",
         "desc": "週間プランから買い物リストを自動作成。お気に入りの宅配サービスに直接送ることもできます。"
       },
       {
-        "icon": "📚",
+        "icon": "",
         "title": "レシピアルバム",
         "desc": "自分だけのコレクションを作って、友人や家族、世界中の人とシェアできます。"
       },
       {
-        "icon": "🌍",
+        "icon": "",
         "title": "すべてをひとつの場所に",
         "desc": "ひとつのプラットフォームに、あらゆるレシピを。もうブラウザのタブをいくつも開く必要はありません。平日にさっと作れる夕食から、週末にじっくり取り組む本格料理まで。"
       }
     ],
-    "discoverCta": "レシピを探す →",
+    "discoverCta": "レシピを探す",
     "feedbackLabel": "ご質問やご意見はありますか？",
     "story1": "私は最初、シェフとしてドイツ各地のレストランで料理をしていました。その後、食肉加工の世界に惹かれ、2024年に食肉マイスターの称号を取得しました。これは、手工業分野における最高位の職業資格です。私にとって、食は片手間のものではありません。人生のすべてです。",
     "story2": "しかし、そんな経歴があっても、日々の悩みはみんなと同じでした。ちょうどいいレシピを探すには、十数個のブラウザタブを行き来し、Cookieバナーを次々と閉じ、肝心の材料にたどり着くまで作り手の長い身の上話をスクロールしなければなりません。本来は楽しいはずのことなのに、ただただ疲れるばかりでした。",
@@ -236,12 +254,12 @@
     "passwordLabel": "パスワード",
     "passwordPlaceholder": "6文字以上",
     "forgotPassword": "パスワードをお忘れですか？",
-    "loginButton": "ログイン →",
-    "createButton": "アカウント作成 →",
+    "loginButton": "ログイン",
+    "createButton": "アカウント作成",
     "checkInbox": "受信トレイをご確認ください！",
     "sentTo": "確認リンクを次のアドレスに送信しました：",
     "spamNote": "メール内のリンクをクリックして、アカウントを有効化してください。迷惑メールフォルダもご確認ください。",
-    "backToLogin": "← ログインに戻る",
+    "backToLogin": "ログインに戻る",
     "or": "または",
     "privacyNote": "続行すると、",
     "privacyLink": "プライバシーポリシー",
@@ -251,15 +269,15 @@
   "profile": {
     "title": "プロフィール",
     "pageTitle": "あなたの食事プロフィール",
-    "welcomeBanner": "🎉 Culinseへようこそ！食事プロフィールを設定して、あなたに合ったレシピを受け取りましょう。",
+    "welcomeBanner": "Culinseへようこそ！食事プロフィールを設定して、あなたに合ったレシピを受け取りましょう。",
     "progress0": "好みを設定すると、あなたに合ったレシピが届きます",
     "progress1": "いいスタートです！あと2ステップ",
     "progress2": "もう少しです！あと1ステップ",
-    "progress3": "✓ プロフィール完成！「あなたへのおすすめ」が有効になりました",
+    "progress3": "プロフィール完成！「あなたへのおすすめ」が有効になりました",
     "planPro": "Culinse Pro",
     "planFree": "無料プラン",
     "renews": "{date}に自動更新",
-    "active": "✓ 有効",
+    "active": "有効",
     "free": "無料",
     "proFeatures": [
       "コレクション無制限",
@@ -280,9 +298,9 @@
     "timeTitle": "最大調理時間",
     "timeSub": "無理なく作れるレシピだけを表示します。",
     "saving": "保存中…",
-    "saved": "✓ 保存しました！",
+    "saved": "保存しました！",
     "saveButton": "設定を保存",
-    "back": "← 戻る",
+    "back": "戻る",
     "dietOptions": [
       {
         "label": "指定なし",
@@ -344,7 +362,7 @@
     "title": "保存したレシピ",
     "empty": "保存したレシピはまだありません",
     "emptySub": "お気に入りのレシピを保存すると、ここに表示されます。",
-    "discover": "レシピを探す →"
+    "discover": "レシピを探す"
   },
   "collections": {
     "title": "マイコレクション",
@@ -359,11 +377,11 @@
     "create": "コレクションを作成",
     "upgradeTitle": "コレクション無制限",
     "upgradeSubtext": "無料プランでは、コレクション1件（レシピ10件まで）をご利用いただけます。Proにアップグレードすれば、すべて無制限です。",
-    "upgradeButton": "Proにアップグレード →",
-    "createFirst": "+ 最初のコレクションを作成",
+    "upgradeButton": "Proにアップグレード",
+    "createFirst": "最初のコレクションを作成",
     "groupDesc": "お気に入りのレシピをコレクションにまとめましょう。料理版のプレイリストのようなものです。",
     "counter": "{count, plural, other {#件のコレクション}}",
-    "newButton": "+ 新規",
+    "newButton": "新規",
     "publicLabel": "公開する",
     "publicSub": "リンクを知っている人は誰でも閲覧できます",
     "nameLabel": "名前",
@@ -377,22 +395,22 @@
     "recipeCount": "{count, plural, other {#件のレシピ}}",
     "detailBack": "マイコレクション",
     "publicBadge": "公開",
-    "makePrivate": "🔒 非公開にする",
-    "makePublic": "🌍 公開する",
-    "share": "↑ 共有",
-    "copied": "✓ リンクをコピーしました！",
+    "makePrivate": "非公開にする",
+    "makePublic": "公開する",
+    "share": "共有",
+    "copied": "リンクをコピーしました！",
     "noRecipes": "レシピはまだありません",
     "noRecipesSub": "各レシピのページから、このコレクションにレシピを追加できます。",
-    "discoverCta": "レシピを探す →",
+    "discoverCta": "レシピを探す",
     "deleteThis": "このコレクションを削除",
     "deleteNamed": "「{name}」を削除しますか？",
     "yesDelete": "削除する",
     "removeFromCollection": "コレクションから削除",
-    "view": "見る →"
+    "view": "見る"
   },
   "mealPlanner": {
     "shareWeek": "共有",
-    "shareCopied": "✓ リンクをコピーしました",
+    "shareCopied": "リンクをコピーしました",
     "title": "週間プランナー",
     "days": [
       "月",
@@ -408,8 +426,8 @@
       "昼食",
       "夕食"
     ],
-    "addRecipe": "+ レシピを追加",
-    "shoppingList": "🛒 買い物リスト",
+    "addRecipe": "レシピを追加",
+    "shoppingList": "買い物リスト",
     "clearWeek": "この週をクリア",
     "thisWeek": "今週",
     "daysFull": [
@@ -427,8 +445,8 @@
     "tapToAdd": "枠をタップしてレシピを追加しましょう。",
     "mealsPlanned": "{n}/21食を計画済み",
     "namePlanPlaceholder": "プラン名を入力…",
-    "proMorePlans": "✦ Proでプランを追加",
-    "newPlan": "+ 新しいプラン",
+    "proMorePlans": "Proでプランを追加",
+    "newPlan": "新しいプラン",
     "dragHint": "ヒント：ドラッグ＆ドロップで食事を移動したり、入れ替えたりできます。",
     "move": "移動",
     "moveHint": "移動先の枠をタップしてください",
@@ -441,8 +459,8 @@
     "nextWeek": "次の週",
     "emptyTitle": "プランはまだ空です",
     "emptySub": "枠をタップして、保存したレシピから追加しましょう。",
-    "myRecipes": "♥ マイレシピ",
-    "collections": "📚 コレクション",
+    "myRecipes": "マイレシピ",
+    "collections": "コレクション",
     "proModalTitle": "Proでもっとプランを",
     "proModalSub": "Culinse Proなら、週間プランを無制限に作成できます。",
     "proModalButton": "Proにアップグレード（月額€4.99）",
@@ -475,8 +493,8 @@
     "adding": "プランに追加中…",
     "step3Title": "週間プランが完成しました！",
     "step3Sub": "{count, plural, other {#日分の夕食}}をプランに入れました。買い物リストも、分量と概算費用つきで自動作成済みです。",
-    "viewList": "🛒 買い物リストを見る",
-    "toPlanner": "週間プランナーへ →",
+    "viewList": "買い物リストを見る",
+    "toPlanner": "週間プランナーへ",
     "skip": "スキップしてホームへ",
     "loadError": "うまくいきませんでした。少し時間をおいて、もう一度お試しください。",
     "planName": "マイ週間プラン"
@@ -497,13 +515,13 @@
     "servings": "分量",
     "ingredients": "材料",
     "instructions": "作り方",
-    "saveRecipe": "♡ レシピを保存",
-    "savedRecipe": "♥ 保存済み",
+    "saveRecipe": "レシピを保存",
+    "savedRecipe": "保存済み",
     "saving": "…",
-    "viewOriginal": "元のレシピを見る ↗",
-    "addToPlan": "+ 週間プランに追加",
+    "viewOriginal": "元のレシピを見る",
+    "addToPlan": "週間プランに追加",
     "similarRecipes": "似たレシピ",
-    "backToDiscover": "← 戻る",
+    "backToDiscover": "戻る",
     "notFound": "レシピが見つかりません",
     "source": "出典",
     "collections": "コレクション",
@@ -531,22 +549,22 @@
       "レシピコレクション無制限",
       "優先サポート"
     ],
-    "upgradeButton": "Proにアップグレード →",
+    "upgradeButton": "Proにアップグレード",
     "processing": "処理中…",
-    "currentPlan": "現在のプラン：Pro ✦",
-    "manageButton": "サブスクリプションを管理 →",
+    "currentPlan": "現在のプラン：Pro",
+    "manageButton": "サブスクリプションを管理",
     "heroTitle": "あなたのキッチンを、\nまるごと整理。",
     "heroSubtitle": "週間プランを立てて、買い物リストを作り、お気に入りのレシピをすべて整理。ぜんぶ、ひとつの場所でできます。",
-    "alreadyPro": "✓ すでにProをご利用中です！",
+    "alreadyPro": "すでにProをご利用中です！",
     "freeForAllBadge": "現在、Pro機能はすべて無料",
     "freeForAllNote": "Culinseは現在、機能を拡充中です。そのため、すべてのPro機能を全ユーザーに開放しています。ログインするだけで、サブスク登録なしですぐにプランを作成できます。",
-    "startButton": "7日間無料で試す →",
+    "startButton": "7日間無料で試す",
     "cancelNote": "7日間無料 · 請求は無料期間の終了後 · いつでも解約可能",
     "legalNote": "適用される規約：",
     "legalAnd": "および",
     "agbLabel": "利用規約",
     "widerrufLabel": "撤回権に関するご案内",
-    "activeNote": "Culinse Proをご利用中です 🎉",
+    "activeNote": "Culinse Proをご利用中です",
     "freeLabel": "無料",
     "proLabel": "Pro",
     "everythingInFree": "無料プランのすべての機能に加えて：",
@@ -572,32 +590,32 @@
     "freeFeatures": [
       "厳選した4つの提供元のレシピ",
       "食事スタイル・調理時間・料理ジャンルで検索＆絞り込み",
-      "レシピを保存（♡）",
+      "レシピを保存（）",
       "コレクション1件（レシピ10件まで）"
     ],
     "proFeatures": [
       {
-        "icon": "📚",
+        "icon": "",
         "label": "コレクション無制限",
         "sub": "お気に入りを思いどおりに整理できます"
       },
       {
-        "icon": "📅",
+        "icon": "",
         "label": "週間プランナー",
         "sub": "1週間分の朝食・昼食・夕食をまとめて計画"
       },
       {
-        "icon": "🛒",
+        "icon": "",
         "label": "スマート買い物リスト",
         "sub": "プランから自動で作成し、カテゴリ別に整理"
       },
       {
-        "icon": "❤️",
+        "icon": "",
         "label": "レシピ保存が無制限",
         "sub": "25件の上限なし。気に入ったレシピをすべて保存できます"
       },
       {
-        "icon": "⚡",
+        "icon": "",
         "label": "新機能を優先的に利用",
         "sub": "これから開発する新機能を、いち早くお試しいただけます"
       }
@@ -609,32 +627,36 @@
     "annualPrice": "€3.24 / 月",
     "annualTotal": "€38.88 / 年",
     "monthlyPrice": "€4.99 / 月",
-    "annualStartButton": "7日間無料で試す →",
+    "annualStartButton": "7日間無料で試す",
     "billedAnnually": "年額で請求",
     "billedMonthly": "月額で請求"
   },
   "blog": {
     "title": "Culinseブログ",
     "subtitle": "もっと賢く料理するためのコツ、ガイド、アイデア。",
-    "readMore": "続きを読む →",
-    "backToBlog": "← ブログに戻る",
-    "minRead": "分で読めます"
+    "readMore": "続きを読む",
+    "backToBlog": "ブログに戻る",
+    "minRead": "分で読めます",
+    "loadMore": "記事をもっと見る"
   },
   "error": {
     "notFound": "ページが見つかりません",
     "notFoundSub": "お探しのページは存在しません。",
-    "backHome": "ホームに戻る"
+    "backHome": "ホームに戻る",
+    "title": "問題が発生しました",
+    "retry": "もう一度試す"
   },
   "newsletter": {
     "title": "7日間の作り置きプラン（PDF）をプレゼント",
     "subtitle": "作り置きの段取り、チェック式の買い物リスト、シェフのコツがそろった週間プランを無料のPDFでお届けします。さらに毎週、おすすめのレシピアイデアもお送りします。スパムは一切なし、配信停止はいつでも可能です。",
     "placeholder": "you@example.com",
     "button": "登録",
-    "success": "🎉 ありがとうございます！まもなくメールが届きます。",
+    "success": "ありがとうございます！まもなくメールが届きます。",
     "error": "問題が発生しました。もう一度お試しください。",
     "already": "このメールアドレスはすでに登録されています。",
     "sending": "登録中…",
-    "download": "📄 プランをダウンロード（PDF）"
+    "download": "プランをダウンロード（PDF）",
+    "emailLabel": "メールアドレス"
   },
   "loginPrompt": {
     "title": "レシピを保存",
@@ -654,13 +676,13 @@
     "maybeLater": "あとで",
     "proFeature": "Pro機能",
     "proUnlock": "Proにアップグレードすると、この機能をはじめ、さまざまな機能が使えるようになります。",
-    "proFrom": "月額€4.99から →",
+    "proFrom": "月額€4.99から",
     "addToCollection": "コレクションに追加",
     "noCollections": "コレクションはまだありません",
     "createOneBelow": "下から新しく作成できます",
     "collectionNamePlaceholder": "コレクション名…",
     "create": "作成",
-    "newCollection": "+ 新しいコレクション",
+    "newCollection": "新しいコレクション",
     "fullUpgrade": "上限に達しました（アップグレードで追加可能）",
     "cancel": "キャンセル",
     "loading": "読み込み中…",
@@ -669,16 +691,16 @@
     "day": "曜日",
     "meal": "食事",
     "planNamePlaceholder": "プラン名を入力…",
-    "proMorePlans": "✦ Proでプランを追加",
+    "proMorePlans": "Proでプランを追加",
     "saving": "保存中…",
     "addToPlanButton": "プランに追加",
     "chooseRecipeFor": "レシピを選択：",
     "myRecipesTab": "マイレシピ",
     "noSavedRecipes": "保存したレシピはまだありません",
     "emptyCollection": "このコレクションは空です",
-    "saveHint": "ホームの♡からレシピを保存できます。",
-    "addHint": "📚からこのコレクションにレシピを追加できます。",
-    "shoppingTitle": "🛒 買い物リスト",
+    "saveHint": "ホームのからレシピを保存できます。",
+    "addHint": "からこのコレクションにレシピを追加できます。",
+    "shoppingTitle": "買い物リスト",
     "recipesCount": "{count}件のレシピ",
     "done": "完了",
     "reset": "リセット",
@@ -686,15 +708,22 @@
     "noRecipesInPlan": "プランにレシピがありません",
     "addRecipesFirst": "まずは週間プランにレシピを追加してください。",
     "noIngredients": "材料が見つかりません。一部のサイトは材料リストに対応していません。",
-    "orderGroceries": "🛒 Amazonで食料品を注文",
+    "orderGroceries": "Amazonで食料品を注文",
     "affiliateNote": "アフィリエイトリンク（追加料金はかかりません）",
     "allDone": "すべて完了！",
-    "boughtAll": "材料をすべて買いそろえました。"
+    "boughtAll": "材料をすべて買いそろえました。",
+    "close": "閉じる",
+    "collectionName": "コレクション名",
+    "planName": "プラン名",
+    "newPlan": "新しいプラン",
+    "upgradeFeatureSave": "レシピを無制限に保存",
+    "upgradeFeatureCollections": "コレクションも無制限",
+    "upgradeFeaturePlans": "複数の週間プラン"
   },
   "proSuccess": {
     "title": "Culinse Proへようこそ！",
     "subtitle": "サブスクリプションが有効になりました。コレクション無制限、週間プランナー、スマート買い物リストをご利用いただけます。",
-    "goCollections": "📚 マイコレクションへ",
+    "goCollections": "マイコレクションへ",
     "discover": "レシピを探す"
   },
   "allStates": "すべての州"

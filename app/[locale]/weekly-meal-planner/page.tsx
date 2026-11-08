@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
+import Button from "@/components/ui/Button";
 
 // Public, server-rendered SEO landing page for the meal-planner feature.
 //
@@ -89,7 +90,7 @@ function getCopy(locale: string): Copy {
       badge: "Wochenplaner + Einkaufsliste",
       h1: "Wochenplaner mit automatischer Einkaufsliste",
       sub: "Plane deine Woche in Minuten und lass Culinse die Einkaufsliste aus deinen Rezepten erstellen – Mengen zusammengefasst, nach Supermarkt-Bereich sortiert. Kostenlos nutzbar, ohne Abo-Zwang.",
-      ctaPrimary: "Woche kostenlos planen →",
+      ctaPrimary: "Woche kostenlos planen",
       ctaSecondary: "Erst Rezepte entdecken",
       introHeading: "Schluss mit Listen von Hand",
       intro:
@@ -98,7 +99,7 @@ function getCopy(locale: string): Copy {
       steps: [
         {
           title: "1. Rezepte für die Woche wählen",
-          text: "Stöbere durch Millionen Rezepte – gefiltert nach Ernährung, Allergenen und Zeit – und lege deine Gerichte für die Woche in den Wochenplan.",
+          text: "Stöbere durch unsere Rezepte aus Küche, Community und Familie, gefiltert nach Ernährung, Allergenen und Zeit, und lege deine Gerichte für die Woche in den Wochenplan.",
         },
         {
           title: "2. Einkaufsliste wird automatisch erstellt",
@@ -119,7 +120,7 @@ function getCopy(locale: string): Copy {
       ],
       featuresHeading: "Was du mit Culinse machen kannst",
       features: [
-        { title: "Millionen Rezepte", text: "Aggregiert von den besten Food-Seiten – an einem Ort durchsuchbar." },
+        { title: "Rezepte, die wirklich gekocht werden", text: "Aus unserer Küche, aus der Community und aus der Familie, an einem Ort durchsuchbar." },
         { title: "Filter nach Ernährung", text: "Vegetarisch, vegan, glutenfrei, proteinreich, allergenfrei und mehr." },
         { title: "Automatische Einkaufsliste", text: "Aus deinem Wochenplan generiert, zusammengefasst und sortiert." },
         { title: "Collections speichern", text: "Lieblingsrezepte sammeln und für die nächste Woche wiederverwenden." },
@@ -163,7 +164,7 @@ function getCopy(locale: string): Copy {
       finalHeading: "Plane deine erste Woche",
       finalText:
         "Rezepte entdecken, Wochenplan füllen und automatische Einkaufsliste erhalten – in wenigen Minuten, kostenlos.",
-      finalCta: "Jetzt kostenlos starten →",
+      finalCta: "Jetzt kostenlos starten",
     };
   }
 
@@ -171,7 +172,7 @@ function getCopy(locale: string): Copy {
     badge: "Meal planner + shopping list",
     h1: "Weekly Meal Planner with an Automatic Shopping List",
     sub: "Plan your week in minutes and let Culinse build the shopping list from your recipes — amounts combined, sorted by store aisle. Free to use, no subscription required.",
-    ctaPrimary: "Plan your week free →",
+    ctaPrimary: "Plan your week free",
     ctaSecondary: "Browse recipes first",
     introHeading: "Stop writing shopping lists by hand",
     intro:
@@ -180,7 +181,7 @@ function getCopy(locale: string): Copy {
     steps: [
       {
         title: "1. Pick your recipes for the week",
-        text: "Browse millions of recipes — filtered by diet, allergens, and time — and drop the dishes you want into your weekly plan.",
+        text: "Browse our recipes from the kitchen, the community and the family, filtered by diet, allergens and time, and drop the dishes you want into your weekly plan.",
       },
       {
         title: "2. Your shopping list builds itself",
@@ -201,7 +202,7 @@ function getCopy(locale: string): Copy {
     ],
     featuresHeading: "What you can do with Culinse",
     features: [
-      { title: "Millions of recipes", text: "Aggregated from the best food sites — searchable in one place." },
+      { title: "Recipes people actually cook", text: "From our kitchen, our community and our families, searchable in one place." },
       { title: "Filter by diet", text: "Vegetarian, vegan, gluten-free, high-protein, allergen-free, and more." },
       { title: "Automatic shopping list", text: "Generated from your weekly plan, combined and sorted for you." },
       { title: "Save collections", text: "Collect favorite recipes and reuse them for next week's plan." },
@@ -245,14 +246,13 @@ function getCopy(locale: string): Copy {
     finalHeading: "Plan your first week",
     finalText:
       "Discover recipes, fill your weekly plan, and get an automatic shopping list — in minutes, free.",
-    finalCta: "Get started free →",
+    finalCta: "Get started free",
   };
 }
 
 export default async function WeeklyMealPlannerPage({ params }: Props) {
   const { locale } = await params;
   const c = getCopy(locale);
-  const plannerHref = `/${locale}/meal-planner`;
   const url = `${BASE}/${locale}/${SLUG}`;
 
   const webAppSchema = {
@@ -290,136 +290,105 @@ export default async function WeeklyMealPlannerPage({ params }: Props) {
     JSON.stringify(obj).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(webAppSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(faqSchema) }} />
 
       <Navbar />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pt-14 pb-20 px-4">
-        <div className="max-w-2xl mx-auto">
-          <span className="text-xs font-semibold uppercase tracking-widest text-orange-200 mb-4 block">
-            {c.badge}
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4">{c.h1}</h1>
-          <p className="text-orange-100 text-lg leading-relaxed max-w-xl mb-8">{c.sub}</p>
+      <main className="max-w-content mx-auto px-4 sm:px-6 lg:px-10 pt-12 sm:pt-16 pb-24">
+        {/* Hero */}
+        <header className="max-w-prose">
+          <p className="text-sm text-ink-3 mb-3">{c.badge}</p>
+          <h1 className="text-display-sm md:text-display mb-5">{c.h1}</h1>
+          <p className="text-body-lg text-ink-2 max-w-prose mb-8">{c.sub}</p>
           <div className="flex flex-wrap gap-3">
-            <Link
-              href={plannerHref}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white text-orange-600 font-semibold transition-opacity hover:opacity-90"
-            >
-              {c.ctaPrimary}
-            </Link>
-            <Link
-              href={`/${locale}`}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-orange-200 text-white font-semibold transition-colors hover:bg-white/10"
-            >
-              {c.ctaSecondary}
-            </Link>
+            <Button href="/meal-planner">{c.ctaPrimary}</Button>
+            <Button href="/" variant="secondary">{c.ctaSecondary}</Button>
           </div>
-        </div>
-      </div>
+        </header>
 
-      <main className="max-w-2xl mx-auto px-4 -mt-6 pb-24">
-        {/* Intro */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">{c.introHeading}</h2>
-          <p className="text-gray-700 leading-relaxed">{c.intro}</p>
-        </div>
+        <div className="max-w-prose">
+          {/* Intro */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.introHeading}</h2>
+          <p className="text-body-lg">{c.intro}</p>
 
-        {/* Steps */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">{c.stepsHeading}</h2>
-          <div className="space-y-5">
-            {c.steps.map((s) => (
-              <div key={s.title}>
-                <h3 className="font-semibold text-gray-900 mb-1">{s.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{s.text}</p>
-              </div>
+          {/* Steps */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.stepsHeading}</h2>
+          <ol className="space-y-6">
+            {c.steps.map((s, i) => (
+              <li key={s.title} className="flex gap-4">
+                <span aria-hidden="true" className="font-serif text-h3 text-ink-3 tabular w-6 shrink-0">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="text-h3 mb-1">{s.title.replace(/^\d+\.\s*/, "")}</h3>
+                  <p className="text-body-lg text-ink-2">{s.text}</p>
+                </div>
+              </li>
             ))}
-          </div>
-        </div>
+          </ol>
 
-        {/* Benefits */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-2xl font-bold text-gray-900 mb-5">{c.benefitsHeading}</h2>
-          <ul className="space-y-2.5">
+          {/* Benefits */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.benefitsHeading}</h2>
+          <ul className="list-disc pl-5 space-y-2 text-body-lg">
             {c.benefits.map((b) => (
-              <li key={b} className="flex items-start gap-2.5 text-gray-700">
-                <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                <span className="leading-relaxed">{b}</span>
+              <li key={b}>{b}</li>
+            ))}
+          </ul>
+
+          {/* Features */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.featuresHeading}</h2>
+          <ul className="space-y-5">
+            {c.features.map((f) => (
+              <li key={f.title}>
+                <h3 className="text-h3 mb-1">{f.title}</h3>
+                <p className="text-body-lg text-ink-2">{f.text}</p>
               </li>
             ))}
           </ul>
-        </div>
 
-        {/* Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-          {c.features.map((f) => (
-            <div key={f.title} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-              <h3 className="font-bold text-gray-900 mb-1">{f.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{f.text}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Guides (internal links to the cluster's star posts) */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-5">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">{c.guidesHeading}</h2>
-          <div className="space-y-3">
+          {/* Guides (internal links to the cluster's star posts) */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.guidesHeading}</h2>
+          <ul className="border-b border-line">
             {c.guides.map((g) => (
-              <Link
-                key={g.href}
-                href={g.href}
-                className="block bg-gray-50 rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-              >
-                <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+              <li key={g.href} className="border-t border-line py-4">
+                <Link href={g.href} className="font-serif text-h3 text-ink hover:underline underline-offset-[3px]">
                   {g.title}
-                </p>
-                <p className="text-xs text-gray-500 mt-0.5">{g.text}</p>
-              </Link>
+                </Link>
+                <p className="text-base text-ink-2 mt-1">{g.text}</p>
+              </li>
             ))}
-            <Link
-              href={`/${locale}/collections/explore`}
-              className="block bg-gray-50 rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-            >
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
+            <li className="border-t border-line py-4">
+              <Link
+                href={`/${locale}/collections/explore`}
+                className="font-serif text-h3 text-ink hover:underline underline-offset-[3px]"
+              >
                 {locale === "de" ? "Rezept-Collections entdecken" : "Explore recipe collections"}
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
+              </Link>
+              <p className="text-base text-ink-2 mt-1">
                 {locale === "de"
                   ? "Kuratierte Sammlungen als Ausgangspunkt für deinen Plan."
                   : "Curated collections to kick-start your plan."}
               </p>
-            </Link>
-          </div>
-        </div>
+            </li>
+          </ul>
 
-        {/* FAQ (visible — matches FAQPage JSON-LD) */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-5">{c.faqHeading}</h2>
-          <div className="space-y-5">
+          {/* FAQ (visible — matches FAQPage JSON-LD) */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.faqHeading}</h2>
+          <div className="border-b border-line">
             {c.faq.map((f) => (
-              <div key={f.question}>
-                <h3 className="font-semibold text-gray-900 mb-1">{f.question}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{f.answer}</p>
-              </div>
+              <details key={f.question} className="border-t border-line py-4">
+                <summary className="cursor-pointer font-serif text-h3 text-ink">{f.question}</summary>
+                <p className="text-body-lg text-ink-2 mt-3">{f.answer}</p>
+              </details>
             ))}
           </div>
-        </div>
 
-        {/* Final CTA */}
-        <div className="bg-orange-50 border border-orange-100 rounded-2xl p-8 text-center">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">{c.finalHeading}</h2>
-          <p className="text-sm text-gray-500 mb-5 max-w-md mx-auto">{c.finalText}</p>
-          <Link
-            href={plannerHref}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-white font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "#f97316" }}
-          >
-            {c.finalCta}
-          </Link>
+          {/* Final CTA */}
+          <h2 className="text-h2-sm sm:text-h2 mt-12 mb-4">{c.finalHeading}</h2>
+          <p className="text-body-lg text-ink-2 mb-6">{c.finalText}</p>
+          <Button href="/meal-planner">{c.finalCta}</Button>
         </div>
       </main>
     </div>

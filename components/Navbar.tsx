@@ -1,43 +1,55 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { routing } from "@/i18n/routing";
+import { Button, Icon, Wordmark } from "@/components/ui";
+import ProBadge from "@/components/ProBadge";
 
-function LocaleSwitcher() {
-  const pathname = usePathname(); // path WITHOUT locale prefix, e.g. "/about"
+const navLink = "text-sm font-semibold text-ink hover:underline underline-offset-[3px]";
+const menuLink = "flex items-center gap-2 py-3 text-base font-semibold text-ink hover:underline underline-offset-[3px]";
+
+function LocaleSwitcher({ label }: { label: string }) {
+  const pathname = usePathname(); // Pfad OHNE Sprachpräfix, z. B. "/about"
   const locale = useLocale();
   const router = useRouter();
 
-  // Seit Welle 1 des Sprachausbaus (14.09.2026) sieben Sprachen — als
-  // Dropdown statt Zwei-Knopf-Toggle. Liste kommt aus i18n/routing.ts,
-  // neue Sprachen erscheinen hier automatisch.
+  // Seit Welle 1 des Sprachausbaus (14.09.2026) sieben Sprachen. Liste kommt
+  // aus i18n/routing.ts, neue Sprachen erscheinen hier automatisch.
   return (
-    <select
-      value={locale}
-      onChange={(e) => router.replace(pathname as "/", { locale: e.target.value })}
-      aria-label="Language"
-      className="text-xs font-semibold border border-gray-200 rounded-full pl-2 pr-1 py-1.5 bg-white text-gray-700 cursor-pointer focus:outline-none focus:ring-2 focus:ring-orange-400"
-    >
-      {routing.locales.map((l) => (
-        <option key={l} value={l}>
-          {l.toUpperCase()}
-        </option>
-      ))}
-    </select>
+    <label className="relative inline-flex items-center text-ink">
+      <Icon name="globe" size={18} className="pointer-events-none absolute left-2.5" />
+      <select
+        value={locale}
+        onChange={(e) => router.replace(pathname as "/", { locale: e.target.value })}
+        aria-label={label}
+        className="h-10 cursor-pointer rounded-1 border border-line-strong bg-surface pl-8 pr-2 text-sm font-semibold text-ink transition-colors hover:bg-surface-soft"
+      >
+        {routing.locales.map((l) => (
+          <option key={l} value={l}>
+            {l.toUpperCase()}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }
 
 export default function Navbar() {
   const t = useTranslations("nav");
+  const locale = useLocale();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [isPro, setIsPro] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuId = useId();
   const supabase = createClient();
+
+  const menuLabel = t.has("menu") ? t("menu") : locale === "de" ? "Menü" : "Menu";
+  const languageLabel = t.has("language") ? t("language") : locale === "de" ? "Sprache" : "Language";
 
   useEffect(() => {
     let mounted = true;
@@ -51,220 +63,156 @@ export default function Navbar() {
         .single();
       if (!mounted) return;
       setIsPro(profile?.is_pro ?? false);
-    }).catch(() => { /* silently ignore — isPro stays false */ });
+    }).catch(() => { /* still ignorieren: isPro bleibt false */ });
     return () => { mounted = false; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Escape schließt das mobile Menü
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    setMenuOpen(false);
     router.push("/");
   };
 
+  const close = () => setMenuOpen(false);
+  // Ohne Anmeldung zeigt die Leiste ab md alles Nötige, eingeloggt erst ab lg
+  const menuVisibility = user ? "lg:hidden" : "md:hidden";
+
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <nav className="sticky top-0 z-50 border-b border-line bg-surface">
+      <div className="mx-auto flex h-16 max-w-content items-center justify-between gap-4 px-4 sm:px-6">
+        <Wordmark className="shrink-0" />
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
-          <img src="/culinse-logo.png" alt="culinse" height={28} style={{ height: "28px", width: "auto" }} />
-        </Link>
-
-        {/* Desktop nav (erst ab lg — zwischen 768–1024px war die Leiste überfüllt, Review 26.07.) */}
-        <div className="hidden lg:flex items-center gap-1.5 whitespace-nowrap">
-          <Link href="/" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-            {t("discover")}
-          </Link>
-          <Link href="/blog" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-            {t("blog")}
-          </Link>
-          <Link href="/grocery-list-calculator" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-            {t("calculator")}
-          </Link>
+        {/* Desktop-Navigation ab md */}
+        <div className="hidden items-center gap-5 whitespace-nowrap md:flex">
+          <Link href="/" className={navLink}>{t("discover")}</Link>
+          <Link href="/blog" className={navLink}>{t("blog")}</Link>
+          <Link href="/grocery-list-calculator" className={navLink}>{t("calculator")}</Link>
 
           {user && (
-            <>
-              <div className="w-px h-5 bg-gray-200 mx-1" />
-
+            <div className="hidden items-center gap-5 lg:flex">
+              <span className="h-5 w-px bg-line" aria-hidden="true" />
               {isPro ? (
-                <Link
-                  href="/meal-planner"
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
-                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", color: "white" }}
-                >
-                  📅 {t("mealPlanner")}
-                </Link>
+                <span className="inline-flex items-center gap-1.5">
+                  <Link href="/meal-planner" className={navLink}>{t("mealPlanner")}</Link>
+                  <ProBadge plain />
+                </span>
               ) : (
-                <Link
-                  href="/pro"
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-dashed border-orange-200 text-orange-400 hover:bg-orange-50 transition-all"
-                >
-                  🔒 {t("mealPlanner")}
+                <Link href="/pro" className={`${navLink} inline-flex items-center gap-1.5`}>
+                  <Icon name="lock" size={16} />
+                  {t("mealPlanner")}
                 </Link>
               )}
-
-              <Link
-                href={isPro ? "/collections" : "/pro"}
-                className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors"
-              >
-                {isPro ? "📚" : "🔒"} {t("collections")}
-              </Link>
-
-              <Link href="/my-recipes" className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-orange-500 transition-colors">
-                {t("myRecipesShort")}
-              </Link>
-              <Link
-                href="/saved"
-                title={t("saved")}
-                aria-label={t("saved")}
-                className="px-2.5 py-1.5 text-base font-medium text-gray-500 hover:text-orange-500 transition-colors"
-              >
-                ♥
-              </Link>
-            </>
+              {isPro ? (
+                <span className="inline-flex items-center gap-1.5">
+                  <Link href="/collections" className={navLink}>{t("collections")}</Link>
+                  <ProBadge plain />
+                </span>
+              ) : (
+                <Link href="/pro" className={`${navLink} inline-flex items-center gap-1.5`}>
+                  <Icon name="lock" size={16} />
+                  {t("collections")}
+                </Link>
+              )}
+              <Link href="/my-recipes" className={navLink}>{t("myRecipesShort")}</Link>
+              <Link href="/saved" className={navLink}>{t("saved")}</Link>
+            </div>
           )}
         </div>
 
-        {/* Desktop auth + locale switcher */}
-        <div className="hidden lg:flex items-center gap-3 whitespace-nowrap">
-          <LocaleSwitcher />
+        {/* Rechte Seite */}
+        <div className="flex items-center gap-3">
+          <LocaleSwitcher label={languageLabel} />
 
-          {user ? (
-            <>
-              {!isPro && (
-                <Link
-                  href="/pro"
-                  className="text-xs font-bold px-3 py-1.5 rounded-full border border-orange-300 text-orange-500 hover:bg-orange-50 transition-all"
-                >
-                  {t("upgrade")}
-                </Link>
-              )}
-              <Link
-                href="/profile"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-white hover:opacity-80 transition-opacity"
-                style={{ background: isPro ? "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" : "#9ca3af" }}
-                title={t("profile")}
-              >
-                {user.email?.[0]?.toUpperCase() ?? "👤"}
-              </Link>
-              <button onClick={handleLogout} className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
-                {t("logout")}
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">{t("login")}</Link>
-              <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
-                {t("getStarted")}
-              </Link>
-            </>
-          )}
-        </div>
+          <div className="hidden items-center gap-4 whitespace-nowrap md:flex">
+            {user ? (
+              <>
+                <Button variant="icon" size="sm" icon="user" href="/profile" aria-label={t("profile")} title={t("profile")} />
+                <button type="button" onClick={handleLogout} className={`${navLink} hidden lg:inline`}>
+                  {t("logout")}
+                </button>
+              </>
+            ) : (
+              <Button size="sm" href="/login">{t("login")}</Button>
+            )}
+          </div>
 
-        {/* Mobile/Tablet: right side */}
-        <div className="flex lg:hidden items-center gap-2">
-          <LocaleSwitcher />
-          {!user && (
-            <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full text-white" style={{ background: "#f97316" }}>
-              {t("join")}
-            </Link>
-          )}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-0.5 bg-gray-700 transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-          </button>
+          <Button
+            variant="icon"
+            size="sm"
+            icon={menuOpen ? "x" : "menu"}
+            aria-label={menuLabel}
+            aria-expanded={menuOpen}
+            aria-controls={menuId}
+            onClick={() => setMenuOpen((o) => !o)}
+            className={user ? "lg:hidden" : "md:hidden"}
+          />
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobiles Menü */}
       {menuOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white px-4 py-4 flex flex-col gap-1">
-          <Link href="/" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-            🔍 {t("discover")}
-          </Link>
-          <Link href="/about" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-            👋 {t("about")}
-          </Link>
-          <Link href="/blog" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-            📝 {t("blog")}
-          </Link>
-          <Link href="/grocery-list-calculator" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-            🧮 {t("calculator")}
-          </Link>
+        <div id={menuId} className={`${menuVisibility} border-t border-line bg-surface shadow-float`}>
+          <div className="mx-auto flex max-w-content flex-col px-4 py-2 sm:px-6">
+            <Link href="/" onClick={close} className={`${menuLink} md:hidden`}>{t("discover")}</Link>
+            <Link href="/about" onClick={close} className={menuLink}>{t("about")}</Link>
+            <Link href="/blog" onClick={close} className={`${menuLink} md:hidden`}>{t("blog")}</Link>
+            <Link href="/grocery-list-calculator" onClick={close} className={`${menuLink} md:hidden`}>{t("calculator")}</Link>
 
-          {user && (
-            <>
-              <div className="h-px bg-gray-100 my-1" />
-
-              {isPro ? (
-                <Link
-                  href="/meal-planner"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
-                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-                >
-                  📅 {t("mealPlanner")}
-                  <span className="ml-auto text-xs bg-white/20 px-2 py-0.5 rounded-full">Pro</span>
+            {user && (
+              <>
+                <div className="my-1 h-px bg-line" />
+                {isPro ? (
+                  <span className="flex items-center gap-2">
+                    <Link href="/meal-planner" onClick={close} className={menuLink}>{t("mealPlanner")}</Link>
+                    <ProBadge plain />
+                  </span>
+                ) : (
+                  <Link href="/pro" onClick={close} className={menuLink}>
+                    <Icon name="lock" size={16} />
+                    {t("mealPlanner")}
+                  </Link>
+                )}
+                {isPro ? (
+                  <span className="flex items-center gap-2">
+                    <Link href="/collections" onClick={close} className={menuLink}>{t("collections")}</Link>
+                    <ProBadge plain />
+                  </span>
+                ) : (
+                  <Link href="/pro" onClick={close} className={menuLink}>
+                    <Icon name="lock" size={16} />
+                    {t("collections")}
+                  </Link>
+                )}
+                <div className="my-1 h-px bg-line" />
+                <Link href="/my-recipes" onClick={close} className={menuLink}>{t("myRecipes")}</Link>
+                <Link href="/saved" onClick={close} className={menuLink}>{t("saved")}</Link>
+                <Link href="/profile" onClick={close} className={menuLink}>
+                  {t("profile")}
+                  {isPro && <ProBadge plain />}
                 </Link>
-              ) : (
-                <Link
-                  href="/pro"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-dashed border-orange-200 text-orange-400"
-                >
-                  🔒 {t("mealPlanner")}
-                  <span className="ml-auto text-xs text-orange-300">Upgrade →</span>
-                </Link>
-              )}
+              </>
+            )}
 
-              {isPro ? (
-                <Link
-                  href="/collections"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
-                  style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-                >
-                  📚 {t("collections")}
-                  <span className="ml-auto text-xs bg-white/20 px-2 py-0.5 rounded-full">Pro</span>
-                </Link>
-              ) : (
-                <Link
-                  href="/pro"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border border-dashed border-orange-200 text-orange-400"
-                >
-                  🔒 {t("collections")}
-                  <span className="ml-auto text-xs text-orange-300">Upgrade →</span>
-                </Link>
-              )}
-
-              <div className="h-px bg-gray-100 my-1" />
-
-              <Link href="/my-recipes" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-                {t("myRecipes")}
-              </Link>
-              <Link href="/saved" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-                ♥ {t("saved")}
-              </Link>
-              <Link href="/profile" onClick={() => setMenuOpen(false)} className="text-sm font-medium text-gray-700 py-2.5 hover:text-orange-500 transition-colors">
-                👤 {t("profile")} {isPro && <span className="text-xs text-orange-400 ml-1">✦ Pro</span>}
-              </Link>
-            </>
-          )}
-
-          <div className="h-px bg-gray-100 my-1" />
-
-          {user ? (
-            <button onClick={handleLogout} className="text-sm font-medium text-gray-500 py-2.5 text-left hover:text-gray-900 transition-colors">
-              {t("logout")}
-            </button>
-          ) : (
-            <Link href="/login" className="text-sm font-medium text-gray-700 py-2 hover:text-orange-500 transition-colors">{t("login")}</Link>
-          )}
+            <div className="my-1 h-px bg-line" />
+            {user ? (
+              <button type="button" onClick={handleLogout} className={`${menuLink} text-left`}>
+                {t("logout")}
+              </button>
+            ) : (
+              <Link href="/login" onClick={close} className={menuLink}>{t("login")}</Link>
+            )}
+          </div>
         </div>
       )}
     </nav>

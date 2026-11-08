@@ -5,6 +5,8 @@ import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { formatEstPrice, PRICES_UPDATED_AT } from "@/lib/ingredient-prices";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
+import { Button, buttonClasses, Checkbox, EmptyState, Icon, Input, Notice, Skeleton } from "@/components/ui";
+import Dialog from "@/components/ui/Dialog";
 
 interface ShoppingItem {
   name: string;
@@ -191,7 +193,7 @@ export default function ShoppingListDrawer({
     if (!name) return;
     setManual(prev => [
       ...prev,
-      { id: crypto.randomUUID(), name, amount: null, unit: newQty.trim(), category: "Other", categoryEmoji: "🛒" },
+      { id: crypto.randomUUID(), name, amount: null, unit: newQty.trim(), category: "Other", categoryEmoji: "\u{1F6D2}" },
     ]);
     setNewName("");
     setNewQty("");
@@ -279,295 +281,231 @@ export default function ShoppingListDrawer({
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
 
+  const dateLabel = new Date(PRICES_UPDATED_AT).toLocaleDateString(de ? "de-DE" : "en-US", { month: "long", year: "numeric" });
+  const iconLink = buttonClasses({ variant: "icon", size: "sm" });
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white w-full max-w-2xl rounded-t-3xl shadow-2xl flex flex-col"
-        style={{ maxHeight: "90vh" }}
-        onClick={e => e.stopPropagation()}
-      >
-        {/* Handle */}
-        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
-          <div className="w-10 h-1 rounded-full bg-gray-200" />
-        </div>
+    <Dialog open onClose={onClose} title={t("shoppingTitle")} side>
+      <p className="-mt-2 text-sm text-ink-3">
+        {planName} · {t("recipesCount", { count: recipeTitles.length })}
+      </p>
 
-        {/* Header */}
-        <div className="px-5 pt-2 pb-4 border-b border-gray-100 flex-shrink-0">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-bold text-gray-900">{t("shoppingTitle")}</h2>
-              <p className="text-xs text-gray-400 mt-0.5">{planName} · {t("recipesCount", { count: recipeTitles.length })}</p>
-            </div>
-            <button onClick={onClose} className="text-gray-300 hover:text-gray-500 text-2xl leading-none mt-0.5">×</button>
+      {/* Fortschritt */}
+      {!loading && totalItems > 0 && (
+        <div className="mt-4 flex items-center gap-3">
+          <div
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={totalItems}
+            aria-valuenow={checkedCount}
+            aria-label={`${checkedCount}/${totalItems} ${t("done")}`}
+            className="h-1.5 flex-1 rounded-pill bg-line"
+          >
+            <div className="h-1.5 rounded-pill bg-green" style={{ width: `${(checkedCount / totalItems) * 100}%` }} />
           </div>
-
-          {/* Progress */}
-          {!loading && totalItems > 0 && (
-            <div className="mt-3 flex items-center gap-3">
-              <div className="flex-1 bg-gray-100 rounded-full h-1.5">
-                <div
-                  className="bg-green-400 rounded-full h-1.5 transition-all duration-300"
-                  style={{ width: `${(checkedCount / totalItems) * 100}%` }}
-                />
-              </div>
-              <span className="text-xs text-gray-500 flex-shrink-0">
-                {checkedCount}/{totalItems} {t("done")}
-              </span>
-              {checkedCount > 0 && (
-                <button
-                  onClick={() => setChecked(new Set())}
-                  className="text-xs text-gray-400 hover:text-gray-600 flex-shrink-0"
-                >
-                  {t("reset")}
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Geschätzte Kosten */}
-          {!loading && pricedCount > 0 && (
-            <div className="mt-3 flex items-baseline justify-between gap-3 bg-orange-50 border border-orange-100 rounded-xl px-3.5 py-2.5">
-              <div>
-                <span className="text-sm font-bold text-gray-900">
-                  {tr("Estimated cost:", "Geschätzte Kosten:")}{" "}
-                  <span className="text-orange-600">{formatEstPrice(estTotal, locale)}</span>
-                </span>
-                {unpricedCount > 0 && (
-                  <span className="text-xs text-gray-400 ml-1.5">
-                    {tr(`+ ${unpricedCount} unpriced`, `+ ${unpricedCount} ohne Schätzung`)}
-                  </span>
-                )}
-              </div>
-              <span className="text-[10px] text-gray-400 flex-shrink-0">
-                {tr("Discount-store estimate", "Discounter-Schätzung")} ·{" "}
-                {new Date(PRICES_UPDATED_AT).toLocaleDateString(de ? "de-DE" : "en-US", { month: "long", year: "numeric" })}
-              </span>
-            </div>
+          <span className="tabular shrink-0 text-sm text-ink-2">
+            {checkedCount}/{totalItems} {t("done")}
+          </span>
+          {checkedCount > 0 && (
+            <Button variant="quiet" onClick={() => setChecked(new Set())} className="shrink-0 text-sm">
+              {t("reset")}
+            </Button>
           )}
         </div>
+      )}
 
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto">
-          {loading ? (
-            <div className="px-5 py-8 space-y-4">
-              {[...Array(4)].map((_, i) => (
-                <div key={i}>
-                  <div className="h-4 w-32 bg-gray-100 rounded animate-pulse mb-3" />
-                  {[...Array(3)].map((_, j) => (
-                    <div key={j} className="h-10 bg-gray-50 rounded-xl animate-pulse mb-2" />
-                  ))}
-                </div>
-              ))}
+      {loading ? (
+        <div className="mt-6 flex flex-col gap-4" role="status" aria-label={t("loading")}>
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="flex flex-col gap-2">
+              <Skeleton className="h-5 w-32" />
+              <Skeleton className="h-10" />
+              <Skeleton className="h-10" />
             </div>
-          ) : error ? (
-            <div className="px-5 py-12 text-center">
-              <p className="text-3xl mb-2">😕</p>
-              <p className="text-sm text-gray-500">{t("cantLoad")}</p>
-            </div>
+          ))}
+        </div>
+      ) : error ? (
+        <EmptyState tone="error" icon="alert" title={t("cantLoad")} className="mt-6" />
+      ) : (
+        <>
+          {/* Eigenen Artikel hinzufügen */}
+          <form
+            className="mt-6 flex items-end gap-2"
+            onSubmit={e => { e.preventDefault(); addManual(); }}
+          >
+            <Input
+              label={tr("Own item", "Eigener Artikel")}
+              value={newName}
+              onChange={e => setNewName(e.target.value)}
+              placeholder={tr("Add your own item…", "Eigenen Artikel hinzufügen…")}
+              className="min-w-0 flex-1"
+            />
+            <Input
+              label={tr("Quantity", "Menge")}
+              value={newQty}
+              onChange={e => setNewQty(e.target.value)}
+              placeholder={tr("Qty", "Menge")}
+              className="w-24 shrink-0"
+            />
+            <Button
+              type="submit"
+              variant="icon"
+              icon="plus"
+              disabled={!newName.trim()}
+              aria-label={tr("Add item", "Artikel hinzufügen")}
+              className="shrink-0"
+            />
+          </form>
+
+          {totalItems === 0 && pantryItems.length === 0 ? (
+            <EmptyState
+              className="mt-6"
+              icon="cart"
+              title={recipeIds.length === 0 ? t("noRecipesInPlan") : t("noIngredients")}
+              text={recipeIds.length === 0 ? tr("…or just add your own items above.", "…oder füge oben einfach eigene Artikel hinzu.") : undefined}
+            />
           ) : (
-            <div className="px-5 py-4 pb-8 space-y-5">
-              {/* Add your own item */}
-              <div className="flex items-center gap-2">
-                <input
-                  value={newName}
-                  onChange={e => setNewName(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter") addManual(); }}
-                  placeholder={tr("Add your own item…", "Eigenen Artikel hinzufügen…")}
-                  className="flex-1 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300 focus:ring-2 focus:ring-orange-100"
-                />
-                <input
-                  value={newQty}
-                  onChange={e => setNewQty(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter") addManual(); }}
-                  placeholder={tr("Qty", "Menge")}
-                  className="w-20 px-3 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:border-orange-300"
-                />
-                <button
-                  onClick={addManual}
-                  disabled={!newName.trim()}
-                  className="w-10 h-10 flex-shrink-0 rounded-xl text-white text-xl font-semibold flex items-center justify-center transition-opacity hover:opacity-90 disabled:opacity-40"
-                  style={{ background: "#f97316" }}
-                  title={tr("Add item", "Artikel hinzufügen")}
-                >
-                  +
-                </button>
-              </div>
-
-              {totalItems === 0 && pantryItems.length === 0 ? (
-                <div className="py-10 text-center">
-                  {recipeIds.length === 0 ? (
-                    <>
-                      <p className="text-3xl mb-2">📭</p>
-                      <p className="text-sm font-medium text-gray-600">{t("noRecipesInPlan")}</p>
-                      <p className="text-xs text-gray-400 mt-1">{tr("…or just add your own items above.", "…oder füge oben einfach eigene Artikel hinzu.")}</p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-3xl mb-2">🤷</p>
-                      <p className="text-sm text-gray-500">{t("noIngredients")}</p>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <>
-                {sortedCategories.map(category => {
-                  const group = displayGrouped[category];
-                  const visible = group.items.filter(i => !inPantry(i.name));
-                  if (visible.length === 0) return null;
-                  return (
-                    <div key={category}>
-                      {/* Category header */}
-                      <div className="flex items-center gap-2 mb-2 sticky top-0 bg-white/95 backdrop-blur-sm py-1">
-                        <span className="text-lg">{group.emoji}</span>
-                        <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">{group.label ?? category}</span>
-                        <span className="text-xs text-gray-300 ml-auto">
-                          {visible.filter(i => checked.has(i.key)).length}/{visible.length}
-                        </span>
-                      </div>
-
-                      {/* Items */}
-                      <div className="space-y-1">
-                        {visible.map(item => {
-                          const isDone = checked.has(item.key);
-                          return (
-                            <div key={item.key} className="flex items-center gap-1">
-                              <button
-                                onClick={() => toggleCheck(item.key)}
-                                className={`flex-1 flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all ${
-                                  isDone ? "bg-gray-50 opacity-50" : "hover:bg-orange-50"
-                                }`}
-                              >
-                                {/* Checkbox */}
-                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${
-                                  isDone ? "bg-green-400 border-green-400" : "border-gray-300"
-                                }`}>
-                                  {isDone && <span className="text-white text-xs">✓</span>}
-                                </div>
-                                {/* Name */}
-                                <span className={`flex-1 text-sm font-medium capitalize transition-all ${
-                                  isDone ? "line-through text-gray-400" : "text-gray-800"
-                                }`}>
-                                  {item.name}
-                                  {item.manualId && <span className="ml-1.5 text-xs text-gray-300 normal-case">✍️</span>}
-                                </span>
-                                {/* Amount */}
-                                {(item.amount || item.unit) && (
-                                  <span className={`text-xs flex-shrink-0 transition-all ${
-                                    isDone ? "text-gray-300" : "text-gray-500 font-medium"
-                                  }`}>
-                                    {formatAmount(item.amount, item.unit)}
-                                  </span>
-                                )}
-                                {typeof item.estPrice === "number" && (
-                                  <span className={`text-[10px] flex-shrink-0 w-14 text-right tabular-nums ${
-                                    isDone ? "text-gray-200" : "text-gray-400"
-                                  }`}>
-                                    {formatEstPrice(item.estPrice, locale)}
-                                  </span>
-                                )}
-                              </button>
-                              {!isDone && (() => {
-                                const shopUrl = getIngredientAffiliateUrl(item.name);
-                                return shopUrl ? (
-                                  <a
-                                    href={trackedUrl(shopUrl, "shopping_list")}
-                                    target="_blank"
-                                    rel="noopener noreferrer sponsored"
-                                    title={tr("Buy on Amazon (ad)", "Bei Amazon kaufen (Werbung)")}
-                                    className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
-                                  >
-                                    🛒
-                                  </a>
-                                ) : null;
-                              })()}
-                              <button
-                                onClick={() => addToPantry(item.name)}
-                                className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
-                                title={tr("I already have this", "Hab ich zuhause")}
-                              >
-                                🏠
-                              </button>
-                              {item.manualId && (
-                                <button
-                                  onClick={() => removeManual(item.manualId!)}
-                                  className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 rounded-lg transition-all"
-                                  title={tr("Remove", "Entfernen")}
-                                >
-                                  ×
-                                </button>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {pantryItems.length > 0 && (
-                  <div className="pt-2">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-base">🏠</span>
-                      <span className="text-xs font-bold text-gray-400 uppercase tracking-wide">
-                        {tr("Already have", "Schon zuhause")} ({pantryItems.length})
+            <>
+              {sortedCategories.map(category => {
+                const group = displayGrouped[category];
+                const visible = group.items.filter(i => !inPantry(i.name));
+                if (visible.length === 0) return null;
+                return (
+                  <section key={category}>
+                    <h3 className="mt-6 flex items-baseline justify-between gap-3 text-h3">
+                      {group.label ?? category}
+                      <span className="tabular text-sm font-normal text-ink-3">
+                        {visible.filter(i => checked.has(i.key)).length}/{visible.length}
                       </span>
-                    </div>
-                    <div className="space-y-1">
-                      {pantryItems.map(item => (
-                        <div key={item.key} className="flex items-center gap-1">
-                          <div className="flex-1 flex items-center gap-3 px-3 py-2 rounded-xl bg-gray-50/60">
-                            <span className="text-green-400 text-sm flex-shrink-0">✓</span>
-                            <span className="flex-1 text-sm font-medium capitalize text-gray-400 line-through">{item.name}</span>
-                          </div>
-                          <button
-                            onClick={() => removeFromPantry(item.name)}
-                            className="w-8 h-8 flex-shrink-0 flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 rounded-lg transition-all"
-                            title={tr("Need to buy after all", "Doch kaufen")}
-                          >
-                            ↩
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                </>
+                    </h3>
+                    <ul className="mt-2 flex flex-col">
+                      {visible.map(item => {
+                        const isDone = checked.has(item.key);
+                        const shopUrl = !isDone ? getIngredientAffiliateUrl(item.name) : null;
+                        return (
+                          <li key={item.key} className="flex items-center gap-1 py-1">
+                            <Checkbox
+                              className="min-w-0 flex-1 py-1.5"
+                              checked={isDone}
+                              onChange={() => toggleCheck(item.key)}
+                              label={
+                                <span className={isDone ? "text-ink-3 line-through" : ""}>
+                                  <span className="capitalize">{item.name}</span>
+                                  {(item.amount || item.unit) && (
+                                    <span className={`tabular ml-2 text-sm ${isDone ? "" : "text-ink-2"}`}>
+                                      {formatAmount(item.amount, item.unit)}
+                                    </span>
+                                  )}
+                                  {typeof item.estPrice === "number" && (
+                                    <span className="tabular ml-2 text-caption text-ink-3">
+                                      {formatEstPrice(item.estPrice, locale)}
+                                    </span>
+                                  )}
+                                </span>
+                              }
+                            />
+                            {shopUrl && (
+                              <a
+                                href={trackedUrl(shopUrl, "shopping_list")}
+                                target="_blank"
+                                rel="noopener noreferrer sponsored"
+                                aria-label={tr("Buy on Amazon (ad)", "Bei Amazon kaufen (Werbung)")}
+                                title={tr("Buy on Amazon (ad)", "Bei Amazon kaufen (Werbung)")}
+                                className={iconLink}
+                              >
+                                <Icon name="cart" size={20} />
+                              </a>
+                            )}
+                            <Button
+                              variant="icon"
+                              size="sm"
+                              icon="eyeOff"
+                              onClick={() => addToPantry(item.name)}
+                              aria-label={`${tr("I already have this", "Hab ich zuhause")}: ${item.name}`}
+                              title={tr("I already have this", "Hab ich zuhause")}
+                            />
+                            {item.manualId && (
+                              <Button
+                                variant="icon"
+                                size="sm"
+                                icon="trash"
+                                onClick={() => removeManual(item.manualId!)}
+                                aria-label={`${tr("Remove", "Entfernen")}: ${item.name}`}
+                                title={tr("Remove", "Entfernen")}
+                              />
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </section>
+                );
+              })}
+
+              {pantryItems.length > 0 && (
+                <section>
+                  <h3 className="mt-6 text-h3">
+                    {tr("Already have", "Schon zuhause")} <span className="tabular font-normal text-ink-3">({pantryItems.length})</span>
+                  </h3>
+                  <ul className="mt-2 flex flex-col">
+                    {pantryItems.map(item => (
+                      <li key={item.key} className="flex items-center gap-1 py-1">
+                        <span className="flex min-w-0 flex-1 items-center gap-3 py-1.5 text-base text-ink-3 line-through">
+                          <Icon name="check" size={20} className="shrink-0 text-green" />
+                          <span className="capitalize">{item.name}</span>
+                        </span>
+                        <Button
+                          variant="icon"
+                          size="sm"
+                          icon="eye"
+                          onClick={() => removeFromPantry(item.name)}
+                          aria-label={`${tr("Need to buy after all", "Doch kaufen")}: ${item.name}`}
+                          title={tr("Need to buy after all", "Doch kaufen")}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               )}
-            </div>
+
+              {pricedCount > 0 && (
+                <div className="mt-6 border-t border-line pt-3">
+                  <p className="tabular flex items-baseline justify-between gap-3 font-semibold">
+                    <span>{tr("Estimated cost", "Geschätzte Kosten")}</span>
+                    <span>{formatEstPrice(estTotal, locale)}</span>
+                  </p>
+                  <p className="mt-1 text-caption text-ink-3">
+                    {tr("Discount-store estimate", "Discounter-Schätzung")}, {dateLabel}
+                    {unpricedCount > 0 && ` · ${tr(`+ ${unpricedCount} unpriced`, `+ ${unpricedCount} ohne Schätzung`)}`}
+                  </p>
+                </div>
+              )}
+
+              {totalItems > 0 && checkedCount === totalItems && (
+                <Notice tone="success" className="mt-6">
+                  <p className="font-semibold">{t("allDone")}</p>
+                  <p>{t("boughtAll")}</p>
+                </Notice>
+              )}
+
+              {totalItems > 0 && (
+                <div className="mt-6">
+                  <a
+                    href={trackedUrl(`https://www.amazon.de/s?k=lebensmittel+online&tag=${process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || "culinse-21"}`, "shopping_list_all")}
+                    target="_blank"
+                    rel="noopener noreferrer sponsored"
+                    className={buttonClasses({ variant: "secondary", fullWidth: true })}
+                  >
+                    {t("orderGroceries")}
+                    <Icon name="externalLink" size={18} />
+                  </a>
+                  <p className="mt-2 text-caption text-ink-3">{t("affiliateNote")}</p>
+                </div>
+              )}
+            </>
           )}
-        </div>
-
-        {/* Amazon grocery button */}
-        {!loading && totalItems > 0 && (
-          <div className="px-5 pt-3 pb-1 flex-shrink-0">
-            <a
-              href={trackedUrl(`https://www.amazon.de/s?k=lebensmittel+online&tag=${process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || "culinse-21"}`, "shopping_list_all")}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-orange-200 text-orange-600 text-sm font-semibold hover:bg-orange-50 transition-all"
-            >
-              {t("orderGroceries")}
-            </a>
-            <p className="text-xs text-gray-300 text-center mt-1.5">{t("affiliateNote")}</p>
-          </div>
-        )}
-
-        {/* Footer */}
-        {!loading && totalItems > 0 && checkedCount === totalItems && (
-          <div className="px-5 py-4 border-t border-gray-100 flex-shrink-0">
-            <div className="flex items-center gap-3 bg-green-50 rounded-xl px-4 py-3">
-              <span className="text-2xl">🎉</span>
-              <div>
-                <p className="text-sm font-bold text-green-700">{t("allDone")}</p>
-                <p className="text-xs text-green-600">{t("boughtAll")}</p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+        </>
+      )}
+    </Dialog>
   );
 }

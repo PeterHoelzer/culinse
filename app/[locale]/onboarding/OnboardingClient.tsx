@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
+import { Button, Icon, Notice, SectionHeader } from "@/components/ui";
 
 // Karten-Daten aus /api/similar-recipes (Korpus/Community, sprachgefiltert).
 interface SuggestedRecipe {
@@ -26,12 +27,12 @@ interface CreatedPlan {
 // Auswahl in Schritt 1. `diet` schreibt user_preferences (gleiche Werte wie im
 // Profil / ForYou: Spoonacular-Diäten), `tags` filtert die Korpus-Vorschläge
 // (deutsche/englische Rezept-Tags aus user_recipes), `maxTime` optional.
-const CHOICES: { key: string; emoji: string; diet: string; tags: string[]; maxTime?: number }[] = [
-  { key: "all",        emoji: "🍽", diet: "",           tags: [] },
-  { key: "vegetarian", emoji: "🥦", diet: "vegetarian", tags: ["vegetarisch", "vegetarian", "vegan"] },
-  { key: "vegan",      emoji: "🌱", diet: "vegan",      tags: ["vegan"] },
-  { key: "protein",    emoji: "💪", diet: "",           tags: ["proteinreich", "high-protein", "protein"] },
-  { key: "quick",      emoji: "⚡", diet: "",           tags: ["schnell", "einfach", "quick", "easy"], maxTime: 30 },
+const CHOICES: { key: string; diet: string; tags: string[]; maxTime?: number }[] = [
+  { key: "all",        diet: "",           tags: [] },
+  { key: "vegetarian", diet: "vegetarian", tags: ["vegetarisch", "vegetarian", "vegan"] },
+  { key: "vegan",      diet: "vegan",      tags: ["vegan"] },
+  { key: "protein",    diet: "",           tags: ["proteinreich", "high-protein", "protein"] },
+  { key: "quick",      diet: "",           tags: ["schnell", "einfach", "quick", "easy"], maxTime: 30 },
 ];
 
 /** Montag der aktuellen Woche (gleiche Anker-Logik wie AddToPlanModal). */
@@ -176,144 +177,129 @@ export default function OnboardingClient() {
     }
   };
 
-  const stepDots = (
-    <div className="flex items-center justify-center gap-2 mb-8">
-      {[1, 2, 3].map((s) => (
-        <span
-          key={s}
-          className={`h-2 rounded-full transition-all duration-300 ${
-            s === step ? "w-8 bg-orange-500" : s < step ? "w-2 bg-orange-300" : "w-2 bg-gray-200"
-          }`}
-        />
-      ))}
-    </div>
-  );
+  const loadErrorText = t("loadError");
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
 
-      <main className="max-w-3xl mx-auto px-4 py-10 sm:py-14">
-        {stepDots}
-
-        {/* ── Schritt 1: Ernährungsweise ── */}
-        {step === 1 && (
-          <section>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-2">{t("title")}</h1>
-            <p className="text-sm text-gray-500 text-center mb-8">{t("step1Sub")}</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {CHOICES.map((c) => (
-                <button
-                  key={c.key}
-                  onClick={() => pickChoice(c.key)}
-                  disabled={loadingSuggestions}
-                  className={`flex items-center gap-4 p-4 rounded-2xl border-2 bg-white text-left transition-all disabled:opacity-60 ${
-                    choiceKey === c.key ? "border-orange-400 shadow-md" : "border-gray-100 hover:border-orange-200 hover:shadow-sm"
-                  }`}
-                >
-                  <span className="text-3xl">{c.emoji}</span>
-                  <span>
-                    <span className="block text-sm font-semibold text-gray-900">{t(`diet_${c.key}`)}</span>
-                    <span className="block text-xs text-gray-400 mt-0.5">{t(`diet_${c.key}_desc`)}</span>
-                  </span>
-                  {loadingSuggestions && choiceKey === c.key && (
-                    <span className="ml-auto animate-spin text-orange-400">⏳</span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Schritt 2: Startwoche ── */}
-        {step === 2 && (
-          <section>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-2">{t("step2Title")}</h1>
-            <p className="text-sm text-gray-500 text-center mb-8">{t("step2Sub")}</p>
-            <div className="space-y-3 mb-6">
-              {suggestions.map((r, i) => {
-                const id = String(r.id);
-                const active = selected.has(id);
-                return (
-                  <button
-                    key={id}
-                    onClick={() => toggleRecipe(id)}
-                    className={`w-full flex items-center gap-4 p-3 rounded-2xl border-2 bg-white text-left transition-all ${
-                      active ? "border-orange-300" : "border-gray-100 opacity-60"
-                    }`}
-                  >
-                    <span className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
-                      active ? "border-orange-400 bg-orange-400" : "border-gray-200"
-                    }`}>
-                      {active && <span className="text-white text-xs font-bold">✓</span>}
-                    </span>
-                    {r.image ? (
-                      <img
-                        src={r.image}
-                        alt={r.title}
-                        loading="lazy"
-                        style={r.imagePosition ? { objectPosition: r.imagePosition } : undefined}
-                        className="w-16 h-16 rounded-xl object-cover flex-shrink-0"
-                      />
-                    ) : (
-                      <span className="w-16 h-16 rounded-xl bg-orange-50 flex items-center justify-center text-2xl flex-shrink-0">🍳</span>
-                    )}
-                    <span className="flex-1 min-w-0">
-                      <span className="block text-xs font-semibold text-orange-500 mb-0.5">{DAYS_FULL[i]}</span>
-                      <span className="block text-sm font-semibold text-gray-900 leading-snug line-clamp-2">{r.title}</span>
-                      {r.time && <span className="block text-xs text-gray-400 mt-0.5">⏱ {r.time}</span>}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-            <button
-              onClick={addToPlan}
-              disabled={saving || selected.size === 0}
-              className="w-full py-3.5 rounded-full text-white font-semibold text-sm transition-all disabled:opacity-60"
-              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-            >
-              {saving ? t("adding") : t("addSelected", { count: selected.size })}
-            </button>
-          </section>
-        )}
-
-        {/* ── Schritt 3: Fertig + Einkaufsliste ── */}
-        {step === 3 && (
-          <section className="text-center">
-            <div className="text-5xl mb-4">🎉</div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">{t("step3Title")}</h1>
-            <p className="text-sm text-gray-500 mb-8 max-w-md mx-auto">{t("step3Sub", { count: planned.length })}</p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button
-                onClick={() => setShowList(true)}
-                className="px-6 py-3.5 rounded-full text-white text-sm font-semibold shadow-lg shadow-orange-500/30"
-                style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-              >
-                {t("viewList")}
-              </button>
-              <Link
-                href="/meal-planner"
-                className="px-6 py-3.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-              >
-                {t("toPlanner")}
-              </Link>
-            </div>
-          </section>
-        )}
-
-        {error && (
-          <p className="text-center text-sm text-red-500 mt-6">{t("loadError")}</p>
-        )}
-
-        {/* Ausstieg jederzeit möglich — kein erzwungenes Onboarding. */}
-        {step < 3 && (
-          <p className="text-center mt-10">
-            <Link href="/" className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
-              {t("skip")}
-            </Link>
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-prose">
+          <p className="mb-2 text-sm font-semibold text-ink-3 tabular" aria-label={`${step} / 3`}>
+            {step} / 3
           </p>
-        )}
+
+          {/* Schritt 1: Ernährungsweise */}
+          {step === 1 && (
+            <section>
+              <SectionHeader as="h1" title={t("title")} subtitle={t("step1Sub")} />
+              <ul className="divide-y divide-line border-y border-line">
+                {CHOICES.map((c) => (
+                  <li key={c.key}>
+                    <button
+                      type="button"
+                      onClick={() => pickChoice(c.key)}
+                      disabled={loadingSuggestions}
+                      aria-pressed={choiceKey === c.key}
+                      className={`flex w-full items-center gap-4 px-2 py-4 text-left transition-colors hover:bg-surface-soft disabled:cursor-not-allowed ${
+                        choiceKey === c.key ? "bg-brand-soft hover:bg-brand-soft" : ""
+                      }`}
+                    >
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-base font-semibold text-ink">{t(`diet_${c.key}`)}</span>
+                        <span className="block text-sm text-ink-3">{t(`diet_${c.key}_desc`)}</span>
+                      </span>
+                      {loadingSuggestions && choiceKey === c.key ? (
+                        <span className="text-sm text-ink-3" role="status">{t.has("loading") ? t("loading") : "Lädt…"}</span>
+                      ) : (
+                        <Icon name="chevronRight" size={20} className="text-ink-3" />
+                      )}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Schritt 2: Startwoche */}
+          {step === 2 && (
+            <section>
+              <SectionHeader as="h1" title={t("step2Title")} subtitle={t("step2Sub")} />
+              <ul className="mb-6 divide-y divide-line border-y border-line">
+                {suggestions.map((r, i) => {
+                  const id = String(r.id);
+                  const active = selected.has(id);
+                  return (
+                    <li key={id}>
+                      <button
+                        type="button"
+                        onClick={() => toggleRecipe(id)}
+                        aria-pressed={active}
+                        className="flex w-full items-center gap-4 px-2 py-3 text-left transition-colors hover:bg-surface-soft"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-1 border ${
+                            active ? "border-green bg-green text-white" : "border-line-strong bg-surface"
+                          }`}
+                        >
+                          {active && <Icon name="check" size={16} />}
+                        </span>
+                        <span className="h-16 w-16 shrink-0 overflow-hidden rounded-2 bg-surface-soft">
+                          {r.image ? (
+                            <img
+                              src={r.image}
+                              alt=""
+                              loading="lazy"
+                              style={r.imagePosition ? { objectPosition: r.imagePosition } : undefined}
+                              className="h-full w-full object-cover"
+                            />
+                          ) : (
+                            <span className="flex h-full w-full items-center justify-center">
+                              <Icon name="utensils" size={24} className="text-line-strong" />
+                            </span>
+                          )}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm text-ink-3">
+                            {DAYS_FULL[i]}
+                            {r.time ? ` · ${r.time}` : ""}
+                          </span>
+                          <span className="block line-clamp-2 text-base font-semibold text-ink">{r.title}</span>
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              <Button onClick={addToPlan} loading={saving} disabled={saving || selected.size === 0}>
+                {saving ? t("adding") : t("addSelected", { count: selected.size })}
+              </Button>
+            </section>
+          )}
+
+          {/* Schritt 3: Fertig + Einkaufsliste */}
+          {step === 3 && (
+            <section>
+              <SectionHeader as="h1" title={t("step3Title")} subtitle={t("step3Sub", { count: planned.length })} />
+              <div className="flex flex-wrap gap-3">
+                <Button icon="cart" onClick={() => setShowList(true)}>{t("viewList")}</Button>
+                <Button href="/meal-planner" variant="secondary" icon="calendar">{t("toPlanner")}</Button>
+              </div>
+            </section>
+          )}
+
+          {error && <Notice tone="error" className="mt-6">{loadErrorText}</Notice>}
+
+          {/* Ausstieg jederzeit möglich, kein erzwungenes Onboarding. */}
+          {step < 3 && (
+            <p className="mt-10">
+              <Link href="/" className="text-base font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]">
+                {t("skip")}
+              </Link>
+            </p>
+          )}
+        </div>
       </main>
 
       {showList && plan && (

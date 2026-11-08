@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Wordmark from "@/components/ui/Wordmark";
 
 // AGB / Nutzungsbedingungen — Basis-Entwurf, fachlich sauber aufgebaut;
 // finale Freigabe durch Generator/Anwalt empfohlen (siehe Plan Phase 2, F1).
@@ -153,33 +154,30 @@ export default async function Agb({
   const sections = de ? DE_SECTIONS : EN_SECTIONS;
 
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="border-b border-gray-100 px-4 py-4">
-        <div className="max-w-3xl mx-auto">
-          <Link href={`/${locale}`} className="flex items-center w-fit">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/culinse-logo.png" alt="culinse" style={{ height: "24px", width: "auto" }} />
-          </Link>
+    <div className="min-h-screen bg-surface">
+      <nav className="border-b border-line px-4 py-4">
+        <div className="max-w-prose mx-auto">
+          <Wordmark />
         </div>
       </nav>
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-gray-900 mb-3">
+      <main className="max-w-prose mx-auto px-4 py-12">
+        <h1 className="text-h1-sm sm:text-h1 mb-3">
           {de ? "Allgemeine Geschäftsbedingungen" : "Terms of Service"}
         </h1>
-        <p className="text-gray-600 leading-relaxed mb-10">
+        <p className="text-base text-ink leading-relaxed mb-10">
           {de
             ? "Diese Bedingungen regeln die Nutzung von Culinse — kurz, verständlich und ohne Kleingedrucktes im Kleingedruckten."
             : "These terms govern the use of Culinse — short, understandable, and without fine print hidden in the fine print."}
         </p>
         {sections.map((s) => (
-          <section key={s.t} className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-800 mb-3">{s.t}</h2>
-            <p className="text-gray-600 leading-relaxed">
+          <section key={s.t}>
+            <h2 className="text-h2-sm mt-10 mb-3">{s.t}</h2>
+            <p className="text-base text-ink leading-relaxed">
               {s.b}
               {s.link && (
                 <>
                   {" "}
-                  <Link href={`/${locale}${s.link.href}`} className="underline hover:text-orange-500">
+                  <Link href={`/${locale}${s.link.href}`} className="underline underline-offset-[3px] hover:text-brand">
                     {s.link.label}
                   </Link>
                   .
@@ -188,7 +186,7 @@ export default async function Agb({
             </p>
           </section>
         ))}
-        <p className="text-xs text-gray-400">
+        <p className="text-caption text-ink-3">
           {de ? "Stand: August 2026" : "Last updated: August 2026"}
         </p>
       </main>

@@ -8,16 +8,18 @@ import { useTranslations, useLocale } from "next-intl";
 import { convertMeasurements } from "@/lib/convertMeasurements";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { estimateRecipeCost, formatEstPrice } from "@/lib/ingredient-prices";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import AddToPlanModal from "@/components/AddToPlanModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
+import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { Link as LocaleLink } from "@/lib/navigation";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
+import { optimizedImageUrl } from "@/lib/imageUrl";
+import { Button, buttonClasses, Checkbox, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
 
 interface Ingredient {
   id: number;
@@ -125,6 +127,102 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
   };
 }
 
+/* ── Bild-Helfer ───────────────────────────────────────────────────────── */
+
+const HERO_WIDTHS = [640, 960, 1440, 1920];
+
+/**
+ * Responsive Quellen für Supabase-Bilder. Die API liefert bereits Render-URLs
+ * mit `width=`/`height=`; wir tauschen nur die Zahl aus. Für nackte
+ * Storage-URLs greift optimizedImageUrl. Fremde Hosts bekommen kein srcSet.
+ */
+function heroSrcSet(url: string): string | undefined {
+  if (/[?&]width=\d+/.test(url)) {
+    return HERO_WIDTHS.map((w) => `${url.replace(/([?&])width=\d+/, `$1width=${w}`).replace(/([?&])height=\d+/, `$1height=${w}`)} ${w}w`).join(", ");
+  }
+  if (url.includes("/storage/v1/object/public/")) {
+    return HERO_WIDTHS.map((w) => `${optimizedImageUrl(url, w)} ${w}w`).join(", ");
+  }
+  return undefined;
+}
+
+/** "45 min" (API) → "45 Min." auf Deutsch, sonst unverändert. */
+function formatTime(time: string, locale: string): string {
+  const m = time.match(/^(\d+)\s*min$/i);
+  if (!m) return time;
+  return locale === "de" ? `${m[1]} Min.` : `${m[1]} min`;
+}
+
+/* ── Portionsregler ────────────────────────────────────────────────────── */
+
+const UNICODE_FRACTIONS: Record<string, number> = { "½": 0.5, "¼": 0.25, "¾": 0.75, "⅓": 1 / 3, "⅔": 2 / 3, "⅛": 0.125 };
+const AMOUNT_TOKEN = String.raw`\d+\s+\d+\/\d+|\d+\/\d+|\d+(?:[.,]\d+)?\s*[½¼¾⅓⅔⅛]?|[½¼¾⅓⅔⅛]`;
+const LEADING_AMOUNT = new RegExp(`^\\s*(${AMOUNT_TOKEN})(?:\\s*(?:-|–|bis|to)\\s*(${AMOUNT_TOKEN}))?(?=\\s|$)`);
+
+function parseAmount(s: string): number {
+  const v = s.trim();
+  if (UNICODE_FRACTIONS[v] != null) return UNICODE_FRACTIONS[v];
+  const uni = v.match(/^(\d+(?:[.,]\d+)?)\s*([½¼¾⅓⅔⅛])$/);
+  if (uni) return parseFloat(uni[1].replace(",", ".")) + UNICODE_FRACTIONS[uni[2]];
+  const mixed = v.match(/^(\d+)\s+(\d+)\/(\d+)$/);
+  if (mixed) return Number(mixed[1]) + Number(mixed[2]) / Number(mixed[3]);
+  const frac = v.match(/^(\d+)\/(\d+)$/);
+  if (frac) return Number(frac[1]) / Number(frac[2]);
+  return parseFloat(v.replace(",", "."));
+}
+
+function formatAmount(n: number, locale: string): string {
+  const rounded = n >= 10 ? Math.round(n) : Math.round(n * 100) / 100;
+  const s = rounded.toFixed(2).replace(/\.?0+$/, "");
+  return locale === "de" ? s.replace(".", ",") : s;
+}
+
+/**
+ * Trennt die Menge vom Rest der Zutatenzeile („200 g Mehl“ → „200 g“ fett)
+ * und skaliert sie beim Umstellen der Portionen. Zeilen ohne führende Zahl
+ * bleiben unverändert.
+ */
+function splitIngredient(original: string, factor: number, locale: string): { amount: string | null; rest: string } {
+  const m = original.match(LEADING_AMOUNT);
+  if (!m) return { amount: null, rest: original };
+  const rest = original.slice(m[0].length).trimStart();
+  if (factor === 1) return { amount: m[0].trim(), rest };
+  const a = formatAmount(parseAmount(m[1]) * factor, locale);
+  const b = m[2] ? formatAmount(parseAmount(m[2]) * factor, locale) : null;
+  return { amount: b ? `${a}–${b}` : a, rest };
+}
+
+/* ── Rezeptkarte für „Ähnliche Rezepte“ (DESIGN.md §5 „Rezeptkarte“) ──── */
+
+function SimilarCard({ recipe: s, locale }: { recipe: SimilarRecipe; locale: string }) {
+  const meta = [s.source, s.time ? formatTime(s.time, locale) : null].filter(Boolean);
+  return (
+    <LocaleLink href={`/recipe/${s.id}`} className="group block">
+      <div className="aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
+        {s.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={s.image}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width={480}
+            height={360}
+            style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <Icon name="utensils" size={32} className="text-line-strong" />
+          </div>
+        )}
+      </div>
+      {meta.length > 0 && <p className="mt-3 text-sm text-ink-3 tabular">{meta.join(" · ")}</p>}
+      <h3 className="mt-1 line-clamp-2 text-h3 text-ink underline-offset-[3px] group-hover:underline">{s.title}</h3>
+    </LocaleLink>
+  );
+}
+
 export default function RecipePageClient({ serverTitle, initialRecipe, similarRecipes }: { serverTitle?: string | null; initialRecipe?: Recipe | null; similarRecipes?: SimilarRecipe[] | null }) {
   const { id } = useParams();
   const locale = useLocale();
@@ -142,6 +240,8 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   const translatedRef = useRef(false);
   const t = useTranslations("recipe");
   const tCard = useTranslations("recipeCard");
+  // Neue Texte: Schlüssel, sobald er in messages/*.json steht, sonst Fallback.
+  const tx = (key: string, de: string, en: string) => (t.has(key) ? t(key) : locale === "de" ? de : en);
 
   const [loading, setLoading] = useState(!initialRecipe);
   const [error, setError] = useState(false);
@@ -160,9 +260,17 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   const [printWithImage, setPrintWithImage] = useState(false);
   const [showPrintMenu, setShowPrintMenu] = useState(false);
   const [showPlanModal, setShowPlanModal] = useState(false);
+  const [showShoppingList, setShowShoppingList] = useState(false);
   const [stickyVisible, setStickyVisible] = useState(false);
 
-  // Sticky „+ In den Wochenplan": erscheint nach kurzem Scrollen und bleibt
+  // Portionsregler: Zielportionen, Faktor skaliert die Mengen in der Zutatenliste.
+  const [servingsTarget, setServingsTarget] = useState<number | null>(initialRecipe?.servings ?? null);
+  useEffect(() => {
+    setServingsTarget(recipe?.servings ?? null);
+  }, [recipe?.id, recipe?.servings]);
+  const servingsFactor = recipe?.servings && servingsTarget ? servingsTarget / recipe.servings : 1;
+
+  // Sticky „Zum Wochenplan": erscheint nach kurzem Scrollen und bleibt
   // beim Weiterscrollen sichtbar (Review-Paket C10).
   useEffect(() => {
     const onScroll = () => setStickyVisible(window.scrollY > 250);
@@ -175,6 +283,12 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   const openPlanModal = () => {
     if (!user) { setShowLoginPrompt(true); return; }
     setShowPlanModal(true);
+  };
+
+  // Einkaufsliste braucht ein Konto (/api/shopping-list antwortet sonst 401).
+  const openShoppingList = () => {
+    if (!user) { setShowLoginPrompt(true); return; }
+    setShowShoppingList(true);
   };
 
   const handlePrint = (withImage: boolean) => {
@@ -328,8 +442,30 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
     });
   };
 
+  const hasSourceUrl = !!recipe?.sourceUrl && recipe.sourceUrl !== "#";
+  const planLabel = t("addToPlan").replace(/^\+\s*/, "");
+  const copiedLabel = t("copied").replace(/!$/, "");
+
+  // Kopfzeile über dem Titel: Küche · Gericht · Ernährungsform (als Worte, keine Pillen)
+  const tagLine = recipe
+    ? [
+        ...(recipe.cuisine ? [{ text: recipe.cuisine, green: false }] : []),
+        ...(recipe.dishTypes ?? []).slice(0, 2).map((d) => ({ text: d, green: false })),
+        ...(recipe.diets ?? []).slice(0, 3).map((d) => ({ text: d, green: /vegetar|vegan/i.test(d) })),
+      ]
+    : [];
+
+  const nutritionRows = recipe?.nutrition
+    ? [
+        { label: tx("calories", "Kalorien", "Calories"), value: recipe.nutrition.calories, unit: "kcal" },
+        { label: tx("protein", "Eiweiß", "Protein"), value: recipe.nutrition.protein, unit: "g" },
+        { label: tx("fat", "Fett", "Fat"), value: recipe.nutrition.fat, unit: "g" },
+        { label: tx("carbs", "Kohlenhydrate", "Carbs"), value: recipe.nutrition.carbs, unit: "g" },
+      ]
+    : [];
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
 
       {/* SSR H1: present in server-rendered HTML before the client fetch resolves.
@@ -341,22 +477,29 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
 
       {/* Loading */}
       {loading && (
-        <div className="max-w-4xl mx-auto px-4 py-12 space-y-4">
-          <div className="h-5 bg-gray-100 rounded w-32 animate-pulse" />
-          <div className="h-72 bg-gray-100 rounded-2xl animate-pulse" />
-          <div className="h-8 bg-gray-100 rounded-xl w-2/3 animate-pulse" />
-          <div className="h-4 bg-gray-100 rounded-xl w-full animate-pulse" />
-          <div className="h-4 bg-gray-100 rounded-xl w-5/6 animate-pulse" />
+        <div className="mx-auto max-w-content space-y-6 px-4 pt-6 sm:px-6" aria-busy="true">
+          <Skeleton className="h-5 w-24" />
+          <Skeleton className="aspect-[3/2] w-full" />
+          <Skeleton className="h-10 w-2/3" />
+          <Skeleton className="h-5 w-full" />
+          <Skeleton className="h-5 w-5/6" />
         </div>
       )}
 
       {/* Error */}
       {error && (
-        <div className="max-w-4xl mx-auto px-4 py-24 text-center text-gray-400">
-          <div className="text-5xl mb-3">⚠️</div>
-          <p className="text-lg font-medium">{t("notFound")}</p>
-          <Link href="/" className="text-orange-500 text-sm mt-2 hover:underline block">{t("backToDiscover")}</Link>
-        </div>
+        <main className="mx-auto max-w-content px-4 py-16 sm:px-6">
+          <EmptyState
+            tone="error"
+            icon="alert"
+            title={t("notFound")}
+            action={
+              <Button variant="secondary" href="/" icon="arrowLeft">
+                {t("backToDiscover")}
+              </Button>
+            }
+          />
+        </main>
       )}
 
       {/* Add to Collection Modal */}
@@ -382,7 +525,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
         <UpgradeModal onClose={() => setShowUpgrade(false)} />
       )}
 
-      {/* Add to Meal Plan Modal (Sticky-Button) */}
+      {/* Add to Meal Plan Modal (Aktionsleiste + Sticky-Button) */}
       {showPlanModal && recipe && (
         <AddToPlanModal
           recipe={{
@@ -395,25 +538,41 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
         />
       )}
 
+      {/* Einkaufsliste für dieses eine Rezept, skaliert auf die gewählten Portionen */}
+      {showShoppingList && recipe && (
+        <ShoppingListDrawer
+          recipeIds={[String(recipe.id)]}
+          recipeTitles={[recipe.title]}
+          planName={recipe.title}
+          targets={recipe.servings && servingsTarget ? { [String(recipe.id)]: servingsTarget } : undefined}
+          onClose={() => setShowShoppingList(false)}
+        />
+      )}
+
       {/* ── Print-only view (inline styles so Tailwind can't override) ── */}
       {recipe && !loading && (
         <div className="recipe-print-view" style={{ padding: "24px", fontFamily: "system-ui, sans-serif" }}>
           {printWithImage && recipe.image && (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={recipe.image}
               alt={recipe.title}
-              style={{ width: "100%", maxHeight: "240px", objectFit: "cover", borderRadius: "12px", marginBottom: "16px" }}
+              style={{ width: "100%", maxHeight: "240px", objectFit: "cover", borderRadius: "8px", marginBottom: "16px" }}
             />
           )}
           <h1 style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</h1>
-          <p style={{ fontSize: "10pt", color: "#6b7280", marginBottom: "16px" }}>
-            {recipe.time && `⏱ ${recipe.time}`}
-            {recipe.servings && `  ·  🍽️ ${recipe.servings} ${t("servings")}`}
-            {recipe.ingredients.length > 0 && `  ·  🧂 ${recipe.ingredients.length} ${t("ingredients")}`}
+          <p style={{ fontSize: "10pt", color: "var(--color-ink-3)", marginBottom: "16px" }}>
+            {[
+              recipe.time ? formatTime(recipe.time, locale) : null,
+              recipe.servings ? tCard("servings", { count: recipe.servings }) : null,
+              recipe.ingredients.length > 0 ? `${recipe.ingredients.length} ${t("ingredients")}` : null,
+            ]
+              .filter(Boolean)
+              .join("  ·  ")}
           </p>
           <div style={{ display: "flex", gap: "32px", alignItems: "flex-start" }}>
             <div style={{ width: "32%", flexShrink: 0 }}>
-              <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
+              <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid var(--color-line)", paddingBottom: "4px" }}>
                 {t("ingredients")}
               </h2>
               <ul style={{ listStyle: "disc", paddingLeft: "18px", margin: 0 }}>
@@ -425,7 +584,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               </ul>
             </div>
             <div style={{ flex: 1 }}>
-              <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid #e5e7eb", paddingBottom: "4px" }}>
+              <h2 style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", borderBottom: "1px solid var(--color-line)", paddingBottom: "4px" }}>
                 {t("instructions")}
               </h2>
               <ol style={{ paddingLeft: "20px", margin: 0 }}>
@@ -442,69 +601,79 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
 
       {/* Recipe */}
       {recipe && !loading && (
-        <main className="recipe-screen-view max-w-4xl mx-auto px-4 pb-16 pt-6">
+        <main className="recipe-screen-view mx-auto max-w-content px-4 pb-16 pt-6 sm:px-6">
 
-          {/* Breadcrumb */}
-          <Link href="/" className="print-hide inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-5">
+          {/* Brotkrume */}
+          <LocaleLink
+            href="/"
+            className="print-hide mb-6 inline-flex items-center gap-1.5 text-sm text-ink-3 transition-colors hover:text-ink"
+          >
+            <Icon name="arrowLeft" size={16} />
             {t("backToDiscover")}
-          </Link>
+          </LocaleLink>
 
-          {/* Hero Image / Video */}
-          <div className="relative mb-2 rounded-2xl overflow-hidden shadow-sm">
-            {activeVideoUrl ? (
-              <video
-                key={activeVideoUrl}
-                src={activeVideoUrl}
-                controls
-                playsInline
-                autoPlay={activeVideoUrl !== recipe.videoUrl}
-                poster={recipe.image || undefined}
-                className="w-full h-64 sm:h-96 object-cover bg-black"
-              />
-            ) : heroImage && !imgError ? (
-              <img
-                src={heroImage}
-                alt={recipe.aiAssisted ? `${recipe.title} – ${t("aiNotice")}` : recipe.title}
-                fetchPriority="high"
-                className="w-full aspect-[1600/893] object-contain bg-neutral-100"
-                onError={() => setImgError(true)}
-              />
-            ) : (
-              <div className="w-full h-64 sm:h-80 flex items-center justify-center text-8xl"
-                style={{ background: "linear-gradient(135deg, #fed7aa 0%, #fde68a 100%)" }}>
-                🍳
-              </div>
-            )}
-            <div className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full">
-              📖 {recipe.source}
+          {/* Foto / Video, 3:2, volle Inhaltsbreite */}
+          <figure className="mb-6">
+            <div className="aspect-[3/2] w-full overflow-hidden rounded-2 bg-surface-soft">
+              {activeVideoUrl ? (
+                <video
+                  key={activeVideoUrl}
+                  src={activeVideoUrl}
+                  controls
+                  playsInline
+                  preload="none"
+                  poster={recipe.image || undefined}
+                  className="h-full w-full bg-dark object-contain"
+                />
+              ) : heroImage && !imgError ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={heroImage}
+                  srcSet={heroSrcSet(heroImage)}
+                  sizes="(min-width: 1200px) 1152px, 100vw"
+                  width={1200}
+                  height={800}
+                  alt={recipe.aiAssisted ? `${recipe.title} – ${t("aiNotice")}` : recipe.title}
+                  fetchPriority="high"
+                  decoding="async"
+                  style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
+                  className="h-full w-full object-cover"
+                  onError={() => setImgError(true)}
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center">
+                  <Icon name="image" size={32} className="text-line-strong" />
+                </div>
+              )}
             </div>
-          </div>
 
-          {/* Freiwillige KI-Kennzeichnung (EU AI Act Art. 50) fuer Korpus-Rezepte */}
-          {recipe.aiAssisted && (
-            <p className="print-hide text-[11px] text-gray-400 mb-2">
-              🤖 {t("aiNotice")} ·{" "}
-              <LocaleLink href="/ki-transparenz" className="underline hover:text-orange-500">
-                {t("aiNoticeMore")}
-              </LocaleLink>
-            </p>
-          )}
+            {/* Freiwillige KI-Kennzeichnung (EU AI Act Art. 50) fuer Korpus-Rezepte */}
+            {recipe.aiAssisted && (
+              <figcaption className="print-hide mt-2 text-caption text-ink-3">
+                {t("aiNotice")} ·{" "}
+                <LocaleLink href="/ki-transparenz" className="underline underline-offset-[3px] transition-colors hover:text-ink">
+                  {t("aiNoticeMore")}
+                </LocaleLink>
+              </figcaption>
+            )}
+          </figure>
 
           {/* Bildergalerie — nur wenn das Rezept mehrere Fotos hat (Community) */}
           {gallery.length > 1 && !activeVideoUrl && (
-            <div className="print-hide flex gap-2 mb-2 overflow-x-auto pb-1">
+            <div className="print-hide -mt-2 mb-6 flex gap-2 overflow-x-auto pb-1 scrollbar-none" role="group" aria-label={recipe.title}>
               {gallery.map((url, i) => (
                 <button
                   key={url}
                   type="button"
                   onClick={() => { setActiveImageIdx(i); setImgError(false); }}
                   aria-label={`${recipe.title} ${i + 1}`}
-                  className={`relative flex-shrink-0 rounded-xl overflow-hidden transition-all ${
-                    i === activeImageIdx ? "ring-2 ring-orange-500" : "opacity-70 hover:opacity-100"
+                  aria-pressed={i === activeImageIdx}
+                  className={`shrink-0 overflow-hidden rounded-2 border-2 transition-colors ${
+                    i === activeImageIdx ? "border-brand" : "border-transparent hover:border-line-strong"
                   }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={url} alt={`${recipe.title} ${i + 1}`} loading="lazy" className="w-16 h-16 sm:w-20 sm:h-20 object-cover" />
+                  <img src={url} alt="" loading="lazy" width={80} height={80} className="h-16 w-16 object-cover sm:h-20 sm:w-20" />
                 </button>
               ))}
             </div>
@@ -512,53 +681,42 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
 
           {/* More Videos — only for Tasty recipes with video */}
           {recipe.source === "Tasty" && recipe.videoUrl && (
-            <div className="print-hide mb-6">
+            <div className="print-hide mb-8">
               {!videosLoaded ? (
-                <button
-                  onClick={loadMoreVideos}
-                  disabled={loadingVideos}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-gray-500 hover:text-orange-500 hover:bg-orange-50 rounded-xl transition-all border border-gray-100 bg-white"
-                >
-                  {loadingVideos ? (
-                    <><span className="animate-spin">⏳</span> {t("loadingVideos")}</>
-                  ) : (
-                    <>▶ {t("moreVideos")}</>
-                  )}
-                </button>
+                <Button variant="secondary" icon="play" loading={loadingVideos} onClick={loadMoreVideos}>
+                  {t("moreVideos")}
+                </Button>
               ) : moreVideos.length > 0 ? (
                 <div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2 px-1">{t("moreVideos")}</p>
-                  <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+                  <p className="mb-3 text-sm font-semibold text-ink">{t("moreVideos")}</p>
+                  <div className="flex gap-4 overflow-x-auto pb-1 scrollbar-none">
                     {moreVideos.map((v) => (
                       <button
                         key={v.id}
+                        type="button"
                         onClick={() => setActiveVideoUrl(v.videoUrl)}
-                        className={`flex-shrink-0 w-40 rounded-xl overflow-hidden border-2 transition-all text-left ${
-                          activeVideoUrl === v.videoUrl
-                            ? "border-orange-400 shadow-md"
-                            : "border-transparent hover:border-orange-200"
-                        }`}
+                        aria-pressed={activeVideoUrl === v.videoUrl}
+                        className="w-40 shrink-0 rounded-2 text-left"
                       >
-                        <div className="relative">
+                        <div
+                          className={`relative aspect-[4/3] overflow-hidden rounded-2 border-2 bg-surface-soft transition-colors ${
+                            activeVideoUrl === v.videoUrl ? "border-brand" : "border-transparent hover:border-line-strong"
+                          }`}
+                        >
                           {v.thumbnail ? (
-                            <Image src={v.thumbnail} alt={v.title} fill className="object-cover bg-gray-100" sizes="200px" />
+                            <Image src={v.thumbnail} alt="" fill className="object-cover" sizes="160px" />
                           ) : (
-                            <div className="w-full h-24 bg-gray-100 flex items-center justify-center text-2xl">🎬</div>
-                          )}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center">
-                              <span className="text-white text-xs ml-0.5">▶</span>
+                            <div className="flex h-full w-full items-center justify-center">
+                              <Icon name="video" size={28} className="text-line-strong" />
                             </div>
-                          </div>
+                          )}
                           {v.time && (
-                            <span className="absolute bottom-1 right-1 text-white text-xs bg-black/60 px-1.5 py-0.5 rounded">
+                            <span className="absolute bottom-2 right-2 rounded-1 bg-dark px-1.5 py-0.5 text-caption text-white tabular">
                               {v.time}
                             </span>
                           )}
                         </div>
-                        <div className="p-2 bg-white">
-                          <p className="text-xs font-medium text-gray-700 line-clamp-2 leading-snug">{v.title}</p>
-                        </div>
+                        <p className="mt-2 line-clamp-2 text-sm text-ink">{v.title}</p>
                       </button>
                     ))}
                   </div>
@@ -567,313 +725,311 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
             </div>
           )}
 
-          {/* Title + meta + actions */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-5">
-            {recipe.diets.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-3">
-                {recipe.diets.slice(0, 4).map((d) => (
-                  <span key={d} className="text-xs font-medium px-2.5 py-1 bg-orange-50 text-orange-600 rounded-full capitalize">
-                    {d}
+          {/* Kopf: Tags · Titel · Einleitung · Metazeile · Aktionen */}
+          <header className="mb-12">
+            {tagLine.length > 0 && (
+              <p className="mb-3 text-sm text-ink-3">
+                {tagLine.map((tag, i) => (
+                  <span key={`${tag.text}-${i}`}>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <span className={`capitalize ${tag.green ? "font-semibold text-green" : ""}`}>{tag.text}</span>
                   </span>
                 ))}
-              </div>
-            )}
-
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-tight mb-4">
-              {recipe.title}
-            </h1>
-
-            {cleanSummary && (
-              <p className="text-sm text-gray-500 leading-relaxed mb-4 border-b border-gray-50 pb-4">
-                {cleanSummary}
               </p>
             )}
 
-            <div className="flex flex-wrap gap-4 mb-5">
+            <h1 className="text-display-sm text-ink md:text-display">{recipe.title}</h1>
+
+            {cleanSummary && (
+              <p className="mt-5 max-w-prose text-body-lg text-ink-2">{cleanSummary}</p>
+            )}
+
+            <p className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-3 tabular">
               {recipe.time && (
-                <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
-                  <span>⏱</span>
-                  <div>
-                    <p className="text-xs text-gray-400">{t("cookTime")}</p>
-                    <p className="text-sm font-semibold text-gray-800">{recipe.time}</p>
-                  </div>
-                </div>
+                <span className="inline-flex items-center gap-1.5">
+                  <Icon name="clock" size={18} />
+                  <span className="sr-only">{t("cookTime")}: </span>
+                  {formatTime(recipe.time, locale)}
+                </span>
               )}
               {recipe.servings && (
-                <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
-                  <span>🍽️</span>
-                  <div>
-                    <p className="text-xs text-gray-400">{t("servings")}</p>
-                    <p className="text-sm font-semibold text-gray-800">{recipe.servings}</p>
-                  </div>
-                </div>
+                <>
+                  {recipe.time && <span aria-hidden="true">·</span>}
+                  <span className="inline-flex items-center gap-1.5">
+                    <Icon name="users" size={18} />
+                    {tCard("servings", { count: recipe.servings })}
+                  </span>
+                </>
               )}
               {recipe.ingredients.length > 0 && (
-                <div className="flex items-center gap-2 bg-orange-50 rounded-xl px-3 py-2">
-                  <span>🧂</span>
-                  <div>
-                    <p className="text-xs text-gray-400">{t("ingredients")}</p>
-                    <p className="text-sm font-semibold text-gray-800">{recipe.ingredients.length}</p>
-                  </div>
-                </div>
+                <>
+                  {(recipe.time || recipe.servings) && <span aria-hidden="true">·</span>}
+                  <span>{recipe.ingredients.length} {t("ingredients")}</span>
+                </>
               )}
-            </div>
+            </p>
 
-            <div className="print-hide flex flex-col sm:flex-row gap-3 flex-wrap">
-              <button
+            <div className="print-hide mt-6 flex flex-wrap items-center gap-3">
+              <Button
+                variant={saved ? "secondary" : "primary"}
+                icon="heart"
+                iconFilled={saved}
+                loading={saving}
                 onClick={handleSave}
-                disabled={saving}
-                className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all disabled:opacity-60 disabled:cursor-not-allowed ${
-                  saved
-                    ? "bg-orange-500 text-white border-orange-500"
-                    : "bg-white text-gray-700 border-gray-200 hover:border-orange-300"
-                }`}
+                aria-pressed={saved}
+                className={saved ? "[&>svg]:text-green" : undefined}
               >
-                {saving ? t("saving") : saved ? t("savedRecipe") : t("saveRecipe")}
-              </button>
-              <button
+                {saved ? t("savedRecipe") : t("saveRecipe")}
+              </Button>
+              <Button variant="secondary" icon="calendar" onClick={openPlanModal}>
+                {planLabel}
+              </Button>
+              <Button
+                variant="icon"
+                icon="book"
+                aria-label={t("collections")}
+                title={t("collections")}
                 onClick={() => user ? setShowCollectionModal(true) : setShowLoginPrompt(true)}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-              >
-                📚 {t("collections")}
-              </button>
-              <a
-                href={recipe.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-                style={{ background: "#f97316" }}
-              >
-                {t("viewOriginal")}
-              </a>
-              <button
+              />
+              <Button
+                variant="icon"
+                icon={copied ? "check" : "share"}
+                aria-label={copied ? copiedLabel : t("share")}
+                title={t("share")}
                 onClick={handleShare}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-              >
-                {copied ? `✓ ${t("copied")}` : `↑ ${t("share")}`}
-              </button>
-              <div className="relative print:hidden">
-                <button
+                className={copied ? "text-green" : undefined}
+              />
+              <div className="relative">
+                <Button
+                  variant="icon"
+                  icon="printer"
+                  aria-label={t("print")}
+                  title={t("print")}
+                  aria-haspopup="menu"
+                  aria-expanded={showPrintMenu}
                   onClick={() => setShowPrintMenu((v) => !v)}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border border-gray-200 bg-white text-gray-700 hover:border-orange-300 transition-all"
-                >
-                  🖨 {t("print")}
-                </button>
+                />
                 {showPrintMenu && (
                   <>
-                    <div className="fixed inset-0 z-10" onClick={() => setShowPrintMenu(false)} />
-                    <div className="absolute z-20 bottom-full mb-2 left-0 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden min-w-[180px]">
+                    <div className="fixed inset-0 z-10" onClick={() => setShowPrintMenu(false)} aria-hidden="true" />
+                    <div
+                      role="menu"
+                      aria-label={t("print")}
+                      className="absolute left-0 top-full z-20 mt-2 min-w-[200px] overflow-hidden rounded-2 border border-line bg-surface py-1 shadow-float"
+                    >
                       <button
+                        type="button"
+                        role="menuitem"
                         onClick={() => handlePrint(true)}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 transition-colors"
+                        className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-ink transition-colors hover:bg-surface-soft"
                       >
-                        🖼 {t("printWithImage")}
+                        <Icon name="image" size={18} className="text-ink-3" />
+                        {t("printWithImage")}
                       </button>
                       <button
+                        type="button"
+                        role="menuitem"
                         onClick={() => handlePrint(false)}
-                        className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-orange-50 transition-colors border-t border-gray-50"
+                        className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-ink transition-colors hover:bg-surface-soft"
                       >
-                        📄 {t("printNoImage")}
+                        <Icon name="printer" size={18} className="text-ink-3" />
+                        {t("printNoImage")}
                       </button>
                     </div>
                   </>
                 )}
               </div>
+              {hasSourceUrl && (
+                <a
+                  href={recipe.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("viewOriginal")}
+                  title={t("viewOriginal")}
+                  className={buttonClasses({ variant: "icon" })}
+                >
+                  <Icon name="externalLink" size={24} />
+                </a>
+              )}
+              {copied && (
+                <span role="status" className="text-sm text-green">{copiedLabel}</span>
+              )}
             </div>
-          </div>
+          </header>
 
-          {/* Nutrition (per serving) */}
-          {recipe.nutrition && (
-            <div className="print-hide bg-white rounded-2xl shadow-sm border border-gray-100 p-5 mb-5">
-              <div className="flex items-center justify-between mb-3">
-                <h2 className="text-sm font-bold text-gray-900">{locale === "de" ? "Nährwerte" : "Nutrition"}</h2>
-                <span className="text-xs text-gray-400">{locale === "de" ? "pro Portion" : "per serving"}</span>
-              </div>
-              <div className="grid grid-cols-4 gap-2 text-center">
-                {[
-                  { label: locale === "de" ? "Kalorien" : "Calories", value: recipe.nutrition.calories, unit: "kcal" },
-                  { label: locale === "de" ? "Eiweiß" : "Protein", value: recipe.nutrition.protein, unit: "g" },
-                  { label: locale === "de" ? "Fett" : "Fat", value: recipe.nutrition.fat, unit: "g" },
-                  { label: locale === "de" ? "Kohlenhydrate" : "Carbs", value: recipe.nutrition.carbs, unit: "g" },
-                ].map((s) => (
-                  <div key={s.label} className="bg-orange-50 rounded-xl py-2.5 px-1">
-                    <p className="text-base font-bold text-gray-900 leading-none">
-                      {s.value != null ? s.value : "–"}
-                      <span className="text-xs font-normal text-gray-400"> {s.unit}</span>
-                    </p>
-                    <p className="text-xs text-gray-400 mt-1 leading-tight">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Ingredients + Instructions */}
-          <div className="print-ingredients-grid grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="print-col-ingredients md:col-span-1">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 print-sticky md:sticky md:top-20">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold text-gray-900">{t("ingredients")}</h2>
-                  {checkedIngredients.size > 0 && (
-                    <button
-                      onClick={() => setCheckedIngredients(new Set())}
-                      className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
-                    >
-                      {t("reset")}
-                    </button>
-                  )}
-                </div>
-                {recipe.servings && (
-                  <p className="text-xs text-gray-400 mb-3">{t("forServings", { count: recipe.servings })}</p>
-                )}
-                {estCost && (
-                  <div
-                    className="print-hide mb-3 flex items-baseline justify-between bg-orange-50 border border-orange-100 rounded-xl px-3 py-2"
-                    title={locale === "de" ? "Schätzung auf Discounter-Niveau, Preise variieren je nach Markt" : "Discount-store estimate, prices vary by store"}
-                  >
-                    <span className="text-xs font-semibold text-gray-700">
-                      {locale === "de" ? "Geschätzte Kosten" : "Estimated cost"}
-                    </span>
-                    <span className="text-xs font-bold text-orange-600">
-                      {formatEstPrice(estCost.total, locale)}
-                      {estCost.perServing != null && (
-                        <span className="font-medium text-gray-500">
-                          {" "}· {formatEstPrice(estCost.perServing, locale)}{locale === "de" ? "/Portion" : "/serving"}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                )}
-                <ul className="space-y-1">
-                  {recipe.ingredients.map((ing, i) => (
-                    <li key={i} className="ingredient-item flex items-start gap-1">
+          {/* Zutaten (links, sticky) + Zubereitung (rechts) */}
+          <div className="print-ingredients-grid grid gap-12 lg:grid-cols-[5fr_7fr]">
+            <aside className="print-col-ingredients min-w-0">
+              <div className="print-sticky space-y-8 lg:sticky lg:top-20">
+                <section className="rounded-2 bg-surface-soft p-6" aria-labelledby="ingredients-heading">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <h2 id="ingredients-heading" className="text-h2-sm">{t("ingredients")}</h2>
+                    {checkedIngredients.size > 0 && (
                       <button
-                        onClick={() => toggleIngredient(i)}
-                        className={`flex-1 flex items-start gap-3 py-2.5 px-1 rounded-xl text-left transition-colors hover:bg-gray-50 group ${
-                          checkedIngredients.has(i) ? "opacity-50" : ""
-                        }`}
+                        type="button"
+                        onClick={() => setCheckedIngredients(new Set())}
+                        className="print-hide text-sm text-ink-3 underline-offset-[3px] transition-colors hover:text-ink hover:underline"
                       >
-                        <span className={`ingredient-checkbox flex-shrink-0 w-5 h-5 mt-0.5 rounded-full border-2 flex items-center justify-center transition-all ${
-                          checkedIngredients.has(i)
-                            ? "border-orange-400 bg-orange-400"
-                            : "border-gray-200 group-hover:border-orange-300"
-                        }`}>
-                          {checkedIngredients.has(i) && (
-                            <span className="text-white text-xs font-bold">✓</span>
-                          )}
-                        </span>
-                        <span className={`text-sm text-gray-700 leading-snug ${
-                          checkedIngredients.has(i) ? "line-through text-gray-400" : ""
-                        }`}>
-                          {ing.original}
-                        </span>
+                        {t("reset")}
                       </button>
-                      {(() => {
-                        const url = getIngredientAffiliateUrl(ing.name);
-                        return url ? (
-                          <a
-                            href={trackedUrl(url, "recipe_ingredient", recipe.id)}
-                            target="_blank"
-                            rel="noopener noreferrer sponsored"
-                            title={`Buy ${ing.name} on Amazon`}
-                            className="ingredient-shop-link flex-shrink-0 w-7 h-7 mt-1.5 rounded-lg flex items-center justify-center text-gray-300 hover:text-orange-500 hover:bg-orange-50 transition-all"
-                          >
-                            🛒
-                          </a>
-                        ) : null;
-                      })()}
+                    )}
+                  </div>
+
+                  {recipe.servings && servingsTarget && (
+                    <div className="mt-4 flex items-center gap-3">
+                      <Button
+                        variant="icon"
+                        size="sm"
+                        icon="minus"
+                        aria-label={tx("servingsLess", "Eine Portion weniger", "One serving fewer")}
+                        disabled={servingsTarget <= 1}
+                        onClick={() => setServingsTarget((v) => Math.max(1, (v ?? 1) - 1))}
+                      />
+                      <span className="min-w-[8ch] text-center text-base text-ink tabular" aria-live="polite">
+                        {tCard("servings", { count: servingsTarget })}
+                      </span>
+                      <Button
+                        variant="icon"
+                        size="sm"
+                        icon="plus"
+                        aria-label={tx("servingsMore", "Eine Portion mehr", "One serving more")}
+                        disabled={servingsTarget >= 99}
+                        onClick={() => setServingsTarget((v) => Math.min(99, (v ?? 1) + 1))}
+                      />
+                    </div>
+                  )}
+
+                  {estCost && (
+                    <p
+                      className="print-hide mt-4 text-sm text-ink-3 tabular"
+                      title={tx("estimatedCostHint", "Schätzung auf Discounter-Niveau, Preise variieren je nach Markt", "Discount-store estimate, prices vary by store")}
+                    >
+                      {tx("estimatedCost", "Geschätzte Kosten", "Estimated cost")}:{" "}
+                      <span className="font-semibold text-ink">{formatEstPrice(estCost.total, locale)}</span>
+                      {estCost.perServing != null && (
+                        <> · {formatEstPrice(estCost.perServing, locale)}{tx("perServingShort", "/Portion", "/serving")}</>
+                      )}
+                    </p>
+                  )}
+
+                  <ul className="mt-5 divide-y divide-line">
+                    {recipe.ingredients.map((ing, i) => {
+                      const checked = checkedIngredients.has(i);
+                      const { amount, rest } = splitIngredient(ing.original, servingsFactor, locale);
+                      const url = getIngredientAffiliateUrl(ing.name);
+                      return (
+                        <li key={i} className="ingredient-item flex items-start gap-2 py-2.5">
+                          <Checkbox
+                            checked={checked}
+                            onChange={() => toggleIngredient(i)}
+                            className="flex-1"
+                            label={
+                              <span className={checked ? "text-ink-3 line-through" : ""}>
+                                {amount && <span className="font-semibold tabular">{amount} </span>}
+                                {rest}
+                              </span>
+                            }
+                          />
+                          {url && (
+                            <a
+                              href={trackedUrl(url, "recipe_ingredient", recipe.id)}
+                              target="_blank"
+                              rel="noopener noreferrer sponsored"
+                              aria-label={tx("buyIngredient", `${ing.name} bei Amazon kaufen`, `Buy ${ing.name} on Amazon`)}
+                              title={tx("buyIngredient", `${ing.name} bei Amazon kaufen`, `Buy ${ing.name} on Amazon`)}
+                              className="ingredient-shop-link print-hide inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-1 text-ink-3 transition-colors hover:text-brand"
+                            >
+                              <Icon name="cart" size={18} />
+                            </a>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+
+                  <Button variant="secondary" fullWidth icon="cart" className="print-hide mt-6" onClick={openShoppingList}>
+                    {tx("addToShoppingList", "Auf die Einkaufsliste", "Add to shopping list")}
+                  </Button>
+                </section>
+
+                {/* Nährwerte je Portion */}
+                {recipe.nutrition && (
+                  <section className="print-hide" aria-labelledby="nutrition-heading">
+                    <div className="flex items-baseline justify-between gap-4">
+                      <h2 id="nutrition-heading" className="text-h2-sm">{tx("nutrition", "Nährwerte", "Nutrition")}</h2>
+                      <span className="text-sm text-ink-3">{tx("perServing", "je Portion", "per serving")}</span>
+                    </div>
+                    <table className="mt-3 w-full border-t border-line text-base">
+                      <tbody>
+                        {nutritionRows.map((row) => (
+                          <tr key={row.label} className="border-b border-line">
+                            <th scope="row" className="py-2.5 text-left font-normal text-ink-2">{row.label}</th>
+                            <td className="py-2.5 text-right font-semibold text-ink tabular">
+                              {row.value != null ? `${row.value} ${row.unit}` : "–"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </section>
+                )}
+
+                {/* Affiliate Box — kitchen tools only */}
+                <div className="print-hide">
+                  <AffiliateBox
+                    dishTypes={recipe.dishTypes}
+                    ingredientNames={recipe.ingredients.map(i => i.name)}
+                    recipeTitle={recipe.title}
+                    toolsOnly
+                    recipeId={recipe.id}
+                  />
+                </div>
+              </div>
+            </aside>
+
+            <section className="print-col-instructions min-w-0" aria-labelledby="instructions-heading">
+              <h2 id="instructions-heading" className="text-h2">{t("instructions")}</h2>
+              {recipe.instructions.length > 0 ? (
+                <ol className="mt-6">
+                  {recipe.instructions.map((step) => (
+                    <li key={step.number} className="flex gap-6 border-t border-line py-5">
+                      <span className="w-8 shrink-0 font-serif text-h2 leading-none text-ink-3 tabular" aria-hidden="true">
+                        {step.number}
+                      </span>
+                      <p className="max-w-prose text-body-lg text-ink">{step.step}</p>
                     </li>
                   ))}
-                </ul>
-
-              {/* Affiliate Box — kitchen tools only */}
-              <div className="print-hide">
-              <AffiliateBox
-                dishTypes={recipe.dishTypes}
-                ingredientNames={recipe.ingredients.map(i => i.name)}
-                recipeTitle={recipe.title}
-                toolsOnly
-                recipeId={recipe.id}
-              />
-              </div>
-              </div>
-            </div>
-
-            <div className="print-col-instructions md:col-span-2">
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-                <h2 className="text-lg font-bold text-gray-900 mb-5">{t("instructions")}</h2>
-                {recipe.instructions.length > 0 ? (
-                  <ol className="space-y-5">
-                    {recipe.instructions.map((step) => (
-                      <li key={step.number} className="flex gap-4">
-                        <span
-                          className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold text-white mt-0.5"
-                          style={{ background: "#f97316" }}
-                        >
-                          {step.number}
-                        </span>
-                        <p className="text-gray-700 text-sm leading-relaxed pt-0.5">{step.step}</p>
-                      </li>
-                    ))}
-                  </ol>
-                ) : (
-                  <div className="bg-gray-50 rounded-2xl p-6 text-center">
-                    <p className="text-gray-500 text-sm mb-3">{t("instructionsOnSource")}</p>
-                    <a
-                      href={recipe.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
-                      style={{ background: "#f97316" }}
-                    >
-                      ↗ {t("viewFullRecipe")}
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
+                </ol>
+              ) : (
+                <EmptyState
+                  className="mt-6"
+                  icon="externalLink"
+                  title={t("instructionsOnSource")}
+                  action={
+                    hasSourceUrl ? (
+                      <a
+                        href={recipe.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={buttonClasses({ variant: "secondary" })}
+                      >
+                        <Icon name="externalLink" size={18} />
+                        {t("viewFullRecipe")}
+                      </a>
+                    ) : undefined
+                  }
+                />
+              )}
+            </section>
           </div>
 
           {/* Ähnliche Rezepte — interne Links, server-gerendert (SEO, Review-Paket C10) */}
           {similarRecipes && similarRecipes.length > 0 && (
-            <section className="print-hide mt-10">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">{t("similarRecipes")}</h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            <section className="print-hide mt-16">
+              <SectionHeader title={t("similarRecipes")} />
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {similarRecipes.map((s) => (
-                  <LocaleLink
-                    key={String(s.id)}
-                    href={`/recipe/${s.id}`}
-                    className="group bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md hover:border-orange-200 transition-all"
-                  >
-                    <div className="relative h-28 sm:h-36 overflow-hidden bg-orange-50">
-                      {s.image ? (
-                        <img
-                          src={s.image}
-                          alt={s.title}
-                          loading="lazy"
-                          style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-4xl">🍳</div>
-                      )}
-                      {s.source === "Community" && (
-                        <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-gray-700 text-[10px] font-semibold px-2 py-0.5 rounded-full">
-                          👩‍🍳 Community
-                        </span>
-                      )}
-                      {s.time && (
-                        <span className="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-medium px-1.5 py-0.5 rounded">
-                          ⏱ {s.time}
-                        </span>
-                      )}
-                    </div>
-                    <div className="p-3">
-                      <p className="text-sm font-semibold text-gray-800 leading-snug line-clamp-2 group-hover:text-orange-600 transition-colors">
-                        {s.title}
-                      </p>
-                    </div>
-                  </LocaleLink>
+                  <SimilarCard key={String(s.id)} recipe={s} locale={locale} />
                 ))}
               </div>
             </section>
@@ -881,20 +1037,23 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
         </main>
       )}
 
-      {/* Sticky „+ In den Wochenplan" — bleibt beim Scrollen sichtbar */}
+      {/* Sticky „Zum Wochenplan" — bleibt beim Scrollen sichtbar */}
       {recipe && !loading && (
         <div
-          className={`print-hide fixed bottom-4 inset-x-4 sm:inset-x-auto sm:right-6 z-40 flex justify-center sm:justify-end transition-all duration-300 ${
-            stickyVisible && !showPlanModal ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-4"
+          className={`print-hide fixed inset-x-4 bottom-4 z-40 flex justify-center transition-opacity duration-200 sm:inset-x-auto sm:right-6 sm:justify-end ${
+            stickyVisible && !showPlanModal ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
+          aria-hidden={!stickyVisible || showPlanModal}
         >
-          <button
+          <Button
+            variant="secondary"
+            icon="calendar"
             onClick={openPlanModal}
-            className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 rounded-full text-white text-sm font-semibold shadow-lg shadow-orange-500/30 transition-transform hover:scale-[1.03]"
-            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
+            tabIndex={stickyVisible && !showPlanModal ? 0 : -1}
+            className="w-full shadow-float sm:w-auto"
           >
-            🗓 {t("addToPlan")}
-          </button>
+            {planLabel}
+          </Button>
         </div>
       )}
     </div>

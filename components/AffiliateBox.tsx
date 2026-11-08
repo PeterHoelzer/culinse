@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import { getAffiliateUrl, getToolsForRecipe, trackedUrl } from "@/lib/affiliateProducts";
+import { Icon } from "@/components/ui";
 
 interface Props {
   dishTypes: string[];
@@ -12,6 +13,12 @@ interface Props {
   recipeId?: string | number;
 }
 
+/**
+ * Küchenwerkzeuge zum Rezept (Amazon-Partnerlinks). Gestaltung nach DESIGN.md:
+ * weiße Fläche mit Linie, Serifen-Titel, Produktkachel mit festem Quadrat
+ * (die Produkte haben keine Bilder, deshalb ein Strich-Icon statt Emoji),
+ * Links ohne Pfeil.
+ */
 export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnly, recipeId }: Props) {
   const t = useTranslations("modals");
   const products = useMemo(
@@ -22,37 +29,40 @@ export function AffiliateBox({ dishTypes, ingredientNames, recipeTitle, toolsOnl
 
   if (products.length === 0) return null;
 
+  const title = toolsOnly ? t("kitchenTools") : t("shop");
+
   return (
-    <div className="mt-4 border-t border-gray-100 pt-4">
-      <div className="flex items-center justify-between mb-3">
-        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-          {toolsOnly ? t("kitchenTools") : t("shop")}
-        </p>
-        <span className="text-xs text-gray-300 border border-gray-200 rounded px-1.5 py-0.5">{t("ad")}</span>
+    <aside className="rounded-2 border border-line p-6" aria-label={title}>
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className="text-h3">{title}</h3>
+        <span className="text-caption text-ink-3">{t("ad")}</span>
       </div>
 
-      <div className="space-y-1.5">
+      <ul className="mt-4 divide-y divide-line">
         {products.map((p) => (
-          <a
-            key={p.search}
-            href={trackedUrl(getAffiliateUrl(p), "recipe_tools", recipeId)}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="flex items-center gap-2.5 px-2 py-2 rounded-xl hover:bg-orange-50 transition-colors group"
-          >
-            <span className="text-xl flex-shrink-0 w-8 text-center">{p.emoji}</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-gray-700 line-clamp-1 group-hover:text-orange-600 transition-colors">
-                {p.name}
-              </p>
-              <p className="text-xs text-gray-400">{p.price} · Amazon</p>
-            </div>
-            <span className="text-gray-300 group-hover:text-orange-400 text-sm flex-shrink-0">→</span>
-          </a>
+          <li key={p.search}>
+            <a
+              href={trackedUrl(getAffiliateUrl(p), "recipe_tools", recipeId)}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="group flex items-center gap-4 py-3"
+            >
+              <span
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2 bg-surface-soft text-ink-3"
+                aria-hidden="true"
+              >
+                <Icon name="utensils" size={24} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-base text-ink underline-offset-[3px] group-hover:underline">{p.name}</span>
+                <span className="block text-sm text-ink-3 tabular">{p.price} · Amazon</span>
+              </span>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      <p className="text-xs text-gray-300 mt-3 text-center">{t("affiliateLinks")}</p>
-    </div>
+      <p className="mt-3 text-caption text-ink-3">{t("affiliateLinks")}</p>
+    </aside>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
-import { Link } from "@/lib/navigation";
+import { SectionHeader } from "@/components/ui";
 import { blogPosts } from "@/lib/blog-posts";
 import { blogPostsDe } from "@/lib/blog-posts-de";
 import BlogIndexList, { type LitePost } from "./BlogIndexList";
@@ -56,17 +56,19 @@ export default async function BlogPage({ params }: Props) {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
-      <main className="max-w-3xl mx-auto px-4 py-12">
-        <div className="mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">Blog</h1>
-          <p className="text-gray-500">
-            {locale === "de"
+      <main className="mx-auto max-w-content px-4 py-12 sm:px-6 lg:px-10">
+        <SectionHeader
+          as="h1"
+          className="mb-8"
+          title="Blog"
+          subtitle={
+            locale === "de"
               ? "Praktische Ratgeber zu Meal Planning, Meal Prep und einem einfacheren Küchenalltag."
-              : "Practical guides on meal planning, meal prep, and making your kitchen life easier."}
-          </p>
-        </div>
+              : "Practical guides on meal planning, meal prep, and making your kitchen life easier."
+          }
+        />
 
         <BlogIndexList
           locale={locale}

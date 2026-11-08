@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { Button, Icon } from "@/components/ui";
 import AuthorBox from "@/components/AuthorBox";
 import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
@@ -192,7 +193,7 @@ export default async function BlogPostPage({ params }: Props) {
     : null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -238,50 +239,44 @@ export default async function BlogPostPage({ params }: Props) {
 
       <Navbar />
 
-      <main className="max-w-2xl mx-auto px-4 py-12">
-        {/* Breadcrumb */}
+      <main className="mx-auto max-w-prose px-4 py-12">
+        {/* Brotkrume */}
         <Link
           href={`/${locale}/blog`}
-          className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-orange-500 transition-colors mb-6"
+          className="mb-8 inline-flex items-center gap-1.5 text-sm text-ink-3 hover:text-ink hover:underline underline-offset-[3px]"
         >
-          ← Blog
+          <Icon name="arrowLeft" size={16} />
+          Blog
         </Link>
 
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-xs font-semibold text-orange-500 bg-orange-50 px-2.5 py-1 rounded-full">
-              {post.category}
-            </span>
-            <span className="text-xs text-gray-400">{post.readingTime}</span>
+        {/* Kopf */}
+        <header className="mb-8">
+          <p className="mb-3 text-sm text-ink-3">
+            {post.category} · {post.readingTime} ·{" "}
             {/* AI-SEO: sichtbares Freshness-Signal (Schema hatte die Daten schon) */}
-            <span className="text-xs text-gray-400">
-              {(() => {
-                const d = new Date(post.updatedAt ?? post.publishedAt);
-                const formatted = d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", {
-                  year: "numeric", month: "long", day: "numeric",
-                });
-                return post.updatedAt
-                  ? (locale === "de" ? `Aktualisiert: ${formatted}` : `Updated: ${formatted}`)
-                  : (locale === "de" ? `Veröffentlicht: ${formatted}` : `Published: ${formatted}`);
-              })()}
-            </span>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 leading-tight mb-4">
-            {post.title}
-          </h1>
-          <p className="text-gray-500 leading-relaxed">{post.description}</p>
-        </div>
+            {(() => {
+              const d = new Date(post.updatedAt ?? post.publishedAt);
+              const formatted = d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", {
+                year: "numeric", month: "long", day: "numeric",
+              });
+              return post.updatedAt
+                ? (locale === "de" ? `Aktualisiert: ${formatted}` : `Updated: ${formatted}`)
+                : (locale === "de" ? `Veröffentlicht: ${formatted}` : `Published: ${formatted}`);
+            })()}
+          </p>
+          <h1 className="text-h1-sm sm:text-h1 text-ink">{post.title}</h1>
+          <p className="mt-4 text-body-lg text-ink-2">{post.description}</p>
+        </header>
 
         {/* Eigenes Koch-Video: ersetzt das Hero-Bild durch den Player
-            (Untertitel de/en, Poster lokal, MP4 aus Supabase Storage). */}
+            (Untertitel de/en, Poster lokal, MP4 aus Supabase Storage). Kein Autoplay. */}
         {video && (
           <video
             controls
             preload="metadata"
             playsInline
             poster={video.poster}
-            className="w-full aspect-video bg-black rounded-2xl border border-gray-100 shadow-sm mb-8"
+            className="mb-10 aspect-video w-full rounded-2 bg-dark"
           >
             <source src={video.src} type="video/mp4" />
             {video.subtitles.map((s) => (
@@ -303,52 +298,46 @@ export default async function BlogPostPage({ params }: Props) {
           <img
             src={post.image}
             alt={post.title}
-            className="w-full aspect-[1.91/1] object-cover rounded-2xl border border-gray-100 shadow-sm mb-8"
+            width={1200}
+            height={628}
+            fetchPriority="high"
+            className="mb-10 aspect-[1.91/1] w-full rounded-2 object-cover"
           />
         )}
 
-        {/* Article content */}
-        <article className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 mb-8">
+        {/* Artikeltext, ohne Karte */}
+        <article>
           {post.sections.map((section, i) => (
-            <div key={i} className="mb-6 last:mb-0">
+            <div key={i}>
               {/* CRO: kontextueller Inline-CTA im Lesefluss (nach der 3. Section).
                   Budget-/Einkaufs-Themen -> Rechner, alles andere -> Planer. */}
               {i === 3 && (() => {
                 const topicText = `${slug} ${post.title}`.toLowerCase();
                 const isBudget = /budget|grocery|einkauf|sparen|zettel|calculator|rechner|was kostet/.test(topicText);
-                const href = isBudget
-                  ? `/${locale}/grocery-list-calculator`
-                  : `/${locale}/weekly-meal-planner`;
+                const href = isBudget ? "/grocery-list-calculator" : "/weekly-meal-planner";
                 const label = isBudget
                   ? (locale === "de" ? "Was kostet dein Einkauf? Rechne es in 30 Sekunden nach" : "What does your shopping cost? Check it in 30 seconds")
                   : (locale === "de" ? "Plane deine Woche und die Einkaufsliste schreibt sich von selbst" : "Plan your week and the shopping list writes itself");
                 const cta = isBudget
-                  ? (locale === "de" ? "Zum kostenlosen Einkaufsrechner →" : "Open the free grocery calculator →")
-                  : (locale === "de" ? "Wochenplaner kostenlos starten →" : "Start the free meal planner →");
+                  ? (locale === "de" ? "Zum Einkaufsrechner" : "Open the grocery calculator")
+                  : (locale === "de" ? "Wochenplaner starten" : "Start the meal planner");
                 return (
-                  <div className="my-8 rounded-xl border-l-4 border-orange-400 bg-orange-50 p-4">
-                    <p className="text-sm font-semibold text-gray-800 mb-1.5">{label}</p>
-                    <Link href={href} className="text-sm font-semibold text-orange-600 hover:text-orange-700">
-                      {cta}
-                    </Link>
+                  <div className="my-10 rounded-2 bg-surface-soft p-6">
+                    <p className="mb-4 font-semibold text-ink">{label}</p>
+                    <Button href={href}>{cta}</Button>
                   </div>
                 );
               })()}
               {section.heading && (
-                <h2 className="text-xl font-bold text-gray-900 mb-3 mt-8 first:mt-0">
-                  {section.heading}
-                </h2>
+                <h2 className="mb-4 mt-12 text-h2-sm text-ink first:mt-0">{section.heading}</h2>
               )}
               {section.content && (
-                <p className="text-gray-700 leading-relaxed mb-3">{renderRichText(section.content)}</p>
+                <p className="mb-4 text-body-lg text-ink">{renderRichText(section.content)}</p>
               )}
               {section.list && (
-                <ul className="space-y-2 mt-2">
+                <ul className="mb-4 list-disc space-y-2 pl-6 text-body-lg text-ink marker:text-ink-3">
                   {section.list.map((item, j) => (
-                    <li key={j} className="flex items-start gap-2 text-gray-700">
-                      <span className="mt-1.5 flex-shrink-0 w-1.5 h-1.5 rounded-full bg-orange-400" />
-                      <span className="leading-relaxed">{renderRichText(item)}</span>
-                    </li>
+                    <li key={j}>{renderRichText(item)}</li>
                   ))}
                 </ul>
               )}
@@ -357,121 +346,100 @@ export default async function BlogPostPage({ params }: Props) {
         </article>
 
         {/* Affiliate: kontextuelle Produkt-Empfehlungen (source: "blog" in /api/out) */}
-        <BlogAffiliateBox
-          title={post.title}
-          category={post.category}
-          headings={post.sections.map((s) => s.heading ?? "").filter(Boolean)}
-          productNames={post.affiliateNames}
-          locale={locale}
-        />
+        <div className="mt-12">
+          <BlogAffiliateBox
+            title={post.title}
+            category={post.category}
+            headings={post.sections.map((s) => s.heading ?? "").filter(Boolean)}
+            productNames={post.affiliateNames}
+            locale={locale}
+          />
+        </div>
 
         {/* Author (E-E-A-T) */}
         <AuthorBox locale={locale} />
 
         {/* CTA */}
-        <div className="bg-orange-50 border border-orange-100 rounded-2xl p-6 mb-10 text-center">
-          <p className="text-lg font-bold text-gray-900 mb-2">
+        <div className="mb-14 rounded-2 bg-surface-soft p-6">
+          <p className="mb-2 text-h3 text-ink">
             {locale === "de" ? "Plane deine Woche mit Culinse" : "Plan your week with Culinse"}
           </p>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="mb-5 text-ink-2">
             {locale === "de"
-              ? "Rezepte entdecken, Woche planen und automatische Einkaufsliste erhalten — kostenlos."
-              : "Browse recipes, plan your week, and get an automatic shopping list — free."}
+              ? "Rezepte entdecken, Woche planen und automatische Einkaufsliste erhalten, kostenlos."
+              : "Browse recipes, plan your week, and get an automatic shopping list, free."}
           </p>
-          <Link
-            href={`/${locale}`}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-90"
-            style={{ background: "#f97316" }}
-          >
-            {locale === "de" ? "Culinse kostenlos ausprobieren →" : "Try Culinse for free →"}
-          </Link>
+          <Button href="/weekly-meal-planner">
+            {locale === "de" ? "Wochenplaner starten" : "Start the meal planner"}
+          </Button>
         </div>
 
         {/* Explore features — passes crawl/link equity from the blog into the
             planner + collections pages (SEO masterplan §3.3) */}
-        <div className="mb-10">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">
+        <section className="mb-14">
+          <h2 className="mb-2 text-h3 text-ink">
             {locale === "de" ? "Mehr von Culinse" : "More from Culinse"}
-          </h3>
-          <div className="grid sm:grid-cols-2 gap-3">
-            <Link
-              href={`/${locale}/weekly-meal-planner`}
-              className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-            >
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
-                {locale === "de" ? "Wochenplaner" : "Weekly meal planner"}
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {locale === "de"
+          </h2>
+          <ul>
+            {[
+              {
+                href: "weekly-meal-planner",
+                title: locale === "de" ? "Wochenplaner" : "Weekly meal planner",
+                text: locale === "de"
                   ? "Woche planen und automatische Einkaufsliste erhalten."
-                  : "Plan your week and get an automatic shopping list."}
-              </p>
-            </Link>
-            <Link
-              href={`/${locale}/collections/explore`}
-              className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-            >
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
-                {locale === "de" ? "Rezept-Collections" : "Recipe collections"}
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {locale === "de"
+                  : "Plan your week and get an automatic shopping list.",
+              },
+              {
+                href: "collections/explore",
+                title: locale === "de" ? "Rezept-Collections" : "Recipe collections",
+                text: locale === "de"
                   ? "Kuratierte Rezeptsammlungen zum Entdecken."
-                  : "Curated recipe collections to explore."}
-              </p>
-            </Link>
-            <Link
-              href={`/${locale}/grocery-list-calculator`}
-              className="block bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-            >
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
-                {locale === "de" ? "Einkaufsrechner" : "Grocery calculator"}
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {locale === "de"
+                  : "Curated recipe collections to explore.",
+              },
+              {
+                href: "grocery-list-calculator",
+                title: locale === "de" ? "Einkaufsrechner" : "Grocery calculator",
+                text: locale === "de"
                   ? "Was kostet dein Wocheneinkauf? Echte Discounter-Preise, kostenlos."
-                  : "What does your weekly shop cost? Real discount-store prices, free."}
-              </p>
-            </Link>
-            <Link
-              href={`/${locale}/pro`}
-              className="block bg-white rounded-xl border border-orange-200 p-4 hover:border-orange-300 hover:bg-orange-50/40 transition-colors group sm:col-span-2"
-            >
-              <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors">
-                {locale === "de" ? "Culinse Pro — 7 Tage gratis testen" : "Culinse Pro — try 7 days free"}
-              </p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {locale === "de"
+                  : "What does your weekly shop cost? Real discount-store prices, free.",
+              },
+              {
+                href: "pro",
+                title: locale === "de" ? "Culinse Pro, 7 Tage gratis testen" : "Culinse Pro, try 7 days free",
+                text: locale === "de"
                   ? "Unbegrenzte Sammlungen, mehrere Wochenpläne und unbegrenzt gespeicherte Rezepte."
-                  : "Unlimited collections, multiple meal plans, and unlimited saved recipes."}
-              </p>
-            </Link>
-          </div>
-        </div>
+                  : "Unlimited collections, multiple meal plans, and unlimited saved recipes.",
+              },
+            ].map((item) => (
+              <li key={item.href} className="border-t border-line">
+                <Link href={`/${locale}/${item.href}`} className="group block py-4">
+                  <p className="font-semibold text-ink group-hover:underline underline-offset-[3px]">{item.title}</p>
+                  <p className="mt-0.5 text-sm text-ink-2">{item.text}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         {/* Related posts */}
         {otherPosts.length > 0 && (
-          <div>
-            <h3 className="text-lg font-bold text-gray-900 mb-4">
+          <section>
+            <h2 className="mb-2 text-h3 text-ink">
               {locale === "de" ? "Weitere Artikel" : "More articles"}
-            </h3>
-            <div className="space-y-3">
+            </h2>
+            <ul>
               {otherPosts.map((related) => (
-                <Link
-                  key={related.slug}
-                  href={`/${locale}/blog/${related.slug}`}
-                  className="flex items-start gap-3 bg-white rounded-xl border border-gray-100 p-4 hover:border-orange-200 transition-colors group"
-                >
-                  <div>
-                    <span className="text-xs text-orange-500 font-medium">{related.category}</span>
-                    <p className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors mt-0.5">
+                <li key={related.slug} className="border-t border-line">
+                  <Link href={`/${locale}/blog/${related.slug}`} className="group block py-4">
+                    <p className="text-sm text-ink-3">{related.category}</p>
+                    <p className="mt-0.5 font-semibold text-ink group-hover:underline underline-offset-[3px]">
                       {related.title}
                     </p>
-                  </div>
-                </Link>
+                  </Link>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </section>
         )}
       </main>
     </div>

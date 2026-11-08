@@ -11,7 +11,7 @@ export default function AppleIcon() {
           width: 180,
           height: 180,
           borderRadius: "40px",
-          background: "#f97316",
+          background: "#BF4A14",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -20,14 +20,14 @@ export default function AppleIcon() {
         <div
           style={{
             fontSize: 100,
-            fontWeight: 900,
+            fontWeight: 700,
             color: "white",
-            fontFamily: "sans-serif",
+            fontFamily: "Georgia, serif",
             letterSpacing: "-4px",
             lineHeight: 1,
           }}
         >
-          c
+          C
         </div>
       </div>
     ),

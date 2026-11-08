@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link, useRouter } from "@/lib/navigation";
+import { Link } from "@/lib/navigation";
+import { Button, EmptyState, Icon, Notice, SectionHeader, Skeleton } from "@/components/ui";
 
 interface UserRecipe {
   id: string;
@@ -21,9 +22,10 @@ interface UserRecipe {
 }
 
 export default function MyRecipesClient() {
-  const router = useRouter();
   const [recipes, setRecipes] = useState<UserRecipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [publishIssues, setPublishIssues] = useState<string[] | null>(null);
 
   useEffect(() => {
     fetch("/api/user-recipes")
@@ -33,12 +35,13 @@ export default function MyRecipesClient() {
   }, []);
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Delete this recipe?")) return;
+    setConfirmDeleteId(null);
     await fetch(`/api/user-recipes/${id}`, { method: "DELETE" });
     setRecipes(prev => prev.filter(r => r.id !== id));
   };
 
   const togglePublic = async (recipe: UserRecipe) => {
+    setPublishIssues(null);
     const res = await fetch(`/api/user-recipes/${recipe.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -46,108 +49,116 @@ export default function MyRecipesClient() {
     });
     const data = await res.json();
     if (res.status === 422) {
-      alert("Cannot publish:\n" + data.issues.join("\n"));
+      setPublishIssues(data.issues ?? []);
       return;
     }
     if (res.ok) setRecipes(prev => prev.map(r => r.id === recipe.id ? { ...r, is_public: !r.is_public } : r));
   };
 
   return (
-    <main className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Recipes</h1>
-          <p className="text-gray-500 text-sm mt-1">{recipes.length} recipe{recipes.length !== 1 ? "s" : ""} created</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Link
-            href="/recipes/import"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-orange-200 text-orange-600 text-sm font-semibold hover:bg-orange-50 transition-colors"
-          >
-            🔗 Import
-          </Link>
-          <Link
-            href="/recipes/create"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-          >
-            + New Recipe
-          </Link>
+    <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <SectionHeader
+          as="h1"
+          className="mb-0!"
+          title="My Recipes"
+          subtitle={`${recipes.length} recipe${recipes.length !== 1 ? "s" : ""} created`}
+        />
+        <div className="flex flex-wrap items-center gap-3">
+          <Button href="/recipes/import" variant="secondary" icon="link">Import</Button>
+          <Button href="/recipes/create" icon="plus">New Recipe</Button>
         </div>
       </div>
 
+      {publishIssues && (
+        <Notice tone="error" className="mb-6">
+          <p className="font-semibold">Cannot publish:</p>
+          <ul className="list-disc pl-5">
+            {publishIssues.map((issue, i) => <li key={i}>{issue}</li>)}
+          </ul>
+        </Notice>
+      )}
+
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[1,2,3].map(i => <div key={i} className="h-48 rounded-2xl bg-gray-100 animate-pulse" />)}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
+          {[1, 2, 3].map(i => <Skeleton key={i} className="aspect-[4/3]" />)}
         </div>
       ) : recipes.length === 0 ? (
-        <div className="text-center py-20">
-          <div className="text-6xl mb-4">👨‍🍳</div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">No recipes yet</h2>
-          <p className="text-gray-500 mb-6">Create your first recipe — or import one from any recipe site.</p>
-          <div className="flex justify-center gap-3">
-            <Link href="/recipes/create" className="px-6 py-3 rounded-full text-white text-sm font-semibold" style={{ background: "#f97316" }}>
-              Create Recipe
-            </Link>
-            <Link href="/recipes/import" className="px-6 py-3 rounded-full text-sm font-semibold border border-orange-200 text-orange-600 hover:bg-orange-50 transition-colors">
-              🔗 Import from URL
-            </Link>
-          </div>
-        </div>
+        <EmptyState
+          icon="utensils"
+          title="No recipes yet"
+          text="Create your first recipe, or import one from any recipe site."
+          action={
+            <div className="flex flex-wrap gap-3">
+              <Button href="/recipes/create" icon="plus">Create Recipe</Button>
+              <Button href="/recipes/import" variant="secondary" icon="link">Import from URL</Button>
+            </div>
+          }
+        />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {recipes.map(recipe => (
-            <div key={recipe.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden group hover:shadow-md transition-all">
-              <Link href={`/recipe/user_${recipe.id}`} className="block" title="View recipe">
-                {recipe.image_url ? (
-                  <img src={recipe.image_url} alt={recipe.title} style={{ objectPosition: recipe.image_position || "50% 50%" }} className="w-full h-36 object-cover" />
-                ) : (
-                  <div className="w-full h-36 bg-gradient-to-br from-orange-100 to-orange-50 flex items-center justify-center text-4xl">🍳</div>
-                )}
-              </Link>
-              <div className="p-4">
-                <Link href={`/recipe/user_${recipe.id}`}>
-                  <h3 className="font-semibold text-gray-900 line-clamp-1 mb-1 hover:text-orange-500 transition-colors">{recipe.title}</h3>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {recipes.map(recipe => {
+            const sourceLabel = recipe.source_name || "Imported";
+            const meta = [
+              recipe.cook_time ? `${recipe.cook_time} min` : null,
+              `${recipe.likes} likes`,
+            ].filter(Boolean).join(" · ");
+            return (
+              <div key={recipe.id}>
+                <Link href={`/recipe/user_${recipe.id}` as "/"} className="block" title="View recipe">
+                  <div className="aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
+                    {recipe.image_url ? (
+                      <img src={recipe.image_url} alt="" style={{ objectPosition: recipe.image_position || "50% 50%" }} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <Icon name="utensils" size={32} className="text-line-strong" />
+                      </div>
+                    )}
+                  </div>
                 </Link>
-                <div className="flex items-center gap-2 mb-3">
-                  {recipe.source_type === "imported" ? (
-                    <span
-                      title={
-                        recipe.source_url ||
-                        (recipe.source_name ? `Imported from ${recipe.source_name}` : "Imported recipe")
-                      }
-                      className="text-xs px-2.5 py-1 rounded-full font-medium bg-blue-50 text-blue-600"
-                    >
-                      🔗 {recipe.source_name || "Imported"} · 🔒
-                    </span>
-                  ) : (
-                    <button
-                      onClick={() => togglePublic(recipe)}
-                      className={`text-xs px-2.5 py-1 rounded-full font-medium transition-colors ${
-                        recipe.is_public
-                          ? "bg-green-100 text-green-700 hover:bg-green-200"
-                          : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-                      }`}
-                    >
-                      {recipe.is_public ? "🌍 Public" : "🔒 Private"}
-                    </button>
+                <div className="mt-3">
+                  <p className="text-sm text-ink-3 tabular">{meta}</p>
+                  <Link href={`/recipe/user_${recipe.id}` as "/"}>
+                    <h3 className="mt-0.5 line-clamp-2 text-h3 hover:underline underline-offset-[3px]">{recipe.title}</h3>
+                  </Link>
+
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    {recipe.source_type === "imported" ? (
+                      <span
+                        title={recipe.source_url || (recipe.source_name ? `Imported from ${recipe.source_name}` : "Imported recipe")}
+                        className="inline-flex items-center gap-1.5 text-sm text-ink-2"
+                      >
+                        <Icon name="lock" size={16} />
+                        {sourceLabel}, private
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => togglePublic(recipe)}
+                        aria-pressed={recipe.is_public}
+                        className={`inline-flex h-8 items-center gap-1.5 rounded-1 px-2.5 text-sm font-semibold transition-colors ${
+                          recipe.is_public ? "bg-green-soft text-green-deep hover:bg-line" : "bg-surface-soft text-ink-2 hover:bg-line"
+                        }`}
+                      >
+                        <Icon name={recipe.is_public ? "globe" : "lock"} size={16} />
+                        {recipe.is_public ? "Public" : "Private"}
+                      </button>
+                    )}
+                    <span className="flex-1" />
+                    <Button variant="icon" size="sm" icon="pencil" href={`/recipes/${recipe.id}/edit`} aria-label={`Edit ${recipe.title}`} title="Edit" />
+                    <Button variant="icon" size="sm" icon="trash" aria-label={`Delete ${recipe.title}`} title="Delete" onClick={() => setConfirmDeleteId(recipe.id)} />
+                  </div>
+
+                  {confirmDeleteId === recipe.id && (
+                    <div role="alert" className="mt-3 flex flex-wrap items-center gap-3 rounded-2 bg-error-soft px-4 py-3">
+                      <p className="text-sm text-error">Delete this recipe?</p>
+                      <Button size="sm" variant="secondary" onClick={() => handleDelete(recipe.id)}>Delete</Button>
+                      <Button variant="quiet" onClick={() => setConfirmDeleteId(null)}>Cancel</Button>
+                    </div>
                   )}
-                  {recipe.cook_time && <span className="text-xs text-gray-400">⏱ {recipe.cook_time}min</span>}
-                  <span className="text-xs text-gray-400">❤️ {recipe.likes}</span>
-                </div>
-                <div className="flex gap-2">
-                  <button onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
-                    className="flex-1 py-1.5 text-xs font-medium text-gray-600 border border-gray-200 rounded-lg hover:border-orange-300 transition-colors">
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(recipe.id)}
-                    className="px-3 py-1.5 text-xs font-medium text-red-400 border border-red-100 rounded-lg hover:bg-red-50 transition-colors">
-                    Delete
-                  </button>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </main>

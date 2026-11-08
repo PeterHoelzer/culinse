@@ -1,7 +1,8 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/lib/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { Button, Icon } from "@/components/ui";
+import Dialog from "@/components/ui/Dialog";
 
 interface Props {
   onClose: () => void;
@@ -11,40 +12,35 @@ interface Props {
 
 export default function UpgradeModal({ onClose, title, message }: Props) {
   const t = useTranslations("modals");
+  const de = useLocale() === "de";
+  const text = (key: string, deStr: string, enStr: string) => (t.has(key) ? t(key) : de ? deStr : enStr);
+
+  const features = [
+    text("upgradeFeatureSave", "Rezepte unbegrenzt speichern", "Save unlimited recipes"),
+    text("upgradeFeatureCollections", "Eigene Sammlungen ohne Limit", "Collections without a limit"),
+    text("upgradeFeaturePlans", "Mehrere Wochenpläne", "Several weekly plans"),
+  ];
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "rgba(0,0,0,0.45)" }}
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-2xl shadow-xl w-full max-w-sm p-7 text-center"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="text-4xl mb-4">⭐</div>
-        <h2 className="text-xl font-bold text-gray-900 mb-2">
-          {title ?? t("upgradeTitle")}
-        </h2>
-        <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-          {message ?? t("upgradeMessage")}
-        </p>
-        <div className="flex flex-col gap-3">
-          <Link
-            href="/pro"
-            className="w-full py-3 rounded-full text-white text-sm font-semibold transition-opacity hover:opacity-90"
-            style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-            onClick={onClose}
-          >
-            {t("seePlans")}
-          </Link>
-          <button
-            onClick={onClose}
-            className="w-full py-2.5 rounded-full text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors"
-          >
-            {t("maybeLater")}
-          </button>
-        </div>
+    <Dialog open onClose={onClose} title={title ?? t("upgradeTitle")} size="sm">
+      <p className="mb-5 text-base text-ink-2">{message ?? t("upgradeMessage")}</p>
+      <p className="mb-5 font-serif text-display-sm tabular">{t("proFrom")}</p>
+      <ul className="mb-6 flex flex-col gap-2">
+        {features.map((f) => (
+          <li key={f} className="flex items-start gap-2.5 text-base">
+            <Icon name="check" size={20} className="mt-0.5 shrink-0 text-green" />
+            {f}
+          </li>
+        ))}
+      </ul>
+      <div className="flex flex-col gap-3">
+        <Button href="/pro" onClick={onClose} fullWidth>
+          {t("seePlans")}
+        </Button>
+        <Button variant="quiet" onClick={onClose} className="self-center">
+          {t("maybeLater")}
+        </Button>
       </div>
-    </div>
+    </Dialog>
   );
 }

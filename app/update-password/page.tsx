@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
+import { Button, Input, Notice } from "@/components/ui";
 
 export default function UpdatePasswordPage() {
   const [password, setPassword] = useState("");
@@ -15,97 +16,66 @@ export default function UpdatePasswordPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    if (password !== confirm) {
-      setError("Passwords do not match.");
-      return;
-    }
-
+    if (password !== confirm) { setError("Passwords do not match."); return; }
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password });
-
-    if (error) {
-      setError(error.message);
-    } else {
-      setDone(true);
-    }
+    if (error) { setError(error.message); } else { setDone(true); }
     setLoading(false);
   };
 
+  const mismatch = confirm.length > 0 && password !== confirm ? "Passwords do not match." : undefined;
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <nav className="bg-white border-b border-gray-100 px-4 py-4">
-        <div className="max-w-3xl mx-auto">
-          <Link href="/" className="flex items-center w-fit">
-            <img src="/culinse-logo.png" alt="culinse" style={{ height: "24px", width: "auto" }} />
+    <div className="flex min-h-screen flex-col bg-surface">
+      <header className="border-b border-line">
+        <div className="max-w-content mx-auto flex h-16 items-center px-4 sm:px-6">
+          <Link href="/" aria-label="Culinse" className="font-sans text-[24px] font-bold leading-none tracking-[-0.02em] text-ink no-underline">
+            culi<span className="text-brand">nse</span>
           </Link>
         </div>
-      </nav>
-
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 w-full max-w-md">
+      </header>
+      <main className="max-w-content mx-auto w-full flex-1 px-4 sm:px-6 py-12">
+        <div className="max-w-md">
           {done ? (
-            <div className="text-center">
-              <div className="text-5xl mb-4">✅</div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Password updated!</h1>
-              <p className="text-gray-500 text-sm mb-6">You can now log in with your new password.</p>
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold"
-                style={{ background: "#f97316" }}
-              >
-                Go to login →
-              </Link>
+            <div>
+              <h1 className="text-h1-sm sm:text-h1">Password updated</h1>
+              <Notice tone="success" className="mt-4 mb-6">You can now log in with your new password.</Notice>
+              <Button href="/login">Go to login</Button>
             </div>
           ) : (
             <>
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">New password</h1>
-              <p className="text-gray-500 text-sm mb-6">Choose a strong password for your account.</p>
-
+              <h1 className="text-h1-sm sm:text-h1">New password</h1>
+              <p className="mt-2 mb-6 text-body-lg text-ink-2">Choose a strong password for your account.</p>
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <Input
+                  label="New password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  hint="At least 6 characters"
+                />
+                <Input
+                  label="Confirm password"
+                  type="password"
+                  value={confirm}
+                  onChange={(e) => setConfirm(e.target.value)}
+                  required
+                  minLength={6}
+                  autoComplete="new-password"
+                  error={mismatch}
+                />
+                {error && !mismatch && <Notice tone="error">{error}</Notice>}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">New password</label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={6}
-                    placeholder="Min. 6 characters"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-transparent"
-                  />
+                  <Button type="submit" loading={loading}>Update password</Button>
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Confirm password</label>
-                  <input
-                    type="password"
-                    value={confirm}
-                    onChange={(e) => setConfirm(e.target.value)}
-                    required
-                    minLength={6}
-                    placeholder="Repeat password"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-300 focus:border-transparent"
-                  />
-                </div>
-
-                {error && (
-                  <div className="bg-red-50 text-red-600 text-sm px-4 py-3 rounded-xl">{error}</div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3 rounded-xl text-white font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-60"
-                  style={{ background: "#f97316" }}
-                >
-                  {loading ? "Saving…" : "Update password →"}
-                </button>
               </form>
             </>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

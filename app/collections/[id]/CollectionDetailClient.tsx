@@ -5,8 +5,9 @@ import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Navbar from "@/components/Navbar";
+import { Button, EmptyState, Icon, Skeleton } from "@/components/ui";
 
 export interface CollectionRecipe {
   id: string;
@@ -29,87 +30,56 @@ export interface Collection {
   created_at: string;
 }
 
-const GRADIENTS = [
-  "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
-  "linear-gradient(135deg, #10b981 0%, #065f46 100%)",
-  "linear-gradient(135deg, #f97316 0%, #dc2626 100%)",
-  "linear-gradient(135deg, #6366f1 0%, #4338ca 100%)",
-  "linear-gradient(135deg, #14b8a6 0%, #0f766e 100%)",
-];
-
 // ─── Recipe Card ──────────────────────────────────────────────────────────────
 
 function RecipeCard({
   recipe,
-  index,
   canEdit,
   onRemove,
 }: {
   recipe: CollectionRecipe;
-  index: number;
   canEdit: boolean;
   onRemove: (id: string) => void;
 }) {
   const t = useTranslations("collections");
   const [imgError, setImgError] = useState(false);
-  const gradient = GRADIENTS[index % GRADIENTS.length];
+  const hasTime = recipe.time_label && recipe.time_label !== "—";
+  const meta = [recipe.source, hasTime ? recipe.time_label : null].filter(Boolean).join(" · ");
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 flex flex-col hover:-translate-y-1 hover:shadow-md transition-all duration-200">
-      <Link href={`/recipe/${recipe.recipe_id}`} className="relative h-44 block">
-        {recipe.image && !imgError ? (
-          <img
-            src={recipe.image}
-            alt={recipe.title}
-            className="w-full h-full object-cover"
-            onError={() => setImgError(true)}
-          />
-        ) : (
-          <div
-            className="w-full h-full flex items-center justify-center text-6xl"
-            style={{ background: gradient }}
-          >
-            🍽
-          </div>
-        )}
-
-        {/* Remove button (owner only) */}
-        {canEdit && (
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              onRemove(recipe.id);
-            }}
-            title={t("removeFromCollection")}
-            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white text-gray-400 flex items-center justify-center text-sm hover:bg-red-50 hover:text-red-400 transition-colors shadow-sm font-bold"
-          >
-            ×
-          </button>
-        )}
-
-        {recipe.source && (
-          <div className="absolute bottom-3 left-3 bg-black/40 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-lg">
-            {recipe.source}
-          </div>
-        )}
+    <div className="relative">
+      <Link href={`/recipe/${recipe.recipe_id}` as "/"} className="group block">
+        <div className="aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
+          {recipe.image && !imgError ? (
+            <img
+              src={recipe.image}
+              alt=""
+              className="h-full w-full object-cover"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <Icon name="utensils" size={32} className="text-line-strong" />
+            </div>
+          )}
+        </div>
+        <div className="mt-3">
+          {meta && <p className="text-sm text-ink-3 tabular">{meta}</p>}
+          <h3 className="mt-0.5 line-clamp-2 text-h3 group-hover:underline underline-offset-[3px]">{recipe.title}</h3>
+        </div>
       </Link>
 
-      <div className="p-4 flex flex-col gap-2 flex-1">
-        <h3 className="font-semibold text-gray-900 leading-snug line-clamp-2">
-          {recipe.title}
-        </h3>
-        <div className="flex items-center gap-3 text-xs text-gray-500 mt-auto pt-2">
-          {recipe.time_label && recipe.time_label !== "—" && (
-            <span>⏱ {recipe.time_label}</span>
-          )}
-          <Link
-            href={`/recipe/${recipe.recipe_id}`}
-            className="ml-auto text-orange-500 font-medium hover:text-orange-700 transition-colors"
-          >
-            {t("view")}
-          </Link>
-        </div>
-      </div>
+      {canEdit && (
+        <Button
+          variant="icon"
+          size="sm"
+          icon="trash"
+          aria-label={t("removeFromCollection")}
+          title={t("removeFromCollection")}
+          onClick={() => onRemove(recipe.id)}
+          className="absolute right-3 top-3"
+        />
+      )}
     </div>
   );
 }
@@ -214,13 +184,13 @@ export default function CollectionDetailPage({
   // ── Loading skeleton ───────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-surface">
         <Navbar />
-        <div className="max-w-6xl mx-auto px-4 py-12 space-y-5">
-          <div className="h-32 bg-gray-100 rounded-2xl animate-pulse" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="max-w-content mx-auto px-4 sm:px-6 py-12 space-y-6" aria-busy="true">
+          <Skeleton className="h-24" />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-64 bg-gray-100 rounded-2xl animate-pulse" />
+              <Skeleton key={i} className="aspect-[4/3]" />
             ))}
           </div>
         </div>
@@ -231,129 +201,69 @@ export default function CollectionDetailPage({
   if (!collection) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
 
-      {/* Header */}
-      <div
-        style={{
-          background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)",
-        }}
-        className="py-10 px-4"
-      >
-        <div className="max-w-6xl mx-auto">
-          {/* Back link */}
-          <Link
-            href="/collections"
-            className="inline-flex items-center gap-1 text-orange-200 text-sm hover:text-white transition-colors mb-4"
-          >
-            ← {t("detailBack")}
-          </Link>
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <Link href="/collections" className="mb-6 inline-flex items-center gap-1.5 text-base font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]">
+          <Icon name="arrowLeft" size={18} />
+          {t("detailBack")}
+        </Link>
 
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div className="flex items-center gap-3 mb-1">
-                <span className="text-4xl">{collection.emoji}</span>
-                <h1 className="text-3xl font-bold text-white">
-                  {collection.name}
-                </h1>
-                {collection.is_public && (
-                  <span className="text-xs bg-white/20 text-white px-2 py-1 rounded-full">
-                    🌍 {t("publicBadge")}
-                  </span>
-                )}
-              </div>
-              {collection.description && (
-                <p className="text-orange-100 text-sm mt-1 ml-14">
-                  {collection.description}
-                </p>
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div className="min-w-0">
+            <h1 className="text-h1-sm sm:text-h1">{collection.name}</h1>
+            {collection.description && <p className="mt-1 max-w-prose text-body-lg text-ink-2">{collection.description}</p>}
+            <p className="mt-2 flex items-center gap-1.5 text-sm text-ink-3 tabular">
+              {t("recipeCount", { count: recipes.length })}
+              {collection.is_public && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <Icon name="globe" size={16} />
+                  {t("publicBadge")}
+                </>
               )}
-              <p className="text-orange-200 text-sm mt-2 ml-14">
-                {t("recipeCount", { count: recipes.length })}
-              </p>
-            </div>
+            </p>
+          </div>
 
-            {/* Action buttons */}
-            <div className="flex gap-2 flex-shrink-0 flex-wrap">
-              {isOwner && (
-                <button
-                  onClick={handleTogglePublic}
-                  className="px-4 py-2 rounded-full bg-white/20 text-white text-xs font-medium hover:bg-white/30 transition-colors"
-                >
-                  {collection.is_public ? t("makePrivate") : t("makePublic")}
-                </button>
-              )}
-              <button
-                onClick={handleShare}
-                className="px-4 py-2 rounded-full bg-white text-orange-500 text-xs font-semibold hover:bg-orange-50 transition-colors shadow-sm"
-              >
-                {copied ? t("copied") : t("share")}
-              </button>
-            </div>
+          <div className="flex flex-wrap gap-3">
+            {isOwner && (
+              <Button variant="secondary" onClick={handleTogglePublic}>
+                {collection.is_public ? t("makePrivate") : t("makePublic")}
+              </Button>
+            )}
+            <Button icon={copied ? "check" : "share"} onClick={handleShare}>
+              {copied ? t("copied") : t("share")}
+            </Button>
           </div>
         </div>
-      </div>
 
-      {/* Recipe grid */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         {recipes.length === 0 ? (
-          <div className="text-center py-24">
-            <div className="text-6xl mb-4">{collection.emoji}</div>
-            <p className="text-xl font-semibold text-gray-800 mb-2">
-              {t("noRecipes")}
-            </p>
-            <p className="text-sm text-gray-500 mb-8">
-              {t("noRecipesSub")}
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-              style={{ background: "#f97316" }}
-            >
-              {t("discoverCta")}
-            </Link>
-          </div>
+          <EmptyState
+            icon="book"
+            title={t("noRecipes")}
+            text={t("noRecipesSub")}
+            action={<Button href="/">{t("discoverCta")}</Button>}
+          />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {recipes.map((r, i) => (
-              <RecipeCard
-                key={r.id}
-                recipe={r}
-                index={i}
-                canEdit={isOwner}
-                onRemove={handleRemoveRecipe}
-              />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {recipes.map((r) => (
+              <RecipeCard key={r.id} recipe={r} canEdit={isOwner} onRemove={handleRemoveRecipe} />
             ))}
           </div>
         )}
 
-        {/* Delete collection (owner only) */}
         {isOwner && (
-          <div className="mt-12 pt-8 border-t border-gray-200 text-center">
+          <div className="mt-12 border-t border-line pt-8">
             {!showDeleteConfirm ? (
-              <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="text-xs text-gray-300 hover:text-red-400 transition-colors"
-              >
+              <Button variant="quiet" icon="trash" onClick={() => setShowDeleteConfirm(true)}>
                 {t("deleteThis")}
-              </button>
+              </Button>
             ) : (
-              <div className="inline-flex items-center gap-3 bg-red-50 border border-red-200 rounded-2xl px-5 py-3">
-                <p className="text-sm text-red-700">
-                  {t("deleteNamed", { name: collection.name })}
-                </p>
-                <button
-                  onClick={handleDeleteCollection}
-                  className="text-xs font-semibold text-red-600 hover:text-red-800 transition-colors"
-                >
-                  {t("yesDelete")}
-                </button>
-                <button
-                  onClick={() => setShowDeleteConfirm(false)}
-                  className="text-xs text-gray-500 hover:text-gray-700 transition-colors"
-                >
-                  {t("cancel")}
-                </button>
+              <div role="alert" className="flex flex-wrap items-center gap-4 rounded-2 bg-error-soft px-5 py-4">
+                <p className="text-base text-error">{t("deleteNamed", { name: collection.name })}</p>
+                <Button variant="secondary" size="sm" onClick={handleDeleteCollection}>{t("yesDelete")}</Button>
+                <Button variant="quiet" onClick={() => setShowDeleteConfirm(false)}>{t("cancel")}</Button>
               </div>
             )}
           </div>

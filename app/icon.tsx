@@ -11,7 +11,7 @@ export default function Icon() {
           width: 32,
           height: 32,
           borderRadius: "8px",
-          background: "#f97316",
+          background: "#BF4A14",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -20,14 +20,14 @@ export default function Icon() {
         <div
           style={{
             fontSize: 20,
-            fontWeight: 900,
+            fontWeight: 700,
             color: "white",
-            fontFamily: "sans-serif",
+            fontFamily: "Georgia, serif",
             letterSpacing: "-1px",
             lineHeight: 1,
           }}
         >
-          c
+          C
         </div>
       </div>
     ),

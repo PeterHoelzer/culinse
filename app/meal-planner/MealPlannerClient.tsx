@@ -6,7 +6,8 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
+import { Button, Chip, ChipRow, EmptyState, Icon, Input, Checkbox, Notice, SectionHeader, Select, Skeleton } from "@/components/ui";
 import PlanRecipePickerModal from "@/components/PlanRecipePickerModal";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { FREE_FOR_ALL } from "@/lib/freeMode";
@@ -42,6 +43,8 @@ interface PickerTarget {
 }
 
 const FREE_PLAN_LIMIT = 1;
+
+const stripPlus = (label: string) => label.replace(/^\+\s*/, "");
 
 export default function MealPlannerPage() {
   const t = useTranslations("mealPlanner");
@@ -80,9 +83,9 @@ export default function MealPlannerPage() {
   const DAYS_FULL = t.raw("daysFull") as string[];
   const MEAL_LABELS = t.raw("meals") as string[];
   const SLOTS = [
-    { value: "breakfast" as const, label: MEAL_LABELS[0], emoji: "🌅" },
-    { value: "lunch"     as const, label: MEAL_LABELS[1], emoji: "☀️" },
-    { value: "dinner"    as const, label: MEAL_LABELS[2], emoji: "🌙" },
+    { value: "breakfast" as const, label: MEAL_LABELS[0] },
+    { value: "lunch"     as const, label: MEAL_LABELS[1] },
+    { value: "dinner"    as const, label: MEAL_LABELS[2] },
   ];
 
   // Week navigation is anchored to the Monday of the displayed week, kept as an
@@ -161,6 +164,9 @@ export default function MealPlannerPage() {
       setActivePlanId(active?.id ?? "");
       const wk = todayMonday();
       setCurrentWeekStart(wk);
+      const rawTarget = localStorage.getItem("culinse-protein-target");
+      const target = rawTarget ? parseInt(rawTarget, 10) : 0;
+      if (target > 0) setProteinTarget(target);
       if (active?.id) await loadEntries(active.id, wk);
       setLoading(false);
     })();
@@ -514,14 +520,6 @@ export default function MealPlannerPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uniqueRecipeIds]);
 
-  useEffect(() => {
-    const raw = typeof window !== "undefined" ? localStorage.getItem("culinse-protein-target") : null;
-    if (raw) {
-      const v = parseInt(raw, 10);
-      if (v > 0) setProteinTarget(v);
-    }
-  }, []);
-
   const saveProteinTarget = (v: number | null) => {
     setProteinTarget(v);
     if (v && v > 0) localStorage.setItem("culinse-protein-target", String(v));
@@ -554,13 +552,17 @@ export default function MealPlannerPage() {
     setPickerTarget({ dayIndex, slot });
   };
 
+  const de = locale === "de";
+  const atPlanLimit = !isPro && plans.length >= FREE_PLAN_LIMIT;
+  const isCurrentWeek = currentWeekStart === todayMonday();
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-surface">
         <Navbar />
-        <div className="max-w-7xl mx-auto px-4 py-16 space-y-4">
+        <div className="max-w-content mx-auto px-4 sm:px-6 py-12 space-y-4" aria-busy="true">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-24 bg-gray-100 rounded-2xl animate-pulse" />
+            <Skeleton key={i} className="h-24" />
           ))}
         </div>
       </div>
@@ -568,394 +570,244 @@ export default function MealPlannerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface">
       <Navbar />
 
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }} className="pb-14 pt-10 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl font-bold text-white mb-1">📅 {t("title")}</h1>
-          <p className="text-orange-100 text-sm mb-4">{t("tapToAdd")}</p>
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-3">
-              <div className="bg-white/20 rounded-full h-1.5 w-36">
-                <div
-                  className="bg-white rounded-full h-1.5 transition-all duration-500"
-                  style={{ width: `${(totalEntries / 21) * 100}%` }}
-                />
-              </div>
-              <p className="text-orange-100 text-xs">{t("mealsPlanned", { n: totalEntries })}</p>
-            </div>
-            {weekTotal.daysWith > 0 && (
-              <span className="px-4 py-2 rounded-full bg-white/15 text-white text-sm font-medium">
-                Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal · {Math.round(weekTotal.protein / weekTotal.daysWith)} g {locale === "de" ? "Protein/Tag" : "protein/day"}
-              </span>
-            )}
-            <label className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/20 text-white text-sm font-semibold cursor-text">
-              🎯 {locale === "de" ? "Protein-Ziel" : "Protein goal"}
-              <input
-                type="number"
-                min={0}
-                max={400}
-                value={proteinTarget ?? ""}
-                placeholder="–"
-                onChange={e => saveProteinTarget(e.target.value ? parseInt(e.target.value, 10) : null)}
-                className="w-14 bg-white/20 rounded-md px-1.5 py-0.5 text-white placeholder-white/60 text-sm text-center focus:outline-none focus:bg-white/30"
-              />
-              g
-            </label>
-            <button
-              onClick={() => setShowAutoPlan(true)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all"
-            >
-              ✨ {locale === "de" ? "Auto-Plan" : "Auto-plan"}
-            </button>
+      <main className="max-w-content mx-auto px-4 sm:px-6 py-12">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <SectionHeader as="h1" className="mb-0!" title={t("title")} subtitle={t("tapToAdd")} />
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="secondary" icon="sliders" onClick={() => setShowAutoPlan(true)}>
+              {de ? "Auto-Plan" : "Auto-plan"}
+            </Button>
             {totalEntries > 0 && (
-              <button
-                onClick={() => setShowShoppingList(true)}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-orange-600 text-sm font-bold shadow-sm hover:shadow-md transition-all hover:scale-105"
-              >
-                {t("shoppingList")}
-              </button>
+              <Button variant="secondary" icon={shareCopied ? "check" : "share"} onClick={handleShareWeek} loading={sharing}>
+                {shareCopied ? t("shareCopied") : t("shareWeek")}
+              </Button>
             )}
             {totalEntries > 0 && (
-              <button
-                onClick={handleShareWeek}
-                disabled={sharing}
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white text-sm font-semibold hover:bg-white/30 transition-all disabled:opacity-60"
-              >
-                {sharing ? "…" : shareCopied ? t("shareCopied") : `↗ ${t("shareWeek")}`}
-              </button>
+              <Button icon="cart" onClick={() => setShowShoppingList(true)}>{t("shoppingList")}</Button>
             )}
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 -mt-6 pb-24">
+        {/* Kennzahlen als Text */}
+        <div className="mb-6 flex flex-wrap items-end gap-x-8 gap-y-3">
+          <p className="text-base text-ink-2 tabular" role="status">{t("mealsPlanned", { n: totalEntries })}</p>
+          {weekTotal.daysWith > 0 && (
+            <p className="text-base text-ink-2 tabular">
+              Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal · {Math.round(weekTotal.protein / weekTotal.daysWith)} g {de ? "Protein/Tag" : "protein/day"}
+            </p>
+          )}
+          <Input
+            className="w-36"
+            label={de ? "Protein-Ziel (g/Tag)" : "Protein goal (g/day)"}
+            type="number"
+            inputMode="numeric"
+            min={0}
+            max={400}
+            value={proteinTarget ?? ""}
+            placeholder="–"
+            onChange={e => saveProteinTarget(e.target.value ? parseInt(e.target.value, 10) : null)}
+          />
+        </div>
 
-        {/* Plan tabs */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-5 overflow-x-auto">
-          <div className="flex items-center gap-2 min-w-max">
-            {plans.map(plan => (
-              <div key={plan.id} className="flex items-center gap-1">
-                {renamingPlan === plan.id ? (
-                  <div className="flex items-center gap-1">
-                    <input
-                      autoFocus
-                      value={renameValue}
-                      onChange={e => setRenameValue(e.target.value)}
-                      onKeyDown={e => { if (e.key === "Enter") handleRenamePlan(plan.id); if (e.key === "Escape") setRenamingPlan(null); }}
-                      className="text-sm border border-orange-300 rounded-full px-3 py-1.5 outline-none w-36"
-                    />
-                    <button onClick={() => handleRenamePlan(plan.id)} className="text-orange-500 text-sm font-semibold">✓</button>
-                    <button onClick={() => setRenamingPlan(null)} className="text-gray-400 text-sm">×</button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => switchPlan(plan.id)}
-                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
-                      activePlanId === plan.id
-                        ? "bg-orange-500 text-white shadow-sm"
-                        : "bg-gray-100 text-gray-600 hover:bg-orange-50"
-                    }`}
-                  >
-                    {plan.name}
-                  </button>
-                )}
-                {activePlanId === plan.id && renamingPlan !== plan.id && (
-                  <div className="flex items-center gap-0.5 ml-0.5">
-                    <button
-                      onClick={() => { setRenamingPlan(plan.id); setRenameValue(plan.name); }}
-                      className="text-white/70 hover:text-white text-xs px-1"
-                    >✏️</button>
-                    {plans.length > 1 && (
-                      <button
-                        onClick={() => handleDeletePlan(plan.id)}
-                        className="text-white/60 hover:text-white text-xs px-1"
-                      >🗑</button>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+        {/* Pläne */}
+        <div className="mb-3">
+          <ChipRow>
+            {plans.map(plan =>
+              renamingPlan === plan.id ? (
+                <div key={plan.id} className="flex shrink-0 items-center gap-2">
+                  <Input
+                    className="w-44"
+                    label={de ? "Planname" : "Plan name"}
+                    hideLabel
+                    autoFocus
+                    value={renameValue}
+                    onChange={e => setRenameValue(e.target.value)}
+                    onKeyDown={e => { if (e.key === "Enter") handleRenamePlan(plan.id); if (e.key === "Escape") setRenamingPlan(null); }}
+                  />
+                  <Button variant="icon" size="sm" icon="check" aria-label={de ? "Name speichern" : "Save name"} onClick={() => handleRenamePlan(plan.id)} />
+                  <Button variant="icon" size="sm" icon="x" aria-label={t("cancel")} onClick={() => setRenamingPlan(null)} />
+                </div>
+              ) : (
+                <div key={plan.id} className="flex shrink-0 items-center gap-2">
+                  <Chip active={activePlanId === plan.id} onClick={() => switchPlan(plan.id)}>{plan.name}</Chip>
+                  {activePlanId === plan.id && (
+                    <>
+                      <Button variant="icon" size="sm" icon="pencil" aria-label={de ? "Plan umbenennen" : "Rename plan"} title={de ? "Plan umbenennen" : "Rename plan"}
+                        onClick={() => { setRenamingPlan(plan.id); setRenameValue(plan.name); }} />
+                      {plans.length > 1 && (
+                        <Button variant="icon" size="sm" icon="trash" aria-label={de ? "Plan löschen" : "Delete plan"} title={de ? "Plan löschen" : "Delete plan"}
+                          onClick={() => handleDeletePlan(plan.id)} />
+                      )}
+                    </>
+                  )}
+                </div>
+              )
+            )}
 
             {creatingPlan ? (
-              <div className="flex items-center gap-1">
-                <input
+              <div className="flex shrink-0 items-center gap-2">
+                <Input
+                  className="w-44"
+                  label={t("namePlanPlaceholder")}
+                  hideLabel
                   autoFocus
                   value={newPlanName}
                   onChange={e => setNewPlanName(e.target.value)}
                   onKeyDown={e => { if (e.key === "Enter") handleCreatePlan(); if (e.key === "Escape") setCreatingPlan(false); }}
                   placeholder={t("namePlanPlaceholder")}
-                  className="text-sm border border-orange-300 rounded-full px-3 py-1.5 outline-none w-36"
                 />
-                <button onClick={handleCreatePlan} className="text-orange-500 font-semibold text-sm">✓</button>
-                <button onClick={() => setCreatingPlan(false)} className="text-gray-400 text-sm">×</button>
+                <Button variant="icon" size="sm" icon="check" aria-label={de ? "Plan anlegen" : "Create plan"} onClick={handleCreatePlan} />
+                <Button variant="icon" size="sm" icon="x" aria-label={t("cancel")} onClick={() => setCreatingPlan(false)} />
               </div>
             ) : (
-              <button
-                onClick={() => {
-                  if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
-                  setCreatingPlan(true);
-                }}
-                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap flex items-center gap-2"
-              >
-                {!isPro && plans.length >= FREE_PLAN_LIMIT
-                  ? <><ProBadge feature="Multiple meal plans" />{t("proMorePlans")}</>
-                  : t("newPlan")}
-              </button>
+              !atPlanLimit && (
+                <Button variant="secondary" size="sm" icon="plus" className="shrink-0" onClick={() => setCreatingPlan(true)}>
+                  {stripPlus(t("newPlan"))}
+                </Button>
+              )
             )}
 
             {totalEntries > 0 && !creatingPlan && (
-              <button
-                onClick={handleCopyWeek}
-                disabled={copyingWeek}
-                className="px-4 py-2 rounded-full text-sm border border-dashed border-gray-300 text-gray-400 hover:border-orange-300 hover:text-orange-400 transition-all whitespace-nowrap flex items-center gap-2 disabled:opacity-50"
-                title={t("copyWeek")}
-              >
-                {copyingWeek ? "…" : <>⧉ {t("copyWeek")}</>}
-              </button>
+              <Button variant="secondary" size="sm" icon="copy" className="shrink-0" onClick={handleCopyWeek} loading={copyingWeek} title={t("copyWeek")}>
+                {t("copyWeek")}
+              </Button>
             )}
-          </div>
+          </ChipRow>
         </div>
 
-        {/* ── Week navigator ── */}
+        {atPlanLimit && (
+          <Notice tone="info" className="mb-4">
+            <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <ProBadge feature="Multiple meal plans" />
+              <span>{t("proMorePlans")}</span>
+              <button type="button" onClick={() => setShowProModal(true)} className="font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]">
+                {t("proModalTitle")}
+              </button>
+            </span>
+          </Notice>
+        )}
+
+        {/* Wochennavigation */}
         {weekInfo && (
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <button
-              onClick={() => goToWeek(shiftISO(currentWeekStart, -7))}
-              className="w-9 h-9 rounded-full border border-gray-200 text-gray-500 hover:border-orange-300 hover:text-orange-500 transition-all flex items-center justify-center text-lg leading-none"
-              title={t("prevWeek")}
-              aria-label={t("prevWeek")}
-            >‹</button>
-            <div className="text-center min-w-[160px]">
-              <p className="text-sm font-semibold text-gray-800">
-                {fmtDate(weekInfo.dates[0])} – {fmtDate(weekInfo.dates[6])}
-              </p>
-              {currentWeekStart !== todayMonday() ? (
-                <button
-                  onClick={() => goToWeek(todayMonday())}
-                  className="text-xs text-orange-500 hover:text-orange-600 font-medium"
-                >↺ {t("thisWeek")}</button>
-              ) : (
-                <p className="text-xs text-gray-400">{t("thisWeek")}</p>
-              )}
-            </div>
-            <button
-              onClick={() => goToWeek(shiftISO(currentWeekStart, 7))}
-              className="w-9 h-9 rounded-full border border-gray-200 text-gray-500 hover:border-orange-300 hover:text-orange-500 transition-all flex items-center justify-center text-lg leading-none"
-              title={t("nextWeek")}
-              aria-label={t("nextWeek")}
-            >›</button>
+          <div className="mb-6 flex flex-wrap items-center gap-3">
+            <Button variant="icon" size="sm" icon="chevronLeft" aria-label={t("prevWeek")} title={t("prevWeek")} onClick={() => goToWeek(shiftISO(currentWeekStart, -7))} />
+            <p className="min-w-[8rem] text-base font-semibold text-ink tabular">
+              {fmtDate(weekInfo.dates[0])} – {fmtDate(weekInfo.dates[6])}
+            </p>
+            <Button variant="icon" size="sm" icon="chevronRight" aria-label={t("nextWeek")} title={t("nextWeek")} onClick={() => goToWeek(shiftISO(currentWeekStart, 7))} />
+            {isCurrentWeek ? (
+              <span className="text-sm text-ink-3">{t("thisWeek")}</span>
+            ) : (
+              <Button variant="quiet" onClick={() => goToWeek(todayMonday())}>{t("thisWeek")}</Button>
+            )}
           </div>
         )}
 
-        {/* ── Desktop Grid ── */}
-        <div className="hidden md:block">
-          <p className="text-[11px] text-gray-400 mb-2">{t("dragHint")}</p>
-          {/* Day headers */}
-          <div className="grid grid-cols-7 gap-3 mb-1 px-0">
-            {DAYS_FULL.map((d, i) => {
-              const isToday = weekInfo?.todayIdx === i;
-              return (
-                <div key={i} className={`text-center py-1 ${isToday ? "text-orange-600" : "text-gray-500"}`}>
-                  <div className="text-xs font-bold uppercase tracking-wide">{d}</div>
-                  {weekInfo && (
-                    <div className={`text-[10px] ${isToday ? "text-orange-500 font-semibold" : "text-gray-400"}`}>
-                      {fmtDate(weekInfo.dates[i])}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+        {moveFrom && (
+          <div className="sticky top-0 z-20 mb-4">
+            <Notice tone="info">
+              <span className="flex flex-wrap items-center justify-between gap-3">
+                <span>{t("moveHint")}</span>
+                <button type="button" onClick={() => setMoveFrom(null)} className="font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]">{t("cancel")}</button>
+              </span>
+            </Notice>
           </div>
-          {SLOTS.map(slot => (
-            <div key={slot.value} className="mb-4">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-base">{slot.emoji}</span>
-                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">{slot.label}</span>
-              </div>
-              <div className="grid grid-cols-7 gap-3">
-                {DAYS_FULL.map((_, dayIdx) => {
-                  const entry = getEntry(dayIdx, slot.value);
-                  return (
-                    <DesktopSlot
-                      key={dayIdx}
-                      entry={entry ?? null}
-                      onOpen={() => openPicker(dayIdx, slot.value)}
-                      onRemove={handleRemoveEntry}
-                      onSetServings={handleSetServings}
-                      deleting={deletingEntry}
-                      isDragging={dragFrom?.day === dayIdx && dragFrom?.slot === slot.value}
-                      isDropTarget={!!dragFrom && !(dragFrom.day === dayIdx && dragFrom.slot === slot.value)}
-                      onDragStart={() => setDragFrom({ day: dayIdx, slot: slot.value })}
-                      onDragEnd={() => setDragFrom(null)}
-                      onDropHere={() => {
-                        if (dragFrom) handleMove(dragFrom, { day: dayIdx, slot: slot.value });
-                        setDragFrom(null);
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-          {weekTotal.daysWith > 0 && (
-            <div className="grid grid-cols-7 gap-3 mt-1 pt-2 border-t border-gray-100">
-              {dayTotals.map((dn, i) => (
-                <div key={i} className="text-center">
-                  {dn
-                    ? <>
-                        <p className="text-xs font-semibold text-gray-500">≈ {dn.calories}<span className="font-normal text-gray-400"> kcal</span></p>
-                        <p className={`text-[11px] font-semibold ${
-                          proteinTarget
-                            ? dn.protein >= proteinTarget
-                              ? "text-green-600"
-                              : dn.protein >= proteinTarget * 0.7
-                                ? "text-orange-500"
-                                : "text-gray-400"
-                            : "text-gray-400"
-                        }`}>
-                          {Math.round(dn.protein)} g P{proteinTarget ? ` / ${proteinTarget}` : ""}
-                        </p>
-                      </>
-                    : <p className="text-xs text-gray-300">–</p>}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        )}
 
-        {/* ── Mobile: day-by-day ── */}
-        <div className="md:hidden space-y-4">
-          {moveFrom && (
-            <div className="sticky top-0 z-20 flex items-center justify-between gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-sm rounded-xl px-3 py-2">
-              <span>{t("moveHint")}</span>
-              <button onClick={() => setMoveFrom(null)} className="font-semibold underline whitespace-nowrap">{t("cancel")}</button>
-            </div>
-          )}
+        {totalEntries > 0 && <p className="mb-3 hidden text-caption text-ink-3 md:block">{t("dragHint")}</p>}
+
+        {/* Tagesraster */}
+        <div className="grid gap-4 md:grid-cols-7">
           {DAYS_FULL.map((day, dayIdx) => {
             const isToday = weekInfo?.todayIdx === dayIdx;
+            const totals = dayTotals[dayIdx];
             return (
-            <div key={dayIdx} className={`bg-white rounded-2xl shadow-sm border overflow-hidden ${isToday ? "border-orange-200" : "border-gray-100"}`}>
-              <div className={`px-4 py-3 border-b border-gray-50 flex items-center justify-between ${isToday ? "bg-orange-50/60" : "bg-gray-50/50"}`}>
-                <span className={`text-sm font-bold ${isToday ? "text-orange-700" : "text-gray-800"}`}>{day}</span>
-                {weekInfo && (
-                  <span className={`text-xs ${isToday ? "text-orange-500 font-semibold" : "text-gray-400"}`}>
-                    {fmtDate(weekInfo.dates[dayIdx])}{isToday ? ` · ${t("today")}` : ""}
-                  </span>
-                )}
-              </div>
-              <div className="divide-y divide-gray-50">
-                {SLOTS.map(slot => {
-                  const entry = getEntry(dayIdx, slot.value);
-                  // ── Move mode: every slot becomes a tap target ──
-                  if (moveFrom) {
-                    const isSource = moveFrom.day === dayIdx && moveFrom.slot === slot.value;
+              <section key={dayIdx} aria-labelledby={`day-${dayIdx}`} className="min-w-0">
+                <div className={`mb-3 border-b pb-2 ${isToday ? "border-brand" : "border-line"}`}>
+                  <h2 id={`day-${dayIdx}`} className="font-sans text-sm font-semibold text-ink">{day}</h2>
+                  {weekInfo && (
+                    <p className="text-sm text-ink-3 tabular">
+                      {fmtDate(weekInfo.dates[dayIdx])}{isToday ? ` · ${t("today")}` : ""}
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-4">
+                  {SLOTS.map(slot => {
+                    const entry = getEntry(dayIdx, slot.value);
+                    const isSource = moveFrom?.day === dayIdx && moveFrom?.slot === slot.value;
                     return (
-                      <button
-                        key={slot.value}
-                        onClick={() => {
-                          if (isSource) { setMoveFrom(null); return; }
-                          handleMove(moveFrom, { day: dayIdx, slot: slot.value });
-                          setMoveFrom(null);
-                        }}
-                        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${isSource ? "bg-orange-100/70" : "hover:bg-orange-50"}`}
-                      >
-                        <span className="w-7 text-center flex-shrink-0 text-lg">{slot.emoji}</span>
-                        <span className={`flex-1 min-w-0 text-sm ${isSource ? "text-orange-700 font-medium" : "text-orange-600"}`}>
-                          {isSource
-                            ? t("moving")
-                            : entry
-                            ? `${t("swapHere")}: ${entry.recipe_title}`
-                            : t("moveHere")}
-                        </span>
-                      </button>
-                    );
-                  }
-                  return (
-                    <div key={slot.value} className="flex items-center gap-3 px-4 py-3">
-                      <div className="w-7 text-center flex-shrink-0">
-                        <span className="text-lg">{slot.emoji}</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        {entry ? (
-                          <div className="flex items-center gap-2">
-                            {entry.recipe_image && (
-                              <Image src={entry.recipe_image} alt="" width={40} height={40} className="rounded-lg object-cover flex-shrink-0" />
-                            )}
-                            <div className="flex-1 min-w-0">
-                              <Link href={`/recipe/${entry.recipe_id}`} className="text-sm font-semibold text-gray-800 line-clamp-1 hover:text-orange-500 transition-colors">
-                                {entry.recipe_title}
-                              </Link>
-                              {entry.recipe_time && <p className="text-xs text-gray-400">⏱ {entry.recipe_time} min</p>}
-                              <div className="mt-1"><ServingsControl value={entry.servings} onChange={(v) => handleSetServings(entry, v)} /></div>
-                            </div>
-                            <button
-                              onClick={() => handleRemoveEntry(entry.id)}
-                              disabled={deletingEntry === entry.id}
-                              className="w-7 h-7 rounded-full flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all flex-shrink-0 text-lg"
-                            >×</button>
-                          </div>
-                        ) : (
+                      <div key={slot.value}>
+                        <p className="mb-1 text-caption text-ink-3">{slot.label}</p>
+                        {moveFrom ? (
                           <button
-                            onClick={() => openPicker(dayIdx, slot.value)}
-                            className="flex items-center gap-2 text-sm text-gray-300 hover:text-orange-400 transition-colors"
+                            type="button"
+                            onClick={() => {
+                              if (isSource) { setMoveFrom(null); return; }
+                              handleMove(moveFrom, { day: dayIdx, slot: slot.value });
+                              setMoveFrom(null);
+                            }}
+                            className={`flex min-h-20 w-full items-center justify-center rounded-2 border border-dashed px-2 py-3 text-left text-sm font-semibold transition-colors ${
+                              isSource ? "border-brand bg-brand-soft text-brand" : "border-line-strong text-ink hover:bg-surface-soft"
+                            }`}
                           >
-                            <span className="w-6 h-6 rounded-full border-2 border-dashed border-gray-200 hover:border-orange-300 flex items-center justify-center text-xs transition-colors">+</span>
-                            <span className="italic">{t("addRecipe")}</span>
+                            {isSource ? t("moving") : entry ? `${t("swapHere")}: ${entry.recipe_title}` : t("moveHere")}
                           </button>
+                        ) : (
+                          <PlanSlot
+                            entry={entry ?? null}
+                            addLabel={`${stripPlus(t("addRecipe"))}: ${day}, ${slot.label}`}
+                            onOpen={() => openPicker(dayIdx, slot.value)}
+                            onMove={() => setMoveFrom({ day: dayIdx, slot: slot.value })}
+                            moveLabel={t("move")}
+                            onRemove={handleRemoveEntry}
+                            onSetServings={handleSetServings}
+                            deleting={deletingEntry}
+                            isDragging={dragFrom?.day === dayIdx && dragFrom?.slot === slot.value}
+                            isDropTarget={!!dragFrom && !(dragFrom.day === dayIdx && dragFrom.slot === slot.value)}
+                            onDragStart={() => setDragFrom({ day: dayIdx, slot: slot.value })}
+                            onDragEnd={() => setDragFrom(null)}
+                            onDropHere={() => {
+                              if (dragFrom) handleMove(dragFrom, { day: dayIdx, slot: slot.value });
+                              setDragFrom(null);
+                            }}
+                          />
                         )}
                       </div>
-                      {entry && (
-                        <div className="flex items-center gap-1 flex-shrink-0">
-                          <button
-                            onClick={() => setMoveFrom({ day: dayIdx, slot: slot.value })}
-                            className="text-sm text-gray-300 hover:text-orange-400 transition-colors"
-                            title={t("move")}
-                          >↕</button>
-                          <button
-                            onClick={() => openPicker(dayIdx, slot.value)}
-                            className="text-xs text-gray-300 hover:text-orange-400 transition-colors"
-                            title="Replace"
-                          >↻</button>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-              {dayTotals[dayIdx] && (
-                <div className="px-4 py-2 border-t border-gray-50 bg-gray-50/40 flex items-center justify-between">
-                  <span className="text-xs text-gray-400">{locale === "de" ? "Tag gesamt" : "Day total"}</span>
-                  <span className="text-xs font-medium text-gray-600">
-                    ≈ {dayTotals[dayIdx]!.calories} kcal
-                    <span className="text-gray-400 font-normal"> · <span className={proteinTarget && dayTotals[dayIdx]!.protein >= proteinTarget ? "text-green-600 font-semibold" : undefined}>{Math.round(dayTotals[dayIdx]!.protein)}P{proteinTarget ? `/${proteinTarget}` : ""}</span> · {dayTotals[dayIdx]!.fat}F · {dayTotals[dayIdx]!.carbs}{locale === "de" ? "KH" : "C"}</span>
-                  </span>
+                    );
+                  })}
                 </div>
-              )}
-            </div>
+                {totals && (
+                  <p className="mt-3 border-t border-line pt-2 text-sm text-ink-2 tabular">
+                    <span className="block">≈ {totals.calories} kcal</span>
+                    <span className={`block ${proteinTarget && totals.protein >= proteinTarget ? "font-semibold text-green" : "text-ink-3"}`}>
+                      {Math.round(totals.protein)} g {de ? "Protein" : "protein"}{proteinTarget ? ` / ${proteinTarget} g` : ""}
+                    </span>
+                    <span className="block text-ink-3">{totals.fat} g {de ? "Fett" : "fat"} · {totals.carbs} g {de ? "KH" : "carbs"}</span>
+                  </p>
+                )}
+              </section>
             );
           })}
         </div>
 
-        {/* Empty state */}
         {totalEntries === 0 && (
-          <div className="mt-8 text-center py-10">
-            <p className="text-4xl mb-3">📅</p>
-            <p className="text-gray-600 font-semibold mb-1">{t("emptyTitle")}</p>
-            <p className="text-sm text-gray-400 mb-4">{t("emptySub")}</p>
-            <div className="flex justify-center gap-3">
-              <Link href="/saved" className="text-sm font-semibold text-orange-500 hover:text-orange-600 border border-orange-200 px-4 py-2 rounded-full hover:bg-orange-50 transition-all">
-                {t("myRecipes")}
-              </Link>
-              <Link href="/collections" className="text-sm font-semibold text-orange-500 hover:text-orange-600 border border-orange-200 px-4 py-2 rounded-full hover:bg-orange-50 transition-all">
-                {t("collections")}
-              </Link>
-            </div>
-          </div>
+          <EmptyState
+            className="mt-8"
+            icon="calendar"
+            title={t("emptyTitle")}
+            text={t("emptySub")}
+            action={
+              <div className="flex flex-wrap gap-3">
+                <Button href="/saved" variant="secondary">{t("myRecipes")}</Button>
+                <Button href="/collections" variant="secondary">{t("collections")}</Button>
+              </div>
+            }
+          />
         )}
-      </div>
+      </main>
 
       {/* Recipe Picker Modal */}
       {pickerTarget && activePlanId && (
@@ -985,97 +837,89 @@ export default function MealPlannerPage() {
 
       {/* Auto-plan modal */}
       {showAutoPlan && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => !generating && setShowAutoPlan(false)}>
-          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
-            <div className="text-center mb-5">
-              <div className="text-4xl mb-2">🎯</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-1">{locale === "de" ? "Auto-Wochenplan" : "Auto meal plan"}</h2>
-              <p className="text-sm text-gray-500">{locale === "de" ? "Wir füllen die Woche nach deinem Kalorienziel." : "We fill the week to your calorie goal."}</p>
-            </div>
+        <PlannerDialog titleId="auto-plan-title" onClose={() => !generating && setShowAutoPlan(false)}>
+          <h2 id="auto-plan-title" className="text-h2-sm">{de ? "Auto-Wochenplan" : "Auto meal plan"}</h2>
+          <p className="mt-1 mb-5 text-base text-ink-2">{de ? "Wir füllen die Woche nach deinem Kalorienziel." : "We fill the week to your calorie goal."}</p>
 
-            <label className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5 block">{locale === "de" ? "Kalorien pro Tag" : "Calories per day"}</label>
-            <input
-              type="number" value={planCalories} min={800} max={5000} step={50}
+          <div className="space-y-4">
+            <Input
+              label={de ? "Kalorien pro Tag" : "Calories per day"}
+              type="number" inputMode="numeric" value={planCalories} min={800} max={5000} step={50}
               onChange={e => setPlanCalories(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm mb-4 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
             />
-
-            <label className="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-1.5 block">{locale === "de" ? "Ernährung (optional)" : "Diet (optional)"}</label>
-            <select
-              value={planDiet} onChange={e => setPlanDiet(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm mb-5 bg-white focus:outline-none focus:border-orange-400"
-            >
-              <option value="">{locale === "de" ? "Keine" : "None"}</option>
-              <option value="vegetarian">{locale === "de" ? "Vegetarisch" : "Vegetarian"}</option>
+            <Select label={de ? "Ernährung (optional)" : "Diet (optional)"} value={planDiet} onChange={e => setPlanDiet(e.target.value)}>
+              <option value="">{de ? "Keine" : "None"}</option>
+              <option value="vegetarian">{de ? "Vegetarisch" : "Vegetarian"}</option>
               <option value="vegan">Vegan</option>
-              <option value="gluten free">{locale === "de" ? "Glutenfrei" : "Gluten free"}</option>
+              <option value="gluten free">{de ? "Glutenfrei" : "Gluten free"}</option>
               <option value="ketogenic">Keto</option>
               <option value="paleo">Paleo</option>
-              <option value="pescetarian">{locale === "de" ? "Pescetarisch" : "Pescetarian"}</option>
-            </select>
-
-            <button
-              onClick={handleGeneratePlan} disabled={generating}
-              className="w-full py-3.5 rounded-full text-white font-semibold text-sm disabled:opacity-60"
-              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-            >
-              {generating ? (locale === "de" ? "Generiere…" : "Generating…") : (locale === "de" ? "Woche generieren" : "Generate week")}
-            </button>
-
-            {generateError && (
-              <p className="text-xs text-red-500 text-center mt-2">{locale === "de" ? "Konnte keinen Plan erzeugen — versuch andere Werte." : "Couldn't generate a plan — try different values."}</p>
-            )}
-
-            <div className="flex items-center gap-2 my-4">
-              <div className="flex-1 h-px bg-gray-100" />
-              <span className="text-xs text-gray-300">{locale === "de" ? "oder" : "or"}</span>
-              <div className="flex-1 h-px bg-gray-100" />
-            </div>
-
-            <label className="flex items-center gap-2 mb-3 text-xs text-gray-500 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={allowRepeats}
-                onChange={e => setAllowRepeats(e.target.checked)}
-                className="accent-orange-500 w-4 h-4"
-              />
-              {locale === "de" ? "Gerichte über mehrere Tage erlauben (Wiederholungen)" : "Allow a dish across multiple days (repeats)"}
-            </label>
-            <button
-              onClick={() => { setShowAutoPlan(false); handleAutoFill(allowRepeats); }}
-              disabled={generating}
-              className="w-full py-3 rounded-full border border-gray-200 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-60"
-            >
-              {locale === "de" ? "Leere Slots aus meinen Rezepten füllen" : "Fill empty slots from my recipes"}
-            </button>
-
-            <button onClick={() => setShowAutoPlan(false)} disabled={generating} className="w-full mt-2 py-2 text-sm text-gray-400 hover:text-gray-600">
-              {locale === "de" ? "Abbrechen" : "Cancel"}
-            </button>
+              <option value="pescetarian">{de ? "Pescetarisch" : "Pescetarian"}</option>
+            </Select>
           </div>
-        </div>
+
+          <Button className="mt-5" fullWidth onClick={handleGeneratePlan} loading={generating}>
+            {generating ? (de ? "Generiere…" : "Generating…") : (de ? "Woche generieren" : "Generate week")}
+          </Button>
+
+          {generateError && (
+            <Notice tone="error" className="mt-3">{de ? "Konnte keinen Plan erzeugen. Versuch andere Werte." : "Couldn't generate a plan. Try different values."}</Notice>
+          )}
+
+          <div className="mt-6 border-t border-line pt-5">
+            <Checkbox
+              className="mb-3 text-sm"
+              checked={allowRepeats}
+              onChange={e => setAllowRepeats(e.target.checked)}
+              label={de ? "Gerichte über mehrere Tage erlauben (Wiederholungen)" : "Allow a dish across multiple days (repeats)"}
+            />
+            <Button variant="secondary" fullWidth disabled={generating} onClick={() => { setShowAutoPlan(false); handleAutoFill(allowRepeats); }}>
+              {de ? "Leere Slots aus meinen Rezepten füllen" : "Fill empty slots from my recipes"}
+            </Button>
+          </div>
+
+          <div className="mt-3">
+            <Button variant="quiet" disabled={generating} onClick={() => setShowAutoPlan(false)}>{de ? "Abbrechen" : "Cancel"}</Button>
+          </div>
+        </PlannerDialog>
       )}
 
       {/* Pro modal */}
       {showProModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm" onClick={() => setShowProModal(false)}>
-          <div className="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full" onClick={e => e.stopPropagation()}>
-            <div className="text-center mb-4">
-              <div className="text-4xl mb-2">✦</div>
-              <h2 className="text-xl font-bold text-gray-900 mb-1">{t("proModalTitle")}</h2>
-              <p className="text-sm text-gray-500">{t("proModalSub")}</p>
-            </div>
-            <Link
-              href="/pro"
-              className="block w-full py-3.5 rounded-full text-white font-semibold text-center text-sm"
-              style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)" }}
-            >
-              {t("proModalButton")}
-            </Link>
-            <button onClick={() => setShowProModal(false)} className="w-full mt-3 py-2 text-sm text-gray-400 hover:text-gray-600">{t("cancel")}</button>
+        <PlannerDialog titleId="pro-plan-title" onClose={() => setShowProModal(false)}>
+          <ProBadge className="mb-3" />
+          <h2 id="pro-plan-title" className="text-h2-sm">{t("proModalTitle")}</h2>
+          <p className="mt-1 mb-5 text-base text-ink-2">{t("proModalSub")}</p>
+          <div className="flex flex-wrap gap-3">
+            <Button href="/pro">{t("proModalButton")}</Button>
+            <Button variant="secondary" onClick={() => setShowProModal(false)}>{t("cancel")}</Button>
           </div>
-        </div>
+        </PlannerDialog>
       )}
+    </div>
+  );
+}
+
+// ── Dialog-Hülle (Escape und Klick auf den Hintergrund schließen) ──────────────
+function PlannerDialog({ titleId, onClose, children }: { titleId: string; onClose: () => void; children: React.ReactNode }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-ink/40" />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        className="relative max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-2 border border-line bg-surface p-6"
+        onClick={e => e.stopPropagation()}
+      >
+        {children}
+      </div>
     </div>
   );
 }
@@ -1083,37 +927,44 @@ export default function MealPlannerPage() {
 // ── Servings stepper ───────────────────────────────────────────────────────────
 function ServingsControl({ value, onChange }: { value: number | null; onChange: (v: number | null) => void }) {
   const locale = useLocale();
+  const de = locale === "de";
   if (value == null) {
     return (
       <button
+        type="button"
         onClick={(e) => { e.stopPropagation(); onChange(2); }}
-        className="inline-flex items-center gap-1 text-xs text-gray-400 hover:text-orange-500 transition-colors"
-        title={locale === "de" ? "Portionen einstellen" : "Set servings"}
+        className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]"
       >
-        🍽 <span>{locale === "de" ? "Portionen" : "Servings"}</span>
+        <Icon name="users" size={16} />
+        {de ? "Portionen" : "Servings"}
       </button>
     );
   }
   return (
-    <div className="inline-flex items-center gap-1 text-xs text-gray-600" onClick={(e) => e.stopPropagation()}>
-      <span>🍽</span>
-      <button
-        onClick={(e) => { e.stopPropagation(); onChange(value <= 1 ? null : value - 1); }}
-        className="w-5 h-5 rounded-full bg-gray-100 hover:bg-orange-100 text-gray-600 flex items-center justify-center leading-none"
-      >−</button>
-      <span className="w-4 text-center font-semibold tabular-nums">{value}</span>
-      <button
-        onClick={(e) => { e.stopPropagation(); onChange(Math.min(value + 1, 20)); }}
-        className="w-5 h-5 rounded-full bg-gray-100 hover:bg-orange-100 text-gray-600 flex items-center justify-center leading-none"
-      >+</button>
+    <div className="inline-flex items-center gap-1 text-sm text-ink-2" onClick={(e) => e.stopPropagation()}>
+      <Icon name="users" size={16} />
+      <Button
+        variant="icon" size="sm" icon="minus" className="h-8! w-8!"
+        aria-label={de ? "Portionen verringern" : "Decrease servings"}
+        onClick={() => onChange(value <= 1 ? null : value - 1)}
+      />
+      <span className="w-6 font-semibold text-ink tabular">{value}</span>
+      <Button
+        variant="icon" size="sm" icon="plus" className="h-8! w-8!"
+        aria-label={de ? "Portionen erhöhen" : "Increase servings"}
+        onClick={() => onChange(Math.min(value + 1, 20))}
+      />
     </div>
   );
 }
 
-// ── Desktop Slot Cell ──────────────────────────────────────────────────────────
-function DesktopSlot({
+// ── Slot (leer = Plus-Feld, belegt = Karte) ────────────────────────────────────
+function PlanSlot({
   entry,
+  addLabel,
+  moveLabel,
   onOpen,
+  onMove,
   onRemove,
   onSetServings,
   deleting,
@@ -1124,7 +975,10 @@ function DesktopSlot({
   onDropHere,
 }: {
   entry: Entry | null;
+  addLabel: string;
+  moveLabel: string;
   onOpen: () => void;
+  onMove: () => void;
   onRemove: (id: string) => void;
   onSetServings: (entry: Entry, value: number | null) => void;
   deleting: string | null;
@@ -1134,62 +988,53 @@ function DesktopSlot({
   onDragEnd?: () => void;
   onDropHere?: () => void;
 }) {
+  const locale = useLocale();
+  const de = locale === "de";
+
   if (!entry) {
     return (
       <button
+        type="button"
         onClick={onOpen}
+        aria-label={addLabel}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => { e.preventDefault(); onDropHere?.(); }}
-        className={`h-20 w-full rounded-xl border-2 border-dashed flex items-center justify-center transition-all group ${isDropTarget ? "border-orange-400 bg-orange-50" : "hover:border-orange-300 hover:bg-orange-50/50"}`}
-        style={isDropTarget ? undefined : { borderColor: "#e5e7eb" }}
+        className={`flex h-20 w-full items-center justify-center rounded-2 border border-dashed text-ink-2 transition-colors ${
+          isDropTarget ? "border-brand bg-brand-soft" : "border-line-strong hover:bg-surface-soft"
+        }`}
       >
-        <span className="text-gray-300 group-hover:text-orange-400 text-xl transition-colors">+</span>
+        <Icon name="plus" size={24} />
       </button>
     );
   }
 
   return (
-    <div className="space-y-1">
-      <div
-        draggable
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => { e.preventDefault(); onDropHere?.(); }}
-        className={`h-20 rounded-xl border bg-white shadow-sm overflow-hidden relative group cursor-grab active:cursor-grabbing transition-all ${
-          isDragging
-            ? "opacity-40 ring-2 ring-orange-400 border-orange-300"
-            : isDropTarget
-            ? "ring-2 ring-orange-400 border-orange-300"
-            : "border-gray-100"
-        }`}
-      >
+    <div
+      draggable
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => { e.preventDefault(); onDropHere?.(); }}
+      className={`cursor-grab rounded-2 active:cursor-grabbing ${isDragging ? "opacity-40" : ""} ${isDropTarget ? "outline outline-2 outline-offset-2 outline-brand" : ""}`}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
         {entry.recipe_image ? (
-          <Image src={entry.recipe_image} alt="" fill draggable={false} className="object-cover pointer-events-none" sizes="300px" />
+          <Image src={entry.recipe_image} alt="" fill draggable={false} className="pointer-events-none object-cover" sizes="300px" />
         ) : (
-          <div className="absolute inset-0 bg-orange-50" />
+          <div className="flex h-full w-full items-center justify-center">
+            <Icon name="utensils" size={28} className="text-line-strong" />
+          </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
-        <div className="absolute bottom-1.5 left-2 right-8 z-10">
-          <Link href={`/recipe/${entry.recipe_id}`} draggable={false}>
-            <p className="text-white text-xs font-semibold line-clamp-2 leading-tight hover:text-orange-200 transition-colors">
-              {entry.recipe_title}
-            </p>
-          </Link>
-        </div>
-        <button
-          onClick={onOpen}
-          className="absolute top-1 left-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-orange-500"
-          title="Replace"
-        >↻</button>
-        <button
-          onClick={() => onRemove(entry.id)}
-          disabled={deleting === entry.id}
-          className="absolute top-1 right-1 z-10 w-5 h-5 rounded-full bg-black/40 text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
-        >×</button>
       </div>
-      <div className="flex justify-center">
-        <ServingsControl value={entry.servings} onChange={(v) => onSetServings(entry, v)} />
+      <Link href={`/recipe/${entry.recipe_id}` as "/"} draggable={false} className="mt-2 block">
+        <p className="line-clamp-2 text-sm font-semibold text-ink hover:underline underline-offset-[3px]">{entry.recipe_title}</p>
+      </Link>
+      {entry.recipe_time && <p className="text-sm text-ink-3 tabular">{entry.recipe_time} min</p>}
+      <div className="mt-1"><ServingsControl value={entry.servings} onChange={(v) => onSetServings(entry, v)} /></div>
+      <div className="mt-2 flex gap-1.5">
+        <Button variant="icon" size="sm" icon="pencil" className="h-9! w-9!" aria-label={`${de ? "Ersetzen" : "Replace"}: ${entry.recipe_title}`} title={de ? "Ersetzen" : "Replace"} onClick={onOpen} />
+        <Button variant="icon" size="sm" icon="sliders" className="h-9! w-9!" aria-label={`${moveLabel}: ${entry.recipe_title}`} title={moveLabel} onClick={onMove} />
+        <Button variant="icon" size="sm" icon="trash" className="h-9! w-9!" aria-label={`${de ? "Entfernen" : "Remove"}: ${entry.recipe_title}`} title={de ? "Entfernen" : "Remove"} disabled={deleting === entry.id} onClick={() => onRemove(entry.id)} />
       </div>
     </div>
   );
