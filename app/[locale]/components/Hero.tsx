@@ -89,16 +89,16 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
       <section className="bg-dark text-white">
         {featured ? (
           <>
-            <div className="mx-auto flex max-w-content flex-col items-center px-4 pt-12 pb-8 text-center sm:px-6 sm:pt-16 sm:pb-10">
+            <div className="mx-auto flex max-w-content flex-col items-center px-4 pt-8 pb-6 text-center sm:px-6 sm:pt-10 sm:pb-8">
               <p className="text-sm text-dark-text">{featuredLabel}</p>
               <h1
                 className="mt-3 max-w-5xl text-balance font-bold text-white"
-                style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)", lineHeight: 1, letterSpacing: "-0.02em" }}
+                style={{ fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)", lineHeight: 1, letterSpacing: "-0.02em" }}
               >
                 {featured.title}
               </h1>
-              {meta && <p className="tabular mt-4 text-body-lg text-dark-text">{meta}</p>}
-              <div className="mt-6 flex flex-wrap justify-center gap-3">
+              {meta && <p className="tabular mt-3 text-base text-dark-text">{meta}</p>}
+              <div className="mt-5 flex flex-wrap justify-center gap-3">
                 <Button href={`/recipe/${featured.id}`}>{toRecipe}</Button>
                 <Link
                   href="/weekly-meal-planner"
@@ -119,7 +119,7 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
                   fetchPriority="high"
                   loading="eager"
                   decoding="async"
-                  className="animate-hero-in h-[46vh] min-h-[320px] w-full object-cover sm:h-[58vh] sm:max-h-[760px]"
+                  className="animate-hero-in h-[48vh] min-h-[320px] w-full object-cover sm:h-[62vh] sm:max-h-[800px]"
                   style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
                 />
               ) : (
@@ -128,7 +128,7 @@ export default function Hero({ search, setSearch, onSearch, featured }: HeroProp
                 </div>
               )}
               {/* Weicher Übergang vom schwarzen Panel ins Foto, wie bei Produktfotos auf Schwarz */}
-              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-linear-to-b from-dark to-transparent" />
+              <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-linear-to-b from-dark to-transparent" />
               {aiNotice && (
                 <figcaption className="mx-auto max-w-content px-4 py-3 text-caption text-dark-text sm:px-6">{aiNotice}</figcaption>
               )}
