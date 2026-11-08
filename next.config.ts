@@ -14,6 +14,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
+      // Hero-Fotos laufen durch den Next-Bildoptimierer (CDN-Cache, WebP/AVIF, gleiche Origin)
+      { protocol: "https", hostname: "ztfhnzslyztxfmvkyrrn.supabase.co" },
       { protocol: "https", hostname: "img.spoonacular.com" },
       { protocol: "https", hostname: "spoonacular.com" },
       { protocol: "https", hostname: "images.spoonacular.com" },

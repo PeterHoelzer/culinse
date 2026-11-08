@@ -4,9 +4,7 @@ import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Link from "next/link";
 import type { Recipe } from "./components/home-types";
-import { preload } from "react-dom";
 import { dishColorsWithin } from "@/lib/dishColor";
-import { heroSrcSet, HERO_SIZES } from "@/lib/heroImage";
 
 // Prevent Vercel from serving a cached HTML snapshot that shows the
 // loading skeleton permanently (the recipe grid is loaded client-side).
@@ -272,9 +270,6 @@ export default async function Page({
   // LCP-Boost: Das Hero-Foto ist das LCP-Element. Per Preload-Hint startet
   // der Download mit dem HTML-Parsen, statt mit dem JS-Bundle um die
   // Bandbreite zu konkurrieren.
-  if (heroRecipe?.image) {
-    preload(heroRecipe.image, { as: "image", fetchPriority: "high", imageSrcSet: heroSrcSet(heroRecipe.image), imageSizes: HERO_SIZES });
-  }
   const isDE = locale === "de";
   const seoSection = (
     <section className="mx-auto max-w-content border-t border-line px-4 py-10 sm:px-6 sm:py-12">

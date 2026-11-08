@@ -4,7 +4,8 @@ import { useId, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
 import { Link } from "@/lib/navigation";
-import { heroSrcSet, HERO_SIZES } from "@/lib/heroImage";
+import Image from "next/image";
+import { HERO_SIZES } from "@/lib/heroImage";
 import type { DishColors, Recipe } from "./home-types";
 
 /*
@@ -137,20 +138,18 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
             </div>
             <figure className="relative order-1 m-0 md:order-2 md:h-full">
               {featured.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={featured.image}
-                  srcSet={heroSrcSet(featured.image)}
-                  sizes={HERO_SIZES}
-                  alt={featured.title}
-                  width={1600}
-                  height={1200}
-                  fetchPriority="high"
-                  loading="eager"
-                  decoding="async"
-                  className="animate-hero-in aspect-[4/3] w-full object-cover md:absolute md:inset-0 md:aspect-auto md:h-full"
-                  style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
-                />
+                <div className="animate-hero-in relative aspect-[4/3] w-full md:absolute md:inset-0 md:aspect-auto md:h-full">
+                  <Image
+                    src={featured.image}
+                    alt={featured.title}
+                    fill
+                    priority
+                    sizes={HERO_SIZES}
+                    quality={78}
+                    className="object-cover"
+                    style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
+                  />
+                </div>
               ) : (
                 <div className="flex aspect-[4/3] w-full items-center justify-center md:absolute md:inset-0 md:aspect-auto md:h-full">
                   <Icon name="utensils" size={32} className="text-white/60" />
