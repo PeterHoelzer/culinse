@@ -6,9 +6,12 @@ import Link from "next/link";
 import type { Recipe } from "./components/home-types";
 import { dishColorsWithin } from "@/lib/dishColor";
 
-// Prevent Vercel from serving a cached HTML snapshot that shows the
-// loading skeleton permanently (the recipe grid is loaded client-side).
-export const dynamic = "force-dynamic";
+// Startseite als ISR: alle 15 Minuten neu gerendert, dazwischen aus dem
+// Edge-Cache (TTFB ~20 ms statt ~350 ms). Die ersten Karten, das Tagesrezept
+// und seine Farben stecken bereits im HTML; Nutzerbezogenes (Für dich,
+// Speichern) lädt der Client. Vorher force-dynamic, weil das Grid einst nur
+// client-seitig kam und ein gecachtes Skelett hängen blieb.
+export const revalidate = 900;
 
 // ─── WebSite + Organization JSON-LD ──────────────────────────────────────────
 function buildWebsiteSchema(locale: string) {

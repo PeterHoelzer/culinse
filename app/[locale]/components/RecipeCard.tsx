@@ -16,7 +16,7 @@ import type { Recipe } from "./home-types";
   Die ganze Karte ist der Link; Herz und Sammlung sind eigene Buttons
   neben dem Link (nicht darin), damit kein Interaktives verschachtelt ist.
 */
-export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
+export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const t = useTranslations();
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -104,8 +104,7 @@ export default function RecipeCard({ recipe, index, user }: { recipe: Recipe; in
                 height={480}
                 style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
                 className="h-full w-full object-cover"
-                loading={index < 3 ? "eager" : "lazy"}
-                fetchPriority={index < 3 ? "high" : undefined}
+                loading="lazy"
                 onError={() => setImgError(true)}
               />
             ) : (
