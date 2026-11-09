@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import type { Recipe } from "./home-types";
-import { createClient } from "@/lib/supabase/client";
+import { loadSupabase } from "@/lib/supabase/lazy";
 import { SectionHeader } from "@/components/ui";
 import RecipeCard from "./RecipeCard";
 
@@ -39,7 +39,7 @@ export default function ForYouSection({ user, onLoaded }: { user: User | null | 
       if (cancelled) return;
 
       // 2. Fallback: explicit dietary preferences from the profile.
-      const supabase = createClient();
+      const supabase = await loadSupabase();
       const { data: prefs } = await supabase
         .from("user_preferences").select("*").eq("user_id", user.id).single();
       if (cancelled) return;

@@ -3,13 +3,19 @@
 import { useState, Fragment } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
-import { AddToCollectionModal } from "@/components/AddToCollectionModal";
+import dynamic from "next/dynamic";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
 import { Link } from "@/lib/navigation";
 import { displayTitle } from "@/lib/recipeTitle";
 import { Button, Icon } from "@/components/ui";
 import type { Recipe } from "./home-types";
+
+// Der Sammlungs-Dialog bringt den Supabase-Client mit; er lädt erst beim Öffnen.
+const AddToCollectionModal = dynamic(
+  () => import("@/components/AddToCollectionModal").then((m) => m.AddToCollectionModal),
+  { ssr: false },
+);
 
 /*
   Rezeptkarte (DESIGN.md §5): Foto 4:3, darunter Metazeile, Serifen-Titel,

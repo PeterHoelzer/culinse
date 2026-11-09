@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo, type ReactNode } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import type { User } from "@supabase/supabase-js";
-import { createClient } from "@/lib/supabase/client";
+import { loadSupabase } from "@/lib/supabase/lazy";
 import { Link } from "@/lib/navigation";
 import { Button, Chip, EmptyState, Notice, SectionHeader, Skeleton } from "@/components/ui";
 import { Recipe, TREND_FILTER_DEFS, STATE_CHIPS } from "./home-types";
@@ -116,12 +116,8 @@ export default function DiscoverSection({
 
   useEffect(() => {
     if (!user) return;
-    const supabase = createClient();
-    supabase
-      .from("user_preferences")
-      .select("*")
-      .eq("user_id", user.id)
-      .single()
+    loadSupabase()
+      .then((supabase) => supabase.from("user_preferences").select("*").eq("user_id", user.id).single())
       .then(({ data }) => { if (data) setUserPrefs(data); });
   }, [user]);
 

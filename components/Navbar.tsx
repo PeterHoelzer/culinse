@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useId } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { createClient } from "@/lib/supabase/client";
+import { loadSupabase, loadSupabaseAfterPageLoad } from "@/lib/supabase/lazy";
 import type { User } from "@supabase/supabase-js";
 import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { routing } from "@/i18n/routing";
@@ -46,14 +46,14 @@ export default function Navbar() {
   const [isPro, setIsPro] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
-  const supabase = createClient();
 
   const menuLabel = t.has("menu") ? t("menu") : locale === "de" ? "Menü" : "Menu";
   const languageLabel = t.has("language") ? t("language") : locale === "de" ? "Sprache" : "Language";
 
   useEffect(() => {
     let mounted = true;
-    supabase.auth.getUser().then(async ({ data }) => {
+    loadSupabaseAfterPageLoad().then(async (supabase) => {
+      const { data } = await supabase.auth.getUser();
       if (!mounted || !data.user) return;
       setUser(data.user);
       const { data: profile } = await supabase
@@ -65,7 +65,6 @@ export default function Navbar() {
       setIsPro(profile?.is_pro ?? false);
     }).catch(() => { /* still ignorieren: isPro bleibt false */ });
     return () => { mounted = false; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Escape schließt das mobile Menü
@@ -79,6 +78,7 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const handleLogout = async () => {
+    const supabase = await loadSupabase();
     await supabase.auth.signOut();
     setMenuOpen(false);
     router.push("/");

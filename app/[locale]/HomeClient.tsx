@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, type ReactNode } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { loadSupabaseAfterPageLoad } from "@/lib/supabase/lazy";
 import type { User } from "@supabase/supabase-js";
 import SharedNavbar from "@/components/Navbar";
 import NewsletterBanner from "@/components/NewsletterBanner";
@@ -53,12 +53,23 @@ export default function Home({
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => setUser(data.user));
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-    return () => subscription.unsubscribe();
+    let cancelled = false;
+    let unsubscribe: (() => void) | undefined;
+    loadSupabaseAfterPageLoad()
+      .then((supabase) => {
+        if (cancelled) return;
+        supabase.auth.getUser().then(({ data }) => { if (!cancelled) setUser(data.user); });
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+          setUser(session?.user ?? null);
+        });
+        unsubscribe = () => subscription.unsubscribe();
+      })
+      // Lädt der Client nicht, gilt der Besucher als abgemeldet.
+      .catch(() => { if (!cancelled) setUser(null); });
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+    };
   }, []);
 
   // Restore search + category from the URL on mount (e.g. after pressing the
