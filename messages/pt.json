@@ -112,7 +112,9 @@
     "save": "Salvar receita",
     "removeSave": "Remover das receitas salvas",
     "loginToSave": "Entre para salvar",
-    "minutes": "{count} min"
+    "minutes": "{count} min",
+    "minutesLabel": "minutos",
+    "servingsLabel": "porções"
   },
   "forYou": {
     "title": "Para você",

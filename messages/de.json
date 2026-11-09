@@ -112,7 +112,9 @@
     "save": "Rezept speichern",
     "removeSave": "Aus Gespeicherten entfernen",
     "loginToSave": "Anmelden zum Speichern",
-    "minutes": "{count} Min."
+    "minutes": "{count} Min.",
+    "minutesLabel": "Minuten",
+    "servingsLabel": "Portionen"
   },
   "forYou": {
     "title": "Für dich",

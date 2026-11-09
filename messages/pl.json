@@ -112,7 +112,9 @@
     "save": "Zapisz przepis",
     "removeSave": "Usuń z zapisanych",
     "loginToSave": "Zaloguj się, aby zapisać",
-    "minutes": "{count} min"
+    "minutes": "{count} min",
+    "minutesLabel": "minut",
+    "servingsLabel": "porcje"
   },
   "forYou": {
     "title": "Dla ciebie",

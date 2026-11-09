@@ -112,7 +112,9 @@
     "save": "Uložit recept",
     "removeSave": "Odebrat z uložených",
     "loginToSave": "Pro uložení se přihlas",
-    "minutes": "{count} min"
+    "minutes": "{count} min",
+    "minutesLabel": "minut",
+    "servingsLabel": "porce"
   },
   "forYou": {
     "title": "Pro tebe",

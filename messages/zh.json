@@ -112,7 +112,9 @@
     "save": "收藏食谱",
     "removeSave": "取消收藏",
     "loginToSave": "登录后即可收藏",
-    "minutes": "{count} 分钟"
+    "minutes": "{count} 分钟",
+    "minutesLabel": "分钟",
+    "servingsLabel": "份"
   },
   "forYou": {
     "title": "为你推荐",

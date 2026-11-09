@@ -112,7 +112,9 @@
     "save": "Сохранить рецепт",
     "removeSave": "Удалить из сохранённых",
     "loginToSave": "Войди, чтобы сохранить",
-    "minutes": "{count} мин"
+    "minutes": "{count} мин",
+    "minutesLabel": "минут",
+    "servingsLabel": "порции"
   },
   "forYou": {
     "title": "Для тебя",

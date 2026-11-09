@@ -112,7 +112,9 @@
     "save": "Tarifi kaydet",
     "removeSave": "Kaydedilenlerden çıkar",
     "loginToSave": "Kaydetmek için giriş yap",
-    "minutes": "{count} dk"
+    "minutes": "{count} dk",
+    "minutesLabel": "dakika",
+    "servingsLabel": "porsiyon"
   },
   "forYou": {
     "title": "Sana özel",

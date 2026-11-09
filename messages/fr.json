@@ -112,7 +112,9 @@
     "save": "Enregistrer la recette",
     "removeSave": "Retirer des enregistrés",
     "loginToSave": "Connecte-toi pour enregistrer",
-    "minutes": "{count} min"
+    "minutes": "{count} min",
+    "minutesLabel": "minutes",
+    "servingsLabel": "portions"
   },
   "forYou": {
     "title": "Pour toi",

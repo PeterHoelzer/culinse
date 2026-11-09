@@ -112,7 +112,9 @@
     "save": "レシピを保存",
     "removeSave": "保存済みから削除",
     "loginToSave": "ログインして保存",
-    "minutes": "{count} 分"
+    "minutes": "{count} 分",
+    "minutesLabel": "分",
+    "servingsLabel": "人分"
   },
   "forYou": {
     "title": "あなたへのおすすめ",

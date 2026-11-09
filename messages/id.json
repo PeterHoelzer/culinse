@@ -112,7 +112,9 @@
     "save": "Simpan resep",
     "removeSave": "Hapus dari resep tersimpan",
     "loginToSave": "Masuk untuk menyimpan",
-    "minutes": "{count} mnt"
+    "minutes": "{count} mnt",
+    "minutesLabel": "menit",
+    "servingsLabel": "porsi"
   },
   "forYou": {
     "title": "Untukmu",

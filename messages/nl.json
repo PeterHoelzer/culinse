@@ -112,7 +112,9 @@
     "save": "Recept opslaan",
     "removeSave": "Uit opgeslagen verwijderen",
     "loginToSave": "Log in om op te slaan",
-    "minutes": "{count} min"
+    "minutes": "{count} min",
+    "minutesLabel": "minuten",
+    "servingsLabel": "porties"
   },
   "forYou": {
     "title": "Voor jou",

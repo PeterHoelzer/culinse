@@ -112,7 +112,9 @@
     "save": "রেসিপি সংরক্ষণ করুন",
     "removeSave": "সংরক্ষিত থেকে সরান",
     "loginToSave": "সংরক্ষণ করতে লগ ইন করুন",
-    "minutes": "{count} মিনিট"
+    "minutes": "{count} মিনিট",
+    "minutesLabel": "মিনিট",
+    "servingsLabel": "পরিবেশন"
   },
   "forYou": {
     "title": "আপনার জন্য",

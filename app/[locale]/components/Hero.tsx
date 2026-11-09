@@ -6,6 +6,7 @@ import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { HERO_SIZES } from "@/lib/heroImage";
+import { splitTitle, stageTitleSize } from "@/lib/recipeTitle";
 import type { DishColors, Recipe } from "./home-types";
 
 /*
@@ -88,6 +89,7 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
   const time = featured ? formatTime(featured.time, locale) : null;
   const servings = featured?.servings ? t("recipeCard.servings", { count: featured.servings }) : null;
   const meta = [time, servings].filter(Boolean).join(" · ");
+  const heroTitle = splitTitle(featured?.title ?? "");
 
   return (
     <>
@@ -95,27 +97,29 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
       {/* Bühne in der Farbe des Gerichts: links Titel und große Zahlen, rechts das Foto */}
       <section style={{ backgroundColor: stage }} className="text-white">
         {featured ? (
-          <div className="grid md:h-[76vh] md:max-h-[840px] md:min-h-[560px] md:grid-cols-[minmax(0,520px)_1fr]">
+          <div className="grid md:min-h-[min(76vh,840px)] md:grid-cols-[minmax(0,520px)_1fr]">
             <div className="order-2 flex flex-col justify-end gap-5 px-4 pb-10 pt-8 sm:px-10 sm:pb-12 md:order-1">
               <p className="text-sm text-white/80">{featuredLabel}</p>
-              <h1
-                className="text-balance font-serif font-semibold text-white"
-                style={{ fontSize: "clamp(2.5rem, 6.2vw, 5.75rem)", lineHeight: 0.95, letterSpacing: "-0.01em" }}
-              >
-                {featured.title}
+              <h1 className="font-serif font-semibold text-white [overflow-wrap:anywhere]">
+                <span className="block text-balance" style={{ fontSize: stageTitleSize(heroTitle.main), lineHeight: 0.98, letterSpacing: "-0.01em" }}>
+                  {heroTitle.main}
+                </span>
+                {heroTitle.sub && (
+                  <span className="mt-3 block text-balance font-sans text-body-lg font-normal text-white/85">{heroTitle.sub}</span>
+                )}
               </h1>
               {(time || servings) && (
                 <div className="mt-1 flex gap-10">
                   {time && (
                     <div>
                       <p className="tabular font-serif text-[52px] font-medium leading-none text-white">{parseInt(time, 10)}</p>
-                      <p className="mt-1.5 text-sm text-white/80">{isDE ? "Minuten" : "minutes"}</p>
+                      <p className="mt-1.5 text-sm text-white/80">{t("recipeCard.minutesLabel")}</p>
                     </div>
                   )}
                   {featured.servings && (
                     <div>
                       <p className="tabular font-serif text-[52px] font-medium leading-none text-white">{featured.servings}</p>
-                      <p className="mt-1.5 text-sm text-white/80">{isDE ? "Portionen" : "servings"}</p>
+                      <p className="mt-1.5 text-sm text-white/80">{t("recipeCard.servingsLabel")}</p>
                     </div>
                   )}
                 </div>

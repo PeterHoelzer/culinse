@@ -112,7 +112,9 @@
     "save": "Lưu công thức",
     "removeSave": "Bỏ lưu",
     "loginToSave": "Đăng nhập để lưu",
-    "minutes": "{count} phút"
+    "minutes": "{count} phút",
+    "minutesLabel": "phút",
+    "servingsLabel": "khẩu phần"
   },
   "forYou": {
     "title": "Dành cho bạn",
