@@ -1,3 +1,4 @@
+import { nameLangFromTags } from "@/lib/recipeTitle";
 import { NextRequest, NextResponse } from "next/server";
 import { translateSearchQuery } from "@/lib/translateSearchQuery";
 import { isAirfryerQuery, AIRFRYER_TAG, AIRFRYER_TITLE_OR } from "@/lib/searchSynonyms";
@@ -36,6 +37,7 @@ function mapRow(r: Row) {
     servings: r.servings ?? null,
     rating: null,
     imagePosition: r.image_position ?? "50% 50%",
+    nameLang: nameLangFromTags(r.tags),
   };
 }
 

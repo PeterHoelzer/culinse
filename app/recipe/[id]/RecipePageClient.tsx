@@ -17,7 +17,7 @@ import UpgradeModal from "@/components/UpgradeModal";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { Link as LocaleLink } from "@/lib/navigation";
 import type { DishColors } from "@/app/[locale]/components/home-types";
-import { splitTitle, stageTitleSize } from "@/lib/recipeTitle";
+import { displayTitle, nameLangFromTags, stageTitleSize } from "@/lib/recipeTitle";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 import { optimizedImageUrl } from "@/lib/imageUrl";
@@ -452,6 +452,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   const copiedLabel = t("copied").replace(/!$/, "");
 
   // Kopfzeile über dem Titel: Küche · Gericht · Ernährungsform (als Worte, keine Pillen)
+  const stageTitle = displayTitle(recipe?.title ?? "", locale, nameLangFromTags(recipe?.diets));
   const tagLine = recipe
     ? [
         ...(recipe.cuisine ? [{ text: recipe.cuisine, green: false }] : []),
@@ -632,9 +633,9 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               </p>
             )}
             <h1 className="font-serif font-semibold text-white [overflow-wrap:anywhere]">
-              <span className="block text-balance" style={{ fontSize: stageTitleSize(splitTitle(recipe.title).main, 0.82), lineHeight: 0.98, letterSpacing: "-0.01em" }}>{splitTitle(recipe.title).main}</span>
-              {splitTitle(recipe.title).sub && (
-                <span className="mt-3 block text-balance font-sans text-body-lg font-normal text-white/85">{splitTitle(recipe.title).sub}</span>
+              <span className="block text-balance" style={{ fontSize: stageTitleSize(stageTitle.main, 0.82), lineHeight: 0.98, letterSpacing: "-0.01em" }}>{stageTitle.main}</span>
+              {stageTitle.sub && (
+                <span className="mt-3 block text-balance font-sans text-body-lg font-normal text-white/85">{stageTitle.sub}</span>
               )}
             </h1>
             {cleanSummary && (

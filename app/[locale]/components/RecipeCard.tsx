@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, Fragment } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
 import UpgradeModal from "@/components/UpgradeModal";
 import { Link } from "@/lib/navigation";
+import { displayTitle } from "@/lib/recipeTitle";
 import { Button, Icon } from "@/components/ui";
 import type { Recipe } from "./home-types";
 
@@ -18,6 +19,7 @@ import type { Recipe } from "./home-types";
 */
 export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: number; user: User | null | undefined }) {
   const t = useTranslations();
+  const locale = useLocale();
   const [saved, setSaved] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
@@ -72,6 +74,7 @@ export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: nu
   // API liefert "45 min"; wir zeigen "45 Min." (DESIGN.md §2)
   const minutes = recipe.time && recipe.time !== "—" ? recipe.time.match(/(\d+)/) : null;
   const timeLabel = minutes ? t("recipeCard.minutes", { count: Number(minutes[1]) }) : recipe.time !== "—" ? recipe.time : null;
+  const cardTitle = displayTitle(recipe.title, locale, recipe.nameLang);
   const metaBottom = [
     timeLabel,
     recipe.servings ? t("recipeCard.servings", { count: recipe.servings }) : null,
@@ -125,7 +128,8 @@ export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: nu
                 </>
               )}
             </p>
-            <h3 className="text-h3 line-clamp-2 text-ink underline-offset-[3px] group-hover:underline">{recipe.title}</h3>
+            <h3 className="text-h3 line-clamp-2 text-ink underline-offset-[3px] group-hover:underline">{cardTitle.main}</h3>
+            {cardTitle.sub && <p className="line-clamp-1 text-sm text-ink-2">{cardTitle.sub}</p>}
             {metaBottom.length > 0 && <p className="tabular text-sm text-ink-3">{metaBottom.join(" · ")}</p>}
           </div>
         </Link>

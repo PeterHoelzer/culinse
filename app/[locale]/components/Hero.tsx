@@ -6,7 +6,7 @@ import { Button, Chip, ChipRow, Icon, Input } from "@/components/ui";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { HERO_SIZES } from "@/lib/heroImage";
-import { splitTitle, stageTitleSize } from "@/lib/recipeTitle";
+import { displayTitle, stageTitleSize } from "@/lib/recipeTitle";
 import type { DishColors, Recipe } from "./home-types";
 
 /*
@@ -89,7 +89,7 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
   const time = featured ? formatTime(featured.time, locale) : null;
   const servings = featured?.servings ? t("recipeCard.servings", { count: featured.servings }) : null;
   const meta = [time, servings].filter(Boolean).join(" · ");
-  const heroTitle = splitTitle(featured?.title ?? "");
+  const heroTitle = displayTitle(featured?.title ?? "", locale, featured?.nameLang);
 
   return (
     <>

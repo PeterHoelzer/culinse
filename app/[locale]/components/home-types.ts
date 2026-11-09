@@ -15,6 +15,8 @@ export interface Recipe {
   servings: number | null;
   rating: number | null;
   imagePosition?: string | null;
+  /** Sprache des Originalnamens (z. B. "en" bei irischen Gerichten), siehe lib/recipeTitle.ts */
+  nameLang?: string | null;
   /** Akzentfarbe aus dem Foto, serverseitig gesetzt; fehlt bei nachgeladenen Karten. */
   accent?: string | null;
   /** Kategorie als Wort für die Metazeile der Karte („Suppe“); optional, liefert die API derzeit nicht. */
