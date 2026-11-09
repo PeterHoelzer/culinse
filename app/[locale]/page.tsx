@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import HomeClient from "./HomeClient";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Link from "next/link";
@@ -192,6 +192,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  setRequestLocale(locale);
   const url = `https://culinse.com/${locale}`;
   const { title, description } = HOME_META[locale] ?? HOME_META.en;
 
@@ -246,6 +247,7 @@ export default async function Page({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   // Pre-load translations server-side so next-intl can SSR HomeClient correctly
   await getTranslations({ locale, namespace: "hero" });
