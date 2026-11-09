@@ -846,6 +846,72 @@
         "grill": "Grilling",
         "onepot": "One-pot"
       }
+    },
+    "landing": {
+      "all": "All recipes",
+      "region": "Recipes from {name}",
+      "intro": "Narrow the selection further by course, diet, time or nutrition.",
+      "metaDescription": "With ingredients, steps and nutrition per serving. Filter further by time, diet and course.",
+      "topics": "Recipes by topic",
+      "titles": {
+        "cuisine": {
+          "german": "German recipes",
+          "japanese": "Japanese recipes",
+          "irish": "Irish recipes",
+          "kurdish": "Kurdish recipes",
+          "portuguese": "Portuguese recipes",
+          "mediterranean": "Mediterranean recipes",
+          "asian": "Asian recipes",
+          "italian": "Italian recipes",
+          "mexican": "Mexican recipes",
+          "turkish": "Turkish recipes",
+          "indian": "Indian recipes"
+        },
+        "course": {
+          "main": "Main courses",
+          "side": "Side dishes",
+          "starter": "Starters",
+          "soup": "Soups",
+          "salad": "Salads",
+          "breakfast": "Breakfast recipes",
+          "dessert": "Desserts",
+          "cake": "Cakes",
+          "pastry": "Baking recipes",
+          "snack": "Snacks",
+          "drink": "Drinks",
+          "basic": "Basic recipes"
+        },
+        "dish": {
+          "casserole": "Casseroles",
+          "pasta": "Pasta dishes",
+          "stew": "Stews",
+          "pan": "Pan dishes",
+          "bowl": "Bowls",
+          "curry": "Curries",
+          "dip": "Dips",
+          "wrap": "Wraps"
+        },
+        "diet": {
+          "vegetarian": "Vegetarian recipes",
+          "vegan": "Vegan recipes",
+          "lactosefree": "Lactose-free recipes",
+          "highprotein": "High-protein recipes",
+          "glutenfree": "Gluten-free recipes",
+          "lowcarb": "Low-carb recipes"
+        },
+        "occasion": {
+          "budget": "Budget recipes",
+          "quick": "Quick recipes",
+          "festive": "Festive recipes",
+          "easy": "Easy recipes",
+          "mealprep": "Meal prep recipes"
+        },
+        "method": {
+          "airfryer": "Air fryer recipes",
+          "grill": "Grilling recipes",
+          "onepot": "One-pot recipes"
+        }
+      }
     }
   }
 }

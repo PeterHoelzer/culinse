@@ -4,6 +4,8 @@ import { blogPostsDe } from "@/lib/blog-posts-de";
 import { EN_TO_DE_BLOG_SLUGS, DE_TO_EN_BLOG_SLUGS } from "@/lib/blog-slug-map";
 import { CURATED_RECIPE_IDS } from "@/lib/curated-recipe-ids";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { LANDINGS, LANDING_MIN, emptyState } from "@/lib/browse/facets";
+import { runBrowse } from "@/lib/browse";
 
 const baseUrl = "https://culinse.com";
 
@@ -210,5 +212,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Silently fail — community recipes are a bonus, never break the sitemap.
   }
 
-  return [...staticEntries, ...blogEntries, ...deOnlyBlogEntries, ...recipeEntries, ...collectionEntries, ...userRecipeEntries];
+  // Themenseiten der Stöberseite (/recipes/<slug>): je Filteroption mit genug
+  // Rezepten eine Seite, in allen Sprachen. Die Trefferzahlen sind in jeder
+  // Sprache dieselben, weil alle Fassungen eines Gerichts dieselben Schlüssel erben.
+  let topicEntries: MetadataRoute.Sitemap = [];
+  try {
+    const { counts } = await runBrowse("de", emptyState());
+    topicEntries = LANDINGS.filter((l) => (counts[`${l.group}:${l.key}`] ?? 0) >= LANDING_MIN).flatMap((l) => {
+      const path = `/recipes/${l.slug}`;
+      return ALL_LOCALES.map((locale) => ({
+        url: `${baseUrl}/${locale}${path}`,
+        lastModified: STATIC_LAST_MODIFIED,
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+        alternates: langsAll(path),
+      }));
+    });
+  } catch {
+    // Ohne Verzeichnis keine Themenseiten in der Sitemap; der Rest bleibt gültig.
+  }
+
+  return [...staticEntries, ...topicEntries, ...blogEntries, ...deOnlyBlogEntries, ...recipeEntries, ...collectionEntries, ...userRecipeEntries];
 }

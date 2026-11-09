@@ -846,6 +846,72 @@
         "grill": "Grillen",
         "onepot": "One-pot"
       }
+    },
+    "landing": {
+      "all": "Alle recepten",
+      "region": "Recepten uit {name}",
+      "intro": "Verfijn de selectie op gang, dieet, tijd of voedingswaarden.",
+      "metaDescription": "Met ingrediënten, stappen en voedingswaarden per portie. Filter verder op tijd, dieet en gang.",
+      "topics": "Recepten per thema",
+      "titles": {
+        "cuisine": {
+          "german": "Duitse recepten",
+          "japanese": "Japanse recepten",
+          "irish": "Ierse recepten",
+          "kurdish": "Koerdische recepten",
+          "portuguese": "Portugese recepten",
+          "mediterranean": "Mediterrane recepten",
+          "asian": "Aziatische recepten",
+          "italian": "Italiaanse recepten",
+          "mexican": "Mexicaanse recepten",
+          "turkish": "Turkse recepten",
+          "indian": "Indiase recepten"
+        },
+        "course": {
+          "main": "Hoofdgerechten",
+          "side": "Bijgerechten",
+          "starter": "Voorgerechten",
+          "soup": "Soepen",
+          "salad": "Salades",
+          "breakfast": "Ontbijtrecepten",
+          "dessert": "Desserts",
+          "cake": "Taarten en cakes",
+          "pastry": "Gebak",
+          "snack": "Snacks",
+          "drink": "Drankjes",
+          "basic": "Basisrecepten"
+        },
+        "dish": {
+          "casserole": "Ovenschotels",
+          "pasta": "Pastagerechten",
+          "stew": "Stoofpotten",
+          "pan": "Pangerechten",
+          "bowl": "Bowls",
+          "curry": "Curry's",
+          "dip": "Dips",
+          "wrap": "Wraps"
+        },
+        "diet": {
+          "vegetarian": "Vegetarische recepten",
+          "vegan": "Veganistische recepten",
+          "lactosefree": "Lactosevrije recepten",
+          "highprotein": "Eiwitrijke recepten",
+          "glutenfree": "Glutenvrije recepten",
+          "lowcarb": "Low carb recepten"
+        },
+        "occasion": {
+          "budget": "Budgetrecepten",
+          "quick": "Snelle recepten",
+          "festive": "Feestelijke recepten",
+          "easy": "Makkelijke recepten",
+          "mealprep": "Meal prep recepten"
+        },
+        "method": {
+          "airfryer": "Heteluchtfriteuse recepten",
+          "grill": "Barbecuerecepten",
+          "onepot": "One-pot recepten"
+        }
+      }
     }
   }
 }

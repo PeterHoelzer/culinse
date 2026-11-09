@@ -310,3 +310,84 @@ export interface BrowseResult {
   /** Trefferzahl je Option, Schlüssel "gruppe:option" bzw. "time:30". */
   counts: Record<string, number>;
 }
+
+/* ─── Themenseiten: eine feste Adresse je Filteroption (/recipes/<slug>) ────── */
+
+const SLUGS: Record<string, string> = {
+  "course:main": "main-dishes",
+  "course:side": "side-dishes",
+  "course:starter": "starters",
+  "course:soup": "soups",
+  "course:salad": "salads",
+  "course:dessert": "desserts",
+  "course:cake": "cakes",
+  "course:pastry": "baking",
+  "course:snack": "snacks",
+  "course:drink": "drinks",
+  "course:basic": "basics",
+  "dish:casserole": "casseroles",
+  "dish:stew": "stews",
+  "dish:pan": "pan-dishes",
+  "dish:bowl": "bowls",
+  "dish:curry": "curries",
+  "dish:dip": "dips",
+  "dish:wrap": "wraps",
+  "diet:lactosefree": "lactose-free",
+  "diet:highprotein": "high-protein",
+  "diet:glutenfree": "gluten-free",
+  "diet:lowcarb": "low-carb",
+  "occasion:mealprep": "meal-prep",
+  "method:airfryer": "air-fryer",
+  "method:grill": "grilling",
+  "method:onepot": "one-pot",
+};
+
+export interface Landing {
+  group: GroupId;
+  key: string;
+  slug: string;
+  /** Nur Regionen: Küche und Eigenname. */
+  parent?: string;
+  name?: string;
+}
+
+export const LANDINGS: Landing[] = FACET_GROUPS.flatMap((group) =>
+  group.options.map((o) => ({ group: group.id, key: o.key, slug: SLUGS[`${group.id}:${o.key}`] ?? o.key, parent: o.parent, name: o.name })),
+);
+export const LANDING_BY_SLUG = new Map(LANDINGS.map((l) => [l.slug, l]));
+const LANDING_BY_ID = new Map(LANDINGS.map((l) => [`${l.group}:${l.key}`, l]));
+
+/** Ab so vielen Rezepten gilt eine Themenseite als eigenständig (Index, Sitemap, Links). */
+export const LANDING_MIN = 12;
+
+/** Zustand einer Themenseite. Eine Region bringt ihre Küche mit, damit die Leiste beide zeigt. */
+export function landingState(landing: Landing): BrowseState {
+  const state = emptyState();
+  state.sel[landing.group] = [landing.key];
+  if (landing.parent) state.sel.cuisine = [landing.parent];
+  return state;
+}
+
+/** Die Themenseite, die genau diesem Zustand entspricht, sonst null. */
+export function landingOf(state: BrowseState): Landing | null {
+  if (state.q || RANGE_IDS.some((id) => state.range[id] !== null)) return null;
+  const picked = GROUP_IDS.flatMap((id) => state.sel[id].map((key) => LANDING_BY_ID.get(`${id}:${key}`)!));
+  if (picked.length === 1) return picked[0];
+  if (picked.length === 2) {
+    const region = picked.find((l) => l.group === "region");
+    const cuisine = picked.find((l) => l.group === "cuisine");
+    if (region && cuisine && region.parent === cuisine.key) return region;
+  }
+  return null;
+}
+
+/** Adresse eines Zustands ohne Sprachpräfix: Themenseite, wenn es eine gibt, sonst /recipes mit Parametern. */
+export function browseHref(state: BrowseState): string {
+  const landing = landingOf(state);
+  if (!landing) return `/recipes${stateToQuery(state)}`;
+  const p = new URLSearchParams();
+  if (state.sort !== "mix") p.set("sort", state.sort);
+  if (state.page > 1) p.set("page", String(state.page));
+  const query = p.toString();
+  return `/recipes/${landing.slug}${query ? `?${query}` : ""}`;
+}

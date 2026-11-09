@@ -846,6 +846,72 @@
         "grill": "Grilování",
         "onepot": "One-pot"
       }
+    },
+    "landing": {
+      "all": "Všechny recepty",
+      "region": "Recepty z regionu {name}",
+      "intro": "Zužte výběr podle chodu, stravy, času nebo nutričních hodnot.",
+      "metaDescription": "Se surovinami, postupem a nutričními hodnotami na porci. Filtrujte dál podle času, stravy a chodu.",
+      "topics": "Recepty podle tématu",
+      "titles": {
+        "cuisine": {
+          "german": "Německá kuchyně",
+          "japanese": "Japonská kuchyně",
+          "irish": "Irská kuchyně",
+          "kurdish": "Kurdská kuchyně",
+          "portuguese": "Portugalská kuchyně",
+          "mediterranean": "Středomořská kuchyně",
+          "asian": "Asijská kuchyně",
+          "italian": "Italská kuchyně",
+          "mexican": "Mexická kuchyně",
+          "turkish": "Turecká kuchyně",
+          "indian": "Indická kuchyně"
+        },
+        "course": {
+          "main": "Hlavní jídla",
+          "side": "Přílohy",
+          "starter": "Předkrmy",
+          "soup": "Polévky",
+          "salad": "Saláty",
+          "breakfast": "Recepty na snídani",
+          "dessert": "Dezerty",
+          "cake": "Dorty a koláče",
+          "pastry": "Pečivo a moučníky",
+          "snack": "Svačiny",
+          "drink": "Nápoje",
+          "basic": "Základní recepty"
+        },
+        "dish": {
+          "casserole": "Zapečená jídla",
+          "pasta": "Těstovinová jídla",
+          "stew": "Dušená jídla",
+          "pan": "Jídla z pánve",
+          "bowl": "Bowly",
+          "curry": "Kari",
+          "dip": "Dipy",
+          "wrap": "Wrapy"
+        },
+        "diet": {
+          "vegetarian": "Vegetariánské recepty",
+          "vegan": "Veganské recepty",
+          "lactosefree": "Recepty bez laktózy",
+          "highprotein": "Recepty s vysokým obsahem bílkovin",
+          "glutenfree": "Bezlepkové recepty",
+          "lowcarb": "Low carb recepty"
+        },
+        "occasion": {
+          "budget": "Levné recepty",
+          "quick": "Rychlé recepty",
+          "festive": "Sváteční recepty",
+          "easy": "Jednoduché recepty",
+          "mealprep": "Recepty na meal prep"
+        },
+        "method": {
+          "airfryer": "Recepty do horkovzdušné fritézy",
+          "grill": "Recepty na gril",
+          "onepot": "Recepty one-pot"
+        }
+      }
     }
   }
 }

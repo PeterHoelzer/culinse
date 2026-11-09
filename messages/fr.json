@@ -846,6 +846,72 @@
         "grill": "Grillades",
         "onepot": "One-pot"
       }
+    },
+    "landing": {
+      "all": "Toutes les recettes",
+      "region": "Recettes de la région {name}",
+      "intro": "Affinez la sélection par type de plat, régime, durée ou valeurs nutritionnelles.",
+      "metaDescription": "Avec ingrédients, étapes et valeurs nutritionnelles par portion. Filtrez encore par durée, régime et type de plat.",
+      "topics": "Recettes par thème",
+      "titles": {
+        "cuisine": {
+          "german": "Recettes allemandes",
+          "japanese": "Recettes japonaises",
+          "irish": "Recettes irlandaises",
+          "kurdish": "Recettes kurdes",
+          "portuguese": "Recettes portugaises",
+          "mediterranean": "Recettes méditerranéennes",
+          "asian": "Recettes asiatiques",
+          "italian": "Recettes italiennes",
+          "mexican": "Recettes mexicaines",
+          "turkish": "Recettes turques",
+          "indian": "Recettes indiennes"
+        },
+        "course": {
+          "main": "Plats principaux",
+          "side": "Accompagnements",
+          "starter": "Entrées",
+          "soup": "Soupes",
+          "salad": "Salades",
+          "breakfast": "Recettes de petit-déjeuner",
+          "dessert": "Desserts",
+          "cake": "Gâteaux",
+          "pastry": "Pâtisseries",
+          "snack": "Snacks",
+          "drink": "Boissons",
+          "basic": "Recettes de base"
+        },
+        "dish": {
+          "casserole": "Gratins",
+          "pasta": "Plats de pâtes",
+          "stew": "Ragoûts",
+          "pan": "Poêlées",
+          "bowl": "Bowls",
+          "curry": "Currys",
+          "dip": "Dips",
+          "wrap": "Wraps"
+        },
+        "diet": {
+          "vegetarian": "Recettes végétariennes",
+          "vegan": "Recettes véganes",
+          "lactosefree": "Recettes sans lactose",
+          "highprotein": "Recettes riches en protéines",
+          "glutenfree": "Recettes sans gluten",
+          "lowcarb": "Recettes low carb"
+        },
+        "occasion": {
+          "budget": "Recettes économiques",
+          "quick": "Recettes rapides",
+          "festive": "Recettes de fête",
+          "easy": "Recettes faciles",
+          "mealprep": "Recettes de meal prep"
+        },
+        "method": {
+          "airfryer": "Recettes pour friteuse à air",
+          "grill": "Recettes de grillades",
+          "onepot": "Recettes one-pot"
+        }
+      }
     }
   }
 }

@@ -21,8 +21,9 @@ const PROTECTED_PATHS = [
   "/onboarding",
   "/my-recipes",
 ];
-// "/recipes" selbst ist die öffentliche Stöberseite (09.11.2026). Alles darunter
-// (create, import, <id>/edit) bleibt hinter dem Login, siehe isRecipeEditor.
+// "/recipes" ist die öffentliche Stöberseite, "/recipes/<slug>" ihre Themenseiten
+// (09.11.2026). Der Rezept-Editor darunter (create, import, <id>/edit) bleibt
+// hinter dem Login, siehe isRecipeEditor.
 
 async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -125,7 +126,9 @@ async function proxy(request: NextRequest) {
 
   // Match on segment boundaries: "/recipes" must gate "/recipes" and
   // "/recipes/create", but not an unrelated route like "/recipes-blog".
-  const isRecipeEditor = strippedPath.startsWith("/recipes/") && strippedPath !== "/recipes/";
+  // Öffentlich ist genau ein Abschnitt unter /recipes, der nicht create oder
+  // import heißt; alles Tiefere (z. B. <id>/edit) gehört zum Editor.
+  const isRecipeEditor = /^\/recipes\/(?:(?:create|import)(?:\/|$)|[^/]+\/[^/])/.test(strippedPath);
 
   const isProtected =
     isCollectionsIndex ||

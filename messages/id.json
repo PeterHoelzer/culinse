@@ -846,6 +846,72 @@
         "grill": "Panggang arang",
         "onepot": "Satu panci"
       }
+    },
+    "landing": {
+      "all": "Semua resep",
+      "region": "Resep dari {name}",
+      "intro": "Persempit pilihan berdasarkan jenis hidangan, pola makan, waktu, atau nutrisi.",
+      "metaDescription": "Lengkap dengan bahan, langkah, dan nutrisi per porsi. Saring lebih lanjut berdasarkan waktu, pola makan, dan jenis hidangan.",
+      "topics": "Resep menurut topik",
+      "titles": {
+        "cuisine": {
+          "german": "Resep masakan Jerman",
+          "japanese": "Resep masakan Jepang",
+          "irish": "Resep masakan Irlandia",
+          "kurdish": "Resep masakan Kurdi",
+          "portuguese": "Resep masakan Portugis",
+          "mediterranean": "Resep masakan Mediterania",
+          "asian": "Resep masakan Asia",
+          "italian": "Resep masakan Italia",
+          "mexican": "Resep masakan Meksiko",
+          "turkish": "Resep masakan Turki",
+          "indian": "Resep masakan India"
+        },
+        "course": {
+          "main": "Hidangan utama",
+          "side": "Hidangan pendamping",
+          "starter": "Hidangan pembuka",
+          "soup": "Resep sup",
+          "salad": "Resep salad",
+          "breakfast": "Resep sarapan",
+          "dessert": "Hidangan penutup",
+          "cake": "Resep kue",
+          "pastry": "Resep kue panggang",
+          "snack": "Resep camilan",
+          "drink": "Resep minuman",
+          "basic": "Resep dasar"
+        },
+        "dish": {
+          "casserole": "Hidangan panggang oven",
+          "pasta": "Resep pasta",
+          "stew": "Resep sup kental",
+          "pan": "Resep masakan wajan",
+          "bowl": "Resep bowl",
+          "curry": "Resep kari",
+          "dip": "Resep dip",
+          "wrap": "Resep wrap"
+        },
+        "diet": {
+          "vegetarian": "Resep vegetarian",
+          "vegan": "Resep vegan",
+          "lactosefree": "Resep bebas laktosa",
+          "highprotein": "Resep tinggi protein",
+          "glutenfree": "Resep bebas gluten",
+          "lowcarb": "Resep rendah karbohidrat"
+        },
+        "occasion": {
+          "budget": "Resep hemat",
+          "quick": "Resep cepat",
+          "festive": "Resep perayaan",
+          "easy": "Resep mudah",
+          "mealprep": "Resep meal prep"
+        },
+        "method": {
+          "airfryer": "Resep air fryer",
+          "grill": "Resep panggang arang",
+          "onepot": "Resep satu panci"
+        }
+      }
     }
   }
 }

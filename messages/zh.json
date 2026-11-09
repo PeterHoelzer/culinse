@@ -846,6 +846,72 @@
         "grill": "烧烤",
         "onepot": "一锅煮"
       }
+    },
+    "landing": {
+      "all": "全部食谱",
+      "region": "{name}食谱",
+      "intro": "按餐别、饮食、用时或营养进一步缩小范围。",
+      "metaDescription": "附食材、步骤及每份营养信息。可按用时、饮食和餐别继续筛选。",
+      "topics": "按主题浏览食谱",
+      "titles": {
+        "cuisine": {
+          "german": "德式食谱",
+          "japanese": "日式食谱",
+          "irish": "爱尔兰食谱",
+          "kurdish": "库尔德食谱",
+          "portuguese": "葡萄牙食谱",
+          "mediterranean": "地中海食谱",
+          "asian": "亚洲食谱",
+          "italian": "意式食谱",
+          "mexican": "墨西哥食谱",
+          "turkish": "土耳其食谱",
+          "indian": "印度食谱"
+        },
+        "course": {
+          "main": "主菜食谱",
+          "side": "配菜食谱",
+          "starter": "开胃菜食谱",
+          "soup": "汤品食谱",
+          "salad": "沙拉食谱",
+          "breakfast": "早餐食谱",
+          "dessert": "甜点食谱",
+          "cake": "蛋糕食谱",
+          "pastry": "烘焙糕点食谱",
+          "snack": "小吃食谱",
+          "drink": "饮品食谱",
+          "basic": "基础食谱"
+        },
+        "dish": {
+          "casserole": "焗烤食谱",
+          "pasta": "意面食谱",
+          "stew": "炖菜食谱",
+          "pan": "煎炒食谱",
+          "bowl": "能量碗食谱",
+          "curry": "咖喱食谱",
+          "dip": "蘸酱食谱",
+          "wrap": "卷饼食谱"
+        },
+        "diet": {
+          "vegetarian": "素食食谱",
+          "vegan": "纯素食谱",
+          "lactosefree": "无乳糖食谱",
+          "highprotein": "高蛋白食谱",
+          "glutenfree": "无麸质食谱",
+          "lowcarb": "低碳水食谱"
+        },
+        "occasion": {
+          "budget": "平价食谱",
+          "quick": "快手食谱",
+          "festive": "节日食谱",
+          "easy": "简单食谱",
+          "mealprep": "备餐食谱"
+        },
+        "method": {
+          "airfryer": "空气炸锅食谱",
+          "grill": "烧烤食谱",
+          "onepot": "一锅煮食谱"
+        }
+      }
     }
   }
 }

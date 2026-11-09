@@ -846,6 +846,72 @@
         "grill": "Izgara",
         "onepot": "Tek tencere"
       }
+    },
+    "landing": {
+      "all": "Tüm tarifler",
+      "region": "{name} tarifleri",
+      "intro": "Seçimi öğüne, beslenme biçimine, süreye veya besin değerlerine göre daha da daralt.",
+      "metaDescription": "Malzemeler, adımlar ve porsiyon başına besin değerleriyle. Süreye, beslenme biçimine ve öğüne göre daha fazla filtrele.",
+      "topics": "Konuya göre tarifler",
+      "titles": {
+        "cuisine": {
+          "german": "Alman tarifleri",
+          "japanese": "Japon tarifleri",
+          "irish": "İrlanda tarifleri",
+          "kurdish": "Kürt tarifleri",
+          "portuguese": "Portekiz tarifleri",
+          "mediterranean": "Akdeniz tarifleri",
+          "asian": "Asya tarifleri",
+          "italian": "İtalyan tarifleri",
+          "mexican": "Meksika tarifleri",
+          "turkish": "Türk tarifleri",
+          "indian": "Hint tarifleri"
+        },
+        "course": {
+          "main": "Ana yemekler",
+          "side": "Garnitürler",
+          "starter": "Başlangıçlar",
+          "soup": "Çorbalar",
+          "salad": "Salatalar",
+          "breakfast": "Kahvaltı tarifleri",
+          "dessert": "Tatlılar",
+          "cake": "Kek tarifleri",
+          "pastry": "Hamur işleri",
+          "snack": "Atıştırmalıklar",
+          "drink": "İçecekler",
+          "basic": "Temel tarifler"
+        },
+        "dish": {
+          "casserole": "Fırın yemekleri",
+          "pasta": "Makarna tarifleri",
+          "stew": "Güveçler",
+          "pan": "Tava yemekleri",
+          "bowl": "Bowl tarifleri",
+          "curry": "Köriler",
+          "dip": "Dip soslar",
+          "wrap": "Dürümler"
+        },
+        "diet": {
+          "vegetarian": "Vejetaryen tarifler",
+          "vegan": "Vegan tarifler",
+          "lactosefree": "Laktozsuz tarifler",
+          "highprotein": "Yüksek proteinli tarifler",
+          "glutenfree": "Glutensiz tarifler",
+          "lowcarb": "Düşük karbonhidratlı tarifler"
+        },
+        "occasion": {
+          "budget": "Ekonomik tarifler",
+          "quick": "Hızlı tarifler",
+          "festive": "Şenlikli tarifler",
+          "easy": "Kolay tarifler",
+          "mealprep": "Yemek hazırlığı tarifleri"
+        },
+        "method": {
+          "airfryer": "Air fryer tarifleri",
+          "grill": "Izgara tarifleri",
+          "onepot": "Tek tencere tarifleri"
+        }
+      }
     }
   }
 }

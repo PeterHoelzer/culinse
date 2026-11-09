@@ -846,6 +846,72 @@
         "grill": "グリル",
         "onepot": "ワンポット"
       }
+    },
+    "landing": {
+      "all": "すべてのレシピ",
+      "region": "{name}のレシピ",
+      "intro": "コース、食事スタイル、時間、栄養でさらに絞り込めます。",
+      "metaDescription": "材料、手順、1人分の栄養つき。時間・食事スタイル・コースでさらに絞り込めます。",
+      "topics": "テーマ別のレシピ",
+      "titles": {
+        "cuisine": {
+          "german": "ドイツ料理レシピ",
+          "japanese": "和食レシピ",
+          "irish": "アイルランド料理レシピ",
+          "kurdish": "クルド料理レシピ",
+          "portuguese": "ポルトガル料理レシピ",
+          "mediterranean": "地中海料理レシピ",
+          "asian": "アジア料理レシピ",
+          "italian": "イタリア料理レシピ",
+          "mexican": "メキシコ料理レシピ",
+          "turkish": "トルコ料理レシピ",
+          "indian": "インド料理レシピ"
+        },
+        "course": {
+          "main": "メイン料理レシピ",
+          "side": "副菜レシピ",
+          "starter": "前菜レシピ",
+          "soup": "スープレシピ",
+          "salad": "サラダレシピ",
+          "breakfast": "朝食レシピ",
+          "dessert": "デザートレシピ",
+          "cake": "ケーキレシピ",
+          "pastry": "焼き菓子・パンのレシピ",
+          "snack": "軽食レシピ",
+          "drink": "ドリンクレシピ",
+          "basic": "基本のレシピ"
+        },
+        "dish": {
+          "casserole": "グラタン・オーブン料理レシピ",
+          "pasta": "パスタレシピ",
+          "stew": "煮込み料理レシピ",
+          "pan": "フライパン料理レシピ",
+          "bowl": "ボウル料理レシピ",
+          "curry": "カレーレシピ",
+          "dip": "ディップレシピ",
+          "wrap": "ラップサンドレシピ"
+        },
+        "diet": {
+          "vegetarian": "ベジタリアンレシピ",
+          "vegan": "ヴィーガンレシピ",
+          "lactosefree": "乳糖フリーレシピ",
+          "highprotein": "高たんぱくレシピ",
+          "glutenfree": "グルテンフリーレシピ",
+          "lowcarb": "低糖質レシピ"
+        },
+        "occasion": {
+          "budget": "節約レシピ",
+          "quick": "時短レシピ",
+          "festive": "お祝いレシピ",
+          "easy": "簡単レシピ",
+          "mealprep": "作り置きレシピ"
+        },
+        "method": {
+          "airfryer": "ノンフライヤーレシピ",
+          "grill": "グリルレシピ",
+          "onepot": "ワンポットレシピ"
+        }
+      }
     }
   }
 }

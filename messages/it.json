@@ -846,6 +846,72 @@
         "grill": "Grigliate",
         "onepot": "One-pot"
       }
+    },
+    "landing": {
+      "all": "Tutte le ricette",
+      "region": "Ricette della regione {name}",
+      "intro": "Restringi la selezione per portata, dieta, tempo o valori nutrizionali.",
+      "metaDescription": "Con ingredienti, passaggi e valori nutrizionali per porzione. Filtra ancora per tempo, dieta e portata.",
+      "topics": "Ricette per tema",
+      "titles": {
+        "cuisine": {
+          "german": "Ricette tedesche",
+          "japanese": "Ricette giapponesi",
+          "irish": "Ricette irlandesi",
+          "kurdish": "Ricette curde",
+          "portuguese": "Ricette portoghesi",
+          "mediterranean": "Ricette mediterranee",
+          "asian": "Ricette asiatiche",
+          "italian": "Ricette italiane",
+          "mexican": "Ricette messicane",
+          "turkish": "Ricette turche",
+          "indian": "Ricette indiane"
+        },
+        "course": {
+          "main": "Piatti principali",
+          "side": "Contorni",
+          "starter": "Antipasti",
+          "soup": "Zuppe",
+          "salad": "Insalate",
+          "breakfast": "Ricette per la colazione",
+          "dessert": "Dessert",
+          "cake": "Torte",
+          "pastry": "Prodotti da forno",
+          "snack": "Snack",
+          "drink": "Bevande",
+          "basic": "Ricette base"
+        },
+        "dish": {
+          "casserole": "Gratin",
+          "pasta": "Piatti di pasta",
+          "stew": "Stufati",
+          "pan": "Piatti in padella",
+          "bowl": "Bowl",
+          "curry": "Curry",
+          "dip": "Dip",
+          "wrap": "Wrap"
+        },
+        "diet": {
+          "vegetarian": "Ricette vegetariane",
+          "vegan": "Ricette vegane",
+          "lactosefree": "Ricette senza lattosio",
+          "highprotein": "Ricette ricche di proteine",
+          "glutenfree": "Ricette senza glutine",
+          "lowcarb": "Ricette low carb"
+        },
+        "occasion": {
+          "budget": "Ricette economiche",
+          "quick": "Ricette veloci",
+          "festive": "Ricette per le feste",
+          "easy": "Ricette facili",
+          "mealprep": "Ricette meal prep"
+        },
+        "method": {
+          "airfryer": "Ricette per friggitrice ad aria",
+          "grill": "Ricette alla griglia",
+          "onepot": "Ricette one-pot"
+        }
+      }
     }
   }
 }

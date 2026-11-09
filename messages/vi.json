@@ -846,6 +846,72 @@
         "grill": "Nướng",
         "onepot": "Một nồi"
       }
+    },
+    "landing": {
+      "all": "Tất cả công thức",
+      "region": "Công thức từ {name}",
+      "intro": "Thu hẹp lựa chọn theo loại món, chế độ ăn, thời gian hoặc dinh dưỡng.",
+      "metaDescription": "Kèm nguyên liệu, các bước và dinh dưỡng mỗi khẩu phần. Lọc thêm theo thời gian, chế độ ăn và loại món.",
+      "topics": "Công thức theo chủ đề",
+      "titles": {
+        "cuisine": {
+          "german": "Công thức món Đức",
+          "japanese": "Công thức món Nhật",
+          "irish": "Công thức món Ireland",
+          "kurdish": "Công thức món Kurd",
+          "portuguese": "Công thức món Bồ Đào Nha",
+          "mediterranean": "Công thức món Địa Trung Hải",
+          "asian": "Công thức món Á",
+          "italian": "Công thức món Ý",
+          "mexican": "Công thức món Mexico",
+          "turkish": "Công thức món Thổ Nhĩ Kỳ",
+          "indian": "Công thức món Ấn Độ"
+        },
+        "course": {
+          "main": "Món chính",
+          "side": "Món ăn kèm",
+          "starter": "Món khai vị",
+          "soup": "Công thức súp",
+          "salad": "Công thức salad",
+          "breakfast": "Công thức bữa sáng",
+          "dessert": "Món tráng miệng",
+          "cake": "Công thức làm bánh ngọt",
+          "pastry": "Công thức bánh nướng",
+          "snack": "Món ăn vặt",
+          "drink": "Công thức đồ uống",
+          "basic": "Công thức cơ bản"
+        },
+        "dish": {
+          "casserole": "Món nướng lò",
+          "pasta": "Công thức pasta",
+          "stew": "Món hầm",
+          "pan": "Món chiên xào",
+          "bowl": "Công thức bowl",
+          "curry": "Công thức cà ri",
+          "dip": "Sốt chấm",
+          "wrap": "Công thức wrap"
+        },
+        "diet": {
+          "vegetarian": "Công thức ăn chay",
+          "vegan": "Công thức thuần chay",
+          "lactosefree": "Công thức không lactose",
+          "highprotein": "Công thức giàu đạm",
+          "glutenfree": "Công thức không gluten",
+          "lowcarb": "Công thức ít tinh bột"
+        },
+        "occasion": {
+          "budget": "Công thức tiết kiệm",
+          "quick": "Công thức nhanh",
+          "festive": "Công thức cho ngày lễ",
+          "easy": "Công thức dễ làm",
+          "mealprep": "Công thức chuẩn bị sẵn bữa ăn"
+        },
+        "method": {
+          "airfryer": "Công thức nồi chiên không dầu",
+          "grill": "Công thức nướng",
+          "onepot": "Công thức một nồi"
+        }
+      }
     }
   }
 }

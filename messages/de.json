@@ -846,6 +846,72 @@
         "grill": "Grillen",
         "onepot": "One-Pot"
       }
+    },
+    "landing": {
+      "all": "Alle Rezepte",
+      "region": "Rezepte aus {name}",
+      "intro": "Grenze die Auswahl weiter ein: nach Gang, Ernährung, Zeit oder Nährwerten.",
+      "metaDescription": "Mit Zutaten, Schritten und Nährwerten pro Portion. Weiter filtern nach Zeit, Ernährung und Gang.",
+      "topics": "Rezepte nach Thema",
+      "titles": {
+        "cuisine": {
+          "german": "Deutsche Rezepte",
+          "japanese": "Japanische Rezepte",
+          "irish": "Irische Rezepte",
+          "kurdish": "Kurdische Rezepte",
+          "portuguese": "Portugiesische Rezepte",
+          "mediterranean": "Mediterrane Rezepte",
+          "asian": "Asiatische Rezepte",
+          "italian": "Italienische Rezepte",
+          "mexican": "Mexikanische Rezepte",
+          "turkish": "Türkische Rezepte",
+          "indian": "Indische Rezepte"
+        },
+        "course": {
+          "main": "Hauptgerichte",
+          "side": "Beilagen",
+          "starter": "Vorspeisen",
+          "soup": "Suppen",
+          "salad": "Salate",
+          "breakfast": "Frühstücksrezepte",
+          "dessert": "Desserts",
+          "cake": "Kuchenrezepte",
+          "pastry": "Gebäck",
+          "snack": "Snacks",
+          "drink": "Getränke",
+          "basic": "Grundrezepte"
+        },
+        "dish": {
+          "casserole": "Aufläufe",
+          "pasta": "Pastagerichte",
+          "stew": "Eintöpfe",
+          "pan": "Pfannengerichte",
+          "bowl": "Bowls",
+          "curry": "Currys",
+          "dip": "Dips",
+          "wrap": "Wraps"
+        },
+        "diet": {
+          "vegetarian": "Vegetarische Rezepte",
+          "vegan": "Vegane Rezepte",
+          "lactosefree": "Laktosefreie Rezepte",
+          "highprotein": "Proteinreiche Rezepte",
+          "glutenfree": "Glutenfreie Rezepte",
+          "lowcarb": "Low-Carb-Rezepte"
+        },
+        "occasion": {
+          "budget": "Günstige Rezepte",
+          "quick": "Schnelle Rezepte",
+          "festive": "Festliche Rezepte",
+          "easy": "Einfache Rezepte",
+          "mealprep": "Meal-Prep-Rezepte"
+        },
+        "method": {
+          "airfryer": "Rezepte für die Heißluftfritteuse",
+          "grill": "Grillrezepte",
+          "onepot": "One-Pot-Rezepte"
+        }
+      }
     }
   }
 }

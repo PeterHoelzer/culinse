@@ -846,6 +846,72 @@
         "grill": "Grillowanie",
         "onepot": "One-pot"
       }
+    },
+    "landing": {
+      "all": "Wszystkie przepisy",
+      "region": "Przepisy z regionu {name}",
+      "intro": "Zawęź wybór według rodzaju dania, diety, czasu lub wartości odżywczych.",
+      "metaDescription": "Ze składnikami, krokami i wartościami odżywczymi na porcję. Filtruj dalej według czasu, diety i rodzaju dania.",
+      "topics": "Przepisy według tematu",
+      "titles": {
+        "cuisine": {
+          "german": "Kuchnia niemiecka",
+          "japanese": "Kuchnia japońska",
+          "irish": "Kuchnia irlandzka",
+          "kurdish": "Kuchnia kurdyjska",
+          "portuguese": "Kuchnia portugalska",
+          "mediterranean": "Kuchnia śródziemnomorska",
+          "asian": "Kuchnia azjatycka",
+          "italian": "Kuchnia włoska",
+          "mexican": "Kuchnia meksykańska",
+          "turkish": "Kuchnia turecka",
+          "indian": "Kuchnia indyjska"
+        },
+        "course": {
+          "main": "Dania główne",
+          "side": "Dodatki",
+          "starter": "Przystawki",
+          "soup": "Zupy",
+          "salad": "Sałatki",
+          "breakfast": "Przepisy na śniadanie",
+          "dessert": "Desery",
+          "cake": "Ciasta",
+          "pastry": "Wypieki",
+          "snack": "Przekąski",
+          "drink": "Napoje",
+          "basic": "Przepisy podstawowe"
+        },
+        "dish": {
+          "casserole": "Zapiekanki",
+          "pasta": "Dania z makaronem",
+          "stew": "Gulasze",
+          "pan": "Dania z patelni",
+          "bowl": "Bowle",
+          "curry": "Curry",
+          "dip": "Dipy",
+          "wrap": "Wrapy"
+        },
+        "diet": {
+          "vegetarian": "Przepisy wegetariańskie",
+          "vegan": "Przepisy wegańskie",
+          "lactosefree": "Przepisy bez laktozy",
+          "highprotein": "Przepisy wysokobiałkowe",
+          "glutenfree": "Przepisy bezglutenowe",
+          "lowcarb": "Przepisy low carb"
+        },
+        "occasion": {
+          "budget": "Tanie przepisy",
+          "quick": "Szybkie przepisy",
+          "festive": "Przepisy na święta",
+          "easy": "Proste przepisy",
+          "mealprep": "Przepisy meal prep"
+        },
+        "method": {
+          "airfryer": "Przepisy do frytkownicy beztłuszczowej",
+          "grill": "Przepisy na grilla",
+          "onepot": "Przepisy one-pot"
+        }
+      }
     }
   }
 }

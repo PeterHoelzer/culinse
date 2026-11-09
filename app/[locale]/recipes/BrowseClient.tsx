@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useOptimistic, useRef, useState, useTransition } from "react";
+import { useEffect, useId, useMemo, useOptimistic, useRef, useState, useTransition, type ReactNode } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import { loadSupabaseAfterPageLoad } from "@/lib/supabase/lazy";
@@ -14,6 +14,7 @@ import {
   RANGE_IDS,
   RANGE_STEPS,
   SORT_IDS,
+  browseHref,
   countActive,
   emptyState,
   isFiltered,
@@ -127,7 +128,20 @@ function useUser() {
   return user;
 }
 
-export default function BrowseClient({ state, result }: { state: BrowseState; result: BrowseResult }) {
+interface BrowseClientProps {
+  state: BrowseState;
+  result: BrowseResult;
+  title: string;
+  subtitle: string;
+  /** Nur Themenseiten: Beschriftung des Links zurück zur ganzen Liste. */
+  backLabel?: string;
+  /** Themenseite: Seitenzahlen bleiben auf ihrer festen Adresse. */
+  onLanding?: boolean;
+  /** Themen-Links unter der Liste, vom Server gerendert. */
+  children?: ReactNode;
+}
+
+export default function BrowseClient({ state, result, title, subtitle, backLabel, onLanding = false, children }: BrowseClientProps) {
   const t = useTranslations("browse");
   const router = useRouter();
   const user = useUser();
@@ -171,15 +185,25 @@ export default function BrowseClient({ state, result }: { state: BrowseState; re
   const panel = (idPrefix: string) => (
     <FilterPanel idPrefix={idPrefix} view={view} counts={result.counts} entries={entries} onChange={apply} t={t} />
   );
-  const pageHref = (page: number) => `/recipes${stateToQuery({ ...state, page })}`;
+  // Filter-Klicks gehen immer auf /recipes?…, damit die Ansicht beim Ankreuzen
+  // nicht zwischen zwei Routen wechselt. Nur das Blättern einer Themenseite
+  // bleibt auf deren fester Adresse.
+  const pageHref = (page: number) => (onLanding ? browseHref({ ...state, page }) : `/recipes${stateToQuery({ ...state, page })}`);
 
   return (
     <>
       <section className="bg-surface-soft">
         <div className="mx-auto max-w-content px-4 py-10 sm:px-6 sm:py-12 lg:px-10">
+          {backLabel && (
+            <nav aria-label="Breadcrumb" className="mb-4 text-sm">
+              <Link href="/recipes" className="font-semibold text-ink-2 underline underline-offset-[3px] hover:text-ink">
+                {backLabel}
+              </Link>
+            </nav>
+          )}
           <span aria-hidden="true" className="mb-3 block h-[3px] w-10 bg-brand" />
-          <h1 className="text-h1-sm sm:text-h1">{t("title")}</h1>
-          <p className="mt-2 max-w-prose text-body-lg text-ink-2">{t("subtitle")}</p>
+          <h1 className="text-h1-sm sm:text-h1">{title}</h1>
+          <p className="mt-2 max-w-prose text-body-lg text-ink-2">{subtitle}</p>
           <SearchBox view={view} counts={result.counts} entries={entries} onChange={apply} t={t} />
         </div>
       </section>
@@ -271,6 +295,8 @@ export default function BrowseClient({ state, result }: { state: BrowseState; re
               )}
             </nav>
           )}
+
+          {children}
         </div>
       </div>
 
