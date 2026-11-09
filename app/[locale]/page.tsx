@@ -5,6 +5,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Link from "next/link";
 import type { Recipe } from "./components/home-types";
 import { dishColorsWithin } from "@/lib/dishColor";
+import { routing } from "@/i18n/routing";
 
 // Startseite als ISR: alle 15 Minuten neu gerendert, dazwischen aus dem
 // Edge-Cache (TTFB ~20 ms statt ~350 ms). Die ersten Karten, das Tagesrezept
@@ -12,6 +13,14 @@ import { dishColorsWithin } from "@/lib/dishColor";
 // Speichern) lädt der Client. Vorher force-dynamic, weil das Grid einst nur
 // client-seitig kam und ein gecachtes Skelett hängen blieb.
 export const revalidate = 900;
+
+// Ohne generateStaticParams rendert Next eine Route mit dynamischem Segment
+// bei jedem Abruf neu, egal was in revalidate steht (Build-Tabelle: ƒ, Antwort
+// "private, no-store"). Erst die Liste der Sprachen macht aus /[locale] eine
+// ISR-Seite: alle 16 entstehen beim Build und liegen danach im Edge-Cache.
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 // ─── WebSite + Organization JSON-LD ──────────────────────────────────────────
 function buildWebsiteSchema(locale: string) {
