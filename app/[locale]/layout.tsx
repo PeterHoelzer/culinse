@@ -11,14 +11,20 @@ import "../globals.css";
 // Schriftpaar laut DESIGN.md §11: Source Sans 3 (Text/UI) und Fraunces
 // (Überschriften; weiche Serife nach alten Handwerker-Schildern, mit optischer Größe). Beide variabel, selbst gehostet über
 // next/font. Bengali/CJK fallen auf Systemschriften zurück (siehe globals.css).
+//
+// `subsets` bestimmt nur, welche Dateien vorgeladen werden; alle Teilmengen
+// (latin-ext, kyrillisch, vietnamesisch) bleiben per unicode-range im CSS und
+// laden bei Bedarf. Vorgeladen wird allein Latin: vorher zogen sieben Dateien
+// (378 KB) mit hoher Priorität am Hero-Foto vorbei, auf /de waren fünf davon
+// (228 KB) ungenutzt.
 const sourceSans = Source_Sans_3({
   variable: "--font-source-sans",
-  subsets: ["latin", "latin-ext", "cyrillic", "vietnamese"],
+  subsets: ["latin"],
   display: "swap",
 });
 const fraunces = Fraunces({
   variable: "--font-fraunces",
-  subsets: ["latin", "latin-ext", "vietnamese"],
+  subsets: ["latin"],
   axes: ["opsz", "SOFT", "WONK"],
   display: "swap",
 });

@@ -147,7 +147,11 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
                     src={featured.image}
                     alt={featured.title}
                     fill
-                    priority
+                    // LCP-Bild: seit Next 16 setzt `priority` kein fetchpriority mehr,
+                    // das Foto lief mit niedriger Priorität hinter Schriften und
+                    // Skripten her (Ladezeit ~4 s bei gedrosseltem Netz).
+                    loading="eager"
+                    fetchPriority="high"
                     sizes={HERO_SIZES}
                     quality={78}
                     className="object-cover"
