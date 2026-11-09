@@ -370,7 +370,7 @@ macht. Knapp, konkret, ohne Marketing-Dampf.
 
 ## 10. Nachtrag 08.11.2026: Hero nur Foto
 
-Nach Peters Rückmeldungen („zu weiß, zu plain; schau dir Apple an; der graue Teil ist zu düster; können wir nur das Bild nehmen?“) ist der Startseiten-Hero **ein einziges Foto über die volle Breite** (70–78 vh). Titel, Metazeile und zwei Buttons liegen unten links direkt auf dem Foto, lesbar durch einen Schleier von unten (`--c-dark` 90 % → transparent). Das ist die eine Ausnahme vom Verlaufsverbot: der Schleier dient der Lesbarkeit, nicht der Dekoration. Der KI-Hinweis steht oben rechts im Bild in `caption`. Das Foto blendet beim Laden in 900 ms ein (`.animate-hero-in`, bei `prefers-reduced-motion` aus). Die Suche folgt zentriert auf Weiß direkt darunter.
+Nach Peters Rückmeldungen („zu weiß, zu plain; schau dir Apple an; der graue Teil ist zu düster; können wir nur das Bild nehmen?“) ist der Startseiten-Hero **ein einziges Foto über die volle Breite** (70–78 vh). Titel, Metazeile und zwei Buttons liegen unten links direkt auf dem Foto, lesbar durch einen Schleier von unten (`--c-dark` 90 % → transparent). Das ist die eine Ausnahme vom Verlaufsverbot: der Schleier dient der Lesbarkeit, nicht der Dekoration. Der KI-Hinweis steht oben rechts im Bild in `caption`. Keine Einblend-Animation auf dem Hero-Foto: Sie kostete 1,7 s LCP (Messung 09.11.). Die Suche folgt zentriert auf Weiß direkt darunter.
 
 Rhythmus der Startseite: Hero-Foto → Suche weiß → Rezeptkarten weiß (9) → Familienrezepte dunkles Band mit vier Fotos → Kochschule weiß mit großem Hauptvideo → So funktioniert warm → Newsletter weiße Box → Fußzeile dunkel. Abschnittstitel tragen einen 40 × 3 px Markenstrich. Dieselbe Logik gilt künftig für das Rezeptfoto auf der Rezeptseite.
 

@@ -138,7 +138,7 @@ export default function Hero({ search, setSearch, onSearch, featured, colors }: 
             </div>
             <figure className="relative order-1 m-0 md:order-2 md:h-full">
               {featured.image ? (
-                <div className="animate-hero-in relative aspect-[4/3] w-full md:absolute md:inset-0 md:aspect-auto md:h-full">
+                <div className="relative aspect-[4/3] w-full md:absolute md:inset-0 md:aspect-auto md:h-full">
                   <Image
                     src={featured.image}
                     alt={featured.title}
