@@ -100,9 +100,13 @@ async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
 
 // Die Rezept-API liefert Supabase-Render-URLs mit width/height=640 (Karten).
 // Fürs Hero-Foto heben wir die Größe an; fremde URLs bleiben unverändert.
+// Das Hero-Foto läuft durch den Next-Bildoptimierer (next/image). Als Quelle
+// nimmt er die Originaldatei aus dem Storage, nicht die Supabase-Render-URL:
+// die transformiert bei jedem neuen Abruf erst selbst (2–4 s kalt) und wäre
+// eine zweite Skalierung hintereinander.
 function heroImageUrl(url: string | null): string | null {
   if (!url || !url.includes("/storage/v1/render/image/public/")) return url;
-  return url.replace(/width=\d+&height=\d+/, "width=1280&height=1280");
+  return url.replace("/storage/v1/render/image/public/", "/storage/v1/object/public/").replace(/\?.*$/, "");
 }
 
 const OG_LOCALES: Record<string, string> = {
