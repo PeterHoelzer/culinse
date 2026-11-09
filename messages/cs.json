@@ -728,5 +728,124 @@
     "goCollections": "Do mých sbírek",
     "discover": "Objevit recepty"
   },
-  "allStates": "Všechny spolkové země"
+  "allStates": "Všechny spolkové země",
+  "browse": {
+    "nav": "Procházet",
+    "title": "Všechny recepty",
+    "subtitle": "Prohlížej celou sbírku a zužuj výběr, dokud nezůstane to pravé.",
+    "homeLink": "Procházet všechny recepty",
+    "metaTitle": "Procházej a filtruj všechny recepty",
+    "metaDescription": "Filtruj přes 2000 receptů podle kuchyně, chodu, stravy, času a nutričních hodnot, od rychlé večeře ve všední den po sváteční hostinu.",
+    "searchLabel": "Hledat recept, surovinu nebo filtr",
+    "searchPlaceholder": "Recept, surovina nebo filtr",
+    "searchButton": "Hledat",
+    "clearSearch": "Smazat hledání",
+    "suggestFilters": "Filtry",
+    "suggestRecipes": "Recepty",
+    "searchFor": "Hledat „{query}“",
+    "searchChip": "Hledání: {query}",
+    "results": "{count, plural, =0 {Žádné recepty} one {# recept} few {# recepty} many {# receptu} other {# receptů}}",
+    "updating": "Recepty se aktualizují",
+    "filters": "Filtry",
+    "filterSearchLabel": "Hledat filtry",
+    "filterSearchPlaceholder": "Hledat filtry, např. vegan",
+    "noFilterMatch": "Žádný filtr neodpovídá „{query}“.",
+    "active": "Aktivní filtry",
+    "reset": "Vše vynulovat",
+    "remove": "Odebrat filtr: {name}",
+    "showMore": "Zobrazit více",
+    "showLess": "Zobrazit méně",
+    "showResults": "{count, plural, =0 {Žádné recepty} one {Zobrazit # recept} few {Zobrazit # recepty} many {Zobrazit # receptu} other {Zobrazit # receptů}}",
+    "sortLabel": "Řadit",
+    "sort": {
+      "mix": "Doporučené",
+      "relevance": "Nejlepší shoda",
+      "new": "Nejnovější",
+      "fast": "Nejrychlejší",
+      "kcal": "Nejméně kalorií",
+      "protein": "Nejvíce bílkovin"
+    },
+    "groups": {
+      "cuisine": "Kuchyně",
+      "region": "Region",
+      "course": "Chod",
+      "dish": "Pokrm",
+      "diet": "Strava",
+      "occasion": "Příležitost",
+      "method": "Příprava",
+      "time": "Celkový čas",
+      "nutrition": "Nutriční hodnoty na porci"
+    },
+    "range": {
+      "time": "Do {count} min",
+      "kcal": "Do {count} kcal",
+      "protein": "Od {count} g bílkovin",
+      "carbs": "Do {count} g sacharidů"
+    },
+    "emptyTitle": "Žádné recepty s tímto výběrem",
+    "emptyText": "Odeber filtr nebo vše vynuluj.",
+    "pagination": "Stránky",
+    "pageOf": "Strana {page} z {pages}",
+    "prev": "Předchozí strana",
+    "next": "Další strana",
+    "options": {
+      "cuisine": {
+        "german": "Německá",
+        "japanese": "Japonská",
+        "irish": "Irská",
+        "kurdish": "Kurdská",
+        "portuguese": "Portugalská",
+        "mediterranean": "Středomořská",
+        "asian": "Asijská",
+        "italian": "Italská",
+        "mexican": "Mexická",
+        "turkish": "Turecká",
+        "indian": "Indická"
+      },
+      "course": {
+        "main": "Hlavní chod",
+        "side": "Příloha",
+        "starter": "Předkrm",
+        "soup": "Polévka",
+        "salad": "Salát",
+        "breakfast": "Snídaně",
+        "dessert": "Dezert",
+        "cake": "Dort",
+        "pastry": "Pečivo",
+        "snack": "Svačina",
+        "drink": "Nápoj",
+        "basic": "Základní recept"
+      },
+      "dish": {
+        "casserole": "Zapečené",
+        "pasta": "Pasta",
+        "stew": "Dušené maso",
+        "pan": "Z pánve",
+        "bowl": "Bowl",
+        "curry": "Curry",
+        "dip": "Dip",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Vegetariánské",
+        "vegan": "Veganské",
+        "lactosefree": "Bez laktózy",
+        "highprotein": "S vysokým obsahem bílkovin",
+        "glutenfree": "Bezlepkové",
+        "lowcarb": "Low carb"
+      },
+      "occasion": {
+        "budget": "Levné",
+        "quick": "Rychlé",
+        "festive": "Sváteční",
+        "easy": "Jednoduché",
+        "mealprep": "Meal prep"
+      },
+      "method": {
+        "airfryer": "Horkovzdušná fritéza",
+        "grill": "Grilování",
+        "onepot": "One-pot"
+      }
+    }
+  }
 }

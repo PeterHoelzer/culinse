@@ -728,5 +728,124 @@
     "goCollections": "Đến bộ sưu tập của tôi",
     "discover": "Khám phá công thức"
   },
-  "allStates": "Tất cả các bang"
+  "allStates": "Tất cả các bang",
+  "browse": {
+    "nav": "Tất cả công thức",
+    "title": "Tất cả công thức",
+    "subtitle": "Khám phá toàn bộ bộ sưu tập và lọc dần cho đến khi tìm được món ưng ý.",
+    "homeLink": "Khám phá tất cả công thức",
+    "metaTitle": "Khám phá và lọc tất cả công thức",
+    "metaDescription": "Lọc hơn 2.000 công thức theo ẩm thực, loại món, chế độ ăn, thời gian và dinh dưỡng, từ bữa tối nhanh gọn đến bữa tiệc.",
+    "searchLabel": "Tìm công thức, nguyên liệu hoặc bộ lọc",
+    "searchPlaceholder": "Công thức, nguyên liệu hoặc bộ lọc",
+    "searchButton": "Tìm",
+    "clearSearch": "Xóa tìm kiếm",
+    "suggestFilters": "Bộ lọc",
+    "suggestRecipes": "Công thức",
+    "searchFor": "Tìm \"{query}\"",
+    "searchChip": "Tìm kiếm: {query}",
+    "results": "{count, plural, =0 {Không có công thức} other {# công thức}}",
+    "updating": "Đang cập nhật công thức",
+    "filters": "Bộ lọc",
+    "filterSearchLabel": "Tìm bộ lọc",
+    "filterSearchPlaceholder": "Tìm bộ lọc, ví dụ: thuần chay",
+    "noFilterMatch": "Không có bộ lọc nào khớp với \"{query}\".",
+    "active": "Bộ lọc đang dùng",
+    "reset": "Đặt lại tất cả",
+    "remove": "Bỏ bộ lọc: {name}",
+    "showMore": "Xem thêm",
+    "showLess": "Thu gọn",
+    "showResults": "{count, plural, =0 {Không có công thức} other {Xem # công thức}}",
+    "sortLabel": "Sắp xếp",
+    "sort": {
+      "mix": "Đề xuất",
+      "relevance": "Phù hợp nhất",
+      "new": "Mới nhất trước",
+      "fast": "Nhanh nhất trước",
+      "kcal": "Ít calo nhất",
+      "protein": "Nhiều đạm nhất"
+    },
+    "groups": {
+      "cuisine": "Ẩm thực",
+      "region": "Vùng",
+      "course": "Loại món",
+      "dish": "Kiểu món",
+      "diet": "Chế độ ăn",
+      "occasion": "Dịp",
+      "method": "Cách chế biến",
+      "time": "Tổng thời gian",
+      "nutrition": "Dinh dưỡng mỗi khẩu phần"
+    },
+    "range": {
+      "time": "Tối đa {count} phút",
+      "kcal": "Tối đa {count} kcal",
+      "protein": "Tối thiểu {count} g đạm",
+      "carbs": "Tối đa {count} g tinh bột"
+    },
+    "emptyTitle": "Không có công thức nào với lựa chọn này",
+    "emptyText": "Hãy bỏ một bộ lọc hoặc đặt lại tất cả.",
+    "pagination": "Trang",
+    "pageOf": "Trang {page} / {pages}",
+    "prev": "Trang trước",
+    "next": "Trang sau",
+    "options": {
+      "cuisine": {
+        "german": "Đức",
+        "japanese": "Nhật Bản",
+        "irish": "Ireland",
+        "kurdish": "Kurd",
+        "portuguese": "Bồ Đào Nha",
+        "mediterranean": "Địa Trung Hải",
+        "asian": "Châu Á",
+        "italian": "Ý",
+        "mexican": "Mexico",
+        "turkish": "Thổ Nhĩ Kỳ",
+        "indian": "Ấn Độ"
+      },
+      "course": {
+        "main": "Món chính",
+        "side": "Món ăn kèm",
+        "starter": "Món khai vị",
+        "soup": "Súp",
+        "salad": "Salad",
+        "breakfast": "Bữa sáng",
+        "dessert": "Tráng miệng",
+        "cake": "Bánh ngọt",
+        "pastry": "Bánh nướng",
+        "snack": "Ăn vặt",
+        "drink": "Đồ uống",
+        "basic": "Công thức cơ bản"
+      },
+      "dish": {
+        "casserole": "Món nướng lò",
+        "pasta": "Pasta",
+        "stew": "Món hầm",
+        "pan": "Món chiên xào",
+        "bowl": "Bowl",
+        "curry": "Cà ri",
+        "dip": "Sốt chấm",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Ăn chay",
+        "vegan": "Thuần chay",
+        "lactosefree": "Không lactose",
+        "highprotein": "Giàu đạm",
+        "glutenfree": "Không gluten",
+        "lowcarb": "Ít tinh bột"
+      },
+      "occasion": {
+        "budget": "Tiết kiệm",
+        "quick": "Nhanh",
+        "festive": "Ngày lễ",
+        "easy": "Dễ làm",
+        "mealprep": "Chuẩn bị sẵn bữa ăn"
+      },
+      "method": {
+        "airfryer": "Nồi chiên không dầu",
+        "grill": "Nướng",
+        "onepot": "Một nồi"
+      }
+    }
+  }
 }

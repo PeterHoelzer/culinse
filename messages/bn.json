@@ -728,5 +728,124 @@
     "goCollections": "আমার কালেকশনে যান",
     "discover": "রেসিপি খুঁজে দেখুন"
   },
-  "allStates": "সব অঙ্গরাজ্য"
+  "allStates": "সব অঙ্গরাজ্য",
+  "browse": {
+    "nav": "ঘুরে দেখুন",
+    "title": "সব রেসিপি",
+    "subtitle": "পুরো সংগ্রহ ঘুরে দেখুন এবং ফিল্টার করে সঠিক রেসিপিটি বেছে নিন।",
+    "homeLink": "সব রেসিপি ঘুরে দেখুন",
+    "metaTitle": "সব রেসিপি ঘুরে দেখুন ও ফিল্টার করুন",
+    "metaDescription": "২০০০-এর বেশি রেসিপি রান্নার ধরন, পদ, খাদ্যাভ্যাস, সময় ও পুষ্টিগুণ অনুযায়ী ফিল্টার করুন, দ্রুত রাতের খাবার থেকে উৎসবের ভোজ পর্যন্ত।",
+    "searchLabel": "রেসিপি, উপকরণ বা ফিল্টার খুঁজুন",
+    "searchPlaceholder": "রেসিপি, উপকরণ বা ফিল্টার",
+    "searchButton": "খুঁজুন",
+    "clearSearch": "অনুসন্ধান মুছুন",
+    "suggestFilters": "ফিল্টার",
+    "suggestRecipes": "রেসিপি",
+    "searchFor": "\"{query}\" খুঁজুন",
+    "searchChip": "অনুসন্ধান: {query}",
+    "results": "{count, plural, =0 {কোনো রেসিপি নেই} one {#টি রেসিপি} other {#টি রেসিপি}}",
+    "updating": "রেসিপি আপডেট হচ্ছে",
+    "filters": "ফিল্টার",
+    "filterSearchLabel": "ফিল্টার খুঁজুন",
+    "filterSearchPlaceholder": "ফিল্টার খুঁজুন, যেমন ভেগান",
+    "noFilterMatch": "\"{query}\"-এর সঙ্গে মেলে এমন কোনো ফিল্টার নেই।",
+    "active": "সক্রিয় ফিল্টার",
+    "reset": "সব রিসেট করুন",
+    "remove": "ফিল্টার সরান: {name}",
+    "showMore": "আরও দেখান",
+    "showLess": "কম দেখান",
+    "showResults": "{count, plural, =0 {কোনো রেসিপি নেই} one {#টি রেসিপি দেখান} other {#টি রেসিপি দেখান}}",
+    "sortLabel": "সাজান",
+    "sort": {
+      "mix": "প্রস্তাবিত",
+      "relevance": "সবচেয়ে মানানসই",
+      "new": "নতুন আগে",
+      "fast": "দ্রুততম আগে",
+      "kcal": "সবচেয়ে কম ক্যালরি",
+      "protein": "সবচেয়ে বেশি প্রোটিন"
+    },
+    "groups": {
+      "cuisine": "রান্নার ধরন",
+      "region": "অঞ্চল",
+      "course": "পদ",
+      "dish": "খাবারের ধরন",
+      "diet": "খাদ্যাভ্যাস",
+      "occasion": "উপলক্ষ",
+      "method": "রান্নার পদ্ধতি",
+      "time": "মোট সময়",
+      "nutrition": "প্রতি পরিবেশনে পুষ্টিগুণ"
+    },
+    "range": {
+      "time": "সর্বোচ্চ {count} মিনিট",
+      "kcal": "সর্বোচ্চ {count} kcal",
+      "protein": "কমপক্ষে {count} g প্রোটিন",
+      "carbs": "সর্বোচ্চ {count} g কার্বোহাইড্রেট"
+    },
+    "emptyTitle": "এই বাছাইয়ে কোনো রেসিপি নেই",
+    "emptyText": "একটি ফিল্টার সরান বা সব রিসেট করুন।",
+    "pagination": "পৃষ্ঠা",
+    "pageOf": "পৃষ্ঠা {page} / {pages}",
+    "prev": "আগের পৃষ্ঠা",
+    "next": "পরের পৃষ্ঠা",
+    "options": {
+      "cuisine": {
+        "german": "জার্মান",
+        "japanese": "জাপানি",
+        "irish": "আইরিশ",
+        "kurdish": "কুর্দি",
+        "portuguese": "পর্তুগিজ",
+        "mediterranean": "ভূমধ্যসাগরীয়",
+        "asian": "এশীয়",
+        "italian": "ইতালীয়",
+        "mexican": "মেক্সিকান",
+        "turkish": "তুর্কি",
+        "indian": "ভারতীয়"
+      },
+      "course": {
+        "main": "মূল খাবার",
+        "side": "সাইড ডিশ",
+        "starter": "স্টার্টার",
+        "soup": "স্যুপ",
+        "salad": "সালাদ",
+        "breakfast": "সকালের নাশতা",
+        "dessert": "ডেজার্ট",
+        "cake": "কেক",
+        "pastry": "বেকড খাবার",
+        "snack": "স্ন্যাক",
+        "drink": "পানীয়",
+        "basic": "মৌলিক রেসিপি"
+      },
+      "dish": {
+        "casserole": "ওভেনে বেক করা খাবার",
+        "pasta": "পাস্তা",
+        "stew": "স্ট্যু",
+        "pan": "প্যানে রান্না",
+        "bowl": "বোল",
+        "curry": "কারি",
+        "dip": "ডিপ",
+        "wrap": "র‍্যাপ"
+      },
+      "diet": {
+        "vegetarian": "নিরামিষ",
+        "vegan": "ভেগান",
+        "lactosefree": "ল্যাকটোজমুক্ত",
+        "highprotein": "উচ্চ প্রোটিন",
+        "glutenfree": "গ্লুটেনমুক্ত",
+        "lowcarb": "কম কার্ব"
+      },
+      "occasion": {
+        "budget": "সাশ্রয়ী",
+        "quick": "দ্রুত",
+        "festive": "উৎসবের",
+        "easy": "সহজ",
+        "mealprep": "মিল প্রেপ"
+      },
+      "method": {
+        "airfryer": "এয়ার ফ্রায়ার",
+        "grill": "গ্রিল",
+        "onepot": "এক হাঁড়িতে"
+      }
+    }
+  }
 }

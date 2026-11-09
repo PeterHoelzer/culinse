@@ -40,6 +40,7 @@ function LocaleSwitcher({ label }: { label: string }) {
 
 export default function Navbar() {
   const t = useTranslations("nav");
+  const tBrowse = useTranslations("browse");
   const locale = useLocale();
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
@@ -96,6 +97,7 @@ export default function Navbar() {
         {/* Desktop-Navigation ab md */}
         <div className="hidden items-center gap-5 whitespace-nowrap md:flex">
           <Link href="/" className={navLink}>{t("discover")}</Link>
+          <Link href="/recipes" className={navLink}>{tBrowse("nav")}</Link>
           <Link href="/blog" className={navLink}>{t("blog")}</Link>
           <Link href="/grocery-list-calculator" className={navLink}>{t("calculator")}</Link>
 
@@ -165,6 +167,7 @@ export default function Navbar() {
         <div id={menuId} className={`${menuVisibility} border-t border-line bg-surface shadow-float`}>
           <div className="mx-auto flex max-w-content flex-col px-4 py-2 sm:px-6">
             <Link href="/" onClick={close} className={`${menuLink} md:hidden`}>{t("discover")}</Link>
+            <Link href="/recipes" onClick={close} className={`${menuLink} md:hidden`}>{tBrowse("nav")}</Link>
             <Link href="/about" onClick={close} className={menuLink}>{t("about")}</Link>
             <Link href="/blog" onClick={close} className={`${menuLink} md:hidden`}>{t("blog")}</Link>
             <Link href="/grocery-list-calculator" onClick={close} className={`${menuLink} md:hidden`}>{t("calculator")}</Link>

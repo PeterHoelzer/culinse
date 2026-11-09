@@ -728,5 +728,124 @@
     "goCollections": "Ke koleksi saya",
     "discover": "Jelajahi resep"
   },
-  "allStates": "Semua negara bagian"
+  "allStates": "Semua negara bagian",
+  "browse": {
+    "nav": "Semua resep",
+    "title": "Semua resep",
+    "subtitle": "Jelajahi seluruh koleksi dan persempit pilihan sampai menemukan yang pas.",
+    "homeLink": "Jelajahi semua resep",
+    "metaTitle": "Jelajahi dan saring semua resep",
+    "metaDescription": "Saring lebih dari 2.000 resep berdasarkan masakan, jenis hidangan, pola makan, waktu, dan nutrisi, dari masakan cepat sehari-hari sampai hidangan pesta.",
+    "searchLabel": "Cari resep, bahan, atau filter",
+    "searchPlaceholder": "Resep, bahan, atau filter",
+    "searchButton": "Cari",
+    "clearSearch": "Hapus pencarian",
+    "suggestFilters": "Filter",
+    "suggestRecipes": "Resep",
+    "searchFor": "Cari “{query}”",
+    "searchChip": "Pencarian: {query}",
+    "results": "{count, plural, =0 {Tidak ada resep} other {# resep}}",
+    "updating": "Memperbarui resep",
+    "filters": "Filter",
+    "filterSearchLabel": "Cari filter",
+    "filterSearchPlaceholder": "Cari filter, mis. vegan",
+    "noFilterMatch": "Tidak ada filter yang cocok dengan “{query}”.",
+    "active": "Filter aktif",
+    "reset": "Atur ulang semua",
+    "remove": "Hapus filter: {name}",
+    "showMore": "Tampilkan lebih banyak",
+    "showLess": "Tampilkan lebih sedikit",
+    "showResults": "{count, plural, =0 {Tidak ada resep} other {Tampilkan # resep}}",
+    "sortLabel": "Urutkan",
+    "sort": {
+      "mix": "Direkomendasikan",
+      "relevance": "Paling cocok",
+      "new": "Terbaru dulu",
+      "fast": "Tercepat dulu",
+      "kcal": "Kalori paling sedikit",
+      "protein": "Protein paling banyak"
+    },
+    "groups": {
+      "cuisine": "Masakan",
+      "region": "Wilayah",
+      "course": "Jenis hidangan",
+      "dish": "Olahan",
+      "diet": "Pola makan",
+      "occasion": "Kesempatan",
+      "method": "Cara memasak",
+      "time": "Total waktu",
+      "nutrition": "Nutrisi per porsi"
+    },
+    "range": {
+      "time": "Hingga {count} mnt",
+      "kcal": "Hingga {count} kcal",
+      "protein": "Minimal {count} g protein",
+      "carbs": "Hingga {count} g karbohidrat"
+    },
+    "emptyTitle": "Tidak ada resep dengan pilihan ini",
+    "emptyText": "Lepas satu filter atau atur ulang semuanya.",
+    "pagination": "Halaman",
+    "pageOf": "Halaman {page} dari {pages}",
+    "prev": "Halaman sebelumnya",
+    "next": "Halaman berikutnya",
+    "options": {
+      "cuisine": {
+        "german": "Jerman",
+        "japanese": "Jepang",
+        "irish": "Irlandia",
+        "kurdish": "Kurdi",
+        "portuguese": "Portugis",
+        "mediterranean": "Mediterania",
+        "asian": "Asia",
+        "italian": "Italia",
+        "mexican": "Meksiko",
+        "turkish": "Turki",
+        "indian": "India"
+      },
+      "course": {
+        "main": "Hidangan utama",
+        "side": "Pendamping",
+        "starter": "Hidangan pembuka",
+        "soup": "Sup",
+        "salad": "Salad",
+        "breakfast": "Sarapan",
+        "dessert": "Hidangan penutup",
+        "cake": "Kue",
+        "pastry": "Kue panggang",
+        "snack": "Camilan",
+        "drink": "Minuman",
+        "basic": "Resep dasar"
+      },
+      "dish": {
+        "casserole": "Hidangan panggang oven",
+        "pasta": "Pasta",
+        "stew": "Sup kental",
+        "pan": "Masakan wajan",
+        "bowl": "Bowl",
+        "curry": "Kari",
+        "dip": "Dip",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Vegetarian",
+        "vegan": "Vegan",
+        "lactosefree": "Bebas laktosa",
+        "highprotein": "Tinggi protein",
+        "glutenfree": "Bebas gluten",
+        "lowcarb": "Rendah karbohidrat"
+      },
+      "occasion": {
+        "budget": "Hemat",
+        "quick": "Cepat",
+        "festive": "Perayaan",
+        "easy": "Mudah",
+        "mealprep": "Meal prep"
+      },
+      "method": {
+        "airfryer": "Air fryer",
+        "grill": "Panggang arang",
+        "onepot": "Satu panci"
+      }
+    }
+  }
 }

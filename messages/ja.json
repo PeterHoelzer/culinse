@@ -728,5 +728,124 @@
     "goCollections": "マイコレクションへ",
     "discover": "レシピを探す"
   },
-  "allStates": "すべての州"
+  "allStates": "すべての州",
+  "browse": {
+    "nav": "レシピ一覧",
+    "title": "すべてのレシピ",
+    "subtitle": "コレクション全体を見ながら絞り込んで、ぴったりの一品を見つけましょう。",
+    "homeLink": "すべてのレシピを見る",
+    "metaTitle": "すべてのレシピを探す・絞り込む",
+    "metaDescription": "2000以上のレシピを、料理のジャンル、コース、食事スタイル、時間、栄養で絞り込めます。手早い平日の夕食からお祝いの食卓まで。",
+    "searchLabel": "レシピ、食材、絞り込み条件を検索",
+    "searchPlaceholder": "レシピ、食材、絞り込み条件",
+    "searchButton": "検索",
+    "clearSearch": "検索をクリア",
+    "suggestFilters": "絞り込み",
+    "suggestRecipes": "レシピ",
+    "searchFor": "「{query}」を検索",
+    "searchChip": "検索：{query}",
+    "results": "{count, plural, =0 {レシピなし} other {# 件のレシピ}}",
+    "updating": "レシピを更新中",
+    "filters": "絞り込み",
+    "filterSearchLabel": "絞り込み条件を検索",
+    "filterSearchPlaceholder": "絞り込み条件を検索（例：ヴィーガン）",
+    "noFilterMatch": "「{query}」に一致する条件はありません。",
+    "active": "適用中の条件",
+    "reset": "すべてリセット",
+    "remove": "条件を外す：{name}",
+    "showMore": "もっと見る",
+    "showLess": "閉じる",
+    "showResults": "{count, plural, =0 {レシピなし} other {# 件のレシピを表示}}",
+    "sortLabel": "並べ替え",
+    "sort": {
+      "mix": "おすすめ",
+      "relevance": "関連度順",
+      "new": "新着順",
+      "fast": "調理時間が短い順",
+      "kcal": "カロリーが低い順",
+      "protein": "たんぱく質が多い順"
+    },
+    "groups": {
+      "cuisine": "料理のジャンル",
+      "region": "地域",
+      "course": "コース",
+      "dish": "料理タイプ",
+      "diet": "食事スタイル",
+      "occasion": "シーン",
+      "method": "調理法",
+      "time": "合計時間",
+      "nutrition": "1人分の栄養"
+    },
+    "range": {
+      "time": "{count} 分以内",
+      "kcal": "{count} kcal 以下",
+      "protein": "たんぱく質 {count} g 以上",
+      "carbs": "炭水化物 {count} g 以下"
+    },
+    "emptyTitle": "この条件に合うレシピはありません",
+    "emptyText": "条件を1つ外すか、すべてリセットしてください。",
+    "pagination": "ページ",
+    "pageOf": "{page} / {pages} ページ",
+    "prev": "前のページ",
+    "next": "次のページ",
+    "options": {
+      "cuisine": {
+        "german": "ドイツ料理",
+        "japanese": "和食",
+        "irish": "アイルランド料理",
+        "kurdish": "クルド料理",
+        "portuguese": "ポルトガル料理",
+        "mediterranean": "地中海料理",
+        "asian": "アジア料理",
+        "italian": "イタリア料理",
+        "mexican": "メキシコ料理",
+        "turkish": "トルコ料理",
+        "indian": "インド料理"
+      },
+      "course": {
+        "main": "メイン",
+        "side": "副菜",
+        "starter": "前菜",
+        "soup": "スープ",
+        "salad": "サラダ",
+        "breakfast": "朝食",
+        "dessert": "デザート",
+        "cake": "ケーキ",
+        "pastry": "焼き菓子・パン",
+        "snack": "軽食",
+        "drink": "ドリンク",
+        "basic": "基本のレシピ"
+      },
+      "dish": {
+        "casserole": "グラタン・オーブン料理",
+        "pasta": "パスタ",
+        "stew": "煮込み",
+        "pan": "フライパン料理",
+        "bowl": "ボウル",
+        "curry": "カレー",
+        "dip": "ディップ",
+        "wrap": "ラップサンド"
+      },
+      "diet": {
+        "vegetarian": "ベジタリアン",
+        "vegan": "ヴィーガン",
+        "lactosefree": "乳糖フリー",
+        "highprotein": "高たんぱく",
+        "glutenfree": "グルテンフリー",
+        "lowcarb": "低糖質"
+      },
+      "occasion": {
+        "budget": "節約",
+        "quick": "時短",
+        "festive": "お祝い",
+        "easy": "簡単",
+        "mealprep": "作り置き"
+      },
+      "method": {
+        "airfryer": "ノンフライヤー",
+        "grill": "グリル",
+        "onepot": "ワンポット"
+      }
+    }
+  }
 }

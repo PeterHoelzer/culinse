@@ -728,5 +728,124 @@
     "goCollections": "Vai alle mie raccolte",
     "discover": "Scopri le ricette"
   },
-  "allStates": "Tutte le regioni"
+  "allStates": "Tutte le regioni",
+  "browse": {
+    "nav": "Sfoglia",
+    "title": "Tutte le ricette",
+    "subtitle": "Sfoglia tutta la raccolta e restringi la scelta finché non resta quella giusta.",
+    "homeLink": "Sfoglia tutte le ricette",
+    "metaTitle": "Sfoglia e filtra tutte le ricette",
+    "metaDescription": "Filtra oltre 2000 ricette per cucina, portata, dieta, tempo e valori nutrizionali, dalla cena veloce infrasettimanale al pranzo di festa.",
+    "searchLabel": "Cerca una ricetta, un ingrediente o un filtro",
+    "searchPlaceholder": "Ricetta, ingrediente o filtro",
+    "searchButton": "Cerca",
+    "clearSearch": "Cancella la ricerca",
+    "suggestFilters": "Filtri",
+    "suggestRecipes": "Ricette",
+    "searchFor": "Cerca «{query}»",
+    "searchChip": "Ricerca: {query}",
+    "results": "{count, plural, =0 {Nessuna ricetta} one {# ricetta} other {# ricette}}",
+    "updating": "Aggiornamento delle ricette",
+    "filters": "Filtri",
+    "filterSearchLabel": "Cerca filtri",
+    "filterSearchPlaceholder": "Cerca filtri, ad es. vegano",
+    "noFilterMatch": "Nessun filtro corrisponde a «{query}».",
+    "active": "Filtri attivi",
+    "reset": "Reimposta tutto",
+    "remove": "Rimuovi filtro: {name}",
+    "showMore": "Mostra di più",
+    "showLess": "Mostra meno",
+    "showResults": "{count, plural, =0 {Nessuna ricetta} one {Mostra # ricetta} other {Mostra # ricette}}",
+    "sortLabel": "Ordina",
+    "sort": {
+      "mix": "Consigliate",
+      "relevance": "Più pertinenti",
+      "new": "Più recenti",
+      "fast": "Più veloci",
+      "kcal": "Meno calorie",
+      "protein": "Più proteine"
+    },
+    "groups": {
+      "cuisine": "Cucina",
+      "region": "Regione",
+      "course": "Portata",
+      "dish": "Piatto",
+      "diet": "Dieta",
+      "occasion": "Occasione",
+      "method": "Preparazione",
+      "time": "Tempo totale",
+      "nutrition": "Valori nutrizionali per porzione"
+    },
+    "range": {
+      "time": "Fino a {count} min",
+      "kcal": "Fino a {count} kcal",
+      "protein": "Almeno {count} g di proteine",
+      "carbs": "Fino a {count} g di carboidrati"
+    },
+    "emptyTitle": "Nessuna ricetta con questa selezione",
+    "emptyText": "Togli un filtro o reimposta tutto.",
+    "pagination": "Pagine",
+    "pageOf": "Pagina {page} di {pages}",
+    "prev": "Pagina precedente",
+    "next": "Pagina successiva",
+    "options": {
+      "cuisine": {
+        "german": "Tedesca",
+        "japanese": "Giapponese",
+        "irish": "Irlandese",
+        "kurdish": "Curda",
+        "portuguese": "Portoghese",
+        "mediterranean": "Mediterranea",
+        "asian": "Asiatica",
+        "italian": "Italiana",
+        "mexican": "Messicana",
+        "turkish": "Turca",
+        "indian": "Indiana"
+      },
+      "course": {
+        "main": "Piatto principale",
+        "side": "Contorno",
+        "starter": "Antipasto",
+        "soup": "Zuppa",
+        "salad": "Insalata",
+        "breakfast": "Colazione",
+        "dessert": "Dessert",
+        "cake": "Torta",
+        "pastry": "Prodotti da forno",
+        "snack": "Snack",
+        "drink": "Bevanda",
+        "basic": "Ricetta base"
+      },
+      "dish": {
+        "casserole": "Gratin",
+        "pasta": "Pasta",
+        "stew": "Stufato",
+        "pan": "In padella",
+        "bowl": "Bowl",
+        "curry": "Curry",
+        "dip": "Dip",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Vegetariano",
+        "vegan": "Vegano",
+        "lactosefree": "Senza lattosio",
+        "highprotein": "Ricco di proteine",
+        "glutenfree": "Senza glutine",
+        "lowcarb": "Low carb"
+      },
+      "occasion": {
+        "budget": "Economico",
+        "quick": "Veloce",
+        "festive": "Per le feste",
+        "easy": "Facile",
+        "mealprep": "Meal prep"
+      },
+      "method": {
+        "airfryer": "Friggitrice ad aria",
+        "grill": "Grigliate",
+        "onepot": "One-pot"
+      }
+    }
+  }
 }

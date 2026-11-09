@@ -20,9 +20,9 @@ const PROTECTED_PATHS = [
   "/profile",
   "/onboarding",
   "/my-recipes",
-  "/recipes/create",
-  "/recipes",
 ];
+// "/recipes" selbst ist die öffentliche Stöberseite (09.11.2026). Alles darunter
+// (create, import, <id>/edit) bleibt hinter dem Login, siehe isRecipeEditor.
 
 async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -111,7 +111,9 @@ async function proxy(request: NextRequest) {
   } = await supabase.auth.getSession();
 
   // Strip locale prefix (/en/collections → /collections) for route matching
-  const localePattern = /^\/(en|de|es|fr|it|pl|tr)(\/|$)/;
+  // Alle Sprachen aus i18n/routing.ts. Vorher standen hier nur sieben von 16
+  // fest im Muster; in den übrigen neun griff der Schutz deshalb nicht.
+  const localePattern = new RegExp(`^/(${routing.locales.join("|")})(/|$)`);
   const strippedPath = pathname.replace(localePattern, "/");
 
   // Gate only the user's OWN collections index (/collections or /collections/),
@@ -123,15 +125,18 @@ async function proxy(request: NextRequest) {
 
   // Match on segment boundaries: "/recipes" must gate "/recipes" and
   // "/recipes/create", but not an unrelated route like "/recipes-blog".
+  const isRecipeEditor = strippedPath.startsWith("/recipes/") && strippedPath !== "/recipes/";
+
   const isProtected =
     isCollectionsIndex ||
+    isRecipeEditor ||
     PROTECTED_PATHS.some(
       (path) => strippedPath === path || strippedPath.startsWith(`${path}/`)
     );
 
   if (isProtected && !session) {
     // Detect locale from URL or default to "en"
-    const localeMatch = pathname.match(/^\/(en|de|es|fr|it|pl|tr)(\/|$)/);
+    const localeMatch = pathname.match(localePattern);
     const locale = localeMatch ? localeMatch[1] : "en";
     const loginUrl = new URL(`/${locale}/login`, request.url);
     loginUrl.searchParams.set("redirectTo", pathname);

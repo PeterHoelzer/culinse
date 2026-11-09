@@ -728,5 +728,124 @@
     "goCollections": "Koleksiyonlarıma git",
     "discover": "Tarifleri keşfet"
   },
-  "allStates": "Tüm bölgeler"
+  "allStates": "Tüm bölgeler",
+  "browse": {
+    "nav": "Göz at",
+    "title": "Tüm tarifler",
+    "subtitle": "Tüm koleksiyona göz at ve doğru tarif kalana kadar filtrele.",
+    "homeLink": "Tüm tariflere göz at",
+    "metaTitle": "Tüm tariflere göz at ve filtrele",
+    "metaDescription": "2000'den fazla tarifi mutfağa, öğüne, beslenme biçimine, süreye ve besin değerlerine göre filtrele; hızlı akşam yemeğinden şenlik sofrasına.",
+    "searchLabel": "Tarif, malzeme veya filtre ara",
+    "searchPlaceholder": "Tarif, malzeme veya filtre",
+    "searchButton": "Ara",
+    "clearSearch": "Aramayı temizle",
+    "suggestFilters": "Filtreler",
+    "suggestRecipes": "Tarifler",
+    "searchFor": "\"{query}\" için ara",
+    "searchChip": "Arama: {query}",
+    "results": "{count, plural, =0 {Tarif yok} one {# tarif} other {# tarif}}",
+    "updating": "Tarifler güncelleniyor",
+    "filters": "Filtreler",
+    "filterSearchLabel": "Filtre ara",
+    "filterSearchPlaceholder": "Filtre ara, örn. vegan",
+    "noFilterMatch": "\"{query}\" ile eşleşen filtre yok.",
+    "active": "Etkin filtreler",
+    "reset": "Tümünü sıfırla",
+    "remove": "Filtreyi kaldır: {name}",
+    "showMore": "Daha fazla göster",
+    "showLess": "Daha az göster",
+    "showResults": "{count, plural, =0 {Tarif yok} one {# tarifi göster} other {# tarifi göster}}",
+    "sortLabel": "Sırala",
+    "sort": {
+      "mix": "Önerilen",
+      "relevance": "En iyi eşleşme",
+      "new": "Önce en yeni",
+      "fast": "Önce en hızlı",
+      "kcal": "En az kalori",
+      "protein": "En çok protein"
+    },
+    "groups": {
+      "cuisine": "Mutfak",
+      "region": "Bölge",
+      "course": "Öğün",
+      "dish": "Yemek türü",
+      "diet": "Beslenme",
+      "occasion": "Vesile",
+      "method": "Yöntem",
+      "time": "Toplam süre",
+      "nutrition": "Porsiyon başına besin değerleri"
+    },
+    "range": {
+      "time": "En fazla {count} dk",
+      "kcal": "En fazla {count} kcal",
+      "protein": "En az {count} g protein",
+      "carbs": "En fazla {count} g karbonhidrat"
+    },
+    "emptyTitle": "Bu seçimle tarif yok",
+    "emptyText": "Bir filtreyi kaldır veya hepsini sıfırla.",
+    "pagination": "Sayfalar",
+    "pageOf": "Sayfa {page} / {pages}",
+    "prev": "Önceki sayfa",
+    "next": "Sonraki sayfa",
+    "options": {
+      "cuisine": {
+        "german": "Alman",
+        "japanese": "Japon",
+        "irish": "İrlanda",
+        "kurdish": "Kürt",
+        "portuguese": "Portekiz",
+        "mediterranean": "Akdeniz",
+        "asian": "Asya",
+        "italian": "İtalyan",
+        "mexican": "Meksika",
+        "turkish": "Türk",
+        "indian": "Hint"
+      },
+      "course": {
+        "main": "Ana yemek",
+        "side": "Garnitür",
+        "starter": "Başlangıç",
+        "soup": "Çorba",
+        "salad": "Salata",
+        "breakfast": "Kahvaltı",
+        "dessert": "Tatlı",
+        "cake": "Kek",
+        "pastry": "Hamur işi",
+        "snack": "Atıştırmalık",
+        "drink": "İçecek",
+        "basic": "Temel tarif"
+      },
+      "dish": {
+        "casserole": "Fırın yemeği",
+        "pasta": "Makarna",
+        "stew": "Güveç",
+        "pan": "Tava yemeği",
+        "bowl": "Bowl",
+        "curry": "Köri",
+        "dip": "Dip sos",
+        "wrap": "Dürüm"
+      },
+      "diet": {
+        "vegetarian": "Vejetaryen",
+        "vegan": "Vegan",
+        "lactosefree": "Laktozsuz",
+        "highprotein": "Yüksek proteinli",
+        "glutenfree": "Glutensiz",
+        "lowcarb": "Düşük karbonhidratlı"
+      },
+      "occasion": {
+        "budget": "Ekonomik",
+        "quick": "Hızlı",
+        "festive": "Şenlikli",
+        "easy": "Kolay",
+        "mealprep": "Yemek hazırlığı"
+      },
+      "method": {
+        "airfryer": "Air fryer",
+        "grill": "Izgara",
+        "onepot": "Tek tencere"
+      }
+    }
+  }
 }

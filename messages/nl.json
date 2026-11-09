@@ -728,5 +728,124 @@
     "goCollections": "Naar mijn collecties",
     "discover": "Recepten ontdekken"
   },
-  "allStates": "Alle regio's"
+  "allStates": "Alle regio's",
+  "browse": {
+    "nav": "Bladeren",
+    "title": "Alle recepten",
+    "subtitle": "Blader door de hele collectie en verfijn je keuze tot het juiste gerecht overblijft.",
+    "homeLink": "Blader door alle recepten",
+    "metaTitle": "Blader door en filter alle recepten",
+    "metaDescription": "Filter meer dan 2000 recepten op keuken, gang, dieet, tijd en voedingswaarden, van snel doordeweeks koken tot een feestmaal.",
+    "searchLabel": "Zoek een recept, ingrediënt of filter",
+    "searchPlaceholder": "Recept, ingrediënt of filter",
+    "searchButton": "Zoeken",
+    "clearSearch": "Zoekopdracht wissen",
+    "suggestFilters": "Filters",
+    "suggestRecipes": "Recepten",
+    "searchFor": "Zoeken naar “{query}”",
+    "searchChip": "Zoekopdracht: {query}",
+    "results": "{count, plural, =0 {Geen recepten} one {# recept} other {# recepten}}",
+    "updating": "Recepten worden bijgewerkt",
+    "filters": "Filters",
+    "filterSearchLabel": "Filters zoeken",
+    "filterSearchPlaceholder": "Filters zoeken, bijv. vegan",
+    "noFilterMatch": "Geen filter past bij “{query}”.",
+    "active": "Actieve filters",
+    "reset": "Alles resetten",
+    "remove": "Filter verwijderen: {name}",
+    "showMore": "Meer tonen",
+    "showLess": "Minder tonen",
+    "showResults": "{count, plural, =0 {Geen recepten} one {# recept tonen} other {# recepten tonen}}",
+    "sortLabel": "Sorteren",
+    "sort": {
+      "mix": "Aanbevolen",
+      "relevance": "Beste resultaten",
+      "new": "Nieuwste eerst",
+      "fast": "Snelste eerst",
+      "kcal": "Minste calorieën",
+      "protein": "Meeste eiwit"
+    },
+    "groups": {
+      "cuisine": "Keuken",
+      "region": "Regio",
+      "course": "Gang",
+      "dish": "Gerecht",
+      "diet": "Dieet",
+      "occasion": "Gelegenheid",
+      "method": "Bereiding",
+      "time": "Totale tijd",
+      "nutrition": "Voedingswaarden per portie"
+    },
+    "range": {
+      "time": "Tot {count} min",
+      "kcal": "Tot {count} kcal",
+      "protein": "Vanaf {count} g eiwit",
+      "carbs": "Tot {count} g koolhydraten"
+    },
+    "emptyTitle": "Geen recepten met deze selectie",
+    "emptyText": "Haal een filter weg of reset alles.",
+    "pagination": "Pagina’s",
+    "pageOf": "Pagina {page} van {pages}",
+    "prev": "Vorige pagina",
+    "next": "Volgende pagina",
+    "options": {
+      "cuisine": {
+        "german": "Duits",
+        "japanese": "Japans",
+        "irish": "Iers",
+        "kurdish": "Koerdisch",
+        "portuguese": "Portugees",
+        "mediterranean": "Mediterraan",
+        "asian": "Aziatisch",
+        "italian": "Italiaans",
+        "mexican": "Mexicaans",
+        "turkish": "Turks",
+        "indian": "Indiaas"
+      },
+      "course": {
+        "main": "Hoofdgerecht",
+        "side": "Bijgerecht",
+        "starter": "Voorgerecht",
+        "soup": "Soep",
+        "salad": "Salade",
+        "breakfast": "Ontbijt",
+        "dessert": "Dessert",
+        "cake": "Taart",
+        "pastry": "Gebak",
+        "snack": "Snack",
+        "drink": "Drankje",
+        "basic": "Basisrecept"
+      },
+      "dish": {
+        "casserole": "Ovenschotel",
+        "pasta": "Pasta",
+        "stew": "Stoofpot",
+        "pan": "Pangerecht",
+        "bowl": "Bowl",
+        "curry": "Curry",
+        "dip": "Dip",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Vegetarisch",
+        "vegan": "Vegan",
+        "lactosefree": "Lactosevrij",
+        "highprotein": "Eiwitrijk",
+        "glutenfree": "Glutenvrij",
+        "lowcarb": "Low carb"
+      },
+      "occasion": {
+        "budget": "Budget",
+        "quick": "Snel",
+        "festive": "Feestelijk",
+        "easy": "Makkelijk",
+        "mealprep": "Meal prep"
+      },
+      "method": {
+        "airfryer": "Heteluchtfriteuse",
+        "grill": "Grillen",
+        "onepot": "One-pot"
+      }
+    }
+  }
 }

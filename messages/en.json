@@ -728,5 +728,124 @@
     "goCollections": "Go to Collections",
     "discover": "Discover Recipes"
   },
-  "allStates": "All regions"
+  "allStates": "All regions",
+  "browse": {
+    "nav": "Browse",
+    "title": "All recipes",
+    "subtitle": "Browse the whole collection and narrow it down until the right dish is left.",
+    "homeLink": "Browse all recipes",
+    "metaTitle": "Browse and filter all recipes",
+    "metaDescription": "Filter more than 2,000 recipes by cuisine, course, diet, time and nutrition, from quick weeknight cooking to a festive dinner.",
+    "searchLabel": "Search for a recipe, ingredient or filter",
+    "searchPlaceholder": "Recipe, ingredient or filter",
+    "searchButton": "Search",
+    "clearSearch": "Clear search",
+    "suggestFilters": "Filters",
+    "suggestRecipes": "Recipes",
+    "searchFor": "Search for “{query}”",
+    "searchChip": "Search: {query}",
+    "results": "{count, plural, =0 {No recipes} one {# recipe} other {# recipes}}",
+    "updating": "Updating recipes",
+    "filters": "Filters",
+    "filterSearchLabel": "Search filters",
+    "filterSearchPlaceholder": "Search filters, e.g. vegan",
+    "noFilterMatch": "No filter matches “{query}”.",
+    "active": "Active filters",
+    "reset": "Reset all",
+    "remove": "Remove filter: {name}",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "showResults": "{count, plural, =0 {No recipes} one {Show # recipe} other {Show # recipes}}",
+    "sortLabel": "Sort",
+    "sort": {
+      "mix": "Recommended",
+      "relevance": "Best match",
+      "new": "Newest first",
+      "fast": "Quickest first",
+      "kcal": "Fewest calories",
+      "protein": "Most protein"
+    },
+    "groups": {
+      "cuisine": "Cuisine",
+      "region": "Region",
+      "course": "Course",
+      "dish": "Dish",
+      "diet": "Diet",
+      "occasion": "Occasion",
+      "method": "Method",
+      "time": "Total time",
+      "nutrition": "Nutrition per serving"
+    },
+    "range": {
+      "time": "Up to {count} min",
+      "kcal": "Up to {count} kcal",
+      "protein": "At least {count} g protein",
+      "carbs": "Up to {count} g carbs"
+    },
+    "emptyTitle": "No recipes match this selection",
+    "emptyText": "Remove a filter or reset everything.",
+    "pagination": "Pages",
+    "pageOf": "Page {page} of {pages}",
+    "prev": "Previous page",
+    "next": "Next page",
+    "options": {
+      "cuisine": {
+        "german": "German",
+        "japanese": "Japanese",
+        "irish": "Irish",
+        "kurdish": "Kurdish",
+        "portuguese": "Portuguese",
+        "mediterranean": "Mediterranean",
+        "asian": "Asian",
+        "italian": "Italian",
+        "mexican": "Mexican",
+        "turkish": "Turkish",
+        "indian": "Indian"
+      },
+      "course": {
+        "main": "Main course",
+        "side": "Side dish",
+        "starter": "Starter",
+        "soup": "Soup",
+        "salad": "Salad",
+        "breakfast": "Breakfast",
+        "dessert": "Dessert",
+        "cake": "Cake",
+        "pastry": "Baked goods",
+        "snack": "Snack",
+        "drink": "Drink",
+        "basic": "Basic recipe"
+      },
+      "dish": {
+        "casserole": "Casserole",
+        "pasta": "Pasta",
+        "stew": "Stew",
+        "pan": "Pan dish",
+        "bowl": "Bowl",
+        "curry": "Curry",
+        "dip": "Dip",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Vegetarian",
+        "vegan": "Vegan",
+        "lactosefree": "Lactose-free",
+        "highprotein": "High protein",
+        "glutenfree": "Gluten-free",
+        "lowcarb": "Low carb"
+      },
+      "occasion": {
+        "budget": "Budget",
+        "quick": "Quick",
+        "festive": "Festive",
+        "easy": "Easy",
+        "mealprep": "Meal prep"
+      },
+      "method": {
+        "airfryer": "Air fryer",
+        "grill": "Grilling",
+        "onepot": "One-pot"
+      }
+    }
+  }
 }

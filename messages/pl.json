@@ -728,5 +728,124 @@
     "goCollections": "Do moich kolekcji",
     "discover": "Odkrywaj przepisy"
   },
-  "allStates": "Wszystkie regiony"
+  "allStates": "Wszystkie regiony",
+  "browse": {
+    "nav": "Przeglądaj",
+    "title": "Wszystkie przepisy",
+    "subtitle": "Przeglądaj całą kolekcję i zawężaj wybór, aż zostanie to, czego szukasz.",
+    "homeLink": "Przeglądaj wszystkie przepisy",
+    "metaTitle": "Przeglądaj i filtruj wszystkie przepisy",
+    "metaDescription": "Filtruj ponad 2000 przepisów według kuchni, rodzaju dania, diety, czasu i wartości odżywczych, od szybkiego obiadu w tygodniu po świąteczną ucztę.",
+    "searchLabel": "Szukaj przepisu, składnika lub filtra",
+    "searchPlaceholder": "Przepis, składnik lub filtr",
+    "searchButton": "Szukaj",
+    "clearSearch": "Wyczyść wyszukiwanie",
+    "suggestFilters": "Filtry",
+    "suggestRecipes": "Przepisy",
+    "searchFor": "Szukaj „{query}”",
+    "searchChip": "Szukanie: {query}",
+    "results": "{count, plural, =0 {Brak przepisów} one {# przepis} few {# przepisy} many {# przepisów} other {# przepisu}}",
+    "updating": "Aktualizowanie przepisów",
+    "filters": "Filtry",
+    "filterSearchLabel": "Szukaj filtrów",
+    "filterSearchPlaceholder": "Szukaj filtrów, np. wegańskie",
+    "noFilterMatch": "Żaden filtr nie pasuje do „{query}”.",
+    "active": "Aktywne filtry",
+    "reset": "Zresetuj wszystko",
+    "remove": "Usuń filtr: {name}",
+    "showMore": "Pokaż więcej",
+    "showLess": "Pokaż mniej",
+    "showResults": "{count, plural, =0 {Brak przepisów} one {Pokaż # przepis} few {Pokaż # przepisy} many {Pokaż # przepisów} other {Pokaż # przepisu}}",
+    "sortLabel": "Sortuj",
+    "sort": {
+      "mix": "Polecane",
+      "relevance": "Najlepiej dopasowane",
+      "new": "Od najnowszych",
+      "fast": "Od najszybszych",
+      "kcal": "Najmniej kalorii",
+      "protein": "Najwięcej białka"
+    },
+    "groups": {
+      "cuisine": "Kuchnia",
+      "region": "Region",
+      "course": "Rodzaj dania",
+      "dish": "Danie",
+      "diet": "Dieta",
+      "occasion": "Okazja",
+      "method": "Sposób przygotowania",
+      "time": "Całkowity czas",
+      "nutrition": "Wartości odżywcze na porcję"
+    },
+    "range": {
+      "time": "Do {count} min",
+      "kcal": "Do {count} kcal",
+      "protein": "Od {count} g białka",
+      "carbs": "Do {count} g węglowodanów"
+    },
+    "emptyTitle": "Brak przepisów dla tego wyboru",
+    "emptyText": "Usuń jeden filtr lub zresetuj wszystko.",
+    "pagination": "Strony",
+    "pageOf": "Strona {page} z {pages}",
+    "prev": "Poprzednia strona",
+    "next": "Następna strona",
+    "options": {
+      "cuisine": {
+        "german": "Niemiecka",
+        "japanese": "Japońska",
+        "irish": "Irlandzka",
+        "kurdish": "Kurdyjska",
+        "portuguese": "Portugalska",
+        "mediterranean": "Śródziemnomorska",
+        "asian": "Azjatycka",
+        "italian": "Włoska",
+        "mexican": "Meksykańska",
+        "turkish": "Turecka",
+        "indian": "Indyjska"
+      },
+      "course": {
+        "main": "Danie główne",
+        "side": "Dodatek",
+        "starter": "Przystawka",
+        "soup": "Zupa",
+        "salad": "Sałatka",
+        "breakfast": "Śniadanie",
+        "dessert": "Deser",
+        "cake": "Ciasto",
+        "pastry": "Wypieki",
+        "snack": "Przekąska",
+        "drink": "Napój",
+        "basic": "Przepis podstawowy"
+      },
+      "dish": {
+        "casserole": "Zapiekanka",
+        "pasta": "Pasta",
+        "stew": "Gulasz",
+        "pan": "Z patelni",
+        "bowl": "Bowl",
+        "curry": "Curry",
+        "dip": "Dip",
+        "wrap": "Wrap"
+      },
+      "diet": {
+        "vegetarian": "Wegetariańskie",
+        "vegan": "Wegańskie",
+        "lactosefree": "Bez laktozy",
+        "highprotein": "Wysokobiałkowe",
+        "glutenfree": "Bezglutenowe",
+        "lowcarb": "Low carb"
+      },
+      "occasion": {
+        "budget": "Tanie",
+        "quick": "Szybkie",
+        "festive": "Świąteczne",
+        "easy": "Proste",
+        "mealprep": "Meal prep"
+      },
+      "method": {
+        "airfryer": "Frytkownica beztłuszczowa",
+        "grill": "Grillowanie",
+        "onepot": "One-pot"
+      }
+    }
+  }
 }

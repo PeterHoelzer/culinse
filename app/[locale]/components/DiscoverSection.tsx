@@ -425,13 +425,16 @@ export default function DiscoverSection({
               ))}
             </div>
 
-            {hasMore && (
-              <div className="mt-8 flex justify-center">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+              {hasMore && (
                 <Button variant="secondary" onClick={handleLoadMore} loading={loadingMore}>
                   {t("discover.loadMore")}
                 </Button>
-              </div>
-            )}
+              )}
+              <Button variant="quiet" href="/recipes">
+                {t("browse.homeLink")}
+              </Button>
+            </div>
           </>
         ) : (
           <EmptyState title={t("discover.noRecipes")} text={t("discover.noRecipesSub")} />
