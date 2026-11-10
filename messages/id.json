@@ -539,7 +539,9 @@
     "printWithImage": "Dengan gambar",
     "printNoImage": "Tanpa gambar",
     "aiNotice": "Resep dan gambar dibuat dengan AI, telah diperiksa oleh tim redaksi",
-    "aiNoticeMore": "Selengkapnya tentang transparansi AI"
+    "aiNoticeMore": "Selengkapnya tentang transparansi AI",
+    "familyNotice": "Resep keluarga, kami masak sendiri. Tidak dibuat dengan AI.",
+    "editorLine": "Redaksi: Peter Hölzer, kepala koki dan ahli daging bersertifikat"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Resep panggang arang",
           "onepot": "Resep satu panci"
         }
-      }
+      },
+      "byCourse": "Resep menurut jenis hidangan"
     },
     "ingredients": {
       "with": "Dengan bahan",

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
-import { recipeSourceLabel } from "@/lib/culinse";
+import { isFamilyRecipe, recipeSourceLabel } from "@/lib/culinse";
 import { httpUrl } from "@/lib/userRecipeInput";
 import { optimizedImageUrl } from "@/lib/imageUrl";
 import { routing } from "@/i18n/routing";
@@ -74,27 +74,37 @@ export async function GET(
       // bekommen eine leere Liste.
       const language = typeof r.language === "string" && LOCALES.includes(r.language) ? r.language : null;
       const translations: Record<string, string> = {};
+      // Schlagworte für die Verweise auf Küche, Region und Gang: maßgeblich sind die
+      // deutschen (dort sind Regionen gepflegt); ältere Übersetzungen tragen englische.
+      let topicTags: string[] = Array.isArray(r.tags) ? (r.tags as string[]) : [];
       if (language && r.is_public) {
         if (r.translation_group) {
           const { data: siblings } = await supabase
             .from("user_recipes")
-            .select("id, language")
+            .select("id, language, tags")
             .eq("translation_group", r.translation_group)
             .eq("is_public", true)
             .order("id", { ascending: true });
-          for (const s of (siblings ?? []) as { id: string; language: string | null }[]) {
+          for (const s of (siblings ?? []) as { id: string; language: string | null; tags: string[] | null }[]) {
             if (s.language && LOCALES.includes(s.language) && !translations[s.language]) {
               translations[s.language] = `user_${s.id}`;
+              if (s.language === "de" && Array.isArray(s.tags)) topicTags = s.tags;
             }
           }
         }
         translations[language] = id;
       }
+      const family = isFamilyRecipe(r.user_id);
 
       const recipe = {
         id,
         language,
         translations,
+        topicTags,
+        // Familienrezept: selbst gekocht, nicht mit KI erstellt (siehe lib/culinse.ts).
+        family,
+        // Redaktionell verantwortet (eigene und Familienrezepte), nicht bei fremden Community-Rezepten.
+        editorial: family || recipeSourceLabel(r.user_id) === "Culinse",
         title: r.title,
         // URL columns pass the http(s) filter before rendering as src/href —
         // stored javascript:/data: values must never reach visitors' browsers.
@@ -109,7 +119,7 @@ export async function GET(
         // geprueft; manuelle Community-Rezepte haben hier NULL.
         // Doppelt abgesichert: Pipeline-Merkmal ODER strukturell (alles, was unter
         // dem Culinse-Label laeuft und nicht importiert ist, ist KI-unterstuetzt).
-        aiAssisted: r.pipeline_status != null || (recipeSourceLabel(r.user_id) === "Culinse" && r.source_type !== "imported"),
+        aiAssisted: !family && (r.pipeline_status != null || (recipeSourceLabel(r.user_id) === "Culinse" && r.source_type !== "imported")),
         videoUrl: httpUrl(r.video_url),
         // Imported recipes carry their original site name + link for attribution;
         // created recipes are labelled Culinse (owner) or Community (other members).

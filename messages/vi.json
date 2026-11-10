@@ -539,7 +539,9 @@
     "printWithImage": "Kèm hình ảnh",
     "printNoImage": "Không kèm hình ảnh",
     "aiNotice": "Công thức và hình ảnh được tạo bằng AI, đã được biên tập viên kiểm duyệt",
-    "aiNoticeMore": "Tìm hiểu thêm về minh bạch AI"
+    "aiNoticeMore": "Tìm hiểu thêm về minh bạch AI",
+    "familyNotice": "Công thức gia đình, do chúng tôi tự nấu. Không tạo bằng AI.",
+    "editorLine": "Biên tập: Peter Hölzer, bếp trưởng và thợ cả ngành thịt"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Công thức nướng",
           "onepot": "Công thức một nồi"
         }
-      }
+      },
+      "byCourse": "Công thức theo loại món"
     },
     "ingredients": {
       "with": "Có nguyên liệu",

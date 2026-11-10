@@ -539,7 +539,9 @@
     "printWithImage": "S obrázkem",
     "printNoImage": "Bez obrázku",
     "aiNotice": "Recept a obrázek vytvořeny pomocí AI, redakčně zkontrolovány",
-    "aiNoticeMore": "Více o transparentnosti AI"
+    "aiNoticeMore": "Více o transparentnosti AI",
+    "familyNotice": "Rodinný recept, sami jsme ho uvařili. Nevznikl pomocí AI.",
+    "editorLine": "Redakce: Peter Hölzer, šéfkuchař a mistr řezník"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Recepty na gril",
           "onepot": "Recepty one-pot"
         }
-      }
+      },
+      "byCourse": "Recepty podle chodu"
     },
     "ingredients": {
       "with": "Se surovinou",

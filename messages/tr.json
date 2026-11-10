@@ -539,7 +539,9 @@
     "printWithImage": "Görselli",
     "printNoImage": "Görselsiz",
     "aiNotice": "Tarif ve görsel yapay zekâ ile oluşturuldu, editör tarafından incelendi",
-    "aiNoticeMore": "Yapay zekâ şeffaflığımız hakkında"
+    "aiNoticeMore": "Yapay zekâ şeffaflığımız hakkında",
+    "familyNotice": "Aile tarifi, kendimiz pişirdik. Yapay zekâ ile oluşturulmadı.",
+    "editorLine": "Editör: Peter Hölzer, mutfak şefi ve usta kasap"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Izgara tarifleri",
           "onepot": "Tek tencere tarifleri"
         }
-      }
+      },
+      "byCourse": "Öğüne göre tarifler"
     },
     "ingredients": {
       "with": "Malzemeli",

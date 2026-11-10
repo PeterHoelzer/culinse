@@ -539,7 +539,9 @@
     "printWithImage": "Ze zdjęciem",
     "printNoImage": "Bez zdjęcia",
     "aiNotice": "Przepis i zdjęcie stworzone przez AI, zweryfikowane redakcyjnie",
-    "aiNoticeMore": "Więcej o naszej przejrzystości AI"
+    "aiNoticeMore": "Więcej o naszej przejrzystości AI",
+    "familyNotice": "Przepis rodzinny, ugotowany przez nas. Nie powstał przy użyciu AI.",
+    "editorLine": "Redakcja: Peter Hölzer, szef kuchni i mistrz rzeźnicki"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Przepisy na grilla",
           "onepot": "Przepisy one-pot"
         }
-      }
+      },
+      "byCourse": "Przepisy według rodzaju dania"
     },
     "ingredients": {
       "with": "Ze składnikiem",

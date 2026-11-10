@@ -539,7 +539,9 @@
     "printWithImage": "Mit Bild",
     "printNoImage": "Ohne Bild",
     "aiNotice": "Rezept und Bild mit KI erstellt, redaktionell geprüft",
-    "aiNoticeMore": "Mehr zur KI-Transparenz"
+    "aiNoticeMore": "Mehr zur KI-Transparenz",
+    "familyNotice": "Familienrezept, selbst gekocht. Nicht mit KI erstellt.",
+    "editorLine": "Redaktion: Peter Hölzer, Küchenchef und Fleischermeister"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Grillrezepte",
           "onepot": "One-Pot-Rezepte"
         }
-      }
+      },
+      "byCourse": "Rezepte nach Gang"
     },
     "ingredients": {
       "with": "Mit Zutat",

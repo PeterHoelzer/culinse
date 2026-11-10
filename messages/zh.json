@@ -539,7 +539,9 @@
     "printWithImage": "含图片",
     "printNoImage": "不含图片",
     "aiNotice": "食谱与图片由 AI 生成，经编辑审核",
-    "aiNoticeMore": "了解 AI 透明度"
+    "aiNoticeMore": "了解 AI 透明度",
+    "familyNotice": "家传食谱，亲手烹制，非 AI 生成。",
+    "editorLine": "编辑：Peter Hölzer，主厨、肉铺大师"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "烧烤食谱",
           "onepot": "一锅煮食谱"
         }
-      }
+      },
+      "byCourse": "按菜式浏览"
     },
     "ingredients": {
       "with": "含食材",

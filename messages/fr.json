@@ -539,7 +539,9 @@
     "printWithImage": "Avec image",
     "printNoImage": "Sans image",
     "aiNotice": "Recette et image créées par IA, relues par la rédaction",
-    "aiNoticeMore": "En savoir plus sur notre transparence IA"
+    "aiNoticeMore": "En savoir plus sur notre transparence IA",
+    "familyNotice": "Recette de famille, cuisinée par nos soins. Non créée par IA.",
+    "editorLine": "Rédaction : Peter Hölzer, chef de cuisine et maître boucher"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Recettes de grillades",
           "onepot": "Recettes one-pot"
         }
-      }
+      },
+      "byCourse": "Recettes par type de plat"
     },
     "ingredients": {
       "with": "Avec l'ingrédient",

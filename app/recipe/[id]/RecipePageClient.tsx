@@ -57,7 +57,18 @@ export interface Recipe {
   cookTime?: number | null;
   datePublished?: string | null;
   aiAssisted?: boolean;
+  /** Familienrezept: selbst gekocht, nicht mit KI erstellt. */
+  family?: boolean;
+  /** Redaktionell verantwortet (eigene und Familienrezepte). */
+  editorial?: boolean;
   cuisine?: string | null;
+}
+
+/** Verweis auf eine Themenseite der Stöberseite (Küche, Region, Gang, Ernährung). */
+export interface RecipeTopic {
+  label: string;
+  href: string;
+  green?: boolean;
 }
 
 /** Card data for the "Ähnliche Rezepte" section (built server-side in page.tsx). */
@@ -225,7 +236,7 @@ function SimilarCard({ recipe: s, locale }: { recipe: SimilarRecipe; locale: str
   );
 }
 
-export default function RecipePageClient({ serverTitle, initialRecipe, similarRecipes, colors }: { serverTitle?: string | null; initialRecipe?: Recipe | null; similarRecipes?: SimilarRecipe[] | null; colors?: DishColors | null }) {
+export default function RecipePageClient({ serverTitle, initialRecipe, similarRecipes, colors, topics }: { serverTitle?: string | null; initialRecipe?: Recipe | null; similarRecipes?: SimilarRecipe[] | null; colors?: DishColors | null; topics?: RecipeTopic[] | null }) {
   // Die Farbe des Gerichts (DESIGN.md §11): Bühne hinter dem Titel, heller Ton im Zutatenkasten.
   const stage = colors?.stage ?? "#7a2e0e";
   const tint = colors?.tint ?? "#fbede4";
@@ -622,7 +633,21 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
           <section className="relative left-1/2 mb-8 w-screen -translate-x-1/2 text-white" style={{ backgroundColor: stage }}>
             <div className="mx-auto grid max-w-content lg:grid-cols-[minmax(0,520px)_1fr]">
             <div className="order-2 flex flex-col items-start gap-5 px-4 pb-10 pt-8 sm:px-10 sm:pb-12 lg:order-1 lg:justify-end">
-            {tagLine.length > 0 && (
+            {topics && topics.length > 0 ? (
+              <p className="text-sm text-white/80">
+                {topics.map((topic, i) => (
+                  <span key={topic.href}>
+                    {i > 0 && <span aria-hidden="true"> · </span>}
+                    <LocaleLink
+                      href={topic.href as "/"}
+                      className={`underline-offset-[3px] transition-colors hover:text-white hover:underline ${topic.green ? "font-semibold text-green-soft" : "text-white/80"}`}
+                    >
+                      {topic.label}
+                    </LocaleLink>
+                  </span>
+                ))}
+              </p>
+            ) : tagLine.length > 0 && (
               <p className="text-sm text-white/80">
                 {tagLine.map((tag, i) => (
                   <span key={`${tag.text}-${i}`}>
@@ -703,6 +728,12 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                 <LocaleLink href="/ki-transparenz" className="underline underline-offset-[3px] transition-colors hover:text-white/80">
                   {t("aiNoticeMore")}
                 </LocaleLink>
+              </figcaption>
+            )}
+            {/* Familienrezepte: ausdrücklich nicht mit KI erstellt */}
+            {recipe.family && !recipe.aiAssisted && (
+              <figcaption className="print-hide absolute right-4 top-3 rounded-1 bg-dark/55 px-2 py-1 text-caption text-white sm:right-6">
+                {t("familyNotice")}
               </figcaption>
             )}
           </figure>
@@ -1031,6 +1062,15 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               )}
             </section>
           </div>
+
+          {/* Wer hinter dem Rezept steht: Redaktion mit Namen und Beruf, Verweis auf die Über-uns-Seite */}
+          {recipe.editorial && (
+            <p className="print-hide mt-10 text-sm text-ink-3">
+              <LocaleLink href="/about" className="underline-offset-[3px] transition-colors hover:text-ink hover:underline">
+                {t("editorLine")}
+              </LocaleLink>
+            </p>
+          )}
 
           {/* Ähnliche Rezepte — interne Links, server-gerendert (SEO, Review-Paket C10) */}
           {similarRecipes && similarRecipes.length > 0 && (

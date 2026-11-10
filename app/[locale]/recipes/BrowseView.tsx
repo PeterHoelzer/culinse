@@ -58,6 +58,24 @@ async function landingIntro(locale: string, slug: string): Promise<string | null
   }
 }
 
+/*
+  Längerer Text zu einer Küche (lib/browse/guides/<sprache>.json), bisher nur
+  für die kurdische: Überschrift und Absätze, unter den Rezepten der ersten Seite.
+*/
+type Guide = { title: string; sections: { heading?: string; text: string }[] };
+
+async function landingGuide(locale: string, slug: string): Promise<Guide | null> {
+  try {
+    const guides = (await import(`@/lib/browse/guides/${locale}.json`)).default as Record<string, Guide>;
+    return guides[slug] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** So viele Rezepte je Gang zeigt eine Küchen- oder Regionsseite als Textverweise. */
+const BY_COURSE_LINKS = 8;
+
 const pageSuffix = (state: BrowseState) => (state.page > 1 ? `?page=${state.page}` : "");
 
 export async function browseMetadata(locale: string, state: BrowseState, landing: Landing | null): Promise<Metadata> {
@@ -107,6 +125,23 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
   ]);
   // Seitenzahl über dem Ende wird auf die letzte Seite gekürzt.
   const shown = { ...state, page: result.page };
+
+  // Küchen- und Regionsseiten zeigen auf der ersten Seite zusätzlich Rezepte nach
+  // Gang als Textverweise. So liegt von der Themenseite aus mehr als die ersten
+  // 24 Rezepte nur einen Klick entfernt, auch ohne JavaScript.
+  const hub = !!landing && (landing.group === "cuisine" || landing.group === "region") && result.page === 1 && landingOf(state)?.slug === landing.slug;
+  const [byCourse, guide] = hub
+    ? await Promise.all([
+        Promise.all(
+          FACET_GROUPS.find((g) => g.id === "course")!.options.map(async (option) => {
+            const sel = { ...state.sel, course: [option.key] };
+            const r = await runBrowse(locale, { ...state, sel, page: 1 });
+            return { key: option.key, total: r.total, items: r.items.slice(0, BY_COURSE_LINKS) };
+          }),
+        ).then((groups) => groups.filter((g) => g.total >= 3)),
+        landingGuide(locale, landing!.slug),
+      ])
+    : [[], null];
   // Farbe des Gerichts (DESIGN.md §11): Akzentstreifen der Karte aus dem eigenen
   // Foto. Höchstens 300 ms warten; was bis dahin fehlt, trägt die Markenfarbe
   // und ist beim nächsten Aufruf berechnet.
@@ -165,6 +200,46 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
           backLabel={landing ? t("landing.all") : undefined}
           basePath={landing ? landingPath(locale, landing) : undefined}
         >
+          {guide && (
+            <section aria-labelledby="browse-guide" className="mt-14 border-t border-line pt-10">
+              <h2 id="browse-guide" className="text-h2-sm sm:text-h2">
+                {guide.title}
+              </h2>
+              <div className="mt-6 flex max-w-prose flex-col gap-5">
+                {guide.sections.map((section, i) => (
+                  <div key={i}>
+                    {section.heading && <h3 className="mb-2 text-base font-semibold text-ink">{section.heading}</h3>}
+                    <p className="text-body-lg text-ink-2">{section.text}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+          {byCourse.length > 1 && (
+            <section aria-labelledby="browse-by-course" className="mt-14 border-t border-line pt-10">
+              <h2 id="browse-by-course" className="text-h2-sm sm:text-h2">
+                {t("landing.byCourse")}
+              </h2>
+              <div className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+                {byCourse.map((group) => (
+                  <div key={group.key}>
+                    <h3 className="mb-3 text-base font-semibold text-ink">
+                      {t(`options.course.${group.key}`)} <span className="tabular font-normal text-ink-3">{group.total}</span>
+                    </h3>
+                    <ul className="flex flex-col gap-1.5">
+                      {group.items.map((item) => (
+                        <li key={item.id}>
+                          <Link href={`/recipe/${item.id}` as "/"} className="text-base text-ink-2 underline-offset-[3px] transition-colors hover:text-ink hover:underline">
+                            {item.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
           <section aria-labelledby="browse-topics" className="mt-14 border-t border-line pt-10">
             <h2 id="browse-topics" className="text-h2-sm sm:text-h2">
               {t("landing.topics")}

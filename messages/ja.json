@@ -539,7 +539,9 @@
     "printWithImage": "画像あり",
     "printNoImage": "画像なし",
     "aiNotice": "レシピと画像はAIで作成し、編集部が確認しています",
-    "aiNoticeMore": "AIの透明性について詳しく"
+    "aiNoticeMore": "AIの透明性について詳しく",
+    "familyNotice": "家族のレシピ。自分たちで作りました。AIは使っていません。",
+    "editorLine": "編集：Peter Hölzer（料理長・食肉マイスター）"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "グリルレシピ",
           "onepot": "ワンポットレシピ"
         }
-      }
+      },
+      "byCourse": "コース別レシピ"
     },
     "ingredients": {
       "with": "材料を含む",

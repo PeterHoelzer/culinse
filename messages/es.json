@@ -539,7 +539,9 @@
     "printWithImage": "Con imagen",
     "printNoImage": "Sin imagen",
     "aiNotice": "Receta e imagen creadas con IA, revisadas editorialmente",
-    "aiNoticeMore": "Más sobre nuestra transparencia de IA"
+    "aiNoticeMore": "Más sobre nuestra transparencia de IA",
+    "familyNotice": "Receta de familia, cocinada por nosotros. No creada con IA.",
+    "editorLine": "Redacción: Peter Hölzer, jefe de cocina y maestro carnicero"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Recetas a la parrilla",
           "onepot": "Recetas one-pot"
         }
-      }
+      },
+      "byCourse": "Recetas por tipo de plato"
     },
     "ingredients": {
       "with": "Con ingrediente",

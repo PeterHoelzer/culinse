@@ -539,7 +539,9 @@
     "printWithImage": "Con immagine",
     "printNoImage": "Senza immagine",
     "aiNotice": "Ricetta e immagine create con IA, verificate dalla redazione",
-    "aiNoticeMore": "Di più sulla nostra trasparenza IA"
+    "aiNoticeMore": "Di più sulla nostra trasparenza IA",
+    "familyNotice": "Ricetta di famiglia, cucinata da noi. Non creata con l'IA.",
+    "editorLine": "Redazione: Peter Hölzer, chef di cucina e maestro macellaio"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Ricette alla griglia",
           "onepot": "Ricette one-pot"
         }
-      }
+      },
+      "byCourse": "Ricette per portata"
     },
     "ingredients": {
       "with": "Con ingrediente",

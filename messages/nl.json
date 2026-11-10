@@ -539,7 +539,9 @@
     "printWithImage": "Met afbeelding",
     "printNoImage": "Zonder afbeelding",
     "aiNotice": "Recept en afbeelding gemaakt met AI, redactioneel gecontroleerd",
-    "aiNoticeMore": "Meer over AI-transparantie"
+    "aiNoticeMore": "Meer over AI-transparantie",
+    "familyNotice": "Familierecept, zelf gekookt. Niet met AI gemaakt.",
+    "editorLine": "Redactie: Peter Hölzer, chef-kok en meesterslager"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Barbecuerecepten",
           "onepot": "One-pot recepten"
         }
-      }
+      },
+      "byCourse": "Recepten per gang"
     },
     "ingredients": {
       "with": "Met ingrediënt",

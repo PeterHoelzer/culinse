@@ -539,7 +539,9 @@
     "printWithImage": "Com imagem",
     "printNoImage": "Sem imagem",
     "aiNotice": "Receita e imagem criadas com IA e revisadas pela equipe editorial",
-    "aiNoticeMore": "Saiba mais sobre transparência em IA"
+    "aiNoticeMore": "Saiba mais sobre transparência em IA",
+    "familyNotice": "Receita de família, feita por nós. Não foi criada com IA.",
+    "editorLine": "Redação: Peter Hölzer, chef de cozinha e mestre açougueiro"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Receitas na grelha",
           "onepot": "Receitas one-pot"
         }
-      }
+      },
+      "byCourse": "Receitas por tipo de prato"
     },
     "ingredients": {
       "with": "Com ingrediente",

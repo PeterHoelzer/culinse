@@ -4,6 +4,8 @@ import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageC
 import { dishColorsWithin } from "@/lib/dishColor";
 import { getTranslations } from "next-intl/server";
 import { recipePageTitle } from "@/lib/siteMeta";
+import { LANDINGS, TAG_TO_KEYS, type GroupId, type Landing } from "@/lib/browse/facets";
+import { landingPath } from "@/lib/browse/slugs";
 
 // CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
 // Renders in 12 h) und standen fuer ~90 % der Vercel-Fluid-CPU (89 % des
@@ -24,7 +26,27 @@ const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 type LoadedRecipe = Recipe & {
   language?: string | null;
   translations?: Record<string, string>;
+  topicTags?: string[];
+  family?: boolean;
+  editorial?: boolean;
 };
+
+/*
+  Themen eines Rezepts (Küche, Region, Gang, Ernährung) aus seinen Schlagworten.
+  Die Rezeptseite verlinkt damit auf die Themenseiten der Stöberseite; vorher
+  standen dort nur die rohen Schlagworte als Text.
+*/
+const TOPIC_LIMITS: [GroupId, number][] = [["cuisine", 2], ["region", 1], ["course", 2], ["diet", 2]];
+
+function recipeTopics(tags: readonly string[] | undefined): Landing[] {
+  const ids = new Set<string>();
+  for (const tag of tags ?? []) for (const id of TAG_TO_KEYS.get(String(tag).toLowerCase().trim()) ?? []) ids.add(id);
+  const out: Landing[] = [];
+  for (const [group, max] of TOPIC_LIMITS) {
+    out.push(...LANDINGS.filter((l) => l.group === group && ids.has(`${group}:${l.key}`)).slice(0, max));
+  }
+  return out;
+}
 
 /*
   Adresse und Sprachverweise eines Rezepts (10.11.2026).
@@ -78,11 +100,11 @@ function recipeAddresses(
 
 async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null> {
   try {
-    // v=5 (10.11.26, Sprache + Sprachfassungen): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // v=6 (10.11.26, Sprache, Sprachfassungen, Themen, Familienrezept): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu einem Tag lang alte Daten ohne die neuen Felder.
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=5`, {
+    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=6`, {
       next: { revalidate: 86400, tags: [`recipe-${id}`] },
     });
     // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-
@@ -232,9 +254,21 @@ export default async function RecipePage(
         ),
         author: {
           "@type": "Organization",
-          name: recipe.source || "Culinse",
+          name: recipe.editorial ? "Culinse" : recipe.source || "Culinse",
           ...(hasSource ? { url: recipe.sourceUrl } : {}),
         },
+        // Redaktion: dieselbe Person wie auf der Über-uns-Seite und in den Blogartikeln.
+        ...(recipe.editorial
+          ? {
+              editor: {
+                "@type": "Person",
+                "@id": "https://culinse.com/#peter",
+                name: "Peter Hölzer",
+                jobTitle: locale === "de" ? "Küchenchef & Fleischermeister" : "Head Chef & German Master Butcher (Fleischermeister)",
+                url: `${BASE_URL}/${locale}/about`,
+              },
+            }
+          : {}),
         publisher: {
           "@type": "Organization",
           name: "Culinse",
@@ -287,15 +321,25 @@ export default async function RecipePage(
       }
     : null;
 
-  // "Rezepte" in der Sprache der Seite; die erste Stufe führt zur Stöberseite.
-  const recipesLabel = recipe ? (await getTranslations({ locale, namespace: "browse" }))("suggestRecipes") : "";
+  // "Rezepte" in der Sprache der Seite; die erste Stufe führt zur Stöberseite,
+  // danach Küche und Region, wenn das Rezept eine hat.
+  const tBrowse = recipe ? await getTranslations({ locale, namespace: "browse" }) : null;
+  const recipesLabel = tBrowse ? tBrowse("suggestRecipes") : "";
+  const topics = (recipe && tBrowse ? recipeTopics(recipe.topicTags ?? recipe.diets) : []).map((l) => ({
+    group: l.group,
+    label: l.name ?? tBrowse!(`options.${l.group}.${l.key}`),
+    href: landingPath(locale, l),
+    green: l.group === "diet" && (l.key === "vegetarian" || l.key === "vegan"),
+  }));
+  const trail = topics.filter((x) => x.group === "cuisine").slice(0, 1).concat(topics.filter((x) => x.group === "region"));
   const breadcrumbLd = recipe
     ? {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: recipesLabel, item: `${BASE_URL}/${locale}/recipes` },
-          { "@type": "ListItem", position: 2, name: recipe.title, item: addresses.canonical },
+          ...trail.map((x, i) => ({ "@type": "ListItem", position: i + 2, name: x.label, item: `${BASE_URL}/${locale}${x.href}` })),
+          { "@type": "ListItem", position: trail.length + 2, name: recipe.title, item: addresses.canonical },
         ],
       }
     : null;
@@ -334,6 +378,7 @@ export default async function RecipePage(
         initialRecipe={recipe}
         similarRecipes={similarRecipes}
         colors={colors}
+        topics={topics}
       />
     </>
   );

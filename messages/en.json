@@ -539,7 +539,9 @@
     "printWithImage": "With image",
     "printNoImage": "Without image",
     "aiNotice": "Recipe and image AI-created, editorially reviewed",
-    "aiNoticeMore": "About our AI transparency"
+    "aiNoticeMore": "About our AI transparency",
+    "familyNotice": "Family recipe, cooked by us. Not created with AI.",
+    "editorLine": "Edited by Peter Hölzer, head chef and master butcher"
   },
   "pro": {
     "title": "Culinse Pro",
@@ -935,7 +937,8 @@
           "grill": "Grilling recipes",
           "onepot": "One-pot recipes"
         }
-      }
+      },
+      "byCourse": "Recipes by course"
     },
     "ingredients": {
       "with": "With ingredient",
