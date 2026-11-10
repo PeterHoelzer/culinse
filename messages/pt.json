@@ -22,7 +22,7 @@
     "badge": "Criado por um mestre açougueiro e chef de cozinha",
     "headline1": "Um só lugar para cada",
     "headline2": "receita que você ama.",
-    "subline": "O Culinse reúne receitas das melhores fontes — filtradas de acordo com sua alimentação e suas alergias, sem banners publicitários e com todas as receitas grátis.",
+    "subline": "Receitas da nossa cozinha, da comunidade e da família. Filtradas de acordo com sua alimentação, sem banners publicitários.",
     "searchPlaceholder": "Massa, curry, bife…",
     "searchButton": "Buscar",
     "tryLabel": "Experimente:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Busque e descubra",
-        "desc": "Pesquise entre milhões de receitas dos melhores sites de culinária do mundo — tudo em um só lugar."
+        "desc": "Pesquise entre nossas receitas da cozinha, da comunidade e da família, filtradas por dieta e alérgenos."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Receitas de 4 fontes renomadas",
+      "Todas as receitas: mais de 2.300 pratos",
       "Busca e filtros por dieta, tempo e tipo de cozinha",
       "Salvar receitas",
       "1 coleção (até 10 receitas)"

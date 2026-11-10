@@ -22,7 +22,7 @@
     "badge": "Dikembangkan oleh seorang master pengolah daging & kepala koki",
     "headline1": "Satu tempat untuk",
     "headline2": "semua resep favoritmu.",
-    "subline": "Culinse menghimpun resep dari sumber-sumber terbaik — disaring sesuai pola makan dan alergimu, tanpa banner iklan, dan semua resepnya gratis.",
+    "subline": "Resep dari dapur kami, dari komunitas, dan dari keluarga. Disaring sesuai pola makanmu, tanpa banner iklan.",
     "searchPlaceholder": "Pasta, kari, steak…",
     "searchButton": "Cari",
     "tryLabel": "Coba:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Cari & jelajahi",
-        "desc": "Cari di antara jutaan resep dari situs kuliner terbaik di seluruh dunia — semuanya di satu tempat."
+        "desc": "Cari di antara resep kami dari dapur, komunitas, dan keluarga, disaring menurut pola makan dan alergen."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Resep dari 4 sumber terbaik",
+      "Semua resep: lebih dari 2.300 hidangan",
       "Cari & saring berdasarkan pola makan, waktu, dan jenis masakan",
       "Simpan resep",
       "1 koleksi (maksimal 10 resep)"

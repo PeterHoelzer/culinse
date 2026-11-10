@@ -22,7 +22,7 @@
     "badge": "Vytvořeno řeznickým mistrem a šéfkuchařem",
     "headline1": "Jedno místo pro každý",
     "headline2": "recept, který miluješ.",
-    "subline": "Culinse sdružuje recepty z nejlepších zdrojů — filtrované podle tvého stravování a alergií, bez reklamních bannerů a všechny recepty zdarma.",
+    "subline": "Recepty z naší kuchyně, od komunity a z rodiny. Filtrované podle tvého stravování, bez reklamních bannerů.",
     "searchPlaceholder": "Těstoviny, kari, steak…",
     "searchButton": "Hledat",
     "tryLabel": "Zkus:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Hledej a objevuj",
-        "desc": "Prohledávej miliony receptů z nejlepších kulinářských webů z celého světa — vše na jednom místě."
+        "desc": "Hledej v našich receptech z kuchyně, od komunity a z rodiny, filtrovaných podle stravování a alergenů."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Recepty ze 4 špičkových zdrojů",
+      "Všechny recepty: více než 2 300 jídel",
       "Hledání a filtry podle stravování, času a kuchyně",
       "Ukládání receptů",
       "1 sbírka (až 10 receptů)"

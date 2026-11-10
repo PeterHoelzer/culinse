@@ -22,7 +22,7 @@
     "badge": "Creato da un maestro macellaio e chef",
     "headline1": "Un solo posto per ogni",
     "headline2": "ricetta che ami.",
-    "subline": "Culinse raccoglie le ricette dalle fonti migliori — filtrate in base alla tua alimentazione e alle tue allergie, senza banner pubblicitari e con tutte le ricette gratuite.",
+    "subline": "Ricette dalla nostra cucina, dalla community e dalla famiglia. Filtrate in base alla tua alimentazione, senza banner pubblicitari.",
     "searchPlaceholder": "Pasta, curry, bistecca…",
     "searchButton": "Cerca",
     "tryLabel": "Prova:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Cerca e scopri",
-        "desc": "Cerca tra milioni di ricette dai migliori siti di cucina del mondo — tutto in un unico posto."
+        "desc": "Cerca tra le nostre ricette della cucina, della community e della famiglia, filtrate per dieta e allergeni."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Ricette dalle 4 fonti migliori",
+      "Tutte le ricette: oltre 2.300 piatti",
       "Ricerca e filtri per alimentazione, tempo, cucina",
       "Salvataggio delle ricette",
       "1 raccolta (fino a 10 ricette)"

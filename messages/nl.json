@@ -22,7 +22,7 @@
     "badge": "Ontwikkeld door een meesterslager & chef-kok",
     "headline1": "Eén plek voor elk",
     "headline2": "recept waar je van houdt.",
-    "subline": "Culinse bundelt recepten uit de beste bronnen — gefilterd op jouw voedingswijze en allergieën, zonder reclamebanners en alle recepten gratis.",
+    "subline": "Recepten uit onze keuken, uit de community en uit de familie. Gefilterd op jouw voedingswijze, zonder reclamebanners.",
     "searchPlaceholder": "Pasta, curry, biefstuk…",
     "searchButton": "Zoeken",
     "tryLabel": "Probeer:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Zoeken & ontdekken",
-        "desc": "Zoek in miljoenen recepten van de beste foodsites wereldwijd — alles op één plek."
+        "desc": "Zoek in onze recepten uit de keuken, de community en de familie, gefilterd op voedingswijze en allergenen."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Recepten uit 4 topbronnen",
+      "Alle recepten: meer dan 2.300 gerechten",
       "Zoeken & filteren op voeding, tijd en keuken",
       "Recepten opslaan",
       "1 collectie (max. 10 recepten)"

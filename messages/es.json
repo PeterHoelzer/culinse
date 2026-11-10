@@ -22,7 +22,7 @@
     "badge": "Creado por un maestro carnicero y chef",
     "headline1": "Un solo lugar para cada",
     "headline2": "receta que te encanta.",
-    "subline": "Culinse reúne recetas de las mejores fuentes — filtradas según tu dieta y tus alergias, sin banners publicitarios y con todas las recetas gratis.",
+    "subline": "Recetas de nuestra cocina, de la comunidad y de la familia. Filtradas según tu dieta, sin banners publicitarios.",
     "searchPlaceholder": "Pasta, curry, filete…",
     "searchButton": "Buscar",
     "tryLabel": "Prueba:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Busca y descubre",
-        "desc": "Busca entre millones de recetas de las mejores webs de cocina del mundo — todo en un solo lugar."
+        "desc": "Busca entre nuestras recetas de la cocina, la comunidad y la familia, filtradas por dieta y alérgenos."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Recetas de 4 fuentes destacadas",
+      "Todas las recetas: más de 2.300 platos",
       "Búsqueda y filtros por dieta, tiempo y cocina",
       "Guardar recetas",
       "1 colección (hasta 10 recetas)"

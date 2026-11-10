@@ -22,7 +22,7 @@
     "badge": "Bir usta kasap ve şef tarafından geliştirildi",
     "headline1": "Sevdiğin her tarif için",
     "headline2": "tek bir adres.",
-    "subline": "Culinse, en iyi kaynaklardaki tarifleri bir araya getirir — beslenmene ve alerjilerine göre filtrelenmiş, reklam banner'ı olmadan ve tüm tarifler ücretsiz.",
+    "subline": "Mutfağımızdan, topluluktan ve aileden tarifler. Beslenmene göre filtrelenmiş, reklam banner'ı yok.",
     "searchPlaceholder": "Makarna, köri, biftek…",
     "searchButton": "Ara",
     "tryLabel": "Dene:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Ara ve keşfet",
-        "desc": "Dünyanın en iyi yemek sitelerinden milyonlarca tarif arasında ara — hepsi tek bir yerde."
+        "desc": "Mutfaktan, topluluktan ve aileden gelen tariflerimiz arasında ara; beslenme şekline ve alerjenlere göre filtrele."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "4 önde gelen kaynaktan tarifler",
+      "Tüm tarifler: 2.300'den fazla yemek",
       "Beslenme, süre ve mutfağa göre arama ve filtreleme",
       "Tarif kaydetme",
       "1 koleksiyon (en fazla 10 tarif)"

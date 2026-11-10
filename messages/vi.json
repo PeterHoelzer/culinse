@@ -22,7 +22,7 @@
     "badge": "Do một bếp trưởng kiêm bậc thầy chế biến thịt phát triển",
     "headline1": "Một nơi cho mọi",
     "headline2": "công thức bạn yêu thích.",
-    "subline": "Culinse tập hợp công thức từ những nguồn tốt nhất — lọc theo chế độ ăn và dị ứng của bạn, không banner quảng cáo, mọi công thức đều miễn phí.",
+    "subline": "Công thức từ căn bếp của chúng tôi, từ cộng đồng và từ gia đình. Lọc theo chế độ ăn của bạn, không banner quảng cáo.",
     "searchPlaceholder": "Mì Ý, cà ri, bít tết…",
     "searchButton": "Tìm kiếm",
     "tryLabel": "Thử tìm:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Tìm kiếm & khám phá",
-        "desc": "Tìm trong hàng triệu công thức từ những trang ẩm thực hàng đầu thế giới — tất cả ở cùng một nơi."
+        "desc": "Tìm trong các công thức của chúng tôi từ căn bếp, cộng đồng và gia đình, lọc theo chế độ ăn và chất gây dị ứng."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Công thức từ 4 nguồn hàng đầu",
+      "Tất cả công thức: hơn 2.300 món",
       "Tìm kiếm & lọc theo chế độ ăn, thời gian, nền ẩm thực",
       "Lưu công thức",
       "1 bộ sưu tập (tối đa 10 công thức)"

@@ -22,7 +22,7 @@
     "badge": "Stworzone przez mistrza rzeźnictwa & szefa kuchni",
     "headline1": "Jedno miejsce na każdy",
     "headline2": "przepis, który kochasz.",
-    "subline": "Culinse zbiera przepisy z najlepszych źródeł — filtrowane pod twoją dietę i alergie, bez banerów reklamowych i wszystkie przepisy za darmo.",
+    "subline": "Przepisy z naszej kuchni, od społeczności i od rodziny. Filtrowane pod twoją dietę, bez banerów reklamowych.",
     "searchPlaceholder": "Makaron, curry, stek…",
     "searchButton": "Szukaj",
     "tryLabel": "Spróbuj:",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Szukaj & odkrywaj",
-        "desc": "Przeszukuj miliony przepisów z najlepszych stron kulinarnych świata — wszystko w jednym miejscu."
+        "desc": "Szukaj wśród naszych przepisów z kuchni, od społeczności i od rodziny, filtrowanych według diety i alergenów."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Przepisy z 4 najlepszych źródeł",
+      "Wszystkie przepisy: ponad 2300 dań",
       "Wyszukiwanie & filtry wg diety, czasu, kuchni",
       "Zapisywanie przepisów",
       "1 kolekcja (do 10 przepisów)"

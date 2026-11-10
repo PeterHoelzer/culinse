@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { Recipe } from "./components/home-types";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { routing } from "@/i18n/routing";
+import { siteDescription } from "@/lib/siteMeta";
 
 // Startseite als ISR: alle 15 Minuten neu gerendert, dazwischen aus dem
 // Edge-Cache (TTFB ~20 ms statt ~350 ms). Die ersten Karten, das Tagesrezept
@@ -124,70 +125,54 @@ function heroImageUrl(url: string | null): string | null {
 const OG_LOCALES: Record<string, string> = {
   en: "en_US", de: "de_DE", es: "es_ES", fr: "fr_FR", it: "it_IT", pl: "pl_PL", tr: "tr_TR", nl: "nl_NL", cs: "cs_CZ", ru: "ru_RU", pt: "pt_BR", zh: "zh_CN", ja: "ja_JP", id: "id_ID", vi: "vi_VN", bn: "bn_BD",
 };
-const HOME_META: Record<string, { title: string; description: string }> = {
+const HOME_META: Record<string, { title: string }> = {
   de: {
     title: "Culinse – Rezepte entdecken, die du lieben wirst",
-    description: "Millionen Rezepte von den besten Food-Seiten der Welt. Personalisiert für dich.",
   },
   en: {
     title: "Culinse – Discover Recipes You'll Love",
-    description: "Millions of recipes from the world's best food sites. Personalized for you.",
   },
   es: {
     title: "Culinse – Descubre recetas que te encantarán",
-    description: "Recetas de las mejores fuentes, personalizadas para ti.",
   },
   fr: {
     title: "Culinse – Découvre des recettes que tu vas adorer",
-    description: "Des recettes des meilleures sources, personnalisées pour toi.",
   },
   it: {
     title: "Culinse – Scopri ricette che amerai",
-    description: "Ricette dalle fonti migliori, personalizzate per te.",
   },
   pl: {
     title: "Culinse – Odkrywaj przepisy, które pokochasz",
-    description: "Przepisy z najlepszych źródeł, spersonalizowane dla Ciebie.",
   },
   tr: {
     title: "Culinse – Seveceğin tarifleri keşfet",
-    description: "En iyi kaynaklardan tarifler, sana özel.",
   },
   nl: {
     title: "Culinse – Ontdek recepten waar je van houdt",
-    description: "Recepten uit de beste bronnen, op jou afgestemd.",
   },
   cs: {
     title: "Culinse – Objevuj recepty, které si zamiluješ",
-    description: "Recepty z nejlepších zdrojů, šité na míru.",
   },
   ru: {
     title: "Culinse – Открой рецепты, которые полюбишь",
-    description: "Рецепты из лучших источников, подобранные для тебя.",
   },
   pt: {
     title: "Culinse – Descubra receitas que você vai amar",
-    description: "Receitas das melhores fontes, feitas para você.",
   },
   zh: {
     title: "Culinse – 发现你会爱上的食谱",
-    description: "来自优质来源的食谱，为你量身定制。",
   },
   ja: {
     title: "Culinse – きっと好きになるレシピと出会おう",
-    description: "厳選されたレシピを、あなた好みにお届けします。",
   },
   id: {
     title: "Culinse – Temukan resep yang akan kamu sukai",
-    description: "Resep dari sumber terbaik, dipersonalisasi untukmu.",
   },
   vi: {
     title: "Culinse – Khám phá công thức bạn sẽ yêu thích",
-    description: "Công thức từ những nguồn hay nhất, dành riêng cho bạn.",
   },
   bn: {
     title: "Culinse – আপনার ভালো লাগবে এমন রেসিপি খুঁজে নিন",
-    description: "সেরা উৎসের রেসিপি, আপনার জন্য সাজানো।",
   },
 };
 
@@ -203,7 +188,8 @@ export async function generateMetadata({
   const { locale } = await params;
   setRequestLocale(locale);
   const url = `https://culinse.com/${locale}`;
-  const { title, description } = HOME_META[locale] ?? HOME_META.en;
+  const { title } = HOME_META[locale] ?? HOME_META.en;
+  const description = siteDescription(locale);
 
   return {
     alternates: {

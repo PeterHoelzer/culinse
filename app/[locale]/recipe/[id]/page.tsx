@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 import { dishColorsWithin } from "@/lib/dishColor";
+import { getTranslations } from "next-intl/server";
+import { recipePageTitle } from "@/lib/siteMeta";
 
 // CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
 // Renders in 12 h) und standen fuer ~90 % der Vercel-Fluid-CPU (89 % des
@@ -144,7 +146,7 @@ export async function generateMetadata(
 
   if (!recipe || recipe === "missing") {
     return {
-      title: locale === "de" ? "Rezept" : "Recipe",
+      title: (await getTranslations({ locale, namespace: "browse" }))("suggestRecipes"),
       description: "Discover delicious recipes on Culinse.",
       alternates: sharedAlternates,
     };
@@ -152,8 +154,7 @@ export async function generateMetadata(
 
   // The layout title template is "%s | Culinse", so we must NOT include
   // "Culinse" here — that would produce "Title | Culinse | Culinse".
-  const recipeSuffix = locale === "de" ? "Rezept" : "Recipe";
-  const title = `${recipe.title} ${recipeSuffix}`;
+  const title = recipePageTitle(locale, recipe.title);
   // Spoonacular-Summaries sind englisch — auf DE-SERPs wirkt ein englischer
   // Anriss abschreckend (CTR). Deutsche Description nur übernehmen, wenn der
   // Text deutsch aussieht; sonst sauberer deutscher Standard-Anriss.
@@ -286,12 +287,14 @@ export default async function RecipePage(
       }
     : null;
 
+  // "Rezepte" in der Sprache der Seite; die erste Stufe führt zur Stöberseite.
+  const recipesLabel = recipe ? (await getTranslations({ locale, namespace: "browse" }))("suggestRecipes") : "";
   const breadcrumbLd = recipe
     ? {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: locale === "de" ? "Rezepte" : "Recipes", item: `${BASE_URL}/${locale}` },
+          { "@type": "ListItem", position: 1, name: recipesLabel, item: `${BASE_URL}/${locale}/recipes` },
           { "@type": "ListItem", position: 2, name: recipe.title, item: addresses.canonical },
         ],
       }

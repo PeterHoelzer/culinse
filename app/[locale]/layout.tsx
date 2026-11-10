@@ -7,6 +7,7 @@ import { preconnect } from "react-dom";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
+import { siteDescription } from "@/lib/siteMeta";
 
 // Schriftpaar laut DESIGN.md §11: Source Sans 3 (Text/UI) und Fraunces
 // (Überschriften; weiche Serife nach alten Handwerker-Schildern, mit optischer Größe). Beide variabel, selbst gehostet über
@@ -53,13 +54,13 @@ const sharedMeta = {
   },
 };
 
-// Default-Title/Description/Keywords je Sprache (14.09.2026). de/en sind
-// BYTE-IDENTISCH zu vorher (Ranking-Schutz), die fuenf neuen lokalisiert.
-const LOCALE_META: Record<string, { title: string; description: string; keywords: string[] }> = {
+// Default-Title/Keywords je Sprache (14.09.2026). Die Beschreibung steht seit
+// 10.11.2026 in lib/siteMeta.ts. Der fruehere Ranking-Schutz fuer de/en (Text
+// byte-identisch lassen) ist entfallen: die Startseiten waren nicht im Index,
+// und die alte Aussage "Millionen Rezepte" stimmte nicht mehr.
+const LOCALE_META: Record<string, { title: string; keywords: string[] }> = {
   de: {
     title: "Culinse – Rezepte entdecken, die du lieben wirst",
-    description:
-      "Culinse bündelt Millionen Rezepte von den besten Food-Seiten — gefiltert nach Ernährung und Allergenen, kostenlos nutzbar und ohne Abo-Zwang.",
     keywords: [
       "Rezepte", "Rezepte entdecken", "personalisierte Rezepte", "Kochen", "Essen",
       "Rezeptsuche", "gesunde Rezepte", "schnelle Rezepte", "Wochenplan", "Einkaufsliste",
@@ -67,8 +68,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   en: {
     title: "Culinse – Discover Recipes You'll Love",
-    description:
-      "Culinse aggregates millions of recipes from the web's best food sites — filtered to your diet and allergies. Free to use, no subscription required.",
     keywords: [
       "recipes", "recipe discovery", "personalized recipes", "cooking", "food",
       "recipe search", "healthy recipes", "easy recipes", "meal planner", "shopping list",
@@ -76,8 +75,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   es: {
     title: "Culinse – Descubre recetas que te encantarán",
-    description:
-      "Culinse reúne recetas de las mejores fuentes — filtradas según tu dieta y tus alergias. Gratis y sin suscripción.",
     keywords: [
       "recetas", "descubrir recetas", "recetas personalizadas", "cocina", "comida",
       "buscador de recetas", "recetas saludables", "recetas fáciles", "planificador semanal", "lista de la compra",
@@ -85,8 +82,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   fr: {
     title: "Culinse – Découvre des recettes que tu vas adorer",
-    description:
-      "Culinse rassemble les recettes des meilleures sources — filtrées selon ton alimentation et tes allergies. Gratuit, sans abonnement.",
     keywords: [
       "recettes", "découverte de recettes", "recettes personnalisées", "cuisine", "repas",
       "recherche de recettes", "recettes saines", "recettes faciles", "planning de repas", "liste de courses",
@@ -94,8 +89,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   it: {
     title: "Culinse – Scopri ricette che amerai",
-    description:
-      "Culinse raccoglie le ricette dalle fonti migliori — filtrate in base alla tua alimentazione e alle tue allergie. Gratis, senza abbonamento.",
     keywords: [
       "ricette", "scoprire ricette", "ricette personalizzate", "cucina", "cibo",
       "ricerca ricette", "ricette sane", "ricette facili", "planner settimanale", "lista della spesa",
@@ -103,8 +96,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   pl: {
     title: "Culinse – Odkrywaj przepisy, które pokochasz",
-    description:
-      "Culinse łączy przepisy z najlepszych źródeł — filtrowane według Twojej diety i alergii. Za darmo, bez abonamentu.",
     keywords: [
       "przepisy", "odkrywanie przepisów", "spersonalizowane przepisy", "gotowanie", "jedzenie",
       "wyszukiwarka przepisów", "zdrowe przepisy", "szybkie przepisy", "planer tygodnia", "lista zakupów",
@@ -112,8 +103,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   tr: {
     title: "Culinse – Seveceğin tarifleri keşfet",
-    description:
-      "Culinse, en iyi kaynaklardaki tarifleri bir araya getirir — beslenmene ve alerjilerine göre filtrelenmiş. Ücretsiz, aboneliksiz.",
     keywords: [
       "tarifler", "tarif keşfi", "kişiselleştirilmiş tarifler", "yemek pişirme", "yemek",
       "tarif arama", "sağlıklı tarifler", "kolay tarifler", "haftalık plan", "alışveriş listesi",
@@ -121,8 +110,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   nl: {
     title: "Culinse – Ontdek recepten waar je van houdt",
-    description:
-      "Culinse bundelt recepten uit de beste bronnen — gefilterd op jouw dieet en allergieën. Gratis, zonder abonnement.",
     keywords: [
       "recepten", "recepten ontdekken", "gepersonaliseerde recepten", "koken", "eten",
       "recepten zoeken", "gezonde recepten", "snelle recepten", "weekplanner", "boodschappenlijst",
@@ -130,8 +117,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   cs: {
     title: "Culinse – Objevuj recepty, které si zamiluješ",
-    description:
-      "Culinse spojuje recepty z nejlepších zdrojů — filtrované podle tvé stravy a alergií. Zdarma, bez předplatného.",
     keywords: [
       "recepty", "objevování receptů", "recepty na míru", "vaření", "jídlo",
       "hledání receptů", "zdravé recepty", "rychlé recepty", "týdenní plán", "nákupní seznam",
@@ -139,8 +124,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   ru: {
     title: "Culinse – Открой рецепты, которые полюбишь",
-    description:
-      "Culinse собирает рецепты из лучших источников — с учётом твоего питания и аллергий. Бесплатно, без подписки.",
     keywords: [
       "рецепты", "поиск рецептов", "персональные рецепты", "готовка", "еда",
       "здоровые рецепты", "быстрые рецепты", "план на неделю", "список покупок", "аэрогриль",
@@ -148,8 +131,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   pt: {
     title: "Culinse – Descubra receitas que você vai amar",
-    description:
-      "O Culinse reúne receitas das melhores fontes — filtradas pela sua dieta e alergias. Grátis, sem assinatura.",
     keywords: [
       "receitas", "descoberta de receitas", "receitas personalizadas", "cozinhar", "comida",
       "busca de receitas", "receitas saudáveis", "receitas rápidas", "plano semanal", "lista de compras", "airfryer",
@@ -157,8 +138,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   zh: {
     title: "Culinse – 发现你会爱上的食谱",
-    description:
-      "Culinse 汇集优质来源的食谱——按你的饮食习惯和过敏原筛选。免费，无需订阅。",
     keywords: [
       "食谱", "菜谱", "个性化食谱", "做饭", "美食",
       "食谱搜索", "健康食谱", "快手菜", "每周计划", "购物清单", "空气炸锅",
@@ -166,8 +145,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   ja: {
     title: "Culinse – きっと好きになるレシピと出会おう",
-    description:
-      "Culinseは厳選されたレシピを集め、あなたの食生活やアレルギーに合わせて絞り込めます。無料・サブスク不要。",
     keywords: [
       "レシピ", "料理", "レシピ検索", "献立", "時短レシピ",
       "ヘルシーレシピ", "週間プラン", "買い物リスト", "エアフライヤー", "ドイツ料理",
@@ -175,8 +152,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   id: {
     title: "Culinse – Temukan resep yang akan kamu sukai",
-    description:
-      "Culinse mengumpulkan resep dari sumber terbaik — difilter sesuai pola makan dan alergimu. Gratis, tanpa langganan.",
     keywords: [
       "resep", "resep masakan", "resep personal", "memasak", "makanan",
       "cari resep", "resep sehat", "resep cepat", "rencana menu mingguan", "daftar belanja", "air fryer",
@@ -184,8 +159,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   vi: {
     title: "Culinse – Khám phá công thức bạn sẽ yêu thích",
-    description:
-      "Culinse tổng hợp công thức nấu ăn từ những nguồn hay nhất — lọc theo chế độ ăn và dị ứng của bạn. Miễn phí, không cần thuê bao.",
     keywords: [
       "công thức nấu ăn", "nấu ăn", "món ăn", "tìm công thức", "công thức lành mạnh",
       "món ăn nhanh", "thực đơn tuần", "danh sách mua sắm", "nồi chiên không dầu", "ẩm thực Đức",
@@ -193,8 +166,6 @@ const LOCALE_META: Record<string, { title: string; description: string; keywords
   },
   bn: {
     title: "Culinse – আপনার ভালো লাগবে এমন রেসিপি খুঁজে নিন",
-    description:
-      "সেরা সব উৎস থেকে রেসিপি জোগাড় করে Culinse — আপনার খাদ্যাভ্যাস আর অ্যালার্জি অনুযায়ী বাছাই করা। বিনামূল্যে, কোনো সাবস্ক্রিপশন লাগে না।",
     keywords: [
       "রেসিপি", "রান্নার রেসিপি", "রান্না", "খাবার", "রেসিপি খোঁজা", "স্বাস্থ্যকর রেসিপি",
       "ঝটপট রান্না", "সাপ্তাহিক খাবারের প্ল্যান", "কেনাকাটার তালিকা", "এয়ার ফ্রায়ার", "জার্মান রান্না",
@@ -217,7 +188,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       default: meta.title,
       template: "%s | Culinse",
     },
-    description: meta.description,
+    description: siteDescription(locale),
     keywords: meta.keywords,
   };
 }

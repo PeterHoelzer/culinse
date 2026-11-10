@@ -22,7 +22,7 @@
     "badge": "Conçu par un maître boucher & chef de cuisine",
     "headline1": "Un seul endroit pour chaque",
     "headline2": "recette que tu aimes.",
-    "subline": "Culinse rassemble les recettes des meilleures sources — filtrées selon ton alimentation et tes allergies, sans bannières publicitaires et toutes les recettes gratuites.",
+    "subline": "Des recettes de notre cuisine, de la communauté et de la famille. Filtrées selon ton alimentation, sans bannières publicitaires.",
     "searchPlaceholder": "Pâtes, curry, steak…",
     "searchButton": "Rechercher",
     "tryLabel": "Essaie :",
@@ -141,7 +141,7 @@
       {
         "icon": "",
         "title": "Chercher & découvrir",
-        "desc": "Cherche parmi des millions de recettes issues des meilleurs sites culinaires du monde — le tout au même endroit."
+        "desc": "Cherche parmi nos recettes issues de la cuisine, de la communauté et de la famille, filtrées par régime et allergènes."
       },
       {
         "icon": "",
@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Recettes issues de 4 sources de référence",
+      "Toutes les recettes : plus de 2 300 plats",
       "Recherche & filtres par alimentation, temps, cuisine",
       "Enregistrement des recettes",
       "1 collection (jusqu'à 10 recettes)"
