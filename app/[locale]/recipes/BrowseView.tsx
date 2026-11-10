@@ -9,7 +9,6 @@ import {
   LANDINGS,
   LANDING_MIN,
   PAGE_SIZE,
-  browseHref,
   emptyState,
   isFiltered,
   landingOf,
@@ -18,6 +17,8 @@ import {
   type Landing,
 } from "@/lib/browse/facets";
 import { runBrowse } from "@/lib/browse";
+import { landingPath } from "@/lib/browse/slugs";
+import { dishColorsWithin } from "@/lib/dishColor";
 import HomeFooter from "../components/HomeFooter";
 import BrowseClient from "./BrowseClient";
 
@@ -37,6 +38,21 @@ function landingTitle(t: Translate, landing: Landing): string {
   return landing.group === "region" ? t("landing.region", { name: landing.name ?? landing.key }) : t(`landing.titles.${landing.group}.${landing.key}`);
 }
 
+/*
+  Einleitung einer Themenseite: zwei Sätze je Thema und Sprache aus
+  lib/browse/intros/<sprache>.json. Die Texte bleiben auf dem Server und
+  wandern nicht mit den Oberflächentexten in den Browser. Fehlt ein Text,
+  steht dort der allgemeine Satz.
+*/
+async function landingIntro(locale: string, slug: string): Promise<string | null> {
+  try {
+    const intros = (await import(`@/lib/browse/intros/${locale}.json`)).default as Record<string, string>;
+    return intros[slug] || null;
+  } catch {
+    return null;
+  }
+}
+
 const pageSuffix = (state: BrowseState) => (state.page > 1 ? `?page=${state.page}` : "");
 
 export async function browseMetadata(locale: string, state: BrowseState, landing: Landing | null): Promise<Metadata> {
@@ -44,20 +60,21 @@ export async function browseMetadata(locale: string, state: BrowseState, landing
   // Ein einzelner Filter über Parameter (/recipes?cuisine=japanese) ist dieselbe
   // Seite wie die Themenseite; die Themenseite ist die maßgebliche Adresse.
   const target = landing ?? landingOf(state);
-  const languages = (path: string) => ({
-    ...Object.fromEntries(routing.locales.map((l) => [l, `${BASE_URL}/${l}${path}`])),
-    "x-default": `${BASE_URL}/en${path}`,
+  // Themenseiten haben je Sprache eine eigene Adresse.
+  const languages = (path: (l: string) => string) => ({
+    ...Object.fromEntries(routing.locales.map((l) => [l, `${BASE_URL}/${l}${path(l)}`])),
+    "x-default": `${BASE_URL}/en${path("en")}`,
   });
 
   if (target) {
     const { total } = await runBrowse(locale, state);
-    const path = `/recipes/${target.slug}`;
+    const path = landingPath(locale, target);
     const title = landingTitle(t, target);
-    const description = `${t("results", { count: total })}. ${t("landing.metaDescription")}`;
+    const description = (await landingIntro(locale, target.slug)) ?? `${t("results", { count: total })}. ${t("landing.metaDescription")}`;
     return {
       title,
       description,
-      alternates: { canonical: `${BASE_URL}/${locale}${path}${pageSuffix(state)}`, languages: languages(path) },
+      alternates: { canonical: `${BASE_URL}/${locale}${path}${pageSuffix(state)}`, languages: languages((l) => landingPath(l, target)) },
       // Dünne Themen und umsortierte Fassungen bleiben aus dem Index.
       robots: total < LANDING_MIN || state.sort !== "mix" ? { index: false, follow: true } : undefined,
       openGraph: { title: `${title} | Culinse`, description, url: `${BASE_URL}/${locale}${path}` },
@@ -68,7 +85,7 @@ export async function browseMetadata(locale: string, state: BrowseState, landing
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: { canonical: `${BASE_URL}/${locale}/recipes${filtered ? "" : pageSuffix(state)}`, languages: languages("/recipes") },
+    alternates: { canonical: `${BASE_URL}/${locale}/recipes${filtered ? "" : pageSuffix(state)}`, languages: languages(() => "/recipes") },
     // Frei kombinierte Filter sollen den Index nicht fluten; die ungefilterte
     // Liste mit ihren Seiten bleibt indexierbar.
     robots: filtered ? { index: false, follow: true } : undefined,
@@ -77,13 +94,19 @@ export async function browseMetadata(locale: string, state: BrowseState, landing
 }
 
 export default async function BrowseView({ locale, state, landing }: { locale: string; state: BrowseState; landing: Landing | null }) {
-  const [result, base, t] = await Promise.all([
+  const [result, base, t, intro] = await Promise.all([
     runBrowse(locale, state),
     runBrowse(locale, emptyState()),
     getTranslations({ locale, namespace: "browse" }),
+    landing ? landingIntro(locale, landing.slug) : null,
   ]);
   // Seitenzahl über dem Ende wird auf die letzte Seite gekürzt.
   const shown = { ...state, page: result.page };
+  // Farbe des Gerichts (DESIGN.md §11): Akzentstreifen der Karte aus dem eigenen
+  // Foto. Höchstens 300 ms warten; was bis dahin fehlt, trägt die Markenfarbe
+  // und ist beim nächsten Aufruf berechnet.
+  const accents = await Promise.all(result.items.map((item) => dishColorsWithin(item.image, 300)));
+  const colored = { ...result, items: result.items.map((item, i) => ({ ...item, accent: accents[i]?.accent ?? null })) };
   const title = landing ? landingTitle(t, landing) : t("title");
 
   // Themen mit genug Rezepten, als echte Links: so erreichen Besucher und
@@ -107,7 +130,7 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Culinse", item: `${BASE_URL}/${locale}` },
           { "@type": "ListItem", position: 2, name: t("title"), item: `${BASE_URL}/${locale}/recipes` },
-          { "@type": "ListItem", position: 3, name: title, item: `${BASE_URL}/${locale}/recipes/${landing.slug}` },
+          { "@type": "ListItem", position: 3, name: title, item: `${BASE_URL}/${locale}${landingPath(locale, landing)}` },
         ],
       },
       {
@@ -131,11 +154,11 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
       <main className="flex-1">
         <BrowseClient
           state={shown}
-          result={result}
+          result={colored}
           title={title}
-          subtitle={landing ? t("landing.intro") : t("subtitle")}
+          subtitle={landing ? (intro ?? t("landing.intro")) : t("subtitle")}
           backLabel={landing ? t("landing.all") : undefined}
-          onLanding={Boolean(landing)}
+          basePath={landing ? landingPath(locale, landing) : undefined}
         >
           <section aria-labelledby="browse-topics" className="mt-14 border-t border-line pt-10">
             <h2 id="browse-topics" className="text-h2-sm sm:text-h2">
@@ -150,7 +173,7 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
                       const current = landing?.slug === l.slug;
                       return (
                         <li key={l.slug}>
-                          <Link href={browseHref({ ...emptyState(), sel: { ...emptyState().sel, [l.group]: [l.key] } }) as "/"} aria-current={current ? "page" : undefined} className={chipClasses(current, "sm")}>
+                          <Link href={landingPath(locale, l) as "/"} aria-current={current ? "page" : undefined} className={chipClasses(current, "sm")}>
                             {l.name ?? t(`options.${l.group}.${l.key}`)}
                           </Link>
                         </li>

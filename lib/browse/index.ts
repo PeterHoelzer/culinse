@@ -10,6 +10,8 @@ import {
   RANGE_IDS,
   RANGE_STEPS,
   TAG_TO_KEYS,
+  ingredientMatches,
+  longEnough,
   normalize,
   type BrowseItem,
   type BrowseResult,
@@ -44,6 +46,9 @@ interface IndexRow extends BrowseItem {
   created: number;
   /** Titel, Zutaten und eigene Schlagworte, vereinheitlicht für die Suche. */
   text: string;
+  /** Zutatennamen und ihre Wörter, vereinheitlicht für den Zutatenfilter. */
+  ingredientNames: string[];
+  ingredientWords: Set<string>;
   titleText: string;
   /** Feste Zufallszahl je Rezept für die gemischte Reihenfolge. */
   hash: number;
@@ -65,8 +70,14 @@ interface DbRow {
   ingredients: { name?: string }[] | null;
 }
 
+interface LocaleIndex {
+  rows: IndexRow[];
+  /** Zutatenwörter mit Rezeptzahl, häufigste zuerst, für die Vorschläge. */
+  vocabulary: { word: string; label: string; count: number }[];
+}
+
 type Entry<T> = { at: number; value: T; refreshing: Promise<void> | null };
-const indexCache = new Map<string, Entry<IndexRow[]>>();
+const indexCache = new Map<string, Entry<LocaleIndex>>();
 let germanTags: Entry<Map<string, string[]>> | null = null;
 
 async function fetchAll<T>(columns: string, language: string, withUnassigned: boolean): Promise<T[]> {
@@ -150,7 +161,8 @@ function toIndexRow(row: DbRow, deTags: Map<string, string[]>): IndexRow {
   const cook = row.cook_time ?? 0;
   const minutes = prep + cook > 0 ? prep + cook : null;
   const course = COURSE_KEYS.find((k) => keys.has(k))?.slice("course:".length) ?? null;
-  const ingredientNames = (row.ingredients ?? []).map((i) => i?.name ?? "").join(" ");
+  const rawNames = (row.ingredients ?? []).map((i) => i?.name ?? "").filter(Boolean);
+  const ingredientNames = rawNames.map(normalize);
   const number = (v: unknown) => (typeof v === "number" && Number.isFinite(v) ? v : null);
 
   return {
@@ -169,13 +181,79 @@ function toIndexRow(row: DbRow, deTags: Map<string, string[]>): IndexRow {
     protein: number(row.nutrition?.protein),
     carbs: number(row.nutrition?.carbs),
     created: row.created_at ? Date.parse(row.created_at) : 0,
-    text: normalize(`${row.title} ${ingredientNames} ${ownTags.join(" ")}`),
+    text: normalize(`${row.title} ${rawNames.join(" ")} ${ownTags.join(" ")}`),
+    ingredientNames,
+    ingredientWords: new Set(ingredientNames.flatMap(splitWords)),
     titleText: normalize(row.title),
     hash: hashId(row.id),
   };
 }
 
-function loadIndex(locale: string): Promise<IndexRow[]> {
+// Wörter eines Zutatennamens ohne Klammern und Satzzeichen.
+function splitWords(name: string): string[] {
+  return name.split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean);
+}
+
+const HAS_SPACES = /^[\u0000-\u024f\u0370-\u052f\s]+$/; // lateinisch, griechisch, kyrillisch
+
+/*
+  Vorschlagsliste für den Zutatenfilter: je Zutatenwort, in wie vielen Rezepten
+  es steht. Mehrzahl und Einzahl fallen auf die kürzere Form zusammen (Tomaten
+  zu Tomate, eggs zu egg), weil der Filter mit der kürzeren Form beide trifft.
+  Im Deutschen zählen nur großgeschriebene Wörter, das hält Beiwörter wie
+  "lauwarmes" heraus. Sprachen ohne Wortzwischenraum (Japanisch, Chinesisch)
+  zählen den ganzen Zutatennamen.
+*/
+function buildVocabulary(rows: DbRow[], locale: string): LocaleIndex["vocabulary"] {
+  const perRow: Map<string, string>[] = [];
+  const all = new Set<string>();
+  for (const row of rows) {
+    const inRow = new Map<string, string>();
+    for (const ingredient of row.ingredients ?? []) {
+      const name = (ingredient?.name ?? "").replace(/[(（].*?[)）]/g, " ").trim();
+      if (!name) continue;
+      const spaced = HAS_SPACES.test(name);
+      for (const part of spaced ? name.split(/[^\p{L}\p{M}\p{N}]+/u) : [name]) {
+        const word = normalize(part);
+        if (!word || /^\d+$/.test(word) || (spaced && word.length < 3)) continue;
+        if (locale === "de" && spaced && part[0] !== part[0].toUpperCase()) continue;
+        if (!inRow.has(word)) inRow.set(word, part);
+        all.add(word);
+      }
+    }
+    perRow.push(inRow);
+  }
+  // Kürzeste Grundform: ein vorhandenes Wort, das bis zu zwei Buchstaben kürzer ist.
+  const stemOf = (word: string) => {
+    for (let cut = 2; cut >= 1; cut--) {
+      const stem = word.slice(0, -cut);
+      if (stem.length >= 3 && all.has(stem)) return stem;
+    }
+    return word;
+  };
+  const seen = new Map<string, { label: string; count: number }>();
+  for (const inRow of perRow) {
+    const stems = new Map<string, string>();
+    for (const [word, label] of inRow) {
+      const stem = stemOf(word);
+      // Beschriftung in der Grundform, wenn das Rezept sie selbst nennt.
+      if (!stems.has(stem) || stem === word) stems.set(stem, stem === word ? label : (stems.get(stem) ?? label.slice(0, stem.length)));
+    }
+    for (const [stem, label] of stems) {
+      const entry = seen.get(stem);
+      if (entry) {
+        entry.count++;
+        if (label.length < entry.label.length) entry.label = label;
+      } else seen.set(stem, { label, count: 1 });
+    }
+  }
+  return [...seen]
+    .filter(([, v]) => v.count >= 2)
+    .map(([word, v]) => ({ word, label: v.label, count: v.count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+function loadIndex(locale: string): Promise<LocaleIndex> {
   return cached(
     () => indexCache.get(locale),
     (entry) => indexCache.set(locale, entry),
@@ -188,9 +266,24 @@ function loadIndex(locale: string): Promise<IndexRow[]> {
         ),
         loadGermanTags(),
       ]);
-      return rows.map((row) => toIndexRow(row, deTags));
+      return { rows: rows.map((row) => toIndexRow(row, deTags)), vocabulary: buildVocabulary(rows, locale) };
     },
   );
+}
+
+/** Zutaten-Vorschläge zu einem Wortanfang, häufigste zuerst. */
+export async function suggestIngredients(locale: string, query: string, limit = 8): Promise<{ label: string; count: number }[]> {
+  const q = normalize(query);
+  if (!longEnough(q)) return [];
+  const { vocabulary } = await loadIndex(locale);
+  const starts: typeof vocabulary = [];
+  const contains: typeof vocabulary = [];
+  for (const entry of vocabulary) {
+    if (entry.word.startsWith(q)) starts.push(entry);
+    else if (q.length >= 3 && entry.word.includes(q)) contains.push(entry);
+    if (starts.length >= limit) break;
+  }
+  return [...starts, ...contains].slice(0, limit).map(({ label, count }) => ({ label, count }));
 }
 
 // Tageswert: die gemischte Reihenfolge wechselt täglich und bleibt tagsüber stabil.
@@ -226,7 +319,7 @@ function placeMatcher(state: BrowseState): ((row: IndexRow) => boolean) | null {
 const SIMPLE_GROUPS = FACET_GROUPS.filter((g) => g.id !== "cuisine" && g.id !== "region");
 
 export async function runBrowse(locale: string, state: BrowseState): Promise<BrowseResult> {
-  const rows = await loadIndex(locale);
+  const { rows } = await loadIndex(locale);
   const tokens = normalize(state.q).split(" ").filter(Boolean);
   const place = placeMatcher(state);
 
@@ -244,6 +337,12 @@ export async function runBrowse(locale: string, state: BrowseState): Promise<Bro
       mode: group.mode,
       test: group.mode === "all" ? (row) => keys.every((k) => row.keys.has(k)) : (row) => keys.some((k) => row.keys.has(k)),
     });
+  }
+  if (state.with.length) {
+    checks.push({ id: "with", mode: "all", test: (row) => state.with.every((term) => ingredientMatches(term, row.ingredientNames, row.ingredientWords)) });
+  }
+  if (state.without.length) {
+    checks.push({ id: "without", mode: "all", test: (row) => !state.without.some((term) => ingredientMatches(term, row.ingredientNames, row.ingredientWords)) });
   }
   for (const id of RANGE_IDS) {
     const limit = state.range[id];

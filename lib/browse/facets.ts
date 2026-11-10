@@ -203,9 +203,15 @@ export type SortId = (typeof SORT_IDS)[number];
 
 export const PAGE_SIZE = 24;
 
+/** Zutatenfilter: höchstens so viele Begriffe je Richtung. */
+export const INGREDIENT_MAX = 5;
+
 export interface BrowseState {
   q: string;
   sel: Record<GroupId, string[]>;
+  /** Zutaten, die im Rezept vorkommen müssen bzw. nicht vorkommen dürfen (frei eingegeben). */
+  with: string[];
+  without: string[];
   range: Record<RangeId, number | null>;
   sort: SortId;
   page: number;
@@ -215,6 +221,8 @@ export function emptyState(): BrowseState {
   return {
     q: "",
     sel: { cuisine: [], region: [], course: [], dish: [], diet: [], occasion: [], method: [] },
+    with: [],
+    without: [],
     range: { time: null, kcal: null, protein: null, carbs: null },
     sort: "mix",
     page: 1,
@@ -224,6 +232,30 @@ export function emptyState(): BrowseState {
 type RawParams = Record<string, string | string[] | undefined>;
 const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
 
+/** Säubert einen frei eingegebenen Zutatenbegriff; leer, wenn nichts Brauchbares bleibt. Die Schreibweise bleibt ("Lachs"). */
+export function cleanIngredient(text: string): string {
+  return text.replace(/[,;?&=#%<>"]/g, " ").replace(/\s+/g, " ").trim().slice(0, 30);
+}
+
+/** Gleicher Begriff ohne Rücksicht auf Groß- und Kleinschreibung. */
+export function sameIngredient(a: string, b: string): boolean {
+  return a.toLowerCase() === b.toLowerCase();
+}
+
+/** Mindestlänge einer Eingabe: zwei Buchstaben, in Schriften ohne Wortzwischenraum (z. B. 卵) genügt ein Zeichen. */
+export function longEnough(text: string): boolean {
+  return text.length >= 2 || /[^\u0000-\u024f]/.test(text);
+}
+
+function ingredientList(raw: string): string[] {
+  const out: string[] = [];
+  for (const part of raw.split(",")) {
+    const term = cleanIngredient(part);
+    if (longEnough(term) && !out.some((t) => sameIngredient(t, term))) out.push(term);
+  }
+  return out.slice(0, INGREDIENT_MAX);
+}
+
 /** Liest den Zustand aus den URL-Parametern; Unbekanntes fällt still weg. */
 export function parseState(params: RawParams): BrowseState {
   const state = emptyState();
@@ -232,6 +264,8 @@ export function parseState(params: RawParams): BrowseState {
     const wanted = new Set(first(params[group.id]).split(",").filter(Boolean));
     state.sel[group.id] = group.options.filter((o) => wanted.has(o.key)).map((o) => o.key);
   }
+  state.with = ingredientList(first(params.with));
+  state.without = ingredientList(first(params.without)).filter((term) => !state.with.some((t) => sameIngredient(t, term)));
   for (const id of RANGE_IDS) {
     const n = Number(first(params[id]));
     state.range[id] = (RANGE_STEPS[id] as readonly number[]).includes(n) ? n : null;
@@ -248,6 +282,8 @@ export function stateToQuery(state: BrowseState): string {
   const p = new URLSearchParams();
   if (state.q) p.set("q", state.q);
   for (const id of GROUP_IDS) if (state.sel[id].length) p.set(id, state.sel[id].join(","));
+  if (state.with.length) p.set("with", state.with.join(","));
+  if (state.without.length) p.set("without", state.without.join(","));
   for (const id of RANGE_IDS) if (state.range[id] !== null) p.set(id, String(state.range[id]));
   if (state.sort !== "mix") p.set("sort", state.sort);
   if (state.page > 1) p.set("page", String(state.page));
@@ -256,7 +292,12 @@ export function stateToQuery(state: BrowseState): string {
 }
 
 export function countActive(state: BrowseState): number {
-  return GROUP_IDS.reduce((n, id) => n + state.sel[id].length, 0) + RANGE_IDS.filter((id) => state.range[id] !== null).length;
+  return (
+    GROUP_IDS.reduce((n, id) => n + state.sel[id].length, 0) +
+    RANGE_IDS.filter((id) => state.range[id] !== null).length +
+    state.with.length +
+    state.without.length
+  );
 }
 
 export function isFiltered(state: BrowseState): boolean {
@@ -274,6 +315,16 @@ export function toggleOption(state: BrowseState, group: GroupId, key: string): B
   return { ...state, sel, page: 1 };
 }
 
+/** Fügt einen Zutatenbegriff hinzu oder nimmt ihn heraus. Ein Begriff steht nie in beiden Listen. */
+export function toggleIngredient(state: BrowseState, list: "with" | "without", raw: string): BrowseState {
+  const term = cleanIngredient(raw);
+  if (!longEnough(term)) return state;
+  const other = list === "with" ? "without" : "with";
+  const has = state[list].some((t) => sameIngredient(t, term));
+  const next = has ? state[list].filter((t) => !sameIngredient(t, term)) : [...state[list], term].slice(-INGREDIENT_MAX);
+  return { ...state, [list]: next, [other]: state[other].filter((t) => !sameIngredient(t, term)), page: 1 } as BrowseState;
+}
+
 export function setRange(state: BrowseState, id: RangeId, value: number | null): BrowseState {
   return { ...state, range: { ...state.range, [id]: state.range[id] === value ? null : value }, page: 1 };
 }
@@ -289,6 +340,22 @@ export function normalize(text: string): string {
     .trim();
 }
 
+/*
+  Prüft, ob ein Begriff in den Zutaten eines Rezepts steht. `names` sind die
+  vereinheitlichten Zutatennamen, `words` deren einzelne Wörter.
+  Lange Begriffe treffen auch im Wortinneren ("lachs" in "räucherlachs"),
+  kurze nur als ganzes Wort mit Endung ("ei" trifft "ei" und "eier", aber nicht
+  "reis"). Schriften ohne Wortzwischenraum werden immer im Ganzen durchsucht.
+*/
+export function ingredientMatches(term: string, names: readonly string[], words: ReadonlySet<string>): boolean {
+  const t = normalize(term);
+  if (!t) return false;
+  if (t.length >= 4 || t.includes(" ") || /[^\u0000-\u024f]/.test(t)) return names.some((name) => name.includes(t));
+  if (words.has(t)) return true;
+  for (const word of words) if (word.startsWith(t) && word.length <= t.length + 2) return true;
+  return false;
+}
+
 export interface BrowseItem {
   id: string;
   title: string;
@@ -300,6 +367,8 @@ export interface BrowseItem {
   nameLang: string | null;
   course: string | null;
   diet: "vegan" | "vegetarian" | null;
+  /** Akzentfarbe aus dem Foto (lib/dishColor.ts); setzt die Seite, nicht das Verzeichnis. */
+  accent?: string | null;
 }
 
 export interface BrowseResult {
@@ -370,7 +439,7 @@ export function landingState(landing: Landing): BrowseState {
 
 /** Die Themenseite, die genau diesem Zustand entspricht, sonst null. */
 export function landingOf(state: BrowseState): Landing | null {
-  if (state.q || RANGE_IDS.some((id) => state.range[id] !== null)) return null;
+  if (state.q || state.with.length || state.without.length || RANGE_IDS.some((id) => state.range[id] !== null)) return null;
   const picked = GROUP_IDS.flatMap((id) => state.sel[id].map((key) => LANDING_BY_ID.get(`${id}:${key}`)!));
   if (picked.length === 1) return picked[0];
   if (picked.length === 2) {
@@ -379,15 +448,4 @@ export function landingOf(state: BrowseState): Landing | null {
     if (region && cuisine && region.parent === cuisine.key) return region;
   }
   return null;
-}
-
-/** Adresse eines Zustands ohne Sprachpräfix: Themenseite, wenn es eine gibt, sonst /recipes mit Parametern. */
-export function browseHref(state: BrowseState): string {
-  const landing = landingOf(state);
-  if (!landing) return `/recipes${stateToQuery(state)}`;
-  const p = new URLSearchParams();
-  if (state.sort !== "mix") p.set("sort", state.sort);
-  if (state.page > 1) p.set("page", String(state.page));
-  const query = p.toString();
-  return `/recipes/${landing.slug}${query ? `?${query}` : ""}`;
 }

@@ -774,7 +774,8 @@
       "occasion": "উপলক্ষ",
       "method": "রান্নার পদ্ধতি",
       "time": "মোট সময়",
-      "nutrition": "প্রতি পরিবেশনে পুষ্টিগুণ"
+      "nutrition": "প্রতি পরিবেশনে পুষ্টিগুণ",
+      "ingredients": "উপকরণ"
     },
     "range": {
       "time": "সর্বোচ্চ {count} মিনিট",
@@ -912,6 +913,17 @@
           "onepot": "এক হাঁড়ির রেসিপি"
         }
       }
+    },
+    "ingredients": {
+      "with": "উপকরণ সহ",
+      "without": "উপকরণ ছাড়া",
+      "placeholder": "যেমন স্যামন",
+      "placeholderWithout": "যেমন মাশরুম",
+      "add": "যোগ করুন",
+      "withChip": "{name} সহ",
+      "withoutChip": "{name} ছাড়া",
+      "hint": "রেসিপির উপকরণের নামে খোঁজে। অ্যালার্জি ফিল্টার নয়।",
+      "suggestWith": "উপকরণ \"{query}\" সহ"
     }
   }
 }

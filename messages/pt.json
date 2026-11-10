@@ -774,7 +774,8 @@
       "occasion": "Ocasião",
       "method": "Preparo",
       "time": "Tempo total",
-      "nutrition": "Valores nutricionais por porção"
+      "nutrition": "Valores nutricionais por porção",
+      "ingredients": "Ingredientes"
     },
     "range": {
       "time": "Até {count} min",
@@ -912,6 +913,17 @@
           "onepot": "Receitas one-pot"
         }
       }
+    },
+    "ingredients": {
+      "with": "Com ingrediente",
+      "without": "Sem ingrediente",
+      "placeholder": "por ex. salmão",
+      "placeholderWithout": "por ex. cogumelos",
+      "add": "Adicionar",
+      "withChip": "Com {name}",
+      "withoutChip": "Sem {name}",
+      "hint": "Procura nos nomes dos ingredientes das receitas. Não é um filtro de alergias.",
+      "suggestWith": "Com ingrediente “{query}”"
     }
   }
 }

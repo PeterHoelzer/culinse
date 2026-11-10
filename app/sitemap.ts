@@ -6,6 +6,7 @@ import { CURATED_RECIPE_IDS } from "@/lib/curated-recipe-ids";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { LANDINGS, LANDING_MIN, emptyState } from "@/lib/browse/facets";
 import { runBrowse } from "@/lib/browse";
+import { landingPath } from "@/lib/browse/slugs";
 
 const baseUrl = "https://culinse.com";
 
@@ -219,13 +220,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const { counts } = await runBrowse("de", emptyState());
     topicEntries = LANDINGS.filter((l) => (counts[`${l.group}:${l.key}`] ?? 0) >= LANDING_MIN).flatMap((l) => {
-      const path = `/recipes/${l.slug}`;
+      // Jede Sprache hat ihre eigene Adresse (lib/browse/slugs.ts).
+      const languages: Record<string, string> = {};
+      for (const locale of ALL_LOCALES) languages[locale] = `${baseUrl}/${locale}${landingPath(locale, l)}`;
+      languages["x-default"] = languages.en;
       return ALL_LOCALES.map((locale) => ({
-        url: `${baseUrl}/${locale}${path}`,
+        url: languages[locale],
         lastModified: STATIC_LAST_MODIFIED,
         changeFrequency: "weekly" as const,
         priority: 0.7,
-        alternates: langsAll(path),
+        alternates: { languages },
       }));
     });
   } catch {

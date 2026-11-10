@@ -774,7 +774,8 @@
       "occasion": "Okazja",
       "method": "Sposób przygotowania",
       "time": "Całkowity czas",
-      "nutrition": "Wartości odżywcze na porcję"
+      "nutrition": "Wartości odżywcze na porcję",
+      "ingredients": "Składniki"
     },
     "range": {
       "time": "Do {count} min",
@@ -912,6 +913,17 @@
           "onepot": "Przepisy one-pot"
         }
       }
+    },
+    "ingredients": {
+      "with": "Ze składnikiem",
+      "without": "Bez składnika",
+      "placeholder": "np. łosoś",
+      "placeholderWithout": "np. pieczarki",
+      "add": "Dodaj",
+      "withChip": "Ze składnikiem: {name}",
+      "withoutChip": "Bez składnika: {name}",
+      "hint": "Przeszukuje nazwy składników w przepisach. To nie jest filtr alergenów.",
+      "suggestWith": "Ze składnikiem „{query}”"
     }
   }
 }

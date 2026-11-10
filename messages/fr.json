@@ -774,7 +774,8 @@
       "occasion": "Occasion",
       "method": "Préparation",
       "time": "Durée totale",
-      "nutrition": "Valeurs nutritionnelles par portion"
+      "nutrition": "Valeurs nutritionnelles par portion",
+      "ingredients": "Ingrédients"
     },
     "range": {
       "time": "Jusqu’à {count} min",
@@ -912,6 +913,17 @@
           "onepot": "Recettes one-pot"
         }
       }
+    },
+    "ingredients": {
+      "with": "Avec l'ingrédient",
+      "without": "Sans l'ingrédient",
+      "placeholder": "p. ex. saumon",
+      "placeholderWithout": "p. ex. champignons",
+      "add": "Ajouter",
+      "withChip": "Avec {name}",
+      "withoutChip": "Sans {name}",
+      "hint": "Recherche dans les noms d'ingrédients des recettes. Ce n'est pas un filtre d'allergies.",
+      "suggestWith": "Avec l'ingrédient « {query} »"
     }
   }
 }

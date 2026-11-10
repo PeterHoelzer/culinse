@@ -774,7 +774,8 @@
       "occasion": "Occasion",
       "method": "Method",
       "time": "Total time",
-      "nutrition": "Nutrition per serving"
+      "nutrition": "Nutrition per serving",
+      "ingredients": "Ingredients"
     },
     "range": {
       "time": "Up to {count} min",
@@ -912,6 +913,17 @@
           "onepot": "One-pot recipes"
         }
       }
+    },
+    "ingredients": {
+      "with": "With ingredient",
+      "without": "Without ingredient",
+      "placeholder": "e.g. salmon",
+      "placeholderWithout": "e.g. mushrooms",
+      "add": "Add",
+      "withChip": "With {name}",
+      "withoutChip": "Without {name}",
+      "hint": "Searches the ingredient names of the recipes. Not an allergy filter.",
+      "suggestWith": "With ingredient “{query}”"
     }
   }
 }

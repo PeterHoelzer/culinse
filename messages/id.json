@@ -774,7 +774,8 @@
       "occasion": "Kesempatan",
       "method": "Cara memasak",
       "time": "Total waktu",
-      "nutrition": "Nutrisi per porsi"
+      "nutrition": "Nutrisi per porsi",
+      "ingredients": "Bahan"
     },
     "range": {
       "time": "Hingga {count} mnt",
@@ -912,6 +913,17 @@
           "onepot": "Resep satu panci"
         }
       }
+    },
+    "ingredients": {
+      "with": "Dengan bahan",
+      "without": "Tanpa bahan",
+      "placeholder": "mis. salmon",
+      "placeholderWithout": "mis. jamur",
+      "add": "Tambah",
+      "withChip": "Dengan {name}",
+      "withoutChip": "Tanpa {name}",
+      "hint": "Mencari di nama bahan pada resep. Bukan filter alergi.",
+      "suggestWith": "Dengan bahan “{query}”"
     }
   }
 }

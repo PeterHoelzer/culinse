@@ -774,7 +774,8 @@
       "occasion": "Vesile",
       "method": "Yöntem",
       "time": "Toplam süre",
-      "nutrition": "Porsiyon başına besin değerleri"
+      "nutrition": "Porsiyon başına besin değerleri",
+      "ingredients": "Malzemeler"
     },
     "range": {
       "time": "En fazla {count} dk",
@@ -912,6 +913,17 @@
           "onepot": "Tek tencere tarifleri"
         }
       }
+    },
+    "ingredients": {
+      "with": "Malzemeli",
+      "without": "Malzemesiz",
+      "placeholder": "örn. somon",
+      "placeholderWithout": "örn. mantar",
+      "add": "Ekle",
+      "withChip": "Dahil: {name}",
+      "withoutChip": "Hariç: {name}",
+      "hint": "Tariflerdeki malzeme adlarında arar. Alerji filtresi değildir.",
+      "suggestWith": "Malzeme: \"{query}\""
     }
   }
 }

@@ -14,13 +14,15 @@ import {
   RANGE_IDS,
   RANGE_STEPS,
   SORT_IDS,
-  browseHref,
   countActive,
   emptyState,
   isFiltered,
+  longEnough,
   normalize,
+  sameIngredient,
   setRange,
   stateToQuery,
+  toggleIngredient,
   toggleOption,
   type BrowseResult,
   type BrowseState,
@@ -135,13 +137,13 @@ interface BrowseClientProps {
   subtitle: string;
   /** Nur Themenseiten: Beschriftung des Links zurück zur ganzen Liste. */
   backLabel?: string;
-  /** Themenseite: Seitenzahlen bleiben auf ihrer festen Adresse. */
-  onLanding?: boolean;
+  /** Themenseite: ihr Pfad in dieser Sprache; Seitenzahlen bleiben auf dieser Adresse. */
+  basePath?: string;
   /** Themen-Links unter der Liste, vom Server gerendert. */
   children?: ReactNode;
 }
 
-export default function BrowseClient({ state, result, title, subtitle, backLabel, onLanding = false, children }: BrowseClientProps) {
+export default function BrowseClient({ state, result, title, subtitle, backLabel, basePath, children }: BrowseClientProps) {
   const t = useTranslations("browse");
   const router = useRouter();
   const user = useUser();
@@ -180,6 +182,7 @@ export default function BrowseClient({ state, result, title, subtitle, backLabel
     nameLang: item.nameLang,
     category: item.course ? t(`options.course.${item.course}`) : null,
     diet: item.diet,
+    accent: item.accent,
   }));
 
   const panel = (idPrefix: string) => (
@@ -188,7 +191,11 @@ export default function BrowseClient({ state, result, title, subtitle, backLabel
   // Filter-Klicks gehen immer auf /recipes?…, damit die Ansicht beim Ankreuzen
   // nicht zwischen zwei Routen wechselt. Nur das Blättern einer Themenseite
   // bleibt auf deren fester Adresse.
-  const pageHref = (page: number) => (onLanding ? browseHref({ ...state, page }) : `/recipes${stateToQuery({ ...state, page })}`);
+  const pageHref = (page: number) => {
+    if (!basePath) return `/recipes${stateToQuery({ ...state, page })}`;
+    const query = stateToQuery({ ...emptyState(), sort: state.sort, page });
+    return `${basePath}${query}`;
+  };
 
   return (
     <>
@@ -228,7 +235,7 @@ export default function BrowseClient({ state, result, title, subtitle, backLabel
             </div>
           </div>
 
-          {(active.length > 0 || view.q) && (
+          {(activeCount > 0 || view.q) && (
             <ul aria-label={t("active")} className="mt-4 flex flex-wrap items-center gap-2">
               {view.q && (
                 <li>
@@ -246,6 +253,19 @@ export default function BrowseClient({ state, result, title, subtitle, backLabel
                   </Chip>
                 </li>
               ))}
+              {(["with", "without"] as const).flatMap((list) =>
+                view[list].map((term) => {
+                  const label = t(list === "with" ? "ingredients.withChip" : "ingredients.withoutChip", { name: term });
+                  return (
+                    <li key={`${list}:${term}`}>
+                      <Chip active size="sm" aria-pressed={undefined} aria-label={t("remove", { name: label })} onClick={() => apply(toggleIngredient(view, list, term))}>
+                        {label}
+                        <Icon name="x" size={16} />
+                      </Chip>
+                    </li>
+                  );
+                }),
+              )}
               <li>
                 <Button variant="quiet" className="ml-1 text-sm" onClick={reset}>
                   {t("reset")}
@@ -326,7 +346,7 @@ interface PartProps {
 
 /* ─── Suchfeld mit Vorschlägen: erst passende Filter, dann Rezepttitel ─────── */
 
-type Suggestion = { kind: "filter"; entry: Entry } | { kind: "query"; text: string } | { kind: "title"; text: string };
+type Suggestion = { kind: "filter"; entry: Entry } | { kind: "query"; text: string } | { kind: "with"; text: string } | { kind: "title"; text: string };
 
 function SearchBox({ view, counts, entries, onChange, t }: PartProps) {
   const locale = useLocale();
@@ -369,6 +389,7 @@ function SearchBox({ view, counts, entries, onChange, t }: PartProps) {
         .slice(0, 6)
         .map((entry) => ({ kind: "filter" as const, entry })),
       { kind: "query" as const, text: trimmed },
+      ...(view.with.some((term) => sameIngredient(term, trimmed)) ? [] : [{ kind: "with" as const, text: trimmed }]),
       ...titles.filter((title) => title.toLowerCase() !== trimmed.toLowerCase()).map((title) => ({ kind: "title" as const, text: title })),
     ];
   }, [entries, trimmed, counts, view, titles]);
@@ -387,10 +408,10 @@ function SearchBox({ view, counts, entries, onChange, t }: PartProps) {
   };
 
   const pick = (s: Suggestion) => {
-    if (s.kind !== "filter") return search(s.text);
+    if (s.kind === "query" || s.kind === "title") return search(s.text);
     close();
     setText(view.q);
-    onChange(flip(view, s.entry));
+    onChange(s.kind === "with" ? toggleIngredient(view, "with", s.text) : flip(view, s.entry));
   };
 
   const firstOf = (kind: Suggestion["kind"]) => suggestions.findIndex((s) => s.kind === kind);
@@ -467,7 +488,7 @@ function SearchBox({ view, counts, entries, onChange, t }: PartProps) {
                     onMouseEnter={() => setCursor(i)}
                     className={["flex min-h-11 cursor-pointer items-center gap-3 px-4 py-2 text-base text-ink", cursor === i ? "bg-surface-soft" : "", s.kind === "query" ? "border-t border-line first:border-t-0" : ""].join(" ")}
                   >
-                    <Icon name={s.kind === "filter" ? "sliders" : s.kind === "query" ? "search" : "utensils"} size={18} className="shrink-0 text-ink-3" />
+                    <Icon name={s.kind === "filter" ? "sliders" : s.kind === "query" ? "search" : s.kind === "with" ? "plus" : "utensils"} size={18} className="shrink-0 text-ink-3" />
                     {s.kind === "filter" ? (
                       <>
                         <span className="min-w-0 flex-1 truncate">
@@ -477,7 +498,9 @@ function SearchBox({ view, counts, entries, onChange, t }: PartProps) {
                         <span className="tabular shrink-0 text-sm text-ink-3">{counts[s.entry.id] ?? 0}</span>
                       </>
                     ) : (
-                      <span className="min-w-0 flex-1 truncate">{s.kind === "query" ? t("searchFor", { query: s.text }) : s.text}</span>
+                      <span className="min-w-0 flex-1 truncate">
+                        {s.kind === "query" ? t("searchFor", { query: s.text }) : s.kind === "with" ? t("ingredients.suggestWith", { query: s.text }) : s.text}
+                      </span>
                     )}
                   </div>
                 </li>
@@ -584,6 +607,23 @@ function FilterPanel({ view, counts, entries, onChange, t, idPrefix }: PartProps
             );
           })}
 
+          <details open={view.with.length + view.without.length > 0} className="group/filter border-t border-line pt-4">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-2 text-base font-semibold text-ink [&::-webkit-details-marker]:hidden">
+              <span>
+                {t("groups.ingredients")}
+                {view.with.length + view.without.length > 0 && (
+                  <span className="tabular ml-2 text-sm font-normal text-ink-3">{view.with.length + view.without.length}</span>
+                )}
+              </span>
+              <Icon name="chevronDown" size={18} className="text-ink-3 transition-transform duration-150 group-open/filter:rotate-180" />
+            </summary>
+            <div className="mt-3 flex flex-col gap-4">
+              <IngredientInput list="with" view={view} onChange={onChange} t={t} />
+              <IngredientInput list="without" view={view} onChange={onChange} t={t} />
+              <p className="text-caption text-ink-3">{t("ingredients.hint")}</p>
+            </div>
+          </details>
+
           <details open className="group/filter border-t border-line pt-4">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-2 text-base font-semibold text-ink [&::-webkit-details-marker]:hidden">
               {t("groups.time")}
@@ -604,6 +644,84 @@ function FilterPanel({ view, counts, entries, onChange, t, idPrefix }: PartProps
         </>
       )}
     </div>
+  );
+}
+
+/* Zutat hinzufügen: freies Feld mit Vorschlägen aus den Zutaten der Sprache. */
+function IngredientInput({ list, view, onChange, t }: Pick<PartProps, "view" | "onChange" | "t"> & { list: "with" | "without" }) {
+  const locale = useLocale();
+  const [text, setText] = useState("");
+  const [found, setFound] = useState<{ query: string; items: { label: string; count: number }[] }>({ query: "", items: [] });
+  const trimmed = text.trim();
+
+  useEffect(() => {
+    if (!longEnough(trimmed)) return;
+    const controller = new AbortController();
+    const timer = setTimeout(() => {
+      fetch(`/api/browse/ingredients?lang=${locale}&q=${encodeURIComponent(trimmed)}`, { signal: controller.signal })
+        .then((res) => (res.ok ? res.json() : { suggestions: [] }))
+        .then((data: { suggestions?: { label: string; count: number }[] }) => setFound({ query: trimmed, items: data.suggestions ?? [] }))
+        .catch(() => {});
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+      controller.abort();
+    };
+  }, [trimmed, locale]);
+
+  const add = (term: string) => {
+    setText("");
+    if (!view[list].some((t) => sameIngredient(t, term.trim()))) onChange(toggleIngredient(view, list, term));
+  };
+  // Nur Vorschläge zur aktuellen Eingabe zeigen, nicht die der vorigen.
+  const items = longEnough(trimmed) && found.query === trimmed ? found.items : [];
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (longEnough(trimmed)) add(trimmed);
+      }}
+    >
+      <div className="flex items-end gap-2">
+        <Input
+          className="min-w-0 flex-1"
+          label={t(`ingredients.${list}`)}
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder={t(list === "with" ? "ingredients.placeholder" : "ingredients.placeholderWithout")}
+          autoComplete="off"
+          enterKeyHint="done"
+          maxLength={30}
+        />
+        <Button type="submit" variant="icon" icon="plus" aria-label={`${t("ingredients.add")}: ${t(`ingredients.${list}`)}`} disabled={!longEnough(trimmed)} />
+      </div>
+      {items.length > 0 && (
+        <ul className="mt-2 flex flex-wrap gap-2">
+          {items.map((item) => (
+            <li key={item.label}>
+              <Chip size="sm" onClick={() => add(item.label)} aria-pressed={undefined}>
+                {item.label}
+                <span className="tabular font-normal text-ink-3">{item.count}</span>
+              </Chip>
+            </li>
+          ))}
+        </ul>
+      )}
+      {view[list].length > 0 && (
+        <ul className="mt-2 flex flex-wrap gap-2">
+          {view[list].map((term) => (
+            <li key={term}>
+              <Chip active size="sm" aria-pressed={undefined} aria-label={t("remove", { name: term })} onClick={() => onChange(toggleIngredient(view, list, term))}>
+                {term}
+                <Icon name="x" size={16} />
+              </Chip>
+            </li>
+          ))}
+        </ul>
+      )}
+    </form>
   );
 }
 

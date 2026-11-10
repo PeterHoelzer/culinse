@@ -774,7 +774,8 @@
       "occasion": "シーン",
       "method": "調理法",
       "time": "合計時間",
-      "nutrition": "1人分の栄養"
+      "nutrition": "1人分の栄養",
+      "ingredients": "材料"
     },
     "range": {
       "time": "{count} 分以内",
@@ -912,6 +913,17 @@
           "onepot": "ワンポットレシピ"
         }
       }
+    },
+    "ingredients": {
+      "with": "材料を含む",
+      "without": "材料を除く",
+      "placeholder": "例：サーモン",
+      "placeholderWithout": "例：きのこ",
+      "add": "追加",
+      "withChip": "{name}あり",
+      "withoutChip": "{name}なし",
+      "hint": "レシピの材料名から検索します。アレルギー対応の絞り込みではありません。",
+      "suggestWith": "材料「{query}」を含む"
     }
   }
 }

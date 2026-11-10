@@ -774,7 +774,8 @@
       "occasion": "Příležitost",
       "method": "Příprava",
       "time": "Celkový čas",
-      "nutrition": "Nutriční hodnoty na porci"
+      "nutrition": "Nutriční hodnoty na porci",
+      "ingredients": "Suroviny"
     },
     "range": {
       "time": "Do {count} min",
@@ -912,6 +913,17 @@
           "onepot": "Recepty one-pot"
         }
       }
+    },
+    "ingredients": {
+      "with": "Se surovinou",
+      "without": "Bez suroviny",
+      "placeholder": "např. losos",
+      "placeholderWithout": "např. houby",
+      "add": "Přidat",
+      "withChip": "Se surovinou: {name}",
+      "withoutChip": "Bez suroviny: {name}",
+      "hint": "Hledá v názvech surovin u receptů. Není to filtr alergenů.",
+      "suggestWith": "Se surovinou „{query}“"
     }
   }
 }

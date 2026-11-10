@@ -774,7 +774,8 @@
       "occasion": "Gelegenheid",
       "method": "Bereiding",
       "time": "Totale tijd",
-      "nutrition": "Voedingswaarden per portie"
+      "nutrition": "Voedingswaarden per portie",
+      "ingredients": "Ingrediënten"
     },
     "range": {
       "time": "Tot {count} min",
@@ -912,6 +913,17 @@
           "onepot": "One-pot recepten"
         }
       }
+    },
+    "ingredients": {
+      "with": "Met ingrediënt",
+      "without": "Zonder ingrediënt",
+      "placeholder": "bijv. zalm",
+      "placeholderWithout": "bijv. champignons",
+      "add": "Toevoegen",
+      "withChip": "Met {name}",
+      "withoutChip": "Zonder {name}",
+      "hint": "Zoekt in de ingrediëntnamen van de recepten. Geen allergiefilter.",
+      "suggestWith": "Met ingrediënt “{query}”"
     }
   }
 }

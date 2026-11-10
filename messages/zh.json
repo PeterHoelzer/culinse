@@ -774,7 +774,8 @@
       "occasion": "场合",
       "method": "做法",
       "time": "总用时",
-      "nutrition": "每份营养"
+      "nutrition": "每份营养",
+      "ingredients": "食材"
     },
     "range": {
       "time": "最多 {count} 分钟",
@@ -912,6 +913,17 @@
           "onepot": "一锅煮食谱"
         }
       }
+    },
+    "ingredients": {
+      "with": "含食材",
+      "without": "不含食材",
+      "placeholder": "例如三文鱼",
+      "placeholderWithout": "例如蘑菇",
+      "add": "添加",
+      "withChip": "含{name}",
+      "withoutChip": "不含{name}",
+      "hint": "在食谱的食材名称中搜索。不是过敏原筛选。",
+      "suggestWith": "含食材“{query}”"
     }
   }
 }

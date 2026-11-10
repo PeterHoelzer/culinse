@@ -774,7 +774,8 @@
       "occasion": "Dịp",
       "method": "Cách chế biến",
       "time": "Tổng thời gian",
-      "nutrition": "Dinh dưỡng mỗi khẩu phần"
+      "nutrition": "Dinh dưỡng mỗi khẩu phần",
+      "ingredients": "Nguyên liệu"
     },
     "range": {
       "time": "Tối đa {count} phút",
@@ -912,6 +913,17 @@
           "onepot": "Công thức một nồi"
         }
       }
+    },
+    "ingredients": {
+      "with": "Có nguyên liệu",
+      "without": "Không có nguyên liệu",
+      "placeholder": "ví dụ: cá hồi",
+      "placeholderWithout": "ví dụ: nấm",
+      "add": "Thêm",
+      "withChip": "Có {name}",
+      "withoutChip": "Không có {name}",
+      "hint": "Tìm trong tên nguyên liệu của các công thức. Không phải bộ lọc dị ứng.",
+      "suggestWith": "Có nguyên liệu \"{query}\""
     }
   }
 }

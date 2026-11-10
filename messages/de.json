@@ -774,7 +774,8 @@
       "occasion": "Anlass",
       "method": "Zubereitung",
       "time": "Gesamtzeit",
-      "nutrition": "Nährwerte pro Portion"
+      "nutrition": "Nährwerte pro Portion",
+      "ingredients": "Zutaten"
     },
     "range": {
       "time": "Bis {count} Min.",
@@ -912,6 +913,17 @@
           "onepot": "One-Pot-Rezepte"
         }
       }
+    },
+    "ingredients": {
+      "with": "Mit Zutat",
+      "without": "Ohne Zutat",
+      "placeholder": "z. B. Lachs",
+      "placeholderWithout": "z. B. Pilze",
+      "add": "Hinzufügen",
+      "withChip": "Mit {name}",
+      "withoutChip": "Ohne {name}",
+      "hint": "Sucht in den Zutatennamen der Rezepte. Kein Allergiefilter.",
+      "suggestWith": "Mit Zutat „{query}“"
     }
   }
 }
