@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Toutes les recettes : plus de 2 300 plats",
+      "Toutes les recettes : plus de 3 000 plats",
       "Recherche & filtres par alimentation, temps, cuisine",
       "Enregistrement des recettes",
       "1 collection (jusqu'à 10 recettes)"
@@ -794,6 +794,7 @@
         "german": "Allemande",
         "japanese": "Japonaise",
         "irish": "Irlandaise",
+        "greek": "Grecque",
         "kurdish": "Kurde",
         "portuguese": "Portugaise",
         "mediterranean": "Méditerranéenne",
@@ -802,6 +803,27 @@
         "mexican": "Mexicaine",
         "turkish": "Turque",
         "indian": "Indienne"
+      },
+      "region": {
+        "macedonia": "Macédoine",
+        "crete": "Crète",
+        "peloponnese": "Péloponnèse",
+        "north-aegean": "Égée-Septentrionale",
+        "cyclades": "Cyclades",
+        "ionian-islands": "Îles Ioniennes",
+        "epirus": "Épire",
+        "dodecanese": "Dodécanèse",
+        "thessaly": "Thessalie",
+        "thrace": "Thrace",
+        "central-greece": "Grèce-Centrale",
+        "attica": "Attique",
+        "marmara": "Marmara",
+        "turkish-aegean": "Égée",
+        "black-sea": "Mer Noire",
+        "central-anatolia": "Anatolie centrale",
+        "turkish-mediterranean": "Méditerranée",
+        "southeastern-anatolia": "Anatolie du Sud-Est",
+        "eastern-anatolia": "Anatolie orientale"
       },
       "course": {
         "main": "Plat principal",
@@ -859,6 +881,7 @@
           "german": "Recettes allemandes",
           "japanese": "Recettes japonaises",
           "irish": "Recettes irlandaises",
+          "greek": "Recettes grecques",
           "kurdish": "Recettes kurdes",
           "portuguese": "Recettes portugaises",
           "mediterranean": "Recettes méditerranéennes",

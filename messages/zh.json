@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "全部食谱：2300 多道菜",
+      "全部食谱：3000 多道菜",
       "按饮食、时间、菜系搜索和筛选",
       "收藏食谱（）",
       "1 个合集（最多 10 道食谱）"
@@ -794,6 +794,7 @@
         "german": "德国菜",
         "japanese": "日本菜",
         "irish": "爱尔兰菜",
+        "greek": "希腊菜",
         "kurdish": "库尔德菜",
         "portuguese": "葡萄牙菜",
         "mediterranean": "地中海菜",
@@ -802,6 +803,27 @@
         "mexican": "墨西哥菜",
         "turkish": "土耳其菜",
         "indian": "印度菜"
+      },
+      "region": {
+        "macedonia": "马其顿",
+        "crete": "克里特岛",
+        "peloponnese": "伯罗奔尼撒",
+        "north-aegean": "北爱琴海",
+        "cyclades": "基克拉泽斯群岛",
+        "ionian-islands": "爱奥尼亚群岛",
+        "epirus": "伊庇鲁斯",
+        "dodecanese": "多德卡尼斯群岛",
+        "thessaly": "色萨利",
+        "thrace": "色雷斯",
+        "central-greece": "希腊中部",
+        "attica": "阿提卡",
+        "marmara": "马尔马拉地区",
+        "turkish-aegean": "爱琴海地区",
+        "black-sea": "黑海地区",
+        "central-anatolia": "中安纳托利亚",
+        "turkish-mediterranean": "地中海地区",
+        "southeastern-anatolia": "东南安纳托利亚",
+        "eastern-anatolia": "东安纳托利亚"
       },
       "course": {
         "main": "主菜",
@@ -859,6 +881,7 @@
           "german": "德式食谱",
           "japanese": "日式食谱",
           "irish": "爱尔兰食谱",
+          "greek": "希腊食谱",
           "kurdish": "库尔德食谱",
           "portuguese": "葡萄牙食谱",
           "mediterranean": "地中海食谱",

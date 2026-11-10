@@ -20,7 +20,7 @@ export interface FacetOption {
   tags: string[];
   /** Nur Regionen: Schlüssel der zugehörigen Küche. */
   parent?: string;
-  /** Nur Regionen: Eigenname, in allen Sprachen gleich. */
+  /** Nur Regionen: Eigenname, in allen Sprachen gleich. Fehlt er, kommt der Name aus den Übersetzungen. */
   name?: string;
   /** Zusätzliche Suchwörter für die Filtersuche. */
   aliases?: string[];
@@ -53,6 +53,9 @@ const GERMAN_STATES: [string, string, string][] = [
 ];
 
 const region = (parent: string, key: string, name: string, tag = key): FacetOption => ({ key, name, parent, tags: [tag] });
+// Region mit übersetztem Namen (messages: browse.options.region.<key>). Für Gegenden,
+// die in jeder Sprache anders heißen (Kreta, Crete, Girit), statt eines festen Eigennamens.
+const localRegion = (parent: string, key: string, tag: string): FacetOption => ({ key, parent, tags: [tag] });
 
 export const FACET_GROUPS: FacetGroup[] = [
   {
@@ -60,6 +63,9 @@ export const FACET_GROUPS: FacetGroup[] = [
     mode: "any",
     options: [
       { key: "german", tags: ["deutschland", "bayerisch", ...GERMAN_STATES.map((s) => s[2])], aliases: ["deutsch", "german", "germany"] },
+      // Reihenfolge = Anzeige im Filter: die größten Küchen zuerst.
+      { key: "turkish", tags: ["türkei", "türkisch", "turkish"], aliases: ["türkei", "turkey", "turkish", "türkiye"] },
+      { key: "greek", tags: ["griechenland", "griechisch", "greek"], aliases: ["griechenland", "greece", "greek", "hellas"] },
       { key: "japanese", tags: ["japan", "japanisch"], aliases: ["japan", "japanese"] },
       { key: "irish", tags: ["irland", "irisch"], aliases: ["irland", "ireland", "irish"] },
       { key: "kurdish", tags: ["kurdistan", "kurdisch", "kurdish", "berwar"], aliases: ["kurdistan", "kurdish"] },
@@ -68,7 +74,6 @@ export const FACET_GROUPS: FacetGroup[] = [
       { key: "asian", tags: ["asiatisch", "asian"], aliases: ["asien", "asia", "asian"] },
       { key: "italian", tags: ["italienisch", "italian"], aliases: ["italien", "italy", "italian"] },
       { key: "mexican", tags: ["mexikanisch", "mexican"], aliases: ["mexiko", "mexico", "mexican"] },
-      { key: "turkish", tags: ["türkisch", "turkish"], aliases: ["türkei", "turkey", "turkish"] },
       { key: "indian", tags: ["indisch", "indian"], aliases: ["indien", "india", "indian"] },
     ],
   },
@@ -102,6 +107,25 @@ export const FACET_GROUPS: FacetGroup[] = [
       region("portuguese", "beiras", "Beiras"),
       region("portuguese", "porto-douro", "Porto e Douro", "porto und douro"),
       region("kurdish", "berwar", "Berwar"),
+      localRegion("greek", "macedonia", "makedonien"),
+      localRegion("greek", "crete", "kreta"),
+      localRegion("greek", "peloponnese", "peloponnes"),
+      localRegion("greek", "north-aegean", "nordägäis"),
+      localRegion("greek", "cyclades", "kykladen"),
+      localRegion("greek", "ionian-islands", "ionische inseln"),
+      localRegion("greek", "epirus", "epirus"),
+      localRegion("greek", "dodecanese", "dodekanes"),
+      localRegion("greek", "thessaly", "thessalien"),
+      localRegion("greek", "thrace", "thrakien"),
+      localRegion("greek", "central-greece", "mittelgriechenland"),
+      localRegion("greek", "attica", "attika"),
+      localRegion("turkish", "marmara", "marmara"),
+      localRegion("turkish", "turkish-aegean", "ägäis"),
+      localRegion("turkish", "black-sea", "schwarzmeer"),
+      localRegion("turkish", "central-anatolia", "zentralanatolien"),
+      localRegion("turkish", "turkish-mediterranean", "mittelmeer"),
+      localRegion("turkish", "southeastern-anatolia", "südostanatolien"),
+      localRegion("turkish", "eastern-anatolia", "ostanatolien"),
     ],
   },
   {

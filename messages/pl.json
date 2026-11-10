@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Wszystkie przepisy: ponad 2300 dań",
+      "Wszystkie przepisy: ponad 3000 dań",
       "Wyszukiwanie & filtry wg diety, czasu, kuchni",
       "Zapisywanie przepisów",
       "1 kolekcja (do 10 przepisów)"
@@ -794,6 +794,7 @@
         "german": "Niemiecka",
         "japanese": "Japońska",
         "irish": "Irlandzka",
+        "greek": "Grecka",
         "kurdish": "Kurdyjska",
         "portuguese": "Portugalska",
         "mediterranean": "Śródziemnomorska",
@@ -802,6 +803,27 @@
         "mexican": "Meksykańska",
         "turkish": "Turecka",
         "indian": "Indyjska"
+      },
+      "region": {
+        "macedonia": "Macedonia",
+        "crete": "Kreta",
+        "peloponnese": "Peloponez",
+        "north-aegean": "Wyspy Egejskie Północne",
+        "cyclades": "Cyklady",
+        "ionian-islands": "Wyspy Jońskie",
+        "epirus": "Epir",
+        "dodecanese": "Dodekanez",
+        "thessaly": "Tesalia",
+        "thrace": "Tracja",
+        "central-greece": "Grecja Środkowa",
+        "attica": "Attyka",
+        "marmara": "Marmara",
+        "turkish-aegean": "Region Egejski",
+        "black-sea": "Morze Czarne",
+        "central-anatolia": "Anatolia Środkowa",
+        "turkish-mediterranean": "Morze Śródziemne",
+        "southeastern-anatolia": "Anatolia Południowo-Wschodnia",
+        "eastern-anatolia": "Anatolia Wschodnia"
       },
       "course": {
         "main": "Danie główne",
@@ -859,6 +881,7 @@
           "german": "Kuchnia niemiecka",
           "japanese": "Kuchnia japońska",
           "irish": "Kuchnia irlandzka",
+          "greek": "Kuchnia grecka",
           "kurdish": "Kuchnia kurdyjska",
           "portuguese": "Kuchnia portugalska",
           "mediterranean": "Kuchnia śródziemnomorska",

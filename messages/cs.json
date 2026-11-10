@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Všechny recepty: více než 2 300 jídel",
+      "Všechny recepty: více než 3 000 jídel",
       "Hledání a filtry podle stravování, času a kuchyně",
       "Ukládání receptů",
       "1 sbírka (až 10 receptů)"
@@ -794,6 +794,7 @@
         "german": "Německá",
         "japanese": "Japonská",
         "irish": "Irská",
+        "greek": "Řecká",
         "kurdish": "Kurdská",
         "portuguese": "Portugalská",
         "mediterranean": "Středomořská",
@@ -802,6 +803,27 @@
         "mexican": "Mexická",
         "turkish": "Turecká",
         "indian": "Indická"
+      },
+      "region": {
+        "macedonia": "Makedonie",
+        "crete": "Kréta",
+        "peloponnese": "Peloponés",
+        "north-aegean": "Severní Egeis",
+        "cyclades": "Kyklady",
+        "ionian-islands": "Jónské ostrovy",
+        "epirus": "Epirus",
+        "dodecanese": "Dodekanés",
+        "thessaly": "Thesálie",
+        "thrace": "Thrákie",
+        "central-greece": "Střední Řecko",
+        "attica": "Attika",
+        "marmara": "Marmara",
+        "turkish-aegean": "Egejský region",
+        "black-sea": "Černé moře",
+        "central-anatolia": "Střední Anatolie",
+        "turkish-mediterranean": "Středomoří",
+        "southeastern-anatolia": "Jihovýchodní Anatolie",
+        "eastern-anatolia": "Východní Anatolie"
       },
       "course": {
         "main": "Hlavní chod",
@@ -859,6 +881,7 @@
           "german": "Německá kuchyně",
           "japanese": "Japonská kuchyně",
           "irish": "Irská kuchyně",
+          "greek": "Řecká kuchyně",
           "kurdish": "Kurdská kuchyně",
           "portuguese": "Portugalská kuchyně",
           "mediterranean": "Středomořská kuchyně",

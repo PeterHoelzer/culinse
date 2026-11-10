@@ -35,7 +35,7 @@ export default function OGImage() {
         </div>
 
         <div style={{ fontSize: 28, color: "#5C564E", fontWeight: 400 }}>
-          2,300+ recipes · Free to use · No ad banners
+          3,000+ recipes · Free to use · No ad banners
         </div>
       </div>
     ),

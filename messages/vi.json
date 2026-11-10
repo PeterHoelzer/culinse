@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Tất cả công thức: hơn 2.300 món",
+      "Tất cả công thức: hơn 3.000 món",
       "Tìm kiếm & lọc theo chế độ ăn, thời gian, nền ẩm thực",
       "Lưu công thức",
       "1 bộ sưu tập (tối đa 10 công thức)"
@@ -794,6 +794,7 @@
         "german": "Đức",
         "japanese": "Nhật Bản",
         "irish": "Ireland",
+        "greek": "Hy Lạp",
         "kurdish": "Kurd",
         "portuguese": "Bồ Đào Nha",
         "mediterranean": "Địa Trung Hải",
@@ -802,6 +803,27 @@
         "mexican": "Mexico",
         "turkish": "Thổ Nhĩ Kỳ",
         "indian": "Ấn Độ"
+      },
+      "region": {
+        "macedonia": "Macedonia",
+        "crete": "Crete",
+        "peloponnese": "Peloponnese",
+        "north-aegean": "Bắc Aegea",
+        "cyclades": "Cyclades",
+        "ionian-islands": "Quần đảo Ionia",
+        "epirus": "Epirus",
+        "dodecanese": "Dodecanese",
+        "thessaly": "Thessaly",
+        "thrace": "Thrace",
+        "central-greece": "Trung Hy Lạp",
+        "attica": "Attica",
+        "marmara": "Marmara",
+        "turkish-aegean": "Aegea",
+        "black-sea": "Biển Đen",
+        "central-anatolia": "Trung Anatolia",
+        "turkish-mediterranean": "Địa Trung Hải",
+        "southeastern-anatolia": "Đông Nam Anatolia",
+        "eastern-anatolia": "Đông Anatolia"
       },
       "course": {
         "main": "Món chính",
@@ -859,6 +881,7 @@
           "german": "Công thức món Đức",
           "japanese": "Công thức món Nhật",
           "irish": "Công thức món Ireland",
+          "greek": "Công thức món Hy Lạp",
           "kurdish": "Công thức món Kurd",
           "portuguese": "Công thức món Bồ Đào Nha",
           "mediterranean": "Công thức món Địa Trung Hải",

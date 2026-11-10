@@ -35,7 +35,12 @@ const TOPIC_GROUPS: GroupId[] = ["cuisine", "course", "dish", "diet", "occasion"
 type Translate = Awaited<ReturnType<typeof getTranslations>>;
 
 function landingTitle(t: Translate, landing: Landing): string {
-  return landing.group === "region" ? t("landing.region", { name: landing.name ?? landing.key }) : t(`landing.titles.${landing.group}.${landing.key}`);
+  if (landing.group !== "region") return t(`landing.titles.${landing.group}.${landing.key}`);
+  if (landing.name) return t("landing.region", { name: landing.name });
+  // Regionen mit übersetztem Namen: "Griechische Rezepte: Kykladen". Das Muster
+  // "Rezepte aus {name}" bräuchte je Sprache Artikel und Fall ("von den Kykladen").
+  const regionName = t(`options.region.${landing.key}`);
+  return landing.parent ? `${t(`landing.titles.cuisine.${landing.parent}`)}: ${regionName}` : regionName;
 }
 
 /*

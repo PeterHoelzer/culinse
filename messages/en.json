@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "All recipes: more than 2,300 dishes",
+      "All recipes: more than 3,000 dishes",
       "Search & filter by diet, time, cuisine",
       "Save recipes",
       "1 Collection (up to 10 recipes)"
@@ -794,6 +794,7 @@
         "german": "German",
         "japanese": "Japanese",
         "irish": "Irish",
+        "greek": "Greek",
         "kurdish": "Kurdish",
         "portuguese": "Portuguese",
         "mediterranean": "Mediterranean",
@@ -802,6 +803,27 @@
         "mexican": "Mexican",
         "turkish": "Turkish",
         "indian": "Indian"
+      },
+      "region": {
+        "macedonia": "Macedonia",
+        "crete": "Crete",
+        "peloponnese": "Peloponnese",
+        "north-aegean": "North Aegean",
+        "cyclades": "Cyclades",
+        "ionian-islands": "Ionian Islands",
+        "epirus": "Epirus",
+        "dodecanese": "Dodecanese",
+        "thessaly": "Thessaly",
+        "thrace": "Thrace",
+        "central-greece": "Central Greece",
+        "attica": "Attica",
+        "marmara": "Marmara",
+        "turkish-aegean": "Aegean",
+        "black-sea": "Black Sea",
+        "central-anatolia": "Central Anatolia",
+        "turkish-mediterranean": "Mediterranean",
+        "southeastern-anatolia": "Southeastern Anatolia",
+        "eastern-anatolia": "Eastern Anatolia"
       },
       "course": {
         "main": "Main course",
@@ -859,6 +881,7 @@
           "german": "German recipes",
           "japanese": "Japanese recipes",
           "irish": "Irish recipes",
+          "greek": "Greek recipes",
           "kurdish": "Kurdish recipes",
           "portuguese": "Portuguese recipes",
           "mediterranean": "Mediterranean recipes",

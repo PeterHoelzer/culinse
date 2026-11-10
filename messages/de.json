@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Alle Rezepte: über 2.300 Gerichte",
+      "Alle Rezepte: über 3.000 Gerichte",
       "Suche & Filter nach Ernährung, Zeit, Küche",
       "Rezepte speichern",
       "1 Sammlung (bis zu 10 Rezepte)"
@@ -794,6 +794,7 @@
         "german": "Deutsch",
         "japanese": "Japanisch",
         "irish": "Irisch",
+        "greek": "Griechisch",
         "kurdish": "Kurdisch",
         "portuguese": "Portugiesisch",
         "mediterranean": "Mediterran",
@@ -802,6 +803,27 @@
         "mexican": "Mexikanisch",
         "turkish": "Türkisch",
         "indian": "Indisch"
+      },
+      "region": {
+        "macedonia": "Makedonien",
+        "crete": "Kreta",
+        "peloponnese": "Peloponnes",
+        "north-aegean": "Nordägäis",
+        "cyclades": "Kykladen",
+        "ionian-islands": "Ionische Inseln",
+        "epirus": "Epirus",
+        "dodecanese": "Dodekanes",
+        "thessaly": "Thessalien",
+        "thrace": "Thrakien",
+        "central-greece": "Mittelgriechenland",
+        "attica": "Attika",
+        "marmara": "Marmara",
+        "turkish-aegean": "Ägäis",
+        "black-sea": "Schwarzmeer",
+        "central-anatolia": "Zentralanatolien",
+        "turkish-mediterranean": "Mittelmeer",
+        "southeastern-anatolia": "Südostanatolien",
+        "eastern-anatolia": "Ostanatolien"
       },
       "course": {
         "main": "Hauptgericht",
@@ -859,6 +881,7 @@
           "german": "Deutsche Rezepte",
           "japanese": "Japanische Rezepte",
           "irish": "Irische Rezepte",
+          "greek": "Griechische Rezepte",
           "kurdish": "Kurdische Rezepte",
           "portuguese": "Portugiesische Rezepte",
           "mediterranean": "Mediterrane Rezepte",

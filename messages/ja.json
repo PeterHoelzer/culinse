@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "すべてのレシピ：2,300品以上",
+      "すべてのレシピ：3,000品以上",
       "食事スタイル・調理時間・料理ジャンルで検索＆絞り込み",
       "レシピを保存（）",
       "コレクション1件（レシピ10件まで）"
@@ -794,6 +794,7 @@
         "german": "ドイツ料理",
         "japanese": "和食",
         "irish": "アイルランド料理",
+        "greek": "ギリシャ料理",
         "kurdish": "クルド料理",
         "portuguese": "ポルトガル料理",
         "mediterranean": "地中海料理",
@@ -802,6 +803,27 @@
         "mexican": "メキシコ料理",
         "turkish": "トルコ料理",
         "indian": "インド料理"
+      },
+      "region": {
+        "macedonia": "マケドニア",
+        "crete": "クレタ島",
+        "peloponnese": "ペロポネソス",
+        "north-aegean": "北エーゲ",
+        "cyclades": "キクラデス諸島",
+        "ionian-islands": "イオニア諸島",
+        "epirus": "イピロス",
+        "dodecanese": "ドデカネス諸島",
+        "thessaly": "テッサリア",
+        "thrace": "トラキア",
+        "central-greece": "中央ギリシャ",
+        "attica": "アッティカ",
+        "marmara": "マルマラ地方",
+        "turkish-aegean": "エーゲ海地方",
+        "black-sea": "黒海地方",
+        "central-anatolia": "中央アナトリア",
+        "turkish-mediterranean": "地中海地方",
+        "southeastern-anatolia": "南東アナトリア",
+        "eastern-anatolia": "東アナトリア"
       },
       "course": {
         "main": "メイン",
@@ -859,6 +881,7 @@
           "german": "ドイツ料理レシピ",
           "japanese": "和食レシピ",
           "irish": "アイルランド料理レシピ",
+          "greek": "ギリシャ料理レシピ",
           "kurdish": "クルド料理レシピ",
           "portuguese": "ポルトガル料理レシピ",
           "mediterranean": "地中海料理レシピ",

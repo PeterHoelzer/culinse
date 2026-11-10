@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Semua resep: lebih dari 2.300 hidangan",
+      "Semua resep: lebih dari 3.000 hidangan",
       "Cari & saring berdasarkan pola makan, waktu, dan jenis masakan",
       "Simpan resep",
       "1 koleksi (maksimal 10 resep)"
@@ -794,6 +794,7 @@
         "german": "Jerman",
         "japanese": "Jepang",
         "irish": "Irlandia",
+        "greek": "Yunani",
         "kurdish": "Kurdi",
         "portuguese": "Portugis",
         "mediterranean": "Mediterania",
@@ -802,6 +803,27 @@
         "mexican": "Meksiko",
         "turkish": "Turki",
         "indian": "India"
+      },
+      "region": {
+        "macedonia": "Makedonia",
+        "crete": "Kreta",
+        "peloponnese": "Peloponnesos",
+        "north-aegean": "Aegea Utara",
+        "cyclades": "Kepulauan Cyclades",
+        "ionian-islands": "Kepulauan Ionia",
+        "epirus": "Epirus",
+        "dodecanese": "Dodekanesos",
+        "thessaly": "Thessalia",
+        "thrace": "Thrakia",
+        "central-greece": "Yunani Tengah",
+        "attica": "Attika",
+        "marmara": "Marmara",
+        "turkish-aegean": "Aegea",
+        "black-sea": "Laut Hitam",
+        "central-anatolia": "Anatolia Tengah",
+        "turkish-mediterranean": "Mediterania",
+        "southeastern-anatolia": "Anatolia Tenggara",
+        "eastern-anatolia": "Anatolia Timur"
       },
       "course": {
         "main": "Hidangan utama",
@@ -859,6 +881,7 @@
           "german": "Resep masakan Jerman",
           "japanese": "Resep masakan Jepang",
           "irish": "Resep masakan Irlandia",
+          "greek": "Resep masakan Yunani",
           "kurdish": "Resep masakan Kurdi",
           "portuguese": "Resep masakan Portugis",
           "mediterranean": "Resep masakan Mediterania",

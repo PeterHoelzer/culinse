@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Tüm tarifler: 2.300'den fazla yemek",
+      "Tüm tarifler: 3.000'den fazla yemek",
       "Beslenme, süre ve mutfağa göre arama ve filtreleme",
       "Tarif kaydetme",
       "1 koleksiyon (en fazla 10 tarif)"
@@ -794,6 +794,7 @@
         "german": "Alman",
         "japanese": "Japon",
         "irish": "İrlanda",
+        "greek": "Yunan",
         "kurdish": "Kürt",
         "portuguese": "Portekiz",
         "mediterranean": "Akdeniz",
@@ -802,6 +803,27 @@
         "mexican": "Meksika",
         "turkish": "Türk",
         "indian": "Hint"
+      },
+      "region": {
+        "macedonia": "Makedonya",
+        "crete": "Girit",
+        "peloponnese": "Mora Yarımadası",
+        "north-aegean": "Kuzey Ege",
+        "cyclades": "Kiklad Adaları",
+        "ionian-islands": "İyon Adaları",
+        "epirus": "Epir",
+        "dodecanese": "Oniki Ada",
+        "thessaly": "Teselya",
+        "thrace": "Trakya",
+        "central-greece": "Orta Yunanistan",
+        "attica": "Attika",
+        "marmara": "Marmara",
+        "turkish-aegean": "Ege",
+        "black-sea": "Karadeniz",
+        "central-anatolia": "İç Anadolu",
+        "turkish-mediterranean": "Akdeniz",
+        "southeastern-anatolia": "Güneydoğu Anadolu",
+        "eastern-anatolia": "Doğu Anadolu"
       },
       "course": {
         "main": "Ana yemek",
@@ -859,6 +881,7 @@
           "german": "Alman tarifleri",
           "japanese": "Japon tarifleri",
           "irish": "İrlanda tarifleri",
+          "greek": "Yunan tarifleri",
           "kurdish": "Kürt tarifleri",
           "portuguese": "Portekiz tarifleri",
           "mediterranean": "Akdeniz tarifleri",

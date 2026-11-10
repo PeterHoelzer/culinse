@@ -590,7 +590,7 @@
       }
     ],
     "freeFeatures": [
-      "Alle recepten: meer dan 2.300 gerechten",
+      "Alle recepten: meer dan 3.000 gerechten",
       "Zoeken & filteren op voeding, tijd en keuken",
       "Recepten opslaan",
       "1 collectie (max. 10 recepten)"
@@ -794,6 +794,7 @@
         "german": "Duits",
         "japanese": "Japans",
         "irish": "Iers",
+        "greek": "Grieks",
         "kurdish": "Koerdisch",
         "portuguese": "Portugees",
         "mediterranean": "Mediterraan",
@@ -802,6 +803,27 @@
         "mexican": "Mexicaans",
         "turkish": "Turks",
         "indian": "Indiaas"
+      },
+      "region": {
+        "macedonia": "Macedonië",
+        "crete": "Kreta",
+        "peloponnese": "Peloponnesos",
+        "north-aegean": "Noord-Egeïsche Eilanden",
+        "cyclades": "Cycladen",
+        "ionian-islands": "Ionische Eilanden",
+        "epirus": "Epirus",
+        "dodecanese": "Dodekanesos",
+        "thessaly": "Thessalië",
+        "thrace": "Thracië",
+        "central-greece": "Midden-Griekenland",
+        "attica": "Attika",
+        "marmara": "Marmara",
+        "turkish-aegean": "Egeïsche regio",
+        "black-sea": "Zwarte Zee",
+        "central-anatolia": "Centraal-Anatolië",
+        "turkish-mediterranean": "Middellandse Zee",
+        "southeastern-anatolia": "Zuidoost-Anatolië",
+        "eastern-anatolia": "Oost-Anatolië"
       },
       "course": {
         "main": "Hoofdgerecht",
@@ -859,6 +881,7 @@
           "german": "Duitse recepten",
           "japanese": "Japanse recepten",
           "irish": "Ierse recepten",
+          "greek": "Griekse recepten",
           "kurdish": "Koerdische recepten",
           "portuguese": "Portugese recepten",
           "mediterranean": "Mediterrane recepten",
