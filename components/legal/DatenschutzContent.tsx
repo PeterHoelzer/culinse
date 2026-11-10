@@ -6,7 +6,7 @@ export default function DatenschutzContent() {
     <div className="min-h-screen bg-surface">
       <nav className="border-b border-line px-4 py-4">
         <div className="max-w-prose mx-auto">
-          <Wordmark />
+          <Wordmark plain />
         </div>
       </nav>
 
