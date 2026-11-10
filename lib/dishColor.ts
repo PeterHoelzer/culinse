@@ -1,4 +1,5 @@
 import sharp from "sharp";
+import { SIZED_WIDTHS, isSizedUrl, sizedImageUrl } from "./imageUrl";
 import type { DishColors } from "@/app/[locale]/components/home-types";
 
 /*
@@ -15,6 +16,8 @@ import type { DishColors } from "@/app/[locale]/components/home-types";
 const memo = new Map<string, Promise<DishColors | null>>();
 
 function tinyUrl(url: string): string {
+  // Feste Fassungen: die kleinste reicht für die Farbbestimmung.
+  if (isSizedUrl(url)) return sizedImageUrl(url, SIZED_WIDTHS[0]);
   try {
     const u = new URL(url);
     if (u.hostname.endsWith("supabase.co") && u.pathname.includes("/render/image/")) {

@@ -21,7 +21,7 @@ import { displayTitle, nameLangFromTags, stageTitleSize } from "@/lib/recipeTitl
 import { AffiliateBox } from "@/components/AffiliateBox";
 import RecipeRating from "@/components/RecipeRating";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
-import { optimizedImageUrl } from "@/lib/imageUrl";
+import { SIZED_WIDTHS, isSizedUrl, optimizedImageUrl, originalImageUrl, sizedImageUrl } from "@/lib/imageUrl";
 import { Button, buttonClasses, Checkbox, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
 
 interface Ingredient {
@@ -151,6 +151,10 @@ const HERO_WIDTHS = [640, 960, 1440, 1920];
  * Storage-URLs greift optimizedImageUrl. Fremde Hosts bekommen kein srcSet.
  */
 function heroSrcSet(url: string): string | undefined {
+  // Feste Fassungen (eigener Korpus): die abgelegten Breiten, darüber das Original.
+  if (isSizedUrl(url)) {
+    return [...SIZED_WIDTHS.map((w) => `${sizedImageUrl(url, w)} ${w}w`), `${originalImageUrl(url)} 2048w`].join(", ");
+  }
   if (/[?&]width=\d+/.test(url)) {
     return HERO_WIDTHS.map((w) => `${url.replace(/([?&])width=\d+/, `$1width=${w}`).replace(/([?&])height=\d+/, `$1height=${w}`)} ${w}w`).join(", ");
   }

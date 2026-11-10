@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { requireReviewer } from "@/lib/reviewerGate";
 import { CULINSE_OWNER_ID } from "@/lib/culinse";
+import { uploadSizedVariants } from "@/lib/sizedImages";
 
 /**
  * Bilder-Werkstatt (14.09.2026): Papa tauscht Cover-Bilder des eigenen
@@ -103,6 +104,14 @@ export async function POST(req: NextRequest) {
     .from("recipe-media")
     .upload(path, buf, { contentType: file.type, upsert: false });
   if (upErr) return NextResponse.json({ error: "upload_failed" }, { status: 502 });
+  // Feste, verkleinerte Fassungen gleich mit ablegen: die Seite lädt für diesen
+  // Ordner nur noch diese (lib/imageUrl.ts). Ohne sie bliebe das neue Bild leer.
+  try {
+    await uploadSizedVariants(gate.db, path, buf);
+  } catch {
+    await gate.db.storage.from("recipe-media").remove([path]);
+    return NextResponse.json({ error: "upload_failed" }, { status: 502 });
+  }
   const { data: { publicUrl } } = gate.db.storage.from("recipe-media").getPublicUrl(path);
 
   const now = new Date().toISOString();

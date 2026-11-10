@@ -7,6 +7,7 @@ import type { Recipe } from "./components/home-types";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { routing } from "@/i18n/routing";
 import { siteDescription } from "@/lib/siteMeta";
+import { originalImageUrl } from "@/lib/imageUrl";
 
 // Startseite als ISR: alle 15 Minuten neu gerendert, dazwischen aus dem
 // Edge-Cache (TTFB ~20 ms statt ~350 ms). Die ersten Karten, das Tagesrezept
@@ -118,8 +119,8 @@ async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
 // die transformiert bei jedem neuen Abruf erst selbst (2–4 s kalt) und wäre
 // eine zweite Skalierung hintereinander.
 function heroImageUrl(url: string | null): string | null {
-  if (!url || !url.includes("/storage/v1/render/image/public/")) return url;
-  return url.replace("/storage/v1/render/image/public/", "/storage/v1/object/public/").replace(/\?.*$/, "");
+  // Original statt Render-Adresse oder fester 640er-Fassung: der Next-Optimierer skaliert selbst.
+  return url ? originalImageUrl(url) : url;
 }
 
 const OG_LOCALES: Record<string, string> = {
