@@ -23,6 +23,18 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.s3.amazonaws.com" },
     ],
   },
+  // www.culinse.com zeigte die ganze Seite ein zweites Mal (200 statt
+  // Weiterleitung). Eine Adresse je Seite: dauerhaft auf culinse.com.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.culinse.com" }],
+        destination: "https://culinse.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
