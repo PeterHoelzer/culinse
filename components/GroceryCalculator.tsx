@@ -93,9 +93,12 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
           e.preventDefault();
           add();
         }}
-        className="grid gap-3 sm:grid-cols-[1fr_7rem_7rem_auto] sm:items-end"
+        // Die Karte ist nur so breit wie der Lesetext. In einer Zeile blieb für
+        // das Zutatenfeld kaum Platz (unter 50 px), deshalb steht es oben allein.
+        className="grid gap-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end"
       >
         <Input
+          className="sm:col-span-full"
           list="grocery-calc-suggestions"
           label={tr("Ingredient", "Zutat")}
           value={name}

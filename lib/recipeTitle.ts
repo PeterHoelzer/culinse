@@ -18,7 +18,18 @@ export function stageTitleSize(main: string, scale = 1): string {
   // CJK-Zeichen sind etwa doppelt so breit wie lateinische
   const n = Array.from(main).reduce((sum, ch) => sum + (/[\u3000-\u9fff\uac00-\ud7af\uff00-\uffef]/.test(ch) ? 2 : 1), 0);
   const [min, vw, max] = n <= 16 ? [2.5, 6.2, 5.75] : n <= 28 ? [2.25, 4.6, 4.25] : n <= 48 ? [2, 3.6, 3.25] : [1.75, 2.9, 2.5];
-  return `clamp(${(min * Math.max(scale, 0.9)).toFixed(2)}rem, ${(vw * scale).toFixed(2)}vw, ${(max * scale).toFixed(2)}rem)`;
+  const size = `clamp(${(min * Math.max(scale, 0.9)).toFixed(2)}rem, ${(vw * scale).toFixed(2)}vw, ${(max * scale).toFixed(2)}rem)`;
+
+  // Ein langes einzelnes Wort ("Kohlrouladen", "Schwarzwälderkirschtorte") muss
+  // in die Textspalte passen, sonst bricht es mitten im Wort um. Die Spalte ist
+  // höchstens 27.5rem breit (520 px minus Innenabstand), auf dem Handy die
+  // Bildschirmbreite minus 2rem. Ein Zeichen der Fraunces ist im Schnitt gut
+  // halb so breit wie die Schriftgröße; 0.56 lässt etwas Luft.
+  const longestWord = main
+    .split(/[\s\-–—/]+/)
+    .reduce((longest, word) => Math.max(longest, Array.from(word).filter((ch) => !/[\u3000-\u9fff\uac00-\ud7af\uff00-\uffef]/.test(ch)).length), 0);
+  if (longestWord < 9) return size;
+  return `min(${size}, calc(min(27.5rem, 100vw - 2rem) / ${(0.56 * longestWord).toFixed(2)}))`;
 }
 
 /*
