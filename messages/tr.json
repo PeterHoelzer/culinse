@@ -541,7 +541,16 @@
     "aiNotice": "Tarif ve görsel yapay zekâ ile oluşturuldu, editör tarafından incelendi",
     "aiNoticeMore": "Yapay zekâ şeffaflığımız hakkında",
     "familyNotice": "Aile tarifi, kendimiz pişirdik. Yapay zekâ ile oluşturulmadı.",
-    "editorLine": "Editör: Peter Hölzer, mutfak şefi ve usta kasap"
+    "editorLine": "Editör: Peter Hölzer, mutfak şefi ve usta kasap",
+    "rating": {
+      "title": "Bu tarifi değerlendir",
+      "none": "Henüz değerlendirme yok",
+      "summary": "5 üzerinden {average} · Değerlendirme sayısı: {count}",
+      "yours": "Senin puanın: 5 üzerinden {stars}",
+      "starLabel": "5 üzerinden {stars} yıldız",
+      "login": "Değerlendirmek için giriş yap",
+      "error": "Kaydedilemedi. Lütfen tekrar dene."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

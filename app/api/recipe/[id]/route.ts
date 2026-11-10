@@ -6,6 +6,7 @@ import { isFamilyRecipe, recipeSourceLabel } from "@/lib/culinse";
 import { httpUrl } from "@/lib/userRecipeInput";
 import { optimizedImageUrl } from "@/lib/imageUrl";
 import { routing } from "@/i18n/routing";
+import { ratingKey, ratingSummary } from "@/lib/recipeRatings";
 
 const LOCALES: readonly string[] = routing.locales;
 
@@ -95,12 +96,15 @@ export async function GET(
         translations[language] = id;
       }
       const family = isFamilyRecipe(r.user_id);
+      // Bewertungen (Anzahl, Durchschnitt) für die Rezeptdaten; null, wenn nicht verfügbar.
+      const rating = r.is_public ? await ratingSummary(supabase, ratingKey(r)) : null;
 
       const recipe = {
         id,
         language,
         translations,
         topicTags,
+        rating,
         // Familienrezept: selbst gekocht, nicht mit KI erstellt (siehe lib/culinse.ts).
         family,
         // Redaktionell verantwortet (eigene und Familienrezepte), nicht bei fremden Community-Rezepten.

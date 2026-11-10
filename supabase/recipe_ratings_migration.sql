@@ -1,4 +1,6 @@
--- Bewertungen für Rezepte (1 bis 5 Sterne), vorbereitet am 10.11.2026.
+-- Bewertungen für Rezepte (1 bis 5 Sterne). Am 10.11.2026 im SQL Editor ausgeführt
+-- (dort ohne die drop-Zeilen, weil die Tabelle neu war) und von außen geprüft:
+-- ohne Anmeldung kein Lesen, kein Schreiben; 6 Sterne werden abgelehnt.
 --
 -- Einmal im Supabase-Dashboard unter "SQL Editor" ausführen. Die Datei legt nur
 -- Neues an und ändert keine bestehende Tabelle; mehrfaches Ausführen ist unschädlich.

@@ -541,7 +541,16 @@
     "aiNotice": "Receta e imagen creadas con IA, revisadas editorialmente",
     "aiNoticeMore": "Más sobre nuestra transparencia de IA",
     "familyNotice": "Receta de familia, cocinada por nosotros. No creada con IA.",
-    "editorLine": "Redacción: Peter Hölzer, jefe de cocina y maestro carnicero"
+    "editorLine": "Redacción: Peter Hölzer, jefe de cocina y maestro carnicero",
+    "rating": {
+      "title": "Valora esta receta",
+      "none": "Aún sin valoraciones",
+      "summary": "{average} de 5 · Valoraciones: {count}",
+      "yours": "Tu valoración: {stars} de 5",
+      "starLabel": "{stars} de 5 estrellas",
+      "login": "Inicia sesión para valorar",
+      "error": "No se ha podido guardar. Inténtalo de nuevo."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

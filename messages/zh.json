@@ -541,7 +541,16 @@
     "aiNotice": "食谱与图片由 AI 生成，经编辑审核",
     "aiNoticeMore": "了解 AI 透明度",
     "familyNotice": "家传食谱，亲手烹制，非 AI 生成。",
-    "editorLine": "编辑：Peter Hölzer，主厨、肉铺大师"
+    "editorLine": "编辑：Peter Hölzer，主厨、肉铺大师",
+    "rating": {
+      "title": "为这道食谱评分",
+      "none": "暂无评分",
+      "summary": "{average} / 5 · 评分数：{count}",
+      "yours": "你的评分：{stars} / 5",
+      "starLabel": "{stars} 星（满分 5 星）",
+      "login": "登录后即可评分",
+      "error": "保存失败，请重试。"
+    }
   },
   "pro": {
     "title": "Culinse Pro",

@@ -541,7 +541,16 @@
     "aiNotice": "Recette et image créées par IA, relues par la rédaction",
     "aiNoticeMore": "En savoir plus sur notre transparence IA",
     "familyNotice": "Recette de famille, cuisinée par nos soins. Non créée par IA.",
-    "editorLine": "Rédaction : Peter Hölzer, chef de cuisine et maître boucher"
+    "editorLine": "Rédaction : Peter Hölzer, chef de cuisine et maître boucher",
+    "rating": {
+      "title": "Noter cette recette",
+      "none": "Pas encore de note",
+      "summary": "{average} sur 5 · Notes : {count}",
+      "yours": "Ta note : {stars} sur 5",
+      "starLabel": "{stars} étoiles sur 5",
+      "login": "Connecte-toi pour noter",
+      "error": "L'enregistrement a échoué. Réessaie."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

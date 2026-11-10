@@ -541,7 +541,16 @@
     "aiNotice": "Recipe and image AI-created, editorially reviewed",
     "aiNoticeMore": "About our AI transparency",
     "familyNotice": "Family recipe, cooked by us. Not created with AI.",
-    "editorLine": "Edited by Peter Hölzer, head chef and master butcher"
+    "editorLine": "Edited by Peter Hölzer, head chef and master butcher",
+    "rating": {
+      "title": "Rate this recipe",
+      "none": "No ratings yet",
+      "summary": "{average} out of 5 · Ratings: {count}",
+      "yours": "Your rating: {stars} out of 5",
+      "starLabel": "{stars} out of 5 stars",
+      "login": "Sign in to rate",
+      "error": "Saving failed. Please try again."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

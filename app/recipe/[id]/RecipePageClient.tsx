@@ -19,6 +19,7 @@ import { Link as LocaleLink } from "@/lib/navigation";
 import type { DishColors } from "@/app/[locale]/components/home-types";
 import { displayTitle, nameLangFromTags, stageTitleSize } from "@/lib/recipeTitle";
 import { AffiliateBox } from "@/components/AffiliateBox";
+import RecipeRating from "@/components/RecipeRating";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 import { optimizedImageUrl } from "@/lib/imageUrl";
 import { Button, buttonClasses, Checkbox, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
@@ -1062,6 +1063,9 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               )}
             </section>
           </div>
+
+          {/* Bewertung mit Sternen, nur für eigene und Community-Rezepte (user_-IDs) */}
+          {String(recipe.id).startsWith("user_") && <RecipeRating recipeId={String(recipe.id)} loggedIn={!!user} />}
 
           {/* Wer hinter dem Rezept steht: Redaktion mit Namen und Beruf, Verweis auf die Über-uns-Seite */}
           {recipe.editorial && (

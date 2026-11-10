@@ -29,6 +29,7 @@ type LoadedRecipe = Recipe & {
   topicTags?: string[];
   family?: boolean;
   editorial?: boolean;
+  rating?: { count: number; average: number | null } | null;
 };
 
 /*
@@ -100,11 +101,11 @@ function recipeAddresses(
 
 async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null> {
   try {
-    // v=6 (10.11.26, Sprache, Sprachfassungen, Themen, Familienrezept): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // v=7 (10.11.26, Sprache, Sprachfassungen, Themen, Familienrezept, Bewertungen): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu einem Tag lang alte Daten ohne die neuen Felder.
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=6`, {
+    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=7`, {
       next: { revalidate: 86400, tags: [`recipe-${id}`] },
     });
     // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-
@@ -290,6 +291,18 @@ export default async function RecipePage(
           ? { totalTime: `PT${parseInt(recipe.time)}M` }
           : {}),
         ...(recipe.datePublished ? { datePublished: recipe.datePublished } : {}),
+        // Sterne nur mit echten Bewertungen von angemeldeten Nutzern.
+        ...(recipe.rating && recipe.rating.count > 0 && recipe.rating.average
+          ? {
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: recipe.rating.average,
+                ratingCount: recipe.rating.count,
+                bestRating: 5,
+                worstRating: 1,
+              },
+            }
+          : {}),
         ...(recipe.cuisine ? { recipeCuisine: recipe.cuisine } : {}),
         ...(recipe.servings
           ? { recipeYield: `${recipe.servings} serving${recipe.servings > 1 ? "s" : ""}` }

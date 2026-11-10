@@ -541,7 +541,16 @@
     "aiNotice": "Recept en afbeelding gemaakt met AI, redactioneel gecontroleerd",
     "aiNoticeMore": "Meer over AI-transparantie",
     "familyNotice": "Familierecept, zelf gekookt. Niet met AI gemaakt.",
-    "editorLine": "Redactie: Peter Hölzer, chef-kok en meesterslager"
+    "editorLine": "Redactie: Peter Hölzer, chef-kok en meesterslager",
+    "rating": {
+      "title": "Beoordeel dit recept",
+      "none": "Nog geen beoordelingen",
+      "summary": "{average} van 5 · Beoordelingen: {count}",
+      "yours": "Jouw beoordeling: {stars} van 5",
+      "starLabel": "{stars} van 5 sterren",
+      "login": "Log in om te beoordelen",
+      "error": "Opslaan is niet gelukt. Probeer het opnieuw."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

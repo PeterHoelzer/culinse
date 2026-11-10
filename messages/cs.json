@@ -541,7 +541,16 @@
     "aiNotice": "Recept a obrázek vytvořeny pomocí AI, redakčně zkontrolovány",
     "aiNoticeMore": "Více o transparentnosti AI",
     "familyNotice": "Rodinný recept, sami jsme ho uvařili. Nevznikl pomocí AI.",
-    "editorLine": "Redakce: Peter Hölzer, šéfkuchař a mistr řezník"
+    "editorLine": "Redakce: Peter Hölzer, šéfkuchař a mistr řezník",
+    "rating": {
+      "title": "Ohodnoť tento recept",
+      "none": "Zatím bez hodnocení",
+      "summary": "{average} z 5 · Počet hodnocení: {count}",
+      "yours": "Tvoje hodnocení: {stars} z 5",
+      "starLabel": "{stars} z 5 hvězdiček",
+      "login": "Přihlas se a ohodnoť",
+      "error": "Uložení se nezdařilo. Zkus to znovu."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

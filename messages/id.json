@@ -541,7 +541,16 @@
     "aiNotice": "Resep dan gambar dibuat dengan AI, telah diperiksa oleh tim redaksi",
     "aiNoticeMore": "Selengkapnya tentang transparansi AI",
     "familyNotice": "Resep keluarga, kami masak sendiri. Tidak dibuat dengan AI.",
-    "editorLine": "Redaksi: Peter Hölzer, kepala koki dan ahli daging bersertifikat"
+    "editorLine": "Redaksi: Peter Hölzer, kepala koki dan ahli daging bersertifikat",
+    "rating": {
+      "title": "Beri nilai resep ini",
+      "none": "Belum ada penilaian",
+      "summary": "{average} dari 5 · Jumlah penilaian: {count}",
+      "yours": "Penilaianmu: {stars} dari 5",
+      "starLabel": "{stars} dari 5 bintang",
+      "login": "Masuk untuk memberi nilai",
+      "error": "Gagal menyimpan. Coba lagi."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

@@ -541,7 +541,16 @@
     "aiNotice": "レシピと画像はAIで作成し、編集部が確認しています",
     "aiNoticeMore": "AIの透明性について詳しく",
     "familyNotice": "家族のレシピ。自分たちで作りました。AIは使っていません。",
-    "editorLine": "編集：Peter Hölzer（料理長・食肉マイスター）"
+    "editorLine": "編集：Peter Hölzer（料理長・食肉マイスター）",
+    "rating": {
+      "title": "このレシピを評価",
+      "none": "まだ評価がありません",
+      "summary": "5点中 {average} · 評価数：{count}",
+      "yours": "あなたの評価：5点中 {stars}",
+      "starLabel": "星 {stars}（5段階）",
+      "login": "評価するにはログインしてください",
+      "error": "保存できませんでした。もう一度お試しください。"
+    }
   },
   "pro": {
     "title": "Culinse Pro",

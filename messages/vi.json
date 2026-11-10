@@ -541,7 +541,16 @@
     "aiNotice": "Công thức và hình ảnh được tạo bằng AI, đã được biên tập viên kiểm duyệt",
     "aiNoticeMore": "Tìm hiểu thêm về minh bạch AI",
     "familyNotice": "Công thức gia đình, do chúng tôi tự nấu. Không tạo bằng AI.",
-    "editorLine": "Biên tập: Peter Hölzer, bếp trưởng và thợ cả ngành thịt"
+    "editorLine": "Biên tập: Peter Hölzer, bếp trưởng và thợ cả ngành thịt",
+    "rating": {
+      "title": "Đánh giá công thức này",
+      "none": "Chưa có đánh giá",
+      "summary": "{average} trên 5 · Số đánh giá: {count}",
+      "yours": "Đánh giá của bạn: {stars} trên 5",
+      "starLabel": "{stars} trên 5 sao",
+      "login": "Đăng nhập để đánh giá",
+      "error": "Không lưu được. Vui lòng thử lại."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

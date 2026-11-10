@@ -541,7 +541,16 @@
     "aiNotice": "Ricetta e immagine create con IA, verificate dalla redazione",
     "aiNoticeMore": "Di più sulla nostra trasparenza IA",
     "familyNotice": "Ricetta di famiglia, cucinata da noi. Non creata con l'IA.",
-    "editorLine": "Redazione: Peter Hölzer, chef di cucina e maestro macellaio"
+    "editorLine": "Redazione: Peter Hölzer, chef di cucina e maestro macellaio",
+    "rating": {
+      "title": "Valuta questa ricetta",
+      "none": "Ancora nessuna valutazione",
+      "summary": "{average} su 5 · Valutazioni: {count}",
+      "yours": "La tua valutazione: {stars} su 5",
+      "starLabel": "{stars} stelle su 5",
+      "login": "Accedi per valutare",
+      "error": "Salvataggio non riuscito. Riprova."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

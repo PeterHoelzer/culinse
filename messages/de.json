@@ -541,7 +541,16 @@
     "aiNotice": "Rezept und Bild mit KI erstellt, redaktionell geprüft",
     "aiNoticeMore": "Mehr zur KI-Transparenz",
     "familyNotice": "Familienrezept, selbst gekocht. Nicht mit KI erstellt.",
-    "editorLine": "Redaktion: Peter Hölzer, Küchenchef und Fleischermeister"
+    "editorLine": "Redaktion: Peter Hölzer, Küchenchef und Fleischermeister",
+    "rating": {
+      "title": "Rezept bewerten",
+      "none": "Noch keine Bewertung",
+      "summary": "{average} von 5 · Bewertungen: {count}",
+      "yours": "Deine Bewertung: {stars} von 5",
+      "starLabel": "{stars} von 5 Sternen",
+      "login": "Melde dich an, um zu bewerten",
+      "error": "Speichern hat nicht geklappt. Versuch es noch einmal."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

@@ -541,7 +541,16 @@
     "aiNotice": "Receita e imagem criadas com IA e revisadas pela equipe editorial",
     "aiNoticeMore": "Saiba mais sobre transparência em IA",
     "familyNotice": "Receita de família, feita por nós. Não foi criada com IA.",
-    "editorLine": "Redação: Peter Hölzer, chef de cozinha e mestre açougueiro"
+    "editorLine": "Redação: Peter Hölzer, chef de cozinha e mestre açougueiro",
+    "rating": {
+      "title": "Avalie esta receita",
+      "none": "Ainda sem avaliações",
+      "summary": "{average} de 5 · Avaliações: {count}",
+      "yours": "Sua avaliação: {stars} de 5",
+      "starLabel": "{stars} de 5 estrelas",
+      "login": "Entre para avaliar",
+      "error": "Não foi possível salvar. Tente novamente."
+    }
   },
   "pro": {
     "title": "Culinse Pro",

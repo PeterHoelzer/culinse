@@ -541,7 +541,16 @@
     "aiNotice": "Przepis i zdjęcie stworzone przez AI, zweryfikowane redakcyjnie",
     "aiNoticeMore": "Więcej o naszej przejrzystości AI",
     "familyNotice": "Przepis rodzinny, ugotowany przez nas. Nie powstał przy użyciu AI.",
-    "editorLine": "Redakcja: Peter Hölzer, szef kuchni i mistrz rzeźnicki"
+    "editorLine": "Redakcja: Peter Hölzer, szef kuchni i mistrz rzeźnicki",
+    "rating": {
+      "title": "Oceń ten przepis",
+      "none": "Brak ocen",
+      "summary": "{average} na 5 · Liczba ocen: {count}",
+      "yours": "Twoja ocena: {stars} na 5",
+      "starLabel": "{stars} na 5 gwiazdek",
+      "login": "Zaloguj się, aby ocenić",
+      "error": "Nie udało się zapisać. Spróbuj ponownie."
+    }
   },
   "pro": {
     "title": "Culinse Pro",
