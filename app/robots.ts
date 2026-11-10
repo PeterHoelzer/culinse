@@ -6,6 +6,8 @@ import type { MetadataRoute } from "next";
 // We block user-specific / utility pages (no SEO value, and most redirect to
 // login anyway) but deliberately keep public content crawlable:
 //   - /<locale>/recipe/<id>        public recipes (singular)  → allowed
+//   - /<locale>/recipes            Stöberseite, and /<locale>/recipes/<slug>, its
+//                                  topic pages (in the sitemap)             → allowed
 //   - /<locale>/collections/explore + /<locale>/collections/<id>  → allowed
 //   - /<locale>/blog/...           → allowed
 //
@@ -28,7 +30,11 @@ export default function robots(): MetadataRoute.Robots {
           "/*/wochenplaner$",
           "/*/planner$",
           "/*/my-recipes",
-          "/*/recipes", // user recipe management (public recipes live at /recipe/<id>, singular)
+          // Rezept-Editor. Bis 10.11.2026 stand hier "/*/recipes" und sperrte damit
+          // auch die Stöberseite und alle Themenseiten für Suchmaschinen.
+          "/*/recipes/create",
+          "/*/recipes/import",
+          "/*/recipes/*/edit",
           "/*/collections$", // user's own collections index only — explore + /collections/<id> stay crawlable
           "/*/pro/success",
           "/*/reset-password",

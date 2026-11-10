@@ -33,6 +33,10 @@ function langsAll(path: string) {
 // untrustworthy and gets ignored. Bump this when static pages actually change.
 const STATIC_LAST_MODIFIED = new Date("2026-07-14");
 
+// Die Sitemap entstand bisher nur beim Deploy; neue Rezepte fehlten bis zum
+// nächsten. Jetzt wird sie alle sechs Stunden neu erzeugt.
+export const revalidate = 21600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // In allen 7 Sprachen voll uebersetzt (UI aus messages/):
   const translatedStatic = [
@@ -166,19 +170,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const userRecipeEntries: MetadataRoute.Sitemap = [];
   try {
     const admin = createAdminClient();
-    const { data: urs } = await admin
-      .from("user_recipes")
-      .select("id, created_at, language, translation_group")
-      .eq("is_public", true)
-      .limit(5000);
+    // Supabase liefert höchstens 1000 Zeilen je Abfrage. Ohne Blättern kamen
+    // hier nur 1000 der rund 38 000 Zeilen an, und nur die deutschen und
+    // englischen darunter landeten in der Sitemap (933 statt knapp 4800).
+    type Row = { id: string; created_at?: string; language?: string | null; translation_group?: string | null };
+    const urs: Row[] = [];
+    for (let from = 0; ; from += 1000) {
+      const { data, error } = await admin
+        .from("user_recipes")
+        .select("id, created_at, language, translation_group")
+        .eq("is_public", true)
+        .or("language.in.(de,en),language.is.null")
+        .order("id", { ascending: true })
+        .range(from, from + 999);
+      if (error) throw new Error(error.message);
+      urs.push(...((data ?? []) as Row[]));
+      if (!data || data.length < 1000) break;
+    }
 
     // Group DE/EN versions of the same recipe (via translation_group) so each
     // localized recipe is listed ONLY under its own locale, with hreflang
     // pointing to its sibling. A German recipe never appears as an /en URL and
     // vice versa. Legacy rows without a language fall back to both locales.
-    type Row = { id: string; created_at?: string; language?: string | null; translation_group?: string | null };
     const groups = new Map<string, { de?: Row; en?: Row; legacy?: Row }>();
-    for (const r of (urs ?? []) as Row[]) {
+    for (const r of urs) {
       const key = r.translation_group || `__${r.id}`;
       const g = groups.get(key) ?? {};
       if (r.language === "de") g.de = r;
