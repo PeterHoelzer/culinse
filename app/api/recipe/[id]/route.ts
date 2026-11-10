@@ -5,6 +5,9 @@ import { computeUserRecipeNutrition } from "@/lib/userRecipeNutrition";
 import { recipeSourceLabel } from "@/lib/culinse";
 import { httpUrl } from "@/lib/userRecipeInput";
 import { optimizedImageUrl } from "@/lib/imageUrl";
+import { routing } from "@/i18n/routing";
+
+const LOCALES: readonly string[] = routing.locales;
 
 
 
@@ -64,8 +67,34 @@ export async function GET(
         }
       }
 
+      // Sprachfassungen desselben Gerichts: jede Sprache hat eine eigene Zeile
+      // mit eigener ID, verbunden über translation_group. Die Rezeptseite baut
+      // daraus hreflang und leitet eine Adresse mit falscher Sprache auf die
+      // richtige Fassung um. Zeilen ohne Sprache (alte Community-Rezepte)
+      // bekommen eine leere Liste.
+      const language = typeof r.language === "string" && LOCALES.includes(r.language) ? r.language : null;
+      const translations: Record<string, string> = {};
+      if (language && r.is_public) {
+        if (r.translation_group) {
+          const { data: siblings } = await supabase
+            .from("user_recipes")
+            .select("id, language")
+            .eq("translation_group", r.translation_group)
+            .eq("is_public", true)
+            .order("id", { ascending: true });
+          for (const s of (siblings ?? []) as { id: string; language: string | null }[]) {
+            if (s.language && LOCALES.includes(s.language) && !translations[s.language]) {
+              translations[s.language] = `user_${s.id}`;
+            }
+          }
+        }
+        translations[language] = id;
+      }
+
       const recipe = {
         id,
+        language,
+        translations,
         title: r.title,
         // URL columns pass the http(s) filter before rendering as src/href —
         // stored javascript:/data: values must never reach visitors' browsers.

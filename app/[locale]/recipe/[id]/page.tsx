@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 import { dishColorsWithin } from "@/lib/dishColor";
 
@@ -17,13 +17,70 @@ export function generateStaticParams(): Array<{ locale: string; id: string }> {
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
 
-async function fetchRecipe(id: string): Promise<Recipe | "missing" | null> {
+// Die API liefert zu jedem Rezept seine Sprache und die IDs der übrigen
+// Sprachfassungen (jede Sprache ist eine eigene Zeile mit eigener ID).
+type LoadedRecipe = Recipe & {
+  language?: string | null;
+  translations?: Record<string, string>;
+};
+
+/*
+  Adresse und Sprachverweise eines Rezepts (10.11.2026).
+
+  Vorher nannte jede Rezeptseite als andere Sprachfassung dieselbe ID unter
+  /en und /de. Dort stand dann das deutsche Rezept mit englischer Oberfläche,
+  mit eigener kanonischer Adresse. Google hatte 61 Rezepte doppelt im Index.
+
+  Jetzt gilt:
+  - Passt die Sprache der Adresse nicht zum Rezept und gibt es die Fassung in
+    dieser Sprache, leitet die Seite dauerhaft dorthin um.
+  - Gibt es sie nicht, bleibt die Seite erreichbar, nennt aber die Adresse in
+    der Sprache des Rezepts als kanonisch.
+  - hreflang nennt je Sprache die ID der echten Fassung.
+  - Rezepte ohne Sprache (alte Community-Rezepte) bleiben wie bisher unter
+    /en und /de mit derselben ID, so stehen sie auch in der Sitemap.
+*/
+function recipeAddresses(
+  recipe: LoadedRecipe | null,
+  locale: string,
+  id: string
+): { redirectTo: string | null; canonical: string; languages: Record<string, string> } {
+  const self = `${BASE_URL}/${locale}/recipe/${id}`;
+  const language = recipe?.language ?? null;
+  if (!recipe || !language) {
+    return {
+      redirectTo: null,
+      canonical: self,
+      languages: {
+        en: `${BASE_URL}/en/recipe/${id}`,
+        de: `${BASE_URL}/de/recipe/${id}`,
+        "x-default": `${BASE_URL}/en/recipe/${id}`,
+      },
+    };
+  }
+
+  const translations: Record<string, string> = { ...(recipe.translations ?? {}), [language]: id };
+  const languages: Record<string, string> = {};
+  for (const [lang, recipeId] of Object.entries(translations)) {
+    languages[lang] = `${BASE_URL}/${lang}/recipe/${recipeId}`;
+  }
+  languages["x-default"] = languages.en ?? languages[language];
+
+  const sibling = translations[locale];
+  return {
+    redirectTo: locale !== language && sibling && sibling !== id ? `/${locale}/recipe/${sibling}` : null,
+    canonical: languages[language],
+    languages,
+  };
+}
+
+async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null> {
   try {
-    // v=4 (17.09.26, Render-API contain-Fix): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // v=5 (10.11.26, Sprache + Sprachfassungen): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu einem Tag lang alte Daten ohne die neuen Felder.
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=4`, {
+    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=5`, {
       next: { revalidate: 86400, tags: [`recipe-${id}`] },
     });
     // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-
@@ -77,17 +134,14 @@ export async function generateMetadata(
   // Canonical and hreflang must point to the recipe URL regardless of whether
   // the recipe data loaded — the layout sets homepage URLs as defaults, so we
   // must always override them here.
-  const canonicalUrl = `${BASE_URL}/${locale}/recipe/${id}`;
+  const recipe = await fetchRecipe(id);
+  const addresses = recipeAddresses(recipe === "missing" ? null : recipe, locale, id);
+  const canonicalUrl = addresses.canonical;
   const sharedAlternates = {
     canonical: canonicalUrl,
-    languages: {
-      en: `${BASE_URL}/en/recipe/${id}`,
-      de: `${BASE_URL}/de/recipe/${id}`,
-      "x-default": `${BASE_URL}/en/recipe/${id}`,
-    },
+    languages: addresses.languages,
   };
 
-  const recipe = await fetchRecipe(id);
   if (!recipe || recipe === "missing") {
     return {
       title: locale === "de" ? "Rezept" : "Recipe",
@@ -151,6 +205,8 @@ export default async function RecipePage(
   const fetched = await fetchRecipe(id);
   if (fetched === "missing") notFound();
   const recipe = fetched;
+  const addresses = recipeAddresses(recipe, locale, id);
+  if (addresses.redirectTo) permanentRedirect(addresses.redirectTo);
   const [similarRecipes, colors] = await Promise.all([
     recipe ? fetchSimilar(id, locale, recipe) : Promise.resolve([] as SimilarRecipe[]),
     recipe ? dishColorsWithin(recipe.image ?? null) : Promise.resolve(null),
@@ -187,7 +243,8 @@ export default async function RecipePage(
             url: "https://culinse.com/culinse-logo.png",
           },
         },
-        url: `${BASE_URL}/${locale}/recipe/${id}`,
+        url: addresses.canonical,
+        ...(recipe.language ? { inLanguage: recipe.language } : {}),
         // Aggregated recipes link back to the original source for attribution.
         ...(hasSource ? { isBasedOn: recipe.sourceUrl } : {}),
         // prepTime + cookTime must be emitted together (Google requires the pair).
@@ -235,7 +292,7 @@ export default async function RecipePage(
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: locale === "de" ? "Rezepte" : "Recipes", item: `${BASE_URL}/${locale}` },
-          { "@type": "ListItem", position: 2, name: recipe.title, item: `${BASE_URL}/${locale}/recipe/${id}` },
+          { "@type": "ListItem", position: 2, name: recipe.title, item: addresses.canonical },
         ],
       }
     : null;
