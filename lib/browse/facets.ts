@@ -65,6 +65,9 @@ export const FACET_GROUPS: FacetGroup[] = [
       { key: "german", tags: ["deutschland", "bayerisch", ...GERMAN_STATES.map((s) => s[2])], aliases: ["deutsch", "german", "germany"] },
       // Reihenfolge = Anzeige im Filter: die größten Küchen zuerst.
       { key: "turkish", tags: ["türkei", "türkisch", "turkish"], aliases: ["türkei", "turkey", "turkish", "türkiye"] },
+      { key: "french", tags: ["frankreich", "französisch", "french"], aliases: ["frankreich", "france", "french", "französisch"] },
+      { key: "chinese", tags: ["china", "chinesisch", "chinese"], aliases: ["china", "chinese", "chinesisch"] },
+      { key: "spanish", tags: ["spanien", "spanisch", "spanish"], aliases: ["spanien", "spain", "spanish", "españa"] },
       { key: "greek", tags: ["griechenland", "griechisch", "greek"], aliases: ["griechenland", "greece", "greek", "hellas"] },
       { key: "japanese", tags: ["japan", "japanisch"], aliases: ["japan", "japanese"] },
       { key: "irish", tags: ["irland", "irisch"], aliases: ["irland", "ireland", "irish"] },
@@ -126,6 +129,58 @@ export const FACET_GROUPS: FacetGroup[] = [
       localRegion("turkish", "turkish-mediterranean", "mittelmeer"),
       localRegion("turkish", "southeastern-anatolia", "südostanatolien"),
       localRegion("turkish", "eastern-anatolia", "ostanatolien"),
+      localRegion("spanish", "andalusia", "andalusien"),
+      localRegion("spanish", "catalonia", "katalonien"),
+      localRegion("spanish", "galicia", "galicien"),
+      localRegion("spanish", "valencia", "valencia"),
+      localRegion("spanish", "basque-country", "baskenland"),
+      localRegion("spanish", "madrid", "madrid"),
+      localRegion("spanish", "murcia", "murcia"),
+      localRegion("spanish", "asturias", "asturien"),
+      localRegion("spanish", "balearic-islands", "balearen"),
+      localRegion("spanish", "castile-and-leon", "kastilien und león"),
+      localRegion("spanish", "cantabria", "kantabrien"),
+      localRegion("spanish", "canary-islands", "kanarische inseln"),
+      localRegion("spanish", "aragon", "aragonien"),
+      localRegion("spanish", "castilla-la-mancha", "kastilien-la mancha"),
+      localRegion("spanish", "navarre", "navarra"),
+      localRegion("spanish", "extremadura", "extremadura"),
+      localRegion("spanish", "la-rioja", "la rioja"),
+      localRegion("chinese", "guangdong", "guangdong"),
+      localRegion("chinese", "shanghai-zhejiang", "shanghai und zhejiang"),
+      localRegion("chinese", "sichuan-chongqing", "sichuan und chongqing"),
+      localRegion("chinese", "northwest-china", "nordwesten"),
+      localRegion("chinese", "hong-kong-macau", "hongkong und macau"),
+      localRegion("chinese", "beijing", "peking"),
+      localRegion("chinese", "jiangsu", "jiangsu"),
+      localRegion("chinese", "dongbei", "dongbei"),
+      localRegion("chinese", "shandong", "shandong"),
+      localRegion("chinese", "henan-hubei", "henan und hubei"),
+      localRegion("chinese", "hunan", "hunan"),
+      localRegion("chinese", "yunnan-guizhou", "yunnan und guizhou"),
+      localRegion("chinese", "shanxi", "shanxi"),
+      localRegion("chinese", "fujian", "fujian"),
+      localRegion("chinese", "guangxi-hainan", "guangxi und hainan"),
+      localRegion("chinese", "anhui", "anhui"),
+      localRegion("french", "paris", "paris und île-de-france"),
+      localRegion("french", "provence", "provence und côte d'azur"),
+      localRegion("french", "loire-valley", "loiretal"),
+      localRegion("french", "brittany", "bretagne"),
+      localRegion("french", "languedoc-roussillon", "languedoc-roussillon"),
+      localRegion("french", "nord-picardy", "nord und picardie"),
+      localRegion("french", "auvergne-limousin", "auvergne und limousin"),
+      localRegion("french", "lyon-dauphine", "lyon und dauphiné"),
+      localRegion("french", "poitou-charentes", "poitou-charentes"),
+      localRegion("french", "southwest-france", "südwesten"),
+      localRegion("french", "corsica", "korsika"),
+      localRegion("french", "savoy", "savoyen"),
+      localRegion("french", "burgundy", "burgund"),
+      localRegion("french", "normandy", "normandie"),
+      localRegion("french", "alsace", "elsass"),
+      localRegion("french", "franche-comte", "franche-comté"),
+      localRegion("french", "french-basque-country", "baskenland"),
+      localRegion("french", "champagne", "champagne"),
+      localRegion("french", "lorraine", "lothringen"),
     ],
   },
   {
@@ -198,19 +253,48 @@ export const FACET_GROUPS: FacetGroup[] = [
 export const GROUP_IDS = FACET_GROUPS.map((g) => g.id);
 export const GROUP_BY_ID = Object.fromEntries(FACET_GROUPS.map((g) => [g.id, g])) as Record<GroupId, FacetGroup>;
 
-/** Schlagwort → Liste von "gruppe:schlüssel". */
+/**
+  Regions-Schlagworte, die in mehreren Küchen vorkommen ("baskenland" in Spanien
+  und in Frankreich). Sie lassen sich nur zusammen mit der Küche zuordnen.
+*/
+const SHARED_REGION_TAGS: Map<string, { key: string; parent: string }[]> = (() => {
+  const byTag = new Map<string, { key: string; parent: string }[]>();
+  for (const option of FACET_GROUPS.find((g) => g.id === "region")!.options) {
+    if (!option.parent) continue;
+    for (const tag of option.tags) byTag.set(tag, [...(byTag.get(tag) ?? []), { key: option.key, parent: option.parent }]);
+  }
+  return new Map([...byTag].filter(([, list]) => new Set(list.map((o) => o.parent)).size > 1));
+})();
+
+/** Schlagwort → Liste von "gruppe:schlüssel". Geteilte Regions-Schlagworte fehlen hier, siehe keysForTags. */
 export const TAG_TO_KEYS: Map<string, string[]> = (() => {
   const map = new Map<string, string[]>();
   for (const group of FACET_GROUPS) {
     for (const option of group.options) {
       const id = `${group.id}:${option.key}`;
-      for (const tag of option.tags) map.set(tag, [...(map.get(tag) ?? []), id]);
-      // Eine Region gehört immer auch zu ihrer Küche.
-      if (option.parent) for (const tag of option.tags) map.set(tag, [...(map.get(tag) ?? []), `cuisine:${option.parent}`]);
+      for (const tag of option.tags) {
+        if (group.id === "region" && SHARED_REGION_TAGS.has(tag)) continue;
+        map.set(tag, [...(map.get(tag) ?? []), id]);
+        // Eine Region gehört immer auch zu ihrer Küche.
+        if (option.parent) map.set(tag, [...(map.get(tag) ?? []), `cuisine:${option.parent}`]);
+      }
     }
   }
   return map;
 })();
+
+/** Alle "gruppe:schlüssel" zu den Schlagworten eines Rezepts (klein geschrieben). */
+export function keysForTags(tags: readonly string[]): Set<string> {
+  const keys = new Set<string>();
+  for (const tag of tags) for (const key of TAG_TO_KEYS.get(tag) ?? []) keys.add(key);
+  // Geteilte Regionen erst zuordnen, wenn die Küche aus den übrigen Schlagworten feststeht.
+  for (const tag of tags) {
+    for (const option of SHARED_REGION_TAGS.get(tag) ?? []) {
+      if (keys.has(`cuisine:${option.parent}`)) keys.add(`region:${option.key}`);
+    }
+  }
+  return keys;
+}
 
 /** Zahlenfilter: feste Stufen, je eine wählbar. */
 export const RANGE_STEPS = {

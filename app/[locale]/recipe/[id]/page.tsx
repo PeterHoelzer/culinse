@@ -4,7 +4,7 @@ import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageC
 import { dishColorsWithin } from "@/lib/dishColor";
 import { getTranslations } from "next-intl/server";
 import { recipePageTitle } from "@/lib/siteMeta";
-import { LANDINGS, TAG_TO_KEYS, type GroupId, type Landing } from "@/lib/browse/facets";
+import { LANDINGS, keysForTags, type GroupId, type Landing } from "@/lib/browse/facets";
 import { landingPath } from "@/lib/browse/slugs";
 
 // CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
@@ -40,8 +40,7 @@ type LoadedRecipe = Recipe & {
 const TOPIC_LIMITS: [GroupId, number][] = [["cuisine", 2], ["region", 1], ["course", 2], ["diet", 2]];
 
 function recipeTopics(tags: readonly string[] | undefined): Landing[] {
-  const ids = new Set<string>();
-  for (const tag of tags ?? []) for (const id of TAG_TO_KEYS.get(String(tag).toLowerCase().trim()) ?? []) ids.add(id);
+  const ids = keysForTags((tags ?? []).map((tag) => String(tag).toLowerCase().trim()));
   const out: Landing[] = [];
   for (const [group, max] of TOPIC_LIMITS) {
     out.push(...LANDINGS.filter((l) => l.group === group && ids.has(`${group}:${l.key}`)).slice(0, max));

@@ -2,6 +2,9 @@
   "de": {
     "cuisine:german": "deutsche-rezepte",
     "cuisine:turkish": "tuerkische-rezepte",
+    "cuisine:french": "franzoesische-rezepte",
+    "cuisine:chinese": "chinesische-rezepte",
+    "cuisine:spanish": "spanische-rezepte",
     "cuisine:greek": "griechische-rezepte",
     "cuisine:japanese": "japanische-rezepte",
     "cuisine:irish": "irische-rezepte",
@@ -50,6 +53,9 @@
   "es": {
     "cuisine:german": "recetas-alemanas",
     "cuisine:turkish": "recetas-turcas",
+    "cuisine:french": "recetas-francesas",
+    "cuisine:chinese": "recetas-chinas",
+    "cuisine:spanish": "recetas-espanolas",
     "cuisine:greek": "recetas-griegas",
     "cuisine:japanese": "recetas-japonesas",
     "cuisine:irish": "recetas-irlandesas",
@@ -98,6 +104,9 @@
   "fr": {
     "cuisine:german": "recettes-allemandes",
     "cuisine:turkish": "recettes-turques",
+    "cuisine:french": "recettes-francaises",
+    "cuisine:chinese": "recettes-chinoises",
+    "cuisine:spanish": "recettes-espagnoles",
     "cuisine:greek": "recettes-grecques",
     "cuisine:japanese": "recettes-japonaises",
     "cuisine:irish": "recettes-irlandaises",
@@ -146,6 +155,9 @@
   "it": {
     "cuisine:german": "ricette-tedesche",
     "cuisine:turkish": "ricette-turche",
+    "cuisine:french": "ricette-francesi",
+    "cuisine:chinese": "ricette-cinesi",
+    "cuisine:spanish": "ricette-spagnole",
     "cuisine:greek": "ricette-greche",
     "cuisine:japanese": "ricette-giapponesi",
     "cuisine:irish": "ricette-irlandesi",
@@ -194,6 +206,9 @@
   "pt": {
     "cuisine:german": "receitas-alemas",
     "cuisine:turkish": "receitas-turcas",
+    "cuisine:french": "receitas-francesas",
+    "cuisine:chinese": "receitas-chinesas",
+    "cuisine:spanish": "receitas-espanholas",
     "cuisine:greek": "receitas-gregas",
     "cuisine:japanese": "receitas-japonesas",
     "cuisine:irish": "receitas-irlandesas",
@@ -242,6 +257,9 @@
   "nl": {
     "cuisine:german": "duitse-recepten",
     "cuisine:turkish": "turkse-recepten",
+    "cuisine:french": "franse-recepten",
+    "cuisine:chinese": "chinese-recepten",
+    "cuisine:spanish": "spaanse-recepten",
     "cuisine:greek": "griekse-recepten",
     "cuisine:japanese": "japanse-recepten",
     "cuisine:irish": "ierse-recepten",
@@ -290,6 +308,9 @@
   "pl": {
     "cuisine:german": "kuchnia-niemiecka",
     "cuisine:turkish": "kuchnia-turecka",
+    "cuisine:french": "kuchnia-francuska",
+    "cuisine:chinese": "kuchnia-chinska",
+    "cuisine:spanish": "kuchnia-hiszpanska",
     "cuisine:greek": "kuchnia-grecka",
     "cuisine:japanese": "kuchnia-japonska",
     "cuisine:irish": "kuchnia-irlandzka",
@@ -338,6 +359,9 @@
   "cs": {
     "cuisine:german": "nemecka-kuchyne",
     "cuisine:turkish": "turecka-kuchyne",
+    "cuisine:french": "francouzska-kuchyne",
+    "cuisine:chinese": "cinska-kuchyne",
+    "cuisine:spanish": "spanelska-kuchyne",
     "cuisine:greek": "recka-kuchyne",
     "cuisine:japanese": "japonska-kuchyne",
     "cuisine:irish": "irska-kuchyne",
@@ -386,6 +410,9 @@
   "tr": {
     "cuisine:german": "alman-tarifleri",
     "cuisine:turkish": "turk-tarifleri",
+    "cuisine:french": "fransiz-tarifleri",
+    "cuisine:chinese": "cin-tarifleri",
+    "cuisine:spanish": "ispanyol-tarifleri",
     "cuisine:greek": "yunan-tarifleri",
     "cuisine:japanese": "japon-tarifleri",
     "cuisine:irish": "irlanda-tarifleri",
@@ -434,6 +461,9 @@
   "id": {
     "cuisine:german": "resep-masakan-jerman",
     "cuisine:turkish": "resep-masakan-turki",
+    "cuisine:french": "resep-masakan-prancis",
+    "cuisine:chinese": "resep-masakan-tiongkok",
+    "cuisine:spanish": "resep-masakan-spanyol",
     "cuisine:greek": "resep-masakan-yunani",
     "cuisine:japanese": "resep-masakan-jepang",
     "cuisine:irish": "resep-masakan-irlandia",
@@ -482,6 +512,9 @@
   "vi": {
     "cuisine:german": "cong-thuc-mon-duc",
     "cuisine:turkish": "cong-thuc-mon-tho-nhi-ky",
+    "cuisine:french": "cong-thuc-mon-phap",
+    "cuisine:chinese": "cong-thuc-mon-trung-quoc",
+    "cuisine:spanish": "cong-thuc-mon-tay-ban-nha",
     "cuisine:greek": "cong-thuc-mon-hy-lap",
     "cuisine:japanese": "cong-thuc-mon-nhat",
     "cuisine:irish": "cong-thuc-mon-ireland",

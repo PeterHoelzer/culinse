@@ -9,7 +9,7 @@ import {
   PAGE_SIZE,
   RANGE_IDS,
   RANGE_STEPS,
-  TAG_TO_KEYS,
+  keysForTags,
   ingredientMatches,
   longEnough,
   normalize,
@@ -154,8 +154,7 @@ function toIndexRow(row: DbRow, deTags: Map<string, string[]>): IndexRow {
   const ownTags = (row.tags ?? []).map((t) => t.toLowerCase());
   // Die deutschen Schlagworte der Übersetzungsgruppe sind die gepflegte Fassung.
   const sourceTags = (row.translation_group && deTags.get(row.translation_group)?.map((t) => t.toLowerCase())) || ownTags;
-  const keys = new Set<string>();
-  for (const tag of sourceTags) for (const key of TAG_TO_KEYS.get(tag) ?? []) keys.add(key);
+  const keys = keysForTags(sourceTags);
 
   const prep = row.prep_time ?? 0;
   const cook = row.cook_time ?? 0;
