@@ -1290,7 +1290,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         content:
-          "For most people the hardest part of meal prep isn't the cooking, it's the planning. That's exactly the step Culinse takes off your plate: filter more than 3,000 recipes by time, diet, or protein and budget goals and build your weekly plan from them — the ingredients land in a single combined shopping list automatically. Free at culinse.com.",
+          "For most people the hardest part of meal prep isn't the cooking, it's the planning. That's exactly the step Culinse takes off your plate: filter more than 4,000 recipes by time, diet, or protein and budget goals and build your weekly plan from them — the ingredients land in a single combined shopping list automatically. Free at culinse.com.",
       },
       {
         heading: "Conclusion",
@@ -1696,7 +1696,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         content:
-          "A simple formula for a fat-loss plate: half non-starchy vegetables, a quarter lean protein, a quarter smart carbs (rice, potatoes, oats, whole grains), plus a measured amount of fat for flavor. If you'd rather not assemble this from scratch every week, Culinse lets you filter more than 3,000 recipes by exactly these criteria — high protein, lower calorie, your dietary preferences — and build a plan around them in minutes.",
+          "A simple formula for a fat-loss plate: half non-starchy vegetables, a quarter lean protein, a quarter smart carbs (rice, potatoes, oats, whole grains), plus a measured amount of fat for flavor. If you'd rather not assemble this from scratch every week, Culinse lets you filter more than 4,000 recipes by exactly these criteria — high protein, lower calorie, your dietary preferences — and build a plan around them in minutes.",
       },
       {
         heading: "20 High-Protein, Low-Calorie Prep Recipes",
@@ -1783,7 +1783,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Conclusion",
         content:
-          "Meal prep doesn't make weight loss effortless, but it removes the moments where good intentions usually collapse. Build each meal around protein, fiber, and volume; portion deliberately; store smart so it still tastes good on day four; and keep the deficit moderate enough to live with. Do that consistently and the results take care of themselves — no willpower heroics required at 7 p.m. on a Tuesday. Want to skip the planning? Culinse filters more than 3,000 recipes by calorie and macro goals, then turns your weekly picks into a single combined shopping list — free at culinse.com.",
+          "Meal prep doesn't make weight loss effortless, but it removes the moments where good intentions usually collapse. Build each meal around protein, fiber, and volume; portion deliberately; store smart so it still tastes good on day four; and keep the deficit moderate enough to live with. Do that consistently and the results take care of themselves — no willpower heroics required at 7 p.m. on a Tuesday. Want to skip the planning? Culinse filters more than 4,000 recipes by calorie and macro goals, then turns your weekly picks into a single combined shopping list — free at culinse.com.",
       },
       {
         heading: "FAQ",
@@ -1932,7 +1932,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Conclusion",
         content:
-          "High-protein vegetarian eating isn't complicated once you stop treating protein as an afterthought. Lead every meal with a concentrated source — tofu, tempeh, seitan, legumes, or dairy — eat a variety of them across the day, and use simple snacks to close any gaps. Pick a few of the 20 recipes above, anchor your three main meals, and 100 g a day stops being a challenge and becomes a default. Want the recipes to come to you? Culinse lets you filter more than 3,000 recipes by both vegetarian and high protein at once, then turns your weekly picks into a single shopping list. For a meatless dinner rotation beyond these, see our [vegetarian dinner ideas](/en/blog/vegetarian-dinner-ideas-easy-recipes), and if your goal is fat loss, our guide to [meal prep for weight loss](/en/blog/meal-prep-for-weight-loss) pairs naturally with a high-protein approach.",
+          "High-protein vegetarian eating isn't complicated once you stop treating protein as an afterthought. Lead every meal with a concentrated source — tofu, tempeh, seitan, legumes, or dairy — eat a variety of them across the day, and use simple snacks to close any gaps. Pick a few of the 20 recipes above, anchor your three main meals, and 100 g a day stops being a challenge and becomes a default. Want the recipes to come to you? Culinse lets you filter more than 4,000 recipes by both vegetarian and high protein at once, then turns your weekly picks into a single shopping list. For a meatless dinner rotation beyond these, see our [vegetarian dinner ideas](/en/blog/vegetarian-dinner-ideas-easy-recipes), and if your goal is fat loss, our guide to [meal prep for weight loss](/en/blog/meal-prep-for-weight-loss) pairs naturally with a high-protein approach.",
       },
       {
         heading: "FAQ",

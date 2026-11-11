@@ -1268,7 +1268,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Der mühsamste Teil am Meal Prep ist für die meisten nicht das Kochen, sondern das Planen. Genau diesen Schritt nimmt dir Culinse ab: Du filterst über 3.000 Rezepte nach Zeit, Ernährungsform oder Protein- und Budgetzielen und stellst dir daraus deinen Wochenplan zusammen – die Zutaten landen automatisch in einer zusammengefassten Einkaufsliste. Kostenlos unter culinse.com.",
+          "Der mühsamste Teil am Meal Prep ist für die meisten nicht das Kochen, sondern das Planen. Genau diesen Schritt nimmt dir Culinse ab: Du filterst über 4.000 Rezepte nach Zeit, Ernährungsform oder Protein- und Budgetzielen und stellst dir daraus deinen Wochenplan zusammen – die Zutaten landen automatisch in einer zusammengefassten Einkaufsliste. Kostenlos unter culinse.com.",
       },
       {
         heading: "Fazit",
@@ -2376,7 +2376,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Eine simple Formel für den Fettabbau-Teller: die Hälfte stärkearmes Gemüse, ein Viertel mageres Protein, ein Viertel clevere Kohlenhydrate (Reis, Kartoffeln, Haferflocken, Vollkorn) und dazu eine abgemessene Menge Fett für den Geschmack. Wenn du das nicht jede Woche von Grund auf zusammenstellen willst, kannst du mit Culinse über 3.000 Rezepte nach genau diesen Kriterien filtern — proteinreich, kalorienärmer, deine Ernährungsvorlieben — und in wenigen Minuten einen Plan darum herum bauen.",
+          "Eine simple Formel für den Fettabbau-Teller: die Hälfte stärkearmes Gemüse, ein Viertel mageres Protein, ein Viertel clevere Kohlenhydrate (Reis, Kartoffeln, Haferflocken, Vollkorn) und dazu eine abgemessene Menge Fett für den Geschmack. Wenn du das nicht jede Woche von Grund auf zusammenstellen willst, kannst du mit Culinse über 4.000 Rezepte nach genau diesen Kriterien filtern — proteinreich, kalorienärmer, deine Ernährungsvorlieben — und in wenigen Minuten einen Plan darum herum bauen.",
       },
       {
         heading: "20 proteinreiche Rezepte mit wenig Kalorien",
@@ -2463,7 +2463,7 @@ export const blogPostsDe: BlogPost[] = [
       {
         heading: "Fazit",
         content:
-          "Meal Prep macht das Abnehmen nicht mühelos, aber es räumt die Momente aus dem Weg, in denen gute Vorsätze für gewöhnlich zusammenbrechen. Bau jede Mahlzeit um Protein, Ballaststoffe und Volumen; portioniere bewusst; lagere clever, damit es auch am vierten Tag noch schmeckt; und halte das Defizit moderat genug, um damit zu leben. Zieh das konsequent durch, und die Ergebnisse stellen sich von selbst ein — ohne Willenskraft-Heldentaten dienstagabends um 19 Uhr. Willst du dir das Planen sparen? Culinse filtert über 3.000 Rezepte nach Kalorien- und Makrozielen und verwandelt deine Wochenauswahl in eine einzige kombinierte Einkaufsliste — kostenlos auf culinse.com.",
+          "Meal Prep macht das Abnehmen nicht mühelos, aber es räumt die Momente aus dem Weg, in denen gute Vorsätze für gewöhnlich zusammenbrechen. Bau jede Mahlzeit um Protein, Ballaststoffe und Volumen; portioniere bewusst; lagere clever, damit es auch am vierten Tag noch schmeckt; und halte das Defizit moderat genug, um damit zu leben. Zieh das konsequent durch, und die Ergebnisse stellen sich von selbst ein — ohne Willenskraft-Heldentaten dienstagabends um 19 Uhr. Willst du dir das Planen sparen? Culinse filtert über 4.000 Rezepte nach Kalorien- und Makrozielen und verwandelt deine Wochenauswahl in eine einzige kombinierte Einkaufsliste — kostenlos auf culinse.com.",
       },
       {
         heading: "FAQ",
@@ -2611,7 +2611,7 @@ export const blogPostsDe: BlogPost[] = [
       {
         heading: "Fazit",
         content:
-          "Proteinreich vegetarisch zu essen ist überhaupt nicht kompliziert, sobald du aufhörst, Protein als Nebensache zu behandeln. Führe jede Mahlzeit mit einer konzentrierten Quelle an — Tofu, Tempeh, Seitan, Hülsenfrüchte oder Milchprodukte —, iss über den Tag verteilt Abwechslung davon und schließe mit simplen Snacks jede Lücke. Pick dir ein paar der 20 Rezepte oben heraus, verankere deine drei Hauptmahlzeiten, und 100 g am Tag hören auf, eine Herausforderung zu sein, und werden zur Selbstverständlichkeit. Willst du, dass die Rezepte zu dir kommen? Mit Culinse kannst du über 3.000 Rezepte gleichzeitig nach vegetarisch und proteinreich filtern und deine Wochenauswahl anschließend in eine einzige Einkaufsliste verwandeln. Für eine fleischlose Abendessen-Rotation über diese hinaus schau dir unsere [vegetarischen Abendessen-Ideen](/de/blog/vegetarische-abendessen-ideen-einfache-rezepte) an, und wenn dein Ziel Fettabbau ist, passt unser Guide zu [Meal Prep zum Abnehmen](/de/blog/meal-prep-zum-abnehmen) ganz natürlich zu einem proteinreichen Ansatz.",
+          "Proteinreich vegetarisch zu essen ist überhaupt nicht kompliziert, sobald du aufhörst, Protein als Nebensache zu behandeln. Führe jede Mahlzeit mit einer konzentrierten Quelle an — Tofu, Tempeh, Seitan, Hülsenfrüchte oder Milchprodukte —, iss über den Tag verteilt Abwechslung davon und schließe mit simplen Snacks jede Lücke. Pick dir ein paar der 20 Rezepte oben heraus, verankere deine drei Hauptmahlzeiten, und 100 g am Tag hören auf, eine Herausforderung zu sein, und werden zur Selbstverständlichkeit. Willst du, dass die Rezepte zu dir kommen? Mit Culinse kannst du über 4.000 Rezepte gleichzeitig nach vegetarisch und proteinreich filtern und deine Wochenauswahl anschließend in eine einzige Einkaufsliste verwandeln. Für eine fleischlose Abendessen-Rotation über diese hinaus schau dir unsere [vegetarischen Abendessen-Ideen](/de/blog/vegetarische-abendessen-ideen-einfache-rezepte) an, und wenn dein Ziel Fettabbau ist, passt unser Guide zu [Meal Prep zum Abnehmen](/de/blog/meal-prep-zum-abnehmen) ganz natürlich zu einem proteinreichen Ansatz.",
       },
       {
         heading: "FAQ",
