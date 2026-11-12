@@ -61,7 +61,32 @@ export default function DatenschutzContent() {
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">5. Cookies &amp; Session</h2>
           <p className="text-base text-ink leading-relaxed">
-            Culinse verwendet keine Analyse- oder Marketing-Cookies. Für eingeloggte Nutzer setzt Supabase ein Session-Cookie (technisch notwendig, Art. 6 Abs. 1 lit. f DSGVO). Es werden keine Tracking- oder Werbecookies eingesetzt.
+            Culinse selbst setzt nur technisch notwendige Cookies: Für eingeloggte Nutzer setzt Supabase ein Session-Cookie (Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 Nr. 2 TDDDG). Zur Reichweitenmessung nutzen wir Vercel Web Analytics; der Dienst arbeitet ohne Cookies und erkennt Besucher nicht über mehrere Tage oder Websites hinweg wieder. Cookies und ähnliche Kennungen zu Werbezwecken werden nur gesetzt, wenn Sie zuvor eingewilligt haben (siehe Abschnitt 5a).
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-h2-sm mt-10 mb-3">5a. Werbung (Google AdSense)</h2>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Culinse finanziert sich unter anderem durch Werbung. Dafür können auf dieser Website Anzeigen über Google AdSense eingeblendet werden, einen Dienst der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Solange keine Anzeigen geschaltet sind, erscheint kein Einwilligungsfenster, und es werden keine Werbe-Cookies gesetzt.
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Google und seine Werbepartner verwenden Cookies und ähnliche Kennungen, um Anzeigen auszuliefern, ihre Häufigkeit zu begrenzen, Missbrauch zu erkennen und die Wirkung der Anzeigen zu messen. Mit Ihrer Einwilligung werden Anzeigen außerdem anhand Ihrer früheren Besuche auf dieser und anderen Websites personalisiert. Verarbeitet werden dabei insbesondere die IP-Adresse, Angaben zu Gerät und Browser, Cookie-Kennungen sowie Angaben zu den aufgerufenen Seiten.
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Anzeigen von Google werden erst geladen, nachdem Sie in einem Einwilligungsfenster darüber entschieden haben. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Sie können Ihre Auswahl jederzeit mit Wirkung für die Zukunft ändern oder widerrufen; das Einwilligungsfenster lässt sich dazu über einen Link am Seitenende erneut öffnen.
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Google kann Daten auch in den USA verarbeiten. Die Google LLC ist nach dem EU-US Data Privacy Framework zertifiziert; ergänzend gelten die Standardvertragsklauseln der EU-Kommission. Wie Google Daten aus der Werbung verwendet, steht unter{" "}
+            <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">policies.google.com/technologies/partner-sites</a>
+            . Personalisierte Werbung können Sie außerdem unter{" "}
+            <a href="https://myadcenter.google.com" target="_blank" rel="noopener noreferrer" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">myadcenter.google.com</a>{" "}
+            und{" "}
+            <a href="https://www.youronlinechoices.eu" target="_blank" rel="noopener noreferrer" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">youronlinechoices.eu</a>{" "}
+            abschalten.
+          </p>
+          <p className="text-base text-ink leading-relaxed">
+            Mitgliedern mit Culinse Pro werden keine Anzeigen eingeblendet.
           </p>
         </section>
 
