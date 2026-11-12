@@ -8,6 +8,9 @@ import { dishColorsWithin } from "@/lib/dishColor";
 import { routing } from "@/i18n/routing";
 import { siteDescription } from "@/lib/siteMeta";
 import { originalImageUrl } from "@/lib/imageUrl";
+import { LANDINGS, LANDING_MIN, emptyState } from "@/lib/browse/facets";
+import { runBrowse } from "@/lib/browse";
+import { landingPath } from "@/lib/browse/slugs";
 
 // Startseite als ISR: alle 15 Minuten neu gerendert, dazwischen aus dem
 // Edge-Cache (TTFB ~20 ms statt ~350 ms). Die ersten Karten, das Tagesrezept
@@ -26,7 +29,6 @@ export function generateStaticParams() {
 
 // ─── WebSite + Organization JSON-LD ──────────────────────────────────────────
 function buildWebsiteSchema(locale: string) {
-  const isDE = locale === "de";
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -35,15 +37,15 @@ function buildWebsiteSchema(locale: string) {
         "@id": "https://culinse.com/#website",
         url: "https://culinse.com",
         name: "Culinse",
-        description: isDE
-          ? "Rezepte entdecken, Woche planen, Einkaufsliste erstellen — kostenlos."
-          : "Discover recipes, plan your week, build your shopping list — free.",
-        inLanguage: isDE ? "de-DE" : "en-US",
+        description: siteDescription(locale),
+        inLanguage: locale,
+        // Die Suche wird auf der Stöberseite schon auf dem Server ausgewertet;
+        // auf der Startseite erst im Browser.
         potentialAction: {
           "@type": "SearchAction",
           target: {
             "@type": "EntryPoint",
-            urlTemplate: `https://culinse.com/${locale}?q={search_term_string}`,
+            urlTemplate: `https://culinse.com/${locale}/recipes?q={search_term_string}`,
           },
           "query-input": "required name=search_term_string",
         },
@@ -55,7 +57,8 @@ function buildWebsiteSchema(locale: string) {
         url: "https://culinse.com",
         logo: {
           "@type": "ImageObject",
-          url: "https://culinse.com/icon",
+          // Google verlangt mindestens 112 px; /icon hat 32.
+          url: "https://culinse.com/culinse-logo.png",
         },
       },
     ],
@@ -276,6 +279,24 @@ export default async function Page({
   // der Download mit dem HTML-Parsen, statt mit dem JS-Bundle um die
   // Bandbreite zu konkurrieren.
   const isDE = locale === "de";
+
+  // Themenseiten (Küchen, Gänge, Ernährung …) als echte Links auf der Startseite.
+  // Vorher führte von hier nur ein Link zur Stöberseite; die Themen lagen zwei
+  // Klicks tief und bekamen von der stärksten Seite keinen Verweis.
+  const tBrowse = await getTranslations({ locale, namespace: "browse" });
+  let topicLinks: { href: string; label: string }[] = [];
+  try {
+    // Die Trefferzahlen sind in jeder Sprache gleich; das deutsche Verzeichnis
+    // nutzt auch die Sitemap.
+    const { counts } = await runBrowse("de", emptyState());
+    topicLinks = LANDINGS.filter((l) => l.group !== "region" && (counts[`${l.group}:${l.key}`] ?? 0) >= LANDING_MIN).map((l) => ({
+      href: `/${locale}${landingPath(locale, l)}`,
+      label: tBrowse(`landing.titles.${l.group}.${l.key}`),
+    }));
+  } catch {
+    // Ohne Verzeichnis keine Themenlinks; die Startseite bleibt vollständig.
+  }
+
   const seoSection = (
     <section className="mx-auto max-w-content border-t border-line px-4 py-10 sm:px-6 sm:py-12">
       <div>
@@ -300,6 +321,20 @@ export default async function Page({
               </li>
             ))}
           </ul>
+        )}
+        {topicLinks.length > 0 && (
+          <>
+            <h2 className="text-h3 mb-3">{tBrowse("landing.topics")}</h2>
+            <ul className="mb-8 grid grid-cols-2 gap-x-8 gap-y-1.5 sm:grid-cols-3 lg:grid-cols-4">
+              {topicLinks.map((topic) => (
+                <li key={topic.href}>
+                  <Link href={topic.href} className="text-base text-ink transition-colors hover:underline underline-offset-[3px]">
+                    {topic.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-base font-semibold">
           <Link href={`/${locale}/grocery-list-calculator`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">

@@ -3,7 +3,8 @@ import { notFound, permanentRedirect } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { getTranslations } from "next-intl/server";
-import { recipePageTitle } from "@/lib/siteMeta";
+import { clipDescription, recipeSeoTitle } from "@/lib/siteMeta";
+import { splitTitle } from "@/lib/recipeTitle";
 import { LANDINGS, keysForTags, type GroupId, type Landing } from "@/lib/browse/facets";
 import { landingPath } from "@/lib/browse/slugs";
 
@@ -99,24 +100,27 @@ function recipeAddresses(
 }
 
 async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null> {
+  let res: Response;
   try {
-    // v=7 (10.11.26, Sprache, Sprachfassungen, Themen, Familienrezept, Bewertungen): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // v=8 (12.11.26, dateModified): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu einem Tag lang alte Daten ohne die neuen Felder.
-    const res = await fetch(`${BASE_URL}/api/recipe/${id}?v=7`, {
+    res = await fetch(`${BASE_URL}/api/recipe/${id}?v=8`, {
       next: { revalidate: 86400, tags: [`recipe-${id}`] },
     });
-    // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-
-    // Fix, SEO-Runde 17.08). Andere Fehler bleiben null: transiente Ausfaelle
-    // duerfen kein 404 an Google senden, die Client-Shell rendert mit Retry.
-    if (res.status === 404) return "missing";
-    if (!res.ok) return null;
-    const { recipe } = await res.json();
-    return recipe ?? null;
-  } catch {
-    return null;
+  } catch (cause) {
+    throw new Error(`Rezept ${id} nicht ladbar`, { cause });
   }
+  // 404 der API = Rezept existiert nicht -> echtes 404 der Seite (Soft-404-Fix,
+  // SEO-Runde 17.08).
+  if (res.status === 404) return "missing";
+  // Andere Fehler: werfen statt eine leere Seite mit Status 200 zu rendern. Die
+  // leere Fassung blieb sonst bis zu 24 Stunden im Cache (ohne Titel, Text und
+  // strukturierte Daten); mit dem Fehler behaelt der Cache die letzte gute.
+  if (!res.ok) throw new Error(`Rezept ${id}: API antwortet mit ${res.status}`);
+  const { recipe } = await res.json();
+  return recipe ?? null;
 }
 
 // Related recipes for the "Ähnliche Rezepte" section — fetched server-side so
@@ -174,25 +178,21 @@ export async function generateMetadata(
     };
   }
 
-  // The layout title template is "%s | Culinse", so we must NOT include
-  // "Culinse" here — that would produce "Title | Culinse | Culinse".
-  const title = recipePageTitle(locale, recipe.title);
-  // Spoonacular-Summaries sind englisch — auf DE-SERPs wirkt ein englischer
-  // Anriss abschreckend (CTR). Deutsche Description nur übernehmen, wenn der
-  // Text deutsch aussieht; sonst sauberer deutscher Standard-Anriss.
-  const summaryText = recipe.summary ? recipe.summary.replace(/<[^>]+>/g, "") : "";
-  const looksGerman = /\s(und|mit|für|einfach)\s|ß/.test(summaryText);
-  const description =
-    locale === "de"
-      ? summaryText && looksGerman
-        ? summaryText.slice(0, 155)
-        : `${recipe.title}: Zutaten, Schritt-für-Schritt-Anleitung, Nährwerte und geschätzte Kosten – mit automatischer Einkaufsliste auf Culinse.`
-      : summaryText
-      ? summaryText.slice(0, 155)
-      : `Discover how to make ${recipe.title} on Culinse.`;
+  // Das Layout hängt " | Culinse" an. Lange Titel verzichten darauf oder auf die
+  // Erklärung hinter dem Gedankenstrich (lib/siteMeta.ts).
+  const seoTitle = recipeSeoTitle(locale, recipe.title, splitTitle(recipe.title).main);
+  const title = seoTitle.text;
+  // Der Text des Rezepts ist schon in der Sprache der Seite (eigene Zeile je
+  // Sprache). Die frühere Prüfung per Wortliste stammt aus der Zeit der
+  // englischen Fremdrezepte.
+  const description = recipe.summary
+    ? clipDescription(recipe.summary)
+    : locale === "de"
+      ? `${recipe.title}: Zutaten, Schritt-für-Schritt-Anleitung und Nährwerte auf Culinse.`
+      : `${recipe.title}: ingredients, step-by-step instructions and nutrition facts on Culinse.`;
 
   return {
-    title,
+    title: seoTitle.absolute ? { absolute: title } : title,
     description,
     alternates: sharedAlternates,
     openGraph: {
@@ -212,13 +212,14 @@ export async function generateMetadata(
   };
 }
 
+// Ernährungsform für die strukturierten Daten, nach den Themenschlüsseln der
+// Stöberseite. Vorher kannte die Zuordnung nur englische Wörter, die Schlagworte
+// sind aber deutsch: das Feld blieb bei fast allen Rezepten leer.
 const DIET_SCHEMA_MAP: Record<string, string> = {
-  "vegetarian": "https://schema.org/VegetarianDiet",
-  "vegan": "https://schema.org/VeganDiet",
-  "gluten free": "https://schema.org/GlutenFreeDiet",
-  "dairy free": "https://schema.org/DairyFreeDiet",
-  "ketogenic": "https://schema.org/LowCalorieDiet",
-  "low fodmap": "https://schema.org/LowLactoseDiet",
+  vegetarian: "https://schema.org/VegetarianDiet",
+  vegan: "https://schema.org/VeganDiet",
+  glutenfree: "https://schema.org/GlutenFreeDiet",
+  lactosefree: "https://schema.org/LowLactoseDiet",
 };
 
 export default async function RecipePage(
@@ -235,10 +236,29 @@ export default async function RecipePage(
     recipe ? dishColorsWithin(recipe.image ?? null) : Promise.resolve(null),
   ]);
 
+  // "Rezepte" in der Sprache der Seite; die erste Stufe führt zur Stöberseite,
+  // danach Küche und Region, wenn das Rezept eine hat.
+  const tBrowse = recipe ? await getTranslations({ locale, namespace: "browse" }) : null;
+  const recipesLabel = tBrowse ? tBrowse("suggestRecipes") : "";
+  const topics = (recipe && tBrowse ? recipeTopics(recipe.topicTags ?? recipe.diets) : []).map((l) => ({
+    group: l.group,
+    key: l.key,
+    label: l.name ?? tBrowse!(`options.${l.group}.${l.key}`),
+    href: landingPath(locale, l),
+    green: l.group === "diet" && (l.key === "vegetarian" || l.key === "vegan"),
+  }));
+  // Küche und Gang für die strukturierten Daten kommen aus denselben Themen wie
+  // die Links der Seite, in der Sprache der Seite. Die Rezepte aus dem eigenen
+  // Bestand tragen weder cuisine noch dishTypes, die Felder blieben bisher leer.
+  const topicLabel = (group: string) => topics.find((t) => t.group === group)?.label;
+  const topicKeys = recipe ? keysForTags((recipe.topicTags ?? recipe.diets ?? []).map((tag) => String(tag).toLowerCase().trim())) : new Set<string>();
+  const suitableForDiet = Object.entries(DIET_SCHEMA_MAP)
+    .filter(([key]) => topicKeys.has(`diet:${key}`))
+    .map(([, url]) => url);
+
   // Build Recipe JSON-LD for Google Rich Results — single source of truth,
   // rendered server-side so it's in the crawlable HTML.
   const dishTypes = recipe?.dishTypes ?? [];
-  const diets = recipe?.diets ?? [];
   const hasSource = !!recipe?.sourceUrl && recipe.sourceUrl !== "#";
 
   const jsonLd = recipe
@@ -290,6 +310,7 @@ export default async function RecipePage(
           ? { totalTime: `PT${parseInt(recipe.time)}M` }
           : {}),
         ...(recipe.datePublished ? { datePublished: recipe.datePublished } : {}),
+        ...(recipe.dateModified ? { dateModified: recipe.dateModified } : {}),
         // Sterne nur mit echten Bewertungen von angemeldeten Nutzern.
         ...(recipe.rating && recipe.rating.count > 0 && recipe.rating.average
           ? {
@@ -302,13 +323,13 @@ export default async function RecipePage(
               },
             }
           : {}),
-        ...(recipe.cuisine ? { recipeCuisine: recipe.cuisine } : {}),
-        ...(recipe.servings
-          ? { recipeYield: `${recipe.servings} serving${recipe.servings > 1 ? "s" : ""}` }
-          : {}),
-        ...(dishTypes.length ? { recipeCategory: dishTypes[0] } : {}),
-        ...(dishTypes.length || diets.length
-          ? { keywords: [...dishTypes, ...diets].join(", ") }
+        ...(recipe.cuisine || topicLabel("cuisine") ? { recipeCuisine: recipe.cuisine || topicLabel("cuisine") } : {}),
+        // Nur die Zahl: "servings" wäre auf 15 von 16 Sprachen englisch.
+        ...(recipe.servings ? { recipeYield: String(recipe.servings) } : {}),
+        ...(dishTypes.length || topicLabel("course") ? { recipeCategory: dishTypes[0] ?? topicLabel("course") } : {}),
+        // Nur übersetzte Themen: die rohen Schlagworte sind in jeder Sprache deutsch.
+        ...(dishTypes.length || topics.length
+          ? { keywords: Array.from(new Set([...topics.map((t) => t.label), ...dishTypes])).join(", ") }
           : {}),
         ...(recipe.nutrition
           ? {
@@ -327,22 +348,10 @@ export default async function RecipePage(
             "@type": "HowToStep",
             text: s.step,
           })) ?? [],
-        suitableForDiet: diets
-          .map((d) => DIET_SCHEMA_MAP[d.toLowerCase()])
-          .filter(Boolean),
+        ...(suitableForDiet.length ? { suitableForDiet } : {}),
       }
     : null;
 
-  // "Rezepte" in der Sprache der Seite; die erste Stufe führt zur Stöberseite,
-  // danach Küche und Region, wenn das Rezept eine hat.
-  const tBrowse = recipe ? await getTranslations({ locale, namespace: "browse" }) : null;
-  const recipesLabel = tBrowse ? tBrowse("suggestRecipes") : "";
-  const topics = (recipe && tBrowse ? recipeTopics(recipe.topicTags ?? recipe.diets) : []).map((l) => ({
-    group: l.group,
-    label: l.name ?? tBrowse!(`options.${l.group}.${l.key}`),
-    href: landingPath(locale, l),
-    green: l.group === "diet" && (l.key === "vegetarian" || l.key === "vegan"),
-  }));
   const trail = topics.filter((x) => x.group === "cuisine").slice(0, 1).concat(topics.filter((x) => x.group === "region"));
   const breadcrumbLd = recipe
     ? {

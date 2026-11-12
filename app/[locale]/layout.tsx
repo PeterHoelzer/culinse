@@ -212,7 +212,6 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   // Bild-CDNs frueh verbinden -- verkuerzt den LCP-Pfad (CWV-Runde C13).
-  preconnect("https://img.spoonacular.com");
   preconnect("https://ztfhnzslyztxfmvkyrrn.supabase.co");
 
   // Load messages directly from JSON — do NOT use getMessages() which relies on

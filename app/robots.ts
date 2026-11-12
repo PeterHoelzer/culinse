@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITEMAP_URLS } from "@/lib/sitemaps";
 
 // Single source of truth for robots rules. NOTE: there must be NO public/robots.txt
 // — a static file would shadow/conflict with this route and the two disagreed.
@@ -43,6 +44,6 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: "https://culinse.com/sitemap.xml",
+    sitemap: ["https://culinse.com/sitemap-index.xml", ...SITEMAP_URLS],
   };
 }

@@ -19,6 +19,7 @@ import {
 import { runBrowse } from "@/lib/browse";
 import { landingPath } from "@/lib/browse/slugs";
 import { dishColorsWithin } from "@/lib/dishColor";
+import { clipDescription } from "@/lib/siteMeta";
 import HomeFooter from "../components/HomeFooter";
 import BrowseClient from "./BrowseClient";
 
@@ -76,43 +77,60 @@ async function landingGuide(locale: string, slug: string): Promise<Guide | null>
 /** So viele Rezepte je Gang zeigt eine Küchen- oder Regionsseite als Textverweise. */
 const BY_COURSE_LINKS = 8;
 
-const pageSuffix = (state: BrowseState) => (state.page > 1 ? `?page=${state.page}` : "");
+const pageSuffix = (page: number) => (page > 1 ? `?page=${page}` : "");
 
 export async function browseMetadata(locale: string, state: BrowseState, landing: Landing | null): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "browse" });
   // Ein einzelner Filter über Parameter (/recipes?cuisine=japanese) ist dieselbe
   // Seite wie die Themenseite; die Themenseite ist die maßgebliche Adresse.
   const target = landing ?? landingOf(state);
-  // Themenseiten haben je Sprache eine eigene Adresse.
-  const languages = (path: (l: string) => string) => ({
-    ...Object.fromEntries(routing.locales.map((l) => [l, `${BASE_URL}/${l}${path(l)}`])),
-    "x-default": `${BASE_URL}/en${path("en")}`,
+  // `page` ist die tatsächlich gezeigte Seite: Eine Seitenzahl über dem Ende
+  // (?page=999) zeigt die letzte Seite und nennt auch deren Adresse.
+  const { total, items, page, pages } = await runBrowse(locale, state);
+  // Themenseiten haben je Sprache eine eigene Adresse. Folgeseiten verweisen auf
+  // dieselbe Seitenzahl der anderen Sprachen; vorher zeigte hreflang von Seite 2
+  // auf Seite 1, auch in der eigenen Sprache, und widersprach der canonical-Adresse.
+  const languages = (path: (l: string) => string, suffix: string) => ({
+    ...Object.fromEntries(routing.locales.map((l) => [l, `${BASE_URL}/${l}${path(l)}${suffix}`])),
+    "x-default": `${BASE_URL}/en${path("en")}${suffix}`,
   });
+  const paged = (title: string) => (page > 1 ? `${title} (${t("pageOf", { page, pages })})` : title);
 
   if (target) {
-    const { total } = await runBrowse(locale, state);
     const path = landingPath(locale, target);
-    const title = landingTitle(t, target);
-    const description = (await landingIntro(locale, target.slug)) ?? `${t("results", { count: total })}. ${t("landing.metaDescription")}`;
+    // Küchen und Regionen heißen schon "Spanische Rezepte". Gang, Gericht,
+    // Ernährung, Anlass und Zubereitung bekommen die Zahl mit dem Suchwort
+    // dazu ("Suppen: 240 Rezepte"), vorher stand dort nur "Suppen".
+    const named = target.group === "cuisine" || target.group === "region";
+    const title = paged(named ? landingTitle(t, target) : `${landingTitle(t, target)}: ${t("results", { count: total })}`);
+    const intro = await landingIntro(locale, target.slug);
+    const description = intro ? clipDescription(intro, 160) : `${t("results", { count: total })}. ${t("landing.metaDescription")}`;
+    // Vorschaubild für geteilte Links: das erste Rezept der Seite.
+    const image = items.find((item) => item.image)?.image;
+    const suffix = pageSuffix(page);
     return {
       title,
       description,
-      alternates: { canonical: `${BASE_URL}/${locale}${path}${pageSuffix(state)}`, languages: languages((l) => landingPath(l, target)) },
-      // Dünne Themen und umsortierte Fassungen bleiben aus dem Index.
-      robots: total < LANDING_MIN || state.sort !== "mix" ? { index: false, follow: true } : undefined,
-      openGraph: { title: `${title} | Culinse`, description, url: `${BASE_URL}/${locale}${path}` },
+      alternates: { canonical: `${BASE_URL}/${locale}${path}${suffix}`, languages: languages((l) => landingPath(l, target), suffix) },
+      // Dünne Themen und umsortierte Fassungen bleiben aus dem Index. Sonst kein
+      // robots-Feld: `undefined` überschrieb die Vorgabe des Layouts, die Seiten
+      // hatten gar keine robots-Angabe (und kein max-image-preview:large).
+      ...(total < LANDING_MIN || state.sort !== "mix" ? { robots: { index: false, follow: true } } : {}),
+      openGraph: { title: `${title} | Culinse`, description, url: `${BASE_URL}/${locale}${path}${suffix}`, ...(image ? { images: [{ url: image }] } : {}) },
     };
   }
 
   const filtered = isFiltered(state) || state.sort !== "mix";
+  const suffix = filtered ? "" : pageSuffix(page);
+  const title = filtered ? t("metaTitle") : paged(t("metaTitle"));
   return {
-    title: t("metaTitle"),
+    title,
     description: t("metaDescription"),
-    alternates: { canonical: `${BASE_URL}/${locale}/recipes${filtered ? "" : pageSuffix(state)}`, languages: languages(() => "/recipes") },
+    alternates: { canonical: `${BASE_URL}/${locale}/recipes${suffix}`, languages: languages(() => "/recipes", suffix) },
     // Frei kombinierte Filter sollen den Index nicht fluten; die ungefilterte
     // Liste mit ihren Seiten bleibt indexierbar.
-    robots: filtered ? { index: false, follow: true } : undefined,
-    openGraph: { title: `${t("metaTitle")} | Culinse`, description: t("metaDescription"), url: `${BASE_URL}/${locale}/recipes` },
+    ...(filtered ? { robots: { index: false, follow: true } } : {}),
+    openGraph: { title: `${title} | Culinse`, description: t("metaDescription"), url: `${BASE_URL}/${locale}/recipes${suffix}` },
   };
 }
 

@@ -42,7 +42,7 @@ function VideoCard({ video, de, playLabel, featured = false }: { video: CulinseV
       ) : (
         <div className="relative aspect-video w-full overflow-hidden rounded-2 bg-surface-soft">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={video.poster} alt="" width={1280} height={720} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+          <img src={video.poster} alt={de ? video.title.de : video.title.en} width={1280} height={720} loading="lazy" decoding="async" className="h-full w-full object-cover" />
           <Button
             variant="icon"
             icon="play"

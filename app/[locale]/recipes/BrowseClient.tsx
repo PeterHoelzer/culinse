@@ -143,6 +143,21 @@ interface BrowseClientProps {
   children?: ReactNode;
 }
 
+// Seitenzahlen für das Blättern: erste, letzte und zwei um die aktuelle, Lücken als null.
+function pageNumbers(page: number, pages: number): (number | null)[] {
+  const wanted = new Set([1, pages, page - 2, page - 1, page, page + 1, page + 2].filter((n) => n >= 1 && n <= pages));
+  // Dazu Sprungmarken, damit lange Listen in wenigen Klicks durchlaufen werden.
+  const step = pages > 60 ? 20 : 10;
+  for (let n = step; n < pages; n += step) wanted.add(n);
+  const sorted = [...wanted].sort((a, b) => a - b);
+  const out: (number | null)[] = [];
+  for (const n of sorted) {
+    if (out.length && n - (out[out.length - 1] as number) > 1) out.push(null);
+    out.push(n);
+  }
+  return out;
+}
+
 export default function BrowseClient({ state, result, title, subtitle, backLabel, basePath, children }: BrowseClientProps) {
   const t = useTranslations("browse");
   const router = useRouter();
@@ -297,21 +312,48 @@ export default function BrowseClient({ state, result, title, subtitle, backLabel
           </div>
 
           {result.pages > 1 && (
-            <nav aria-label={t("pagination")} className="mt-10 flex items-center justify-between gap-4 border-t border-line pt-6">
-              {result.page > 1 ? (
-                <Link href={pageHref(result.page - 1) as "/"} rel="prev" className={buttonClasses({ variant: "secondary", size: "sm" })}>
-                  {t("prev")}
-                </Link>
-              ) : (
-                <span />
-              )}
-              <p className="tabular text-sm text-ink-3">{t("pageOf", { page: result.page, pages: result.pages })}</p>
-              {result.page < result.pages ? (
-                <Link href={pageHref(result.page + 1) as "/"} rel="next" className={buttonClasses({ variant: "secondary", size: "sm" })}>
-                  {t("next")}
-                </Link>
-              ) : (
-                <span />
+            <nav aria-label={t("pagination")} className="mt-10 border-t border-line pt-6">
+              <div className="flex items-center justify-between gap-4">
+                {result.page > 1 ? (
+                  <Link href={pageHref(result.page - 1) as "/"} rel="prev" className={buttonClasses({ variant: "secondary", size: "sm" })}>
+                    {t("prev")}
+                  </Link>
+                ) : (
+                  <span />
+                )}
+                <p className="tabular text-sm text-ink-3">{t("pageOf", { page: result.page, pages: result.pages })}</p>
+                {result.page < result.pages ? (
+                  <Link href={pageHref(result.page + 1) as "/"} rel="next" className={buttonClasses({ variant: "secondary", size: "sm" })}>
+                    {t("next")}
+                  </Link>
+                ) : (
+                  <span />
+                )}
+              </div>
+              {/* Nummerierte Seiten: Jede Seite der Liste liegt so höchstens wenige Klicks
+                  entfernt. Nur mit Zurück und Weiter lagen Rezepte bis zu 186 Klicks tief. */}
+              {result.pages > 2 && (
+                <ol className="tabular mt-4 flex flex-wrap items-center justify-center gap-1 text-sm">
+                  {pageNumbers(result.page, result.pages).map((n, i) =>
+                    n === null ? (
+                      <li key={`gap-${i}`} aria-hidden className="px-1 text-ink-3">
+                        …
+                      </li>
+                    ) : n === result.page ? (
+                      <li key={n}>
+                        <span aria-current="page" className="inline-flex min-w-9 justify-center rounded-1 bg-surface-soft px-2 py-1.5 font-semibold text-ink">
+                          {n}
+                        </span>
+                      </li>
+                    ) : (
+                      <li key={n}>
+                        <Link href={pageHref(n) as "/"} className="inline-flex min-w-9 justify-center rounded-1 px-2 py-1.5 text-ink-3 hover:bg-surface-soft hover:text-ink">
+                          {n}
+                        </Link>
+                      </li>
+                    ),
+                  )}
+                </ol>
               )}
             </nav>
           )}

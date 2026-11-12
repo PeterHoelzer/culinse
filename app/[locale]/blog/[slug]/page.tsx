@@ -35,7 +35,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { en: enSlug, de: deSlug } = blogSlugPair(slug, locale);
   const enExists = Boolean(getBlogPost(enSlug));
   const deExists = Boolean(getBlogPostDe(deSlug));
-  const selfUrl = `https://culinse.com/${locale}/blog/${post.slug}`;
+  // Die Artikel gibt es nur deutsch und englisch. Unter /fr/blog/… und den übrigen
+  // 13 Sprachen erscheint der englische Text; als maßgebliche Adresse gilt dort die
+  // englische, sonst stehen 30 Artikel in 14 Sprachpfaden als Doppelseiten im Index.
+  const selfUrl = `https://culinse.com/${locale === "de" ? "de" : "en"}/blog/${post.slug}`;
   const languages: Record<string, string> = {
     ...(enExists ? { en: `https://culinse.com/en/blog/${enSlug}` } : {}),
     ...(deExists ? { de: `https://culinse.com/de/blog/${deSlug}` } : {}),
@@ -115,7 +118,7 @@ export default async function BlogPostPage({ params }: Props) {
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
-    inLanguage: locale,
+    inLanguage: locale === "de" ? "de" : "en",
     image: post.image ? [post.image] : ["https://culinse.com/culinse-logo.png"],
     // Person author (E-E-A-T): real, verifiable expertise. Keep in sync with
     // the visible <AuthorBox /> below the article.
@@ -163,7 +166,7 @@ export default async function BlogPostPage({ params }: Props) {
       ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          inLanguage: locale,
+          inLanguage: locale === "de" ? "de" : "en",
           mainEntity: post.faq.map((f) => ({
             "@type": "Question",
             name: f.question,

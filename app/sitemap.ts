@@ -16,10 +16,10 @@ function langs(en: string, de: string) {
   return { languages: { en, de, "x-default": en } };
 }
 
-// Sieben Sprachen (14.09.2026): voll uebersetzte statische Seiten bekommen
-// hreflang fuer ALLE Locales; Inhalte, die es nur auf de/en gibt (Blog,
-// Rezepte, Sammlungen, Landingpages mit Inline-Text, Rechtsseiten), behalten
-// bewusst das de/en-Paar — hreflang nie auf unuebersetzte Duplikate.
+// Voll uebersetzte statische Seiten bekommen hreflang fuer ALLE Locales;
+// Inhalte, die es nur auf de/en gibt (Blog, Sammlungen, Landingpages mit
+// Inline-Text, Rechtsseiten), behalten bewusst das de/en-Paar — hreflang nie
+// auf unuebersetzte Duplikate. Rezepte: siehe app/recipe-sitemap/sitemap.ts.
 const ALL_LOCALES = ["en", "de", "es", "fr", "it", "pl", "tr", "nl", "cs", "ru", "pt", "zh", "ja", "id", "vi", "bn"] as const;
 function langsAll(path: string) {
   const languages: Record<string, string> = {};
@@ -32,6 +32,10 @@ function langsAll(path: string) {
 // Google "everything changed today" on each deploy, which makes lastmod
 // untrustworthy and gets ignored. Bump this when static pages actually change.
 const STATIC_LAST_MODIFIED = new Date("2026-07-14");
+// Startseite, Stöberseite und Themenseiten ändern sich mit jedem Rezept-Import.
+// Bis 12.11.2026 trugen sie das Datum vom Juli, obwohl die Themenseiten erst im
+// November entstanden sind. Nach jedem Import neuer Rezepte anheben.
+const RECIPES_LAST_MODIFIED = new Date("2026-11-12");
 
 // Die Sitemap entstand bisher nur beim Deploy; neue Rezepte fehlten bis zum
 // nächsten. Jetzt wird sie alle sechs Stunden neu erzeugt.
@@ -64,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...translatedStatic.flatMap(({ path, changeFrequency, priority }) =>
       ALL_LOCALES.map((l) => ({
         url: `${baseUrl}/${l}${path}`,
-        lastModified: STATIC_LAST_MODIFIED,
+        lastModified: path === "" || path === "/recipes" ? RECIPES_LAST_MODIFIED : STATIC_LAST_MODIFIED,
         changeFrequency,
         priority,
         alternates: langsAll(path),
@@ -164,92 +168,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Silently fail — collections are a bonus, never break the sitemap.
   }
 
-  // Public community recipes — unique, user-created content that's genuinely
-  // worth indexing (unlike aggregated provider recipes, which are duplicate
-  // content). Imported recipes are force-private, so only original posts appear.
-  const userRecipeEntries: MetadataRoute.Sitemap = [];
-  try {
-    const admin = createAdminClient();
-    // Supabase liefert höchstens 1000 Zeilen je Abfrage. Ohne Blättern kamen
-    // hier nur 1000 der rund 38 000 Zeilen an, und nur die deutschen und
-    // englischen darunter landeten in der Sitemap (933 statt knapp 4800).
-    type Row = { id: string; created_at?: string; language?: string | null; translation_group?: string | null };
-    const urs: Row[] = [];
-    for (let from = 0; ; from += 1000) {
-      const { data, error } = await admin
-        .from("user_recipes")
-        .select("id, created_at, language, translation_group")
-        .eq("is_public", true)
-        .or("language.in.(de,en),language.is.null")
-        .order("id", { ascending: true })
-        .range(from, from + 999);
-      if (error) throw new Error(error.message);
-      urs.push(...((data ?? []) as Row[]));
-      if (!data || data.length < 1000) break;
-    }
-
-    // Group DE/EN versions of the same recipe (via translation_group) so each
-    // localized recipe is listed ONLY under its own locale, with hreflang
-    // pointing to its sibling. A German recipe never appears as an /en URL and
-    // vice versa. Legacy rows without a language fall back to both locales.
-    const groups = new Map<string, { de?: Row; en?: Row; legacy?: Row }>();
-    for (const r of urs) {
-      const key = r.translation_group || `__${r.id}`;
-      const g = groups.get(key) ?? {};
-      if (r.language === "de") g.de = r;
-      else if (r.language === "en") g.en = r;
-      else g.legacy = r;
-      groups.set(key, g);
-    }
-
-    const modOf = (r: Row) => (r.created_at ? new Date(r.created_at) : STATIC_LAST_MODIFIED);
-    for (const g of groups.values()) {
-      if (g.legacy && !g.de && !g.en) {
-        const r = g.legacy;
-        const enUrl = `${baseUrl}/en/recipe/user_${r.id}`;
-        const deUrl = `${baseUrl}/de/recipe/user_${r.id}`;
-        userRecipeEntries.push(
-          { url: enUrl, lastModified: modOf(r), changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
-          { url: deUrl, lastModified: modOf(r), changeFrequency: "monthly" as const, priority: 0.6, alternates: langs(enUrl, deUrl) },
-        );
-        continue;
-      }
-      const enUrl = g.en ? `${baseUrl}/en/recipe/user_${g.en.id}` : undefined;
-      const deUrl = g.de ? `${baseUrl}/de/recipe/user_${g.de.id}` : undefined;
-      const languages: Record<string, string> = {};
-      if (enUrl) languages.en = enUrl;
-      if (deUrl) languages.de = deUrl;
-      languages["x-default"] = enUrl ?? deUrl!;
-      const alternates = { languages };
-      if (g.en) userRecipeEntries.push({ url: enUrl!, lastModified: modOf(g.en), changeFrequency: "monthly" as const, priority: 0.6, alternates });
-      if (g.de) userRecipeEntries.push({ url: deUrl!, lastModified: modOf(g.de), changeFrequency: "monthly" as const, priority: 0.6, alternates });
-    }
-  } catch {
-    // Silently fail — community recipes are a bonus, never break the sitemap.
-  }
+  // Die Rezepte stehen seit 12.11.2026 in eigenen Sitemaps, eine je Sprache
+  // (app/recipe-sitemap/sitemap.ts), weil alle 16 Sprachen zusammen die Grenze
+  // von 50.000 Adressen je Datei sprengen.
 
   // Themenseiten der Stöberseite (/recipes/<slug>): je Filteroption mit genug
   // Rezepten eine Seite, in allen Sprachen. Die Trefferzahlen sind in jeder
   // Sprache dieselben, weil alle Fassungen eines Gerichts dieselben Schlüssel erben.
-  let topicEntries: MetadataRoute.Sitemap = [];
-  try {
-    const { counts } = await runBrowse("de", emptyState());
-    topicEntries = LANDINGS.filter((l) => (counts[`${l.group}:${l.key}`] ?? 0) >= LANDING_MIN).flatMap((l) => {
-      // Jede Sprache hat ihre eigene Adresse (lib/browse/slugs.ts).
-      const languages: Record<string, string> = {};
-      for (const locale of ALL_LOCALES) languages[locale] = `${baseUrl}/${locale}${landingPath(locale, l)}`;
-      languages["x-default"] = languages.en;
-      return ALL_LOCALES.map((locale) => ({
-        url: languages[locale],
-        lastModified: STATIC_LAST_MODIFIED,
-        changeFrequency: "weekly" as const,
-        priority: 0.7,
-        alternates: { languages },
-      }));
-    });
-  } catch {
-    // Ohne Verzeichnis keine Themenseiten in der Sitemap; der Rest bleibt gültig.
-  }
+  // Ein Fehler wird nicht geschluckt: Lieber bleibt die letzte gute Sitemap im
+  // Cache, als dass 2.000 Themenadressen sechs Stunden lang fehlen.
+  const { counts } = await runBrowse("de", emptyState());
+  const topicEntries: MetadataRoute.Sitemap = LANDINGS.filter((l) => (counts[`${l.group}:${l.key}`] ?? 0) >= LANDING_MIN).flatMap((l) => {
+    // Jede Sprache hat ihre eigene Adresse (lib/browse/slugs.ts).
+    const languages: Record<string, string> = {};
+    for (const locale of ALL_LOCALES) languages[locale] = `${baseUrl}/${locale}${landingPath(locale, l)}`;
+    languages["x-default"] = languages.en;
+    return ALL_LOCALES.map((locale) => ({
+      url: languages[locale],
+      lastModified: RECIPES_LAST_MODIFIED,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+      alternates: { languages },
+    }));
+  });
 
-  return [...staticEntries, ...topicEntries, ...blogEntries, ...deOnlyBlogEntries, ...recipeEntries, ...collectionEntries, ...userRecipeEntries];
+  return [...staticEntries, ...topicEntries, ...blogEntries, ...deOnlyBlogEntries, ...recipeEntries, ...collectionEntries];
 }

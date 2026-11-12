@@ -70,7 +70,7 @@ export default function BlogIndexList({ posts, locale }: { posts: LitePost[]; lo
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={post.image}
-                  alt=""
+                  alt={post.title}
                   width={1200}
                   height={628}
                   loading={i < 3 ? "eager" : "lazy"}

@@ -59,3 +59,44 @@ const RECIPE_TITLE: Record<string, (title: string) => string> = {
 export function recipePageTitle(locale: string, title: string): string {
   return (RECIPE_TITLE[locale] ?? RECIPE_TITLE.en)(title);
 }
+
+/*
+  Titel und Beschreibung für Suchergebnisse (12.11.2026).
+
+  Google zeigt etwa 60 Zeichen Titel. Die Rezeptnamen tragen oft eine lange
+  Erklärung hinter dem Gedankenstrich; samt Sprachzusatz und " | Culinse" lag
+  der Median bei rund 70 Zeichen, das Suchwort "Rezept" stand am abgeschnittenen
+  Ende. Darum stufenweise kürzen: erst die Marke weglassen, dann die Erklärung.
+*/
+const TITLE_MAX = 60;
+const BRAND = " | Culinse";
+
+// Chinesische, japanische und koreanische Zeichen sind etwa doppelt so breit.
+function displayWidth(text: string): number {
+  return Array.from(text).reduce((sum, ch) => sum + (/[\u3000-\u9fff\uac00-\ud7af\uff00-\uffef]/.test(ch) ? 2 : 1), 0);
+}
+
+/** Titel einer Rezeptseite; `absolute` heißt: ohne den Zusatz " | Culinse" aus dem Layout. */
+export function recipeSeoTitle(locale: string, title: string, main: string): { text: string; absolute: boolean } {
+  const full = recipePageTitle(locale, title);
+  if (displayWidth(full + BRAND) <= TITLE_MAX) return { text: full, absolute: false };
+  if (displayWidth(full) <= TITLE_MAX) return { text: full, absolute: true };
+  const short = recipePageTitle(locale, main);
+  return { text: short, absolute: displayWidth(short + BRAND) > TITLE_MAX };
+}
+
+/**
+  Kürzt einen Text für die Beschreibung: erster Absatz, höchstens `max` Zeichen,
+  Schnitt am Satzende, sonst an der Wortgrenze mit Auslassungszeichen. Vorher
+  endeten Beschreibungen mitten im Wort.
+*/
+export function clipDescription(text: string, max = 155): string {
+  const first = text.replace(/<[^>]+>/g, "").split(/\n\s*\n/)[0].replace(/\s+/g, " ").trim();
+  if (first.length <= max) return first;
+  const cut = first.slice(0, max);
+  const sentence = Math.max(cut.lastIndexOf(". "), cut.lastIndexOf("! "), cut.lastIndexOf("? "), cut.lastIndexOf("。"), cut.lastIndexOf("！"), cut.lastIndexOf("？"), cut.lastIndexOf("।"));
+  if (sentence >= max * 0.5) return cut.slice(0, sentence + 1).trim();
+  const word = Math.max(cut.lastIndexOf(" "), cut.lastIndexOf("、"), cut.lastIndexOf("，"));
+  return `${(word >= max * 0.5 ? cut.slice(0, word) : cut.slice(0, max - 1)).replace(/[\s,;:、，–—-]+$/, "")}…`;
+}
+

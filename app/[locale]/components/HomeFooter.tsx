@@ -47,7 +47,7 @@ export default function HomeFooter() {
           </div>
 
           <FooterColumn title={explore}>
-            <li><Link href="/" className={linkClass}>{de ? "Rezepte" : "Recipes"}</Link></li>
+            <li><Link href="/recipes" className={linkClass}>{de ? "Rezepte" : "Recipes"}</Link></li>
             <li><Link href="/collections/explore" className={linkClass}>{collections}</Link></li>
             <li><Link href="/blog" className={linkClass}>Blog</Link></li>
             <li><Link href="/about" className={linkClass}>{t("footer.about")}</Link></li>

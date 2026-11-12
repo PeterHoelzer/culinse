@@ -133,6 +133,7 @@ export async function GET(
         prepTime: r.prep_time || null,
         cookTime: r.cook_time || null,
         datePublished: r.created_at || null,
+        dateModified: r.updated_at || r.created_at || null,
         servings: r.servings || null,
         summary: r.description || null,
         ingredients,

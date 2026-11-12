@@ -57,6 +57,9 @@ export interface Recipe {
   prepTime?: number | null;
   cookTime?: number | null;
   datePublished?: string | null;
+  dateModified?: string | null;
+  /** Sprache der Rezeptzeile (de, en, …); fehlt bei alten Einträgen. */
+  language?: string | null;
   aiAssisted?: boolean;
   /** Familienrezept: selbst gekocht, nicht mit KI erstellt. */
   family?: boolean;
@@ -221,7 +224,7 @@ function SimilarCard({ recipe: s, locale }: { recipe: SimilarRecipe; locale: str
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={s.image}
-            alt=""
+            alt={s.title}
             loading="lazy"
             decoding="async"
             width={480}
@@ -361,7 +364,9 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   // On the German site, convert measurements + translate the recipe content.
   // Runs once after the recipe loads; on failure the English version stays.
   useEffect(() => {
-    if (locale !== "de" || !recipe || translatedRef.current) return;
+    // Rezepte, die schon deutsch vorliegen, nicht noch einmal übersetzen: Das kostete bei
+    // jedem Aufruf Übersetzungskontingent und konnte Gerichtsnamen verändern.
+    if (locale !== "de" || !recipe || recipe.language === "de" || translatedRef.current) return;
     translatedRef.current = true;
     let cancelled = false;
     translateRecipeToGerman(recipe)
@@ -582,7 +587,8 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
               style={{ width: "100%", maxHeight: "240px", objectFit: "cover", borderRadius: "8px", marginBottom: "16px" }}
             />
           )}
-          <h1 style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</h1>
+          {/* Kein h1: die Druckfassung steht mit im HTML, die Seite hätte sonst zwei Hauptüberschriften. */}
+          <p style={{ fontSize: "22pt", fontWeight: "bold", marginBottom: "4px" }}>{recipe.title}</p>
           <p style={{ fontSize: "10pt", color: "var(--color-ink-3)", marginBottom: "16px" }}>
             {[
               recipe.time ? formatTime(recipe.time, locale) : null,
