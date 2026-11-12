@@ -22,7 +22,7 @@
     "badge": "Dikembangkan oleh seorang master pengolah daging & kepala koki",
     "headline1": "Satu tempat untuk",
     "headline2": "semua resep favoritmu.",
-    "subline": "Resep dari dapur kami, dari komunitas, dan dari keluarga. Disaring sesuai pola makanmu, tanpa banner iklan.",
+    "subline": "Resep dari dapur kami, dari komunitas, dan dari keluarga. Disaring sesuai pola makanmu.",
     "searchPlaceholder": "Pasta, kari, steak…",
     "searchButton": "Cari",
     "tryLabel": "Coba:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Resep orisinal · Komunitas · Keluarga",
     "sourcesDesktop": "Resep kami berasal dari:",
-    "freeLabel": "Gratis digunakan · Tanpa banner iklan",
+    "freeLabel": "Gratis digunakan",
     "ctaPlan": "Rencanakan menu mingguan",
     "ctaBrowse": "Jelajahi resep",
     "trust1": "Gratis digunakan",
-    "trust2": "Tanpa banner iklan",
     "trust3": "Harga riil supermarket diskon",
     "featuredLabel": "Resep hari ini",
     "searchLabel": "Mau masak apa?",
@@ -175,7 +174,7 @@
     "explore": "Jelajahi",
     "tools": "Alat",
     "legal": "Hukum",
-    "tagline": "Resep dari dapur, supermarket, dan keluarga. Tanpa banner iklan.",
+    "tagline": "Resep dari dapur, supermarket, dan keluarga.",
     "videos": "Sekolah memasak",
     "family": "Resep keluarga",
     "collections": "Koleksi resep"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Kesederhanaan",
-        "desc": "Tanpa banner iklan, tanpa wajib berlangganan, tanpa kekacauan. Hanya resep yang ingin kamu masak."
+        "desc": "Tanpa wajib berlangganan, tanpa kekacauan. Hanya resep yang ingin kamu masak."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Perkiraan biaya belanja",
     "estCostHint": "Perkiraan berdasarkan tingkat harga supermarket diskon ({priced} dari {total} hidangan dihitung). Harga dapat berbeda di tiap toko.",
     "ctaTitle": "Rencanakan menu mingguanmu sendiri — gratis",
-    "ctaText": "Pilih resep, isi minggumu, dan dapatkan daftar belanja siap pakai lengkap dengan perkiraan harga. Tanpa banner iklan, tanpa wajib berlangganan.",
+    "ctaText": "Pilih resep, isi minggumu, dan dapatkan daftar belanja siap pakai lengkap dengan perkiraan harga. Tanpa wajib berlangganan.",
     "ctaButton": "Mulai gratis"
   },
   "recipe": {

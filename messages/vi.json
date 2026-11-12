@@ -22,7 +22,7 @@
     "badge": "Do một bếp trưởng kiêm bậc thầy chế biến thịt phát triển",
     "headline1": "Một nơi cho mọi",
     "headline2": "công thức bạn yêu thích.",
-    "subline": "Công thức từ căn bếp của chúng tôi, từ cộng đồng và từ gia đình. Lọc theo chế độ ăn của bạn, không banner quảng cáo.",
+    "subline": "Công thức từ căn bếp của chúng tôi, từ cộng đồng và từ gia đình. Lọc theo chế độ ăn của bạn.",
     "searchPlaceholder": "Mì Ý, cà ri, bít tết…",
     "searchButton": "Tìm kiếm",
     "tryLabel": "Thử tìm:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Công thức riêng · Cộng đồng · Gia đình",
     "sourcesDesktop": "Công thức của chúng tôi đến từ:",
-    "freeLabel": "Dùng miễn phí · Không banner quảng cáo",
+    "freeLabel": "Dùng miễn phí",
     "ctaPlan": "Lên thực đơn tuần",
     "ctaBrowse": "Khám phá công thức",
     "trust1": "Dùng miễn phí",
-    "trust2": "Không banner quảng cáo",
     "trust3": "Giá thật tại siêu thị bình dân",
     "featuredLabel": "Công thức trong ngày",
     "searchLabel": "Bạn muốn nấu món gì?",
@@ -175,7 +174,7 @@
     "explore": "Khám phá",
     "tools": "Công cụ",
     "legal": "Pháp lý",
-    "tagline": "Công thức từ căn bếp, siêu thị và gia đình. Không banner quảng cáo.",
+    "tagline": "Công thức từ căn bếp, siêu thị và gia đình.",
     "videos": "Lớp học nấu ăn",
     "family": "Công thức gia đình",
     "collections": "Bộ sưu tập công thức"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Đơn giản",
-        "desc": "Không banner quảng cáo, không ép đăng ký trả phí, không rối mắt. Chỉ có những công thức bạn muốn nấu."
+        "desc": "Không ép đăng ký trả phí, không rối mắt. Chỉ có những công thức bạn muốn nấu."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Chi phí mua sắm ước tính",
     "estCostHint": "Ước tính theo mức giá siêu thị bình dân (đã tính giá {priced} trên {total} món). Giá có thể khác nhau tùy cửa hàng.",
     "ctaTitle": "Lên thực đơn tuần của riêng bạn — miễn phí",
-    "ctaText": "Chọn công thức, xếp kín cả tuần, nhận ngay danh sách mua sắm kèm giá ước tính. Không banner quảng cáo, không bắt buộc đăng ký trả phí.",
+    "ctaText": "Chọn công thức, xếp kín cả tuần, nhận ngay danh sách mua sắm kèm giá ước tính. Không bắt buộc đăng ký trả phí.",
     "ctaButton": "Bắt đầu miễn phí"
   },
   "recipe": {

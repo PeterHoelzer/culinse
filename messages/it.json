@@ -22,7 +22,7 @@
     "badge": "Creato da un maestro macellaio e chef",
     "headline1": "Un solo posto per ogni",
     "headline2": "ricetta che ami.",
-    "subline": "Ricette dalla nostra cucina, dalla community e dalla famiglia. Filtrate in base alla tua alimentazione, senza banner pubblicitari.",
+    "subline": "Ricette dalla nostra cucina, dalla community e dalla famiglia. Filtrate in base alla tua alimentazione.",
     "searchPlaceholder": "Pasta, curry, bistecca…",
     "searchButton": "Cerca",
     "tryLabel": "Prova:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Ricette nostre · Community · Famiglia",
     "sourcesDesktop": "Le nostre ricette arrivano da:",
-    "freeLabel": "Gratis da usare · Nessun banner pubblicitario",
+    "freeLabel": "Gratis da usare",
     "ctaPlan": "Pianifica la settimana",
     "ctaBrowse": "Scopri le ricette",
     "trust1": "Gratis da usare",
-    "trust2": "Nessun banner pubblicitario",
     "trust3": "Prezzi reali da discount",
     "featuredLabel": "Ricetta del giorno",
     "searchLabel": "Cosa vuoi cucinare?",
@@ -175,7 +174,7 @@
     "explore": "Scopri",
     "tools": "Strumenti",
     "legal": "Note legali",
-    "tagline": "Ricette dalla cucina, dal supermercato e dalla famiglia. Senza banner.",
+    "tagline": "Ricette dalla cucina, dal supermercato e dalla famiglia.",
     "videos": "Scuola di cucina",
     "family": "Ricette di famiglia",
     "collections": "Raccolte di ricette"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Semplicità",
-        "desc": "Nessun banner pubblicitario, nessun abbonamento obbligatorio, nessun caos. Solo ricette che hai voglia di cucinare."
+        "desc": "Nessun abbonamento obbligatorio, nessun caos. Solo ricette che hai voglia di cucinare."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Costo stimato della spesa",
     "estCostHint": "Stima su livello di prezzi da discount ({priced} piatti su {total} calcolati). I prezzi variano da negozio a negozio.",
     "ctaTitle": "Pianifica la tua settimana — gratis",
-    "ctaText": "Scegli le ricette, riempi la settimana e ottieni una lista della spesa pronta con la stima dei prezzi. Senza banner pubblicitari, senza abbonamento obbligatorio.",
+    "ctaText": "Scegli le ricette, riempi la settimana e ottieni una lista della spesa pronta con la stima dei prezzi. Senza abbonamento obbligatorio.",
     "ctaButton": "Inizia gratis"
   },
   "recipe": {

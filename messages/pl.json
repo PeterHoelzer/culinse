@@ -22,7 +22,7 @@
     "badge": "Stworzone przez mistrza rzeźnictwa & szefa kuchni",
     "headline1": "Jedno miejsce na każdy",
     "headline2": "przepis, który kochasz.",
-    "subline": "Przepisy z naszej kuchni, od społeczności i od rodziny. Filtrowane pod twoją dietę, bez banerów reklamowych.",
+    "subline": "Przepisy z naszej kuchni, od społeczności i od rodziny. Filtrowane pod twoją dietę.",
     "searchPlaceholder": "Makaron, curry, stek…",
     "searchButton": "Szukaj",
     "tryLabel": "Spróbuj:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Własne przepisy · Społeczność · Rodzina",
     "sourcesDesktop": "Nasze przepisy pochodzą z:",
-    "freeLabel": "Korzystasz za darmo · Bez banerów reklamowych",
+    "freeLabel": "Korzystasz za darmo",
     "ctaPlan": "Zaplanuj tydzień",
     "ctaBrowse": "Odkrywaj przepisy",
     "trust1": "Korzystasz za darmo",
-    "trust2": "Bez banerów reklamowych",
     "trust3": "Realne ceny z dyskontów",
     "featuredLabel": "Przepis dnia",
     "searchLabel": "Co chcesz ugotować?",
@@ -175,7 +174,7 @@
     "explore": "Odkrywaj",
     "tools": "Narzędzia",
     "legal": "Informacje prawne",
-    "tagline": "Przepisy z kuchni, ze sklepu i z rodziny. Bez banerów.",
+    "tagline": "Przepisy z kuchni, ze sklepu i z rodziny.",
     "videos": "Szkoła gotowania",
     "family": "Przepisy rodzinne",
     "collections": "Kolekcje przepisów"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Prostota",
-        "desc": "Bez banerów reklamowych, bez przymusu abonamentu, bez bałaganu. Tylko przepisy, które chcesz ugotować."
+        "desc": "Bez przymusu abonamentu, bez bałaganu. Tylko przepisy, które chcesz ugotować."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Szacowany koszt zakupów",
     "estCostHint": "Szacunek na poziomie cen dyskontowych (skalkulowano {priced} z {total} dań). Ceny różnią się w zależności od sklepu.",
     "ctaTitle": "Zaplanuj własny tydzień — za darmo",
-    "ctaText": "Wybierz przepisy, wypełnij tydzień, odbierz gotową listę zakupów z szacunkiem ceny. Bez banerów reklamowych, bez przymusu abonamentu.",
+    "ctaText": "Wybierz przepisy, wypełnij tydzień, odbierz gotową listę zakupów z szacunkiem ceny. Bez przymusu abonamentu.",
     "ctaButton": "Zacznij za darmo"
   },
   "recipe": {

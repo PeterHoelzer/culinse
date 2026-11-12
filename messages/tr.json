@@ -22,7 +22,7 @@
     "badge": "Bir usta kasap ve şef tarafından geliştirildi",
     "headline1": "Sevdiğin her tarif için",
     "headline2": "tek bir adres.",
-    "subline": "Mutfağımızdan, topluluktan ve aileden tarifler. Beslenmene göre filtrelenmiş, reklam banner'ı yok.",
+    "subline": "Mutfağımızdan, topluluktan ve aileden tarifler. Beslenmene göre filtrelenmiş.",
     "searchPlaceholder": "Makarna, köri, biftek…",
     "searchButton": "Ara",
     "tryLabel": "Dene:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Kendi tariflerimiz · Topluluk · Aile",
     "sourcesDesktop": "Tariflerimizin kaynakları:",
-    "freeLabel": "Ücretsiz kullanım · Reklam banner'ı yok",
+    "freeLabel": "Ücretsiz kullanım",
     "ctaPlan": "Haftanı planla",
     "ctaBrowse": "Tarifleri keşfet",
     "trust1": "Ücretsiz kullanım",
-    "trust2": "Reklam banner'ı yok",
     "trust3": "Gerçek market fiyatları",
     "featuredLabel": "Günün tarifi",
     "searchLabel": "Ne pişirmek istersin?",
@@ -175,7 +174,7 @@
     "explore": "Keşfet",
     "tools": "Araçlar",
     "legal": "Yasal",
-    "tagline": "Mutfaktan, marketten ve aileden tarifler. Reklamsız.",
+    "tagline": "Mutfaktan, marketten ve aileden tarifler.",
     "videos": "Yemek okulu",
     "family": "Aile tarifleri",
     "collections": "Tarif koleksiyonları"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Sadelik",
-        "desc": "Reklam banner'ı yok, abonelik zorunluluğu yok, karmaşa yok. Sadece pişirmek isteyeceğin tarifler."
+        "desc": "Abonelik zorunluluğu yok, karmaşa yok. Sadece pişirmek isteyeceğin tarifler."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Tahmini alışveriş maliyeti",
     "estCostHint": "İndirim marketi fiyat seviyesine göre tahmin ({total} yemeğin {priced} tanesi hesaplandı). Fiyatlar markete göre değişir.",
     "ctaTitle": "Kendi haftanı planla — ücretsiz",
-    "ctaText": "Tarifleri seç, haftanı doldur, fiyat tahminiyle hazır alışveriş listeni al. Reklam banner'ı yok, abonelik zorunluluğu yok.",
+    "ctaText": "Tarifleri seç, haftanı doldur, fiyat tahminiyle hazır alışveriş listeni al. Abonelik zorunluluğu yok.",
     "ctaButton": "Ücretsiz başla"
   },
   "recipe": {

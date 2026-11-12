@@ -22,7 +22,7 @@
     "badge": "Built by a Master Butcher & Head Chef",
     "headline1": "Recipes people actually cook.",
     "headline2": "",
-    "subline": "Recipes from our kitchen, our community and our families. Filtered to your diet, no ad banners.",
+    "subline": "Recipes from our kitchen, our community and our families. Filtered to your diet.",
     "searchPlaceholder": "Pasta, lentil soup, beef steak",
     "searchButton": "Search",
     "tryLabel": "Try:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Our own recipes · Community · Family",
     "sourcesDesktop": "Our recipes come from:",
-    "freeLabel": "Free to use · No ad banners",
+    "freeLabel": "Free to use",
     "ctaPlan": "Plan your week",
     "ctaBrowse": "Browse recipes",
     "trust1": "Free to use",
-    "trust2": "No ad banners",
     "trust3": "Real discount-store prices",
     "featuredLabel": "Recipe of the day",
     "searchLabel": "What do you want to cook?",
@@ -175,7 +174,7 @@
     "explore": "Explore",
     "tools": "Tools",
     "legal": "Legal",
-    "tagline": "Recipes from the kitchen, the supermarket and the family. No ad banners.",
+    "tagline": "Recipes from the kitchen, the supermarket and the family.",
     "videos": "Cooking school",
     "family": "Family recipes",
     "collections": "Recipe collections"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Simplicity",
-        "desc": "No ad banners, no forced subscription, no clutter. Just recipes you'll want to make."
+        "desc": "No forced subscription, no clutter. Just recipes you'll want to make."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Estimated grocery cost",
     "estCostHint": "Discount-store estimate ({priced} of {total} meals calculated). Prices vary by store.",
     "ctaTitle": "Plan your own week — free",
-    "ctaText": "Pick recipes, fill your week, get a ready shopping list with price estimate. No ad banners, no forced subscription.",
+    "ctaText": "Pick recipes, fill your week, get a ready shopping list with price estimate. No forced subscription.",
     "ctaButton": "Start for free"
   },
   "recipe": {

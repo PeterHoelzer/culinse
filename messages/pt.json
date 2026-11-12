@@ -22,7 +22,7 @@
     "badge": "Criado por um mestre açougueiro e chef de cozinha",
     "headline1": "Um só lugar para cada",
     "headline2": "receita que você ama.",
-    "subline": "Receitas da nossa cozinha, da comunidade e da família. Filtradas de acordo com sua alimentação, sem banners publicitários.",
+    "subline": "Receitas da nossa cozinha, da comunidade e da família. Filtradas de acordo com sua alimentação.",
     "searchPlaceholder": "Massa, curry, bife…",
     "searchButton": "Buscar",
     "tryLabel": "Experimente:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Receitas próprias · Comunidade · Família",
     "sourcesDesktop": "Nossas receitas vêm de:",
-    "freeLabel": "Uso gratuito · Sem banners publicitários",
+    "freeLabel": "Uso gratuito",
     "ctaPlan": "Planeje sua semana",
     "ctaBrowse": "Descobrir receitas",
     "trust1": "Uso gratuito",
-    "trust2": "Sem banners publicitários",
     "trust3": "Preços reais de supermercados de desconto",
     "featuredLabel": "Receita do dia",
     "searchLabel": "O que você quer cozinhar?",
@@ -175,7 +174,7 @@
     "explore": "Descobrir",
     "tools": "Ferramentas",
     "legal": "Legal",
-    "tagline": "Receitas da cozinha, do mercado e da família. Sem banners.",
+    "tagline": "Receitas da cozinha, do mercado e da família.",
     "videos": "Escola de cozinha",
     "family": "Receitas de família",
     "collections": "Coleções de receitas"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Simplicidade",
-        "desc": "Sem banners publicitários, sem assinatura obrigatória, sem confusão. Só receitas que você quer cozinhar."
+        "desc": "Sem assinatura obrigatória, sem confusão. Só receitas que você quer cozinhar."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Custo estimado das compras",
     "estCostHint": "Estimativa com base em preços de supermercados de desconto ({priced} de {total} pratos calculados). Os preços variam de acordo com o supermercado.",
     "ctaTitle": "Planeje sua própria semana — grátis",
-    "ctaText": "Escolha receitas, preencha a semana e receba uma lista de compras pronta com estimativa de preço. Sem banners publicitários, sem assinatura obrigatória.",
+    "ctaText": "Escolha receitas, preencha a semana e receba uma lista de compras pronta com estimativa de preço. Sem assinatura obrigatória.",
     "ctaButton": "Começar grátis"
   },
   "recipe": {

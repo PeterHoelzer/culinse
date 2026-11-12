@@ -22,7 +22,7 @@
     "badge": "Conçu par un maître boucher & chef de cuisine",
     "headline1": "Un seul endroit pour chaque",
     "headline2": "recette que tu aimes.",
-    "subline": "Des recettes de notre cuisine, de la communauté et de la famille. Filtrées selon ton alimentation, sans bannières publicitaires.",
+    "subline": "Des recettes de notre cuisine, de la communauté et de la famille. Filtrées selon ton alimentation.",
     "searchPlaceholder": "Pâtes, curry, steak…",
     "searchButton": "Rechercher",
     "tryLabel": "Essaie :",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Recettes maison · Communauté · Famille",
     "sourcesDesktop": "Nos recettes viennent de :",
-    "freeLabel": "Gratuit · Sans bannières publicitaires",
+    "freeLabel": "Gratuit",
     "ctaPlan": "Planifie ta semaine",
     "ctaBrowse": "Découvrir les recettes",
     "trust1": "Gratuit",
-    "trust2": "Sans bannières publicitaires",
     "trust3": "De vrais prix discount",
     "featuredLabel": "Recette du jour",
     "searchLabel": "Qu'est-ce que tu veux cuisiner ?",
@@ -175,7 +174,7 @@
     "explore": "Découvrir",
     "tools": "Outils",
     "legal": "Mentions légales",
-    "tagline": "Des recettes de la cuisine, du supermarché et de la famille. Sans bannières.",
+    "tagline": "Des recettes de la cuisine, du supermarché et de la famille.",
     "videos": "École de cuisine",
     "family": "Recettes de famille",
     "collections": "Collections de recettes"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Simplicité",
-        "desc": "Pas de bannières publicitaires, pas d'abonnement obligatoire, pas de fouillis. Juste des recettes que tu as envie de cuisiner."
+        "desc": "Pas d'abonnement obligatoire, pas de fouillis. Juste des recettes que tu as envie de cuisiner."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Coût estimé des courses",
     "estCostHint": "Estimation au niveau des prix discount ({priced} plats sur {total} calculés). Les prix varient selon le magasin.",
     "ctaTitle": "Planifie ta propre semaine — gratuitement",
-    "ctaText": "Choisis tes recettes, remplis ta semaine, reçois une liste de courses prête avec estimation des prix. Sans bannières publicitaires, sans abonnement obligatoire.",
+    "ctaText": "Choisis tes recettes, remplis ta semaine, reçois une liste de courses prête avec estimation des prix. Sans abonnement obligatoire.",
     "ctaButton": "Commencer gratuitement"
   },
   "recipe": {

@@ -22,7 +22,7 @@
     "badge": "Entwickelt von einem Fleischermeister & Küchenchef",
     "headline1": "Rezepte, die wirklich gekocht werden.",
     "headline2": "",
-    "subline": "Rezepte aus unserer Küche, aus der Community und aus der Familie. Gefiltert nach deiner Ernährung, ohne Werbebanner.",
+    "subline": "Rezepte aus unserer Küche, aus der Community und aus der Familie. Gefiltert nach deiner Ernährung.",
     "searchPlaceholder": "Pasta, Linsensuppe, Rindersteak",
     "searchButton": "Suchen",
     "tryLabel": "Versuche:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Eigene Rezepte · Community · Familie",
     "sourcesDesktop": "Unsere Rezepte kommen aus:",
-    "freeLabel": "Kostenlos nutzbar · Keine Werbebanner",
+    "freeLabel": "Kostenlos nutzbar",
     "ctaPlan": "Woche planen",
     "ctaBrowse": "Rezepte entdecken",
     "trust1": "Kostenlos nutzbar",
-    "trust2": "Keine Werbebanner",
     "trust3": "Echte Discounter-Preise",
     "featuredLabel": "Rezept des Tages",
     "searchLabel": "Was willst du kochen?",
@@ -175,7 +174,7 @@
     "explore": "Entdecken",
     "tools": "Werkzeuge",
     "legal": "Rechtliches",
-    "tagline": "Rezepte aus Küche, Supermarkt und Familie. Ohne Werbebanner.",
+    "tagline": "Rezepte aus Küche, Supermarkt und Familie.",
     "videos": "Kochschule",
     "family": "Familienrezepte",
     "collections": "Rezept-Kollektionen"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Einfachheit",
-        "desc": "Keine Werbebanner, kein Abo-Zwang, kein Durcheinander. Nur Rezepte, die du kochen möchtest."
+        "desc": "Kein Abo-Zwang, kein Durcheinander. Nur Rezepte, die du kochen möchtest."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Geschätzte Einkaufskosten",
     "estCostHint": "Schätzung auf Discounter-Preisniveau ({priced} von {total} Gerichten kalkuliert). Preise variieren je nach Markt.",
     "ctaTitle": "Plan deine eigene Woche — kostenlos",
-    "ctaText": "Rezepte aussuchen, Woche füllen, fertige Einkaufsliste mit Preisschätzung bekommen. Ohne Werbebanner, ohne Abo-Zwang.",
+    "ctaText": "Rezepte aussuchen, Woche füllen, fertige Einkaufsliste mit Preisschätzung bekommen. Ohne Abo-Zwang.",
     "ctaButton": "Kostenlos starten"
   },
   "recipe": {

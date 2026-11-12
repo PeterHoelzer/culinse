@@ -207,8 +207,8 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
             </p>
             <p className="text-base text-ink-2 mb-4">
               {de
-                ? "Rezepte wählen, und die Einkaufsliste mit €-Summe kommt automatisch. Kostenlos, ohne Werbung."
-                : "Pick recipes and your shopping list with a € total is generated automatically. Free, no ads."}
+                ? "Rezepte wählen, und die Einkaufsliste mit €-Summe kommt automatisch. Kostenlos."
+                : "Pick recipes and your shopping list with a € total is generated automatically. Free."}
             </p>
             <Button href="/weekly-meal-planner">
               {de ? "Wochenplaner kostenlos starten" : "Start the free meal planner"}

@@ -1,6 +1,6 @@
 # Pricing — Culinse (culinse.com)
 
-Last updated: 2026-07-19. Currency: EUR. Billing via Stripe. Cancel anytime, no contracts. No ads on any plan.
+Last updated: 2026-07-19. Currency: EUR. Billing via Stripe. Cancel anytime, no contracts.
 
 ## Free
 - Price: €0

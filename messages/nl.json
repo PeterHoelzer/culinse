@@ -22,7 +22,7 @@
     "badge": "Ontwikkeld door een meesterslager & chef-kok",
     "headline1": "Eén plek voor elk",
     "headline2": "recept waar je van houdt.",
-    "subline": "Recepten uit onze keuken, uit de community en uit de familie. Gefilterd op jouw voedingswijze, zonder reclamebanners.",
+    "subline": "Recepten uit onze keuken, uit de community en uit de familie. Gefilterd op jouw voedingswijze.",
     "searchPlaceholder": "Pasta, curry, biefstuk…",
     "searchButton": "Zoeken",
     "tryLabel": "Probeer:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Eigen recepten · Community · Familie",
     "sourcesDesktop": "Onze recepten komen van:",
-    "freeLabel": "Gratis te gebruiken · Geen reclamebanners",
+    "freeLabel": "Gratis te gebruiken",
     "ctaPlan": "Plan je week",
     "ctaBrowse": "Recepten ontdekken",
     "trust1": "Gratis te gebruiken",
-    "trust2": "Geen reclamebanners",
     "trust3": "Echte discounterprijzen",
     "featuredLabel": "Recept van de dag",
     "searchLabel": "Wat wil je koken?",
@@ -175,7 +174,7 @@
     "explore": "Ontdekken",
     "tools": "Hulpmiddelen",
     "legal": "Juridisch",
-    "tagline": "Recepten uit de keuken, de supermarkt en de familie. Zonder banners.",
+    "tagline": "Recepten uit de keuken, de supermarkt en de familie.",
     "videos": "Kookschool",
     "family": "Familierecepten",
     "collections": "Receptcollecties"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Eenvoud",
-        "desc": "Geen reclamebanners, geen verplicht abonnement, geen rommel. Alleen recepten die je wilt koken."
+        "desc": "Geen verplicht abonnement, geen rommel. Alleen recepten die je wilt koken."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Geschatte boodschappenkosten",
     "estCostHint": "Schatting op basis van discounterprijzen ({priced} van {total} gerechten berekend). Prijzen verschillen per supermarkt.",
     "ctaTitle": "Plan je eigen week — gratis",
-    "ctaText": "Kies recepten, vul je week en krijg een kant-en-klare boodschappenlijst met prijsschatting. Zonder reclamebanners, zonder verplicht abonnement.",
+    "ctaText": "Kies recepten, vul je week en krijg een kant-en-klare boodschappenlijst met prijsschatting. Zonder verplicht abonnement.",
     "ctaButton": "Gratis beginnen"
   },
   "recipe": {

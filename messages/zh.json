@@ -22,7 +22,7 @@
     "badge": "由肉类加工大师兼主厨打造",
     "headline1": "一处汇集",
     "headline2": "你喜爱的每一道食谱。",
-    "subline": "来自我们的厨房、社区和家庭的食谱。按你的饮食偏好筛选，没有广告横幅。",
+    "subline": "来自我们的厨房、社区和家庭的食谱。按你的饮食偏好筛选。",
     "searchPlaceholder": "意面、咖喱、牛排…",
     "searchButton": "搜索",
     "tryLabel": "试试：",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "原创食谱 · 社区 · 家庭",
     "sourcesDesktop": "我们的食谱来自：",
-    "freeLabel": "免费使用 · 无广告横幅",
+    "freeLabel": "免费使用",
     "ctaPlan": "规划你的一周",
     "ctaBrowse": "发现食谱",
     "trust1": "免费使用",
-    "trust2": "无广告横幅",
     "trust3": "真实折扣超市价格",
     "featuredLabel": "今日食谱",
     "searchLabel": "你想做什么菜？",
@@ -175,7 +174,7 @@
     "explore": "发现",
     "tools": "工具",
     "legal": "法律信息",
-    "tagline": "来自厨房、超市和家庭的食谱。没有横幅广告。",
+    "tagline": "来自厨房、超市和家庭的食谱。",
     "videos": "烹饪课堂",
     "family": "家庭食谱",
     "collections": "食谱合集"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "简单",
-        "desc": "没有广告横幅，没有强制订阅，没有杂乱干扰。只有你想做的食谱。"
+        "desc": "没有强制订阅，没有杂乱干扰。只有你想做的食谱。"
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "预估购物费用",
     "estCostHint": "按折扣超市价格水平估算（已计算 {total} 道菜中的 {priced} 道）。价格因超市而异。",
     "ctaTitle": "免费规划你自己的一周",
-    "ctaText": "挑选食谱、排满一周，即可获得附带价格估算的购物清单。无广告横幅，无强制订阅。",
+    "ctaText": "挑选食谱、排满一周，即可获得附带价格估算的购物清单。无强制订阅。",
     "ctaButton": "免费开始"
   },
   "recipe": {

@@ -22,7 +22,7 @@
     "badge": "Vytvořeno řeznickým mistrem a šéfkuchařem",
     "headline1": "Jedno místo pro každý",
     "headline2": "recept, který miluješ.",
-    "subline": "Recepty z naší kuchyně, od komunity a z rodiny. Filtrované podle tvého stravování, bez reklamních bannerů.",
+    "subline": "Recepty z naší kuchyně, od komunity a z rodiny. Filtrované podle tvého stravování.",
     "searchPlaceholder": "Těstoviny, kari, steak…",
     "searchButton": "Hledat",
     "tryLabel": "Zkus:",
@@ -34,11 +34,10 @@
     ],
     "sourcesMobile": "Vlastní recepty · Komunita · Rodina",
     "sourcesDesktop": "Zdroje našich receptů:",
-    "freeLabel": "Zdarma k používání · Bez reklamních bannerů",
+    "freeLabel": "Zdarma k používání",
     "ctaPlan": "Naplánovat týden",
     "ctaBrowse": "Objevit recepty",
     "trust1": "Zdarma k používání",
-    "trust2": "Bez reklamních bannerů",
     "trust3": "Skutečné ceny z diskontů",
     "featuredLabel": "Recept dne",
     "searchLabel": "Co chceš vařit?",
@@ -175,7 +174,7 @@
     "explore": "Objevovat",
     "tools": "Nástroje",
     "legal": "Právní informace",
-    "tagline": "Recepty z kuchyně, z obchodu a z rodiny. Bez bannerů.",
+    "tagline": "Recepty z kuchyně, z obchodu a z rodiny.",
     "videos": "Škola vaření",
     "family": "Rodinné recepty",
     "collections": "Sbírky receptů"
@@ -202,7 +201,7 @@
       {
         "icon": "",
         "title": "Jednoduchost",
-        "desc": "Žádné reklamní bannery, žádné povinné předplatné, žádný chaos. Jen recepty, které chceš uvařit."
+        "desc": "Žádné povinné předplatné, žádný chaos. Jen recepty, které chceš uvařit."
       }
     ],
     "visionItems": [
@@ -509,7 +508,7 @@
     "estCost": "Odhadované náklady na nákup",
     "estCostHint": "Odhad podle cen v diskontech (spočítáno jídel: {priced} z {total}). Ceny se v jednotlivých obchodech liší.",
     "ctaTitle": "Naplánuj si vlastní týden — zdarma",
-    "ctaText": "Vyber recepty, naplň týden a získej hotový nákupní seznam s odhadem ceny. Bez reklamních bannerů, bez povinného předplatného.",
+    "ctaText": "Vyber recepty, naplň týden a získej hotový nákupní seznam s odhadem ceny. Bez povinného předplatného.",
     "ctaButton": "Začít zdarma"
   },
   "recipe": {

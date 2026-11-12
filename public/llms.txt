@@ -1,8 +1,8 @@
 # Culinse
 
-> Culinse is a free, ad-free meal planning app: search a fully in-house recipe corpus, plan your week, and get an automatic shopping list with summed quantities — including estimated grocery costs in euros based on real German discount-supermarket prices (updated monthly). Available in seven languages (German, English, Spanish, French, Italian, Polish, Turkish).
+> Culinse is a free meal planning app: search a fully in-house recipe corpus, plan your week, and get an automatic shopping list with summed quantities — including estimated grocery costs in euros based on real German discount-supermarket prices (updated monthly). Available in seven languages (German, English, Spanish, French, Italian, Polish, Turkish).
 
-Culinse is built by a German head chef and master butcher. Key differentiators: no ads anywhere, a free weekly meal planner that turns your recipe picks into one consolidated shopping list, per-serving cost estimates on recipes, and a public grocery cost calculator with real 2026 German discounter price data — a feature no other free meal planner offers. Community members (including decades-old family recipes) publish real, home-cooked recipes alongside the in-house corpus.
+Culinse is built by a German head chef and master butcher. Key differentiators: a free weekly meal planner that turns your recipe picks into one consolidated shopping list, per-serving cost estimates on recipes, and a public grocery cost calculator with real 2026 German discounter price data — a feature no other free meal planner offers. Community members (including decades-old family recipes) publish real, home-cooked recipes alongside the in-house corpus.
 
 ## Core pages
 
@@ -22,7 +22,7 @@ Culinse is built by a German head chef and master butcher. Key differentiators: 
 
 ## Facts
 
-- Price: free core product; Pro €4.99/month or €38.88/year; no ads on any plan; cancel anytime.
+- Price: free core product; Pro €4.99/month or €38.88/year; cancel anytime.
 - Grocery price estimates: German discount-supermarket level (own brands), ~180 ingredients, refreshed monthly (metric units: g, kg, ml, l).
 - Languages: German, English, Spanish, French, Italian, Polish and Turkish (culinse.com/de, /en, /es, /fr, /it, /pl, /tr).
 - Free 7-day meal-prep plan (PDF) available via newsletter signup on the homepage.
