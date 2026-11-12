@@ -203,13 +203,13 @@ export default function BrowseClient({ state, result, title, subtitle, backLabel
   const panel = (idPrefix: string) => (
     <FilterPanel idPrefix={idPrefix} view={view} counts={result.counts} entries={entries} onChange={apply} t={t} />
   );
-  // Filter-Klicks gehen immer auf /recipes?…, damit die Ansicht beim Ankreuzen
-  // nicht zwischen zwei Routen wechselt. Nur das Blättern einer Themenseite
-  // bleibt auf deren fester Adresse.
+  // Filter-Klicks und Sortierung gehen immer auf /recipes?…, damit die Ansicht
+  // beim Ankreuzen nicht zwischen zwei Routen wechselt. Nur das Blättern einer
+  // Themenseite bleibt auf deren fester Adresse.
   const pageHref = (page: number) => {
     if (!basePath) return `/recipes${stateToQuery({ ...state, page })}`;
-    const query = stateToQuery({ ...emptyState(), sort: state.sort, page });
-    return `${basePath}${query}`;
+    // Themenseiten: Seitenzahl im Pfad, damit auch die Folgeseiten aus dem Cache kommen.
+    return page > 1 ? `${basePath}/${page}` : basePath;
   };
 
   return (

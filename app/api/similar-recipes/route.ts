@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { recipeSourceLabel } from "@/lib/culinse";
 import { optimizedImageUrl } from "@/lib/imageUrl";
+import { TAG_TO_KEYS } from "@/lib/browse/facets";
 
 // Words that carry no signal for finding related dishes (EN + DE).
 const STOPWORDS = new Set([
@@ -17,6 +18,19 @@ const STOPWORDS = new Set([
 function titleTokens(title: string): string[] {
   const words = title.toLowerCase().match(/[a-zäöüß]{4,}/g) ?? [];
   return Array.from(new Set(words.filter((w) => !STOPWORDS.has(w)))).slice(0, 2);
+}
+
+/**
+  Startpunkt im ID-Raum, abgeleitet aus der Rezept-ID. Die IDs sind zufällig
+  verteilt; "alle ab hier" ist damit ein je Rezept anderer, aber fester
+  Ausschnitt des Bestands. Die erste Stelle bleibt unter c, damit hinter dem
+  Start immer mindestens ein Viertel aller Rezepte liegt.
+*/
+function startId(id: string): string {
+  const h = hashId(id);
+  const first = (h % 12).toString(16);
+  const rest = (h >>> 4).toString(16).padStart(7, "0").slice(-7);
+  return `${first}${rest}-0000-0000-0000-000000000000`;
 }
 
 /** Small deterministic hash so fallback picks vary per recipe but stay stable. */
@@ -113,39 +127,51 @@ export async function GET(req: NextRequest) {
       (excludeGroup !== null && r.translation_group === excludeGroup);
 
     // ── Candidates: tag overlap + title-token matches, scored in JS ──
+    // Bis 12.11.2026 kamen die Kandidaten nach Datum sortiert (die 40 neuesten
+    // mit irgendeinem gemeinsamen Schlagwort). Dadurch verlinkten fast alle
+    // Rezeptseiten dieselben zuletzt eingespielten Rezepte, und zur Paella
+    // erschienen chinesische Gerichte. Jetzt: erst Rezepte derselben Küche und
+    // Region, und jeweils ein anderer Ausschnitt je Rezept (Start an einer aus
+    // der Rezept-ID abgeleiteten Stelle), damit sich die Verweise über den
+    // ganzen Bestand verteilen. Das Ergebnis bleibt je Rezept stabil.
+    const placeTags = seedTags.filter((tag) => (TAG_TO_KEYS.get(tag) ?? []).some((key) => key.startsWith("cuisine:") || key.startsWith("region:")));
+    const regionTags = new Set(seedTags.filter((tag) => (TAG_TO_KEYS.get(tag) ?? []).some((key) => key.startsWith("region:"))));
+    const start = startId(id);
+
     const queries: PromiseLike<{ data: UserRecipeRow[] | null }>[] = [];
-    if (seedTags.length) {
-      queries.push(baseQuery().overlaps("tags", seedTags).order("created_at", { ascending: false }).limit(40));
-    }
+    // Dieselbe Region zuerst (kleine Mengen, darum ohne Ausschnitt), dann dieselbe Küche.
+    if (regionTags.size) queries.push(baseQuery().overlaps("tags", [...regionTags]).order("id", { ascending: true }).limit(30));
+    if (placeTags.length) queries.push(baseQuery().overlaps("tags", placeTags).gte("id", start).order("id", { ascending: true }).limit(40));
+    if (seedTags.length) queries.push(baseQuery().overlaps("tags", seedTags).gte("id", start).order("id", { ascending: true }).limit(40));
+    const tagQueries = queries.length;
     for (const tok of tokens) {
       queries.push(baseQuery().ilike("title", `%${tok}%`).order("created_at", { ascending: false }).limit(15));
     }
     const results = queries.length ? await Promise.all(queries) : [];
 
     const seedTagSet = new Set(seedTags);
+    const placeTagSet = new Set(placeTags);
     const scored = new Map<string, { row: UserRecipeRow; score: number }>();
     results.forEach(({ data }, qi) => {
-      const isTagQuery = seedTags.length > 0 && qi === 0;
       for (const r of data ?? []) {
         if (!r?.id || isSelf(r)) continue;
         const prev = scored.get(r.id);
-        let score = prev?.score ?? 0;
-        if (isTagQuery) {
-          const overlap = (r.tags ?? []).filter((t) => seedTagSet.has(String(t).toLowerCase())).length;
-          score += 2 * Math.min(overlap, 4);
+        if (qi < tagQueries) {
+          if (prev) continue; // schon über die Küche gefunden, nicht doppelt zählen
+          const tags = (r.tags ?? []).map((t) => String(t).toLowerCase());
+          const overlap = tags.filter((t) => seedTagSet.has(t)).length;
+          const samePlace = tags.some((t) => placeTagSet.has(t));
+          const sameRegion = tags.some((t) => regionTags.has(t));
+          scored.set(r.id, { row: r, score: 2 * Math.min(overlap, 4) + (samePlace ? 4 : 0) + (sameRegion ? 2 : 0) });
         } else {
-          score += 3; // title-token hit — strong "same dish family" signal
+          // title-token hit — strong "same dish family" signal
+          scored.set(r.id, { row: r, score: (prev?.score ?? 0) + 3 });
         }
-        scored.set(r.id, { row: r, score });
       }
     });
 
     const community: UserRecipeRow[] = [...scored.values()]
-      .sort(
-        (a, b) =>
-          b.score - a.score ||
-          (b.row.created_at ?? "").localeCompare(a.row.created_at ?? "")
-      )
+      .sort((a, b) => b.score - a.score || hashId(id + a.row.id) - hashId(id + b.row.id))
       .map((v) => v.row);
 
     // ── Mix: community/corpus first, a few provider recipes for Spoonacular seeds ──

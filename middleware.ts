@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
+import { legacyTopicTarget } from "./lib/browse/slugs";
 
 // ─── next-intl locale middleware ─────────────────────────────────────────────
 const intlMiddleware = createMiddleware(routing);
@@ -22,11 +23,21 @@ const PROTECTED_PATHS = [
   "/my-recipes",
 ];
 // "/recipes" ist die öffentliche Stöberseite, "/recipes/<slug>" ihre Themenseiten
-// (09.11.2026). Der Rezept-Editor darunter (create, import, <id>/edit) bleibt
-// hinter dem Login, siehe isRecipeEditor.
+// (09.11.2026), "/recipes/<slug>/<seitenzahl>" deren Folgeseiten (12.11.2026).
+// Der Rezept-Editor darunter (create, import, <id>/edit) bleibt hinter dem
+// Login, siehe isRecipeEditor.
 
 async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Themenseiten (/de/recipes/<slug>) lesen seit 12.11.2026 keine Parameter mehr,
+  // damit sie aus dem Cache kommen. Alte Adressen mit ?page= oder ?sort= gehen
+  // dauerhaft auf die neue Form (/recipes/<slug>/<seite> bzw. /recipes?…).
+  const topic = pathname.match(/^\/([a-z]{2})\/recipes\/([^/]+)\/?$/);
+  if (topic && (request.nextUrl.searchParams.has("page") || request.nextUrl.searchParams.has("sort"))) {
+    const target = legacyTopicTarget(topic[1], topic[2], request.nextUrl.searchParams);
+    if (target) return NextResponse.redirect(new URL(target, request.url), 308);
+  }
 
   // Skip locale middleware for API routes and static files
   const isApiRoute = pathname.startsWith("/api/");
@@ -128,7 +139,8 @@ async function proxy(request: NextRequest) {
   // "/recipes/create", but not an unrelated route like "/recipes-blog".
   // Öffentlich ist genau ein Abschnitt unter /recipes, der nicht create oder
   // import heißt; alles Tiefere (z. B. <id>/edit) gehört zum Editor.
-  const isRecipeEditor = /^\/recipes\/(?:(?:create|import)(?:\/|$)|[^/]+\/[^/])/.test(strippedPath);
+  // Ausnahme: /recipes/<slug>/<seitenzahl> sind die Folgeseiten der Themenseiten.
+  const isRecipeEditor = /^\/recipes\/(?:(?:create|import)(?:\/|$)|[^/]+\/(?!\d+\/?$)[^/])/.test(strippedPath);
 
   const isProtected =
     isCollectionsIndex ||

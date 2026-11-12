@@ -107,7 +107,8 @@ export async function browseMetadata(locale: string, state: BrowseState, landing
     const description = intro ? clipDescription(intro, 160) : `${t("results", { count: total })}. ${t("landing.metaDescription")}`;
     // Vorschaubild für geteilte Links: das erste Rezept der Seite.
     const image = items.find((item) => item.image)?.image;
-    const suffix = pageSuffix(page);
+    // Folgeseiten einer Themenseite tragen die Seitenzahl im Pfad (/recipes/<slug>/2).
+    const suffix = page > 1 ? `/${page}` : "";
     return {
       title,
       description,
@@ -180,16 +181,23 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
   const order = new Map(FACET_GROUPS.map((g, i) => [g.id, i]));
   topics.sort((a, b) => (a.id === "region" ? -1 : b.id === "region" ? 1 : order.get(a.id)! - order.get(b.id)!));
 
-  const jsonLd = landing && {
+  // Brotkrume: Culinse › Rezepte › (Küche ›) Thema. Regionen nennen ihre Küche
+  // als eigene Stufe; die Stöberseite selbst endet bei "Rezepte".
+  const parentCuisine = landing?.parent ? LANDINGS.find((l) => l.group === "cuisine" && l.key === landing.parent) : undefined;
+  const crumbs = [
+    { name: "Culinse", item: `${BASE_URL}/${locale}` },
+    { name: t("title"), item: `${BASE_URL}/${locale}/recipes` },
+    ...(parentCuisine ? [{ name: landingTitle(t, parentCuisine), item: `${BASE_URL}/${locale}${landingPath(locale, parentCuisine)}` }] : []),
+    ...(landing ? [{ name: title, item: `${BASE_URL}/${locale}${landingPath(locale, landing)}` }] : []),
+  ];
+  // Strukturierte Daten für Themenseiten und für die ungefilterte Stöberseite
+  // (die hatte bisher keine). Frei gefilterte Ansichten sind nicht im Index.
+  const jsonLd = (landing || !(isFiltered(state) || state.sort !== "mix")) && {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Culinse", item: `${BASE_URL}/${locale}` },
-          { "@type": "ListItem", position: 2, name: t("title"), item: `${BASE_URL}/${locale}/recipes` },
-          { "@type": "ListItem", position: 3, name: title, item: `${BASE_URL}/${locale}${landingPath(locale, landing)}` },
-        ],
+        itemListElement: crumbs.map((crumb, i) => ({ "@type": "ListItem", position: i + 1, ...crumb })),
       },
       {
         "@type": "ItemList",

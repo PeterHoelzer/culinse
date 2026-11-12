@@ -1,5 +1,5 @@
 import localized from "./slugs.json";
-import { LANDINGS, LANDING_BY_SLUG, type Landing } from "./facets";
+import { LANDINGS, LANDING_BY_SLUG, landingState, parseState, stateToQuery, type Landing } from "./facets";
 
 /*
   Adressen der Themenseiten je Sprache. lib/browse/slugs.json entsteht aus den
@@ -40,3 +40,19 @@ export function landingPath(locale: string, landing: Landing): string {
 export function resolveLanding(slug: string): Landing | null {
   return ANY_SLUG.get(slug.toLowerCase()) ?? null;
 }
+
+/*
+  Alte Adressen einer Themenseite mit ?page= oder ?sort= (bis 12.11.2026). Die
+  Themenseiten lesen keine Parameter mehr, damit sie aus dem Cache kommen:
+  Folgeseiten liegen unter /recipes/<slug>/<seite>, sortierte Ansichten unter
+  /recipes?…. Liefert die neue Adresse oder null, wenn der Slug kein Thema ist.
+*/
+export function legacyTopicTarget(locale: string, slug: string, params: URLSearchParams): string | null {
+  const landing = resolveLanding(slug);
+  if (!landing) return null;
+  const { sort, page } = parseState({ sort: params.get("sort") ?? undefined, page: params.get("page") ?? undefined });
+  if (sort !== "mix") return `/${locale}/recipes${stateToQuery({ ...landingState(landing), sort, page })}`;
+  const base = `/${locale}${landingPath(locale, landing)}`;
+  return page > 1 ? `${base}/${page}` : base;
+}
+

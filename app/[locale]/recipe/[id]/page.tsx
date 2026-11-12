@@ -131,6 +131,9 @@ async function fetchSimilar(id: string, locale: string, recipe: Recipe): Promise
     id,
     lang: locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en",
     number: "8",
+    // v=2 (12.11.26): neue Auswahl nach Küche und Region; ohne den Zusatz lieferte
+    // der Data Cache bis zu 12 Stunden die alte Liste.
+    v: "2",
   });
   const tags = Array.from(
     new Set(
