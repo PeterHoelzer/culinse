@@ -1,5 +1,6 @@
 import sharp from "sharp";
 import { SIZED_WIDTHS, isSizedUrl, sizedImageUrl } from "./imageUrl";
+import { RECIPE_TTL } from "./recipeCache";
 import type { DishColors } from "@/app/[locale]/components/home-types";
 
 /*
@@ -8,8 +9,9 @@ import type { DishColors } from "@/app/[locale]/components/home-types";
   - stage: dunkel, Bühne hinter dem Titel (weißer Text ≥ 9:1)
   - tint:  sehr hell, Hintergrund der Suchzeile (dunkler Text ≥ 12:1)
   - accent: mittel, Farbstreifen auf Karten
-  Das Foto wird über den Bilddienst auf 48 px verkleinert geladen (ca. 5 KB) und
-  im Data Cache 24 h gehalten. Fehler liefern null; die Seite fällt dann auf die
+  Das Foto wird in der kleinsten Fassung geladen und 30 Tage im Data Cache
+  gehalten. Die Frist darf nicht kürzer sein als die der Rezeptseite: Next nimmt
+  die kürzeste Frist aller Abrufe einer Seite (lib/recipeCache.ts). Fehler liefern null; die Seite fällt dann auf die
   Markenfarben zurück.
 */
 
@@ -65,7 +67,7 @@ function hslToHex(h: number, s: number, l: number): string {
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 async function compute(url: string): Promise<DishColors | null> {
-  const res = await fetch(url, { next: { revalidate: 86400 } });
+  const res = await fetch(url, { next: { revalidate: RECIPE_TTL } });
   if (!res.ok) return null;
   const buf = Buffer.from(await res.arrayBuffer());
   const { data, info } = await sharp(buf).resize(32, 32, { fit: "cover" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });

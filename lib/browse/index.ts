@@ -28,14 +28,17 @@ import {
   Sprache einmal alle Rezepte zu laden und Filter, Trefferzahlen und Suche
   direkt im Server zu rechnen: keine Datenbank-Migration, keine Abfrage je
   Klick, und die Trefferzahlen aller Optionen fallen in einem Durchlauf an.
-  Das Verzeichnis lebt 15 Minuten; danach wird es im Hintergrund erneuert,
-  während Besucher noch die alte Fassung sehen.
+  Das Verzeichnis lebt 6 Stunden; danach wird es im Hintergrund erneuert,
+  während Besucher noch die alte Fassung sehen. Bis 16.11.2026 waren es
+  15 Minuten: jede Serverinstanz lud dann je Sprache alle Rezepte samt Zutaten
+  neu, zusammen rund 7 GB Datenbank-Abruf am Tag. Neue Rezepte erscheinen in
+  Stöber- und Themenseiten deshalb mit bis zu einem Tag Verzögerung.
 
   Wächst der Korpus deutlich über 10 000 Gerichte je Sprache, gehört diese
   Logik in die Datenbank (Schlüsselspalte mit GIN-Index und Volltextindex).
 */
 
-const TTL_MS = 15 * 60 * 1000;
+const TTL_MS = 6 * 60 * 60 * 1000;
 const BATCH = 1000; // Supabase liefert höchstens 1000 Zeilen je Abfrage.
 
 interface IndexRow extends BrowseItem {
@@ -99,7 +102,7 @@ async function fetchAll<T>(columns: string, language: string, withUnassigned: bo
   return out;
 }
 
-/** Hält einen Wert 15 Minuten; danach liefert er den alten weiter und erneuert im Hintergrund. */
+/** Hält einen Wert 6 Stunden (TTL_MS); danach liefert er den alten weiter und erneuert im Hintergrund. */
 async function cached<T>(get: () => Entry<T> | null | undefined, set: (entry: Entry<T>) => void, load: () => Promise<T>): Promise<T> {
   const entry = get();
   if (!entry) {

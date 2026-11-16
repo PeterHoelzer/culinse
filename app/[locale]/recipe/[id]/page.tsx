@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 import { dishColorsWithin } from "@/lib/dishColor";
+import { RECIPE_TTL, recipeTag } from "@/lib/recipeCache";
 import { getTranslations } from "next-intl/server";
 import { clipDescription, recipeSeoTitle } from "@/lib/siteMeta";
 import { splitTitle } from "@/lib/recipeTitle";
@@ -14,7 +15,10 @@ import { landingPath } from "@/lib/browse/slugs";
 // aus dem Full-Route-Cache. Datenfrische unveraendert -- die API-Fetches unten
 // cachen ohnehin schon 12-24 h im Data Cache. Das leere generateStaticParams
 // aktiviert statisches Routing unter [locale]/[id] (on-demand, kein Prerender).
-export const revalidate = 86400;
+// Kostenbremse (16.11.): 30 Tage statt 24 Stunden, siehe lib/recipeCache.ts. Next
+// nimmt die kuerzeste Frist aller Abrufe der Seite; deshalb tragen die Abrufe
+// unten und die Farbanalyse (lib/dishColor.ts) dieselbe Frist.
+export const revalidate = 2592000;
 
 export function generateStaticParams(): Array<{ locale: string; id: string }> {
   return [];
@@ -102,12 +106,13 @@ function recipeAddresses(
 async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null> {
   let res: Response;
   try {
-    // v=8 (12.11.26, dateModified): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 24 h).
+    // v=8 (12.11.26, dateModified): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 30 Tage).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
+    // und nach Korrekturen, die ein Skript direkt in die Datenbank schreibt,
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
-    // bis zu einem Tag lang alte Daten ohne die neuen Felder.
+    // bis zu 30 Tage lang alte Daten.
     res = await fetch(`${BASE_URL}/api/recipe/${id}?v=8`, {
-      next: { revalidate: 86400, tags: [`recipe-${id}`] },
+      next: { revalidate: RECIPE_TTL, tags: [recipeTag(id)] },
     });
   } catch (cause) {
     throw new Error(`Rezept ${id} nicht ladbar`, { cause });
@@ -131,8 +136,8 @@ async function fetchSimilar(id: string, locale: string, recipe: Recipe): Promise
     id,
     lang: locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en",
     number: "8",
-    // v=2 (12.11.26): neue Auswahl nach Küche und Region; ohne den Zusatz lieferte
-    // der Data Cache bis zu 12 Stunden die alte Liste.
+    // v=2 (12.11.26): neue Auswahl nach Küche und Region; ohne den Zusatz liefert
+    // der Data Cache bis zu 30 Tage die alte Liste.
     v: "2",
   });
   const tags = Array.from(
@@ -147,7 +152,7 @@ async function fetchSimilar(id: string, locale: string, recipe: Recipe): Promise
 
   try {
     const res = await fetch(`${BASE_URL}/api/similar-recipes?${params.toString()}`, {
-      next: { revalidate: 43200 },
+      next: { revalidate: RECIPE_TTL },
     });
     if (!res.ok) return [];
     const data = await res.json();

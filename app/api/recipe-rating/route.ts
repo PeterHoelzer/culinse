@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 import { ratingKey, ratingSummary } from "@/lib/recipeRatings";
+import { refreshRecipePage } from "@/lib/recipeCache";
 
 /*
   Bewertung eines Rezepts.
@@ -84,5 +85,7 @@ export async function POST(req: NextRequest) {
     .upsert({ user_id: userId, rating_key: key, stars, updated_at: new Date().toISOString() }, { onConflict: "user_id,rating_key" });
   if (error) return NextResponse.json({ error: "Could not save" }, { status: 500, headers: NO_STORE });
 
+  // Anzahl und Durchschnitt stehen auch in den strukturierten Daten der Rezeptseite.
+  refreshRecipePage(uuid);
   return respond(admin, key, userId);
 }

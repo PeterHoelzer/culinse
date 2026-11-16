@@ -11,7 +11,7 @@ import BrowseView, { browseMetadata } from "../../BrowseView";
   Seitenzahl steht im Pfad statt in ?page=, damit auch diese Seiten aus dem
   Cache kommen (siehe ../page.tsx).
 */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export function generateStaticParams(): Array<{ locale: string; id: string; page: string }> {
   return [];

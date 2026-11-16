@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { CULINSE_OWNER_ID } from "@/lib/culinse";
+import { refreshRecipePage } from "@/lib/recipeCache";
 
 /**
  * Rezept-Agent Review-Queue (Phase 2 des Agent-Plans).
@@ -107,6 +108,9 @@ export async function POST(req: NextRequest) {
       .eq("translation_group", group)
       .eq("pipeline_status", "pending_review");
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    // Wer die Adresse vor der Freigabe aufrief, bekam "nicht gefunden"; das bliebe
+    // sonst 30 Tage im Cache.
+    for (const r of rows) refreshRecipePage(r.id);
     return NextResponse.json({ ok: true, published: rows.length, by: ctx.reviewer });
   }
 

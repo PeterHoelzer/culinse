@@ -18,12 +18,13 @@ import BrowseView, { browseMetadata } from "../BrowseView";
   Seit 12.11.2026 liest die Seite keine Adress-Parameter mehr. Solange sie
   ?page und ?sort auswertete, rechnete Next sie bei jedem Abruf neu (rund eine
   Sekunde, ohne Cache). Jetzt wird sie wie die Rezeptseite einmal gerendert und
-  eine Stunde aus dem Cache geliefert. Folgeseiten liegen unter
+  einen Tag aus dem Cache geliefert (bis 16.11.2026 eine Stunde: Bots lösten
+  damit mehr Neuaufbauten aus, als Seiten gelesen wurden). Folgeseiten liegen unter
   /recipes/<slug>/<seite> ([page]/page.tsx); Sortierung und freie Filter laufen
   über /recipes?… und sind ohnehin nicht im Index. Alte Adressen mit ?page oder
   ?sort leitet middleware.ts um.
 */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 // Leer: nichts wird beim Build gerendert, jede Themenseite entsteht beim ersten
 // Abruf und bleibt dann im Cache.

@@ -36,12 +36,25 @@ export default function robots(): MetadataRoute.Robots {
           "/*/recipes/create",
           "/*/recipes/import",
           "/*/recipes/*/edit",
+          // Stöberseite mit freien Filtern (/recipes?cuisine=…): wird bei jedem Abruf
+          // neu gerechnet und ist ohnehin nicht im Index. Die Stöberseite selbst und
+          // die Themenseiten (/recipes/<slug>) bleiben frei.
+          "/*/recipes?",
           "/*/collections$", // user's own collections index only — explore + /collections/<id> stay crawlable
           "/*/pro/success",
           "/*/reset-password",
           "/*/update-password",
           "/update-password",
         ],
+      },
+      // Kostenbremse (16.11.2026): Diese Bots holten in 12 Stunden rund 21.000
+      // Seiten ab (Vercel-Auswertung) und bringen keine Besucher: Werkzeuge für
+      // Backlink- und SEO-Daten (Ahrefs, SE Ranking, Semrush) sowie die Crawler
+      // von Amazon und Huawei. Suchmaschinen und die Such-Bots der KI-Assistenten
+      // bleiben erlaubt.
+      {
+        userAgent: ["AhrefsBot", "SERankingBacklinksBot", "SemrushBot", "Amazonbot", "PetalBot"],
+        disallow: "/",
       },
     ],
     sitemap: ["https://culinse.com/sitemap-index.xml", ...SITEMAP_URLS],
