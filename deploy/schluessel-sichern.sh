@@ -21,7 +21,8 @@ KONTO="culinse-server"
 # Einzelwerte, die es nur einmal gibt oder die man einzeln braucht.
 EINZELN=(SMTP_PASS GOOGLE_CLIENT_ID GOOGLE_SECRET ANON_KEY SERVICE_ROLE_KEY JWT_SECRET POSTGRES_PASSWORD DASHBOARD_PASSWORD)
 # Ganze Dateien: damit lässt sich der Server vollständig wiederherstellen.
-DATEIEN=(/opt/supabase/.env /data/coolify/source/.env /root/umzug/coolify.env /root/umzug/quelle-supabase.env /root/umzug/ziel.env)
+# /root/.sicherung-passwort: ohne dieses Passwort lassen sich die nächtlichen Sicherungen nicht öffnen.
+DATEIEN=(/opt/supabase/.env /data/coolify/source/.env /root/.sicherung-passwort /root/umzug/coolify.env /root/umzug/quelle-supabase.env /root/umzug/ziel.env)
 
 if [ "${1:-}" = "--liste" ]; then
   for N in "${EINZELN[@]}"; do
