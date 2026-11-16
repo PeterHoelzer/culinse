@@ -1,6 +1,7 @@
 import sharp from "sharp";
 import { SIZED_WIDTHS, isSizedUrl, sizedImageUrl } from "./imageUrl";
 import { RECIPE_TTL } from "./recipeCache";
+import { isSupabaseHost } from "./siteUrls";
 import type { DishColors } from "@/app/[locale]/components/home-types";
 
 /*
@@ -22,7 +23,7 @@ function tinyUrl(url: string): string {
   if (isSizedUrl(url)) return sizedImageUrl(url, SIZED_WIDTHS[0]);
   try {
     const u = new URL(url);
-    if (u.hostname.endsWith("supabase.co") && u.pathname.includes("/render/image/")) {
+    if (isSupabaseHost(u.hostname) && u.pathname.includes("/render/image/")) {
       u.searchParams.set("width", "48");
       u.searchParams.set("height", "48");
       u.searchParams.set("resize", "cover");

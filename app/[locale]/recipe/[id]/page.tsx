@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { RECIPE_TTL, recipeTag } from "@/lib/recipeCache";
+import { INTERNAL_API_URL } from "@/lib/siteUrls";
 import { getTranslations } from "next-intl/server";
 import { clipDescription, recipeSeoTitle } from "@/lib/siteMeta";
 import { splitTitle } from "@/lib/recipeTitle";
@@ -111,7 +112,7 @@ async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null>
     // und nach Korrekturen, die ein Skript direkt in die Datenbank schreibt,
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu 30 Tage lang alte Daten.
-    res = await fetch(`${BASE_URL}/api/recipe/${id}?v=8`, {
+    res = await fetch(`${INTERNAL_API_URL}/api/recipe/${id}?v=8`, {
       next: { revalidate: RECIPE_TTL, tags: [recipeTag(id)] },
     });
   } catch (cause) {
@@ -151,7 +152,7 @@ async function fetchSimilar(id: string, locale: string, recipe: Recipe): Promise
   if (recipe.title) params.set("title", recipe.title);
 
   try {
-    const res = await fetch(`${BASE_URL}/api/similar-recipes?${params.toString()}`, {
+    const res = await fetch(`${INTERNAL_API_URL}/api/similar-recipes?${params.toString()}`, {
       next: { revalidate: RECIPE_TTL },
     });
     if (!res.ok) return [];

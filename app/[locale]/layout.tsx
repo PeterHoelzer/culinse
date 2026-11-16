@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Source_Sans_3 } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { SUPABASE_ORIGIN } from "@/lib/siteUrls";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { preconnect } from "react-dom";
@@ -212,7 +213,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   // Bild-CDNs frueh verbinden -- verkuerzt den LCP-Pfad (CWV-Runde C13).
-  preconnect("https://ztfhnzslyztxfmvkyrrn.supabase.co");
+  preconnect(SUPABASE_ORIGIN);
 
   // Load messages directly from JSON — do NOT use getMessages() which relies on
   // middleware request context and may fall back to the default locale ("en").
@@ -225,7 +226,8 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
-        <Analytics />
+        {/* Vercel Web Analytics gibt es nur auf Vercel; auf einem eigenen Server liefe das Skript ins Leere. */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

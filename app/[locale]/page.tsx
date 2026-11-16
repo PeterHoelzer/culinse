@@ -1,3 +1,4 @@
+import { INTERNAL_API_URL } from "@/lib/siteUrls";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import HomeClient from "./HomeClient";
@@ -65,8 +66,6 @@ function buildWebsiteSchema(locale: string) {
   };
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com";
-
 interface FeaturedRecipe {
   id: string;
   title: string;
@@ -82,7 +81,7 @@ interface FeaturedRecipe {
 async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=12`,
+      `${INTERNAL_API_URL}/api/featured-recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=12`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return [];
@@ -104,7 +103,7 @@ async function fetchFeatured(locale: string): Promise<FeaturedRecipe[]> {
 async function fetchInitialRecipes(locale: string): Promise<Recipe[]> {
   try {
     const res = await fetch(
-      `${BASE_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=10`,
+      `${INTERNAL_API_URL}/api/recipes?lang=${locale === "de" ? "de" : locale === "es" ? "es" : locale === "fr" ? "fr" : locale === "it" ? "it" : locale === "pl" ? "pl" : locale === "tr" ? "tr" : locale === "nl" ? "nl" : locale === "cs" ? "cs" : locale === "ru" ? "ru" : locale === "pt" ? "pt" : locale === "zh" ? "zh" : locale === "ja" ? "ja" : locale === "id" ? "id" : locale === "vi" ? "vi" : locale === "bn" ? "bn" : "en"}&number=10`,
       { next: { revalidate: 900 } }
     );
     if (!res.ok) return [];
