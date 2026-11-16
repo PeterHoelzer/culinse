@@ -61,7 +61,7 @@ while read -r NAME STATUS; do
     Up*) ;;
     *) melde "Container $NAME läuft nicht ($STATUS)" ;;
   esac
-done < <(docker ps -a --format '{{.Names}} {{.Status}}' </dev/null | grep -E '^(supabase-(db|auth|rest|storage|envoy|pooler|meta|imgproxy|studio)|coolify|coolify-proxy|coolify-db) ')
+done < <(docker ps -a --format '{{.Names}} {{.Status}}' </dev/null | grep -E '^(supabase-(db|auth|rest|storage|envoy|pooler|meta|imgproxy|studio|mailvorlagen)|coolify|coolify-proxy|coolify-db) ')
 docker ps --format '{{.Names}}' </dev/null | grep -q '^3qpy481kz7j6s8bbdsxj8lul' || melde "Der Container der Website läuft nicht"
 
 # 4) Plattenplatz
@@ -77,6 +77,10 @@ if [ -f "$LETZTER" ]; then
 else
   melde "Es gibt noch keine Sicherung ($LETZTER fehlt)"
 fi
+
+# 5b) Letzte Auslieferung: ein fehlgeschlagener Bau soll auffallen (die alte Fassung läuft dann weiter)
+AUSL=/var/lib/culinse-auslieferung/letzte.txt
+if [ -f "$AUSL" ] && grep -q -w fehler "$AUSL"; then melde "Der letzte Bau der Website ist fehlgeschlagen ($(head -c 120 "$AUSL" | tr '\n' ' '))"; fi
 
 # 6) Zertifikate: weniger als 14 Tage Restlaufzeit heißt, die Verlängerung klemmt
 for H in "${WEBSITE#https://}" "${DATEN#https://}"; do
