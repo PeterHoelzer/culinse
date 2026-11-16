@@ -70,6 +70,8 @@ echo "Variablen umgestellt auf $URL: HTTP $CODE"
 case "$CODE" in 200|201) ;; *) echo "Umstellen fehlgeschlagen." >&2; exit 1 ;; esac
 
 if [ "$AUSLIEFERN" = 1 ]; then
-  CODE="$(curl -s -o /dev/null -w '%{http_code}' "$API/deploy?uuid=$APP_UUID" -H "Authorization: Bearer $TOKEN")"
+  # Coolify 4.7 verlangt hier POST (GET antwortet mit 405).
+  CODE="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$API/deploy?uuid=$APP_UUID" -H "Authorization: Bearer $TOKEN")"
   echo "Auslieferung angestoßen: HTTP $CODE"
+  case "$CODE" in 200|201) ;; *) echo "Auslieferung nicht angestoßen." >&2; exit 1 ;; esac
 fi
