@@ -1,0 +1,32 @@
+# Umgebungsvariablen der Website auf dem eigenen Server.
+# Nur Namen und Erklärungen. Die Werte trägt Peter in Coolify ein; sie gehören
+# weder in diese Datei noch ins Repo.
+
+# --- Zur Bauzeit UND zur Laufzeit nötig (werden in den Browser-Code eingebaut) ---
+NEXT_PUBLIC_APP_URL=            # öffentliche Adresse, immer https://culinse.com (auch im Probebetrieb, damit Canonicals stimmen)
+NEXT_PUBLIC_SUPABASE_URL=       # Stufe 1: bisheriges Supabase-Projekt · Stufe 2: Adresse des eigenen Supabase, z. B. https://daten.culinse.com
+NEXT_PUBLIC_SUPABASE_ANON_KEY=  # öffentlicher Schlüssel zur obigen Adresse (in Stufe 2 der neue)
+NEXT_PUBLIC_AMAZON_AFFILIATE_TAG=
+
+# --- Nur zur Laufzeit (geheim) ---
+SUPABASE_SERVICE_ROLE_KEY=      # Server-Schlüssel zur obigen Supabase-Adresse (in Stufe 2 der neue)
+INTERNAL_API_URL=               # http://127.0.0.1:3000 – eigene API ohne Umweg über das Internet. NICHT als Bau-Variable setzen
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRICE_ID=
+STRIPE_ANNUAL_PRICE_ID=
+DEEPL_API_KEY=
+MYMEMORY_EMAIL=
+MONEY_STATS_KEY=
+CULINSE_OWNER_ID=
+CULINSE_FAMILY_IDS=
+CULINSE_REVIEWER_EMAILS=
+
+# --- Alte Rezeptquellen (abgeklemmt, Schlüssel werden laut Vault noch von der
+#     Einkaufsliste und der Nährwert-Nachberechnung gebraucht) ---
+SPOONACULAR_API_KEY=
+TASTY_API_KEY=
+EDAMAM_APP_ID=
+EDAMAM_APP_KEY=
+
+# Auf dem eigenen Server NICHT setzen: VERCEL (schaltet Vercel Web Analytics ein).
