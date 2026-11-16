@@ -13,6 +13,7 @@
 //     node deploy/bilder-kopieren.mjs --trocken     nur zählen, nichts hochladen
 //     node deploy/bilder-kopieren.mjs --vergleich   nur beide Seiten vergleichen
 //     node deploy/bilder-kopieren.mjs --alles       jede Datei kopieren, auch wenn das Ziel sie schon aufführt
+//     node deploy/bilder-kopieren.mjs --alles --nur videos/   nur Dateien, deren Pfad so beginnt
 //
 // --alles ist beim ERSTEN Lauf nach dem Einspielen der Datenbank Pflicht: Der
 // Datenbank-Export kann die Dateiliste des Bildspeichers mitbringen. Das Ziel
@@ -34,6 +35,8 @@ const GLEICHZEITIG = Number(process.env.GLEICHZEITIG || 4);
 const trocken = process.argv.includes("--trocken");
 const nurVergleich = process.argv.includes("--vergleich");
 const alles = process.argv.includes("--alles");
+const nurIndex = process.argv.indexOf("--nur");
+const nur = nurIndex > -1 ? process.argv[nurIndex + 1] ?? "" : "";
 
 const opts = { auth: { persistSession: false, autoRefreshToken: false } };
 const quelle = createClient(need("QUELLE_URL"), need("QUELLE_KEY"), opts);
@@ -128,7 +131,9 @@ try {
 }
 console.log(`Ziel:   ${nach.size} Dateien, ${mb(summe(nach))}`);
 
-const offen = alles ? [...von] : [...von].filter(([pfad, info]) => nach.get(pfad)?.groesse !== info.groesse);
+const offen = (alles ? [...von] : [...von].filter(([pfad, info]) => nach.get(pfad)?.groesse !== info.groesse)).filter(
+  ([pfad]) => !nur || pfad.startsWith(nur),
+);
 console.log(`Zu kopieren: ${offen.length} Dateien, ${mb(offen.reduce((a, [, d]) => a + d.groesse, 0))}`);
 
 if (nurVergleich || trocken) {
