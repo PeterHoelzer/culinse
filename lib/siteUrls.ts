@@ -35,3 +35,19 @@ export const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || "https://culinse.com"
   Bauen lauscht dort noch nichts). Ohne die Variable gilt die öffentliche Adresse.
 */
 export const INTERNAL_API_URL = process.env.INTERNAL_API_URL || SITE_URL;
+
+/*
+  Öffentliche Adresse, unter der eine Anfrage angekommen ist. Hinter einem
+  vorgeschalteten Eingang (eigener Server mit Traefik) nennt request.url in einer
+  Route den internen Namen (localhost:3000); die echte Adresse steht dann in den
+  weitergereichten Kopfzeilen. Bei Vercel und lokal ergibt beides dasselbe.
+*/
+export function publicOrigin(request: Request): string {
+  const url = new URL(request.url);
+  const first = (value: string | null) => value?.split(",")[0].trim() || null;
+  const host = first(request.headers.get("x-forwarded-host")) ?? first(request.headers.get("host"));
+  if (!host || !/^[a-z0-9.-]+(:\d{1,5})?$/i.test(host)) return url.origin;
+  const forwardedProto = first(request.headers.get("x-forwarded-proto"));
+  const proto = forwardedProto === "http" || forwardedProto === "https" ? forwardedProto : url.protocol.replace(":", "");
+  return `${proto}://${host}`;
+}

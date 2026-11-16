@@ -1,8 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { publicOrigin } from "@/lib/siteUrls";
 
 export async function GET(request: Request) {
-  const { searchParams, origin } = new URL(request.url);
+  const { searchParams } = new URL(request.url);
+  // Nicht aus request.url: Hinter dem Eingang des eigenen Servers stünde dort localhost.
+  const origin = publicOrigin(request);
   const code = searchParams.get("code");
 
   if (code) {
