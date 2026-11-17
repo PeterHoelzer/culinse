@@ -21,6 +21,9 @@ MONEY_STATS_KEY=
 CULINSE_OWNER_ID=
 CULINSE_FAMILY_IDS=
 CULINSE_REVIEWER_EMAILS=
+CLOUDFLARE_PURGE_TOKEN=         # leert nach einer Rezept-Änderung die Adressen des Rezepts bei Cloudflare (lib/cloudflareCache.ts);
+CLOUDFLARE_ZONE_ID=             # beide trägt `deploy/cloudflare-leeren.sh --schluessel-an-website` ein. Ohne sie wird nichts geleert.
+                                # Nicht verwechseln mit CLOUDFLARE_API_TOKEN (Bilderzeugung in recipe-agent und scripts)
 
 # --- Alte Rezeptquellen (abgeklemmt, Schlüssel werden laut Vault noch von der
 #     Einkaufsliste und der Nährwert-Nachberechnung gebraucht) ---

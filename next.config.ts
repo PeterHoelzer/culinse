@@ -31,6 +31,18 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Kein "X-Powered-By: Next.js" in den Antworten (Vercel hat den Kopf entfernt).
   poweredByHeader: false,
+  experimental: {
+    // Cloudflare speichert die fertigen Seiten und unterscheidet dabei nur nach
+    // der Adresse, nicht nach den Kopfzeilen, mit denen der Browser beim
+    // Seitenwechsel statt der Seite deren Daten anfordert (rsc, next-router-…).
+    // Next hängt dafür einen Prüfwert an die Adresse (?_rsc=…). Mit diesem
+    // Schalter besteht der Server darauf, dass Prüfwert und Kopfzeilen
+    // zusammenpassen, und leitet sonst auf die richtige Adresse um. Ohne ihn
+    // könnte jemand unter der Adresse einer Seite deren Daten einlagern lassen;
+    // Besucher bekämen dann Zeichensalat statt der Seite.
+    // Siehe node_modules/next/dist/docs/01-app/02-guides/cdn-caching.md.
+    validateRSCRequestHeaders: true,
+  },
   images: {
     remotePatterns: [
       // Hero-Fotos laufen durch den Next-Bildoptimierer (CDN-Cache, WebP/AVIF, gleiche Origin)

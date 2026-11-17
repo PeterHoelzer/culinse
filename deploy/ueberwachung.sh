@@ -82,6 +82,11 @@ fi
 AUSL=/var/lib/culinse-auslieferung/letzte.txt
 if [ -f "$AUSL" ] && grep -q -w fehler "$AUSL"; then melde "Der letzte Bau der Website ist fehlgeschlagen ($(head -c 120 "$AUSL" | tr '\n' ' '))"; fi
 
+# 5c) Cloudflare-Speicher: Nach einer Auslieferung muss er leer sein, sonst
+# zeigt Cloudflare Seiten, deren Skripte es nicht mehr gibt.
+CFL=/var/lib/culinse-auslieferung/cloudflare.txt
+if [ -f "$CFL" ] && grep -q -w fehler "$CFL"; then melde "Der Cloudflare-Speicher ließ sich nach der Auslieferung nicht leeren ($(head -c 160 "$CFL" | tr '\n' ' '))"; fi
+
 # 6) Zertifikate: weniger als 14 Tage Restlaufzeit heißt, die Verlängerung klemmt
 for H in "${WEBSITE#https://}" "${DATEN#https://}"; do
   ENDE="$(echo | timeout 15 openssl s_client -servername "$H" -connect "$H:443" 2>/dev/null | openssl x509 -noout -enddate 2>/dev/null | cut -d= -f2)"

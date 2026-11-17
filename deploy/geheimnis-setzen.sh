@@ -37,6 +37,7 @@ FORM=""
 case "$NAME" in
   SMTP_PASS)        [[ "$WERT" =~ ^re_[A-Za-z0-9_]{20,}$ ]] || FORM="ein Resend-Schlüssel beginnt mit re_" ;;
   GOOGLE_SECRET)    [[ "$WERT" =~ ^[A-Za-z0-9_-]{20,}$ && ! "$WERT" =~ ^re_ ]] || FORM="ein Google-Clientschlüssel beginnt meist mit GOCSPX- und hat keine Punkte" ;;
+  CLOUDFLARE_TOKEN) [[ "$WERT" =~ ^[A-Za-z0-9_-]{40,}$ ]] || FORM="ein Cloudflare-Schlüssel hat mindestens 40 Zeichen aus Buchstaben, Ziffern, - und _" ;;
   GOOGLE_CLIENT_ID) [[ "$WERT" =~ ^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$ ]] || FORM="eine Google-Client-ID endet auf .apps.googleusercontent.com" ;;
 esac
 [ -z "$FORM" ] || { echo "Das sieht nicht nach $NAME aus ($FORM; Länge ${#WERT}), nichts geändert."; exit 1; }

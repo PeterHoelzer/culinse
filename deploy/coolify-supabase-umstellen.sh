@@ -14,7 +14,9 @@
 # Beim ersten Lauf werden die bisherigen Werte der Website (Supabase-Projekt)
 # nach /root/umzug/quelle-supabase.env gesichert; "quelle" stellt sie wieder her.
 # Die Adresse der Datenbank wird beim Bauen fest in die Website eingebaut,
-# deshalb gilt eine Umstellung erst nach der Auslieferung.
+# deshalb gilt eine Umstellung erst nach der Auslieferung. Das Skript wartet
+# auf deren Ende und leert danach den Zwischenspeicher von Cloudflare
+# (cloudflare-leeren.sh), sonst zeigte Cloudflare weiter Seiten der alten Fassung.
 set -euo pipefail
 umask 077
 
@@ -71,7 +73,17 @@ case "$CODE" in 200|201) ;; *) echo "Umstellen fehlgeschlagen." >&2; exit 1 ;; e
 
 if [ "$AUSLIEFERN" = 1 ]; then
   # Coolify 4.7 verlangt hier POST (GET antwortet mit 405).
-  CODE="$(curl -s -o /dev/null -w '%{http_code}' -X POST "$API/deploy?uuid=$APP_UUID" -H "Authorization: Bearer $TOKEN")"
-  echo "Auslieferung angestoßen: HTTP $CODE"
-  case "$CODE" in 200|201) ;; *) echo "Auslieferung nicht angestoßen." >&2; exit 1 ;; esac
+  D="$(curl -s -m 20 -X POST "$API/deploy?uuid=$APP_UUID" -H "Authorization: Bearer $TOKEN" | jq -r '.deployments[0].deployment_uuid // empty')"
+  [ -n "$D" ] || { echo "Auslieferung nicht angestoßen." >&2; exit 1; }
+  echo "Auslieferung angestoßen ($D), warte auf das Ende (bis zu 15 Minuten)"
+  S=unbekannt
+  for _ in $(seq 1 90); do
+    S="$(curl -s -m 10 "$API/deployments/$D" -H "Authorization: Bearer $TOKEN" | jq -r '.status // "unbekannt"')"
+    case "$S" in finished|failed|cancelled-by-user) break ;; esac
+    sleep 10
+  done
+  [ "$S" = finished ] || { echo "Auslieferung nicht gelungen ($S); die bisherige Fassung läuft weiter." >&2; exit 1; }
+  echo "Ausgeliefert."
+  # Rückgabe 3 heißt: kein Cloudflare-Schlüssel hinterlegt, dann gibt es nichts zu leeren.
+  "$(dirname "$(readlink -f "$0")")/cloudflare-leeren.sh" || [ $? = 3 ] || echo "Achtung: Cloudflare-Speicher nicht geleert; der Zeitgeber der Auslieferung versucht es alle 2 Minuten erneut." >&2
 fi

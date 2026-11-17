@@ -1,4 +1,5 @@
 import { revalidateTag } from "next/cache";
+import { purgeRecipeAtCloudflare } from "@/lib/cloudflareCache";
 
 /*
   Zwischenspeicher der Rezeptseiten (Kostenbremse 16.11.2026).
@@ -12,6 +13,13 @@ import { revalidateTag } from "next/cache";
   in die Datenbank schreiben, erreichen den Cache nicht. Nach einer solchen
   Korrektur die Versionsnummer im Abruf der Rezeptseite hochzählen
   (app/[locale]/recipe/[id]/page.tsx, "?v=") und ausliefern.
+
+  Seit 17.11.2026 speichert auch Cloudflare die Rezeptseiten. Deshalb zwei Dinge:
+  - Die Seite läuft sofort ab ({ expire: 0 }) statt mit "max". Mit "max" bekäme
+    der nächste Abruf noch einmal die alte Seite (und erst der übernächste die
+    neue); Cloudflare würde genau diese alte Fassung für 30 Tage einlagern.
+  - Danach werden die Adressen des Rezepts bei Cloudflare geleert
+    (lib/cloudflareCache.ts).
 */
 
 /** 30 Tage in Sekunden. In `export const revalidate` muss die Zahl selbst stehen. */
@@ -24,5 +32,7 @@ export function recipeTag(pageId: string): string {
 
 /** Erneuert die Seite eines Rezepts beim nächsten Abruf; `uuid` ist die ID der Datenbankzeile. */
 export function refreshRecipePage(uuid: string): void {
-  revalidateTag(recipeTag(`user_${uuid}`), "max");
+  const pageId = `user_${uuid}`;
+  revalidateTag(recipeTag(pageId), { expire: 0 });
+  purgeRecipeAtCloudflare(pageId);
 }

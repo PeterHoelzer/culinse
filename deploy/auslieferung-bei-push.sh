@@ -10,6 +10,12 @@
 # Das Ergebnis steht in /var/lib/culinse-auslieferung/letzte.txt und wird von
 # ueberwachung.sh gelesen (Mail bei fehlgeschlagenem Bau).
 #
+# Nach jeder gelungenen Auslieferung wird der Zwischenspeicher von Cloudflare
+# geleert (cloudflare-leeren.sh): Die dort gespeicherten Seiten verweisen auf
+# Skripte der alten Fassung. Bei jedem Lauf wird außerdem nachgesehen, ob eine
+# neue Fassung läuft, für die noch nicht geleert wurde (Auslieferung aus der
+# Coolify-Oberfläche, oder das Leeren ist beim letzten Mal gescheitert).
+#
 #   deploy/auslieferung-bei-push.sh            prüfen und bei Bedarf ausliefern
 #   deploy/auslieferung-bei-push.sh --stand    letzten Stand zeigen
 set -uo pipefail
@@ -18,12 +24,15 @@ ZWEIG="${ZWEIG:-main}"
 API=http://127.0.0.1:8000/api/v1
 APP_UUID=3qpy481kz7j6s8bbdsxj8lul
 ORDNER=/var/lib/culinse-auslieferung
+LEEREN="$(dirname "$(readlink -f "$0")")/cloudflare-leeren.sh"
 mkdir -p "$ORDNER"
 
 if [ "${1:-}" = "--stand" ]; then cat "$ORDNER/letzte.txt" 2>/dev/null || echo "noch keine Auslieferung über dieses Skript"; exit 0; fi
 
 # Nie zwei Läufe gleichzeitig (ein Bau dauert länger als der Takt).
 exec 9>"$ORDNER/sperre"; flock -n 9 || exit 0
+
+"$LEEREN" --wenn-neu || true
 
 NEU="$(git ls-remote "$REPO" "refs/heads/$ZWEIG" 2>/dev/null | cut -f1)"
 [[ "$NEU" =~ ^[0-9a-f]{40}$ ]] || { echo "[$(date -Is)] GitHub nicht erreichbar oder Zweig fehlt"; exit 0; }
@@ -48,6 +57,10 @@ if [ "$S" = finished ]; then
   echo "$NEU" > "$ORDNER/commit"
   printf '%s ok %s %s\n' "$(date -Is)" "${NEU:0:8}" "$D" > "$ORDNER/letzte.txt"
   echo "[$(date -Is)] Ausgeliefert: ${NEU:0:8}"
+  # Rückgabe 3 heißt: kein Cloudflare-Schlüssel hinterlegt, dann gibt es nichts
+  # zu leeren. Ein echter Fehler steht in cloudflare.txt (Mail über
+  # ueberwachung.sh) und wird beim nächsten Lauf mit --wenn-neu wiederholt.
+  "$LEEREN" || true
 else
   # Den Commit trotzdem merken: derselbe kaputte Stand soll nicht alle 2 Minuten
   # neu gebaut werden. Der nächste Push löst wieder einen Bau aus.

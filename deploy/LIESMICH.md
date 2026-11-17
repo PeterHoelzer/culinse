@@ -20,6 +20,7 @@ wurde, steht in der Tabelle.
 | `pruefen.sql` | Vergleichsbericht: Zeilenzahlen, Prüfsummen, Regeln, Funktionen, Auslöser | gelaufen auf Quelle und Ziel |
 | `bilder-kopieren.mjs` | Bildspeicher kopieren, wiederholbar, mit Vergleich | Lesen und Vergleichen am echten Speicher (13.766 Dateien, 3,07 GB) |
 | `bildadressen-umschreiben.sql` | alte Supabase-Adresse in allen Tabellen ersetzen, mit Probelauf | nicht gelaufen |
+| `cloudflare-leeren.sh` | Zwischenspeicher von Cloudflare leeren: alles (nach jeder Auslieferung, von selbst), einzelne Adressen oder alles unter einem Pfad; `--probe` als Trockenlauf | siehe Drehbuch, Abschnitt G |
 | `sicherung.sh` | nächtliche Sicherung von Datenbank und Bildern nach Cloudflare R2 | nur Syntax |
 
 ## Reihenfolge beim Datenumzug
