@@ -23,9 +23,14 @@ const securityHeaders = [
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "X-DNS-Prefetch-Control", value: "on" },
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  // Vercel hat diesen Kopf selbst gesetzt; auf dem eigenen Server muss ihn die
+  // Website mitgeben. Gleicher Wert wie bisher (zwei Jahre, ohne Unteradressen).
+  { key: "Strict-Transport-Security", value: "max-age=63072000" },
 ];
 
 const nextConfig: NextConfig = {
+  // Kein "X-Powered-By: Next.js" in den Antworten (Vercel hat den Kopf entfernt).
+  poweredByHeader: false,
   images: {
     remotePatterns: [
       // Hero-Fotos laufen durch den Next-Bildoptimierer (CDN-Cache, WebP/AVIF, gleiche Origin)
