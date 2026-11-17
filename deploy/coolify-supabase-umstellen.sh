@@ -34,6 +34,13 @@ wert() { grep -E "^$2=" "$1" | head -1 | cut -d= -f2-; }
 TOKEN="$(wert "$TOKEN_DATEI" COOLIFY_TOKEN 2>/dev/null || true)"
 [ -n "$TOKEN" ] || { echo "COOLIFY_TOKEN fehlt in $TOKEN_DATEI." >&2; exit 1; }
 
+# Das frühere Supabase-Projekt ist am 17.11.2026 gelöscht worden. Ein Zurückstellen
+# würde die Website auf eine Adresse zeigen lassen, die es nicht mehr gibt.
+if [ "$RICHTUNG" = "quelle" ]; then
+  echo "Abgelehnt: Das frühere Supabase-Projekt gibt es seit dem 17.11.2026 nicht mehr. Es gibt nur noch \"ziel\" (eigener Server)." >&2
+  exit 1
+fi
+
 # Bisherige Werte einmalig sichern (aus dem laufenden Container der Website).
 if [ ! -s "$SICHERUNG" ]; then
   APP="$(docker ps --format '{{.Names}}' | grep "^$APP_UUID" | head -1)"
