@@ -1,0 +1,7 @@
+# Bild- und Dateispeicher von culinse.com.
+# Öffentliche Bilder und Videos dürfen gelesen werden, alles andere nicht
+# (Anmeldung und Datenbank-Schnittstelle sind nichts für Suchmaschinen).
+User-agent: *
+Allow: /storage/v1/object/public/
+Allow: /storage/v1/render/image/public/
+Disallow: /

@@ -40,7 +40,8 @@ STEMPEL="$(date +%Y-%m-%d_%H%M)"
 HEUTE="$(date +%Y-%m-%d)"
 DB_DATEI="$ORDNER/datenbank/culinse-db-$STEMPEL.sql.gz.gpg"
 KONFIG_DATEI="$ORDNER/konfiguration/culinse-konfig-$STEMPEL.tar.gpg"
-KONFIG_PFADE=(opt/supabase/.env opt/supabase/docker-compose.culinse.yml data/coolify/source/.env data/coolify/proxy/dynamic)
+# opt/supabase/mail-vorlagen: Mail-Vorlagen und die robots.txt der Daten-Adresse
+KONFIG_PFADE=(opt/supabase/.env opt/supabase/docker-compose.culinse.yml opt/supabase/mail-vorlagen data/coolify/source/.env data/coolify/proxy/dynamic)
 START=$SECONDS
 DB_GROESSE=0
 umask 077

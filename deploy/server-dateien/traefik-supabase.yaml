@@ -1,0 +1,60 @@
+# Eingang für daten.culinse.com (eigener Supabase: Anmeldung, Datenbank-Schnittstelle, Bilder).
+# Stand 17.11.2026: robots.txt und öffentliche Dateien für Suchmaschinen geöffnet.
+http:
+  middlewares:
+    supabase-https-redirect:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    # Der Speicherdienst hängt an jede Datei "X-Robots-Tag: none". Für öffentliche
+    # Bilder und Videos ist das falsch: Google soll sie aufnehmen dürfen (Bildersuche,
+    # Bild in der Rezept-Vorschau). Ein leerer Wert entfernt die Kopfzeile.
+    supabase-oeffentliche-dateien:
+      headers:
+        customResponseHeaders:
+          X-Robots-Tag: ""
+  routers:
+    supabase-http:
+      rule: 'Host(`daten.culinse.com`)'
+      entryPoints:
+        - http
+      middlewares:
+        - supabase-https-redirect
+      service: supabase
+    supabase-https:
+      rule: 'Host(`daten.culinse.com`) && (PathPrefix(`/auth/v1`) || PathPrefix(`/rest/v1`) || PathPrefix(`/storage/v1`))'
+      entryPoints:
+        - https
+      tls:
+        certResolver: letsencrypt
+      service: supabase
+    # Öffentliche Dateien: wie oben, aber ohne die Sperr-Angabe für Suchmaschinen.
+    supabase-oeffentliche-dateien:
+      rule: 'Host(`daten.culinse.com`) && (PathPrefix(`/storage/v1/object/public/`) || PathPrefix(`/storage/v1/render/image/public/`))'
+      entryPoints:
+        - https
+      priority: 1000
+      middlewares:
+        - supabase-oeffentliche-dateien
+      tls:
+        certResolver: letsencrypt
+      service: supabase
+    # robots.txt der Daten-Adresse. Ohne sie antwortete die Adresse mit 503, und
+    # Google behandelt einen Serverfehler bei robots.txt wie eine Sperre für alles.
+    supabase-robots:
+      rule: 'Host(`daten.culinse.com`) && Path(`/robots.txt`)'
+      entryPoints:
+        - https
+      priority: 1000
+      tls:
+        certResolver: letsencrypt
+      service: supabase-statisch
+  services:
+    supabase:
+      loadBalancer:
+        servers:
+          - url: http://supabase-envoy:8000
+    supabase-statisch:
+      loadBalancer:
+        servers:
+          - url: http://supabase-mailvorlagen:80

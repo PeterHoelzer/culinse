@@ -1,0 +1,23 @@
+# www.culinse.com dauerhaft auf culinse.com weiterleiten (Coolify selbst leitet
+# nur vorläufig weiter). Angelegt beim Umschalten der Website am 17.11.2026.
+http:
+  routers:
+    www-dauerhaft-https:
+      rule: "Host(`www.culinse.com`)"
+      entryPoints: [https]
+      priority: 1000
+      middlewares: [www-dauerhaft]
+      service: noop@internal
+      tls: {}
+    www-dauerhaft-http:
+      rule: "Host(`www.culinse.com`) && !PathPrefix(`/.well-known/acme-challenge/`)"
+      entryPoints: [http]
+      priority: 1000
+      middlewares: [www-dauerhaft]
+      service: noop@internal
+  middlewares:
+    www-dauerhaft:
+      redirectRegex:
+        regex: "^https?://www\\.culinse\\.com/?(.*)"
+        replacement: "https://culinse.com/${1}"
+        permanent: true
