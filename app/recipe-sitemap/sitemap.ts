@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { SITEMAP_LOCALES } from "@/lib/sitemaps";
 
 /*
   Rezept-Sitemaps, eine je Sprache: /recipe-sitemap/sitemap/<sprache>.xml
@@ -9,12 +10,16 @@ import { createAdminClient } from "@/lib/supabase/admin";
   zusammen (über 70.000 Adressen) passen nicht in eine Datei (Grenze 50.000),
   darum die Aufteilung nach Sprache.
 
+  Seit 17.11.2026 stehen vorerst wieder nur Deutsch und Englisch in den
+  Sitemaps (Begründung und Schalter: lib/sitemaps.ts). Die Adressen der anderen
+  Sprachen liefern eine leere Sitemap.
+
   Die Einträge tragen bewusst keine hreflang-Angaben: Jede Rezeptseite nennt
   ihre 16 Sprachfassungen schon im <head>. Zwei Quellen dafür widersprachen
   sich vorher (Sitemap: nur de/en, Seite: alle 16).
 */
 const baseUrl = "https://culinse.com";
-const LOCALES = ["en", "de", "es", "fr", "it", "pl", "tr", "nl", "cs", "ru", "pt", "zh", "ja", "id", "vi", "bn"] as const;
+const LOCALES = SITEMAP_LOCALES;
 
 // Alle sechs Stunden neu, damit neue Rezepte ohne Deploy erscheinen.
 export const revalidate = 21600;

@@ -7,6 +7,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { LANDINGS, LANDING_MIN, emptyState } from "@/lib/browse/facets";
 import { runBrowse } from "@/lib/browse";
 import { landingPath } from "@/lib/browse/slugs";
+import { SITEMAP_LOCALES } from "@/lib/sitemaps";
 
 const baseUrl = "https://culinse.com";
 
@@ -63,15 +64,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   // NOTE: /login intentionally excluded — utility page, no SEO value.
 
-  // Static pages — one entry per locale with cross-locale alternates
+  // Static pages. Voll übersetzte Seiten stehen nur in den Sprachen aus
+  // SITEMAP_LOCALES in der Sitemap (lib/sitemaps.ts). Sind das nicht alle 16,
+  // tragen die Einträge keine hreflang-Angaben: Die Seite selbst nennt alle
+  // Sprachfassungen im <head>, und eine Sitemap darf nur auf Fassungen verweisen,
+  // die auch selbst in ihr stehen.
+  const sitemapSprachen: readonly string[] = SITEMAP_LOCALES;
+  const alleSprachen = ALL_LOCALES.every((l) => sitemapSprachen.includes(l));
   const staticEntries: MetadataRoute.Sitemap = [
     ...translatedStatic.flatMap(({ path, changeFrequency, priority }) =>
-      ALL_LOCALES.map((l) => ({
+      SITEMAP_LOCALES.map((l) => ({
         url: `${baseUrl}/${l}${path}`,
         lastModified: path === "" || path === "/recipes" ? RECIPES_LAST_MODIFIED : STATIC_LAST_MODIFIED,
         changeFrequency,
         priority,
-        alternates: langsAll(path),
+        ...(alleSprachen ? { alternates: langsAll(path) } : {}),
       }))
     ),
     ...deEnStatic.flatMap(({ path, changeFrequency, priority }) => {
@@ -173,7 +180,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // von 50.000 Adressen je Datei sprengen.
 
   // Themenseiten der Stöberseite (/recipes/<slug>): je Filteroption mit genug
-  // Rezepten eine Seite, in allen Sprachen. Die Trefferzahlen sind in jeder
+  // Rezepten eine Seite, in den Sprachen aus SITEMAP_LOCALES. Die Trefferzahlen sind in jeder
   // Sprache dieselben, weil alle Fassungen eines Gerichts dieselben Schlüssel erben.
   // Ein Fehler wird nicht geschluckt: Lieber bleibt die letzte gute Sitemap im
   // Cache, als dass 2.000 Themenadressen sechs Stunden lang fehlen.
@@ -183,12 +190,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const languages: Record<string, string> = {};
     for (const locale of ALL_LOCALES) languages[locale] = `${baseUrl}/${locale}${landingPath(locale, l)}`;
     languages["x-default"] = languages.en;
-    return ALL_LOCALES.map((locale) => ({
+    return SITEMAP_LOCALES.map((locale) => ({
       url: languages[locale],
       lastModified: RECIPES_LAST_MODIFIED,
       changeFrequency: "weekly" as const,
       priority: 0.7,
-      alternates: { languages },
+      ...(alleSprachen ? { alternates: { languages } } : {}),
     }));
   });
 
