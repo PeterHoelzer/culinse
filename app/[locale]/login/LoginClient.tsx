@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Link, useRouter } from "@/lib/navigation";
+import { rememberLoginTarget, safeLoginTarget, splitLocale } from "@/lib/loginRedirect";
 import { Button, Icon, Input, Notice, Wordmark } from "@/components/ui";
 
 export default function LoginClient() {
@@ -18,7 +19,14 @@ export default function LoginClient() {
 
   const supabase = createClient();
 
+  // Seite, von der der Besucher kam (?redirectTo=…, mit Sprache, z. B.
+  // /nl/recipe/…). Nur Pfade auf der eigenen Seite, siehe lib/loginRedirect.ts.
+  const loginTarget = () => safeLoginTarget(new URLSearchParams(window.location.search).get("redirectTo"));
+
   const handleGoogle = async () => {
+    // Der Weg über Google verlässt die Seite; das Ziel wartet im Cookie, bis
+    // app/auth/callback/route.ts es nach dem Rücksprung liest.
+    rememberLoginTarget(loginTarget());
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/auth/callback` },
@@ -31,30 +39,31 @@ export default function LoginClient() {
     setError("");
     setMessage("");
 
-    // Die Middleware setzt redirectTo MIT Locale-Präfix (z. B. /de/admin/review).
-    // router (next-intl) stellt die Locale beim Push selbst wieder voran —
-    // ohne Strip entstünde /de/de/… (404). Deshalb Präfix hier entfernen.
-    // Nur interne Pfade zulassen: "https://…" und "//host" (protokoll-relativ)
-    // wären sonst ein Open Redirect auf fremde Seiten nach dem Login.
-    const rawRedirect = new URLSearchParams(window.location.search).get("redirectTo");
-    const isInternalPath = rawRedirect?.startsWith("/") && !rawRedirect.startsWith("//");
-    const redirectTo = isInternalPath
-      ? rawRedirect!.replace(/^\/(en|de|es|fr|it|pl|tr)(?=\/|$)/, "") || "/"
-      : null;
+    const target = loginTarget();
 
     if (mode === "signup") {
+      // Für den Link in der Bestätigungs-Mail, der über /auth/callback zurückkommt.
+      rememberLoginTarget(target);
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
       });
       if (error) setError(error.message);
-      else if (data.session) router.push("/onboarding");
-      else setMessage("confirm");
+      else if (data.session) {
+        rememberLoginTarget(null);
+        router.push("/onboarding");
+      } else setMessage("confirm");
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setError(error.message);
-      else router.push(redirectTo || "/");
+      else {
+        rememberLoginTarget(null);
+        // Der router von next-intl stellt die Sprache selbst voran. Deshalb das
+        // Ziel in Sprache und Rest zerlegen, sonst entstünde /de/de/… (404).
+        const { locale, rest } = splitLocale(target ?? "/");
+        router.push(rest, locale ? { locale } : undefined);
+      }
     }
     setLoading(false);
   };

@@ -6,6 +6,7 @@ import { loadSupabase, loadSupabaseAfterPageLoad } from "@/lib/supabase/lazy";
 import type { User } from "@supabase/supabase-js";
 import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { routing } from "@/i18n/routing";
+import { useLoginHref } from "@/lib/useLoginHref";
 import { Button, Icon, Wordmark } from "@/components/ui";
 import ProBadge from "@/components/ProBadge";
 
@@ -43,6 +44,7 @@ export default function Navbar() {
   const tBrowse = useTranslations("browse");
   const locale = useLocale();
   const router = useRouter();
+  const loginHref = useLoginHref();
   const [user, setUser] = useState<User | null>(null);
   const [isPro, setIsPro] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -145,7 +147,7 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Button size="sm" href="/login">{t("login")}</Button>
+              <Button size="sm" href={loginHref}>{t("login")}</Button>
             )}
           </div>
 
@@ -213,7 +215,7 @@ export default function Navbar() {
                 {t("logout")}
               </button>
             ) : (
-              <Link href="/login" onClick={close} className={menuLink}>{t("login")}</Link>
+              <Link href={loginHref} onClick={close} className={menuLink}>{t("login")}</Link>
             )}
           </div>
         </div>

@@ -179,10 +179,7 @@ export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: nu
       )}
 
       {showLoginPrompt && (
-        <LoginPromptModal
-          onClose={() => setShowLoginPrompt(false)}
-          redirectTo="/login"
-        />
+        <LoginPromptModal onClose={() => setShowLoginPrompt(false)} />
       )}
 
       {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} />}

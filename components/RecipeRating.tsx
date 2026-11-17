@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
+import { useLoginHref } from "@/lib/useLoginHref";
 import { Icon } from "@/components/ui";
 
 /*
@@ -20,6 +21,7 @@ interface State {
 export default function RecipeRating({ recipeId, loggedIn }: { recipeId: string; loggedIn: boolean }) {
   const t = useTranslations("recipe.rating");
   const locale = useLocale();
+  const loginHref = useLoginHref();
   const [state, setState] = useState<State | null>(null);
   const [hover, setHover] = useState<number | null>(null);
   const [saving, setSaving] = useState(false);
@@ -98,7 +100,7 @@ export default function RecipeRating({ recipeId, loggedIn }: { recipeId: string;
       {state.mine !== null && <p className="mt-2 text-sm text-ink-3">{t("yours", { stars: state.mine })}</p>}
       {notice === "login" && (
         <p role="status" className="mt-2 text-sm text-ink-2">
-          <Link href="/login" className="font-semibold text-brand underline underline-offset-[3px] hover:text-brand-hover">
+          <Link href={loginHref} className="font-semibold text-brand underline underline-offset-[3px] hover:text-brand-hover">
             {t("login")}
           </Link>
         </p>

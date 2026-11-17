@@ -3,15 +3,16 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui";
 import Dialog from "@/components/ui/Dialog";
+import { useLoginHref } from "@/lib/useLoginHref";
 
 interface Props {
   onClose: () => void;
-  redirectTo?: string;
 }
 
-export default function LoginPromptModal({ onClose, redirectTo }: Props) {
+export default function LoginPromptModal({ onClose }: Props) {
   const t = useTranslations("loginPrompt");
-  const loginHref = redirectTo ? `/login?redirectTo=${encodeURIComponent(redirectTo)}` : "/login";
+  // Nach der Anmeldung zurück auf die Seite, auf der der Dialog aufging.
+  const loginHref = useLoginHref();
 
   return (
     <Dialog open onClose={onClose} title={t("title")} size="sm">

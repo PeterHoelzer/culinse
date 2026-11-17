@@ -37,7 +37,7 @@ export default function ProPage() {
   }, []);
 
   const handleUpgrade = async () => {
-    if (!user) { window.location.href = "/login?next=/pro"; return; }
+    if (!user) { window.location.href = `/login?redirectTo=${encodeURIComponent(window.location.pathname)}`; return; }
     setLoading(true);
     const res = await fetch("/api/stripe/checkout", {
       method: "POST",
