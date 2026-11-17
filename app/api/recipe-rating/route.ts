@@ -22,11 +22,21 @@ function uuidOf(id: unknown): string | null {
   return UUID.test(uuid) ? uuid : null;
 }
 
-/** Schlüssel des Gerichts, nur für öffentliche Rezepte. */
-async function keyFor(admin: ReturnType<typeof createAdminClient>, uuid: string): Promise<string | null> {
+type Admin = ReturnType<typeof createAdminClient>;
+
+/** Schlüssel und Gruppe des Gerichts, nur für öffentliche Rezepte. */
+async function dishOf(admin: Admin, uuid: string): Promise<{ key: string; group: string | null } | null> {
   const { data, error } = await admin.from("user_recipes").select("id, translation_group, is_public").eq("id", uuid).maybeSingle();
   if (error || !data || !data.is_public) return null;
-  return ratingKey(data);
+  return { key: ratingKey(data), group: (data.translation_group as string | null) ?? null };
+}
+
+/** IDs aller Sprachfassungen des Gerichts; ohne Gruppe (oder bei einem Fehler) nur das Rezept selbst. */
+async function versionIds(admin: Admin, uuid: string, group: string | null): Promise<string[]> {
+  if (!group) return [uuid];
+  const { data, error } = await admin.from("user_recipes").select("id").eq("translation_group", group).limit(50);
+  if (error || !data) return [uuid];
+  return [...new Set([uuid, ...data.map((row) => row.id as string)])];
 }
 
 async function currentUserId(): Promise<string | null> {
@@ -39,7 +49,7 @@ async function currentUserId(): Promise<string | null> {
   }
 }
 
-async function respond(admin: ReturnType<typeof createAdminClient>, key: string, userId: string | null) {
+async function respond(admin: Admin, key: string, userId: string | null) {
   const summary = await ratingSummary(admin, key);
   if (!summary) return NextResponse.json({ error: "Ratings unavailable" }, { status: 503, headers: NO_STORE });
   let mine: number | null = null;
@@ -54,9 +64,9 @@ export async function GET(req: NextRequest) {
   const uuid = uuidOf(req.nextUrl.searchParams.get("id"));
   if (!uuid) return NextResponse.json({ error: "Invalid id" }, { status: 400, headers: NO_STORE });
   const admin = createAdminClient();
-  const key = await keyFor(admin, uuid);
-  if (!key) return NextResponse.json({ error: "Not found" }, { status: 404, headers: NO_STORE });
-  return respond(admin, key, await currentUserId());
+  const dish = await dishOf(admin, uuid);
+  if (!dish) return NextResponse.json({ error: "Not found" }, { status: 404, headers: NO_STORE });
+  return respond(admin, dish.key, await currentUserId());
 }
 
 export async function POST(req: NextRequest) {
@@ -76,8 +86,9 @@ export async function POST(req: NextRequest) {
   if (!userId) return NextResponse.json({ error: "Login required" }, { status: 401, headers: NO_STORE });
 
   const admin = createAdminClient();
-  const key = await keyFor(admin, uuid);
-  if (!key) return NextResponse.json({ error: "Not found" }, { status: 404, headers: NO_STORE });
+  const dish = await dishOf(admin, uuid);
+  if (!dish) return NextResponse.json({ error: "Not found" }, { status: 404, headers: NO_STORE });
+  const { key } = dish;
 
   // Eine Zeile je Konto und Gericht: erneutes Bewerten überschreibt die alte Bewertung.
   const { error } = await admin
@@ -86,6 +97,8 @@ export async function POST(req: NextRequest) {
   if (error) return NextResponse.json({ error: "Could not save" }, { status: 500, headers: NO_STORE });
 
   // Anzahl und Durchschnitt stehen auch in den strukturierten Daten der Rezeptseite.
-  refreshRecipePage(uuid);
+  // Die Bewertung gilt dem Gericht in allen Sprachen, deshalb jede Sprachfassung
+  // erneuern. Vorher blieb sie in den übrigen Sprachen bis zu 30 Tage unsichtbar.
+  for (const id of await versionIds(admin, uuid, dish.group)) refreshRecipePage(id);
   return respond(admin, key, userId);
 }
