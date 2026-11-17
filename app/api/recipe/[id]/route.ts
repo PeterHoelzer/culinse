@@ -47,15 +47,22 @@ export async function GET(
         .map((i, idx) => ({
           id: idx,
           name: i.name || "",
-          amount: i.amount ? Number(i.amount) || 0 : 0,
+          // Mengen stehen als Text in der Datenbank, teils mit Komma („1,2“).
+          amount: i.amount ? Number(String(i.amount).replace(",", ".")) || 0 : 0,
           unit: i.unit || "",
           original: [i.amount, i.unit, i.name].filter(Boolean).join(" ").trim(),
         }));
 
-      const instructions = ((r.instructions || []) as { step?: number; text?: string }[])
+      // timer_minutes ist die Dauer des Schritts. Viele Rezepte nennen sie nur
+      // dort und nicht im Text („Bei 150 °C backen.“), deshalb geht sie mit raus.
+      const instructions = ((r.instructions || []) as { step?: number; text?: string; timer_minutes?: number | null }[])
         .filter((s) => s && s.text)
         .sort((a, b) => (a.step ?? 0) - (b.step ?? 0))
-        .map((s, idx) => ({ number: s.step ?? idx + 1, step: s.text || "" }));
+        .map((s, idx) => ({
+          number: s.step ?? idx + 1,
+          step: s.text || "",
+          timerMinutes: typeof s.timer_minutes === "number" && s.timer_minutes > 0 ? s.timer_minutes : null,
+        }));
 
       const totalTime = (r.cook_time || 0) + (r.prep_time || 0);
 

@@ -35,6 +35,8 @@ interface Ingredient {
 interface Step {
   number: number;
   step: string;
+  /** Dauer des Schritts in Minuten; viele Rezepte nennen sie nur hier, nicht im Text. */
+  timerMinutes?: number | null;
 }
 
 export interface Recipe {
@@ -192,10 +194,55 @@ function parseAmount(s: string): number {
   return parseFloat(v.replace(",", "."));
 }
 
+/** Sprachen mit Dezimalpunkt; die übrigen zwölf schreiben das Komma. */
+const POINT_LOCALES = new Set(["en", "zh", "ja", "bn"]);
+
+/**
+ * Dezimalzeichen nach Sprache: Die Mengen stehen in allen Sprachfassungen so in
+ * der Datenbank, wie sie im Original getippt wurden („0.5“ oder „0,5“).
+ */
+function localizeDecimal(s: string, locale: string): string {
+  return POINT_LOCALES.has(locale) ? s.replace(/(\d),(\d)/g, "$1.$2") : s.replace(/(\d)\.(\d)/g, "$1,$2");
+}
+
 function formatAmount(n: number, locale: string): string {
   const rounded = n >= 10 ? Math.round(n) : Math.round(n * 100) / 100;
   const s = rounded.toFixed(2).replace(/\.?0+$/, "");
-  return locale === "de" ? s.replace(".", ",") : s;
+  return localizeDecimal(s, locale);
+}
+
+/**
+ * Die ersten Sätze der Einleitung für die Bühne. Trennt nur an echten
+ * Satzenden: nicht nach Zahlen („17. Jahrhundert“), einzelnen Buchstaben
+ * („z. B.“) oder gängigen Abkürzungen, und kennt auch „。“ und „।“.
+ */
+function firstSentences(text: string, max: number): string {
+  const re = /[。！？।]|[.!?…]+(?=\s|$)/g;
+  let count = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    if (m[0] === ".") {
+      const before = text.slice(0, m.index);
+      if (/\d$/.test(before)) continue;
+      if (/(?:^|[\s(])\p{L}$/u.test(before)) continue;
+      if (/(?:^|[\s(])(?:ca|bzw|usw|etc|Nr|St|Dr|vs|approx|env|ок|тыс|np|tzw|např)$/iu.test(before)) continue;
+    }
+    count++;
+    if (count === max) return text.slice(0, m.index + m[0].length);
+  }
+  return text;
+}
+
+/**
+ * Einleitung und Tipp: Der Tipp steht als eigener Absatz hinter der Einleitung
+ * („…\n\nTipp: …“, in jeder Sprache mit eigenem Wort vor dem Doppelpunkt).
+ */
+function splitSummary(summary: string): { intro: string; tip: { label: string | null; text: string } | null } {
+  const [first, ...rest] = summary.replace(/<[^>]+>/g, "").split(/\n\s*\n/);
+  const tipText = rest.join(" ").trim();
+  if (!tipText) return { intro: first.trim(), tip: null };
+  const m = tipText.match(/^([^:：.]{1,24}?)\s*[:：]\s*([\s\S]+)$/);
+  return { intro: first.trim(), tip: m ? { label: m[1], text: m[2] } : { label: null, text: tipText } };
 }
 
 /**
@@ -207,7 +254,7 @@ function splitIngredient(original: string, factor: number, locale: string): { am
   const m = original.match(LEADING_AMOUNT);
   if (!m) return { amount: null, rest: original };
   const rest = original.slice(m[0].length).trimStart();
-  if (factor === 1) return { amount: m[0].trim(), rest };
+  if (factor === 1) return { amount: localizeDecimal(m[0].trim(), locale), rest };
   const a = formatAmount(parseAmount(m[1]) * factor, locale);
   const b = m[2] ? formatAmount(parseAmount(m[2]) * factor, locale) : null;
   return { amount: b ? `${a}–${b}` : a, rest };
@@ -428,10 +475,18 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   // Recipe JSON-LD is rendered once, server-side, in page.tsx — single source of
   // truth, present in the crawlable HTML and not duplicated here on the client.
 
-  // Strip HTML from summary
-  const cleanSummary = recipe?.summary
-    ? recipe.summary.replace(/<[^>]+>/g, "").split(".").slice(0, 3).join(".") + "."
-    : null;
+  // Bühne: die ersten drei Sätze der Einleitung. Der Tipp-Absatz steht unter der Zubereitung.
+  const summaryParts = recipe?.summary ? splitSummary(recipe.summary) : null;
+  const cleanSummary = summaryParts?.intro ? firstSentences(summaryParts.intro, 3) : null;
+  const tip = summaryParts?.tip ?? null;
+
+  /** „15 Min.“, ab einer Stunde „1 Std. 30 Min.“. */
+  const formatStepTime = (minutes: number): string => {
+    const h = Math.floor(minutes / 60);
+    const min = minutes % 60;
+    if (h === 0 || !t.has("stepHours")) return tCard("minutes", { count: minutes });
+    return min === 0 ? t("stepHours", { count: h }) : `${t("stepHours", { count: h })} ${tCard("minutes", { count: min })}`;
+  };
 
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
@@ -1016,7 +1071,7 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                           <tr key={row.label} className="border-b border-line">
                             <th scope="row" className="py-2.5 text-left font-normal text-ink-2">{row.label}</th>
                             <td className="py-2.5 text-right font-semibold text-ink tabular">
-                              {row.value != null ? `${row.value} ${row.unit}` : "–"}
+                              {row.value != null ? `${localizeDecimal(String(row.value), locale)} ${row.unit}` : "–"}
                             </td>
                           </tr>
                         ))}
@@ -1047,7 +1102,15 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                       <span className="w-8 shrink-0 font-serif text-h2 leading-none text-ink-3 tabular" aria-hidden="true">
                         {step.number}
                       </span>
-                      <p className="max-w-prose text-body-lg text-ink">{step.step}</p>
+                      <div className="min-w-0">
+                        <p className="max-w-prose text-body-lg text-ink">{step.step}</p>
+                        {step.timerMinutes ? (
+                          <p className="mt-2 flex items-center gap-1.5 text-sm font-semibold text-ink-2 tabular">
+                            <Icon name="clock" size={16} />
+                            {formatStepTime(step.timerMinutes)}
+                          </p>
+                        ) : null}
+                      </div>
                     </li>
                   ))}
                 </ol>
@@ -1070,6 +1133,12 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                     ) : undefined
                   }
                 />
+              )}
+              {tip && (
+                <aside className="mt-8 max-w-prose rounded-2 bg-surface-soft p-5">
+                  {tip.label && <p className="text-sm font-semibold text-ink">{tip.label}</p>}
+                  <p className={`text-base text-ink-2 ${tip.label ? "mt-1.5" : ""}`}>{tip.text}</p>
+                </aside>
               )}
             </section>
           </div>

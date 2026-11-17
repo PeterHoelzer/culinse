@@ -512,6 +512,7 @@
     "ctaButton": "Začít zdarma"
   },
   "recipe": {
+    "stepHours": "{count} h",
     "cookTime": "Doba vaření",
     "servings": "Porce",
     "ingredients": "Suroviny",

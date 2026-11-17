@@ -512,6 +512,7 @@
     "ctaButton": "Начать бесплатно"
   },
   "recipe": {
+    "stepHours": "{count} ч",
     "cookTime": "Время приготовления",
     "servings": "Порции",
     "ingredients": "Ингредиенты",

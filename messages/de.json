@@ -512,6 +512,7 @@
     "ctaButton": "Kostenlos starten"
   },
   "recipe": {
+    "stepHours": "{count} Std.",
     "cookTime": "Kochzeit",
     "servings": "Portionen",
     "ingredients": "Zutaten",

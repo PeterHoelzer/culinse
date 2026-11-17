@@ -512,6 +512,7 @@
     "ctaButton": "Começar grátis"
   },
   "recipe": {
+    "stepHours": "{count} h",
     "cookTime": "Tempo de preparo",
     "servings": "Porções",
     "ingredients": "Ingredientes",

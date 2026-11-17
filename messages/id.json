@@ -512,6 +512,7 @@
     "ctaButton": "Mulai gratis"
   },
   "recipe": {
+    "stepHours": "{count} jam",
     "cookTime": "Waktu memasak",
     "servings": "Porsi",
     "ingredients": "Bahan-bahan",

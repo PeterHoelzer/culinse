@@ -458,7 +458,8 @@ const UNICODE_FRACTIONS: Record<string, number> = {
 };
 
 function parseFraction(str: string): number {
-  const s = str.trim();
+  // Dezimalkomma („1,2 kg“) wie einen Punkt lesen; parseFloat bräche sonst bei „1“ ab.
+  const s = str.trim().replace(/^(\d+),(\d+)/, "$1.$2");
 
   // Replace unicode fractions first
   for (const [frac, val] of Object.entries(UNICODE_FRACTIONS)) {
