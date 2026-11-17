@@ -512,6 +512,7 @@
     "ctaButton": "Gratis beginnen"
   },
   "recipe": {
+    "withWaiting": "Met wachttijd: ca. {time}",
     "stepHours": "{count} uur",
     "cookTime": "Kooktijd",
     "servings": "Porties",

@@ -512,6 +512,7 @@
     "ctaButton": "Commencer gratuitement"
   },
   "recipe": {
+    "withWaiting": "Avec le temps d’attente : env. {time}",
     "stepHours": "{count} h",
     "cookTime": "Temps de cuisson",
     "servings": "Portions",

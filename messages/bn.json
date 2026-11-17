@@ -512,6 +512,7 @@
     "ctaButton": "বিনামূল্যে শুরু করুন"
   },
   "recipe": {
+    "withWaiting": "অপেক্ষার সময়সহ: প্রায় {time}",
     "stepHours": "{count} ঘণ্টা",
     "cookTime": "রান্নার সময়",
     "servings": "পরিবেশন",

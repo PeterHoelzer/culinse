@@ -512,6 +512,7 @@
     "ctaButton": "Bắt đầu miễn phí"
   },
   "recipe": {
+    "withWaiting": "Tính cả thời gian chờ: khoảng {time}",
     "stepHours": "{count} giờ",
     "cookTime": "Thời gian nấu",
     "servings": "Khẩu phần",

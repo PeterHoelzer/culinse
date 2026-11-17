@@ -512,6 +512,7 @@
     "ctaButton": "Начать бесплатно"
   },
   "recipe": {
+    "withWaiting": "С учётом ожидания: около {time}",
     "stepHours": "{count} ч",
     "cookTime": "Время приготовления",
     "servings": "Порции",

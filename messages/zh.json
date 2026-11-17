@@ -512,6 +512,7 @@
     "ctaButton": "免费开始"
   },
   "recipe": {
+    "withWaiting": "含等待时间：约 {time}",
     "stepHours": "{count} 小时",
     "cookTime": "烹饪时间",
     "servings": "份数",

@@ -512,6 +512,7 @@
     "ctaButton": "Začít zdarma"
   },
   "recipe": {
+    "withWaiting": "S čekáním: asi {time}",
     "stepHours": "{count} h",
     "cookTime": "Doba vaření",
     "servings": "Porce",

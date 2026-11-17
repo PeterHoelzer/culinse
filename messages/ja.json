@@ -512,6 +512,7 @@
     "ctaButton": "無料で始める"
   },
   "recipe": {
+    "withWaiting": "待ち時間込み：約{time}",
     "stepHours": "{count} 時間",
     "cookTime": "調理時間",
     "servings": "分量",

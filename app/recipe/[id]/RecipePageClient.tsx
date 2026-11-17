@@ -495,6 +495,21 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
     return min === 0 ? t("stepHours", { count: h }) : `${t("stepHours", { count: h })} ${tCard("minutes", { count: min })}`;
   };
 
+  /*
+    Zeit mit Wartezeit: Die große Zahl in der Bühne ist Vorbereitung plus Kochen.
+    Ruhe-, Kühl- und Einweichzeiten stecken oft nur in den Schrittzeiten („Teig
+    2 Stunden kalt stellen“). Liegt deren Summe deutlich über der Gesamtzeit,
+    steht sie gerundet darunter. Es ist eine Näherung: Schritte ohne Zeitangabe
+    fehlen darin, deshalb „rund“.
+  */
+  const stepMinutes = recipe?.instructions.reduce((sum, st) => sum + (st.timerMinutes ?? 0), 0) ?? 0;
+  const totalMinutes = recipe?.time ? parseInt(recipe.time, 10) || 0 : 0;
+  const roundTo = stepMinutes >= 600 ? 60 : stepMinutes >= 120 ? 15 : 5;
+  const waitingMinutes =
+    totalMinutes > 0 && stepMinutes > totalMinutes + 10 && stepMinutes >= totalMinutes * 1.25
+      ? Math.round(stepMinutes / roundTo) * roundTo
+      : null;
+
   const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | null>(null);
   const [moreVideos, setMoreVideos] = useState<{ id: string; title: string; thumbnail: string | null; videoUrl: string; time: string | null }[]>([]);
@@ -759,6 +774,12 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                 </div>
               )}
             </div>
+            {waitingMinutes && t.has("withWaiting") && (
+              <p className="flex items-center gap-1.5 text-sm text-white/80 tabular">
+                <Icon name="clock" size={16} />
+                {t("withWaiting", { time: formatStepTime(waitingMinutes) })}
+              </p>
+            )}
             </div>
           <figure className="relative order-1 m-0 lg:order-2 lg:min-h-[560px]">
             <div className="aspect-[4/3] w-full overflow-hidden lg:absolute lg:inset-0 lg:aspect-auto lg:h-full">
