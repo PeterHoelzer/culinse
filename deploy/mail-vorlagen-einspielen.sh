@@ -90,7 +90,11 @@ if [ "$ENV_NEU" = 1 ]; then
 else
   echo "   Nur Vorlagen geändert: Der Anmeldedienst lädt sie binnen 10 Minuten selbst neu."
 fi
-CODE="$(curl -s -o /dev/null -m 20 -w '%{http_code}' https://daten.culinse.com/auth/v1/health)"
-echo "   Anmeldedienst von außen: HTTP $CODE"
+# Der Dienst muss jede Vorlage unter der eingetragenen Adresse erreichen.
+for m in $MAILS; do
+  ssh "$SERVER" "docker exec supabase-auth wget -qO- http://mailvorlagen/$m.html" | cmp -s - "mail/vorlagen/$m.html" \
+    || { echo "   Der Anmeldedienst erreicht $m.html nicht oder bekommt eine andere Fassung."; exit 1; }
+done
+echo "   Der Anmeldedienst erreicht alle Vorlagen"
 echo "Fertig. Jetzt eine Probe-Mail auslösen (Passwort vergessen auf culinse.com) und im Postfach ansehen."
 echo "Fehler beim Laden einer Vorlage stünden hier: ssh $SERVER \"docker logs --since 15m supabase-auth 2>&1 | grep templatemailer\""

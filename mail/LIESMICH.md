@@ -1,8 +1,8 @@
 # Mails von culinse.com
 
-Stand 17.11.2026. Die Vorlagen sind gebaut und geprüft, aber **noch nicht auf dem
-Server**. Bis dahin verschickt der Anmeldedienst die alte Bestätigungs-Mail und
-für alles andere den englischen Standard.
+Stand 17.11.2026. Die Vorlagen sind seit 17.11.2026, 12:15 Uhr, auf dem Server
+(Schritte 1 bis 3 unten sind erledigt). Offen ist die Probe im echten Postfach
+(Schritt 4) und das Aufräumen danach (Schritt 5).
 
 ## Welche Mails es gibt
 
@@ -81,7 +81,10 @@ Rücksprung-Adresse der Registrierung ist nicht angefasst.
 
 ## Auf den Server bringen
 
-Reihenfolge einhalten. Schritt 2 und 3 ändern den Server und brauchen Peters Ja.
+So ist es am 17.11.2026 gelaufen; für spätere Textänderungen reicht Schritt 3.
+Schritt 2 und 3 ändern den Server und brauchen Peters Ja. Sicherungen der alten
+Fassung: `/root/umzug/mail-vorlagen-vor-umstellung-2026-11-17-121450` und
+`/root/umzug/mail-vorlagen-2026-11-17-121531`.
 
 1. **Push auf `main`** (Peter). Danach liegen Fotos und Schrift unter
    `https://culinse.com/mail/…`, und die Website gibt die Sprache mit. An den
@@ -99,6 +102,7 @@ Reihenfolge einhalten. Schritt 2 und 3 ändern den Server und brauchen Peters Ja
 
    Vorher `touch /opt/supabase/mailer-culinse.env`, sonst startet beim nächsten
    `docker compose up` nichts. Sicherung der alten Datei nach `/root/umzug/`.
+   Erledigt am 17.11.2026.
 3. **Einspielen** vom Mac:
 
    ```bash
@@ -120,6 +124,9 @@ Spätere Textänderungen brauchen nur noch Schritt 3. Ändern sich nur die
 `.html`-Dateien, lädt der Anmeldedienst sie binnen 10 Minuten selbst neu; neue
 Betreffzeilen brauchen den Neustart, den das Skript dann macht.
 
+Im Ordner `/opt/supabase/mail-vorlagen/` liegt auch die `robots.txt` der
+Daten-Adresse (nur sie ist von außen erreichbar). Nicht löschen.
+
 Rückweg: die gesicherte `docker-compose.culinse.yml` zurückkopieren und
 `docker compose up -d auth`. Ist eine Vorlage nicht lesbar, verschickt der Dienst
 von sich aus die englische Standard-Mail; es geht also keine Mail verloren.
@@ -134,7 +141,8 @@ von sich aus die englische Standard-Mail; es geht also keine Mail verloren.
   HTML-Kommentare, also auch die Outlook-Weichen. Die Mail ist dort lesbar, läuft
   aber über die ganze Fensterbreite. Nicht getestet.
 - **Getestet ist nur die Vorschau in Chrome** sowie das Füllen der Vorlagen mit
-  der Technik des Dienstes. Echte Postfächer (Apple Mail, Gmail, GMX, Outlook)
+  der Technik des Dienstes. Auf dem Server geprüft: Der Dienst läuft, erreicht
+  alle sechs Vorlagen und hat die Betreffzeilen übernommen. Echte Postfächer (Apple Mail, Gmail, GMX, Outlook)
   kommen in Schritt 4.
 - **Gültigkeit 24 Stunden** steht fest in den Texten und in `bauen.mjs`
   (`STUNDEN`). Sie gilt, solange `GOTRUE_MAILER_OTP_EXP` nicht gesetzt ist.
