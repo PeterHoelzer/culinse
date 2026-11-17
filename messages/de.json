@@ -267,6 +267,23 @@
     "privacySuffix": "zu",
     "loading": "Lädt…"
   },
+  "passwordPages": {
+    "resetTitle": "Passwort zurücksetzen",
+    "resetIntro": "Gib deine E-Mail-Adresse ein. Wir schicken dir einen Link zum Zurücksetzen.",
+    "sendLink": "Link senden",
+    "sentTitle": "Schau in dein Postfach",
+    "sentText": "Wir haben einen Link zum Zurücksetzen an <strong>{email}</strong> geschickt.",
+    "newTitle": "Neues Passwort",
+    "newIntro": "Wähle ein sicheres Passwort für dein Konto.",
+    "newLabel": "Neues Passwort",
+    "newHint": "Mindestens 6 Zeichen",
+    "confirmLabel": "Passwort bestätigen",
+    "mismatch": "Die Passwörter stimmen nicht überein.",
+    "updateButton": "Passwort speichern",
+    "doneTitle": "Passwort geändert",
+    "doneText": "Du kannst dich jetzt mit dem neuen Passwort anmelden.",
+    "toLogin": "Zur Anmeldung"
+  },
   "profile": {
     "title": "Profil",
     "pageTitle": "Dein Ernährungsprofil",

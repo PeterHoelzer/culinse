@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Button, Input, Notice, Wordmark } from "@/components/ui";
 
@@ -11,18 +12,19 @@ export default function UpdatePasswordPage() {
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
   const supabase = createClient();
+  const t = useTranslations("passwordPages");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (password !== confirm) { setError("Passwords do not match."); return; }
+    if (password !== confirm) { setError(t("mismatch")); return; }
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password });
     if (error) { setError(error.message); } else { setDone(true); }
     setLoading(false);
   };
 
-  const mismatch = confirm.length > 0 && password !== confirm ? "Passwords do not match." : undefined;
+  const mismatch = confirm.length > 0 && password !== confirm ? t("mismatch") : undefined;
 
   return (
     <div className="flex min-h-screen flex-col bg-surface">
@@ -35,27 +37,27 @@ export default function UpdatePasswordPage() {
         <div className="max-w-md">
           {done ? (
             <div>
-              <h1 className="text-h1-sm sm:text-h1">Password updated</h1>
-              <Notice tone="success" className="mt-4 mb-6">You can now log in with your new password.</Notice>
-              <Button href="/login">Go to login</Button>
+              <h1 className="text-h1-sm sm:text-h1">{t("doneTitle")}</h1>
+              <Notice tone="success" className="mt-4 mb-6">{t("doneText")}</Notice>
+              <Button href="/login">{t("toLogin")}</Button>
             </div>
           ) : (
             <>
-              <h1 className="text-h1-sm sm:text-h1">New password</h1>
-              <p className="mt-2 mb-6 text-body-lg text-ink-2">Choose a strong password for your account.</p>
+              <h1 className="text-h1-sm sm:text-h1">{t("newTitle")}</h1>
+              <p className="mt-2 mb-6 text-body-lg text-ink-2">{t("newIntro")}</p>
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <Input
-                  label="New password"
+                  label={t("newLabel")}
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   minLength={6}
                   autoComplete="new-password"
-                  hint="At least 6 characters"
+                  hint={t("newHint")}
                 />
                 <Input
-                  label="Confirm password"
+                  label={t("confirmLabel")}
                   type="password"
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
@@ -66,7 +68,7 @@ export default function UpdatePasswordPage() {
                 />
                 {error && !mismatch && <Notice tone="error">{error}</Notice>}
                 <div>
-                  <Button type="submit" loading={loading}>Update password</Button>
+                  <Button type="submit" loading={loading}>{t("updateButton")}</Button>
                 </div>
               </form>
             </>

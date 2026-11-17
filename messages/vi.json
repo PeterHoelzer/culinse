@@ -267,6 +267,23 @@
     "privacySuffix": "của chúng tôi",
     "loading": "Đang tải…"
   },
+  "passwordPages": {
+    "resetTitle": "Đặt lại mật khẩu",
+    "resetIntro": "Nhập email của bạn, chúng tôi sẽ gửi liên kết để đặt lại.",
+    "sendLink": "Gửi liên kết",
+    "sentTitle": "Hãy kiểm tra email",
+    "sentText": "Chúng tôi đã gửi liên kết đặt lại mật khẩu đến <strong>{email}</strong>.",
+    "newTitle": "Mật khẩu mới",
+    "newIntro": "Hãy chọn một mật khẩu mạnh cho tài khoản của bạn.",
+    "newLabel": "Mật khẩu mới",
+    "newHint": "Ít nhất 6 ký tự",
+    "confirmLabel": "Xác nhận mật khẩu",
+    "mismatch": "Mật khẩu không khớp.",
+    "updateButton": "Lưu mật khẩu",
+    "doneTitle": "Đã cập nhật mật khẩu",
+    "doneText": "Bây giờ bạn có thể đăng nhập bằng mật khẩu mới.",
+    "toLogin": "Đến trang đăng nhập"
+  },
   "profile": {
     "title": "Hồ sơ",
     "pageTitle": "Hồ sơ ăn uống của bạn",

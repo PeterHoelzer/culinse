@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Ładowanie…"
   },
+  "passwordPages": {
+    "resetTitle": "Zresetuj hasło",
+    "resetIntro": "Podaj swój adres e-mail, a wyślemy ci link do zresetowania hasła.",
+    "sendLink": "Wyślij link",
+    "sentTitle": "Sprawdź skrzynkę",
+    "sentText": "Wysłaliśmy link do zresetowania hasła na adres <strong>{email}</strong>.",
+    "newTitle": "Nowe hasło",
+    "newIntro": "Wybierz bezpieczne hasło do swojego konta.",
+    "newLabel": "Nowe hasło",
+    "newHint": "Co najmniej 6 znaków",
+    "confirmLabel": "Powtórz hasło",
+    "mismatch": "Hasła nie są takie same.",
+    "updateButton": "Zapisz hasło",
+    "doneTitle": "Hasło zmienione",
+    "doneText": "Możesz się teraz zalogować nowym hasłem.",
+    "toLogin": "Przejdź do logowania"
+  },
   "profile": {
     "title": "Profil",
     "pageTitle": "Twój profil żywieniowy",

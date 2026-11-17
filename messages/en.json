@@ -267,6 +267,23 @@
     "privacySuffix": "",
     "loading": "Loading…"
   },
+  "passwordPages": {
+    "resetTitle": "Reset password",
+    "resetIntro": "Enter your email and we'll send you a reset link.",
+    "sendLink": "Send reset link",
+    "sentTitle": "Check your email",
+    "sentText": "We sent a password reset link to <strong>{email}</strong>.",
+    "newTitle": "New password",
+    "newIntro": "Choose a strong password for your account.",
+    "newLabel": "New password",
+    "newHint": "At least 6 characters",
+    "confirmLabel": "Confirm password",
+    "mismatch": "Passwords do not match.",
+    "updateButton": "Update password",
+    "doneTitle": "Password updated",
+    "doneText": "You can now log in with your new password.",
+    "toLogin": "Go to login"
+  },
   "profile": {
     "title": "Profile",
     "pageTitle": "Your Food Profile",

@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Načítání…"
   },
+  "passwordPages": {
+    "resetTitle": "Obnovit heslo",
+    "resetIntro": "Zadej svůj e-mail a pošleme ti odkaz pro obnovení hesla.",
+    "sendLink": "Poslat odkaz",
+    "sentTitle": "Zkontroluj e-mail",
+    "sentText": "Poslali jsme odkaz pro obnovení hesla na adresu <strong>{email}</strong>.",
+    "newTitle": "Nové heslo",
+    "newIntro": "Zvol si silné heslo ke svému účtu.",
+    "newLabel": "Nové heslo",
+    "newHint": "Alespoň 6 znaků",
+    "confirmLabel": "Potvrzení hesla",
+    "mismatch": "Hesla se neshodují.",
+    "updateButton": "Uložit heslo",
+    "doneTitle": "Heslo změněno",
+    "doneText": "Teď se můžeš přihlásit novým heslem.",
+    "toLogin": "Přejít na přihlášení"
+  },
   "profile": {
     "title": "Profil",
     "pageTitle": "Tvůj stravovací profil",

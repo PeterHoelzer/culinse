@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Caricamento…"
   },
+  "passwordPages": {
+    "resetTitle": "Reimposta la password",
+    "resetIntro": "Inserisci la tua email e ti invieremo un link per reimpostarla.",
+    "sendLink": "Invia il link",
+    "sentTitle": "Controlla la tua email",
+    "sentText": "Abbiamo inviato un link per reimpostare la password a <strong>{email}</strong>.",
+    "newTitle": "Nuova password",
+    "newIntro": "Scegli una password sicura per il tuo account.",
+    "newLabel": "Nuova password",
+    "newHint": "Almeno 6 caratteri",
+    "confirmLabel": "Conferma la password",
+    "mismatch": "Le password non coincidono.",
+    "updateButton": "Salva la password",
+    "doneTitle": "Password aggiornata",
+    "doneText": "Ora puoi accedere con la nuova password.",
+    "toLogin": "Vai all’accesso"
+  },
   "profile": {
     "title": "Profilo",
     "pageTitle": "Il tuo profilo alimentare",

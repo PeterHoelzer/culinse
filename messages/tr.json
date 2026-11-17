@@ -267,6 +267,23 @@
     "privacySuffix": "kabul etmiş olursun",
     "loading": "Yükleniyor…"
   },
+  "passwordPages": {
+    "resetTitle": "Şifreyi sıfırla",
+    "resetIntro": "E-posta adresini yaz, sana sıfırlama bağlantısı gönderelim.",
+    "sendLink": "Bağlantıyı gönder",
+    "sentTitle": "E-postana bak",
+    "sentText": "<strong>{email}</strong> adresine şifre sıfırlama bağlantısı gönderdik.",
+    "newTitle": "Yeni şifre",
+    "newIntro": "Hesabın için güçlü bir şifre seç.",
+    "newLabel": "Yeni şifre",
+    "newHint": "En az 6 karakter",
+    "confirmLabel": "Şifreyi tekrar yaz",
+    "mismatch": "Şifreler eşleşmiyor.",
+    "updateButton": "Şifreyi kaydet",
+    "doneTitle": "Şifre güncellendi",
+    "doneText": "Artık yeni şifrenle giriş yapabilirsin.",
+    "toLogin": "Girişe git"
+  },
   "profile": {
     "title": "Profil",
     "pageTitle": "Beslenme profilin",

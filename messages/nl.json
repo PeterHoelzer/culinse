@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Laden…"
   },
+  "passwordPages": {
+    "resetTitle": "Wachtwoord opnieuw instellen",
+    "resetIntro": "Vul je e-mailadres in. Dan sturen we je een link om het opnieuw in te stellen.",
+    "sendLink": "Link versturen",
+    "sentTitle": "Kijk in je mailbox",
+    "sentText": "We hebben een link om je wachtwoord opnieuw in te stellen gestuurd naar <strong>{email}</strong>.",
+    "newTitle": "Nieuw wachtwoord",
+    "newIntro": "Kies een sterk wachtwoord voor je account.",
+    "newLabel": "Nieuw wachtwoord",
+    "newHint": "Minimaal 6 tekens",
+    "confirmLabel": "Wachtwoord bevestigen",
+    "mismatch": "De wachtwoorden komen niet overeen.",
+    "updateButton": "Wachtwoord opslaan",
+    "doneTitle": "Wachtwoord gewijzigd",
+    "doneText": "Je kunt nu inloggen met je nieuwe wachtwoord.",
+    "toLogin": "Naar inloggen"
+  },
   "profile": {
     "title": "Profiel",
     "pageTitle": "Jouw voedingsprofiel",

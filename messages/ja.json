@@ -267,6 +267,23 @@
     "privacySuffix": "に同意したものとみなされます。",
     "loading": "読み込み中…"
   },
+  "passwordPages": {
+    "resetTitle": "パスワードをリセット",
+    "resetIntro": "メールアドレスを入力してください。リセット用のリンクをお送りします。",
+    "sendLink": "リンクを送信",
+    "sentTitle": "メールをご確認ください",
+    "sentText": "パスワードのリセット用リンクを <strong>{email}</strong> に送信しました。",
+    "newTitle": "新しいパスワード",
+    "newIntro": "アカウント用に安全なパスワードを決めてください。",
+    "newLabel": "新しいパスワード",
+    "newHint": "6文字以上",
+    "confirmLabel": "パスワードの確認",
+    "mismatch": "パスワードが一致しません。",
+    "updateButton": "パスワードを保存",
+    "doneTitle": "パスワードを更新しました",
+    "doneText": "新しいパスワードでログインできます。",
+    "toLogin": "ログインへ"
+  },
   "profile": {
     "title": "プロフィール",
     "pageTitle": "あなたの食事プロフィール",

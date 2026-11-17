@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Cargando…"
   },
+  "passwordPages": {
+    "resetTitle": "Restablecer contraseña",
+    "resetIntro": "Escribe tu correo electrónico y te enviaremos un enlace para restablecerla.",
+    "sendLink": "Enviar enlace",
+    "sentTitle": "Revisa tu correo",
+    "sentText": "Hemos enviado un enlace para restablecer la contraseña a <strong>{email}</strong>.",
+    "newTitle": "Nueva contraseña",
+    "newIntro": "Elige una contraseña segura para tu cuenta.",
+    "newLabel": "Nueva contraseña",
+    "newHint": "Mínimo 6 caracteres",
+    "confirmLabel": "Confirmar contraseña",
+    "mismatch": "Las contraseñas no coinciden.",
+    "updateButton": "Guardar contraseña",
+    "doneTitle": "Contraseña actualizada",
+    "doneText": "Ya puedes iniciar sesión con tu nueva contraseña.",
+    "toLogin": "Ir a iniciar sesión"
+  },
   "profile": {
     "title": "Perfil",
     "pageTitle": "Tu perfil alimentario",

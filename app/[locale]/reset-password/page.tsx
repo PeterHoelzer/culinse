@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/lib/navigation";
 import { Button, Input, Notice, Wordmark } from "@/components/ui";
@@ -13,6 +13,8 @@ export default function ResetPasswordPage() {
   const [error, setError] = useState("");
   const supabase = createClient();
   const locale = useLocale();
+  const t = useTranslations("passwordPages");
+  const tLogin = useTranslations("login");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,33 +43,33 @@ export default function ResetPasswordPage() {
         <div className="max-w-md">
           {sent ? (
             <div>
-              <h1 className="text-h1-sm sm:text-h1">Check your email</h1>
+              <h1 className="text-h1-sm sm:text-h1">{t("sentTitle")}</h1>
               <Notice tone="success" className="mt-4 mb-6">
-                We sent a password reset link to <strong>{email}</strong>.
+                {t.rich("sentText", { email, strong: (chunks) => <strong>{chunks}</strong> })}
               </Notice>
-              <Link href="/login" className={linkClass}>Back to login</Link>
+              <Link href="/login" className={linkClass}>{tLogin("backToLogin")}</Link>
             </div>
           ) : (
             <>
-              <h1 className="text-h1-sm sm:text-h1">Reset password</h1>
-              <p className="mt-2 mb-6 text-body-lg text-ink-2">Enter your email and we&apos;ll send you a reset link.</p>
+              <h1 className="text-h1-sm sm:text-h1">{t("resetTitle")}</h1>
+              <p className="mt-2 mb-6 text-body-lg text-ink-2">{t("resetIntro")}</p>
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <Input
-                  label="Email"
+                  label={tLogin("emailLabel")}
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  placeholder="you@example.com"
+                  placeholder={tLogin("emailPlaceholder")}
                 />
                 {error && <Notice tone="error">{error}</Notice>}
                 <div>
-                  <Button type="submit" loading={loading}>Send reset link</Button>
+                  <Button type="submit" loading={loading}>{t("sendLink")}</Button>
                 </div>
               </form>
               <p className="mt-6">
-                <Link href="/login" className={linkClass}>Back to login</Link>
+                <Link href="/login" className={linkClass}>{tLogin("backToLogin")}</Link>
               </p>
             </>
           )}

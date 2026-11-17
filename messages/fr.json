@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Chargement…"
   },
+  "passwordPages": {
+    "resetTitle": "Réinitialiser le mot de passe",
+    "resetIntro": "Indique ton adresse e-mail et nous t’enverrons un lien de réinitialisation.",
+    "sendLink": "Envoyer le lien",
+    "sentTitle": "Regarde dans ta boîte mail",
+    "sentText": "Nous avons envoyé un lien de réinitialisation à <strong>{email}</strong>.",
+    "newTitle": "Nouveau mot de passe",
+    "newIntro": "Choisis un mot de passe solide pour ton compte.",
+    "newLabel": "Nouveau mot de passe",
+    "newHint": "6 caractères minimum",
+    "confirmLabel": "Confirmer le mot de passe",
+    "mismatch": "Les mots de passe ne correspondent pas.",
+    "updateButton": "Enregistrer le mot de passe",
+    "doneTitle": "Mot de passe modifié",
+    "doneText": "Tu peux maintenant te connecter avec ton nouveau mot de passe.",
+    "toLogin": "Aller à la connexion"
+  },
   "profile": {
     "title": "Profil",
     "pageTitle": "Ton profil alimentaire",

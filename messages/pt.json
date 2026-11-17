@@ -267,6 +267,23 @@
     "privacySuffix": ".",
     "loading": "Carregando…"
   },
+  "passwordPages": {
+    "resetTitle": "Redefinir senha",
+    "resetIntro": "Digite seu e-mail e enviaremos um link para redefinir a senha.",
+    "sendLink": "Enviar link",
+    "sentTitle": "Confira seu e-mail",
+    "sentText": "Enviamos um link para redefinir a senha para <strong>{email}</strong>.",
+    "newTitle": "Nova senha",
+    "newIntro": "Escolha uma senha forte para sua conta.",
+    "newLabel": "Nova senha",
+    "newHint": "Pelo menos 6 caracteres",
+    "confirmLabel": "Confirmar senha",
+    "mismatch": "As senhas não coincidem.",
+    "updateButton": "Salvar senha",
+    "doneTitle": "Senha atualizada",
+    "doneText": "Agora você pode entrar com a nova senha.",
+    "toLogin": "Ir para o login"
+  },
   "profile": {
     "title": "Perfil",
     "pageTitle": "Seu perfil alimentar",

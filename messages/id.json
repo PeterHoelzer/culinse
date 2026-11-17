@@ -267,6 +267,23 @@
     "privacySuffix": "kami.",
     "loading": "Memuat…"
   },
+  "passwordPages": {
+    "resetTitle": "Atur ulang kata sandi",
+    "resetIntro": "Masukkan email kamu, nanti kami kirim tautan untuk mengatur ulang.",
+    "sendLink": "Kirim tautan",
+    "sentTitle": "Cek email kamu",
+    "sentText": "Kami sudah mengirim tautan pengaturan ulang kata sandi ke <strong>{email}</strong>.",
+    "newTitle": "Kata sandi baru",
+    "newIntro": "Pilih kata sandi yang kuat untuk akunmu.",
+    "newLabel": "Kata sandi baru",
+    "newHint": "Minimal 6 karakter",
+    "confirmLabel": "Konfirmasi kata sandi",
+    "mismatch": "Kata sandi tidak cocok.",
+    "updateButton": "Simpan kata sandi",
+    "doneTitle": "Kata sandi diperbarui",
+    "doneText": "Sekarang kamu bisa masuk dengan kata sandi baru.",
+    "toLogin": "Ke halaman masuk"
+  },
   "profile": {
     "title": "Profil",
     "pageTitle": "Profil pola makanmu",
