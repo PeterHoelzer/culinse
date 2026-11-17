@@ -1,0 +1,19 @@
+¿Es esta tu nueva dirección?
+
+Quieres cambiar el correo electrónico de tu cuenta de Culinse. Confírmalo con un clic.
+
+Actual: {{ .Email }}
+Nuevo: {{ .NewEmail }}
+
+Confirmar nueva dirección:
+{{ .ConfirmationURL }}
+
+El enlace es válido durante 24 horas y se puede usar una sola vez.
+
+¿No lo has pedido tú? Entonces borra este correo y cambia tu contraseña por seguridad.
+
+-- 
+Culinse
+Este correo pertenece a tu cuenta en culinse.com. No es publicidad.
+Aviso legal: https://culinse.com/es/impressum
+Privacidad: https://culinse.com/es/datenschutz

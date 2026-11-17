@@ -1,0 +1,16 @@
+Eén klik en je bent binnen.
+
+Met deze link log je in bij Culinse. Een wachtwoord heb je daarvoor niet nodig.
+
+Nu inloggen:
+{{ .ConfirmationURL }}
+
+De link is 24 uur geldig en kan maar één keer worden gebruikt.
+
+Wilde je niet inloggen? Verwijder deze mail dan. Zonder de link komt niemand in je account.
+
+-- 
+Culinse
+Deze mail hoort bij je account op culinse.com. Het is geen reclame.
+Juridische informatie: https://culinse.com/nl/impressum
+Privacyverklaring: https://culinse.com/nl/datenschutz

@@ -1,0 +1,19 @@
+Klopt het nieuwe adres?
+
+Je wilt het e-mailadres van je Culinse-account wijzigen. Bevestig dat met één klik.
+
+Huidig: {{ .Email }}
+Nieuw: {{ .NewEmail }}
+
+Nieuw adres bevestigen:
+{{ .ConfirmationURL }}
+
+De link is 24 uur geldig en kan maar één keer worden gebruikt.
+
+Heb je dit niet aangevraagd? Verwijder deze mail dan en wijzig voor de zekerheid je wachtwoord.
+
+-- 
+Culinse
+Deze mail hoort bij je account op culinse.com. Het is geen reclame.
+Juridische informatie: https://culinse.com/nl/impressum
+Privacyverklaring: https://culinse.com/nl/datenschutz

@@ -1,0 +1,16 @@
+Miło cię widzieć.
+
+Potwierdź swój adres e-mail. Potem możesz zapisywać przepisy, oceniać je i planować tydzień.
+
+Potwierdź e-mail:
+{{ .ConfirmationURL }}
+
+Link jest ważny 24 godziny i działa tylko raz.
+
+To nie ty zakładasz konto w Culinse? Po prostu usuń tę wiadomość. Nic się nie stanie.
+
+-- 
+Culinse
+Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama.
+Informacje prawne: https://culinse.com/pl/impressum
+Polityka prywatności: https://culinse.com/pl/datenschutz

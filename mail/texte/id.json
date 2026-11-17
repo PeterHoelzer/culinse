@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Tombol tidak berfungsi? Salin tautan ini ke browser kamu:",
+    "einheit_stunden": "jam berlaku",
+    "einheit_einmal": "sekali pakai",
+    "gueltig_link": "Tautan berlaku 24 jam dan hanya bisa dipakai sekali.",
+    "gueltig_code": "Kode berlaku 24 jam dan hanya bisa dipakai sekali.",
+    "im_bild": "Di foto:",
+    "ki_foto": "Foto buatan AI",
+    "grund": "Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.",
+    "impressum": "Informasi hukum",
+    "datenschutz": "Privasi",
+    "bisher": "Saat ini",
+    "neu": "Baru"
+  },
+  "confirmation": {
+    "betreff": "Konfirmasi alamat email kamu untuk Culinse",
+    "vorschau": "Satu klik, lalu akunmu siap.",
+    "zeile": "Selamat datang di Culinse",
+    "titel": "Senang kamu di sini.",
+    "text": "Konfirmasi dulu alamat email kamu. Setelah itu kamu bisa menyimpan resep, memberi nilai, dan merencanakan menu mingguanmu.",
+    "knopf": "Konfirmasi email",
+    "hinweis": "Kamu tidak mendaftar di Culinse? Hapus saja email ini. Tidak akan terjadi apa-apa."
+  },
+  "recovery": {
+    "betreff": "Kata sandi baru untuk akun Culinse kamu",
+    "vorschau": "Satu klik untuk membuat kata sandi baru.",
+    "zeile": "Lupa kata sandi",
+    "titel": "Kita beresin sekarang.",
+    "text": "Kamu ingin kata sandi baru untuk akun Culinse. Atur lewat tombol di bawah.",
+    "knopf": "Atur kata sandi baru",
+    "hinweis": "Kamu tidak memintanya? Hapus email ini. Kata sandi lamamu tetap berlaku."
+  },
+  "magic_link": {
+    "betreff": "Tautan masuk kamu untuk Culinse",
+    "vorschau": "Satu klik, dan kamu sudah masuk.",
+    "zeile": "Masuk tanpa kata sandi",
+    "titel": "Satu klik, kamu sudah masuk.",
+    "text": "Pakai tautan ini untuk masuk ke Culinse. Kamu tidak perlu kata sandi.",
+    "knopf": "Masuk sekarang",
+    "hinweis": "Kamu tidak sedang mencoba masuk? Hapus email ini. Tanpa tautan ini, tidak ada yang bisa masuk ke akunmu."
+  },
+  "email_change": {
+    "betreff": "Konfirmasi alamat email baru untuk Culinse",
+    "vorschau": "Satu klik, lalu alamat baru berlaku.",
+    "zeile": "Alamat email baru",
+    "titel": "Apakah alamat barunya benar?",
+    "text": "Kamu ingin mengganti alamat email akun Culinse. Konfirmasi dengan satu klik.",
+    "knopf": "Konfirmasi alamat baru",
+    "hinweis": "Kamu tidak memintanya? Hapus email ini dan ganti kata sandimu demi keamanan."
+  },
+  "invite": {
+    "betreff": "Kamu diundang ke Culinse",
+    "vorschau": "Resep dari seluruh dunia menunggumu.",
+    "zeile": "Undangan",
+    "titel": "Ayo duduk di meja makan.",
+    "text": "Kamu diundang untuk membuat akun di Culinse. Di sana ada resep dari seluruh dunia yang bisa kamu simpan, beri nilai, dan rencanakan.",
+    "knopf": "Terima undangan",
+    "hinweis": "Kamu tidak kenal Culinse? Hapus saja email ini. Tidak akan terjadi apa-apa."
+  },
+  "reauthentication": {
+    "betreff": "Kode kamu untuk Culinse",
+    "vorschau": "Masukkan kode di Culinse.",
+    "zeile": "Kode keamanan",
+    "titel": "Ini kodemu.",
+    "text": "Masukkan kode ini di Culinse. Dengan begitu kamu membuktikan bahwa ini benar-benar kamu.",
+    "hinweis": "Kamu tidak meminta kode? Hapus email ini dan ganti kata sandimu demi keamanan."
+  }
+}

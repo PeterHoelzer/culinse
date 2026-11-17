@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "按钮点不了？请把下面的链接复制到浏览器中打开：",
+    "einheit_stunden": "小时内有效",
+    "einheit_einmal": "限用一次",
+    "gueltig_link": "链接 24 小时内有效，只能使用一次。",
+    "gueltig_code": "验证码 24 小时内有效，只能使用一次。",
+    "im_bild": "图中：",
+    "ki_foto": "AI 生成的照片",
+    "grund": "这封邮件与你在 culinse.com 的账户有关，不是广告。",
+    "impressum": "法律声明",
+    "datenschutz": "隐私政策",
+    "bisher": "当前",
+    "neu": "新"
+  },
+  "confirmation": {
+    "betreff": "请确认你在 Culinse 的邮箱地址",
+    "vorschau": "点一下，账户就准备好了。",
+    "zeile": "欢迎来到 Culinse",
+    "titel": "很高兴见到你。",
+    "text": "请先确认一下你的邮箱地址。之后就可以收藏食谱、给食谱打分，还能安排一周的餐食。",
+    "knopf": "确认邮箱",
+    "hinweis": "你没有注册 Culinse？那直接删掉这封邮件就行，不会有任何影响。"
+  },
+  "recovery": {
+    "betreff": "为你的 Culinse 账户设置新密码",
+    "vorschau": "点一下，就能设置新密码。",
+    "zeile": "忘记密码",
+    "titel": "很快就好。",
+    "text": "你想为 Culinse 账户设置新密码。点下面的按钮就可以设置。",
+    "knopf": "设置新密码",
+    "hinweis": "不是你申请的？那请删掉这封邮件，原来的密码仍然有效。"
+  },
+  "magic_link": {
+    "betreff": "你的 Culinse 登录链接",
+    "vorschau": "点一下，就登录好了。",
+    "zeile": "免密码登录",
+    "titel": "点一下，马上进来。",
+    "text": "用这个链接登录 Culinse，不需要密码。",
+    "knopf": "立即登录",
+    "hinweis": "你没有想登录？那请删掉这封邮件。没有这个链接，别人进不了你的账户。"
+  },
+  "email_change": {
+    "betreff": "请确认你在 Culinse 的新邮箱地址",
+    "vorschau": "点一下，新地址就生效了。",
+    "zeile": "新邮箱地址",
+    "titel": "新地址没错吧？",
+    "text": "你想更改 Culinse 账户的邮箱地址。点一下就可以确认。",
+    "knopf": "确认新地址",
+    "hinweis": "不是你申请的？那请删掉这封邮件，并为安全起见修改密码。"
+  },
+  "invite": {
+    "betreff": "邀请你加入 Culinse",
+    "vorschau": "世界各地的食谱在等你。",
+    "zeile": "邀请",
+    "titel": "来一起上桌吧。",
+    "text": "邀请你在 Culinse 创建账户。这里有来自世界各地的食谱，可以收藏、打分，也可以用来安排餐食。",
+    "knopf": "接受邀请",
+    "hinweis": "你不认识 Culinse？那直接删掉这封邮件就行，不会有任何影响。"
+  },
+  "reauthentication": {
+    "betreff": "你的 Culinse 验证码",
+    "vorschau": "请在 Culinse 输入验证码。",
+    "zeile": "安全验证码",
+    "titel": "验证码在这里。",
+    "text": "请在 Culinse 输入这个验证码，以确认是你本人在操作。",
+    "hinweis": "你没有申请验证码？那请删掉这封邮件，并为安全起见修改密码。"
+  }
+}

@@ -1,0 +1,16 @@
+Ven a la mesa.
+
+Te han invitado a crear una cuenta en Culinse. Allí encontrarás recetas de todo el mundo para guardar, valorar y planificar.
+
+Aceptar invitación:
+{{ .ConfirmationURL }}
+
+El enlace es válido durante 24 horas y se puede usar una sola vez.
+
+¿No conoces Culinse? Entonces borra este correo. No pasará nada más.
+
+-- 
+Culinse
+Este correo pertenece a tu cuenta en culinse.com. No es publicidad.
+Aviso legal: https://culinse.com/es/impressum
+Privacidad: https://culinse.com/es/datenschutz

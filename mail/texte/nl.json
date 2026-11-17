@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Werkt de knop niet? Kopieer dan deze link naar je browser:",
+    "einheit_stunden": "uur geldig",
+    "einheit_einmal": "eenmalig",
+    "gueltig_link": "De link is 24 uur geldig en kan maar één keer worden gebruikt.",
+    "gueltig_code": "De code is 24 uur geldig en kan maar één keer worden gebruikt.",
+    "im_bild": "Op de foto:",
+    "ki_foto": "Door AI gemaakte foto",
+    "grund": "Deze mail hoort bij je account op culinse.com. Het is geen reclame.",
+    "impressum": "Juridische informatie",
+    "datenschutz": "Privacyverklaring",
+    "bisher": "Huidig",
+    "neu": "Nieuw"
+  },
+  "confirmation": {
+    "betreff": "Bevestig je e-mailadres voor Culinse",
+    "vorschau": "Eén klik en je account is klaar.",
+    "zeile": "Welkom bij Culinse",
+    "titel": "Fijn dat je er bent.",
+    "text": "Bevestig even je e-mailadres. Daarna kun je recepten opslaan, beoordelen en je week plannen.",
+    "knopf": "E-mail bevestigen",
+    "hinweis": "Heb je je niet aangemeld bij Culinse? Verwijder deze mail dan gewoon. Er gebeurt verder niets."
+  },
+  "recovery": {
+    "betreff": "Nieuw wachtwoord voor je Culinse-account",
+    "vorschau": "Met één klik stel je een nieuw wachtwoord in.",
+    "zeile": "Wachtwoord vergeten",
+    "titel": "Dat lossen we zo op.",
+    "text": "Je wilt een nieuw wachtwoord voor je Culinse-account. Met de knop stel je het in.",
+    "knopf": "Nieuw wachtwoord instellen",
+    "hinweis": "Heb je dit niet aangevraagd? Verwijder deze mail dan. Je oude wachtwoord blijft gewoon werken."
+  },
+  "magic_link": {
+    "betreff": "Je inloglink voor Culinse",
+    "vorschau": "Eén klik en je bent ingelogd.",
+    "zeile": "Inloggen zonder wachtwoord",
+    "titel": "Eén klik en je bent binnen.",
+    "text": "Met deze link log je in bij Culinse. Een wachtwoord heb je daarvoor niet nodig.",
+    "knopf": "Nu inloggen",
+    "hinweis": "Wilde je niet inloggen? Verwijder deze mail dan. Zonder de link komt niemand in je account."
+  },
+  "email_change": {
+    "betreff": "Bevestig je nieuwe e-mailadres voor Culinse",
+    "vorschau": "Eén klik en het nieuwe adres is actief.",
+    "zeile": "Nieuw e-mailadres",
+    "titel": "Klopt het nieuwe adres?",
+    "text": "Je wilt het e-mailadres van je Culinse-account wijzigen. Bevestig dat met één klik.",
+    "knopf": "Nieuw adres bevestigen",
+    "hinweis": "Heb je dit niet aangevraagd? Verwijder deze mail dan en wijzig voor de zekerheid je wachtwoord."
+  },
+  "invite": {
+    "betreff": "Je bent uitgenodigd voor Culinse",
+    "vorschau": "Recepten uit de hele wereld wachten op je.",
+    "zeile": "Uitnodiging",
+    "titel": "Kom aan tafel.",
+    "text": "Je bent uitgenodigd om een account aan te maken bij Culinse. Daar vind je recepten uit de hele wereld, om op te slaan, te beoordelen en te plannen.",
+    "knopf": "Uitnodiging accepteren",
+    "hinweis": "Ken je Culinse niet? Verwijder deze mail dan gewoon. Er gebeurt verder niets."
+  },
+  "reauthentication": {
+    "betreff": "Je code voor Culinse",
+    "vorschau": "Vul de code in op Culinse.",
+    "zeile": "Beveiligingscode",
+    "titel": "Hier is je code.",
+    "text": "Vul deze code in op Culinse. Zo bevestig je dat jij het echt bent.",
+    "hinweis": "Heb je geen code aangevraagd? Verwijder deze mail dan en wijzig voor de zekerheid je wachtwoord."
+  }
+}

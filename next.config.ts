@@ -72,6 +72,13 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      // Bilder und Schrift der Mails (public/mail). Mailprogramme laden die
+      // Schrift von einer fremden Herkunft; ohne diese Freigabe bleibt es bei
+      // der Ersatzschrift. Siehe mail/LIESMICH.md.
+      {
+        source: "/mail/:path*",
+        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
+      },
     ];
   },
 };

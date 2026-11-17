@@ -1,0 +1,15 @@
+Tady je tvůj kód.
+
+Zadej tento kód v Culinse. Tím potvrdíš, že jsi to opravdu ty.
+
+{{ .Token }}
+
+Kód platí 24 hodin a lze ho použít jen jednou.
+
+Nežádáš o kód? Pak tento e-mail smaž a pro jistotu změň heslo.
+
+-- 
+Culinse
+Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.
+Právní informace: https://culinse.com/cs/impressum
+Ochrana soukromí: https://culinse.com/cs/datenschutz

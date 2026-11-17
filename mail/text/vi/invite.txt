@@ -1,0 +1,16 @@
+Mời bạn vào bàn ăn.
+
+Bạn được mời tạo tài khoản tại Culinse. Ở đây có công thức từ khắp nơi trên thế giới để bạn lưu, chấm điểm và lên kế hoạch.
+
+Nhận lời mời:
+{{ .ConfirmationURL }}
+
+Liên kết có hiệu lực trong 24 giờ và chỉ dùng được một lần.
+
+Bạn không biết Culinse? Cứ xóa email này đi, sẽ không có gì xảy ra cả.
+
+-- 
+Culinse
+Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo.
+Thông tin pháp lý: https://culinse.com/vi/impressum
+Chính sách bảo mật: https://culinse.com/vi/datenschutz

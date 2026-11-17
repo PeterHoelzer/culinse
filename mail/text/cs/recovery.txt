@@ -1,0 +1,16 @@
+To hned spravíme.
+
+Chceš nové heslo k účtu v Culinse. Nastavíš ho tlačítkem níže.
+
+Nastavit nové heslo:
+{{ .ConfirmationURL }}
+
+Odkaz platí 24 hodin a lze ho použít jen jednou.
+
+Nežádáš o nové heslo? Pak tento e-mail smaž. Tvé staré heslo platí dál.
+
+-- 
+Culinse
+Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.
+Právní informace: https://culinse.com/cs/impressum
+Ochrana soukromí: https://culinse.com/cs/datenschutz

@@ -1,0 +1,16 @@
+Dat lossen we zo op.
+
+Je wilt een nieuw wachtwoord voor je Culinse-account. Met de knop stel je het in.
+
+Nieuw wachtwoord instellen:
+{{ .ConfirmationURL }}
+
+De link is 24 uur geldig en kan maar één keer worden gebruikt.
+
+Heb je dit niet aangevraagd? Verwijder deze mail dan. Je oude wachtwoord blijft gewoon werken.
+
+-- 
+Culinse
+Deze mail hoort bij je account op culinse.com. Het is geen reclame.
+Juridische informatie: https://culinse.com/nl/impressum
+Privacyverklaring: https://culinse.com/nl/datenschutz

@@ -1,0 +1,16 @@
+Jedno kliknutí a jsi uvnitř.
+
+Tímto odkazem se přihlásíš do Culinse. Heslo k tomu nepotřebuješ.
+
+Přihlásit se:
+{{ .ConfirmationURL }}
+
+Odkaz platí 24 hodin a lze ho použít jen jednou.
+
+Nechceš se přihlásit? Pak tento e-mail smaž. Bez odkazu se do tvého účtu nikdo nedostane.
+
+-- 
+Culinse
+Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.
+Právní informace: https://culinse.com/cs/impressum
+Ochrana soukromí: https://culinse.com/cs/datenschutz

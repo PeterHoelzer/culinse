@@ -1,0 +1,16 @@
+Un clic e sei dentro.
+
+Con questo link accedi a Culinse. Non ti serve una password.
+
+Accedi ora:
+{{ .ConfirmationURL }}
+
+Il link è valido per 24 ore e si può usare una sola volta.
+
+Non volevi accedere? Allora elimina questa e-mail. Senza il link nessuno può entrare nel tuo account.
+
+-- 
+Culinse
+Questa e-mail riguarda il tuo account su culinse.com. Non è pubblicità.
+Note legali: https://culinse.com/it/impressum
+Privacy: https://culinse.com/it/datenschutz

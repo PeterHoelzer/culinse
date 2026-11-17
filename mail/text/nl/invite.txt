@@ -1,0 +1,16 @@
+Kom aan tafel.
+
+Je bent uitgenodigd om een account aan te maken bij Culinse. Daar vind je recepten uit de hele wereld, om op te slaan, te beoordelen en te plannen.
+
+Uitnodiging accepteren:
+{{ .ConfirmationURL }}
+
+De link is 24 uur geldig en kan maar één keer worden gebruikt.
+
+Ken je Culinse niet? Verwijder deze mail dan gewoon. Er gebeurt verder niets.
+
+-- 
+Culinse
+Deze mail hoort bij je account op culinse.com. Het is geen reclame.
+Juridische informatie: https://culinse.com/nl/impressum
+Privacyverklaring: https://culinse.com/nl/datenschutz

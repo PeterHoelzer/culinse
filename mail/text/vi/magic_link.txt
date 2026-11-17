@@ -1,0 +1,16 @@
+Một cú nhấn là vào được.
+
+Dùng liên kết này để đăng nhập vào Culinse. Bạn không cần mật khẩu.
+
+Đăng nhập ngay:
+{{ .ConfirmationURL }}
+
+Liên kết có hiệu lực trong 24 giờ và chỉ dùng được một lần.
+
+Bạn không định đăng nhập? Hãy xóa email này. Không có liên kết thì không ai vào được tài khoản của bạn.
+
+-- 
+Culinse
+Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo.
+Thông tin pháp lý: https://culinse.com/vi/impressum
+Chính sách bảo mật: https://culinse.com/vi/datenschutz

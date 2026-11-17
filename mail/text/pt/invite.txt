@@ -1,0 +1,16 @@
+Venha para a mesa.
+
+Você recebeu um convite para criar uma conta no Culinse. Lá você encontra receitas do mundo todo, para salvar, avaliar e planejar.
+
+Aceitar convite:
+{{ .ConfirmationURL }}
+
+O link vale por 24 horas e só pode ser usado uma vez.
+
+Não conhece o Culinse? Então é só apagar este e-mail. Nada mais vai acontecer.
+
+-- 
+Culinse
+Este e-mail faz parte da sua conta no culinse.com. Não é propaganda.
+Aviso legal: https://culinse.com/pt/impressum
+Privacidade: https://culinse.com/pt/datenschutz

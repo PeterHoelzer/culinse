@@ -1,0 +1,16 @@
+Fijn dat je er bent.
+
+Bevestig even je e-mailadres. Daarna kun je recepten opslaan, beoordelen en je week plannen.
+
+E-mail bevestigen:
+{{ .ConfirmationURL }}
+
+De link is 24 uur geldig en kan maar één keer worden gebruikt.
+
+Heb je je niet aangemeld bij Culinse? Verwijder deze mail dan gewoon. Er gebeurt verder niets.
+
+-- 
+Culinse
+Deze mail hoort bij je account op culinse.com. Het is geen reclame.
+Juridische informatie: https://culinse.com/nl/impressum
+Privacyverklaring: https://culinse.com/nl/datenschutz

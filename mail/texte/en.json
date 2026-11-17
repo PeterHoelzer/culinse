@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Button not working? Copy this link into your browser:",
+    "einheit_stunden": "hours valid",
+    "einheit_einmal": "single use",
+    "gueltig_link": "The link is valid for 24 hours and works once.",
+    "gueltig_code": "The code is valid for 24 hours and works once.",
+    "im_bild": "Pictured:",
+    "ki_foto": "AI-generated photo",
+    "grund": "This email belongs to your account at culinse.com. It is not an ad.",
+    "impressum": "Legal notice",
+    "datenschutz": "Privacy",
+    "bisher": "Current",
+    "neu": "New"
+  },
+  "confirmation": {
+    "betreff": "Confirm your email address for Culinse",
+    "vorschau": "One click and your account is ready.",
+    "zeile": "Welcome to Culinse",
+    "titel": "Good to have you here.",
+    "text": "Please confirm your email address. After that you can save recipes, rate them and plan your week.",
+    "knopf": "Confirm email",
+    "hinweis": "You did not sign up for Culinse? Then just delete this email. Nothing else will happen."
+  },
+  "recovery": {
+    "betreff": "New password for your Culinse account",
+    "vorschau": "One click to set a new password.",
+    "zeile": "Forgot your password",
+    "titel": "We will sort that out.",
+    "text": "You asked for a new password for your Culinse account. Use the button to set it.",
+    "knopf": "Set new password",
+    "hinweis": "You did not ask for this? Then delete this email. Your old password stays as it is."
+  },
+  "magic_link": {
+    "betreff": "Your sign-in link for Culinse",
+    "vorschau": "One click and you are signed in.",
+    "zeile": "Sign in without a password",
+    "titel": "One click and you are in.",
+    "text": "Use this link to sign in to Culinse. You do not need a password for it.",
+    "knopf": "Sign in now",
+    "hinweis": "You did not try to sign in? Then delete this email. Nobody gets into your account without the link."
+  },
+  "email_change": {
+    "betreff": "Confirm your new email address for Culinse",
+    "vorschau": "One click and the new address is set.",
+    "zeile": "New email address",
+    "titel": "Is the new address right?",
+    "text": "You want to change the email address of your Culinse account. Confirm it with one click.",
+    "knopf": "Confirm new address",
+    "hinweis": "You did not ask for this? Then delete this email and change your password to be safe."
+  },
+  "invite": {
+    "betreff": "You are invited to Culinse",
+    "vorschau": "Recipes from around the world are waiting for you.",
+    "zeile": "Invitation",
+    "titel": "Come to the table.",
+    "text": "You are invited to create an account at Culinse. You will find recipes from around the world, to save, rate and plan with.",
+    "knopf": "Accept invitation",
+    "hinweis": "You do not know Culinse? Then just delete this email. Nothing else will happen."
+  },
+  "reauthentication": {
+    "betreff": "Your code for Culinse",
+    "vorschau": "Enter the code on Culinse.",
+    "zeile": "Security code",
+    "titel": "Here is your code.",
+    "text": "Enter this code on Culinse. It confirms that it is really you.",
+    "hinweis": "You did not ask for a code? Then delete this email and change your password to be safe."
+  }
+}

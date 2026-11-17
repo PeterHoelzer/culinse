@@ -1,0 +1,16 @@
+Ça fait plaisir de te voir.
+
+Confirme ton adresse e-mail. Ensuite, tu pourras enregistrer des recettes, les noter et planifier ta semaine.
+
+Confirmer l'e-mail:
+{{ .ConfirmationURL }}
+
+Le lien est valable 24 heures et ne s'utilise qu'une seule fois.
+
+Tu n'as pas créé de compte sur Culinse ? Alors supprime simplement cet e-mail. Il ne se passera rien.
+
+-- 
+Culinse
+Cet e-mail concerne ton compte sur culinse.com. Ce n'est pas de la publicité.
+Mentions légales: https://culinse.com/fr/impressum
+Confidentialité: https://culinse.com/fr/datenschutz

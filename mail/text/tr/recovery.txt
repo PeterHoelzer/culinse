@@ -1,0 +1,16 @@
+Hemen halledelim.
+
+Culinse hesabın için yeni bir şifre istiyorsun. Düğmeyle belirleyebilirsin.
+
+Yeni şifre belirle:
+{{ .ConfirmationURL }}
+
+Bağlantı 24 saat geçerlidir ve yalnızca bir kez kullanılabilir.
+
+Bunu sen istemedin mi? O zaman bu e-postayı sil. Eski şifren geçerli kalır.
+
+-- 
+Culinse
+Bu e-posta culinse.com hesabınla ilgilidir. Reklam değildir.
+Yasal bilgiler: https://culinse.com/tr/impressum
+Gizlilik: https://culinse.com/tr/datenschutz

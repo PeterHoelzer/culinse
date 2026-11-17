@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Der Knopf geht nicht? Dann kopiere diesen Link in deinen Browser:",
+    "einheit_stunden": "Stunden gültig",
+    "einheit_einmal": "verwendbar",
+    "gueltig_link": "Der Link gilt 24 Stunden und lässt sich einmal verwenden.",
+    "gueltig_code": "Der Code gilt 24 Stunden und lässt sich einmal verwenden.",
+    "im_bild": "Im Bild:",
+    "ki_foto": "KI-generiertes Foto",
+    "grund": "Diese Mail gehört zu deinem Konto bei culinse.com. Sie ist keine Werbung.",
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "bisher": "Bisher",
+    "neu": "Neu"
+  },
+  "confirmation": {
+    "betreff": "Bestätige deine E-Mail-Adresse für Culinse",
+    "vorschau": "Ein Klick, dann ist dein Konto bereit.",
+    "zeile": "Willkommen bei Culinse",
+    "titel": "Schön, dass du da bist.",
+    "text": "Bestätige kurz deine E-Mail-Adresse. Danach kannst du Rezepte speichern, bewerten und deine Woche planen.",
+    "knopf": "E-Mail bestätigen",
+    "hinweis": "Du hast dich nicht bei Culinse registriert? Dann lösch diese Mail einfach. Es passiert nichts weiter."
+  },
+  "recovery": {
+    "betreff": "Neues Passwort für dein Culinse-Konto",
+    "vorschau": "Mit einem Klick legst du ein neues Passwort fest.",
+    "zeile": "Passwort vergessen",
+    "titel": "Das haben wir gleich.",
+    "text": "Du möchtest ein neues Passwort für dein Culinse-Konto. Über den Knopf legst du es fest.",
+    "knopf": "Neues Passwort festlegen",
+    "hinweis": "Du hast das nicht angefordert? Dann lösch diese Mail. Dein altes Passwort gilt weiter."
+  },
+  "magic_link": {
+    "betreff": "Dein Anmelde-Link für Culinse",
+    "vorschau": "Ein Klick, und du bist angemeldet.",
+    "zeile": "Anmelden ohne Passwort",
+    "titel": "Ein Klick, und du bist drin.",
+    "text": "Mit diesem Link meldest du dich bei Culinse an. Ein Passwort brauchst du dafür nicht.",
+    "knopf": "Jetzt anmelden",
+    "hinweis": "Du wolltest dich nicht anmelden? Dann lösch diese Mail. Ohne den Link kommt niemand in dein Konto."
+  },
+  "email_change": {
+    "betreff": "Bestätige deine neue E-Mail-Adresse für Culinse",
+    "vorschau": "Ein Klick, dann gilt die neue Adresse.",
+    "zeile": "Neue E-Mail-Adresse",
+    "titel": "Stimmt die neue Adresse?",
+    "text": "Du möchtest die E-Mail-Adresse deines Culinse-Kontos ändern. Bestätige das mit einem Klick.",
+    "knopf": "Neue Adresse bestätigen",
+    "hinweis": "Du hast das nicht angefordert? Dann lösch diese Mail und ändere zur Sicherheit dein Passwort."
+  },
+  "invite": {
+    "betreff": "Du bist zu Culinse eingeladen",
+    "vorschau": "Rezepte aus aller Welt warten auf dich.",
+    "zeile": "Einladung",
+    "titel": "Komm an den Tisch.",
+    "text": "Du bist eingeladen, ein Konto bei Culinse anzulegen. Dort findest du Rezepte aus aller Welt, zum Speichern, Bewerten und Planen.",
+    "knopf": "Einladung annehmen",
+    "hinweis": "Du kennst Culinse nicht? Dann lösch diese Mail einfach. Es passiert nichts weiter."
+  },
+  "reauthentication": {
+    "betreff": "Dein Code für Culinse",
+    "vorschau": "Gib den Code auf Culinse ein.",
+    "zeile": "Sicherheits-Code",
+    "titel": "Hier ist dein Code.",
+    "text": "Gib diesen Code auf Culinse ein. Damit bestätigst du, dass du es wirklich bist.",
+    "hinweis": "Du hast keinen Code angefordert? Dann lösch diese Mail und ändere zur Sicherheit dein Passwort."
+  }
+}

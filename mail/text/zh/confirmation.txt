@@ -1,0 +1,16 @@
+很高兴见到你。
+
+请先确认一下你的邮箱地址。之后就可以收藏食谱、给食谱打分，还能安排一周的餐食。
+
+确认邮箱:
+{{ .ConfirmationURL }}
+
+链接 24 小时内有效，只能使用一次。
+
+你没有注册 Culinse？那直接删掉这封邮件就行，不会有任何影响。
+
+-- 
+Culinse
+这封邮件与你在 culinse.com 的账户有关，不是广告。
+法律声明: https://culinse.com/zh/impressum
+隐私政策: https://culinse.com/zh/datenschutz

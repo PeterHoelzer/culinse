@@ -1,0 +1,16 @@
+Un clic y ya estás dentro.
+
+Con este enlace entras en Culinse. No necesitas contraseña.
+
+Entrar ahora:
+{{ .ConfirmationURL }}
+
+El enlace es válido durante 24 horas y se puede usar una sola vez.
+
+¿No querías entrar? Entonces borra este correo. Sin el enlace, nadie puede entrar en tu cuenta.
+
+-- 
+Culinse
+Este correo pertenece a tu cuenta en culinse.com. No es publicidad.
+Aviso legal: https://culinse.com/es/impressum
+Privacidad: https://culinse.com/es/datenschutz

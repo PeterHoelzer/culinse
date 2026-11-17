@@ -1,0 +1,16 @@
+Ayo duduk di meja makan.
+
+Kamu diundang untuk membuat akun di Culinse. Di sana ada resep dari seluruh dunia yang bisa kamu simpan, beri nilai, dan rencanakan.
+
+Terima undangan:
+{{ .ConfirmationURL }}
+
+Tautan berlaku 24 jam dan hanya bisa dipakai sekali.
+
+Kamu tidak kenal Culinse? Hapus saja email ini. Tidak akan terjadi apa-apa.
+
+-- 
+Culinse
+Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.
+Informasi hukum: https://culinse.com/id/impressum
+Privasi: https://culinse.com/id/datenschutz

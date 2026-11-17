@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Link, useRouter } from "@/lib/navigation";
 import { rememberLoginTarget, safeLoginTarget, splitLocale } from "@/lib/loginRedirect";
@@ -9,6 +9,7 @@ import { Button, Icon, Input, Notice, Wordmark } from "@/components/ui";
 
 export default function LoginClient() {
   const t = useTranslations("login");
+  const locale = useLocale();
   const router = useRouter();
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [email, setEmail] = useState("");
@@ -47,7 +48,12 @@ export default function LoginClient() {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          // Sprache der Seite fürs Konto: Danach richten sich die Mails des
+          // Anmeldedienstes (mail/LIESMICH.md). Die Adresse oben bleibt, wie sie ist.
+          data: { locale },
+        },
       });
       if (error) setError(error.message);
       else if (data.session) {

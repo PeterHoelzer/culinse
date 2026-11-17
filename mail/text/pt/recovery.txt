@@ -1,0 +1,16 @@
+A gente resolve já.
+
+Você pediu uma nova senha para sua conta no Culinse. Use o botão para defini-la.
+
+Definir nova senha:
+{{ .ConfirmationURL }}
+
+O link vale por 24 horas e só pode ser usado uma vez.
+
+Não foi você? Então apague este e-mail. Sua senha atual continua valendo.
+
+-- 
+Culinse
+Este e-mail faz parte da sua conta no culinse.com. Não é propaganda.
+Aviso legal: https://culinse.com/pt/impressum
+Privacidade: https://culinse.com/pt/datenschutz

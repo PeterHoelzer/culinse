@@ -1,0 +1,16 @@
+Jedno kliknięcie i wchodzisz.
+
+Tym linkiem zalogujesz się do Culinse. Hasło nie jest potrzebne.
+
+Zaloguj się:
+{{ .ConfirmationURL }}
+
+Link jest ważny 24 godziny i działa tylko raz.
+
+To nie ty chcesz się zalogować? Usuń tę wiadomość. Bez linku nikt nie wejdzie na twoje konto.
+
+-- 
+Culinse
+Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama.
+Informacje prawne: https://culinse.com/pl/impressum
+Polityka prywatności: https://culinse.com/pl/datenschutz

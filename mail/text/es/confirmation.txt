@@ -1,0 +1,16 @@
+Qué bien que estés aquí.
+
+Confirma tu correo electrónico. Después podrás guardar recetas, valorarlas y planificar tu semana.
+
+Confirmar correo:
+{{ .ConfirmationURL }}
+
+El enlace es válido durante 24 horas y se puede usar una sola vez.
+
+¿No te has registrado en Culinse? Entonces borra este correo. No pasará nada más.
+
+-- 
+Culinse
+Este correo pertenece a tu cuenta en culinse.com. No es publicidad.
+Aviso legal: https://culinse.com/es/impressum
+Privacidad: https://culinse.com/es/datenschutz

@@ -1,0 +1,146 @@
+{{- /* Erzeugt von mail/bauen.mjs. Nicht von Hand ändern: Texte stehen in mail/texte/. */ -}}
+{{- $l := "" -}}
+{{- if .Data }}{{ $l = printf "%v" (index .Data "locale") }}{{ end -}}
+{{- $sprache := "en" }}{{ $gericht := "Beetroot Soup with Horseradish" }}{{ $betreff := "Confirm your new email address for Culinse" }}{{ $vorschau := "One click and the new address is set." }}{{ $zeile := "New email address" }}{{ $titel := "Is the new address right?" }}{{ $text := "You want to change the email address of your Culinse account. Confirm it with one click." }}{{ $knopf := "Confirm new address" }}{{ $hinweis := "You did not ask for this? Then delete this email and change your password to be safe." }}{{ $knopf_geht_nicht := "Button not working? Copy this link into your browser:" }}{{ $einheit_stunden := "hours valid" }}{{ $einheit_einmal := "single use" }}{{ $gueltig_link := "The link is valid for 24 hours and works once." }}{{ $gueltig_code := "The code is valid for 24 hours and works once." }}{{ $im_bild := "Pictured:" }}{{ $ki_foto := "AI-generated photo" }}{{ $grund := "This email belongs to your account at culinse.com. It is not an ad." }}{{ $impressum := "Legal notice" }}{{ $datenschutz := "Privacy" }}{{ $bisher := "Current" }}{{ $neu := "New" -}}
+{{- if eq $l "de" }}{{ $sprache = "de" }}{{ $gericht = "Rote-Bete-Suppe mit Meerrettich" }}{{ $betreff = "Bestätige deine neue E-Mail-Adresse für Culinse" }}{{ $vorschau = "Ein Klick, dann gilt die neue Adresse." }}{{ $zeile = "Neue E-Mail-Adresse" }}{{ $titel = "Stimmt die neue Adresse?" }}{{ $text = "Du möchtest die E-Mail-Adresse deines Culinse-Kontos ändern. Bestätige das mit einem Klick." }}{{ $knopf = "Neue Adresse bestätigen" }}{{ $hinweis = "Du hast das nicht angefordert? Dann lösch diese Mail und ändere zur Sicherheit dein Passwort." }}{{ $knopf_geht_nicht = "Der Knopf geht nicht? Dann kopiere diesen Link in deinen Browser:" }}{{ $einheit_stunden = "Stunden gültig" }}{{ $einheit_einmal = "verwendbar" }}{{ $gueltig_link = "Der Link gilt 24 Stunden und lässt sich einmal verwenden." }}{{ $gueltig_code = "Der Code gilt 24 Stunden und lässt sich einmal verwenden." }}{{ $im_bild = "Im Bild:" }}{{ $ki_foto = "KI-generiertes Foto" }}{{ $grund = "Diese Mail gehört zu deinem Konto bei culinse.com. Sie ist keine Werbung." }}{{ $impressum = "Impressum" }}{{ $datenschutz = "Datenschutz" }}{{ $bisher = "Bisher" }}{{ $neu = "Neu" }}
+{{- else if eq $l "es" }}{{ $sprache = "es" }}{{ $gericht = "Crema de remolacha con rábano picante" }}{{ $betreff = "Confirma tu nuevo correo en Culinse" }}{{ $vorschau = "Un clic y la nueva dirección queda activa." }}{{ $zeile = "Nuevo correo electrónico" }}{{ $titel = "¿Es esta tu nueva dirección?" }}{{ $text = "Quieres cambiar el correo electrónico de tu cuenta de Culinse. Confírmalo con un clic." }}{{ $knopf = "Confirmar nueva dirección" }}{{ $hinweis = "¿No lo has pedido tú? Entonces borra este correo y cambia tu contraseña por seguridad." }}{{ $knopf_geht_nicht = "¿El botón no funciona? Copia este enlace en tu navegador:" }}{{ $einheit_stunden = "horas de validez" }}{{ $einheit_einmal = "un solo uso" }}{{ $gueltig_link = "El enlace es válido durante 24 horas y se puede usar una sola vez." }}{{ $gueltig_code = "El código es válido durante 24 horas y se puede usar una sola vez." }}{{ $im_bild = "En la imagen:" }}{{ $ki_foto = "Foto generada con IA" }}{{ $grund = "Este correo pertenece a tu cuenta en culinse.com. No es publicidad." }}{{ $impressum = "Aviso legal" }}{{ $datenschutz = "Privacidad" }}{{ $bisher = "Actual" }}{{ $neu = "Nuevo" }}
+{{- else if eq $l "fr" }}{{ $sprache = "fr" }}{{ $gericht = "Velouté de betterave au raifort" }}{{ $betreff = "Confirme ta nouvelle adresse e-mail pour Culinse" }}{{ $vorschau = "Un clic et la nouvelle adresse est active." }}{{ $zeile = "Nouvelle adresse e-mail" }}{{ $titel = "C'est la bonne adresse ?" }}{{ $text = "Tu veux changer l'adresse e-mail de ton compte Culinse. Confirme-le d'un clic." }}{{ $knopf = "Confirmer la nouvelle adresse" }}{{ $hinweis = "Tu n'as rien demandé ? Alors supprime cet e-mail et change ton mot de passe par sécurité." }}{{ $knopf_geht_nicht = "Le bouton ne marche pas ? Copie ce lien dans ton navigateur :" }}{{ $einheit_stunden = "heures de validité" }}{{ $einheit_einmal = "usage unique" }}{{ $gueltig_link = "Le lien est valable 24 heures et ne s'utilise qu'une seule fois." }}{{ $gueltig_code = "Le code est valable 24 heures et ne s'utilise qu'une seule fois." }}{{ $im_bild = "Sur la photo :" }}{{ $ki_foto = "Photo générée par IA" }}{{ $grund = "Cet e-mail concerne ton compte sur culinse.com. Ce n'est pas de la publicité." }}{{ $impressum = "Mentions légales" }}{{ $datenschutz = "Confidentialité" }}{{ $bisher = "Actuelle" }}{{ $neu = "Nouvelle" }}
+{{- else if eq $l "it" }}{{ $sprache = "it" }}{{ $gericht = "Vellutata di barbabietola al rafano" }}{{ $betreff = "Conferma il nuovo indirizzo e-mail per Culinse" }}{{ $vorschau = "Un clic e il nuovo indirizzo è attivo." }}{{ $zeile = "Nuovo indirizzo e-mail" }}{{ $titel = "Il nuovo indirizzo è giusto?" }}{{ $text = "Vuoi cambiare l'indirizzo e-mail del tuo account Culinse. Conferma con un clic." }}{{ $knopf = "Conferma nuovo indirizzo" }}{{ $hinweis = "Non l'hai richiesto tu? Allora elimina questa e-mail e, per sicurezza, cambia la tua password." }}{{ $knopf_geht_nicht = "Il pulsante non funziona? Copia questo link nel tuo browser:" }}{{ $einheit_stunden = "ore di validità" }}{{ $einheit_einmal = "monouso" }}{{ $gueltig_link = "Il link è valido per 24 ore e si può usare una sola volta." }}{{ $gueltig_code = "Il codice è valido per 24 ore e si può usare una sola volta." }}{{ $im_bild = "Nella foto:" }}{{ $ki_foto = "Foto generata dall'IA" }}{{ $grund = "Questa e-mail riguarda il tuo account su culinse.com. Non è pubblicità." }}{{ $impressum = "Note legali" }}{{ $datenschutz = "Privacy" }}{{ $bisher = "Attuale" }}{{ $neu = "Nuovo" }}
+{{- else if eq $l "pl" }}{{ $sprache = "pl" }}{{ $gericht = "Zupa z buraków z chrzanem" }}{{ $betreff = "Potwierdź nowy adres e-mail w Culinse" }}{{ $vorschau = "Jedno kliknięcie i nowy adres obowiązuje." }}{{ $zeile = "Nowy adres e-mail" }}{{ $titel = "Czy nowy adres się zgadza?" }}{{ $text = "Chcesz zmienić adres e-mail swojego konta w Culinse. Potwierdź to jednym kliknięciem." }}{{ $knopf = "Potwierdź nowy adres" }}{{ $hinweis = "To nie ty o to prosisz? Usuń tę wiadomość i dla bezpieczeństwa zmień hasło." }}{{ $knopf_geht_nicht = "Przycisk nie działa? Skopiuj ten link do przeglądarki:" }}{{ $einheit_stunden = "godziny ważności" }}{{ $einheit_einmal = "jednorazowo" }}{{ $gueltig_link = "Link jest ważny 24 godziny i działa tylko raz." }}{{ $gueltig_code = "Kod jest ważny 24 godziny i działa tylko raz." }}{{ $im_bild = "Na zdjęciu:" }}{{ $ki_foto = "Zdjęcie wygenerowane przez AI" }}{{ $grund = "Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama." }}{{ $impressum = "Informacje prawne" }}{{ $datenschutz = "Polityka prywatności" }}{{ $bisher = "Obecny" }}{{ $neu = "Nowy" }}
+{{- else if eq $l "tr" }}{{ $sprache = "tr" }}{{ $gericht = "Yaban Turplu Pancar Çorbası" }}{{ $betreff = "Culinse için yeni e-posta adresini onayla" }}{{ $vorschau = "Tek tıkla yeni adres geçerli olur." }}{{ $zeile = "Yeni e-posta adresi" }}{{ $titel = "Yeni adres doğru mu?" }}{{ $text = "Culinse hesabının e-posta adresini değiştirmek istiyorsun. Tek tıkla onayla." }}{{ $knopf = "Yeni adresi onayla" }}{{ $hinweis = "Bunu sen istemedin mi? O zaman bu e-postayı sil ve güvenlik için şifreni değiştir." }}{{ $knopf_geht_nicht = "Düğme çalışmıyor mu? Bu bağlantıyı tarayıcına kopyala:" }}{{ $einheit_stunden = "saat geçerli" }}{{ $einheit_einmal = "tek kullanımlık" }}{{ $gueltig_link = "Bağlantı 24 saat geçerlidir ve yalnızca bir kez kullanılabilir." }}{{ $gueltig_code = "Kod 24 saat geçerlidir ve yalnızca bir kez kullanılabilir." }}{{ $im_bild = "Fotoğrafta:" }}{{ $ki_foto = "Yapay zekayla üretilmiş fotoğraf" }}{{ $grund = "Bu e-posta culinse.com hesabınla ilgilidir. Reklam değildir." }}{{ $impressum = "Yasal bilgiler" }}{{ $datenschutz = "Gizlilik" }}{{ $bisher = "Mevcut" }}{{ $neu = "Yeni" }}
+{{- else if eq $l "nl" }}{{ $sprache = "nl" }}{{ $gericht = "Rodebietensoep met mierikswortel" }}{{ $betreff = "Bevestig je nieuwe e-mailadres voor Culinse" }}{{ $vorschau = "Eén klik en het nieuwe adres is actief." }}{{ $zeile = "Nieuw e-mailadres" }}{{ $titel = "Klopt het nieuwe adres?" }}{{ $text = "Je wilt het e-mailadres van je Culinse-account wijzigen. Bevestig dat met één klik." }}{{ $knopf = "Nieuw adres bevestigen" }}{{ $hinweis = "Heb je dit niet aangevraagd? Verwijder deze mail dan en wijzig voor de zekerheid je wachtwoord." }}{{ $knopf_geht_nicht = "Werkt de knop niet? Kopieer dan deze link naar je browser:" }}{{ $einheit_stunden = "uur geldig" }}{{ $einheit_einmal = "eenmalig" }}{{ $gueltig_link = "De link is 24 uur geldig en kan maar één keer worden gebruikt." }}{{ $gueltig_code = "De code is 24 uur geldig en kan maar één keer worden gebruikt." }}{{ $im_bild = "Op de foto:" }}{{ $ki_foto = "Door AI gemaakte foto" }}{{ $grund = "Deze mail hoort bij je account op culinse.com. Het is geen reclame." }}{{ $impressum = "Juridische informatie" }}{{ $datenschutz = "Privacyverklaring" }}{{ $bisher = "Huidig" }}{{ $neu = "Nieuw" }}
+{{- else if eq $l "cs" }}{{ $sprache = "cs" }}{{ $gericht = "Polévka z červené řepy s křenem" }}{{ $betreff = "Potvrď novou e-mailovou adresu pro Culinse" }}{{ $vorschau = "Jedno kliknutí a nová adresa platí." }}{{ $zeile = "Nová e-mailová adresa" }}{{ $titel = "Je nová adresa správně?" }}{{ $text = "Chceš změnit e-mailovou adresu svého účtu v Culinse. Potvrď to jedním kliknutím." }}{{ $knopf = "Potvrdit novou adresu" }}{{ $hinweis = "Nežádáš o to? Pak tento e-mail smaž a pro jistotu změň heslo." }}{{ $knopf_geht_nicht = "Tlačítko nefunguje? Zkopíruj tento odkaz do prohlížeče:" }}{{ $einheit_stunden = "hodin platnosti" }}{{ $einheit_einmal = "jednorázově" }}{{ $gueltig_link = "Odkaz platí 24 hodin a lze ho použít jen jednou." }}{{ $gueltig_code = "Kód platí 24 hodin a lze ho použít jen jednou." }}{{ $im_bild = "Na obrázku:" }}{{ $ki_foto = "Fotka vytvořená umělou inteligencí" }}{{ $grund = "Tento e-mail patří k tvému účtu na culinse.com. Není to reklama." }}{{ $impressum = "Právní informace" }}{{ $datenschutz = "Ochrana soukromí" }}{{ $bisher = "Současná" }}{{ $neu = "Nová" }}
+{{- else if eq $l "ru" }}{{ $sprache = "ru" }}{{ $gericht = "Свекольный суп с хреном" }}{{ $betreff = "Подтверди новый адрес почты для Culinse" }}{{ $vorschau = "Один клик, и новый адрес вступит в силу." }}{{ $zeile = "Новый адрес почты" }}{{ $titel = "Адрес указан верно?" }}{{ $text = "Ты хочешь изменить адрес почты своего аккаунта в Culinse. Подтверди это одним кликом." }}{{ $knopf = "Подтвердить новый адрес" }}{{ $hinweis = "Не запрашиваешь смену адреса? Тогда удали это письмо и для безопасности смени пароль." }}{{ $knopf_geht_nicht = "Кнопка не работает? Скопируй эту ссылку в браузер:" }}{{ $einheit_stunden = "часа действия" }}{{ $einheit_einmal = "одноразово" }}{{ $gueltig_link = "Ссылка действует 24 часа и срабатывает только один раз." }}{{ $gueltig_code = "Код действует 24 часа и вводится только один раз." }}{{ $im_bild = "На фото:" }}{{ $ki_foto = "Фото создано ИИ" }}{{ $grund = "Это письмо относится к твоему аккаунту на culinse.com. Это не реклама." }}{{ $impressum = "Правовая информация" }}{{ $datenschutz = "Конфиденциальность" }}{{ $bisher = "Текущий" }}{{ $neu = "Новый" }}
+{{- else if eq $l "pt" }}{{ $sprache = "pt" }}{{ $gericht = "Sopa de beterraba com raiz-forte" }}{{ $betreff = "Confirme seu novo e-mail no Culinse" }}{{ $vorschau = "Um clique e o novo endereço passa a valer." }}{{ $zeile = "Novo e-mail" }}{{ $titel = "O novo endereço está certo?" }}{{ $text = "Você quer mudar o e-mail da sua conta no Culinse. Confirme com um clique." }}{{ $knopf = "Confirmar novo endereço" }}{{ $hinweis = "Não foi você? Então apague este e-mail e, por segurança, troque sua senha." }}{{ $knopf_geht_nicht = "O botão não funciona? Copie este link e cole no navegador:" }}{{ $einheit_stunden = "horas de validade" }}{{ $einheit_einmal = "uso único" }}{{ $gueltig_link = "O link vale por 24 horas e só pode ser usado uma vez." }}{{ $gueltig_code = "O código vale por 24 horas e só pode ser usado uma vez." }}{{ $im_bild = "Na foto:" }}{{ $ki_foto = "Foto gerada por IA" }}{{ $grund = "Este e-mail faz parte da sua conta no culinse.com. Não é propaganda." }}{{ $impressum = "Aviso legal" }}{{ $datenschutz = "Privacidade" }}{{ $bisher = "Atual" }}{{ $neu = "Novo" }}
+{{- else if eq $l "zh" }}{{ $sprache = "zh" }}{{ $gericht = "辣根甜菜根汤" }}{{ $betreff = "请确认你在 Culinse 的新邮箱地址" }}{{ $vorschau = "点一下，新地址就生效了。" }}{{ $zeile = "新邮箱地址" }}{{ $titel = "新地址没错吧？" }}{{ $text = "你想更改 Culinse 账户的邮箱地址。点一下就可以确认。" }}{{ $knopf = "确认新地址" }}{{ $hinweis = "不是你申请的？那请删掉这封邮件，并为安全起见修改密码。" }}{{ $knopf_geht_nicht = "按钮点不了？请把下面的链接复制到浏览器中打开：" }}{{ $einheit_stunden = "小时内有效" }}{{ $einheit_einmal = "限用一次" }}{{ $gueltig_link = "链接 24 小时内有效，只能使用一次。" }}{{ $gueltig_code = "验证码 24 小时内有效，只能使用一次。" }}{{ $im_bild = "图中：" }}{{ $ki_foto = "AI 生成的照片" }}{{ $grund = "这封邮件与你在 culinse.com 的账户有关，不是广告。" }}{{ $impressum = "法律声明" }}{{ $datenschutz = "隐私政策" }}{{ $bisher = "当前" }}{{ $neu = "新" }}
+{{- else if eq $l "ja" }}{{ $sprache = "ja" }}{{ $gericht = "ホースラディッシュクリームを添えたビーツのスープ" }}{{ $betreff = "Culinseの新しいメールアドレスを確認してください" }}{{ $vorschau = "ワンクリックで、新しいアドレスに切り替わります。" }}{{ $zeile = "新しいメールアドレス" }}{{ $titel = "アドレスは合っていますか？" }}{{ $text = "Culinseアカウントのメールアドレスを変更しようとしています。ワンクリックで確認してください。" }}{{ $knopf = "新しいアドレスを確認" }}{{ $hinweis = "お心当たりがない場合は、このメールを削除し、念のためパスワードを変更してください。" }}{{ $knopf_geht_nicht = "ボタンが使えない場合は、次のリンクをブラウザにコピーしてください。" }}{{ $einheit_stunden = "時間有効" }}{{ $einheit_einmal = "1回限り" }}{{ $gueltig_link = "このリンクは24時間有効で、1回だけ使えます。" }}{{ $gueltig_code = "このコードは24時間有効で、1回だけ使えます。" }}{{ $im_bild = "写真：" }}{{ $ki_foto = "AI生成の写真" }}{{ $grund = "このメールは、culinse.comのアカウントに関するお知らせです。広告ではありません。" }}{{ $impressum = "運営者情報" }}{{ $datenschutz = "プライバシーポリシー" }}{{ $bisher = "現在" }}{{ $neu = "新" }}
+{{- else if eq $l "id" }}{{ $sprache = "id" }}{{ $gericht = "Sup Bit Merah dengan Horseradish" }}{{ $betreff = "Konfirmasi alamat email baru untuk Culinse" }}{{ $vorschau = "Satu klik, lalu alamat baru berlaku." }}{{ $zeile = "Alamat email baru" }}{{ $titel = "Apakah alamat barunya benar?" }}{{ $text = "Kamu ingin mengganti alamat email akun Culinse. Konfirmasi dengan satu klik." }}{{ $knopf = "Konfirmasi alamat baru" }}{{ $hinweis = "Kamu tidak memintanya? Hapus email ini dan ganti kata sandimu demi keamanan." }}{{ $knopf_geht_nicht = "Tombol tidak berfungsi? Salin tautan ini ke browser kamu:" }}{{ $einheit_stunden = "jam berlaku" }}{{ $einheit_einmal = "sekali pakai" }}{{ $gueltig_link = "Tautan berlaku 24 jam dan hanya bisa dipakai sekali." }}{{ $gueltig_code = "Kode berlaku 24 jam dan hanya bisa dipakai sekali." }}{{ $im_bild = "Di foto:" }}{{ $ki_foto = "Foto buatan AI" }}{{ $grund = "Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan." }}{{ $impressum = "Informasi hukum" }}{{ $datenschutz = "Privasi" }}{{ $bisher = "Saat ini" }}{{ $neu = "Baru" }}
+{{- else if eq $l "vi" }}{{ $sprache = "vi" }}{{ $gericht = "Súp củ dền với cải ngựa" }}{{ $betreff = "Xác nhận địa chỉ email mới của bạn cho Culinse" }}{{ $vorschau = "Một cú nhấn là địa chỉ mới có hiệu lực." }}{{ $zeile = "Địa chỉ email mới" }}{{ $titel = "Địa chỉ mới đúng chưa?" }}{{ $text = "Bạn muốn đổi địa chỉ email của tài khoản Culinse. Hãy xác nhận chỉ bằng một cú nhấn." }}{{ $knopf = "Xác nhận địa chỉ mới" }}{{ $hinweis = "Bạn không yêu cầu việc này? Hãy xóa email này và đổi mật khẩu để an toàn." }}{{ $knopf_geht_nicht = "Nút không bấm được? Hãy sao chép liên kết này vào trình duyệt của bạn:" }}{{ $einheit_stunden = "giờ hiệu lực" }}{{ $einheit_einmal = "dùng một lần" }}{{ $gueltig_link = "Liên kết có hiệu lực trong 24 giờ và chỉ dùng được một lần." }}{{ $gueltig_code = "Mã có hiệu lực trong 24 giờ và chỉ dùng được một lần." }}{{ $im_bild = "Trong ảnh:" }}{{ $ki_foto = "Ảnh do AI tạo" }}{{ $grund = "Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo." }}{{ $impressum = "Thông tin pháp lý" }}{{ $datenschutz = "Chính sách bảo mật" }}{{ $bisher = "Hiện tại" }}{{ $neu = "Mới" }}
+{{- else if eq $l "bn" }}{{ $sprache = "bn" }}{{ $gericht = "হর্সরেডিশ দিয়ে বিটরুটের স্যুপ" }}{{ $betreff = "Culinse-এর জন্য আপনার নতুন ইমেইল ঠিকানা নিশ্চিত করুন" }}{{ $vorschau = "এক ক্লিকেই নতুন ঠিকানা কার্যকর হবে।" }}{{ $zeile = "নতুন ইমেইল ঠিকানা" }}{{ $titel = "নতুন ঠিকানাটি কি ঠিক আছে?" }}{{ $text = "আপনি আপনার Culinse অ্যাকাউন্টের ইমেইল ঠিকানা বদলাতে চান। এক ক্লিকে সেটি নিশ্চিত করুন।" }}{{ $knopf = "নতুন ঠিকানা নিশ্চিত করুন" }}{{ $hinweis = "আপনি এটি চাননি? তাহলে এই ইমেইলটি মুছে ফেলুন এবং নিরাপত্তার জন্য পাসওয়ার্ড বদলে নিন।" }}{{ $knopf_geht_nicht = "বোতামটি কাজ করছে না? তাহলে এই লিংকটি কপি করে আপনার ব্রাউজারে দিন:" }}{{ $einheit_stunden = "ঘণ্টা বৈধ" }}{{ $einheit_einmal = "একবার ব্যবহারযোগ্য" }}{{ $gueltig_link = "লিংকটি 24 ঘণ্টা বৈধ এবং একবারই ব্যবহার করা যাবে।" }}{{ $gueltig_code = "কোডটি 24 ঘণ্টা বৈধ এবং একবারই ব্যবহার করা যাবে।" }}{{ $im_bild = "ছবিতে:" }}{{ $ki_foto = "এআই-তৈরি ছবি" }}{{ $grund = "এই ইমেইলটি culinse.com-এ আপনার অ্যাকাউন্টের সঙ্গে সম্পর্কিত। এটি কোনো বিজ্ঞাপন নয়।" }}{{ $impressum = "আইনি তথ্য" }}{{ $datenschutz = "গোপনীয়তা নীতি" }}{{ $bisher = "বর্তমান" }}{{ $neu = "নতুন" }}
+{{- end -}}
+<!DOCTYPE html>
+<html lang="{{ $sprache }}" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
+<title>{{ $betreff }}</title>
+<style>
+body{margin:0;padding:0;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+table{border-collapse:separate}
+img{border:0;outline:none;text-decoration:none}
+.adresse a{color:#ffffff !important;text-decoration:none !important}
+@media only screen and (max-width:640px){
+.aussen{padding:0 0 40px !important}
+.rand{padding-left:22px !important;padding-right:22px !important}
+.buehne{padding:28px 22px 32px !important;border-radius:0 !important}
+.foto{border-radius:0 !important}
+.titel{font-size:32px !important;line-height:35px !important}
+.einleitung{font-size:17px !important;line-height:26px !important}
+}
+</style>
+<style>
+:root{color-scheme:light dark;supported-color-schemes:light dark}
+@font-face{font-family:Fraunces;font-style:normal;font-weight:600;font-display:swap;src:url("https://culinse.com/mail/fraunces-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Fraunces;font-style:normal;font-weight:600;font-display:swap;src:url("https://culinse.com/mail/fraunces-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Fraunces;font-style:normal;font-weight:600;font-display:swap;src:url("https://culinse.com/mail/fraunces-vietnamese.woff2") format("woff2");unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303,U+0309,U+0323,U+1EA0-1EF9,U+20AB}
+@media (prefers-color-scheme:dark){
+.seite{background:#1f1c19 !important}
+.tinte{color:#f2ede6 !important}
+.tinte2{color:#cfc8be !important}
+.marke{color:#f3a074 !important}
+.kasten{background:#2b2723 !important}
+.strich{border-top-color:#3d3832 !important}
+}
+</style>
+</head>
+<body class="seite" style="margin:0;padding:0;background:#ffffff;">
+<div style="display:none;max-height:0;max-width:0;overflow:hidden;opacity:0;font-size:1px;line-height:1px;color:#ffffff;">{{ $vorschau }}&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;&#847;&zwnj;&nbsp;</div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="seite" bgcolor="#ffffff" style="background:#ffffff;">
+  <tr>
+    <td class="aussen" align="center" style="padding:0 20px 48px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="width:100%;max-width:600px;">
+        <tr>
+          <td class="rand" style="padding:28px 0 22px;">
+            <a class="tinte" href="https://culinse.com/{{ $sprache }}" target="_blank" style="font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:24px;line-height:24px;font-weight:700;letter-spacing:-0.02em;color:#23201c;text-decoration:none;">culi<span class="marke" style="color:#bf4a14;">nse</span></a>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#5f1116" style="background:#5f1116;border-radius:8px 8px 0 0;" class="foto">
+            <img class="foto" src="https://culinse.com/mail/suppe.jpg" width="600" height="335" alt="{{ $gericht }}" style="display:block;width:100%;max-width:600px;height:auto;border:0;border-radius:8px 8px 0 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:14px;color:#ffffff;">
+          </td>
+        </tr>
+        <tr>
+          <td class="buehne" bgcolor="#5f1116" style="background:#5f1116;padding:36px 40px 38px;border-radius:0 0 8px 8px;">
+            <p style="margin:0 0 10px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;font-weight:600;color:#f8e7e8;">{{ $zeile }}</p>
+            <h1 class="titel" style="margin:0 0 16px;font-family:Fraunces,Georgia,'Times New Roman',serif;font-variation-settings:'SOFT' 30,'WONK' 1;font-optical-sizing:auto;font-size:44px;line-height:47px;font-weight:600;letter-spacing:-0.02em;color:#ffffff;text-wrap:balance;">{{ $titel }}</h1>
+            <p class="einleitung" style="margin:0 0 26px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:18px;line-height:28px;color:#ffffff;">{{ $text }}</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 26px;">
+                <tr>
+                  <td style="padding:0 12px 4px 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:22px;color:#f8e7e8;">{{ $bisher }}</td>
+                  <td class="adresse" style="padding:0 0 4px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:22px;font-weight:600;color:#ffffff;word-break:break-all;">{{ .Email }}</td>
+                </tr>
+                <tr>
+                  <td style="padding:0 12px 0 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:22px;color:#f8e7e8;">{{ $neu }}</td>
+                  <td class="adresse" style="padding:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:22px;font-weight:600;color:#ffffff;word-break:break-all;">{{ .NewEmail }}</td>
+                </tr>
+              </table>
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td bgcolor="#ffffff" style="background:#ffffff;border-radius:4px;">
+                    <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block;padding:14px 24px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:20px;font-weight:600;color:#5f1116;text-decoration:none;border-radius:4px;">{{ $knopf }}</a>
+                  </td>
+                </tr>
+              </table>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:32px 0 0;">
+              <tr>
+                  <td valign="top" style="padding:0 36px 0 0;">
+                    <div style="font-family:Fraunces,Georgia,'Times New Roman',serif;font-variation-settings:'SOFT' 30,'WONK' 1;font-optical-sizing:auto;font-size:44px;line-height:46px;font-weight:600;letter-spacing:-0.02em;color:#ffffff;">24</div>
+                    <div style="font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;color:#f8e7e8;">{{ $einheit_stunden }}</div>
+                  </td>
+                  <td valign="top" style="padding:0 36px 0 0;">
+                    <div style="font-family:Fraunces,Georgia,'Times New Roman',serif;font-variation-settings:'SOFT' 30,'WONK' 1;font-optical-sizing:auto;font-size:44px;line-height:46px;font-weight:600;letter-spacing:-0.02em;color:#ffffff;">1&times;</div>
+                    <div style="font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:20px;color:#f8e7e8;">{{ $einheit_einmal }}</div>
+                  </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="rand tinte2" style="padding:10px 0 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:18px;color:#6f685e;">{{ $im_bild }} {{ $gericht }} &middot; {{ $ki_foto }}</td>
+        </tr>
+        <tr>
+          <td class="rand" style="padding:30px 0 0;">
+            <p class="tinte" style="margin:0 0 8px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:25px;color:#23201c;">{{ $knopf_geht_nicht }}</p>
+            <p style="margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:21px;word-break:break-all;"><a class="marke" href="{{ .ConfirmationURL }}" target="_blank" style="color:#bf4a14;text-decoration:underline;">{{ .ConfirmationURL }}</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td class="rand" style="padding:26px 0 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td class="kasten tinte2" bgcolor="#faf7f2" style="background:#faf7f2;border-radius:8px;padding:16px 20px;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:15px;line-height:23px;color:#5c564e;">{{ $hinweis }}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td class="rand" style="padding:30px 0 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td class="strich tinte2" style="border-top:1px solid #e6e0d6;padding:18px 0 0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:13px;line-height:20px;color:#6f685e;">
+                  {{ $grund }}<br>
+                  <a class="tinte2" href="https://culinse.com/{{ $sprache }}/impressum" target="_blank" style="color:#6f685e;text-decoration:underline;">{{ $impressum }}</a> &nbsp;&middot;&nbsp; <a class="tinte2" href="https://culinse.com/{{ $sprache }}/datenschutz" target="_blank" style="color:#6f685e;text-decoration:underline;">{{ $datenschutz }}</a> &nbsp;&middot;&nbsp; <a class="tinte2" href="https://culinse.com/{{ $sprache }}" target="_blank" style="color:#6f685e;text-decoration:underline;">culinse.com</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

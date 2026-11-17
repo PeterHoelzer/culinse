@@ -1,0 +1,16 @@
+Satu klik, kamu sudah masuk.
+
+Pakai tautan ini untuk masuk ke Culinse. Kamu tidak perlu kata sandi.
+
+Masuk sekarang:
+{{ .ConfirmationURL }}
+
+Tautan berlaku 24 jam dan hanya bisa dipakai sekali.
+
+Kamu tidak sedang mencoba masuk? Hapus email ini. Tanpa tautan ini, tidak ada yang bisa masuk ke akunmu.
+
+-- 
+Culinse
+Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.
+Informasi hukum: https://culinse.com/id/impressum
+Privasi: https://culinse.com/id/datenschutz

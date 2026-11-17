@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Tlačítko nefunguje? Zkopíruj tento odkaz do prohlížeče:",
+    "einheit_stunden": "hodin platnosti",
+    "einheit_einmal": "jednorázově",
+    "gueltig_link": "Odkaz platí 24 hodin a lze ho použít jen jednou.",
+    "gueltig_code": "Kód platí 24 hodin a lze ho použít jen jednou.",
+    "im_bild": "Na obrázku:",
+    "ki_foto": "Fotka vytvořená umělou inteligencí",
+    "grund": "Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.",
+    "impressum": "Právní informace",
+    "datenschutz": "Ochrana soukromí",
+    "bisher": "Současná",
+    "neu": "Nová"
+  },
+  "confirmation": {
+    "betreff": "Potvrď svou e-mailovou adresu pro Culinse",
+    "vorschau": "Jedno kliknutí a účet je připravený.",
+    "zeile": "Vítej v Culinse",
+    "titel": "Rádi tě tu vidíme.",
+    "text": "Potvrď prosím svou e-mailovou adresu. Pak můžeš ukládat recepty, hodnotit je a plánovat týden.",
+    "knopf": "Potvrdit e-mail",
+    "hinweis": "Neregistruješ se do Culinse? Pak tento e-mail prostě smaž. Nic dalšího se nestane."
+  },
+  "recovery": {
+    "betreff": "Nové heslo pro tvůj účet v Culinse",
+    "vorschau": "Jedním kliknutím nastavíš nové heslo.",
+    "zeile": "Zapomenuté heslo",
+    "titel": "To hned spravíme.",
+    "text": "Chceš nové heslo k účtu v Culinse. Nastavíš ho tlačítkem níže.",
+    "knopf": "Nastavit nové heslo",
+    "hinweis": "Nežádáš o nové heslo? Pak tento e-mail smaž. Tvé staré heslo platí dál."
+  },
+  "magic_link": {
+    "betreff": "Tvůj odkaz pro přihlášení do Culinse",
+    "vorschau": "Jedno kliknutí a jsi uvnitř.",
+    "zeile": "Přihlášení bez hesla",
+    "titel": "Jedno kliknutí a jsi uvnitř.",
+    "text": "Tímto odkazem se přihlásíš do Culinse. Heslo k tomu nepotřebuješ.",
+    "knopf": "Přihlásit se",
+    "hinweis": "Nechceš se přihlásit? Pak tento e-mail smaž. Bez odkazu se do tvého účtu nikdo nedostane."
+  },
+  "email_change": {
+    "betreff": "Potvrď novou e-mailovou adresu pro Culinse",
+    "vorschau": "Jedno kliknutí a nová adresa platí.",
+    "zeile": "Nová e-mailová adresa",
+    "titel": "Je nová adresa správně?",
+    "text": "Chceš změnit e-mailovou adresu svého účtu v Culinse. Potvrď to jedním kliknutím.",
+    "knopf": "Potvrdit novou adresu",
+    "hinweis": "Nežádáš o to? Pak tento e-mail smaž a pro jistotu změň heslo."
+  },
+  "invite": {
+    "betreff": "Pozvánka do Culinse",
+    "vorschau": "Čekají na tebe recepty z celého světa.",
+    "zeile": "Pozvánka",
+    "titel": "Přisedni si ke stolu.",
+    "text": "Zveme tě do Culinse. Vytvoř si tu účet a najdeš recepty z celého světa, které můžeš ukládat, hodnotit a plánovat.",
+    "knopf": "Přijmout pozvánku",
+    "hinweis": "Culinse neznáš? Pak tento e-mail prostě smaž. Nic dalšího se nestane."
+  },
+  "reauthentication": {
+    "betreff": "Tvůj kód pro Culinse",
+    "vorschau": "Zadej kód v Culinse.",
+    "zeile": "Bezpečnostní kód",
+    "titel": "Tady je tvůj kód.",
+    "text": "Zadej tento kód v Culinse. Tím potvrdíš, že jsi to opravdu ty.",
+    "hinweis": "Nežádáš o kód? Pak tento e-mail smaž a pro jistotu změň heslo."
+  }
+}

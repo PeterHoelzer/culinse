@@ -1,0 +1,16 @@
+On arrange ça tout de suite.
+
+Tu veux un nouveau mot de passe pour ton compte Culinse. Le bouton te permet de le choisir.
+
+Choisir un mot de passe:
+{{ .ConfirmationURL }}
+
+Le lien est valable 24 heures et ne s'utilise qu'une seule fois.
+
+Tu n'as rien demandé ? Alors supprime cet e-mail. Ton ancien mot de passe reste valable.
+
+-- 
+Culinse
+Cet e-mail concerne ton compte sur culinse.com. Ce n'est pas de la publicité.
+Mentions légales: https://culinse.com/fr/impressum
+Confidentialité: https://culinse.com/fr/datenschutz

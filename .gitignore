@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 supabase/seed/images/
+
+# Vorschaubilder der Mails (node mail/vorschau.mjs)
+mail/vorschau/

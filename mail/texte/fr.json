@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Le bouton ne marche pas ? Copie ce lien dans ton navigateur :",
+    "einheit_stunden": "heures de validité",
+    "einheit_einmal": "usage unique",
+    "gueltig_link": "Le lien est valable 24 heures et ne s'utilise qu'une seule fois.",
+    "gueltig_code": "Le code est valable 24 heures et ne s'utilise qu'une seule fois.",
+    "im_bild": "Sur la photo :",
+    "ki_foto": "Photo générée par IA",
+    "grund": "Cet e-mail concerne ton compte sur culinse.com. Ce n'est pas de la publicité.",
+    "impressum": "Mentions légales",
+    "datenschutz": "Confidentialité",
+    "bisher": "Actuelle",
+    "neu": "Nouvelle"
+  },
+  "confirmation": {
+    "betreff": "Confirme ton adresse e-mail pour Culinse",
+    "vorschau": "Un clic et ton compte est prêt.",
+    "zeile": "Bienvenue sur Culinse",
+    "titel": "Ça fait plaisir de te voir.",
+    "text": "Confirme ton adresse e-mail. Ensuite, tu pourras enregistrer des recettes, les noter et planifier ta semaine.",
+    "knopf": "Confirmer l'e-mail",
+    "hinweis": "Tu n'as pas créé de compte sur Culinse ? Alors supprime simplement cet e-mail. Il ne se passera rien."
+  },
+  "recovery": {
+    "betreff": "Nouveau mot de passe pour ton compte Culinse",
+    "vorschau": "Un clic pour choisir un nouveau mot de passe.",
+    "zeile": "Mot de passe oublié",
+    "titel": "On arrange ça tout de suite.",
+    "text": "Tu veux un nouveau mot de passe pour ton compte Culinse. Le bouton te permet de le choisir.",
+    "knopf": "Choisir un mot de passe",
+    "hinweis": "Tu n'as rien demandé ? Alors supprime cet e-mail. Ton ancien mot de passe reste valable."
+  },
+  "magic_link": {
+    "betreff": "Ton lien de connexion pour Culinse",
+    "vorschau": "Un clic et tu es connecté.",
+    "zeile": "Connexion sans mot de passe",
+    "titel": "Un clic et tu es dedans.",
+    "text": "Ce lien te connecte à Culinse. Tu n'as pas besoin de mot de passe.",
+    "knopf": "Me connecter",
+    "hinweis": "Tu ne voulais pas te connecter ? Alors supprime cet e-mail. Sans le lien, personne ne peut accéder à ton compte."
+  },
+  "email_change": {
+    "betreff": "Confirme ta nouvelle adresse e-mail pour Culinse",
+    "vorschau": "Un clic et la nouvelle adresse est active.",
+    "zeile": "Nouvelle adresse e-mail",
+    "titel": "C'est la bonne adresse ?",
+    "text": "Tu veux changer l'adresse e-mail de ton compte Culinse. Confirme-le d'un clic.",
+    "knopf": "Confirmer la nouvelle adresse",
+    "hinweis": "Tu n'as rien demandé ? Alors supprime cet e-mail et change ton mot de passe par sécurité."
+  },
+  "invite": {
+    "betreff": "Une invitation pour toi sur Culinse",
+    "vorschau": "Des recettes du monde entier t'attendent.",
+    "zeile": "Invitation",
+    "titel": "Viens à table.",
+    "text": "On t'invite à créer un compte sur Culinse. Tu y trouveras des recettes du monde entier, à enregistrer, noter et planifier.",
+    "knopf": "Accepter l'invitation",
+    "hinweis": "Tu ne connais pas Culinse ? Alors supprime simplement cet e-mail. Il ne se passera rien."
+  },
+  "reauthentication": {
+    "betreff": "Ton code pour Culinse",
+    "vorschau": "Saisis le code sur Culinse.",
+    "zeile": "Code de sécurité",
+    "titel": "Voici ton code.",
+    "text": "Saisis ce code sur Culinse. Il confirme que c'est bien toi.",
+    "hinweis": "Tu n'as pas demandé de code ? Alors supprime cet e-mail et change ton mot de passe par sécurité."
+  }
+}

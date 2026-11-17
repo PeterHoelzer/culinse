@@ -1,0 +1,15 @@
+İşte kodun.
+
+Bu kodu Culinse'de gir. Böylece gerçekten senin olduğunu doğrularsın.
+
+{{ .Token }}
+
+Kod 24 saat geçerlidir ve yalnızca bir kez kullanılabilir.
+
+Kod istemedin mi? O zaman bu e-postayı sil ve güvenlik için şifreni değiştir.
+
+-- 
+Culinse
+Bu e-posta culinse.com hesabınla ilgilidir. Reklam değildir.
+Yasal bilgiler: https://culinse.com/tr/impressum
+Gizlilik: https://culinse.com/tr/datenschutz

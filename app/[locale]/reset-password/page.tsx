@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/lib/navigation";
 import { Button, Input, Notice, Wordmark } from "@/components/ui";
@@ -11,13 +12,17 @@ export default function ResetPasswordPage() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const supabase = createClient();
+  const locale = useLocale();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/update-password`,
+      // Mit Sprache: Daran erkennt die Mail-Vorlage, in welcher Sprache sie
+      // schreiben soll (mail/bauen.mjs, spracheAusRuecksprung). Ohne Sprache
+      // leitete die Seite ohnehin auf dieselbe Adresse weiter.
+      redirectTo: `${window.location.origin}/${locale}/update-password`,
     });
     if (error) { setError(error.message); } else { setSent(true); }
     setLoading(false);

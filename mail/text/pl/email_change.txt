@@ -1,0 +1,19 @@
+Czy nowy adres się zgadza?
+
+Chcesz zmienić adres e-mail swojego konta w Culinse. Potwierdź to jednym kliknięciem.
+
+Obecny: {{ .Email }}
+Nowy: {{ .NewEmail }}
+
+Potwierdź nowy adres:
+{{ .ConfirmationURL }}
+
+Link jest ważny 24 godziny i działa tylko raz.
+
+To nie ty o to prosisz? Usuń tę wiadomość i dla bezpieczeństwa zmień hasło.
+
+-- 
+Culinse
+Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama.
+Informacje prawne: https://culinse.com/pl/impressum
+Polityka prywatności: https://culinse.com/pl/datenschutz

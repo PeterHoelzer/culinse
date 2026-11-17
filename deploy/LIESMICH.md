@@ -21,6 +21,7 @@ wurde, steht in der Tabelle.
 | `bilder-kopieren.mjs` | Bildspeicher kopieren, wiederholbar, mit Vergleich | Lesen und Vergleichen am echten Speicher (13.766 Dateien, 3,07 GB) |
 | `bildadressen-umschreiben.sql` | alte Supabase-Adresse in allen Tabellen ersetzen, mit Probelauf | nicht gelaufen |
 | `cloudflare-leeren.sh` | Zwischenspeicher von Cloudflare leeren: alles (nach jeder Auslieferung, von selbst), einzelne Adressen oder alles unter einem Pfad; `--probe` als Trockenlauf | siehe Drehbuch, Abschnitt G |
+| `mail-vorlagen-einspielen.sh` | Mail-Vorlagen aus `mail/vorlagen` auf den Server bringen (läuft auf dem Mac, ohne `--ausfuehren` nur Probe); Ablauf in `mail/LIESMICH.md` | nur Syntax, noch nicht gelaufen |
 | `sicherung.sh` | nächtliche Sicherung von Datenbank und Bildern nach Cloudflare R2 | nur Syntax |
 
 ## Reihenfolge beim Datenumzug

@@ -1,0 +1,16 @@
+Rádi tě tu vidíme.
+
+Potvrď prosím svou e-mailovou adresu. Pak můžeš ukládat recepty, hodnotit je a plánovat týden.
+
+Potvrdit e-mail:
+{{ .ConfirmationURL }}
+
+Odkaz platí 24 hodin a lze ho použít jen jednou.
+
+Neregistruješ se do Culinse? Pak tento e-mail prostě smaž. Nic dalšího se nestane.
+
+-- 
+Culinse
+Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.
+Právní informace: https://culinse.com/cs/impressum
+Ochrana soukromí: https://culinse.com/cs/datenschutz

@@ -1,0 +1,16 @@
+Ein Klick, und du bist drin.
+
+Mit diesem Link meldest du dich bei Culinse an. Ein Passwort brauchst du dafür nicht.
+
+Jetzt anmelden:
+{{ .ConfirmationURL }}
+
+Der Link gilt 24 Stunden und lässt sich einmal verwenden.
+
+Du wolltest dich nicht anmelden? Dann lösch diese Mail. Ohne den Link kommt niemand in dein Konto.
+
+-- 
+Culinse
+Diese Mail gehört zu deinem Konto bei culinse.com. Sie ist keine Werbung.
+Impressum: https://culinse.com/de/impressum
+Datenschutz: https://culinse.com/de/datenschutz

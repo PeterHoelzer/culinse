@@ -1,0 +1,16 @@
+Senang kamu di sini.
+
+Konfirmasi dulu alamat email kamu. Setelah itu kamu bisa menyimpan resep, memberi nilai, dan merencanakan menu mingguanmu.
+
+Konfirmasi email:
+{{ .ConfirmationURL }}
+
+Tautan berlaku 24 jam dan hanya bisa dipakai sekali.
+
+Kamu tidak mendaftar di Culinse? Hapus saja email ini. Tidak akan terjadi apa-apa.
+
+-- 
+Culinse
+Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.
+Informasi hukum: https://culinse.com/id/impressum
+Privasi: https://culinse.com/id/datenschutz

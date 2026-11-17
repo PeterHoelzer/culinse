@@ -1,0 +1,15 @@
+Hier is je code.
+
+Vul deze code in op Culinse. Zo bevestig je dat jij het echt bent.
+
+{{ .Token }}
+
+De code is 24 uur geldig en kan maar één keer worden gebruikt.
+
+Heb je geen code aangevraagd? Verwijder deze mail dan en wijzig voor de zekerheid je wachtwoord.
+
+-- 
+Culinse
+Deze mail hoort bij je account op culinse.com. Het is geen reclame.
+Juridische informatie: https://culinse.com/nl/impressum
+Privacyverklaring: https://culinse.com/nl/datenschutz

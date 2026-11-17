@@ -1,0 +1,16 @@
+Přisedni si ke stolu.
+
+Zveme tě do Culinse. Vytvoř si tu účet a najdeš recepty z celého světa, které můžeš ukládat, hodnotit a plánovat.
+
+Přijmout pozvánku:
+{{ .ConfirmationURL }}
+
+Odkaz platí 24 hodin a lze ho použít jen jednou.
+
+Culinse neznáš? Pak tento e-mail prostě smaž. Nic dalšího se nestane.
+
+-- 
+Culinse
+Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.
+Právní informace: https://culinse.com/cs/impressum
+Ochrana soukromí: https://culinse.com/cs/datenschutz

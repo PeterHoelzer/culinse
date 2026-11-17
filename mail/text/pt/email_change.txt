@@ -1,0 +1,19 @@
+O novo endereço está certo?
+
+Você quer mudar o e-mail da sua conta no Culinse. Confirme com um clique.
+
+Atual: {{ .Email }}
+Novo: {{ .NewEmail }}
+
+Confirmar novo endereço:
+{{ .ConfirmationURL }}
+
+O link vale por 24 horas e só pode ser usado uma vez.
+
+Não foi você? Então apague este e-mail e, por segurança, troque sua senha.
+
+-- 
+Culinse
+Este e-mail faz parte da sua conta no culinse.com. Não é propaganda.
+Aviso legal: https://culinse.com/pt/impressum
+Privacidade: https://culinse.com/pt/datenschutz

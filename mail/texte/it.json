@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Il pulsante non funziona? Copia questo link nel tuo browser:",
+    "einheit_stunden": "ore di validità",
+    "einheit_einmal": "monouso",
+    "gueltig_link": "Il link è valido per 24 ore e si può usare una sola volta.",
+    "gueltig_code": "Il codice è valido per 24 ore e si può usare una sola volta.",
+    "im_bild": "Nella foto:",
+    "ki_foto": "Foto generata dall'IA",
+    "grund": "Questa e-mail riguarda il tuo account su culinse.com. Non è pubblicità.",
+    "impressum": "Note legali",
+    "datenschutz": "Privacy",
+    "bisher": "Attuale",
+    "neu": "Nuovo"
+  },
+  "confirmation": {
+    "betreff": "Conferma il tuo indirizzo e-mail per Culinse",
+    "vorschau": "Un clic e il tuo account è pronto.",
+    "zeile": "Ti diamo il benvenuto su Culinse",
+    "titel": "Che bello averti qui.",
+    "text": "Conferma il tuo indirizzo e-mail. Poi potrai salvare le ricette, valutarle e pianificare la tua settimana.",
+    "knopf": "Conferma e-mail",
+    "hinweis": "Non hai creato un account su Culinse? Allora elimina pure questa e-mail. Non succede nient'altro."
+  },
+  "recovery": {
+    "betreff": "Nuova password per il tuo account Culinse",
+    "vorschau": "Con un clic scegli una nuova password.",
+    "zeile": "Password dimenticata",
+    "titel": "Sistemiamo tutto subito.",
+    "text": "Vuoi una nuova password per il tuo account Culinse. Con il pulsante la imposti.",
+    "knopf": "Imposta nuova password",
+    "hinweis": "Non l'hai richiesto tu? Allora elimina questa e-mail. La tua vecchia password resta valida."
+  },
+  "magic_link": {
+    "betreff": "Il tuo link di accesso per Culinse",
+    "vorschau": "Un clic e sei dentro.",
+    "zeile": "Accesso senza password",
+    "titel": "Un clic e sei dentro.",
+    "text": "Con questo link accedi a Culinse. Non ti serve una password.",
+    "knopf": "Accedi ora",
+    "hinweis": "Non volevi accedere? Allora elimina questa e-mail. Senza il link nessuno può entrare nel tuo account."
+  },
+  "email_change": {
+    "betreff": "Conferma il nuovo indirizzo e-mail per Culinse",
+    "vorschau": "Un clic e il nuovo indirizzo è attivo.",
+    "zeile": "Nuovo indirizzo e-mail",
+    "titel": "Il nuovo indirizzo è giusto?",
+    "text": "Vuoi cambiare l'indirizzo e-mail del tuo account Culinse. Conferma con un clic.",
+    "knopf": "Conferma nuovo indirizzo",
+    "hinweis": "Non l'hai richiesto tu? Allora elimina questa e-mail e, per sicurezza, cambia la tua password."
+  },
+  "invite": {
+    "betreff": "Hai un invito per Culinse",
+    "vorschau": "Ricette da tutto il mondo ti aspettano.",
+    "zeile": "Invito",
+    "titel": "Vieni a tavola.",
+    "text": "Ti invitiamo a creare un account su Culinse. Lì trovi ricette da tutto il mondo, da salvare, valutare e pianificare.",
+    "knopf": "Accetta l'invito",
+    "hinweis": "Non conosci Culinse? Allora elimina pure questa e-mail. Non succede nient'altro."
+  },
+  "reauthentication": {
+    "betreff": "Il tuo codice per Culinse",
+    "vorschau": "Inserisci il codice su Culinse.",
+    "zeile": "Codice di sicurezza",
+    "titel": "Ecco il tuo codice.",
+    "text": "Inserisci questo codice su Culinse. Così confermi che sei davvero tu.",
+    "hinweis": "Non hai richiesto un codice? Allora elimina questa e-mail e, per sicurezza, cambia la tua password."
+  }
+}

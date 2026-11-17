@@ -1,0 +1,16 @@
+One click and you are in.
+
+Use this link to sign in to Culinse. You do not need a password for it.
+
+Sign in now:
+{{ .ConfirmationURL }}
+
+The link is valid for 24 hours and works once.
+
+You did not try to sign in? Then delete this email. Nobody gets into your account without the link.
+
+-- 
+Culinse
+This email belongs to your account at culinse.com. It is not an ad.
+Legal notice: https://culinse.com/en/impressum
+Privacy: https://culinse.com/en/datenschutz

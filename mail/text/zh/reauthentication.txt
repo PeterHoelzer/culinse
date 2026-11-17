@@ -1,0 +1,15 @@
+验证码在这里。
+
+请在 Culinse 输入这个验证码，以确认是你本人在操作。
+
+{{ .Token }}
+
+验证码 24 小时内有效，只能使用一次。
+
+你没有申请验证码？那请删掉这封邮件，并为安全起见修改密码。
+
+-- 
+Culinse
+这封邮件与你在 culinse.com 的账户有关，不是广告。
+法律声明: https://culinse.com/zh/impressum
+隐私政策: https://culinse.com/zh/datenschutz

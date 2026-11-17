@@ -1,0 +1,16 @@
+食卓へどうぞ。
+
+Culinseのアカウントを作成するようご招待します。世界中のレシピを、保存したり、評価したり、献立に使ったりできます。
+
+招待を受ける:
+{{ .ConfirmationURL }}
+
+このリンクは24時間有効で、1回だけ使えます。
+
+Culinseをご存じない場合は、このメールを削除してください。何も起こりません。
+
+-- 
+Culinse
+このメールは、culinse.comのアカウントに関するお知らせです。広告ではありません。
+運営者情報: https://culinse.com/ja/impressum
+プライバシーポリシー: https://culinse.com/ja/datenschutz

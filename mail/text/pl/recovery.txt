@@ -1,0 +1,16 @@
+Zaraz to ogarniemy.
+
+Chcesz ustawić nowe hasło do konta w Culinse. Zrobisz to przyciskiem poniżej.
+
+Ustaw nowe hasło:
+{{ .ConfirmationURL }}
+
+Link jest ważny 24 godziny i działa tylko raz.
+
+To nie ty o to prosisz? Usuń tę wiadomość. Twoje dotychczasowe hasło nadal obowiązuje.
+
+-- 
+Culinse
+Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama.
+Informacje prawne: https://culinse.com/pl/impressum
+Polityka prywatności: https://culinse.com/pl/datenschutz

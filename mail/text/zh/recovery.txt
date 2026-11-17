@@ -1,0 +1,16 @@
+很快就好。
+
+你想为 Culinse 账户设置新密码。点下面的按钮就可以设置。
+
+设置新密码:
+{{ .ConfirmationURL }}
+
+链接 24 小时内有效，只能使用一次。
+
+不是你申请的？那请删掉这封邮件，原来的密码仍然有效。
+
+-- 
+Culinse
+这封邮件与你在 culinse.com 的账户有关，不是广告。
+法律声明: https://culinse.com/zh/impressum
+隐私政策: https://culinse.com/zh/datenschutz

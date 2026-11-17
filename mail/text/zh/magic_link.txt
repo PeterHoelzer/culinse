@@ -1,0 +1,16 @@
+点一下，马上进来。
+
+用这个链接登录 Culinse，不需要密码。
+
+立即登录:
+{{ .ConfirmationURL }}
+
+链接 24 小时内有效，只能使用一次。
+
+你没有想登录？那请删掉这封邮件。没有这个链接，别人进不了你的账户。
+
+-- 
+Culinse
+这封邮件与你在 culinse.com 的账户有关，不是广告。
+法律声明: https://culinse.com/zh/impressum
+隐私政策: https://culinse.com/zh/datenschutz

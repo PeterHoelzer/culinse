@@ -1,0 +1,69 @@
+{
+  "gemeinsam": {
+    "knopf_geht_nicht": "Nút không bấm được? Hãy sao chép liên kết này vào trình duyệt của bạn:",
+    "einheit_stunden": "giờ hiệu lực",
+    "einheit_einmal": "dùng một lần",
+    "gueltig_link": "Liên kết có hiệu lực trong 24 giờ và chỉ dùng được một lần.",
+    "gueltig_code": "Mã có hiệu lực trong 24 giờ và chỉ dùng được một lần.",
+    "im_bild": "Trong ảnh:",
+    "ki_foto": "Ảnh do AI tạo",
+    "grund": "Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo.",
+    "impressum": "Thông tin pháp lý",
+    "datenschutz": "Chính sách bảo mật",
+    "bisher": "Hiện tại",
+    "neu": "Mới"
+  },
+  "confirmation": {
+    "betreff": "Xác nhận địa chỉ email của bạn cho Culinse",
+    "vorschau": "Một cú nhấn là tài khoản của bạn sẵn sàng.",
+    "zeile": "Chào mừng đến với Culinse",
+    "titel": "Rất vui được gặp bạn.",
+    "text": "Bạn xác nhận địa chỉ email giúp chúng tôi nhé. Sau đó bạn có thể lưu công thức, chấm điểm và lên thực đơn cho cả tuần.",
+    "knopf": "Xác nhận email",
+    "hinweis": "Bạn không đăng ký Culinse? Cứ xóa email này đi, sẽ không có gì xảy ra cả."
+  },
+  "recovery": {
+    "betreff": "Mật khẩu mới cho tài khoản Culinse của bạn",
+    "vorschau": "Một cú nhấn để đặt mật khẩu mới.",
+    "zeile": "Quên mật khẩu",
+    "titel": "Có ngay thôi.",
+    "text": "Bạn muốn đặt mật khẩu mới cho tài khoản Culinse. Hãy bấm nút bên dưới để đặt.",
+    "knopf": "Đặt mật khẩu mới",
+    "hinweis": "Bạn không yêu cầu việc này? Hãy xóa email này. Mật khẩu cũ của bạn vẫn dùng được."
+  },
+  "magic_link": {
+    "betreff": "Liên kết đăng nhập Culinse của bạn",
+    "vorschau": "Một cú nhấn là bạn đã đăng nhập.",
+    "zeile": "Đăng nhập không cần mật khẩu",
+    "titel": "Một cú nhấn là vào được.",
+    "text": "Dùng liên kết này để đăng nhập vào Culinse. Bạn không cần mật khẩu.",
+    "knopf": "Đăng nhập ngay",
+    "hinweis": "Bạn không định đăng nhập? Hãy xóa email này. Không có liên kết thì không ai vào được tài khoản của bạn."
+  },
+  "email_change": {
+    "betreff": "Xác nhận địa chỉ email mới của bạn cho Culinse",
+    "vorschau": "Một cú nhấn là địa chỉ mới có hiệu lực.",
+    "zeile": "Địa chỉ email mới",
+    "titel": "Địa chỉ mới đúng chưa?",
+    "text": "Bạn muốn đổi địa chỉ email của tài khoản Culinse. Hãy xác nhận chỉ bằng một cú nhấn.",
+    "knopf": "Xác nhận địa chỉ mới",
+    "hinweis": "Bạn không yêu cầu việc này? Hãy xóa email này và đổi mật khẩu để an toàn."
+  },
+  "invite": {
+    "betreff": "Bạn được mời tham gia Culinse",
+    "vorschau": "Công thức từ khắp nơi trên thế giới đang chờ bạn.",
+    "zeile": "Lời mời",
+    "titel": "Mời bạn vào bàn ăn.",
+    "text": "Bạn được mời tạo tài khoản tại Culinse. Ở đây có công thức từ khắp nơi trên thế giới để bạn lưu, chấm điểm và lên kế hoạch.",
+    "knopf": "Nhận lời mời",
+    "hinweis": "Bạn không biết Culinse? Cứ xóa email này đi, sẽ không có gì xảy ra cả."
+  },
+  "reauthentication": {
+    "betreff": "Mã của bạn cho Culinse",
+    "vorschau": "Hãy nhập mã này trên Culinse.",
+    "zeile": "Mã bảo mật",
+    "titel": "Mã của bạn đây.",
+    "text": "Hãy nhập mã này trên Culinse. Nhờ vậy chúng tôi biết đúng là bạn.",
+    "hinweis": "Bạn không yêu cầu mã? Hãy xóa email này và đổi mật khẩu để an toàn."
+  }
+}

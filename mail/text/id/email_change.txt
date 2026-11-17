@@ -1,0 +1,19 @@
+Apakah alamat barunya benar?
+
+Kamu ingin mengganti alamat email akun Culinse. Konfirmasi dengan satu klik.
+
+Saat ini: {{ .Email }}
+Baru: {{ .NewEmail }}
+
+Konfirmasi alamat baru:
+{{ .ConfirmationURL }}
+
+Tautan berlaku 24 jam dan hanya bisa dipakai sekali.
+
+Kamu tidak memintanya? Hapus email ini dan ganti kata sandimu demi keamanan.
+
+-- 
+Culinse
+Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.
+Informasi hukum: https://culinse.com/id/impressum
+Privasi: https://culinse.com/id/datenschutz

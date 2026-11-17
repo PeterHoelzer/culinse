@@ -1,0 +1,15 @@
+Mã của bạn đây.
+
+Hãy nhập mã này trên Culinse. Nhờ vậy chúng tôi biết đúng là bạn.
+
+{{ .Token }}
+
+Mã có hiệu lực trong 24 giờ và chỉ dùng được một lần.
+
+Bạn không yêu cầu mã? Hãy xóa email này và đổi mật khẩu để an toàn.
+
+-- 
+Culinse
+Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo.
+Thông tin pháp lý: https://culinse.com/vi/impressum
+Chính sách bảo mật: https://culinse.com/vi/datenschutz

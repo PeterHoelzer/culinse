@@ -1,0 +1,19 @@
+Địa chỉ mới đúng chưa?
+
+Bạn muốn đổi địa chỉ email của tài khoản Culinse. Hãy xác nhận chỉ bằng một cú nhấn.
+
+Hiện tại: {{ .Email }}
+Mới: {{ .NewEmail }}
+
+Xác nhận địa chỉ mới:
+{{ .ConfirmationURL }}
+
+Liên kết có hiệu lực trong 24 giờ và chỉ dùng được một lần.
+
+Bạn không yêu cầu việc này? Hãy xóa email này và đổi mật khẩu để an toàn.
+
+-- 
+Culinse
+Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo.
+Thông tin pháp lý: https://culinse.com/vi/impressum
+Chính sách bảo mật: https://culinse.com/vi/datenschutz

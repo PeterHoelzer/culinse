@@ -1,0 +1,19 @@
+新地址没错吧？
+
+你想更改 Culinse 账户的邮箱地址。点一下就可以确认。
+
+当前: {{ .Email }}
+新: {{ .NewEmail }}
+
+确认新地址:
+{{ .ConfirmationURL }}
+
+链接 24 小时内有效，只能使用一次。
+
+不是你申请的？那请删掉这封邮件，并为安全起见修改密码。
+
+-- 
+Culinse
+这封邮件与你在 culinse.com 的账户有关，不是广告。
+法律声明: https://culinse.com/zh/impressum
+隐私政策: https://culinse.com/zh/datenschutz

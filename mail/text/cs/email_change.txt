@@ -1,0 +1,19 @@
+Je nová adresa správně?
+
+Chceš změnit e-mailovou adresu svého účtu v Culinse. Potvrď to jedním kliknutím.
+
+Současná: {{ .Email }}
+Nová: {{ .NewEmail }}
+
+Potvrdit novou adresu:
+{{ .ConfirmationURL }}
+
+Odkaz platí 24 hodin a lze ho použít jen jednou.
+
+Nežádáš o to? Pak tento e-mail smaž a pro jistotu změň heslo.
+
+-- 
+Culinse
+Tento e-mail patří k tvému účtu na culinse.com. Není to reklama.
+Právní informace: https://culinse.com/cs/impressum
+Ochrana soukromí: https://culinse.com/cs/datenschutz

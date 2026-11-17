@@ -1,0 +1,16 @@
+Rất vui được gặp bạn.
+
+Bạn xác nhận địa chỉ email giúp chúng tôi nhé. Sau đó bạn có thể lưu công thức, chấm điểm và lên thực đơn cho cả tuần.
+
+Xác nhận email:
+{{ .ConfirmationURL }}
+
+Liên kết có hiệu lực trong 24 giờ và chỉ dùng được một lần.
+
+Bạn không đăng ký Culinse? Cứ xóa email này đi, sẽ không có gì xảy ra cả.
+
+-- 
+Culinse
+Email này gắn với tài khoản của bạn tại culinse.com. Đây không phải quảng cáo.
+Thông tin pháp lý: https://culinse.com/vi/impressum
+Chính sách bảo mật: https://culinse.com/vi/datenschutz

@@ -1,0 +1,16 @@
+Sistemiamo tutto subito.
+
+Vuoi una nuova password per il tuo account Culinse. Con il pulsante la imposti.
+
+Imposta nuova password:
+{{ .ConfirmationURL }}
+
+Il link è valido per 24 ore e si può usare una sola volta.
+
+Non l'hai richiesto tu? Allora elimina questa e-mail. La tua vecchia password resta valida.
+
+-- 
+Culinse
+Questa e-mail riguarda il tuo account su culinse.com. Non è pubblicità.
+Note legali: https://culinse.com/it/impressum
+Privacy: https://culinse.com/it/datenschutz

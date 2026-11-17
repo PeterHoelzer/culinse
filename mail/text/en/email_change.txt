@@ -1,0 +1,19 @@
+Is the new address right?
+
+You want to change the email address of your Culinse account. Confirm it with one click.
+
+Current: {{ .Email }}
+New: {{ .NewEmail }}
+
+Confirm new address:
+{{ .ConfirmationURL }}
+
+The link is valid for 24 hours and works once.
+
+You did not ask for this? Then delete this email and change your password to be safe.
+
+-- 
+Culinse
+This email belongs to your account at culinse.com. It is not an ad.
+Legal notice: https://culinse.com/en/impressum
+Privacy: https://culinse.com/en/datenschutz

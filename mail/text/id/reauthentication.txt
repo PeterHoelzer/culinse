@@ -1,0 +1,15 @@
+Ini kodemu.
+
+Masukkan kode ini di Culinse. Dengan begitu kamu membuktikan bahwa ini benar-benar kamu.
+
+{{ .Token }}
+
+Kode berlaku 24 jam dan hanya bisa dipakai sekali.
+
+Kamu tidak meminta kode? Hapus email ini dan ganti kata sandimu demi keamanan.
+
+-- 
+Culinse
+Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.
+Informasi hukum: https://culinse.com/id/impressum
+Privasi: https://culinse.com/id/datenschutz

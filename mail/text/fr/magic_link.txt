@@ -1,0 +1,16 @@
+Un clic et tu es dedans.
+
+Ce lien te connecte à Culinse. Tu n'as pas besoin de mot de passe.
+
+Me connecter:
+{{ .ConfirmationURL }}
+
+Le lien est valable 24 heures et ne s'utilise qu'une seule fois.
+
+Tu ne voulais pas te connecter ? Alors supprime cet e-mail. Sans le lien, personne ne peut accéder à ton compte.
+
+-- 
+Culinse
+Cet e-mail concerne ton compte sur culinse.com. Ce n'est pas de la publicité.
+Mentions légales: https://culinse.com/fr/impressum
+Confidentialité: https://culinse.com/fr/datenschutz

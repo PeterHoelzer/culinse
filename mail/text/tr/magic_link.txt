@@ -1,0 +1,16 @@
+Tek tıkla içeridesin.
+
+Bu bağlantıyla Culinse'ye giriş yaparsın. Şifre gerekmez.
+
+Şimdi giriş yap:
+{{ .ConfirmationURL }}
+
+Bağlantı 24 saat geçerlidir ve yalnızca bir kez kullanılabilir.
+
+Giriş yapmak istemedin mi? O zaman bu e-postayı sil. Bağlantı olmadan kimse hesabına giremez.
+
+-- 
+Culinse
+Bu e-posta culinse.com hesabınla ilgilidir. Reklam değildir.
+Yasal bilgiler: https://culinse.com/tr/impressum
+Gizlilik: https://culinse.com/tr/datenschutz

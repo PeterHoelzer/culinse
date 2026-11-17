@@ -1,0 +1,16 @@
+Kita beresin sekarang.
+
+Kamu ingin kata sandi baru untuk akun Culinse. Atur lewat tombol di bawah.
+
+Atur kata sandi baru:
+{{ .ConfirmationURL }}
+
+Tautan berlaku 24 jam dan hanya bisa dipakai sekali.
+
+Kamu tidak memintanya? Hapus email ini. Kata sandi lamamu tetap berlaku.
+
+-- 
+Culinse
+Email ini terkait dengan akunmu di culinse.com. Ini bukan iklan.
+Informasi hukum: https://culinse.com/id/impressum
+Privasi: https://culinse.com/id/datenschutz

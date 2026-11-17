@@ -1,0 +1,16 @@
+Come to the table.
+
+You are invited to create an account at Culinse. You will find recipes from around the world, to save, rate and plan with.
+
+Accept invitation:
+{{ .ConfirmationURL }}
+
+The link is valid for 24 hours and works once.
+
+You do not know Culinse? Then just delete this email. Nothing else will happen.
+
+-- 
+Culinse
+This email belongs to your account at culinse.com. It is not an ad.
+Legal notice: https://culinse.com/en/impressum
+Privacy: https://culinse.com/en/datenschutz

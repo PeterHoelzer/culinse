@@ -1,0 +1,15 @@
+Oto twój kod.
+
+Wpisz ten kod w Culinse. W ten sposób potwierdzasz, że to naprawdę ty.
+
+{{ .Token }}
+
+Kod jest ważny 24 godziny i działa tylko raz.
+
+Nie prosisz o kod? Usuń tę wiadomość i dla bezpieczeństwa zmień hasło.
+
+-- 
+Culinse
+Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama.
+Informacje prawne: https://culinse.com/pl/impressum
+Polityka prywatności: https://culinse.com/pl/datenschutz

@@ -1,0 +1,16 @@
+Good to have you here.
+
+Please confirm your email address. After that you can save recipes, rate them and plan your week.
+
+Confirm email:
+{{ .ConfirmationURL }}
+
+The link is valid for 24 hours and works once.
+
+You did not sign up for Culinse? Then just delete this email. Nothing else will happen.
+
+-- 
+Culinse
+This email belongs to your account at culinse.com. It is not an ad.
+Legal notice: https://culinse.com/en/impressum
+Privacy: https://culinse.com/en/datenschutz

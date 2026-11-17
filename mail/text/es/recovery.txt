@@ -1,0 +1,16 @@
+Lo arreglamos enseguida.
+
+Quieres una nueva contraseña para tu cuenta de Culinse. Con el botón la eliges.
+
+Crear nueva contraseña:
+{{ .ConfirmationURL }}
+
+El enlace es válido durante 24 horas y se puede usar una sola vez.
+
+¿No lo has pedido tú? Entonces borra este correo. Tu contraseña anterior sigue siendo válida.
+
+-- 
+Culinse
+Este correo pertenece a tu cuenta en culinse.com. No es publicidad.
+Aviso legal: https://culinse.com/es/impressum
+Privacidad: https://culinse.com/es/datenschutz

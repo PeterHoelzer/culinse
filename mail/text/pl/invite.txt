@@ -1,0 +1,16 @@
+Dosiądź się do stołu.
+
+Zapraszamy cię do założenia konta w Culinse. Znajdziesz tam przepisy z całego świata, które możesz zapisywać, oceniać i planować.
+
+Przyjmij zaproszenie:
+{{ .ConfirmationURL }}
+
+Link jest ważny 24 godziny i działa tylko raz.
+
+Nie znasz Culinse? Po prostu usuń tę wiadomość. Nic się nie stanie.
+
+-- 
+Culinse
+Ta wiadomość dotyczy twojego konta w culinse.com. To nie jest reklama.
+Informacje prawne: https://culinse.com/pl/impressum
+Polityka prywatności: https://culinse.com/pl/datenschutz

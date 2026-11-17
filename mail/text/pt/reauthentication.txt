@@ -1,0 +1,15 @@
+Aqui está seu código.
+
+Digite este código no Culinse. Assim você confirma que é mesmo você.
+
+{{ .Token }}
+
+O código vale por 24 horas e só pode ser usado uma vez.
+
+Não pediu um código? Então apague este e-mail e, por segurança, troque sua senha.
+
+-- 
+Culinse
+Este e-mail faz parte da sua conta no culinse.com. Não é propaganda.
+Aviso legal: https://culinse.com/pt/impressum
+Privacidade: https://culinse.com/pt/datenschutz
