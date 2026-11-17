@@ -26,17 +26,23 @@ export default function DatenschutzContent() {
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">2. Welche Daten wir erheben</h2>
           <p className="text-base text-ink leading-relaxed mb-4">
-            Culinse kann ohne Konto genutzt werden. Wer sich registriert, erstellt ein Nutzerkonto mit E-Mail-Adresse und Passwort (oder über Google OAuth). Die Authentifizierung erfolgt über Supabase Auth (siehe Abschnitt 3a). Im Rahmen des Kontos werden gespeicherte Rezepte, Sammlungen und Ernährungspräferenzen des Nutzers in einer Supabase-Datenbank gespeichert.
+            Culinse kann ohne Konto genutzt werden. Wer sich registriert, erstellt ein Nutzerkonto mit E-Mail-Adresse und Passwort (oder über Google OAuth). Anmeldung und Konto laufen über einen Anmeldedienst, den wir selbst betreiben (siehe Abschnitt 3). Im Rahmen des Kontos werden gespeicherte Rezepte, Sammlungen und Ernährungspräferenzen des Nutzers in unserer Datenbank auf einem Server in Deutschland gespeichert.
           </p>
           <p className="text-base text-ink leading-relaxed">
-            Beim Besuch der Website werden technisch notwendige Daten durch den Hosting-Anbieter Vercel Inc. verarbeitet (siehe Abschnitt 4). Diese Daten umfassen insbesondere die IP-Adresse des anfragenden Geräts sowie Datum und Uhrzeit des Zugriffs.
+            Beim Besuch der Website werden technisch notwendige Daten durch unseren Server-Anbieter netcup und durch Cloudflare verarbeitet (siehe Abschnitt 4). Diese Daten umfassen insbesondere die IP-Adresse des anfragenden Geräts sowie Datum und Uhrzeit des Zugriffs.
           </p>
         </section>
 
         <section>
-          <h2 className="text-h2-sm mt-10 mb-3">3. Nutzerkonto &amp; Authentifizierung (Supabase)</h2>
+          <h2 className="text-h2-sm mt-10 mb-3">3. Nutzerkonto &amp; Authentifizierung</h2>
           <p className="text-base text-ink leading-relaxed mb-4">
-            Die Nutzer­authentifizierung und Datenspeicherung erfolgt über Supabase (Supabase Inc., San Francisco, CA, USA). Beim Erstellen eines Kontos werden E-Mail-Adresse und – bei Google-Login – grundlegende Profildaten (Name, Profilbild) verarbeitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
+            Anmeldung, Nutzerkonten und alle Kontodaten liegen auf unserem eigenen Server in Deutschland (siehe Abschnitt 4). Wir betreiben dort die frei verfügbare Software Supabase selbst; das Unternehmen Supabase Inc. erhält dabei keine Daten. Beim Erstellen eines Kontos werden E-Mail-Adresse und – bei Google-Login – grundlegende Profildaten (Name, Profilbild) verarbeitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Wer sich mit Google anmeldet, wird dafür zu Google weitergeleitet (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland); Google erfährt dabei, dass die Anmeldung bei Culinse erfolgt.
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            E-Mails zum Konto (Bestätigung der E-Mail-Adresse, Zurücksetzen des Passworts) versenden wir über den Dienst Resend (Resend, Inc., San Francisco, CA, USA). Dabei werden die E-Mail-Adresse und der Inhalt der Nachricht an Resend übermittelt; eine Verarbeitung in den USA ist möglich. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
           </p>
           <p className="text-base text-ink leading-relaxed">
             Nutzer können ihr Konto jederzeit löschen. Dabei werden alle personenbezogenen Daten (gespeicherte Rezepte, Sammlungen, Präferenzen) unwiderruflich gelöscht.
@@ -46,22 +52,28 @@ export default function DatenschutzContent() {
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">3a. Rezeptinhalte und KI-Bilder</h2>
           <p className="text-base text-ink leading-relaxed">
-            Rezeptinhalte und Rezeptbilder unseres Korpus erstellen wir selbst — KI-gestützt und redaktionell geprüft (Bilder: KI-generiert mit Higgsfield). Sie werden in unserer Supabase-Datenbank und im Supabase-Storage gespeichert (siehe Abschnitt 3). Externe Rezept-APIs werden nicht mehr eingebunden. Bei der KI-Erstellung von Rezepten und Bildern werden keine personenbezogenen Nutzerdaten an KI-Anbieter übermittelt.
+            Rezeptinhalte und Rezeptbilder unseres Korpus erstellen wir selbst — KI-gestützt und redaktionell geprüft (Bilder: KI-generiert mit Higgsfield). Sie werden in unserer Datenbank und unserem Dateispeicher auf dem eigenen Server gespeichert (siehe Abschnitt 4). Externe Rezept-APIs werden nicht mehr eingebunden. Bei der KI-Erstellung von Rezepten und Bildern werden keine personenbezogenen Nutzerdaten an KI-Anbieter übermittelt.
           </p>
         </section>
 
         <section>
-          <h2 className="text-h2-sm mt-10 mb-3">4. Hosting (Vercel)</h2>
+          <h2 className="text-h2-sm mt-10 mb-3">4. Hosting (netcup) und Auslieferung (Cloudflare)</h2>
 
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Website, Datenbank und Dateispeicher laufen auf einem Server, den wir bei der netcup GmbH, Daimlerstraße 25, 76185 Karlsruhe, gemietet haben. Der Server steht in einem Rechenzentrum in Nürnberg. Beim Aufruf der Website fallen dort technische Zugriffsdaten (sog. Server-Logs) an, insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs und die aufgerufene Adresse. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (sicherer und stabiler Betrieb der Website).
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Die Seiten von culinse.com werden über das Netz von Cloudflare ausgeliefert (Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA). Cloudflare nimmt die Aufrufe entgegen, wehrt Angriffe ab und leitet die Anfragen an unseren Server weiter. Dabei verarbeitet Cloudflare technische Zugriffsdaten, insbesondere die IP-Adresse; eine Verarbeitung in den USA ist möglich. Cloudflare ist nach dem EU-US Data Privacy Framework zertifiziert; ergänzend gelten die Standardvertragsklauseln der EU-Kommission. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (schnelle Auslieferung und Schutz der Website). Bilder, Anmeldung und Kontodaten laufen nicht über Cloudflare, sondern direkt über unseren Server.
+          </p>
           <p className="text-base text-ink leading-relaxed">
-            Diese Website wird gehostet von Vercel Inc., 340 Pine Street, Suite 701, San Francisco, CA 94104, USA. Beim Aufruf der Website verarbeitet Vercel technische Zugriffsdaten (sog. Server-Logs) auf Basis von Art. 6 Abs. 1 lit. f DSGVO.
+            Bis November 2026 lief die Website bei Vercel Inc. (San Francisco, CA, USA), Datenbank und Anmeldung bei Supabase Inc. (San Francisco, CA, USA). Bis zur endgültigen Abschaltung dieser Dienste, voraussichtlich im Dezember 2026, liegt dort noch eine Kopie der Daten als Rückfallstand; neue Daten werden dorthin nicht mehr übertragen.
           </p>
         </section>
 
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">5. Cookies &amp; Session</h2>
           <p className="text-base text-ink leading-relaxed">
-            Culinse selbst setzt nur technisch notwendige Cookies: Für eingeloggte Nutzer setzt Supabase ein Session-Cookie (Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 Nr. 2 TDDDG). Zur Reichweitenmessung nutzen wir Vercel Web Analytics; der Dienst arbeitet ohne Cookies und erkennt Besucher nicht über mehrere Tage oder Websites hinweg wieder. Cookies und ähnliche Kennungen zu Werbezwecken werden nur gesetzt, wenn Sie zuvor eingewilligt haben (siehe Abschnitt 5a).
+            Culinse selbst setzt nur technisch notwendige Cookies: Für eingeloggte Nutzer setzt unser Anmeldedienst ein Session-Cookie, und die Website merkt sich die gewählte Sprache in einem Cookie (Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 Nr. 2 TDDDG). Cloudflare kann zum Schutz vor Angriffen im Einzelfall ein technisch notwendiges Cookie setzen. Eine Reichweitenmessung findet derzeit nicht statt. Cookies und ähnliche Kennungen zu Werbezwecken werden nur gesetzt, wenn Sie zuvor eingewilligt haben (siehe Abschnitt 5a).
           </p>
         </section>
 
