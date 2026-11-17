@@ -90,9 +90,27 @@ fi
 echo "[$(date -Is)] Datenbank gesichert: $(basename "$DB_DATEI"), $((DB_GROESSE / 1024 / 1024)) MB"
 
 # 2) Einstellungen des Servers (klein, aber ohne sie ist die Wiederherstellung mühsam)
-tar -C / -cf - "${KONFIG_PFADE[@]}" \
+# Dazu gehört die Datenbank von Coolify: Nur dort stehen die Variablen der
+# Website (etwa die Stripe-Schlüssel) und alle Einstellungen der Anwendung. Die
+# Werte sind darin mit dem APP_KEY aus data/coolify/source/.env verschlüsselt,
+# der ebenfalls in diesem Paket liegt. Der Abzug liegt nur während des Packens
+# unverschlüsselt im Sicherungsordner.
+COOLIFY_ABZUG="$ORDNER/coolify-datenbank.sql.gz"
+trap 'rm -f "$COOLIFY_ABZUG"; beim_ende' EXIT
+ZUSATZ=()
+if docker ps --format '{{.Names}}' </dev/null | grep -qx coolify-db; then
+  docker exec coolify-db pg_dump -U coolify -d coolify </dev/null | gzip -9 > "$COOLIFY_ABZUG"
+  COOLIFY_GROESSE=$(stat -c %s "$COOLIFY_ABZUG")
+  [ "$COOLIFY_GROESSE" -gt 20000 ] || { echo "FEHLER: Abzug der Coolify-Datenbank nur $COOLIFY_GROESSE Bytes"; exit 1; }
+  ZUSATZ=(-C "$ORDNER" "$(basename "$COOLIFY_ABZUG")")
+  echo "[$(date -Is)] Coolify-Datenbank abgezogen: $COOLIFY_GROESSE Bytes"
+else
+  echo "[$(date -Is)] HINWEIS: Container coolify-db läuft nicht, Coolify-Datenbank nicht gesichert"
+fi
+tar -C / -cf - "${KONFIG_PFADE[@]}" "${ZUSATZ[@]}" \
   | gpg --batch --yes --symmetric --cipher-algo AES256 --passphrase-file "$PASSWORT_DATEI" -o "$KONFIG_DATEI.teil"
 mv -f "$KONFIG_DATEI.teil" "$KONFIG_DATEI"
+rm -f "$COOLIFY_ABZUG"
 KONFIG_GROESSE=$(stat -c %s "$KONFIG_DATEI")
 [ "$KONFIG_GROESSE" -gt 0 ] || { echo "FEHLER: Einstellungs-Sicherung ist leer"; exit 1; }
 echo "[$(date -Is)] Einstellungen gesichert: $(basename "$KONFIG_DATEI"), $KONFIG_GROESSE Bytes"
