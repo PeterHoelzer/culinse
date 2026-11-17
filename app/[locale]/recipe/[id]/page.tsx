@@ -3,6 +3,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import RecipePageClient, { type Recipe, type SimilarRecipe } from "./RecipePageClient";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { RECIPE_TTL, recipeTag } from "@/lib/recipeCache";
+import { germanOriginalLine } from "@/lib/germanUnits";
 import { INTERNAL_API_URL } from "@/lib/siteUrls";
 import { getTranslations } from "next-intl/server";
 import { clipDescription, recipeSeoTitle } from "@/lib/siteMeta";
@@ -351,7 +352,9 @@ export default async function RecipePage(
               },
             }
           : {}),
-        recipeIngredient: recipe.ingredients?.map((i) => i.original) ?? [],
+        // Deutsche Rezepte mit denselben Einheiten wie auf der Seite („3 Zehen Knoblauch“, „1 Zwiebel“).
+        recipeIngredient:
+          recipe.ingredients?.map((i) => (recipe.language === "de" ? germanOriginalLine(i.original, i.unit, i.name) : i.original)) ?? [],
         recipeInstructions:
           recipe.instructions?.map((s) => ({
             "@type": "HowToStep",

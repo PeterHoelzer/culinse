@@ -20,6 +20,7 @@ import type { DishColors } from "@/app/[locale]/components/home-types";
 import { displayTitle, nameLangFromTags, stageTitleSize } from "@/lib/recipeTitle";
 import { AffiliateBox } from "@/components/AffiliateBox";
 import RecipeRating from "@/components/RecipeRating";
+import { germanIngredientRest } from "@/lib/germanUnits";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 import { SIZED_WIDTHS, isSizedUrl, optimizedImageUrl, originalImageUrl, sizedImageUrl } from "@/lib/imageUrl";
 import { Button, buttonClasses, Checkbox, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
@@ -250,14 +251,20 @@ function splitSummary(summary: string): { intro: string; tip: { label: string | 
  * und skaliert sie beim Umstellen der Portionen. Zeilen ohne führende Zahl
  * bleiben unverändert.
  */
-function splitIngredient(original: string, factor: number, locale: string): { amount: string | null; rest: string } {
+function splitIngredient(
+  original: string,
+  factor: number,
+  locale: string
+): { amount: string | null; rest: string; stored: number | null; value: number | null } {
   const m = original.match(LEADING_AMOUNT);
-  if (!m) return { amount: null, rest: original };
+  if (!m) return { amount: null, rest: original, stored: null, value: null };
   const rest = original.slice(m[0].length).trimStart();
-  if (factor === 1) return { amount: localizeDecimal(m[0].trim(), locale), rest };
+  // Menge als Zahl (bei „2–3“ die obere): danach richten sich Einzahl und Mehrzahl der Einheit.
+  const stored = parseAmount(m[2] ?? m[1]);
+  if (factor === 1) return { amount: localizeDecimal(m[0].trim(), locale), rest, stored, value: stored };
   const a = formatAmount(parseAmount(m[1]) * factor, locale);
   const b = m[2] ? formatAmount(parseAmount(m[2]) * factor, locale) : null;
-  return { amount: b ? `${a}–${b}` : a, rest };
+  return { amount: b ? `${a}–${b}` : a, rest, stored, value: stored * factor };
 }
 
 /* ── Rezeptkarte für „Ähnliche Rezepte“ (DESIGN.md §5 „Rezeptkarte“) ──── */
@@ -1021,7 +1028,13 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                   <ul className="mt-5 divide-y divide-line">
                     {recipe.ingredients.map((ing, i) => {
                       const checked = checkedIngredients.has(i);
-                      const { amount, rest } = splitIngredient(ing.original, servingsFactor, locale);
+                      const split = splitIngredient(ing.original, servingsFactor, locale);
+                      const amount = split.amount;
+                      // Deutsche Rezepte: Einheit nach Menge („3 Zehen“, „1 Zwiebel“ ohne „Stück“), siehe lib/germanUnits.ts.
+                      const rest =
+                        (recipe.language ?? locale) === "de" && split.rest === [ing.unit, ing.name].filter(Boolean).join(" ")
+                          ? germanIngredientRest(ing.unit, ing.name, split.value, split.stored)
+                          : split.rest;
                       const url = getIngredientAffiliateUrl(ing.name);
                       return (
                         <li key={i} className="ingredient-item flex items-start gap-2 py-2.5">
