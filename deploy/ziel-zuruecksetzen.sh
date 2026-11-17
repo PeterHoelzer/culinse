@@ -19,7 +19,9 @@ AKTION="${1:-}"
 warte_auf_gesund() {
   # Alle Supabase-Container müssen nach dem Start "healthy" melden.
   for _ in $(seq 1 60); do
-    if ! docker ps --format '{{.Names}} {{.Status}}' | grep '^supabase-' | grep -qv '(healthy)'; then
+    # Dienste ohne eigene Gesundheitsprüfung (supabase-mailvorlagen) melden nie
+    # "healthy"; sie zählen, sobald sie laufen.
+    if ! docker ps --format '{{.Names}} {{.Status}}' | grep '^supabase-' | grep -v '^supabase-mailvorlagen ' | grep -qv '(healthy)'; then
       return 0
     fi
     sleep 2

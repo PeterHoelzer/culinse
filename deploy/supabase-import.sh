@@ -2,7 +2,7 @@
 # Spielt den Export in die leere Datenbank des eigenen Servers ein, wie in der
 # Supabase-Doku beschrieben: in einem Stück, Auslöser währenddessen aus.
 #
-#   . /root/umzug/ziel.env          # setzt ZIEL (Rolle postgres über den Pooler)
+#   set -a; . /root/umzug/ziel.env; set +a   # setzt ZIEL (Rolle postgres über den Pooler)
 #   deploy/supabase-import.sh /root/umzug/export-probe              # sauberer Lauf
 #   deploy/supabase-import.sh /root/umzug/export-probe --fehlersuche
 #
@@ -29,6 +29,11 @@ cd "$ORDNER"
 # Gelöscht werden die beiden COPY-Blöcke bis zum abschließenden \.
 sed -i '/^COPY "storage"\."buckets_vectors"/,/^\\\.$/d;
         /^COPY "storage"\."vector_indexes"/,/^\\\.$/d' data.sql
+# Supabase Cloud ist dem eigenen Anmeldedienst im Aufbau von auth und storage
+# manchmal voraus (17.11.2026: zwei neue Spalten in auth, die es am Vortag noch
+# nicht gab). Spalten, die das Ziel nicht kennt, werden aus den COPY-Blöcken
+# dieser beiden Bereiche entfernt; das Skript meldet, was dabei entfällt.
+ZIEL="$ZIEL" python3 "$HIER/spalten-abgleichen.py" data.sql
 # Nicht nötig auf Postgres 17 (nur Postgres 15 kennt "transaction_timeout" nicht):
 # sed -i 's/^SET transaction_timeout/-- &/' data.sql
 

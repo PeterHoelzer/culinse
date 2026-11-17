@@ -15,6 +15,7 @@ wurde, steht in der Tabelle.
 | `supabase-export.sh` | Datenbank aus dem Supabase-Projekt ziehen (liest nur), über die angemeldete Supabase-Kommandozeile | Befehle im Probelauf gelaufen |
 | `auth-storage-anpassungen.sql` | Auslöser an `auth.users` und Regeln am Bildspeicher als SQL ausgeben | gelaufen: 1 Auslöser, 3 Regeln |
 | `supabase-import.sh` | Export in die neue Datenbank einspielen, danach Vergleichsbericht | Befehle im Probelauf gelaufen, sauber in 12 s |
+| `spalten-abgleichen.py` | Spalten in `auth`/`storage`, die es nur bei Supabase Cloud gibt, aus dem Export entfernen (ruft `supabase-import.sh` selbst auf) | gelaufen beim Umzug am 17.11.2026 |
 | `ziel-zuruecksetzen.sh` | neue Datenbank auf den leeren Ausgangszustand zurücksetzen | einmal gelaufen |
 | `pruefen.sql` | Vergleichsbericht: Zeilenzahlen, Prüfsummen, Regeln, Funktionen, Auslöser | gelaufen auf Quelle und Ziel |
 | `bilder-kopieren.mjs` | Bildspeicher kopieren, wiederholbar, mit Vergleich | Lesen und Vergleichen am echten Speicher (13.766 Dateien, 3,07 GB) |
@@ -29,7 +30,7 @@ es dann nicht.
 
 1. `supabase-export.sh <ordner>` zieht Rollen, Aufbau, Daten, die Anpassungen in
    `auth` und `storage` sowie den Vergleichsbericht der Quelle.
-2. `. /root/umzug/ziel.env`, dann `supabase-import.sh <ordner>`: spielt in einem
+2. `set -a; . /root/umzug/ziel.env; set +a`, dann `supabase-import.sh <ordner>`: spielt in einem
    Stück ein, zieht die Anpassungen nach und vergleicht beide Berichte. Die
    Rolle `postgres` genügt. Mit `--fehlersuche` läuft es ohne „alles oder
    nichts“; danach `ziel-zuruecksetzen.sh`.
@@ -57,3 +58,22 @@ es dann nicht.
 Die Export-Dateien enthalten alle Konten mit E-Mail-Adresse und verschlüsseltem
 Passwort. Sie liegen nur auf dem Server unter `/root/umzug` (nur für root
 lesbar) und gehören weder ins Repo noch in iCloud oder den Vault.
+
+## Der echte Umzug am 17.11.2026
+
+- Export 308 MB in 1 Minute, Einspielen in 21 Sekunden. Vergleichsbericht:
+  gleich bis auf `pg_net` und einen Klick-Zähler, der zwischen Abzug und Bericht
+  dazukam.
+- Neu gegenüber der Probe: Supabase Cloud hatte über Nacht zwei Spalten in
+  `auth` ergänzt (`one_time_tokens.link_token_hash`,
+  `saml_providers.dedicated_scope`). `spalten-abgleichen.py` nimmt solche
+  Spalten aus dem Export; beide waren leer.
+- Die Bilder wurden nicht noch einmal kopiert. Die Dateien der Probe lagen
+  schon auf der Platte, an der Quelle war seit dem 11.11. keine Datei neu oder
+  geändert. Der eigene Bildspeicher legt jede Datei unter
+  `<Pfad>/<version>` ab; nach dem Einspielen tragen die Zeilen in
+  `storage.objects` aber die `version` der Quelle. Deshalb vor dem Zurücksetzen
+  `bucket_id, name, version, Größe` der Kopie in eine CSV-Datei schreiben und
+  nach dem Einspielen die `version` bei gleichem Namen und gleicher Größe
+  zurücksetzen (13.766 von 13.766). Wer das nicht kann, kopiert mit `--alles`.
+- `ziel.env` setzt `ZIEL`, exportiert es aber nicht: mit `set -a` einlesen.
