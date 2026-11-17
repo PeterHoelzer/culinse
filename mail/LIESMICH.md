@@ -1,8 +1,10 @@
 # Mails von culinse.com
 
-Stand 17.11.2026. Die Vorlagen sind seit 17.11.2026, 12:15 Uhr, auf dem Server
-(Schritte 1 bis 3 unten sind erledigt). Offen ist die Probe im echten Postfach
-(Schritt 4) und das Aufräumen danach (Schritt 5).
+Stand 17.11.2026. Die Vorlagen sind seit 17.11.2026, 12:15 Uhr, auf dem Server.
+Peter hat eine Probe-Mail im Postfach angesehen und für gut befunden; die alte
+Vorlage `email-confirm.html` ist vom Server gelöscht. Nicht ausdrücklich geprüft
+sind die englische Passwort-Mail und eine Registrierung mit echter
+Bestätigungs-Mail.
 
 ## Welche Mails es gibt
 
@@ -118,7 +120,7 @@ Fassung: `/root/umzug/mail-vorlagen-vor-umstellung-2026-11-17-121450` und
    mit einer zweiten Adresse. Prüfen: Betreff und Text in der richtigen Sprache,
    Foto und Schrift geladen, Knopf führt zurück auf die Website.
 5. Aufräumen: `/opt/supabase/mail-vorlagen/email-confirm.html` löschen, den
-   Stand im Drehbuch im Vault nachtragen.
+   Stand im Drehbuch im Vault nachtragen. Erledigt am 17.11.2026.
 
 Spätere Textänderungen brauchen nur noch Schritt 3. Ändern sich nur die
 `.html`-Dateien, lädt der Anmeldedienst sie binnen 10 Minuten selbst neu; neue
