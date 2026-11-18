@@ -157,6 +157,8 @@ const HERO_WIDTHS = [640, 960, 1440, 1920];
   (Bitterorangen-Marmelade: 165), und die ließen sich nur noch verkleinern.
 */
 const MAX_SERVINGS = 999;
+/** Kleinste Menge über „Halbe Menge“: ein halbes Rezept für eine Person. Der Minus-Knopf endet bei 1. */
+const MIN_SERVINGS = 0.5;
 
 /**
  * Responsive Quellen für Supabase-Bilder. Die API liefert bereits Render-URLs
@@ -1024,10 +1026,10 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                         icon="minus"
                         aria-label={tx("servingsLess", "Eine Portion weniger", "One serving fewer")}
                         disabled={servingsTarget <= 1}
-                        onClick={() => setServingsTarget((v) => Math.max(1, (v ?? 1) - 1))}
+                        onClick={() => setServingsTarget((v) => Math.max(1, Number.isInteger(v ?? 1) ? (v ?? 1) - 1 : Math.floor(v ?? 1)))}
                       />
                       <span className="min-w-[8ch] text-center text-base text-ink tabular" aria-live="polite">
-                        {tCard("servings", { count: servingsTarget })}
+                        {tCard("servings", { count: Number.isInteger(servingsTarget) ? servingsTarget : localizeDecimal(String(servingsTarget), locale) })}
                       </span>
                       <Button
                         variant="icon"
@@ -1035,8 +1037,39 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                         icon="plus"
                         aria-label={tx("servingsMore", "Eine Portion mehr", "One serving more")}
                         disabled={servingsTarget >= MAX_SERVINGS}
-                        onClick={() => setServingsTarget((v) => Math.min(MAX_SERVINGS, (v ?? 1) + 1))}
+                        onClick={() => setServingsTarget((v) => Math.min(MAX_SERVINGS, Math.floor(v ?? 1) + 1))}
                       />
+                    </div>
+                  )}
+
+                  {/*
+                    Große Sprünge: Bei 70 oder 165 Portionen (Konfitüre in Löffeln) wären es sonst Dutzende Klicks.
+                    Die Hälfte bleibt genau, auch wenn sie nicht aufgeht (3 → 1,5 Portionen): Gerundet auf 2
+                    wären die Mengen zwei Drittel statt der Hälfte. Plus und Minus führen zurück auf ganze Zahlen.
+                  */}
+                  {recipe.servings && servingsTarget && (
+                    <div className="print-hide mt-1 flex flex-wrap items-center gap-x-5">
+                      <Button
+                        variant="quiet"
+                        className="min-h-10 text-sm"
+                        disabled={servingsTarget / 2 < MIN_SERVINGS}
+                        onClick={() => setServingsTarget((v) => Math.max(MIN_SERVINGS, Math.round((v ?? 1) * 50) / 100))}
+                      >
+                        {t("halfAmount")}
+                      </Button>
+                      <Button
+                        variant="quiet"
+                        className="min-h-10 text-sm"
+                        disabled={servingsTarget * 2 > MAX_SERVINGS}
+                        onClick={() => setServingsTarget((v) => Math.min(MAX_SERVINGS, (v ?? 1) * 2))}
+                      >
+                        {t("doubleAmount")}
+                      </Button>
+                      {servingsTarget !== recipe.servings && (
+                        <Button variant="quiet" className="min-h-10 text-sm" onClick={() => setServingsTarget(recipe.servings)}>
+                          {t("originalAmount")}
+                        </Button>
+                      )}
                     </div>
                   )}
 

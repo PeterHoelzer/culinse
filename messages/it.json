@@ -512,6 +512,9 @@
     "ctaButton": "Inizia gratis"
   },
   "recipe": {
+    "halfAmount": "Metà dose",
+    "doubleAmount": "Doppia dose",
+    "originalAmount": "Dose originale",
     "withWaiting": "Con i tempi di attesa: circa {time}",
     "stepHours": "{count} h",
     "cookTime": "Tempo di cottura",

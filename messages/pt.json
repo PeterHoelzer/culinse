@@ -512,6 +512,9 @@
     "ctaButton": "Começar grátis"
   },
   "recipe": {
+    "halfAmount": "Metade da quantidade",
+    "doubleAmount": "Dobro da quantidade",
+    "originalAmount": "Quantidade original",
     "withWaiting": "Com tempo de espera: cerca de {time}",
     "stepHours": "{count} h",
     "cookTime": "Tempo de preparo",

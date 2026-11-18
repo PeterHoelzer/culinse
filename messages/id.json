@@ -512,6 +512,9 @@
     "ctaButton": "Mulai gratis"
   },
   "recipe": {
+    "halfAmount": "Setengah takaran",
+    "doubleAmount": "Dua kali takaran",
+    "originalAmount": "Takaran asli",
     "withWaiting": "Termasuk waktu tunggu: sekitar {time}",
     "stepHours": "{count} jam",
     "cookTime": "Waktu memasak",

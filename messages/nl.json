@@ -512,6 +512,9 @@
     "ctaButton": "Gratis beginnen"
   },
   "recipe": {
+    "halfAmount": "Halve hoeveelheid",
+    "doubleAmount": "Dubbele hoeveelheid",
+    "originalAmount": "Oorspronkelijke hoeveelheid",
     "withWaiting": "Met wachttijd: ca. {time}",
     "stepHours": "{count} uur",
     "cookTime": "Kooktijd",

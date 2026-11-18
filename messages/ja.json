@@ -512,6 +512,9 @@
     "ctaButton": "無料で始める"
   },
   "recipe": {
+    "halfAmount": "半量",
+    "doubleAmount": "2倍量",
+    "originalAmount": "元の分量",
     "withWaiting": "待ち時間込み：約{time}",
     "stepHours": "{count} 時間",
     "cookTime": "調理時間",

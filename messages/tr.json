@@ -512,6 +512,9 @@
     "ctaButton": "Ücretsiz başla"
   },
   "recipe": {
+    "halfAmount": "Yarım miktar",
+    "doubleAmount": "İki kat miktar",
+    "originalAmount": "Asıl miktar",
     "withWaiting": "Bekleme süresiyle: yaklaşık {time}",
     "stepHours": "{count} sa",
     "cookTime": "Pişirme süresi",

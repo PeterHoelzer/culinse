@@ -512,6 +512,9 @@
     "ctaButton": "Начать бесплатно"
   },
   "recipe": {
+    "halfAmount": "Половина количества",
+    "doubleAmount": "Двойное количество",
+    "originalAmount": "Исходное количество",
     "withWaiting": "С учётом ожидания: около {time}",
     "stepHours": "{count} ч",
     "cookTime": "Время приготовления",

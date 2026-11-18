@@ -512,6 +512,9 @@
     "ctaButton": "বিনামূল্যে শুরু করুন"
   },
   "recipe": {
+    "halfAmount": "অর্ধেক পরিমাণ",
+    "doubleAmount": "দ্বিগুণ পরিমাণ",
+    "originalAmount": "মূল পরিমাণ",
     "withWaiting": "অপেক্ষার সময়সহ: প্রায় {time}",
     "stepHours": "{count} ঘণ্টা",
     "cookTime": "রান্নার সময়",

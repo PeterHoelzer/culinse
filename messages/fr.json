@@ -512,6 +512,9 @@
     "ctaButton": "Commencer gratuitement"
   },
   "recipe": {
+    "halfAmount": "Demi-quantité",
+    "doubleAmount": "Double quantité",
+    "originalAmount": "Quantité d’origine",
     "withWaiting": "Avec le temps d’attente : env. {time}",
     "stepHours": "{count} h",
     "cookTime": "Temps de cuisson",

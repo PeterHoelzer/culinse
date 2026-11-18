@@ -512,6 +512,9 @@
     "ctaButton": "Začít zdarma"
   },
   "recipe": {
+    "halfAmount": "Poloviční množství",
+    "doubleAmount": "Dvojnásobné množství",
+    "originalAmount": "Původní množství",
     "withWaiting": "S čekáním: asi {time}",
     "stepHours": "{count} h",
     "cookTime": "Doba vaření",

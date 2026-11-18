@@ -512,6 +512,9 @@
     "ctaButton": "免费开始"
   },
   "recipe": {
+    "halfAmount": "减半",
+    "doubleAmount": "加倍",
+    "originalAmount": "原始分量",
     "withWaiting": "含等待时间：约 {time}",
     "stepHours": "{count} 小时",
     "cookTime": "烹饪时间",

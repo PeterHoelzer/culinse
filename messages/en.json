@@ -512,6 +512,9 @@
     "ctaButton": "Start for free"
   },
   "recipe": {
+    "halfAmount": "Half amount",
+    "doubleAmount": "Double amount",
+    "originalAmount": "Original amount",
     "withWaiting": "With waiting time: about {time}",
     "stepHours": "{count} h",
     "cookTime": "Cook time",
