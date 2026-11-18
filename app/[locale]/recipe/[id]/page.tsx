@@ -108,12 +108,12 @@ function recipeAddresses(
 async function fetchRecipe(id: string): Promise<LoadedRecipe | "missing" | null> {
   let res: Response;
   try {
-    // v=11 (18.11.26, Datenkorrektur D3: Nährwerte von 12 Gerichten neu berechnet): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 30 Tage).
+    // v=12 (18.11.26, Datenkorrektur: Portionenzahl von 25 Grundrezepten): Cache-Buster — der Vercel Data Cache ueberlebt Deploys (bis zu 30 Tage).
     // Bei jeder Aenderung am API-Response-Shape (z. B. neue Felder wie aiAssisted)
     // und nach Korrekturen, die ein Skript direkt in die Datenbank schreibt,
     // MUSS diese Versionsnummer hochgezaehlt werden, sonst servieren Rezeptseiten
     // bis zu 30 Tage lang alte Daten.
-    res = await fetch(`${INTERNAL_API_URL}/api/recipe/${id}?v=11`, {
+    res = await fetch(`${INTERNAL_API_URL}/api/recipe/${id}?v=12`, {
       next: { revalidate: RECIPE_TTL, tags: [recipeTag(id)] },
     });
   } catch (cause) {
