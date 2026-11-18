@@ -151,6 +151,13 @@ async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
 
 const HERO_WIDTHS = [640, 960, 1440, 1920];
 
+/*
+  Obergrenze des Portionsreglers. Früher 99; seit Konfitüren und Würzpasten in
+  Löffel-Portionen gerechnet werden, gibt es Rezepte mit über 100 Portionen
+  (Bitterorangen-Marmelade: 165), und die ließen sich nur noch verkleinern.
+*/
+const MAX_SERVINGS = 999;
+
 /**
  * Responsive Quellen für Supabase-Bilder. Die API liefert bereits Render-URLs
  * mit `width=`/`height=`; wir tauschen nur die Zahl aus. Für nackte
@@ -1027,8 +1034,8 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                         size="sm"
                         icon="plus"
                         aria-label={tx("servingsMore", "Eine Portion mehr", "One serving more")}
-                        disabled={servingsTarget >= 99}
-                        onClick={() => setServingsTarget((v) => Math.min(99, (v ?? 1) + 1))}
+                        disabled={servingsTarget >= MAX_SERVINGS}
+                        onClick={() => setServingsTarget((v) => Math.min(MAX_SERVINGS, (v ?? 1) + 1))}
                       />
                     </div>
                   )}
