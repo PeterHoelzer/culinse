@@ -21,6 +21,7 @@ import { displayTitle, nameLangFromTags, stageTitleSize } from "@/lib/recipeTitl
 import { AffiliateBox } from "@/components/AffiliateBox";
 import RecipeRating from "@/components/RecipeRating";
 import { germanIngredientRest } from "@/lib/germanUnits";
+import { scaleSpoonGrams } from "@/lib/spoonGrams";
 import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 import { SIZED_WIDTHS, isSizedUrl, optimizedImageUrl, originalImageUrl, sizedImageUrl } from "@/lib/imageUrl";
 import { Button, buttonClasses, Checkbox, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
@@ -1092,10 +1093,12 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                       const split = splitIngredient(ing.original, servingsFactor, locale);
                       const amount = split.amount;
                       // Deutsche Rezepte: Einheit nach Menge („3 Zehen“, „1 Zwiebel“ ohne „Stück“), siehe lib/germanUnits.ts.
-                      const rest =
+                      const restAsStored =
                         (recipe.language ?? locale) === "de" && split.rest === [ing.unit, ing.name].filter(Boolean).join(" ")
                           ? germanIngredientRest(ing.unit, ing.name, split.value, split.stored)
                           : split.rest;
+                      // „4 TL Zimt (10 g)“: Bei anderer Portionenzahl geht das Gewicht in der Klammer mit, siehe lib/spoonGrams.ts.
+                      const rest = scaleSpoonGrams(ing.unit, restAsStored, servingsFactor, (n) => formatAmount(n, locale));
                       const url = getIngredientAffiliateUrl(ing.name);
                       return (
                         <li key={i} className="ingredient-item flex items-start gap-2 py-2.5">
