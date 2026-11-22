@@ -7,6 +7,7 @@ import Link from "next/link";
 import type { Recipe } from "./components/home-types";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { routing } from "@/i18n/routing";
+import { searchLanguages } from "@/lib/searchLocales";
 import { siteDescription } from "@/lib/siteMeta";
 import { originalImageUrl } from "@/lib/imageUrl";
 import { LANDINGS, LANDING_MIN, emptyState } from "@/lib/browse/facets";
@@ -197,25 +198,7 @@ export async function generateMetadata({
   return {
     alternates: {
       canonical: url,
-      languages: {
-        en: "https://culinse.com/en",
-        de: "https://culinse.com/de",
-        es: "https://culinse.com/es",
-        fr: "https://culinse.com/fr",
-        it: "https://culinse.com/it",
-        pl: "https://culinse.com/pl",
-        tr: "https://culinse.com/tr",
-        nl: "https://culinse.com/nl",
-        cs: "https://culinse.com/cs",
-        ru: "https://culinse.com/ru",
-        pt: "https://culinse.com/pt",
-        zh: "https://culinse.com/zh",
-        ja: "https://culinse.com/ja",
-        id: "https://culinse.com/id",
-        vi: "https://culinse.com/vi",
-        bn: "https://culinse.com/bn",
-        "x-default": "https://culinse.com/en",
-      },
+      languages: searchLanguages((l) => `https://culinse.com/${l}`),
     },
     openGraph: {
       title,

@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import { chipClasses } from "@/components/ui/styles";
 import { Link } from "@/lib/navigation";
-import { routing } from "@/i18n/routing";
 import {
   FACET_GROUPS,
   LANDINGS,
@@ -20,6 +19,7 @@ import { runBrowse } from "@/lib/browse";
 import { landingPath } from "@/lib/browse/slugs";
 import { dishColorsWithin } from "@/lib/dishColor";
 import { clipDescription } from "@/lib/siteMeta";
+import { searchLanguages } from "@/lib/searchLocales";
 import HomeFooter from "../components/HomeFooter";
 import BrowseClient from "./BrowseClient";
 
@@ -90,10 +90,9 @@ export async function browseMetadata(locale: string, state: BrowseState, landing
   // Themenseiten haben je Sprache eine eigene Adresse. Folgeseiten verweisen auf
   // dieselbe Seitenzahl der anderen Sprachen; vorher zeigte hreflang von Seite 2
   // auf Seite 1, auch in der eigenen Sprache, und widersprach der canonical-Adresse.
-  const languages = (path: (l: string) => string, suffix: string) => ({
-    ...Object.fromEntries(routing.locales.map((l) => [l, `${BASE_URL}/${l}${path(l)}${suffix}`])),
-    "x-default": `${BASE_URL}/en${path("en")}${suffix}`,
-  });
+  // Genannt werden nur die Sprachen, die Suchmaschinen sehen (lib/searchLocales.ts).
+  const languages = (path: (l: string) => string, suffix: string) =>
+    searchLanguages((l) => `${BASE_URL}/${l}${path(l)}${suffix}`);
   const paged = (title: string) => (page > 1 ? `${title} (${t("pageOf", { page, pages })})` : title);
 
   if (target) {

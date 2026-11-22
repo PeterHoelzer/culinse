@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { siteDescription } from "@/lib/siteMeta";
+import { isSearchLocale } from "@/lib/searchLocales";
 
 // Schriftpaar laut DESIGN.md §11: Source Sans 3 (Text/UI) und Fraunces
 // (Überschriften; weiche Serife nach alten Handwerker-Schildern, mit optischer Größe). Beide variabel, selbst gehostet über
@@ -185,6 +186,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = LOCALE_META[locale] ?? LOCALE_META.en;
   return {
     ...sharedMeta,
+    // Sprachen, die Suchmaschinen vorerst nicht sehen sollen (lib/searchLocales.ts):
+    // robots.txt sperrt sie schon; "noindex" gilt für Crawler, die trotzdem kommen.
+    ...(isSearchLocale(locale) ? {} : { robots: { index: false, follow: true } }),
     title: {
       default: meta.title,
       template: "%s | Culinse",

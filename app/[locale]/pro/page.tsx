@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { searchLanguages } from "@/lib/searchLocales";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -8,25 +9,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const alternates = {
     canonical: `https://culinse.com/${locale}/pro`,
-    languages: {
-      en: "https://culinse.com/en/pro",
-      de: "https://culinse.com/de/pro",
-      es: "https://culinse.com/es/pro",
-      fr: "https://culinse.com/fr/pro",
-      it: "https://culinse.com/it/pro",
-      pl: "https://culinse.com/pl/pro",
-      tr: "https://culinse.com/tr/pro",
-      nl: "https://culinse.com/nl/pro",
-      cs: "https://culinse.com/cs/pro",
-      ru: "https://culinse.com/ru/pro",
-      pt: "https://culinse.com/pt/pro",
-      zh: "https://culinse.com/zh/pro",
-      ja: "https://culinse.com/ja/pro",
-      id: "https://culinse.com/id/pro",
-      vi: "https://culinse.com/vi/pro",
-      bn: "https://culinse.com/bn/pro",
-      "x-default": "https://culinse.com/en/pro",
-    },
+    languages: searchLanguages((l) => `https://culinse.com/${l}/pro`),
   };
   if (locale === "de") {
     return {

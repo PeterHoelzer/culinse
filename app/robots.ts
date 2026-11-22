@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITEMAP_URLS } from "@/lib/sitemaps";
+import { HIDDEN_LOCALES } from "@/lib/searchLocales";
 
 // Single source of truth for robots rules. NOTE: there must be NO public/robots.txt
 // — a static file would shadow/conflict with this route and the two disagreed.
@@ -45,6 +46,10 @@ export default function robots(): MetadataRoute.Robots {
           "/*/reset-password",
           "/*/update-password",
           "/update-password",
+          // Sprachen, die Suchmaschinen vorerst nicht abrufen sollen (22.11.2026,
+          // lib/searchLocales.ts): je Sprache die Startseite (/es) und alles
+          // darunter (/es/…). Für Besucher bleiben die Seiten erreichbar.
+          ...HIDDEN_LOCALES.flatMap((locale) => [`/${locale}$`, `/${locale}/`]),
         ],
       },
       // Kostenbremse (16.11.2026): Diese Bots holten in 12 Stunden rund 21.000

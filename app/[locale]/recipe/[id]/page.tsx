@@ -10,6 +10,7 @@ import { clipDescription, recipeSeoTitle } from "@/lib/siteMeta";
 import { splitTitle } from "@/lib/recipeTitle";
 import { LANDINGS, keysForTags, type GroupId, type Landing } from "@/lib/browse/facets";
 import { landingPath } from "@/lib/browse/slugs";
+import { SEARCH_LOCALES } from "@/lib/searchLocales";
 
 // CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
 // Renders in 12 h) und standen fuer ~90 % der Vercel-Fluid-CPU (89 % des
@@ -67,7 +68,8 @@ function recipeTopics(tags: readonly string[] | undefined): Landing[] {
     dieser Sprache, leitet die Seite dauerhaft dorthin um.
   - Gibt es sie nicht, bleibt die Seite erreichbar, nennt aber die Adresse in
     der Sprache des Rezepts als kanonisch.
-  - hreflang nennt je Sprache die ID der echten Fassung.
+  - hreflang nennt je Sprache die ID der echten Fassung, seit 22.11.2026 nur
+    für die Sprachen, die Suchmaschinen sehen (lib/searchLocales.ts).
   - Rezepte ohne Sprache (alte Community-Rezepte) bleiben wie bisher unter
     /en und /de mit derselben ID, so stehen sie auch in der Sitemap.
 */
@@ -91,16 +93,19 @@ function recipeAddresses(
   }
 
   const translations: Record<string, string> = { ...(recipe.translations ?? {}), [language]: id };
+  const address = (lang: string) => `${BASE_URL}/${lang}/recipe/${translations[lang]}`;
   const languages: Record<string, string> = {};
-  for (const [lang, recipeId] of Object.entries(translations)) {
-    languages[lang] = `${BASE_URL}/${lang}/recipe/${recipeId}`;
+  for (const lang of SEARCH_LOCALES) {
+    if (translations[lang]) languages[lang] = address(lang);
   }
-  languages["x-default"] = languages.en ?? languages[language];
+  // Ohne Fassung in einer Suchsprache gibt es auch keinen x-default-Verweis.
+  const fallback = languages.en ?? Object.values(languages)[0];
+  if (fallback) languages["x-default"] = fallback;
 
   const sibling = translations[locale];
   return {
     redirectTo: locale !== language && sibling && sibling !== id ? `/${locale}/recipe/${sibling}` : null,
-    canonical: languages[language],
+    canonical: address(language),
     languages,
   };
 }

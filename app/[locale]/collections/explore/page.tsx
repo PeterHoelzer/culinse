@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { searchLanguages } from "@/lib/searchLocales";
 import Navbar from "@/components/Navbar";
 import ExploreClient from "./ExploreClient";
 
@@ -10,25 +11,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const alternates = {
     canonical: `https://culinse.com/${locale}/collections/explore`,
-    languages: {
-      en: "https://culinse.com/en/collections/explore",
-      de: "https://culinse.com/de/collections/explore",
-      es: "https://culinse.com/es/collections/explore",
-      fr: "https://culinse.com/fr/collections/explore",
-      it: "https://culinse.com/it/collections/explore",
-      pl: "https://culinse.com/pl/collections/explore",
-      tr: "https://culinse.com/tr/collections/explore",
-      nl: "https://culinse.com/nl/collections/explore",
-      cs: "https://culinse.com/cs/collections/explore",
-      ru: "https://culinse.com/ru/collections/explore",
-      pt: "https://culinse.com/pt/collections/explore",
-      zh: "https://culinse.com/zh/collections/explore",
-      ja: "https://culinse.com/ja/collections/explore",
-      id: "https://culinse.com/id/collections/explore",
-      vi: "https://culinse.com/vi/collections/explore",
-      bn: "https://culinse.com/bn/collections/explore",
-      "x-default": "https://culinse.com/en/collections/explore",
-    },
+    languages: searchLanguages((l) => `https://culinse.com/${l}/collections/explore`),
   };
   if (locale === "de") {
     return {

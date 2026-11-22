@@ -66,9 +66,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Static pages. Voll übersetzte Seiten stehen nur in den Sprachen aus
   // SITEMAP_LOCALES in der Sitemap (lib/sitemaps.ts). Sind das nicht alle 16,
-  // tragen die Einträge keine hreflang-Angaben: Die Seite selbst nennt alle
-  // Sprachfassungen im <head>, und eine Sitemap darf nur auf Fassungen verweisen,
-  // die auch selbst in ihr stehen.
+  // tragen die Einträge keine hreflang-Angaben: Die Seite selbst nennt ihre
+  // Sprachfassungen im <head> (dieselben Sprachen, lib/searchLocales.ts), und
+  // eine Sitemap darf nur auf Fassungen verweisen, die auch selbst in ihr stehen.
   const sitemapSprachen: readonly string[] = SITEMAP_LOCALES;
   const alleSprachen = ALL_LOCALES.every((l) => sitemapSprachen.includes(l));
   const staticEntries: MetadataRoute.Sitemap = [

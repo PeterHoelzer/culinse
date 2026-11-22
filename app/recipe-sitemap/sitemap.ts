@@ -15,7 +15,8 @@ import { SITEMAP_LOCALES } from "@/lib/sitemaps";
   Sprachen liefern eine leere Sitemap.
 
   Die Einträge tragen bewusst keine hreflang-Angaben: Jede Rezeptseite nennt
-  ihre 16 Sprachfassungen schon im <head>. Zwei Quellen dafür widersprachen
+  ihre Sprachfassungen schon im <head>, seit 22.11.2026 nur noch die Sprachen
+  dieser Sitemaps (lib/searchLocales.ts). Zwei Quellen dafür widersprachen
   sich vorher (Sitemap: nur de/en, Seite: alle 16).
 */
 const baseUrl = "https://culinse.com";

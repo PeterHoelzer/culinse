@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { searchLanguages } from "@/lib/searchLocales";
 import { getTranslations } from "next-intl/server";
 import Navbar from "@/components/Navbar";
 import { Button, Icon, type IconName } from "@/components/ui";
@@ -24,25 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const alternates = {
     canonical: `https://culinse.com/${locale}/about`,
-    languages: {
-      en: "https://culinse.com/en/about",
-      de: "https://culinse.com/de/about",
-      es: "https://culinse.com/es/about",
-      fr: "https://culinse.com/fr/about",
-      it: "https://culinse.com/it/about",
-      pl: "https://culinse.com/pl/about",
-      tr: "https://culinse.com/tr/about",
-      nl: "https://culinse.com/nl/about",
-      cs: "https://culinse.com/cs/about",
-      ru: "https://culinse.com/ru/about",
-      pt: "https://culinse.com/pt/about",
-      zh: "https://culinse.com/zh/about",
-      ja: "https://culinse.com/ja/about",
-      id: "https://culinse.com/id/about",
-      vi: "https://culinse.com/vi/about",
-      bn: "https://culinse.com/bn/about",
-      "x-default": "https://culinse.com/en/about",
-    },
+    languages: searchLanguages((l) => `https://culinse.com/${l}/about`),
   };
   if (locale === "de") {
     return {
