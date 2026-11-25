@@ -23,6 +23,7 @@ wurde, steht in der Tabelle.
 | `cloudflare-leeren.sh` | Zwischenspeicher von Cloudflare leeren: alles (nach jeder Auslieferung, von selbst), einzelne Adressen oder alles unter einem Pfad; `--probe` als Trockenlauf | siehe Drehbuch, Abschnitt G |
 | `mail-vorlagen-einspielen.sh` | Mail-Vorlagen aus `mail/vorlagen` auf den Server bringen (läuft auf dem Mac, ohne `--ausfuehren` nur Probe); Ablauf in `mail/LIESMICH.md` | gelaufen am 17.11.2026 (Probe und Einspielen) |
 | `sicherung.sh` | nächtliche Sicherung von Datenbank und Bildern nach Cloudflare R2 | nur Syntax |
+| `apple-anmeldung.sh` | „Mit Apple anmelden“ am Anmeldedienst einrichten, Stand zeigen, Client Secret erneuern, abschalten (läuft am Mac, kopiert sich selbst auf den Server); Anleitung in `APPLE-ANMELDUNG.md` | Probeumgebung mit Attrappen am 25.11.2026, noch nicht auf dem Server |
 
 ## Reihenfolge beim Datenumzug
 

@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Link, useRouter } from "@/lib/navigation";
 import { rememberLoginTarget, safeLoginTarget, splitLocale } from "@/lib/loginRedirect";
+import { appleLoginEnabled } from "@/lib/authProviders";
 import { Button, Icon, Input, Notice, Wordmark } from "@/components/ui";
+import AppleSignInButton from "@/components/AppleSignInButton";
 
 export default function LoginClient() {
   const t = useTranslations("login");
@@ -17,6 +19,19 @@ export default function LoginClient() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  // „Mit Apple anmelden“ erscheint erst, wenn der Anmeldedienst Apple anbietet
+  // (lib/authProviders.ts). Vorher gäbe es nach dem Klick nur eine Fehlerseite.
+  const [appleEnabled, setAppleEnabled] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    appleLoginEnabled().then((enabled) => {
+      if (active) setAppleEnabled(enabled);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const supabase = createClient();
 
@@ -24,14 +39,17 @@ export default function LoginClient() {
   // /nl/recipe/…). Nur Pfade auf der eigenen Seite, siehe lib/loginRedirect.ts.
   const loginTarget = () => safeLoginTarget(new URLSearchParams(window.location.search).get("redirectTo"));
 
-  const handleGoogle = async () => {
-    // Der Weg über Google verlässt die Seite; das Ziel wartet im Cookie, bis
-    // app/auth/callback/route.ts es nach dem Rücksprung liest.
+  const handleOAuth = async (provider: "google" | "apple") => {
+    // Der Weg über Google oder Apple verlässt die Seite; das Ziel wartet im
+    // Cookie, bis app/auth/callback/route.ts es nach dem Rücksprung liest.
+    // Beide kommen über dieselbe Adresse zurück, beim Anmeldedienst ist dafür
+    // nichts Zusätzliches zu erlauben.
     rememberLoginTarget(loginTarget());
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
+    if (error) setError(error.message);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -185,7 +203,7 @@ export default function LoginClient() {
             <div className="flex-1 h-px bg-line" />
           </div>
 
-          <Button type="button" variant="secondary" fullWidth onClick={handleGoogle}>
+          <Button type="button" variant="secondary" fullWidth onClick={() => handleOAuth("google")}>
             <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
               <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
               <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
@@ -194,6 +212,12 @@ export default function LoginClient() {
             </svg>
             {t("googleButton")}
           </Button>
+
+          {appleEnabled && (
+            <div className="mt-3">
+              <AppleSignInButton label={t("appleButton")} onClick={() => handleOAuth("apple")} />
+            </div>
+          )}
 
           <p className="text-caption text-ink-3 mt-6">
             {t("privacyNote")}{" "}

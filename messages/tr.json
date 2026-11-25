@@ -243,6 +243,7 @@
     "checkEmail": "E-posta kutuna bak — bağlantı gönderildi!",
     "orContinueWith": "ya da şununla devam et",
     "googleButton": "Google ile devam et",
+    "appleButton": "Apple ile Giriş Yap",
     "noAccount": "Hesap açmana gerek yok — kayıt otomatik olarak tamamlanır.",
     "errorLinkExpired": "Bu bağlantının süresi dolmuş. Lütfen yeni bir tane iste.",
     "logIn": "Giriş yap",

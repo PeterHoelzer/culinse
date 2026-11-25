@@ -5,6 +5,7 @@
 # Geprüft wird: Website mit Datenbank, Anmeldedienst, Bildspeicher, Zustand der
 # Container, freier Plattenplatz, Alter der letzten Sicherung, Laufzeit des
 # Zertifikats.
+# Dazu, wenn eingerichtet: Restlaufzeit des Client Secrets für „Mit Apple anmelden“.
 #
 # Was diese Überwachung NICHT merkt: wenn der ganze Server oder seine
 # Internetverbindung weg ist. Dafür braucht es zusätzlich einen Dienst von
@@ -97,6 +98,15 @@ for H in "${WEBSITE#https://}" "${DATEN#https://}"; do
     melde "Zertifikat für $H lässt sich nicht lesen"
   fi
 done
+
+# 7) „Mit Apple anmelden“: Das Client Secret gilt höchstens sechs Monate. Der
+# tägliche Wächter (apple-anmeldung.sh, culinse-apple.timer) erneuert es ab 45
+# Tagen Restlaufzeit von selbst. Hier die zweite Warnung, falls das ausbleibt.
+if [ "$(grep -m1 '^APPLE_ENABLED=' /opt/supabase/.env | cut -d= -f2-)" = true ]; then
+  ABLAUF="$(grep -m1 '^APPLE_SECRET_ABLAUF=' /opt/supabase/.env | cut -d= -f2- | tr -dc '0-9')"
+  TAGE=$(( ( ${ABLAUF:-0} - $(date +%s) ) / 86400 ))
+  [ "$TAGE" -ge 14 ] || melde "Apple-Anmeldung: Das Client Secret läuft in $TAGE Tagen ab. Am Mac im Projektordner: deploy/apple-anmeldung.sh erneuern"
+fi
 
 # ----- Ergebnis -----
 JETZT="$(date '+%d.%m.%Y %H:%M')"

@@ -26,7 +26,7 @@ export default function DatenschutzContent() {
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">2. Welche Daten wir erheben</h2>
           <p className="text-base text-ink leading-relaxed mb-4">
-            Culinse kann ohne Konto genutzt werden. Wer sich registriert, erstellt ein Nutzerkonto mit E-Mail-Adresse und Passwort (oder über Google OAuth). Anmeldung und Konto laufen über einen Anmeldedienst, den wir selbst betreiben (siehe Abschnitt 3). Im Rahmen des Kontos werden gespeicherte Rezepte, Sammlungen und Ernährungspräferenzen des Nutzers in unserer Datenbank auf einem Server in Deutschland gespeichert.
+            Culinse kann ohne Konto genutzt werden. Wer sich registriert, erstellt ein Nutzerkonto mit E-Mail-Adresse und Passwort (oder über die Anmeldung mit Google oder Apple). Anmeldung und Konto laufen über einen Anmeldedienst, den wir selbst betreiben (siehe Abschnitt 3). Im Rahmen des Kontos werden gespeicherte Rezepte, Sammlungen und Ernährungspräferenzen des Nutzers in unserer Datenbank auf einem Server in Deutschland gespeichert.
           </p>
           <p className="text-base text-ink leading-relaxed">
             Beim Besuch der Website werden technisch notwendige Daten durch unseren Server-Anbieter netcup und durch Cloudflare verarbeitet (siehe Abschnitt 4). Diese Daten umfassen insbesondere die IP-Adresse des anfragenden Geräts sowie Datum und Uhrzeit des Zugriffs.
@@ -36,10 +36,13 @@ export default function DatenschutzContent() {
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">3. Nutzerkonto &amp; Authentifizierung</h2>
           <p className="text-base text-ink leading-relaxed mb-4">
-            Anmeldung, Nutzerkonten und alle Kontodaten liegen auf unserem eigenen Server in Deutschland (siehe Abschnitt 4). Wir betreiben dort die frei verfügbare Software Supabase selbst; das Unternehmen Supabase Inc. erhält dabei keine Daten. Beim Erstellen eines Kontos werden E-Mail-Adresse und – bei Google-Login – grundlegende Profildaten (Name, Profilbild) verarbeitet. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
+            Anmeldung, Nutzerkonten und alle Kontodaten liegen auf unserem eigenen Server in Deutschland (siehe Abschnitt 4). Wir betreiben dort die frei verfügbare Software Supabase selbst; das Unternehmen Supabase Inc. erhält dabei keine Daten. Beim Erstellen eines Kontos werden E-Mail-Adresse und – bei Google-Login – grundlegende Profildaten (Name, Profilbild) verarbeitet; bei der Anmeldung mit Apple die E-Mail-Adresse und, soweit Apple ihn übermittelt, der Name. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).
           </p>
           <p className="text-base text-ink leading-relaxed mb-4">
             Wer sich mit Google anmeldet, wird dafür zu Google weitergeleitet (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland); Google erfährt dabei, dass die Anmeldung bei Culinse erfolgt.
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Wer sich mit Apple anmeldet, wird dafür zu Apple weitergeleitet (Apple Distribution International Ltd., Hollyhill Industrial Estate, Hollyhill, Cork, Irland); Apple erfährt dabei, dass die Anmeldung bei Culinse erfolgt. Wer bei Apple „E-Mail-Adresse verbergen“ wählt, gibt uns statt der eigenen Adresse eine Weiterleitungsadresse von Apple; E-Mails zum Konto laufen dann über Apple an das eigene Postfach.
           </p>
           <p className="text-base text-ink leading-relaxed mb-4">
             E-Mails zum Konto (Bestätigung der E-Mail-Adresse, Zurücksetzen des Passworts) versenden wir über den Dienst Resend (Resend, Inc., San Francisco, CA, USA). Dabei werden die E-Mail-Adresse und der Inhalt der Nachricht an Resend übermittelt; eine Verarbeitung in den USA ist möglich. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.

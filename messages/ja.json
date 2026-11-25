@@ -243,6 +243,7 @@
     "checkEmail": "リンクを送信しました！メールの受信トレイをご確認ください。",
     "orContinueWith": "または次の方法で続行",
     "googleButton": "Googleで続行",
+    "appleButton": "Appleでサインイン",
     "noAccount": "事前の登録は不要です。アカウントは自動で作成されます。",
     "errorLinkExpired": "このリンクは有効期限が切れています。新しいリンクをリクエストしてください。",
     "logIn": "ログイン",

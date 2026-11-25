@@ -243,6 +243,7 @@
     "checkEmail": "Confira sua caixa de entrada — o link foi enviado!",
     "orContinueWith": "ou continue com",
     "googleButton": "Continuar com o Google",
+    "appleButton": "Iniciar sessão com a Apple",
     "noAccount": "Não é preciso ter conta — ela é criada automaticamente.",
     "errorLinkExpired": "Este link expirou. Solicite um novo.",
     "logIn": "Entrar",

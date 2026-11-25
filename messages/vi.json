@@ -243,6 +243,7 @@
     "checkEmail": "Hãy kiểm tra hộp thư — liên kết đã được gửi!",
     "orContinueWith": "hoặc tiếp tục với",
     "googleButton": "Tiếp tục với Google",
+    "appleButton": "Đăng nhập bằng Apple",
     "noAccount": "Không cần tạo tài khoản trước — bạn sẽ được đăng ký tự động.",
     "errorLinkExpired": "Liên kết này đã hết hạn. Vui lòng yêu cầu liên kết mới.",
     "logIn": "Đăng nhập",

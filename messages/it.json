@@ -243,6 +243,7 @@
     "checkEmail": "Controlla la tua casella e-mail — il link è stato inviato!",
     "orContinueWith": "oppure continua con",
     "googleButton": "Continua con Google",
+    "appleButton": "Accedi con Apple",
     "noAccount": "Non serve un account — la registrazione è automatica.",
     "errorLinkExpired": "Questo link è scaduto. Richiedine uno nuovo.",
     "logIn": "Accedi",
