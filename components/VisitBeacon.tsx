@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { isLoginForUncounted } from "@/lib/uncountedPaths";
 
 /*
   Besucherzählung, Browser-Teil (25.11.2026): meldet jeden Seitenaufruf mit
@@ -54,6 +55,8 @@ export default function VisitBeacon() {
 
   useEffect(() => {
     if (!pathname || navigator.webdriver) return;
+    // Anmeldeseite auf dem Weg in die Verwaltung: zählt so wenig wie die Verwaltung selbst.
+    if (isLoginForUncounted(pathname, location.search)) return;
     // Erst zählen, wenn die Seite wirklich zu sehen ist (kein Vorladen im Hintergrund).
     if (document.visibilityState === "visible") {
       report(pathname);

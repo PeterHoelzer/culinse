@@ -63,10 +63,9 @@ export function pageKind(rest: string): PageKind {
   return "other";
 }
 
-/** Seiten, die nicht gezählt werden: Verwaltung und Statistik selbst. */
-export function isUncounted(rest: string): boolean {
-  return /^\/(admin|geld)(\/|$)/.test(rest);
-}
+// Seiten, die nicht gezählt werden: Die Regel steht in lib/uncountedPaths.ts,
+// weil der Browser sie auch braucht und diese Datei hier nur auf dem Server läuft.
+export { isUncounted } from "@/lib/uncountedPaths";
 
 // ─── Roboter ────────────────────────────────────────────────────────────────
 // Die meisten Roboter führen kein JavaScript aus und melden sich deshalb nie.

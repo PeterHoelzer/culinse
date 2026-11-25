@@ -85,6 +85,10 @@ export async function POST(req: NextRequest) {
       const host = new URL(origin).hostname;
       const local = host === "localhost" || host === "127.0.0.1";
       if (!local && host !== OWN_HOST && !host.endsWith(`.${OWN_HOST}`)) return done();
+      // Die Vorschau auf dem eigenen Rechner arbeitet mit der echten Datenbank.
+      // Ihre Aufrufe sind keine Besuche; gezählt werden sie nur, wenn man die
+      // Zählung selbst testet (COUNT_LOCAL_VISITS=1 in .env.local).
+      if (local && process.env.COUNT_LOCAL_VISITS !== "1") return done();
     }
 
     const userAgent = req.headers.get("user-agent") ?? "";
