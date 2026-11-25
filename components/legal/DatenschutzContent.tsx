@@ -70,7 +70,20 @@ export default function DatenschutzContent() {
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">5. Cookies &amp; Session</h2>
           <p className="text-base text-ink leading-relaxed">
-            Culinse selbst setzt nur technisch notwendige Cookies: Für eingeloggte Nutzer setzt unser Anmeldedienst ein Session-Cookie, und die Website merkt sich die gewählte Sprache in einem Cookie (Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 Nr. 2 TDDDG). Cloudflare kann zum Schutz vor Angriffen im Einzelfall ein technisch notwendiges Cookie setzen. Eine Reichweitenmessung findet derzeit nicht statt. Cookies und ähnliche Kennungen zu Werbezwecken werden nur gesetzt, wenn Sie zuvor eingewilligt haben (siehe Abschnitt 5a).
+            Culinse selbst setzt nur technisch notwendige Cookies: Für eingeloggte Nutzer setzt unser Anmeldedienst ein Session-Cookie, und die Website merkt sich die gewählte Sprache in einem Cookie (Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 Nr. 2 TDDDG). Cloudflare kann zum Schutz vor Angriffen im Einzelfall ein technisch notwendiges Cookie setzen. Die Reichweitenmessung kommt ohne Cookies aus (siehe Abschnitt 5b). Cookies und ähnliche Kennungen zu Werbezwecken werden nur gesetzt, wenn Sie zuvor eingewilligt haben (siehe Abschnitt 5a).
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-h2-sm mt-10 mb-3">5b. Reichweitenmessung ohne Cookies</h2>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Um zu sehen, wie viele Menschen Culinse besuchen und welche Seiten gelesen werden, zählen wir die Seitenaufrufe selbst, auf unserem eigenen Server. Dafür wird kein Cookie gesetzt und nichts auf Ihrem Gerät gespeichert oder ausgelesen; es ist kein fremder Dienst beteiligt.
+          </p>
+          <p className="text-base text-ink leading-relaxed mb-4">
+            Je Seitenaufruf speichern wir: die aufgerufene Seite, den Zeitpunkt, das Land, die Art des Geräts, Browser und Betriebssystem in grober Form, ob Sie angemeldet sind (nicht, wer Sie sind) und, falls Sie über einen Link zu uns kommen, den Namen der verweisenden Website. Ihre IP-Adresse speichern wir nicht. Um mehrere Aufrufe desselben Besuchers an einem Tag zusammenzuzählen, bilden wir aus IP-Adresse, Browserkennung und einem täglich neu gewürfelten Zufallswert eine Prüfsumme. Der Zufallswert wird am Folgetag gelöscht; danach lässt sich die Prüfsumme niemandem mehr zuordnen, und Besuche an verschiedenen Tagen lassen sich nicht verbinden. Ein Profil über Sie entsteht nicht.
+          </p>
+          <p className="text-base text-ink leading-relaxed">
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO: unser berechtigtes Interesse, die Nutzung der Website in Summen auszuwerten und das Angebot zu verbessern. Sie können dem widersprechen; schreiben Sie uns dazu an die Adresse aus Abschnitt 1.
           </p>
         </section>
 

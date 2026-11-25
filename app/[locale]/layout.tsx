@@ -10,6 +10,7 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { siteDescription } from "@/lib/siteMeta";
 import { isSearchLocale } from "@/lib/searchLocales";
+import VisitBeacon from "@/components/VisitBeacon";
 
 // Schriftpaar laut DESIGN.md §11: Source Sans 3 (Text/UI) und Fraunces
 // (Überschriften; weiche Serife nach alten Handwerker-Schildern, mit optischer Größe). Beide variabel, selbst gehostet über
@@ -230,6 +231,8 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+        {/* Eigene Besucherzählung ohne Cookies; Auswertung unter /de/admin/besucher. */}
+        <VisitBeacon />
         {/* Vercel Web Analytics gibt es nur auf Vercel; auf einem eigenen Server liefe das Skript ins Leere. */}
         {process.env.VERCEL ? <Analytics /> : null}
       </body>
