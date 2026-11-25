@@ -1,3 +1,4 @@
+import { allowRequest, tooManyRequests } from "@/lib/rateLimit";
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient as createServerClient } from "@/lib/supabase/server";
@@ -85,10 +86,22 @@ export async function POST(req: NextRequest) {
   const userId = await currentUserId();
   if (!userId) return NextResponse.json({ error: "Login required" }, { status: 401, headers: NO_STORE });
 
+  // Jede geänderte Bewertung erneuert Rezeptseiten und leert den Cloudflare-Speicher.
+  if (!allowRequest("rating", userId, 20, 10 * 60_000)) return tooManyRequests();
+
   const admin = createAdminClient();
   const dish = await dishOf(admin, uuid);
   if (!dish) return NextResponse.json({ error: "Not found" }, { status: 404, headers: NO_STORE });
   const { key } = dish;
+
+  const { data: before } = await admin
+    .from("recipe_ratings")
+    .select("stars")
+    .eq("rating_key", key)
+    .eq("user_id", userId)
+    .maybeSingle();
+  // Dieselbe Bewertung noch einmal: nichts zu speichern, nichts zu erneuern.
+  if (before?.stars === stars) return respond(admin, key, userId);
 
   // Eine Zeile je Konto und Gericht: erneutes Bewerten überschreibt die alte Bewertung.
   const { error } = await admin

@@ -16,7 +16,11 @@ export async function GET(req: NextRequest) {
     .eq("user_id", user.id)
     .order("updated_at", { ascending: false });
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    // Die Meldung der Datenbank nennt Spalten und Regeln; sie bleibt im Server-Log.
+    console.error("user-recipes:", error.message);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+  }
   return NextResponse.json({ recipes: data ?? [] });
 }
 
@@ -76,6 +80,10 @@ export async function POST(req: NextRequest) {
     ({ data, error } = await supabase.from("user_recipes").insert(fallback).select().single());
   }
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    // Die Meldung der Datenbank nennt Spalten und Regeln; sie bleibt im Server-Log.
+    console.error("user-recipes:", error.message);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+  }
   return NextResponse.json({ recipe: data }, { status: 201 });
 }

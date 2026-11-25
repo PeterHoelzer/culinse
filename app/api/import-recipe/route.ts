@@ -1,3 +1,4 @@
+import { allowRequest, tooManyRequests } from "@/lib/rateLimit";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseRecipeFromUrl } from "@/lib/parseRecipeFromUrl";
@@ -52,6 +53,9 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // Jeder Import ruft eine fremde Website ab: höchstens 30 je Stunde und Konto.
+  if (!allowRequest("import", user.id, 30, 60 * 60_000)) return tooManyRequests();
+
   // Fetch + parse
   const recipe = await parseRecipeFromUrl(target.toString());
   if (!recipe) {
@@ -82,7 +86,10 @@ export async function POST(req: NextRequest) {
     .select("id")
     .single();
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    console.error("import-recipe: Speichern fehlgeschlagen:", error.message);
+    return NextResponse.json({ error: "save_failed" }, { status: 500 });
+  }
 
   return NextResponse.json(
     {

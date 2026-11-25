@@ -119,7 +119,9 @@ function seededShuffle<T>(arr: T[], seedInit: number): T[] {
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const query = (searchParams.get("query") || "").trim();
+  // Höchstens 80 Zeichen: Der Suchtext geht bei deutschen Anfragen an DeepL
+  // und in den Übersetzungs-Speicher; ohne Grenze ließ sich beides fluten.
+  const query = (searchParams.get("query") || "").trim().slice(0, 80);
   const category = searchParams.get("category") || "";
   const region = searchParams.get("region") || "";
   const number = Math.min(Math.max(Math.floor(Number(searchParams.get("number")) || 6), 1), 24);

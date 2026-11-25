@@ -46,7 +46,8 @@ export async function POST(req: NextRequest) {
 
   if (error) {
     if (error.code === "23505") return NextResponse.json({ ok: true, already: true });
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("saved-recipes:", error.message);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
   return NextResponse.json({ ok: true }, { status: 201 });
 }

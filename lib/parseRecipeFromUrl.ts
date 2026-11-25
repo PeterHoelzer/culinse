@@ -7,7 +7,7 @@
 // Vercel — no Python microservice required. Microdata/RDFa-only sites are out
 // of scope for this first version (a later upgrade can add a wider parser).
 
-import { isSafePublicUrl } from "@/lib/ssrfGuard";
+import { fetchPublicText, type PublicResponse } from "@/lib/ssrfGuard";
 
 export interface ParsedIngredient {
   name: string;
@@ -364,29 +364,30 @@ export async function parseRecipeFromUrl(url: string): Promise<ParsedRecipe | nu
     // internal host (169.254.169.254, localhost, …).
     const MAX_REDIRECTS = 3;
     let current = new URL(url);
-    let res: Response | null = null;
+    let res: PublicResponse | null = null;
     for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
-      if (!(await isSafePublicUrl(current))) return null;
-      res = await fetch(current.toString(), {
+      // Prüft die Adresse beim Verbindungsaufbau selbst und liest höchstens ~3 MB.
+      res = await fetchPublicText(current, {
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; CulinseBot/1.0; +https://culinse.com/bot)",
           Accept: "text/html,application/xhtml+xml",
         },
-        redirect: "manual",
-        signal: AbortSignal.timeout(12000),
+        timeoutMs: 12000,
+        maxBytes: 3_000_000,
       });
+      if (!res) return null;
       if (res.status >= 300 && res.status < 400) {
-        const location = res.headers.get("location");
+        const location = res.headers.location;
         if (!location || hop === MAX_REDIRECTS) return null;
         current = new URL(location, current);
         continue;
       }
       break;
     }
-    if (!res || !res.ok) return null;
-    const ct = res.headers.get("content-type") || "";
+    if (!res || res.status < 200 || res.status >= 300) return null;
+    const ct = String(res.headers["content-type"] ?? "");
     if (!/text\/html|application\/xhtml/i.test(ct)) return null;
-    html = (await res.text()).slice(0, 3_000_000); // cap at ~3 MB
+    html = res.text;
   } catch {
     return null;
   }

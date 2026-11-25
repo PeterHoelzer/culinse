@@ -1,3 +1,4 @@
+import { safeEqual } from "@/lib/safeCompare";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getMoneyStats } from "@/lib/moneyStats";
@@ -25,7 +26,7 @@ export default async function GeldStatsPage({
   params: Promise<{ key: string }>;
 }) {
   const { key } = await params;
-  if (!process.env.MONEY_STATS_KEY || key !== process.env.MONEY_STATS_KEY) {
+  if (!safeEqual(key, process.env.MONEY_STATS_KEY)) {
     notFound();
   }
 

@@ -51,7 +51,9 @@ export async function translateSearchQuery(
     if (cached?.query_translated) return cached.query_translated;
 
     // 3. DeepL — only when a key is configured and the term is long enough.
-    if (DEEPL_KEY && q.length >= 3) {
+    // Nur kurze Suchbegriffe: Niemand sucht mit ganzen Absätzen, und jedes
+    // Zeichen kostet Kontingent.
+    if (DEEPL_KEY && q.length >= 3 && q.length <= 80) {
       const body = new URLSearchParams({
         text: q,
         source_lang: "DE",

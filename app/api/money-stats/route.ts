@@ -1,3 +1,4 @@
+import { safeEqual } from "@/lib/safeCompare";
 import { NextRequest, NextResponse } from "next/server";
 import { getMoneyStats } from "@/lib/moneyStats";
 
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
   if (!process.env.MONEY_STATS_KEY) {
     return jsonText({ error: "MONEY_STATS_KEY not configured" }, 503);
   }
-  if (key !== process.env.MONEY_STATS_KEY) {
+  if (!safeEqual(key, process.env.MONEY_STATS_KEY)) {
     return jsonText({ error: "Unauthorized" }, 401);
   }
 

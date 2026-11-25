@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { allowRequest, clientIp, tooManyRequests } from "@/lib/rateLimit";
 
 // Service role bypasses RLS — safe because this is a server-only API route
 function createAdminClient() {
@@ -10,6 +11,9 @@ function createAdminClient() {
 }
 
 export async function POST(req: NextRequest) {
+  // Ohne Anmeldung erreichbar: höchstens 5 Eintragungen je Stunde von einer Adresse.
+  if (!allowRequest("newsletter", clientIp(req.headers), 5, 60 * 60_000)) return tooManyRequests();
+
   let email: unknown;
   try {
     ({ email } = await req.json());
@@ -36,8 +40,10 @@ export async function POST(req: NextRequest) {
     .eq("email", email.toLowerCase().trim())
     .maybeSingle();
 
+  // Dieselbe Antwort wie bei einer neuen Adresse. Vorher verriet "already",
+  // ob eine fremde Adresse schon eingetragen ist.
   if (existing) {
-    return NextResponse.json({ already: true });
+    return NextResponse.json({ ok: true });
   }
 
   const { error } = await supabase

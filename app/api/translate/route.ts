@@ -1,3 +1,4 @@
+import { allowRequest, clientIp, tooManyRequests } from "@/lib/rateLimit";
 import { NextResponse, type NextRequest } from "next/server";
 import { translateTexts } from "@/lib/translate";
 
@@ -42,6 +43,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Maximum 20000 characters per request" }, { status: 400 });
   }
 
+  // Bremse je Adresse: 40 Aufrufe und 200.000 Zeichen in zehn Minuten. Eine
+  // Rezeptseite braucht einen Aufruf mit wenigen tausend Zeichen.
+  const ip = clientIp(request.headers);
+  const chars = strTexts.reduce((sum, t) => sum + t.length, 0);
+  if (!allowRequest("translate", ip, 40, 10 * 60_000) || !allowRequest("translate-zeichen", ip, 200_000, 10 * 60_000, chars)) {
+    return tooManyRequests();
+  }
+
   const { source, target } = langsFor(targetLang);
   const translated = await translateTexts(strTexts, source, target);
 
@@ -62,6 +71,11 @@ export async function GET(request: NextRequest) {
   }
   if (targetLang !== "de" && targetLang !== "en") {
     return NextResponse.json({ error: "targetLang must be 'de' or 'en'" }, { status: 400 });
+  }
+
+  const ip = clientIp(request.headers);
+  if (!allowRequest("translate", ip, 40, 10 * 60_000) || !allowRequest("translate-zeichen", ip, 200_000, 10 * 60_000, text.length)) {
+    return tooManyRequests();
   }
 
   const { source, target } = langsFor(targetLang);

@@ -74,9 +74,12 @@ export async function POST(req: NextRequest) {
       const admin = createAdminClient();
       const { data: rows } = await admin
         .from("user_recipes")
-        .select("id, nutrition, ingredients, servings")
+        .select("id, nutrition, ingredients, servings, is_public, user_id")
         .in("id", userUuids);
       for (const r of rows ?? []) {
+        // Der Abruf läuft am Zugriffsschutz der Datenbank vorbei; deshalb hier
+        // dieselbe Regel: öffentlich oder das eigene Rezept, sonst nichts.
+        if (!r.is_public && r.user_id !== user.id) continue;
         let n = (r.nutrition as Nut | null) ?? null;
         if (!n && Array.isArray(r.ingredients) && r.ingredients.length) {
           n = await computeUserRecipeNutrition(r.servings, r.ingredients);
@@ -89,5 +92,5 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  return NextResponse.json({ nutrition });
+  return NextResponse.json({ nutrition }, { headers: { "Cache-Control": "private, no-store" } });
 }

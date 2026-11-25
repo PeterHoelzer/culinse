@@ -91,6 +91,7 @@ async function proxy(request: NextRequest) {
   // session token.  We use a mutable reference so the updated version is
   // returned at the end of the function.
   let supabaseResponse = NextResponse.next({ request: { headers: requestHeaders } });
+  let cookiesRefreshed = false;
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -118,6 +119,7 @@ async function proxy(request: NextRequest) {
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, options)
           );
+          cookiesRefreshed = true;
         },
       },
     }
@@ -162,6 +164,17 @@ async function proxy(request: NextRequest) {
     const loginUrl = new URL(`/${locale}/login`, request.url);
     loginUrl.searchParams.set("redirectTo", pathname);
     return NextResponse.redirect(loginUrl);
+  }
+
+  // Erneuert Supabase die Anmeldung, trägt die Antwort ein persönliches Cookie.
+  // Viele Seiten sind für alle gleich und liegen bei Cloudflare im Speicher;
+  // eine Antwort mit Cookie darf dort nie abgelegt werden. Die beiden
+  // CDN-Kopfzeilen gelten nur für den Zwischenspeicher und werden von Next
+  // nicht überschrieben (anders als Cache-Control bei vorgerenderten Seiten).
+  if (cookiesRefreshed) {
+    supabaseResponse.headers.set("Cache-Control", "private, no-store");
+    supabaseResponse.headers.set("CDN-Cache-Control", "no-store");
+    supabaseResponse.headers.set("Cloudflare-CDN-Cache-Control", "no-store");
   }
 
   return supabaseResponse;

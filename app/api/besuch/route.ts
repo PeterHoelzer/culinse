@@ -1,3 +1,4 @@
+import { allowRequest } from "@/lib/rateLimit";
 import { NextRequest } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -49,7 +50,12 @@ const recent = new Map<string, { count: number; start: number }>();
 
 function tooMany(visitor: string): boolean {
   const now = Date.now();
-  if (recent.size > 5000) recent.clear();
+  // Voll: abgelaufene Einträge entfernen. Vorher wurde alles geleert; wer die
+  // Liste füllte, setzte damit jede Bremse zurück.
+  if (recent.size > 5000) {
+    for (const [key, value] of recent) if (now - value.start > 60_000) recent.delete(key);
+    if (recent.size > 5000) return true;
+  }
   const entry = recent.get(visitor);
   if (!entry || now - entry.start > 60_000) {
     recent.set(visitor, { count: 1, start: now });
@@ -110,6 +116,9 @@ export async function POST(req: NextRequest) {
       req.headers.get("cf-connecting-ip") ??
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
       "";
+    // Bremse je Adresse: Der Besucher-Hash hängt auch an der Browserkennung, und
+    // die kann ein Angreifer bei jedem Aufruf wechseln.
+    if (!allowRequest("besuch", ip || "unbekannt", 120, 60_000)) return done();
     const day = berlinDay();
     const visitor = visitorHash(await dailySalt(day), ip, userAgent);
     if (tooMany(visitor)) return done();

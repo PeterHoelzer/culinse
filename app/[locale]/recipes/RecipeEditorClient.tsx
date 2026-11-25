@@ -169,6 +169,9 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
   // Image upload to Supabase Storage — mehrere Dateien pro Auswahl moeglich;
   // das erste Galerie-Bild ist das Cover (image_url bleibt fuer Karten synchron).
   const MAX_IMAGES = 6;
+  const IMAGE_EXTENSIONS: Record<string, string> = {
+    "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/avif": "avif", "image/gif": "gif",
+  };
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files ?? []);
     e.target.value = "";
@@ -178,9 +181,16 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
     const uid = (await supabase.auth.getUser()).data.user?.id;
     const uploaded: string[] = [];
     for (const file of files.slice(0, Math.max(0, MAX_IMAGES - recipe.images.length))) {
-      const ext = file.name.split(".").pop();
+      // Nur Bilder bis 10 MB, und die Endung kommt aus dem Dateityp. Vorher kam sie
+      // aus dem Dateinamen; so ließ sich auch eine .html- oder .svg-Datei in die
+      // öffentliche Ablage legen. Die Ablage selbst muss dieselbe Grenze haben
+      // (supabase/security_hardening_2026_11.sql), denn diese Prüfung läuft im Browser.
+      const ext = IMAGE_EXTENSIONS[file.type];
+      if (!ext || file.size > 10 * 1024 * 1024) continue;
       const path = `${uid}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
-      const { data, error } = await supabase.storage.from("recipe-media").upload(path, file, { upsert: true });
+      const { data, error } = await supabase.storage
+        .from("recipe-media")
+        .upload(path, file, { upsert: true, contentType: file.type });
       if (!error && data) {
         const { data: { publicUrl } } = supabase.storage.from("recipe-media").getPublicUrl(data.path);
         uploaded.push(publicUrl);
@@ -452,7 +462,7 @@ export default function RecipeEditorClient({ mode, recipeId }: Props) {
                     <span className="text-caption text-ink-3">JPG, PNG, WebP · Max 5 MB · up to 6 photos</span>
                   </button>
                 )}
-                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" tabIndex={-1} aria-label="Photo files" onChange={handleImageUpload} />
+                <input ref={fileRef} type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/gif" multiple className="sr-only" tabIndex={-1} aria-label="Photo files" onChange={handleImageUpload} />
                 {recipe.images.length > 0 && (
                   <ul className="mt-3 flex flex-wrap gap-3">
                     {recipe.images.map((url, i) => (

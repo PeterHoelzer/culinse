@@ -108,7 +108,11 @@ export async function PUT(req: NextRequest, { params }: Params) {
       .select().single());
   }
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    // Die Meldung der Datenbank nennt Spalten und Regeln; sie bleibt im Server-Log.
+    console.error("user-recipes/[id]:", error.message);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+  }
   refreshRecipePage(id);
   return NextResponse.json({ recipe: data });
 }
@@ -119,7 +123,15 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  await supabase.from("user_recipes").delete().eq("id", id).eq("user_id", user.id);
-  refreshRecipePage(id);
+  const { data: deleted } = await supabase
+    .from("user_recipes")
+    .delete()
+    .eq("id", id)
+    .eq("user_id", user.id)
+    .select("id");
+  // Nur dann die Seiten erneuern und den Cloudflare-Speicher leeren. Vorher
+  // geschah das bei jedem Aufruf, auch mit fremder oder erfundener ID; ein Konto
+  // konnte so das Leer-Kontingent bei Cloudflare aufbrauchen.
+  if (deleted?.length) refreshRecipePage(id);
   return NextResponse.json({ ok: true });
 }

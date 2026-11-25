@@ -11,6 +11,10 @@ export async function GET() {
     .order("created_at", { ascending: false })
     .limit(48);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    // Die Meldung der Datenbank nennt Spalten und Regeln; sie bleibt im Server-Log.
+    console.error("collections/public:", error.message);
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+  }
   return NextResponse.json({ collections: data ?? [] });
 }

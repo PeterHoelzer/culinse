@@ -1,3 +1,4 @@
+import { isSafePublicUrl } from "@/lib/ssrfGuard";
 import sharp from "sharp";
 import { SIZED_WIDTHS, isSizedUrl, sizedImageUrl } from "./imageUrl";
 import { RECIPE_TTL } from "./recipeCache";
@@ -67,8 +68,28 @@ function hslToHex(h: number, s: number, l: number): string {
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
+// Der eigene Datenserver gilt als vertrauenswürdig, auch wenn sein Name im
+// Container auf eine interne Adresse zeigt.
+function isOwnStorage(target: URL): boolean {
+  try {
+    return target.origin === new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").origin;
+  } catch {
+    return false;
+  }
+}
+
 async function compute(url: string): Promise<DishColors | null> {
-  const res = await fetch(url, { next: { revalidate: RECIPE_TTL } });
+  // Bildadressen von Nutzer-Rezepten können auf fremde Server zeigen. Der Server
+  // ruft sie nur ab, wenn sie öffentlich erreichbar sind, und folgt keiner
+  // Weiterleitung (sonst ließe sich darüber ins interne Netz greifen).
+  let target: URL;
+  try {
+    target = new URL(url);
+  } catch {
+    return null;
+  }
+  if (!isOwnStorage(target) && !(await isSafePublicUrl(target))) return null;
+  const res = await fetch(url, { redirect: "manual", next: { revalidate: RECIPE_TTL } });
   if (!res.ok) return null;
   const buf = Buffer.from(await res.arrayBuffer());
   const { data, info } = await sharp(buf).resize(32, 32, { fit: "cover" }).removeAlpha().raw().toBuffer({ resolveWithObject: true });

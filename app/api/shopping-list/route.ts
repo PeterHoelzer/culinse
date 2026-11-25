@@ -679,7 +679,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
   // Limit to max 21 recipe IDs (7 days × 3 meals) to prevent API quota abuse
-  const recipeIds: string[] = (Array.isArray(body.recipeIds) ? body.recipeIds : []).slice(0, 21);
+  // Nur IDs in bekannter Form. Die alten Anbieter-IDs gehen unten in Adressen
+  // fremder Dienste ein; ohne diese Prüfung ließen sich dort Zeichen einschleusen.
+  const KNOWN_ID = /^(?:\d{1,12}|user_[0-9a-f-]{36}|edamam_[A-Za-z0-9]{1,64}|tasty_\d{1,12})$/;
+  const recipeIds: string[] = (Array.isArray(body.recipeIds) ? body.recipeIds : [])
+    .filter((id): id is string => typeof id === "string" && KNOWN_ID.test(id))
+    .slice(0, 21);
 
   if (recipeIds.length === 0) {
     return NextResponse.json({ items: [], grouped: {} });
