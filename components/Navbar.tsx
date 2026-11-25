@@ -79,8 +79,16 @@ export default function Navbar() {
   };
 
   const close = () => setMenuOpen(false);
-  // Ohne Anmeldung zeigt die Leiste ab md alles Nötige, eingeloggt erst ab lg
-  const menuVisibility = user ? "lg:hidden" : "md:hidden";
+
+  // Seit 25.11.2026 sehen auch Gäste Wochenplaner, Sammlungen, Rezepte und
+  // Gespeichert (Peter: das Menü soll alle Punkte zeigen). Alles ist kostenlos,
+  // gebraucht wird nur ein Konto. Für Gäste führen die Punkte dorthin, wo es
+  // ohne Konto schon etwas zu sehen gibt: zur Seite über den Wochenplaner (nur
+  // auf Deutsch und Englisch übersetzt) und zu den öffentlichen Sammlungen.
+  // Alle übrigen Ziele sind geschützt; die Middleware leitet Gäste zur Anmeldung
+  // und danach zurück.
+  const plannerHref = user || !["de", "en"].includes(locale) ? "/meal-planner" : "/weekly-meal-planner";
+  const collectionsHref = user ? "/collections" : "/collections/explore";
 
   return (
     <nav className="sticky top-0 z-50 border-b border-line bg-surface">
@@ -94,15 +102,13 @@ export default function Navbar() {
           <Link href="/blog" className={navLink}>{t("blog")}</Link>
           <Link href="/grocery-list-calculator" className={navLink}>{t("calculator")}</Link>
 
-          {user && (
-            <div className="hidden items-center gap-5 lg:flex">
-              <span className="h-5 w-px bg-line" aria-hidden="true" />
-              <Link href="/meal-planner" className={navLink}>{t("mealPlanner")}</Link>
-              <Link href="/collections" className={navLink}>{t("collections")}</Link>
-              <Link href="/my-recipes" className={navLink}>{t("myRecipesShort")}</Link>
-              <Link href="/saved" className={navLink}>{t("saved")}</Link>
-            </div>
-          )}
+          <div className="hidden items-center gap-5 lg:flex">
+            <span className="h-5 w-px bg-line" aria-hidden="true" />
+            <Link href={plannerHref} className={navLink}>{t("mealPlanner")}</Link>
+            <Link href={collectionsHref} className={navLink}>{t("collections")}</Link>
+            <Link href="/my-recipes" className={navLink}>{t("myRecipesShort")}</Link>
+            <Link href="/saved" className={navLink}>{t("saved")}</Link>
+          </div>
         </div>
 
         {/* Rechte Seite */}
@@ -130,14 +136,14 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls={menuId}
             onClick={() => setMenuOpen((o) => !o)}
-            className={user ? "lg:hidden" : "md:hidden"}
+            className="lg:hidden"
           />
         </div>
       </div>
 
       {/* Mobiles Menü */}
       {menuOpen && (
-        <div id={menuId} className={`${menuVisibility} border-t border-line bg-surface shadow-float`}>
+        <div id={menuId} className="border-t border-line bg-surface shadow-float lg:hidden">
           <div className="mx-auto flex max-w-content flex-col px-4 py-2 sm:px-6">
             <Link href="/" onClick={close} className={`${menuLink} md:hidden`}>{t("discover")}</Link>
             <Link href="/recipes" onClick={close} className={`${menuLink} md:hidden`}>{tBrowse("nav")}</Link>
@@ -145,17 +151,13 @@ export default function Navbar() {
             <Link href="/blog" onClick={close} className={`${menuLink} md:hidden`}>{t("blog")}</Link>
             <Link href="/grocery-list-calculator" onClick={close} className={`${menuLink} md:hidden`}>{t("calculator")}</Link>
 
-            {user && (
-              <>
-                <div className="my-1 h-px bg-line" />
-                <Link href="/meal-planner" onClick={close} className={menuLink}>{t("mealPlanner")}</Link>
-                <Link href="/collections" onClick={close} className={menuLink}>{t("collections")}</Link>
-                <div className="my-1 h-px bg-line" />
-                <Link href="/my-recipes" onClick={close} className={menuLink}>{t("myRecipes")}</Link>
-                <Link href="/saved" onClick={close} className={menuLink}>{t("saved")}</Link>
-                <Link href="/profile" onClick={close} className={menuLink}>{t("profile")}</Link>
-              </>
-            )}
+            <div className="my-1 h-px bg-line" />
+            <Link href={plannerHref} onClick={close} className={menuLink}>{t("mealPlanner")}</Link>
+            <Link href={collectionsHref} onClick={close} className={menuLink}>{t("collections")}</Link>
+            <div className="my-1 h-px bg-line" />
+            <Link href="/my-recipes" onClick={close} className={menuLink}>{t("myRecipes")}</Link>
+            <Link href="/saved" onClick={close} className={menuLink}>{t("saved")}</Link>
+            {user && <Link href="/profile" onClick={close} className={menuLink}>{t("profile")}</Link>}
 
             <div className="my-1 h-px bg-line" />
             {user ? (
