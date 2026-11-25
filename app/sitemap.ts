@@ -51,17 +51,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
     { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
   ];
-  // Nur de/en (Inline-Texte bzw. deutsche Rechtstexte):
+  // Nur de/en (Inline-Texte bzw. Rechtstexte mit deutscher und englischer Fassung):
   const deEnStatic = [
     { path: "/weekly-meal-planner", changeFrequency: "monthly" as const, priority: 0.9 },
     { path: "/grocery-list-calculator", changeFrequency: "monthly" as const, priority: 0.9 },
     { path: "/blog", changeFrequency: "weekly" as const, priority: 0.8 },
-    { path: "/impressum", changeFrequency: "yearly" as const, priority: 0.1 },
-    { path: "/datenschutz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/ki-transparenz", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/agb", changeFrequency: "yearly" as const, priority: 0.1 },
     { path: "/widerruf", changeFrequency: "yearly" as const, priority: 0.1 },
   ];
+  // Impressum und Datenschutz sind in jeder Sprache derselbe deutsche Text.
+  // Ihre Hauptadresse ist die feste Adresse ohne Sprache (app/(legal)); nur die
+  // steht in der Sitemap, ohne Sprachverweise (25.11.2026).
+  const fixedLegal = ["/impressum", "/datenschutz"];
   // NOTE: /login intentionally excluded — utility page, no SEO value.
 
   // Static pages. Voll übersetzte Seiten stehen nur in den Sprachen aus
@@ -89,6 +91,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: deUrl, lastModified: STATIC_LAST_MODIFIED, changeFrequency, priority, alternates: langs(enUrl, deUrl) },
       ];
     }),
+    ...fixedLegal.map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: STATIC_LAST_MODIFIED,
+      changeFrequency: "yearly" as const,
+      priority: 0.1,
+    })),
   ];
 
   // Blog entries — linked via slug map, real publish dates as lastmod.

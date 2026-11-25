@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { legacyTopicTarget } from "./lib/browse/slugs";
+import { goneRecipeLocale, goneRecipeResponse } from "./lib/goneRecipes";
 
 // ─── next-intl locale middleware ─────────────────────────────────────────────
 const intlMiddleware = createMiddleware(routing);
@@ -29,6 +30,11 @@ const PROTECTED_PATHS = [
 
 async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Rezepte fremder Anbieter gibt es seit 13.09.2026 nicht mehr. Ihre alten
+  // Adressen antworten mit 410 statt 404 (lib/goneRecipes.ts).
+  const goneLocale = goneRecipeLocale(pathname);
+  if (goneLocale) return goneRecipeResponse(goneLocale);
 
   // Themenseiten (/de/recipes/<slug>) lesen seit 12.11.2026 keine Parameter mehr,
   // damit sie aus dem Cache kommen. Alte Adressen mit ?page= oder ?sort= gehen

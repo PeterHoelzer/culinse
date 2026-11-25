@@ -1,25 +1,18 @@
 import type { Metadata } from "next";
 import ImpressumContent from "@/components/legal/ImpressumContent";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  return {
-    title: "Impressum",
-    description: "Impressum von Culinse gemäß § 5 TMG",
-    alternates: {
-      canonical: `https://culinse.com/${locale}/impressum`,
-      languages: {
-        en: "https://culinse.com/en/impressum",
-        de: "https://culinse.com/de/impressum",
-        "x-default": "https://culinse.com/en/impressum",
-      },
-    },
-  };
-}
+/*
+  Der Text ist in jeder Sprache derselbe deutsche Rechtstext. Bis 25.11.2026
+  nannte jede Sprachfassung sich selbst als Hauptadresse und verwies per
+  hreflang auf eine „englische“ Fassung, die es nicht gibt. Google führte die
+  Seiten deshalb als Doppelung. Jetzt gilt für alle Fassungen die feste Adresse
+  ohne Sprache als Hauptadresse (app/(legal)/impressum), ohne Sprachverweise.
+*/
+export const metadata: Metadata = {
+  title: "Impressum",
+  description: "Impressum von Culinse gemäß § 5 TMG",
+  alternates: { canonical: "https://culinse.com/impressum" },
+};
 
 export default function Impressum() {
   return <ImpressumContent />;
