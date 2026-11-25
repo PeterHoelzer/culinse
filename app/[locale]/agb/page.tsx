@@ -42,7 +42,7 @@ const DE_SECTIONS: Sec[] = [
   },
   {
     t: "2. Leistungsbeschreibung",
-    b: "Culinse ist ein Rezept- und Wochenplaner-Dienst. Das Basisangebot (Rezepte entdecken, Suche, Rezepte speichern, eine Sammlung, Einkaufsrechner) ist kostenlos. Culinse Pro erweitert den Dienst um den vollständigen Wochenplaner, automatische Einkaufslisten, unbegrenzte Sammlungen und weitere Funktionen. Umfang und Preise werden auf der Pro-Seite vor Vertragsschluss angezeigt.",
+    b: "Culinse ist ein Rezept- und Wochenplaner-Dienst. Alle Funktionen sind kostenlos: Rezepte entdecken, Suche, Rezepte speichern, Sammlungen, Wochenplaner, automatische Einkaufsliste, eigene Rezepte und Einkaufsrechner. Um Rezepte zu speichern und Sammlungen, Wochenplaner, Einkaufsliste und eigene Rezepte zu nutzen, ist ein kostenloses Konto nötig. Das kostenpflichtige Abo Culinse Pro wird nicht mehr angeboten; Abschnitt 4 gilt nur noch für früher abgeschlossene Abos.",
   },
   {
     t: "3. Registrierung und Konto",
@@ -97,7 +97,7 @@ const EN_SECTIONS: Sec[] = [
   },
   {
     t: "2. Services",
-    b: "Culinse is a recipe and meal-planning service. The basic offering (discovering recipes, search, saving recipes, one collection, the grocery calculator) is free. Culinse Pro adds the full weekly planner, automatic shopping lists, unlimited collections and further features. Scope and prices are shown on the Pro page before you subscribe.",
+    b: "Culinse is a recipe and meal-planning service. All features are free: discovering recipes, search, saving recipes, collections, the weekly planner, the automatic shopping list, your own recipes and the grocery calculator. To save recipes and to use collections, the weekly planner, the shopping list and your own recipes, you need a free account. The paid Culinse Pro subscription is no longer offered; section 4 only applies to subscriptions taken out in the past.",
   },
   {
     t: "3. Registration and account",
@@ -187,7 +187,7 @@ export default async function Agb({
           </section>
         ))}
         <p className="text-caption text-ink-3">
-          {de ? "Stand: August 2026" : "Last updated: August 2026"}
+          {de ? "Stand: November 2026" : "Last updated: November 2026"}
         </p>
       </main>
     </div>

@@ -8,7 +8,6 @@ import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { routing } from "@/i18n/routing";
 import { useLoginHref } from "@/lib/useLoginHref";
 import { Button, Icon, Wordmark } from "@/components/ui";
-import ProBadge from "@/components/ProBadge";
 
 const navLink = "text-sm font-semibold text-ink hover:underline underline-offset-[3px]";
 const menuLink = "flex items-center gap-2 py-3 text-base font-semibold text-ink hover:underline underline-offset-[3px]";
@@ -46,7 +45,6 @@ export default function Navbar() {
   const router = useRouter();
   const loginHref = useLoginHref();
   const [user, setUser] = useState<User | null>(null);
-  const [isPro, setIsPro] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
 
@@ -59,14 +57,7 @@ export default function Navbar() {
       const { data } = await supabase.auth.getUser();
       if (!mounted || !data.user) return;
       setUser(data.user);
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("is_pro")
-        .eq("id", data.user.id)
-        .single();
-      if (!mounted) return;
-      setIsPro(profile?.is_pro ?? false);
-    }).catch(() => { /* still ignorieren: isPro bleibt false */ });
+    }).catch(() => { /* still ignorieren: die Leiste bleibt im Gast-Zustand */ });
     return () => { mounted = false; };
   }, []);
 
@@ -106,28 +97,8 @@ export default function Navbar() {
           {user && (
             <div className="hidden items-center gap-5 lg:flex">
               <span className="h-5 w-px bg-line" aria-hidden="true" />
-              {isPro ? (
-                <span className="inline-flex items-center gap-1.5">
-                  <Link href="/meal-planner" className={navLink}>{t("mealPlanner")}</Link>
-                  <ProBadge plain />
-                </span>
-              ) : (
-                <Link href="/pro" className={`${navLink} inline-flex items-center gap-1.5`}>
-                  <Icon name="lock" size={16} />
-                  {t("mealPlanner")}
-                </Link>
-              )}
-              {isPro ? (
-                <span className="inline-flex items-center gap-1.5">
-                  <Link href="/collections" className={navLink}>{t("collections")}</Link>
-                  <ProBadge plain />
-                </span>
-              ) : (
-                <Link href="/pro" className={`${navLink} inline-flex items-center gap-1.5`}>
-                  <Icon name="lock" size={16} />
-                  {t("collections")}
-                </Link>
-              )}
+              <Link href="/meal-planner" className={navLink}>{t("mealPlanner")}</Link>
+              <Link href="/collections" className={navLink}>{t("collections")}</Link>
               <Link href="/my-recipes" className={navLink}>{t("myRecipesShort")}</Link>
               <Link href="/saved" className={navLink}>{t("saved")}</Link>
             </div>
@@ -177,35 +148,12 @@ export default function Navbar() {
             {user && (
               <>
                 <div className="my-1 h-px bg-line" />
-                {isPro ? (
-                  <span className="flex items-center gap-2">
-                    <Link href="/meal-planner" onClick={close} className={menuLink}>{t("mealPlanner")}</Link>
-                    <ProBadge plain />
-                  </span>
-                ) : (
-                  <Link href="/pro" onClick={close} className={menuLink}>
-                    <Icon name="lock" size={16} />
-                    {t("mealPlanner")}
-                  </Link>
-                )}
-                {isPro ? (
-                  <span className="flex items-center gap-2">
-                    <Link href="/collections" onClick={close} className={menuLink}>{t("collections")}</Link>
-                    <ProBadge plain />
-                  </span>
-                ) : (
-                  <Link href="/pro" onClick={close} className={menuLink}>
-                    <Icon name="lock" size={16} />
-                    {t("collections")}
-                  </Link>
-                )}
+                <Link href="/meal-planner" onClick={close} className={menuLink}>{t("mealPlanner")}</Link>
+                <Link href="/collections" onClick={close} className={menuLink}>{t("collections")}</Link>
                 <div className="my-1 h-px bg-line" />
                 <Link href="/my-recipes" onClick={close} className={menuLink}>{t("myRecipes")}</Link>
                 <Link href="/saved" onClick={close} className={menuLink}>{t("saved")}</Link>
-                <Link href="/profile" onClick={close} className={menuLink}>
-                  {t("profile")}
-                  {isPro && <ProBadge plain />}
-                </Link>
+                <Link href="/profile" onClick={close} className={menuLink}>{t("profile")}</Link>
               </>
             )}
 

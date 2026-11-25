@@ -6,14 +6,11 @@ import { createClient } from "@/lib/supabase/client";
 import { Button, Icon, Input } from "@/components/ui";
 import Dialog from "@/components/ui/Dialog";
 
-const FREE_RECIPE_LIMIT = 10;
-
 interface Collection {
   id: string;
   name: string;
   emoji: string;
   has_recipe?: boolean;
-  recipe_count?: number;
 }
 
 interface Recipe {
@@ -39,7 +36,6 @@ export function AddToCollectionModal({
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
-  const [isPro, setIsPro] = useState(false);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
   const t = useTranslations("modals");
@@ -55,14 +51,6 @@ export function AddToCollectionModal({
       return;
     }
 
-    // Check Pro status
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("is_pro")
-      .eq("id", user.id)
-      .single();
-    setIsPro(profile?.is_pro ?? false);
-
     const { data: cols } = await supabase
       .from("collections")
       .select("id, name, emoji")
@@ -76,22 +64,16 @@ export function AddToCollectionModal({
 
     const recipeIdStr = String(recipe.id);
 
-    // Check which collections already contain this recipe + get recipe count
+    // Check which collections already contain this recipe
     const checked = await Promise.all(
       cols.map(async (col) => {
-        const [{ data: existing }, { count }] = await Promise.all([
-          supabase
-            .from("collection_recipes")
-            .select("id")
-            .eq("collection_id", col.id)
-            .eq("recipe_id", recipeIdStr)
-            .maybeSingle(),
-          supabase
-            .from("collection_recipes")
-            .select("id", { count: "exact", head: true })
-            .eq("collection_id", col.id),
-        ]);
-        return { ...col, has_recipe: !!existing, recipe_count: count ?? 0 };
+        const { data: existing } = await supabase
+          .from("collection_recipes")
+          .select("id")
+          .eq("collection_id", col.id)
+          .eq("recipe_id", recipeIdStr)
+          .maybeSingle();
+        return { ...col, has_recipe: !!existing };
       })
     );
 
@@ -106,12 +88,6 @@ export function AddToCollectionModal({
   }, []);
 
   const handleToggle = async (col: Collection) => {
-    // Enforce free limit: max 10 recipes per collection
-    if (!col.has_recipe && !isPro && (col.recipe_count ?? 0) >= FREE_RECIPE_LIMIT) {
-      window.location.assign("/pro");
-      return;
-    }
-
     setAdding(col.id);
     const recipeIdStr = String(recipe.id);
 
@@ -194,31 +170,23 @@ export function AddToCollectionModal({
           </div>
         ) : (
           <ul>
-            {collections.map((col) => {
-              const atLimit = !isPro && !col.has_recipe && (col.recipe_count ?? 0) >= FREE_RECIPE_LIMIT;
-              return (
-                <li key={col.id}>
-                  <button
-                    type="button"
-                    onClick={() => handleToggle(col)}
-                    disabled={adding === col.id}
-                    aria-pressed={atLimit ? undefined : !!col.has_recipe}
-                    className="flex min-h-11 w-full items-center gap-3 rounded-1 px-2 py-2 text-left transition-colors hover:bg-surface-soft disabled:text-ink-3"
-                  >
-                    <Icon name="book" size={20} className="shrink-0 text-ink-3" />
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-base font-semibold text-ink">{col.name}</span>
-                      {atLimit && <span className="block text-caption text-brand">{t("fullUpgrade")}</span>}
-                    </span>
-                    {atLimit ? (
-                      <Icon name="lock" size={20} className="shrink-0 text-brand" />
-                    ) : col.has_recipe ? (
-                      <Icon name="check" size={20} className="shrink-0 text-green" />
-                    ) : null}
-                  </button>
-                </li>
-              );
-            })}
+            {collections.map((col) => (
+              <li key={col.id}>
+                <button
+                  type="button"
+                  onClick={() => handleToggle(col)}
+                  disabled={adding === col.id}
+                  aria-pressed={!!col.has_recipe}
+                  className="flex min-h-11 w-full items-center gap-3 rounded-1 px-2 py-2 text-left transition-colors hover:bg-surface-soft disabled:text-ink-3"
+                >
+                  <Icon name="book" size={20} className="shrink-0 text-ink-3" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-base font-semibold text-ink">{col.name}</span>
+                  </span>
+                  {col.has_recipe && <Icon name="check" size={20} className="shrink-0 text-green" />}
+                </button>
+              </li>
+            ))}
           </ul>
         )}
       </div>

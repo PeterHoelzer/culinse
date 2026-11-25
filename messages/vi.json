@@ -11,7 +11,6 @@
     "getStarted": "Bắt đầu ngay",
     "join": "Tham gia",
     "logout": "Đăng xuất",
-    "upgrade": "Nâng cấp",
     "myRecipes": "Công thức của tôi",
     "calculator": "Tính chi phí",
     "myRecipesShort": "Công thức",
@@ -275,21 +274,7 @@
     "progress1": "Khởi đầu tốt — còn 2 bước",
     "progress2": "Sắp xong — còn 1 bước",
     "progress3": "Hồ sơ đã hoàn tất — mục Dành cho bạn đã được bật!",
-    "planPro": "Culinse Pro",
-    "planFree": "Gói miễn phí",
-    "renews": "Gia hạn vào {date}",
-    "active": "Đang hoạt động",
-    "free": "Miễn phí",
-    "proFeatures": [
-      "Bộ sưu tập không giới hạn",
-      "Thực đơn hằng tuần",
-      "Danh sách mua sắm thông minh",
-      "Lưu công thức không giới hạn",
-      "Ưu tiên trải nghiệm tính năng mới"
-    ],
     "loading": "Đang tải…",
-    "manageSubscription": "Quản lý gói đăng ký",
-    "upgradeButton": "Nâng cấp lên Pro — €4,99 / tháng",
     "dietTitle": "Chế độ ăn",
     "dietSub": "Chỉ hiển thị công thức phù hợp với lối sống của bạn.",
     "activeLabel": "Đang bật",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "Bộ sưu tập mới",
     "creating": "Đang tạo…",
     "create": "Tạo bộ sưu tập",
-    "upgradeTitle": "Bộ sưu tập không giới hạn",
-    "upgradeSubtext": "Gói miễn phí gồm 1 bộ sưu tập với tối đa 10 công thức. Nâng cấp lên Pro để dùng mọi thứ không giới hạn.",
-    "upgradeButton": "Nâng cấp lên Pro",
     "createFirst": "Tạo bộ sưu tập đầu tiên",
     "groupDesc": "Gom công thức yêu thích thành từng bộ sưu tập — như playlist, nhưng dành cho món ăn.",
     "counter": "{count, plural, one {# bộ sưu tập} other {# bộ sưu tập}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "Ví dụ: Món Ý yêu thích",
     "descPlaceholder": "Mô tả ngắn…",
     "iconLabel": "Biểu tượng",
-    "upgradePro": "Nâng cấp lên Pro",
     "loading": "Đang tải…",
     "recipeCount": "{count, plural, one {# công thức} other {# công thức}}",
     "detailBack": "Bộ sưu tập của tôi",
@@ -446,7 +427,6 @@
     "tapToAdd": "Chạm vào một ô để thêm công thức.",
     "mealsPlanned": "{n}/21 bữa đã lên thực đơn",
     "namePlanPlaceholder": "Đặt tên thực đơn…",
-    "proMorePlans": "Pro — nhiều thực đơn hơn",
     "newPlan": "Thực đơn mới",
     "dragHint": "Mẹo: Kéo & thả để di chuyển hoặc đổi chỗ các bữa ăn.",
     "move": "Di chuyển",
@@ -462,9 +442,6 @@
     "emptySub": "Chạm vào một ô để thêm món từ các công thức bạn đã lưu.",
     "myRecipes": "Công thức của tôi",
     "collections": "Bộ sưu tập",
-    "proModalTitle": "Nhiều thực đơn hơn với Pro",
-    "proModalSub": "Với Culinse Pro, bạn có thể tạo thực đơn không giới hạn.",
-    "proModalButton": "Nâng cấp lên Pro — €4,99 / tháng",
     "cancel": "Hủy",
     "deletePlanConfirm": "Xóa thực đơn này? Mọi món đã thêm sẽ bị mất."
   },
@@ -556,98 +533,6 @@
       "error": "Không lưu được. Vui lòng thử lại."
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Mở khóa trọn vẹn trải nghiệm Culinse.",
-    "price": "€4,99 / tháng",
-    "features": [
-      "Lập thực đơn tuần trọn vẹn 7 ngày",
-      "Danh sách mua sắm tự động, gộp sẵn số lượng",
-      "Bộ sưu tập công thức không giới hạn",
-      "Hỗ trợ ưu tiên"
-    ],
-    "upgradeButton": "Nâng cấp lên Pro",
-    "processing": "Đang xử lý…",
-    "currentPlan": "Gói hiện tại của bạn: Pro",
-    "manageButton": "Quản lý gói đăng ký",
-    "heroTitle": "Căn bếp của bạn,\nngăn nắp từ A đến Z.",
-    "heroSubtitle": "Lên thực đơn cả tuần, tạo danh sách mua sắm và sắp xếp mọi công thức bạn yêu thích — tất cả ở cùng một nơi.",
-    "alreadyPro": "Bạn đã là thành viên Pro!",
-    "freeForAllBadge": "Mọi tính năng Pro hiện đang miễn phí",
-    "freeForAllNote": "Chúng tôi đang mở rộng Culinse — mọi tính năng Pro đều được mở cho tất cả người dùng. Chỉ cần đăng nhập và bắt đầu lên thực đơn, hoàn toàn không cần đăng ký trả phí.",
-    "startButton": "Dùng thử miễn phí 7 ngày",
-    "cancelNote": "Miễn phí 7 ngày · Chỉ trừ tiền sau thời gian dùng thử · Hủy bất cứ lúc nào",
-    "legalNote": "Việc đăng ký tuân theo",
-    "legalAnd": "và",
-    "agbLabel": "Điều khoản dịch vụ",
-    "widerrufLabel": "Chính sách hủy hợp đồng",
-    "activeNote": "Bạn đang dùng Culinse Pro",
-    "freeLabel": "Miễn phí",
-    "proLabel": "Pro",
-    "everythingInFree": "Mọi thứ trong gói Miễn phí, cộng thêm:",
-    "faqTitle": "Câu hỏi thường gặp",
-    "faqItems": [
-      {
-        "q": "Tôi có thể hủy bất cứ lúc nào không?",
-        "a": "Có, bạn có thể hủy bất cứ lúc nào trong phần hồ sơ. Bạn vẫn dùng được Pro đến hết kỳ thanh toán hiện tại."
-      },
-      {
-        "q": "Có những phương thức thanh toán nào?",
-        "a": "Tất cả các loại thẻ tín dụng và thẻ ghi nợ phổ biến qua Stripe. An toàn, được mã hóa, đạt chuẩn PCI."
-      },
-      {
-        "q": "Bộ sưu tập của tôi sẽ ra sao nếu tôi hủy gói?",
-        "a": "Các bộ sưu tập của bạn vẫn được giữ nguyên. Bạn chỉ không thể tạo thêm bộ sưu tập mới vượt quá giới hạn của gói miễn phí."
-      },
-      {
-        "q": "Có thời gian dùng thử miễn phí không?",
-        "a": "Có — bạn được dùng thử Pro miễn phí 7 ngày. Tiền chỉ bị trừ khi hết thời gian dùng thử, và bạn có thể hủy bất cứ lúc nào trước đó."
-      }
-    ],
-    "freeFeatures": [
-      "Tất cả công thức: hơn 4.000 món",
-      "Tìm kiếm & lọc theo chế độ ăn, thời gian, nền ẩm thực",
-      "Lưu công thức",
-      "1 bộ sưu tập (tối đa 10 công thức)"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "Bộ sưu tập không giới hạn",
-        "sub": "Sắp xếp món yêu thích theo đúng cách bạn muốn"
-      },
-      {
-        "icon": "",
-        "label": "Lập thực đơn hằng tuần",
-        "sub": "Lên bữa sáng, bữa trưa & bữa tối cho cả tuần"
-      },
-      {
-        "icon": "",
-        "label": "Danh sách mua sắm thông minh",
-        "sub": "Tự động tạo từ thực đơn của bạn, sắp xếp theo danh mục"
-      },
-      {
-        "icon": "",
-        "label": "Lưu công thức không giới hạn",
-        "sub": "Không còn giới hạn 25 công thức — lưu mọi món bạn thấy ngon"
-      },
-      {
-        "icon": "",
-        "label": "Ưu tiên trải nghiệm tính năng mới",
-        "sub": "Được dùng sớm nhất mọi thứ chúng tôi phát triển tiếp theo"
-      }
-    ],
-    "questions": "Có thắc mắc?",
-    "annualLabel": "Theo năm",
-    "monthlyLabel": "Theo tháng",
-    "annualSave": "Tiết kiệm 35%",
-    "annualPrice": "€3,24 / tháng",
-    "annualTotal": "€38,88 / năm",
-    "monthlyPrice": "€4,99 / tháng",
-    "annualStartButton": "Dùng thử miễn phí 7 ngày",
-    "billedAnnually": "Thanh toán hằng năm",
-    "billedMonthly": "Thanh toán hằng tháng"
-  },
   "blog": {
     "title": "Blog Culinse",
     "subtitle": "Mẹo, hướng dẫn và ý tưởng để nấu ăn thông minh hơn.",
@@ -676,31 +561,27 @@
     "emailLabel": "Địa chỉ email"
   },
   "loginPrompt": {
-    "title": "Lưu công thức",
-    "subtitle": "Tạo tài khoản miễn phí để lưu công thức và dễ dàng tìm lại.",
+    "title": "Đăng nhập miễn phí",
+    "subtitle": "Mọi thứ trên Culinse đều miễn phí. Đăng nhập để lưu công thức và dùng bộ sưu tập, thực đơn tuần và danh sách mua sắm.",
     "login": "Đăng nhập",
     "signup": "Đăng ký miễn phí",
     "cancel": "Hủy"
+  },
+  "freeAccess": {
+    "text": "Mọi thứ trên Culinse đều miễn phí. Để lưu công thức và dùng bộ sưu tập, thực đơn tuần, danh sách mua sắm và công thức của riêng bạn, bạn chỉ cần một tài khoản miễn phí.",
+    "link": "Đăng nhập miễn phí"
   },
   "modals": {
     "ad": "Quảng cáo",
     "shop": "Cửa hàng",
     "kitchenTools": "Dụng cụ nhà bếp",
     "affiliateLinks": "* Liên kết affiliate",
-    "upgradeTitle": "Nâng cấp lên Pro",
-    "upgradeMessage": "Bạn đã đạt giới hạn 25 công thức đã lưu của gói miễn phí. Nâng cấp lên Pro để lưu không giới hạn, tạo bộ sưu tập và nhiều hơn nữa.",
-    "seePlans": "Xem các gói Pro",
-    "maybeLater": "Để sau",
-    "proFeature": "Tính năng Pro",
-    "proUnlock": "Nâng cấp lên Pro để mở khóa tính năng này và nhiều hơn nữa.",
-    "proFrom": "Chỉ từ 4,99 €/tháng",
     "addToCollection": "Thêm vào bộ sưu tập",
     "noCollections": "Chưa có bộ sưu tập nào",
     "createOneBelow": "Hãy tạo một bộ sưu tập bên dưới",
     "collectionNamePlaceholder": "Tên bộ sưu tập…",
     "create": "Tạo",
     "newCollection": "Bộ sưu tập mới",
-    "fullUpgrade": "Đã đầy — nâng cấp để thêm",
     "cancel": "Hủy",
     "loading": "Đang tải…",
     "addToPlanHeader": "Thêm vào thực đơn tuần",
@@ -708,7 +589,6 @@
     "day": "Ngày",
     "meal": "Bữa ăn",
     "planNamePlaceholder": "Đặt tên cho thực đơn…",
-    "proMorePlans": "Pro — nhiều thực đơn hơn",
     "saving": "Đang lưu…",
     "addToPlanButton": "Thêm vào thực đơn",
     "chooseRecipeFor": "Chọn công thức cho",
@@ -732,16 +612,7 @@
     "close": "Đóng",
     "collectionName": "Tên bộ sưu tập",
     "planName": "Tên kế hoạch",
-    "newPlan": "Kế hoạch mới",
-    "upgradeFeatureSave": "Lưu công thức không giới hạn",
-    "upgradeFeatureCollections": "Bộ sưu tập không giới hạn",
-    "upgradeFeaturePlans": "Nhiều kế hoạch tuần"
-  },
-  "proSuccess": {
-    "title": "Chào mừng bạn đến với Culinse Pro!",
-    "subtitle": "Gói đăng ký của bạn đã được kích hoạt. Giờ đây bạn có thể dùng bộ sưu tập không giới hạn, công cụ lập thực đơn tuần và danh sách mua sắm thông minh.",
-    "goCollections": "Đến bộ sưu tập của tôi",
-    "discover": "Khám phá công thức"
+    "newPlan": "Kế hoạch mới"
   },
   "allStates": "Tất cả các bang",
   "browse": {

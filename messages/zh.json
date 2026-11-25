@@ -11,7 +11,6 @@
     "getStarted": "开始使用",
     "join": "加入",
     "logout": "退出登录",
-    "upgrade": "升级",
     "myRecipes": "我的食谱",
     "calculator": "计算器",
     "myRecipesShort": "食谱",
@@ -275,21 +274,7 @@
     "progress1": "开了个好头——还差 2 步",
     "progress2": "快完成了——还差 1 步",
     "progress3": "档案已完善——“为你推荐”已开启！",
-    "planPro": "Culinse Pro",
-    "planFree": "免费版",
-    "renews": "将于 {date} 自动续订",
-    "active": "已开通",
-    "free": "免费",
-    "proFeatures": [
-      "无限合集",
-      "每周餐食计划",
-      "智能购物清单",
-      "无限收藏食谱",
-      "抢先体验新功能"
-    ],
     "loading": "加载中…",
-    "manageSubscription": "管理订阅",
-    "upgradeButton": "升级到 Pro（€4.99/月）",
     "dietTitle": "饮食偏好",
     "dietSub": "只显示符合你生活方式的食谱。",
     "activeLabel": "已启用",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "新建合集",
     "creating": "创建中…",
     "create": "创建合集",
-    "upgradeTitle": "无限合集",
-    "upgradeSubtext": "免费版包含 1 个合集，最多可收录 10 道食谱。升级到 Pro，一切不设上限。",
-    "upgradeButton": "升级到 Pro",
     "createFirst": "创建第一个合集",
     "groupDesc": "把你最爱的食谱分组整理成合集——就像美食版的歌单。",
     "counter": "{count, plural, other {# 个合集}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "例如：意式最爱",
     "descPlaceholder": "简单介绍一下…",
     "iconLabel": "图标",
-    "upgradePro": "升级到 Pro",
     "loading": "加载中…",
     "recipeCount": "{count, plural, other {# 道食谱}}",
     "detailBack": "我的合集",
@@ -446,7 +427,6 @@
     "tapToAdd": "点按任意格子即可添加食谱。",
     "mealsPlanned": "已计划 {n}/21 餐",
     "namePlanPlaceholder": "为计划命名…",
-    "proMorePlans": "Pro 解锁更多计划",
     "newPlan": "新建计划",
     "dragHint": "提示：拖放即可移动或交换餐食。",
     "move": "移动",
@@ -462,9 +442,6 @@
     "emptySub": "点按任意格子，从你收藏的食谱中添加。",
     "myRecipes": "我的食谱",
     "collections": "合集",
-    "proModalTitle": "Pro 解锁更多计划",
-    "proModalSub": "有了 Culinse Pro，你可以创建不限数量的餐食计划。",
-    "proModalButton": "升级到 Pro（€4.99/月）",
     "cancel": "取消",
     "deletePlanConfirm": "删除计划？所有条目都将丢失。"
   },
@@ -556,98 +533,6 @@
       "error": "保存失败，请重试。"
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "解锁完整的 Culinse 体验。",
-    "price": "€4.99/月",
-    "features": [
-      "完整的 7 天每周计划",
-      "自动生成购物清单，合并同类食材用量",
-      "无限食谱合集",
-      "优先支持"
-    ],
-    "upgradeButton": "升级到 Pro",
-    "processing": "处理中…",
-    "currentPlan": "你当前的方案：Pro",
-    "manageButton": "管理订阅",
-    "heroTitle": "你的厨房，\n井井有条。",
-    "heroSubtitle": "规划一周餐食、生成购物清单、整理你喜爱的每一道食谱——一站搞定。",
-    "alreadyPro": "你已经是 Pro 会员！",
-    "freeForAllBadge": "目前所有 Pro 功能免费开放",
-    "freeForAllNote": "Culinse 正在扩展建设中——所有 Pro 功能已向全部用户开放。登录即可开始规划，无需订阅。",
-    "startButton": "免费试用 7 天",
-    "cancelNote": "7 天免费 · 试用结束后才扣款 · 随时可取消",
-    "legalNote": "本服务适用我们的",
-    "legalAnd": "和",
-    "agbLabel": "使用条款",
-    "widerrufLabel": "撤回权须知",
-    "activeNote": "你正在使用 Culinse Pro",
-    "freeLabel": "免费版",
-    "proLabel": "Pro",
-    "everythingInFree": "包含免费版全部功能，另加：",
-    "faqTitle": "常见问题",
-    "faqItems": [
-      {
-        "q": "可以随时取消吗？",
-        "a": "可以，随时都能在个人资料中取消。在当前计费周期结束前，你仍可继续使用 Pro 功能。"
-      },
-      {
-        "q": "支持哪些付款方式？",
-        "a": "通过 Stripe 支持所有主流信用卡和借记卡。安全加密，符合 PCI 标准。"
-      },
-      {
-        "q": "取消订阅后，我的合集会怎样？",
-        "a": "你的合集会继续保留，只是无法再创建超出免费额度的新合集。"
-      },
-      {
-        "q": "有免费试用期吗？",
-        "a": "有——你可以免费试用 Pro 7 天。试用期结束后才会扣款，在此之前可随时取消。"
-      }
-    ],
-    "freeFeatures": [
-      "全部食谱：4000 多道菜",
-      "按饮食、时间、菜系搜索和筛选",
-      "收藏食谱（）",
-      "1 个合集（最多 10 道食谱）"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "无限合集",
-        "sub": "按你喜欢的方式整理最爱的食谱"
-      },
-      {
-        "icon": "",
-        "label": "每周餐食计划",
-        "sub": "规划一整周的早餐、午餐和晚餐"
-      },
-      {
-        "icon": "",
-        "label": "智能购物清单",
-        "sub": "根据你的计划自动生成，按类别整理"
-      },
-      {
-        "icon": "",
-        "label": "无限收藏食谱",
-        "sub": "告别 25 道食谱的上限——喜欢的都能收藏"
-      },
-      {
-        "icon": "",
-        "label": "抢先体验新功能",
-        "sub": "第一时间体验我们接下来推出的所有新功能"
-      }
-    ],
-    "questions": "有疑问？",
-    "annualLabel": "年付",
-    "monthlyLabel": "月付",
-    "annualSave": "省 35%",
-    "annualPrice": "€3.24/月",
-    "annualTotal": "€38.88/年",
-    "monthlyPrice": "€4.99/月",
-    "annualStartButton": "免费试用 7 天",
-    "billedAnnually": "按年计费",
-    "billedMonthly": "按月计费"
-  },
   "blog": {
     "title": "Culinse 博客",
     "subtitle": "让烹饪更聪明的技巧、指南与灵感。",
@@ -676,31 +561,27 @@
     "emailLabel": "电子邮箱"
   },
   "loginPrompt": {
-    "title": "收藏食谱",
-    "subtitle": "创建免费账户，收藏食谱、随时找回。",
+    "title": "免费登录",
+    "subtitle": "Culinse 的所有功能都免费。登录后即可收藏食谱，并使用合集、每周计划和购物清单。",
     "login": "登录",
     "signup": "免费注册",
     "cancel": "取消"
+  },
+  "freeAccess": {
+    "text": "Culinse 的所有功能都免费。只需一个免费账户，就能收藏食谱，并使用合集、每周计划、购物清单和自己的食谱。",
+    "link": "免费登录"
   },
   "modals": {
     "ad": "广告",
     "shop": "商店",
     "kitchenTools": "厨房用具",
     "affiliateLinks": "* 推广链接",
-    "upgradeTitle": "升级到 Pro",
-    "upgradeMessage": "你已达到免费版 25 道收藏食谱的上限。升级到 Pro，即可无限收藏、创建合集，解锁更多功能。",
-    "seePlans": "查看 Pro 方案",
-    "maybeLater": "以后再说",
-    "proFeature": "Pro 功能",
-    "proUnlock": "升级到 Pro，解锁此功能及更多特权。",
-    "proFrom": "€4.99/月起",
     "addToCollection": "添加到合集",
     "noCollections": "还没有合集",
     "createOneBelow": "在下方新建一个",
     "collectionNamePlaceholder": "合集名称…",
     "create": "创建",
     "newCollection": "新建合集",
-    "fullUpgrade": "已满——升级解锁更多",
     "cancel": "取消",
     "loading": "加载中…",
     "addToPlanHeader": "添加到每周计划",
@@ -708,7 +589,6 @@
     "day": "星期",
     "meal": "餐次",
     "planNamePlaceholder": "为你的计划命名…",
-    "proMorePlans": "Pro 解锁更多计划",
     "saving": "保存中…",
     "addToPlanButton": "加入计划",
     "chooseRecipeFor": "选择食谱：",
@@ -732,16 +612,7 @@
     "close": "关闭",
     "collectionName": "合集名称",
     "planName": "计划名称",
-    "newPlan": "新建计划",
-    "upgradeFeatureSave": "无限保存食谱",
-    "upgradeFeatureCollections": "不限数量的合集",
-    "upgradeFeaturePlans": "多个每周计划"
-  },
-  "proSuccess": {
-    "title": "欢迎加入 Culinse Pro！",
-    "subtitle": "你的订阅已生效。现在可以使用无限合集、每周计划和智能购物清单。",
-    "goCollections": "前往我的合集",
-    "discover": "发现食谱"
+    "newPlan": "新建计划"
   },
   "allStates": "所有联邦州",
   "browse": {

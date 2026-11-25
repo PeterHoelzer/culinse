@@ -11,7 +11,6 @@
     "getStarted": "Začít",
     "join": "Přidej se",
     "logout": "Odhlásit se",
-    "upgrade": "Přejít na Pro",
     "myRecipes": "Moje recepty",
     "calculator": "Kalkulačka",
     "myRecipesShort": "Recepty",
@@ -275,21 +274,7 @@
     "progress1": "Dobrý začátek — zbývají 2 kroky",
     "progress2": "Skoro hotovo — zbývá 1 krok",
     "progress3": "Profil je kompletní — „Pro tebe“ je aktivní!",
-    "planPro": "Culinse Pro",
-    "planFree": "Bezplatný tarif",
-    "renews": "Obnoví se {date}",
-    "active": "Aktivní",
-    "free": "Zdarma",
-    "proFeatures": [
-      "Neomezené sbírky",
-      "Týdenní plán jídel",
-      "Chytrý nákupní seznam",
-      "Neomezené ukládání receptů",
-      "Přednostní přístup k novým funkcím"
-    ],
     "loading": "Načítání…",
-    "manageSubscription": "Spravovat předplatné",
-    "upgradeButton": "Přejít na Pro — 4,99 € / měsíc",
     "dietTitle": "Stravování",
     "dietSub": "Zobrazovat jen recepty, které odpovídají tvému životnímu stylu.",
     "activeLabel": "Aktivní",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "Nová sbírka",
     "creating": "Vytváření…",
     "create": "Vytvořit sbírku",
-    "upgradeTitle": "Neomezené sbírky",
-    "upgradeSubtext": "Bezplatný tarif zahrnuje 1 sbírku s až 10 recepty. Přejdi na Pro a máš všechno bez omezení.",
-    "upgradeButton": "Přejít na Pro",
     "createFirst": "Vytvořit první sbírku",
     "groupDesc": "Seskup své oblíbené recepty do sbírek — jako playlisty, jen pro jídlo.",
     "counter": "{count, plural, one {# sbírka} few {# sbírky} many {# sbírky} other {# sbírek}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "např. Oblíbená italská jídla",
     "descPlaceholder": "Krátký popis…",
     "iconLabel": "Ikona",
-    "upgradePro": "Přejít na Pro",
     "loading": "Načítání…",
     "recipeCount": "{count, plural, one {# recept} few {# recepty} many {# receptu} other {# receptů}}",
     "detailBack": "Moje sbírky",
@@ -446,7 +427,6 @@
     "tapToAdd": "Klepni na políčko a přidej recept.",
     "mealsPlanned": "{n}/21 naplánovaných jídel",
     "namePlanPlaceholder": "Pojmenuj plán…",
-    "proMorePlans": "Pro — více plánů",
     "newPlan": "Nový plán",
     "dragHint": "Tip: Jídla můžeš přetažením přesouvat nebo prohazovat.",
     "move": "Přesunout",
@@ -462,9 +442,6 @@
     "emptySub": "Klepni na políčko a přidej recept ze svých uložených receptů.",
     "myRecipes": "Moje recepty",
     "collections": "Sbírky",
-    "proModalTitle": "Více plánů s Pro",
-    "proModalSub": "S Culinse Pro můžeš vytvářet neomezený počet plánů jídel.",
-    "proModalButton": "Přejít na Pro — 4,99 € / měsíc",
     "cancel": "Zrušit",
     "deletePlanConfirm": "Smazat plán? Přijdeš o všechny položky."
   },
@@ -556,98 +533,6 @@
       "error": "Uložení se nezdařilo. Zkus to znovu."
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Odemkni si Culinse naplno.",
-    "price": "4,99 € / měsíc",
-    "features": [
-      "Kompletní týdenní plánovač na 7 dní",
-      "Automatický nákupní seznam se sečtenými množstvími",
-      "Neomezené sbírky receptů",
-      "Přednostní podpora"
-    ],
-    "upgradeButton": "Přejít na Pro",
-    "processing": "Zpracování…",
-    "currentPlan": "Tvůj aktuální tarif: Pro",
-    "manageButton": "Spravovat předplatné",
-    "heroTitle": "Tvoje kuchyně,\ndokonale zorganizovaná.",
-    "heroSubtitle": "Naplánuj si týden, vytvoř nákupní seznam a uspořádej všechny recepty, které miluješ — vše na jednom místě.",
-    "alreadyPro": "Už máš Pro!",
-    "freeForAllBadge": "Všechny funkce Pro teď zdarma",
-    "freeForAllNote": "Culinse právě rozšiřujeme — všechny funkce Pro jsou odemčené pro všechny uživatele. Stačí se přihlásit a začít plánovat, úplně bez předplatného.",
-    "startButton": "Vyzkoušet 7 dní zdarma",
-    "cancelNote": "7 dní zdarma · Platba až po zkušební době · Zrušit můžeš kdykoli",
-    "legalNote": "Platí naše",
-    "legalAnd": "a",
-    "agbLabel": "obchodní podmínky",
-    "widerrufLabel": "poučení o odstoupení od smlouvy",
-    "activeNote": "Používáš Culinse Pro",
-    "freeLabel": "Zdarma",
-    "proLabel": "Pro",
-    "everythingInFree": "Vše z tarifu Zdarma a navíc:",
-    "faqTitle": "Časté dotazy",
-    "faqItems": [
-      {
-        "q": "Můžu předplatné kdykoli zrušit?",
-        "a": "Ano, kdykoli ve svém profilu. Přístup k Pro ti zůstane až do konce aktuálního zúčtovacího období."
-      },
-      {
-        "q": "Jaké platební metody přijímáte?",
-        "a": "Všechny běžné kreditní a debetní karty přes Stripe. Bezpečně, šifrovaně a v souladu s PCI."
-      },
-      {
-        "q": "Co se stane s mými sbírkami, když předplatné zruším?",
-        "a": "Tvoje sbírky zůstanou uložené. Jen už nepůjde vytvářet nové nad rámec limitu bezplatného tarifu."
-      },
-      {
-        "q": "Je k dispozici zkušební období zdarma?",
-        "a": "Ano — Pro si můžeš 7 dní zdarma vyzkoušet. Platba se strhne až po skončení zkušebního období a předtím můžeš kdykoli zrušit."
-      }
-    ],
-    "freeFeatures": [
-      "Všechny recepty: více než 4 000 jídel",
-      "Hledání a filtry podle stravování, času a kuchyně",
-      "Ukládání receptů",
-      "1 sbírka (až 10 receptů)"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "Neomezené sbírky",
-        "sub": "Uspořádej si oblíbené recepty přesně podle sebe"
-      },
-      {
-        "icon": "",
-        "label": "Týdenní plánovač jídel",
-        "sub": "Naplánuj snídaně, obědy a večeře na celý týden"
-      },
-      {
-        "icon": "",
-        "label": "Chytrý nákupní seznam",
-        "sub": "Automaticky vytvořený z tvého plánu, seřazený podle kategorií"
-      },
-      {
-        "icon": "",
-        "label": "Neomezené ukládání receptů",
-        "sub": "Žádný limit 25 receptů — ulož si všechno, co ti chutná"
-      },
-      {
-        "icon": "",
-        "label": "Přednostní přístup k novinkám",
-        "sub": "Jako první vyzkoušíš všechno, na čem pracujeme"
-      }
-    ],
-    "questions": "Máš dotazy?",
-    "annualLabel": "Ročně",
-    "monthlyLabel": "Měsíčně",
-    "annualSave": "Ušetři 35 %",
-    "annualPrice": "3,24 € / měsíc",
-    "annualTotal": "38,88 € / rok",
-    "monthlyPrice": "4,99 € / měsíc",
-    "annualStartButton": "Vyzkoušet 7 dní zdarma",
-    "billedAnnually": "Účtováno ročně",
-    "billedMonthly": "Účtováno měsíčně"
-  },
   "blog": {
     "title": "Blog Culinse",
     "subtitle": "Tipy, návody a nápady, jak vařit chytřeji.",
@@ -676,31 +561,27 @@
     "emailLabel": "E-mailová adresa"
   },
   "loginPrompt": {
-    "title": "Uložit recept",
-    "subtitle": "Vytvoř si účet zdarma — recepty si uložíš a kdykoli je znovu najdeš.",
+    "title": "Přihlas se zdarma",
+    "subtitle": "Všechno na Culinse je zdarma. Přihlas se, ať si můžeš ukládat recepty a používat sbírky, týdenní plánovač a nákupní seznam.",
     "login": "Přihlásit se",
     "signup": "Zaregistrovat se zdarma",
     "cancel": "Zrušit"
+  },
+  "freeAccess": {
+    "text": "Všechno na Culinse je zdarma. K ukládání receptů a k používání sbírek, týdenního plánovače, nákupního seznamu a vlastních receptů ti stačí účet zdarma.",
+    "link": "Přihlásit se zdarma"
   },
   "modals": {
     "ad": "Reklama",
     "shop": "Obchod",
     "kitchenTools": "Kuchyňské potřeby",
     "affiliateLinks": "* Affiliate odkazy",
-    "upgradeTitle": "Přejít na Pro",
-    "upgradeMessage": "Máš uložených 25 receptů — to je limit bezplatného tarifu. S Pro získáš neomezené ukládání, sbírky a další funkce.",
-    "seePlans": "Zobrazit tarify Pro",
-    "maybeLater": "Možná později",
-    "proFeature": "Funkce Pro",
-    "proUnlock": "Přejdi na Pro a odemkni tohle i mnohem víc.",
-    "proFrom": "Od 4,99 €/měsíc",
     "addToCollection": "Přidat do sbírky",
     "noCollections": "Zatím žádné sbírky",
     "createOneBelow": "Níže si jednu vytvoř",
     "collectionNamePlaceholder": "Název sbírky…",
     "create": "Vytvořit",
     "newCollection": "Nová sbírka",
-    "fullUpgrade": "Plná — víc místa s Pro",
     "cancel": "Zrušit",
     "loading": "Načítání…",
     "addToPlanHeader": "Přidat do týdenního plánu",
@@ -708,7 +589,6 @@
     "day": "Den",
     "meal": "Jídlo",
     "planNamePlaceholder": "Pojmenuj svůj plán…",
-    "proMorePlans": "Pro — více plánů",
     "saving": "Ukládání…",
     "addToPlanButton": "Přidat do plánu",
     "chooseRecipeFor": "Výběr receptu:",
@@ -732,16 +612,7 @@
     "close": "Zavřít",
     "collectionName": "Název sbírky",
     "planName": "Název plánu",
-    "newPlan": "Nový plán",
-    "upgradeFeatureSave": "Ukládej recepty bez omezení",
-    "upgradeFeatureCollections": "Sbírky bez omezení",
-    "upgradeFeaturePlans": "Více týdenních plánů"
-  },
-  "proSuccess": {
-    "title": "Vítej v Culinse Pro!",
-    "subtitle": "Tvoje předplatné je aktivní. Teď máš přístup k neomezeným sbírkám, týdennímu plánovači a chytrým nákupním seznamům.",
-    "goCollections": "Do mých sbírek",
-    "discover": "Objevit recepty"
+    "newPlan": "Nový plán"
   },
   "allStates": "Všechny spolkové země",
   "browse": {

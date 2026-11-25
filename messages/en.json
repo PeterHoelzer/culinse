@@ -11,7 +11,6 @@
     "getStarted": "Get Started",
     "join": "Join",
     "logout": "Log out",
-    "upgrade": "Upgrade",
     "myRecipes": "My Recipes",
     "calculator": "Calculator",
     "myRecipesShort": "Recipes",
@@ -275,21 +274,7 @@
     "progress1": "Good start — 2 more steps",
     "progress2": "Almost there — 1 more step",
     "progress3": "Profile complete — For You is active!",
-    "planPro": "Culinse Pro",
-    "planFree": "Free Plan",
-    "renews": "Renews {date}",
-    "active": "Active",
-    "free": "Free",
-    "proFeatures": [
-      "Unlimited Collections",
-      "Weekly Meal Planner",
-      "Smart Shopping List",
-      "Unlimited saved recipes",
-      "Priority new features"
-    ],
     "loading": "Loading…",
-    "manageSubscription": "Manage subscription",
-    "upgradeButton": "Upgrade to Pro — €4.99 / month",
     "dietTitle": "Diet",
     "dietSub": "Only show recipes that match your lifestyle.",
     "activeLabel": "Active",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "New Collection",
     "creating": "Creating…",
     "create": "Create Collection",
-    "upgradeTitle": "Unlimited Collections",
-    "upgradeSubtext": "Free plan includes 1 collection with up to 10 recipes. Upgrade to Pro for unlimited everything.",
-    "upgradeButton": "Upgrade to Pro",
     "createFirst": "Create your first collection",
     "groupDesc": "Group your favorite recipes into collections — like playlists for food.",
     "counter": "{count, plural, one {# collection} other {# collections}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "e.g. Italian Favorites",
     "descPlaceholder": "A short description…",
     "iconLabel": "Icon",
-    "upgradePro": "Upgrade to Pro",
     "loading": "Loading…",
     "recipeCount": "{count, plural, one {# recipe} other {# recipes}}",
     "detailBack": "My Collections",
@@ -446,7 +427,6 @@
     "tapToAdd": "Tap a slot to add a recipe from your collections.",
     "mealsPlanned": "{n}/21 meals planned",
     "namePlanPlaceholder": "Name your plan…",
-    "proMorePlans": "Pro — more plans",
     "newPlan": "New Plan",
     "dragHint": "Tip: drag & drop meals to move or swap them.",
     "move": "Move",
@@ -462,9 +442,6 @@
     "emptySub": "Tap a slot to add a recipe from your saved recipes.",
     "myRecipes": "My Recipes",
     "collections": "Collections",
-    "proModalTitle": "More Plans with Pro",
-    "proModalSub": "With Culinse Pro, you can create unlimited meal plans.",
-    "proModalButton": "Upgrade to Pro — €4.99 / month",
     "cancel": "Cancel",
     "deletePlanConfirm": "Delete plan? All entries will be lost."
   },
@@ -556,98 +533,6 @@
       "error": "Saving failed. Please try again."
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Unlock the full Culinse experience.",
-    "price": "€4.99 / month",
-    "features": [
-      "Full 7-day Meal Planner",
-      "Automatic shopping list with combined amounts",
-      "Unlimited recipe collections",
-      "Priority support"
-    ],
-    "upgradeButton": "Upgrade to Pro",
-    "processing": "Processing…",
-    "currentPlan": "Your current plan: Pro",
-    "manageButton": "Manage subscription",
-    "heroTitle": "Your kitchen,\nfully organized.",
-    "heroSubtitle": "Plan your week, build your shopping list, and organize every recipe you love — all in one place.",
-    "alreadyPro": "You're already Pro!",
-    "freeForAllBadge": "All Pro features currently free",
-    "freeForAllNote": "We're growing Culinse — every Pro feature is unlocked for all users right now. Just sign in and start planning, no subscription needed.",
-    "startButton": "Try 7 days free",
-    "cancelNote": "7 days free · You won't be charged until the trial ends · Cancel anytime",
-    "legalNote": "By subscribing you agree to our",
-    "legalAnd": "and the",
-    "agbLabel": "Terms of Service",
-    "widerrufLabel": "Cancellation Policy",
-    "activeNote": "You're on Culinse Pro",
-    "freeLabel": "Free",
-    "proLabel": "Pro",
-    "everythingInFree": "Everything in Free, plus:",
-    "faqTitle": "FAQ",
-    "faqItems": [
-      {
-        "q": "Can I cancel at any time?",
-        "a": "Yes, cancel anytime from your profile. You keep Pro access until the end of your billing period."
-      },
-      {
-        "q": "Which payment methods are accepted?",
-        "a": "All major credit and debit cards via Stripe. Safe, encrypted, PCI compliant."
-      },
-      {
-        "q": "What happens to my Collections if I cancel?",
-        "a": "Your collections stay saved. You just won't be able to create new ones beyond the free limit."
-      },
-      {
-        "q": "Is there a free trial?",
-        "a": "Yes — you get 7 days of Pro for free. You won't be charged until the trial ends, and you can cancel anytime before that."
-      }
-    ],
-    "freeFeatures": [
-      "All recipes: more than 4,000 dishes",
-      "Search & filter by diet, time, cuisine",
-      "Save recipes",
-      "1 Collection (up to 10 recipes)"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "Unlimited Collections",
-        "sub": "Organize your favorites exactly how you want"
-      },
-      {
-        "icon": "",
-        "label": "Weekly Meal Planner",
-        "sub": "Plan breakfast, lunch & dinner for the whole week"
-      },
-      {
-        "icon": "",
-        "label": "Smart Shopping List",
-        "sub": "Auto-generated from your plan, sorted by category"
-      },
-      {
-        "icon": "",
-        "label": "Unlimited saved recipes",
-        "sub": "No 25-recipe cap — save everything you love"
-      },
-      {
-        "icon": "",
-        "label": "Priority features",
-        "sub": "First access to everything we build next"
-      }
-    ],
-    "questions": "Questions?",
-    "annualLabel": "Annual",
-    "monthlyLabel": "Monthly",
-    "annualSave": "Save 35%",
-    "annualPrice": "€3.24 / month",
-    "annualTotal": "€38.88 / year",
-    "monthlyPrice": "€4.99 / month",
-    "annualStartButton": "Try 7 days free",
-    "billedAnnually": "Billed annually",
-    "billedMonthly": "Billed monthly"
-  },
   "blog": {
     "title": "Culinse Blog",
     "subtitle": "Tips, guides, and ideas for smarter cooking.",
@@ -676,31 +561,27 @@
     "emailLabel": "Email address"
   },
   "loginPrompt": {
-    "title": "Save this recipe",
-    "subtitle": "Create a free account to save recipes and find them again anytime.",
+    "title": "Sign in for free",
+    "subtitle": "Everything on Culinse is free. Sign in to save recipes and to use collections, the meal planner and the shopping list.",
     "login": "Log in",
     "signup": "Sign up for free",
     "cancel": "Cancel"
+  },
+  "freeAccess": {
+    "text": "Everything on Culinse is free. To save recipes and to use collections, the meal planner, the shopping list and your own recipes, all you need is a free account.",
+    "link": "Sign in for free"
   },
   "modals": {
     "ad": "Ad",
     "shop": "Shop",
     "kitchenTools": "Kitchen Tools",
     "affiliateLinks": "* Affiliate links",
-    "upgradeTitle": "Upgrade to Pro",
-    "upgradeMessage": "You've reached the free plan limit of 25 saved recipes. Upgrade to Pro for unlimited saves, collections and more.",
-    "seePlans": "See Pro Plans",
-    "maybeLater": "Maybe later",
-    "proFeature": "Pro feature",
-    "proUnlock": "Upgrade to Pro to unlock this and more.",
-    "proFrom": "From €4.99/month",
     "addToCollection": "Add to Collection",
     "noCollections": "No collections yet",
     "createOneBelow": "Create one below",
     "collectionNamePlaceholder": "Collection name…",
     "create": "Create",
     "newCollection": "New Collection",
-    "fullUpgrade": "Full — upgrade for more",
     "cancel": "Cancel",
     "loading": "Loading…",
     "addToPlanHeader": "Add to Meal Plan",
@@ -708,7 +589,6 @@
     "day": "Day",
     "meal": "Meal",
     "planNamePlaceholder": "Name your plan…",
-    "proMorePlans": "Pro — more plans",
     "saving": "Saving…",
     "addToPlanButton": "Add to Plan",
     "chooseRecipeFor": "Choose recipe for",
@@ -732,16 +612,7 @@
     "close": "Close",
     "collectionName": "Collection name",
     "planName": "Plan name",
-    "newPlan": "New plan",
-    "upgradeFeatureSave": "Save unlimited recipes",
-    "upgradeFeatureCollections": "Collections without a limit",
-    "upgradeFeaturePlans": "Several weekly plans"
-  },
-  "proSuccess": {
-    "title": "Welcome to Culinse Pro!",
-    "subtitle": "Your subscription is active. You now have access to unlimited Collections, the Weekly Planner, and Smart Shopping Lists.",
-    "goCollections": "Go to Collections",
-    "discover": "Discover Recipes"
+    "newPlan": "New plan"
   },
   "allStates": "All regions",
   "browse": {

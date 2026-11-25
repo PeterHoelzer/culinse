@@ -11,7 +11,6 @@
     "getStarted": "Zaczynajmy",
     "join": "Dołącz",
     "logout": "Wyloguj się",
-    "upgrade": "Przejdź na Pro",
     "myRecipes": "Moje przepisy",
     "calculator": "Kalkulator",
     "myRecipesShort": "Przepisy",
@@ -275,21 +274,7 @@
     "progress1": "Dobry początek — jeszcze 2 kroki",
     "progress2": "Prawie gotowe — jeszcze 1 krok",
     "progress3": "Profil kompletny — sekcja Dla ciebie jest aktywna!",
-    "planPro": "Culinse Pro",
-    "planFree": "Plan darmowy",
-    "renews": "Odnawia się {date}",
-    "active": "Aktywny",
-    "free": "Darmowy",
-    "proFeatures": [
-      "Nieograniczone kolekcje",
-      "Tygodniowy plan posiłków",
-      "Inteligentna lista zakupów",
-      "Zapisywanie przepisów bez limitu",
-      "Pierwszeństwo do nowych funkcji"
-    ],
     "loading": "Ładowanie…",
-    "manageSubscription": "Zarządzaj subskrypcją",
-    "upgradeButton": "Przejdź na Pro — €4,99 / mies.",
     "dietTitle": "Dieta",
     "dietSub": "Pokazuj tylko przepisy, które pasują do twojego stylu życia.",
     "activeLabel": "Aktywne",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "Nowa kolekcja",
     "creating": "Tworzenie…",
     "create": "Utwórz kolekcję",
-    "upgradeTitle": "Nieograniczone kolekcje",
-    "upgradeSubtext": "Plan darmowy obejmuje 1 kolekcję z maksymalnie 10 przepisami. Przejdź na Pro, aby mieć wszystko bez limitu.",
-    "upgradeButton": "Przejdź na Pro",
     "createFirst": "Utwórz pierwszą kolekcję",
     "groupDesc": "Grupuj ulubione przepisy w kolekcje — jak playlisty dla jedzenia.",
     "counter": "{count, plural, one {# kolekcja} few {# kolekcje} many {# kolekcji} other {# kolekcji}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "np. Włoskie ulubione",
     "descPlaceholder": "Krótki opis…",
     "iconLabel": "Ikona",
-    "upgradePro": "Przejdź na Pro",
     "loading": "Ładowanie…",
     "recipeCount": "{count, plural, one {# przepis} few {# przepisy} many {# przepisów} other {# przepisów}}",
     "detailBack": "Moje kolekcje",
@@ -446,7 +427,6 @@
     "tapToAdd": "Dotknij pola, aby dodać przepis.",
     "mealsPlanned": "{n}/21 zaplanowanych posiłków",
     "namePlanPlaceholder": "Nazwij plan…",
-    "proMorePlans": "Pro — więcej planów",
     "newPlan": "Nowy plan",
     "dragHint": "Wskazówka: przenoś lub zamieniaj posiłki metodą Drag & Drop.",
     "move": "Przenieś",
@@ -462,9 +442,6 @@
     "emptySub": "Dotknij pola, aby dodać przepis ze swoich zapisanych przepisów.",
     "myRecipes": "Moje przepisy",
     "collections": "Kolekcje",
-    "proModalTitle": "Więcej planów z Pro",
-    "proModalSub": "Z Culinse Pro możesz tworzyć nieograniczoną liczbę planów posiłków.",
-    "proModalButton": "Przejdź na Pro — €4,99 / mies.",
     "cancel": "Anuluj",
     "deletePlanConfirm": "Usunąć plan? Wszystkie wpisy przepadną."
   },
@@ -556,98 +533,6 @@
       "error": "Nie udało się zapisać. Spróbuj ponownie."
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Odblokuj pełne doświadczenie Culinse.",
-    "price": "€4,99 / mies.",
-    "features": [
-      "Pełny 7-dniowy planer tygodnia",
-      "Automatyczna lista zakupów ze zsumowanymi ilościami",
-      "Nieograniczone kolekcje przepisów",
-      "Priorytetowe wsparcie"
-    ],
-    "upgradeButton": "Przejdź na Pro",
-    "processing": "Przetwarzanie…",
-    "currentPlan": "Twój obecny plan: Pro",
-    "manageButton": "Zarządzaj abonamentem",
-    "heroTitle": "Twoja kuchnia,\nw pełni zorganizowana.",
-    "heroSubtitle": "Zaplanuj swój tydzień, stwórz listę zakupów i uporządkuj każdy przepis, który kochasz — wszystko w jednym miejscu.",
-    "alreadyPro": "Masz już Pro!",
-    "freeForAllBadge": "Wszystkie funkcje Pro są teraz za darmo",
-    "freeForAllNote": "Właśnie rozbudowujemy Culinse — wszystkie funkcje Pro są odblokowane dla wszystkich użytkowników. Po prostu zaloguj się i planuj, całkiem bez abonamentu.",
-    "startButton": "Testuj 7 dni za darmo",
-    "cancelNote": "7 dni za darmo · Płatność dopiero potem · Rezygnacja w każdej chwili",
-    "legalNote": "Obowiązują nasz",
-    "legalAnd": "oraz",
-    "agbLabel": "Regulamin",
-    "widerrufLabel": "Pouczenie o odstąpieniu od umowy",
-    "activeNote": "Korzystasz z Culinse Pro",
-    "freeLabel": "Darmowy",
-    "proLabel": "Pro",
-    "everythingInFree": "Wszystko z planu darmowego, plus:",
-    "faqTitle": "FAQ",
-    "faqItems": [
-      {
-        "q": "Czy mogę zrezygnować w każdej chwili?",
-        "a": "Tak, w każdej chwili przez swój profil. Dostęp do Pro zachowujesz do końca swojego okresu rozliczeniowego."
-      },
-      {
-        "q": "Jakie metody płatności są akceptowane?",
-        "a": "Wszystkie popularne karty kredytowe i debetowe przez Stripe. Bezpiecznie, szyfrowane, zgodnie z PCI."
-      },
-      {
-        "q": "Co dzieje się z moimi kolekcjami, gdy zrezygnuję?",
-        "a": "Twoje kolekcje pozostają zapisane. Nie utworzysz tylko nowych ponad darmowy limit."
-      },
-      {
-        "q": "Czy jest darmowy okres próbny?",
-        "a": "Tak — testujesz Pro przez 7 dni za darmo. Płatność pobierana jest dopiero po zakończeniu okresu próbnego, a wcześniej możesz zrezygnować w każdej chwili."
-      }
-    ],
-    "freeFeatures": [
-      "Wszystkie przepisy: ponad 4000 dań",
-      "Wyszukiwanie & filtry wg diety, czasu, kuchni",
-      "Zapisywanie przepisów",
-      "1 kolekcja (do 10 przepisów)"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "Nieograniczone kolekcje",
-        "sub": "Uporządkuj ulubione dokładnie tak, jak chcesz"
-      },
-      {
-        "icon": "",
-        "label": "Tygodniowy planer posiłków",
-        "sub": "Zaplanuj śniadanie, obiad & kolację na cały tydzień"
-      },
-      {
-        "icon": "",
-        "label": "Inteligentna lista zakupów",
-        "sub": "Tworzona automatycznie z twojego planu, posortowana wg kategorii"
-      },
-      {
-        "icon": "",
-        "label": "Zapisywanie przepisów bez limitu",
-        "sub": "Żadnego limitu 25 przepisów — zapisuj wszystko, co ci smakuje"
-      },
-      {
-        "icon": "",
-        "label": "Priorytet przy nowych funkcjach",
-        "sub": "Pierwszy dostęp do wszystkiego, co zbudujemy w następnej kolejności"
-      }
-    ],
-    "questions": "Pytania?",
-    "annualLabel": "Rocznie",
-    "monthlyLabel": "Miesięcznie",
-    "annualSave": "Oszczędzasz 35%",
-    "annualPrice": "€3,24 / mies.",
-    "annualTotal": "€38,88 / rok",
-    "monthlyPrice": "€4,99 / mies.",
-    "annualStartButton": "Testuj 7 dni za darmo",
-    "billedAnnually": "Rozliczane rocznie",
-    "billedMonthly": "Rozliczane miesięcznie"
-  },
   "blog": {
     "title": "Blog Culinse",
     "subtitle": "Porady, poradniki i pomysły na mądrzejsze gotowanie.",
@@ -676,31 +561,27 @@
     "emailLabel": "Adres e-mail"
   },
   "loginPrompt": {
-    "title": "Zapisz przepis",
-    "subtitle": "Załóż darmowe konto, aby zapisywać przepisy i łatwo do nich wracać.",
+    "title": "Zaloguj się za darmo",
+    "subtitle": "Wszystko w Culinse jest darmowe. Zaloguj się, aby zapisywać przepisy i korzystać z kolekcji, planera tygodnia i listy zakupów.",
     "login": "Zaloguj się",
     "signup": "Zarejestruj się za darmo",
     "cancel": "Anuluj"
+  },
+  "freeAccess": {
+    "text": "Wszystko w Culinse jest darmowe. Aby zapisywać przepisy i korzystać z kolekcji, planera tygodnia, listy zakupów i własnych przepisów, wystarczy darmowe konto.",
+    "link": "Zaloguj się za darmo"
   },
   "modals": {
     "ad": "Reklama",
     "shop": "Shop",
     "kitchenTools": "Akcesoria kuchenne",
     "affiliateLinks": "* Linki afiliacyjne",
-    "upgradeTitle": "Przejdź na Pro",
-    "upgradeMessage": "Masz już 25 zapisanych przepisów, czyli limit planu darmowego. Przejdź na Pro, aby zapisywać bez limitu, tworzyć kolekcje i korzystać z więcej funkcji.",
-    "seePlans": "Zobacz plany Pro",
-    "maybeLater": "Może później",
-    "proFeature": "Funkcja Pro",
-    "proUnlock": "Przejdź na Pro, aby odblokować to i więcej.",
-    "proFrom": "Od 4,99 €/mies.",
     "addToCollection": "Dodaj do kolekcji",
     "noCollections": "Nie masz jeszcze kolekcji",
     "createOneBelow": "Utwórz jedną poniżej",
     "collectionNamePlaceholder": "Nazwa kolekcji…",
     "create": "Utwórz",
     "newCollection": "Nowa kolekcja",
-    "fullUpgrade": "Pełna — przejdź na Pro po więcej",
     "cancel": "Anuluj",
     "loading": "Ładowanie…",
     "addToPlanHeader": "Dodaj do planu tygodnia",
@@ -708,7 +589,6 @@
     "day": "Dzień",
     "meal": "Posiłek",
     "planNamePlaceholder": "Nazwij swój plan…",
-    "proMorePlans": "Pro — więcej planów",
     "saving": "Zapisywanie…",
     "addToPlanButton": "Dodaj do planu",
     "chooseRecipeFor": "Wybierz przepis na",
@@ -732,16 +612,7 @@
     "close": "Zamknij",
     "collectionName": "Nazwa kolekcji",
     "planName": "Nazwa planu",
-    "newPlan": "Nowy plan",
-    "upgradeFeatureSave": "Zapisuj przepisy bez limitu",
-    "upgradeFeatureCollections": "Kolekcje bez limitu",
-    "upgradeFeaturePlans": "Kilka planów tygodniowych"
-  },
-  "proSuccess": {
-    "title": "Witaj w Culinse Pro!",
-    "subtitle": "Twój abonament jest aktywny. Masz teraz dostęp do nieograniczonych kolekcji, planera tygodnia i inteligentnych list zakupów.",
-    "goCollections": "Do moich kolekcji",
-    "discover": "Odkrywaj przepisy"
+    "newPlan": "Nowy plan"
   },
   "allStates": "Wszystkie regiony",
   "browse": {

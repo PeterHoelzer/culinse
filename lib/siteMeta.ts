@@ -6,7 +6,7 @@
   sind seit 13.09.2026 abgeklemmt). Die frühere Aussage "Millionen Rezepte von
   den besten Food-Seiten" stimmte nicht mehr und las sich wie eine Sammelseite.
   Die Zahl nennt die Gerichte je Sprache (11.11.2026: 4.389 nach Spanien, China und Frankreich);
-  bei 5.000 Gerichten anpassen. Dieselbe Zahl steht in messages (pro.freeFeatures), in den
+  bei 5.000 Gerichten anpassen. Dieselbe Zahl steht in den
   beiden opengraph-image.tsx und in den Blogtexten.
 */
 export const SITE_DESCRIPTION: Record<string, string> = {

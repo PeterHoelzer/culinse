@@ -406,13 +406,6 @@ export default async function BlogPostPage({ params }: Props) {
                   ? "Was kostet dein Wocheneinkauf? Echte Discounter-Preise, kostenlos."
                   : "What does your weekly shop cost? Real discount-store prices, free.",
               },
-              {
-                href: "pro",
-                title: locale === "de" ? "Culinse Pro, 7 Tage gratis testen" : "Culinse Pro, try 7 days free",
-                text: locale === "de"
-                  ? "Unbegrenzte Sammlungen, mehrere Wochenpläne und unbegrenzt gespeicherte Rezepte."
-                  : "Unlimited collections, multiple meal plans, and unlimited saved recipes.",
-              },
             ].map((item) => (
               <li key={item.href} className="border-t border-line">
                 <Link href={`/${locale}/${item.href}`} className="group block py-4">

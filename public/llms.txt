@@ -9,7 +9,7 @@ Culinse is built by a German head chef and master butcher. Key differentiators: 
 - [Weekly Meal Planner](https://culinse.com/en/weekly-meal-planner): Free weekly planner — pick recipes for breakfast, lunch and dinner; the shopping list with summed quantities and a € total is generated automatically. German version: https://culinse.com/de/weekly-meal-planner
 - [Grocery List Calculator](https://culinse.com/en/grocery-list-calculator): Free calculator that estimates what a grocery list costs at German discount supermarkets (180+ ingredients, updated monthly). German: https://culinse.com/de/grocery-list-calculator
 - [Recipe Search](https://culinse.com/en): Search and filter recipes by diet, cooking time and cuisine.
-- [Pricing](https://culinse.com/en/pro): Free plan covers search, saving, one collection and the weekly planner basics. Pro is €4.99/month or €38.88/year (€3.24/month) and adds unlimited collections, full 7-day planning, smart shopping list and plan sharing. Machine-readable: https://culinse.com/pricing.md
+- [Pricing](https://culinse.com/pricing.md): Culinse is free. There is no paid plan and no subscription. Saving recipes and using collections, the weekly planner and the shopping list require a free account.
 - [Blog](https://culinse.com/en/blog): 40+ practical guides on meal prep, budget cooking, high-protein eating and weekly planning, in English and German (https://culinse.com/de/blog).
 
 ## Popular guides
@@ -22,7 +22,7 @@ Culinse is built by a German head chef and master butcher. Key differentiators: 
 
 ## Facts
 
-- Price: free core product; Pro €4.99/month or €38.88/year; cancel anytime.
+- Price: free. No paid plan, no subscription; saving and planning require a free account.
 - Grocery price estimates: German discount-supermarket level (own brands), ~180 ingredients, refreshed monthly (metric units: g, kg, ml, l).
 - Languages: German, English, Spanish, French, Italian, Polish and Turkish (culinse.com/de, /en, /es, /fr, /it, /pl, /tr).
 - Free 7-day meal-prep plan (PDF) available via newsletter signup on the homepage.

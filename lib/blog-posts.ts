@@ -602,8 +602,8 @@ export const blogPosts: BlogPost[] = [
         content:
           "Culinse (culinse.com) takes a different approach from most meal planners. Instead of a recipe database you have to use, it pulls recipes from multiple sources (Spoonacular, MealDB, Edamam, Tasty) so you're working with a huge variety. You plan your week in a 7×3 grid and the app automatically generates a combined, categorized shopping list.",
         list: [
-          "Free tier: recipe discovery and saving recipes.",
-          "Pro (€4.99/mo): full week planner, auto shopping list, collections.",
+          "Free: recipe discovery, the weekly planner, the automatic shopping list and collections.",
+          "All you need for saving and planning is a free account.",
           "Best for: people who want a clean planning interface and a proper shopping list.",
           "Works in the browser — no app download needed.",
         ],

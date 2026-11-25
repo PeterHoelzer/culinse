@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Button from "@/components/ui/Button";
+import FreeAccountNote from "@/components/FreeAccountNote";
 
 // Public, server-rendered SEO landing page for the meal-planner feature.
 //
@@ -143,7 +144,7 @@ function getCopy(locale: string): Copy {
         {
           question: "Ist der Wochenplaner mit Einkaufsliste kostenlos?",
           answer:
-            "Ja. Rezepte entdecken, die Woche planen und die automatische Einkaufsliste erstellen sind bei Culinse kostenlos und ohne Abo nutzbar.",
+            "Ja. Rezepte entdecken, die Woche planen und die automatische Einkaufsliste erstellen sind bei Culinse kostenlos und ohne Abo nutzbar. Zum Planen und Speichern brauchst du nur ein kostenloses Konto.",
         },
         {
           question: "Wie wird die Einkaufsliste erstellt?",
@@ -225,7 +226,7 @@ function getCopy(locale: string): Copy {
       {
         question: "Is the weekly meal planner with shopping list free?",
         answer:
-          "Yes. Discovering recipes, planning your week, and generating the automatic shopping list are all free on Culinse, with no subscription required.",
+          "Yes. Discovering recipes, planning your week, and generating the automatic shopping list are all free on Culinse, with no subscription required. All you need for planning and saving is a free account.",
       },
       {
         question: "How is the shopping list generated?",
@@ -306,6 +307,8 @@ export default async function WeeklyMealPlannerPage({ params }: Props) {
             <Button href="/meal-planner">{c.ctaPrimary}</Button>
             <Button href="/" variant="secondary">{c.ctaSecondary}</Button>
           </div>
+          {/* Hier landet auch, wer die frühere Pro-Seite aufruft (next.config.ts). */}
+          <FreeAccountNote className="mt-6" />
         </header>
 
         <div className="max-w-prose">

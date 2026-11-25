@@ -13,7 +13,6 @@ import { estimateRecipeCost, formatEstPrice } from "@/lib/ingredient-prices";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import AddToPlanModal from "@/components/AddToPlanModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
-import UpgradeModal from "@/components/UpgradeModal";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { Link as LocaleLink } from "@/lib/navigation";
 import type { DishColors } from "@/app/[locale]/components/home-types";
@@ -344,7 +343,6 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
   const [copied, setCopied] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const [showUpgrade, setShowUpgrade] = useState(false);
   const [printWithImage, setPrintWithImage] = useState(false);
   const [showPrintMenu, setShowPrintMenu] = useState(false);
   const [showPlanModal, setShowPlanModal] = useState(false);
@@ -475,13 +473,6 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
             time: recipe.time,
           }),
         });
-        if (res.status === 403) {
-          const data = await res.json();
-          if (data.error === "limit_reached") {
-            setShowUpgrade(true);
-            return;
-          }
-        }
         if (res.ok) setSaved(true);
       }
     } finally {
@@ -634,9 +625,6 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
       {/* Login Prompt Modal */}
       {showLoginPrompt && (
         <LoginPromptModal onClose={() => setShowLoginPrompt(false)} />
-      )}
-      {showUpgrade && (
-        <UpgradeModal onClose={() => setShowUpgrade(false)} />
       )}
 
       {/* Add to Meal Plan Modal (Aktionsleiste + Sticky-Button) */}

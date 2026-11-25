@@ -58,6 +58,8 @@ export function pageKind(rest: string): PageKind {
   if (PLANNER.test(rest)) return "planner";
   if (LIBRARY.test(rest)) return "library";
   if (ACCOUNT.test(rest)) return "account";
+  // Die Pro-Seite gibt es seit 25.11.2026 nicht mehr (Weiterleitung in next.config.ts).
+  // Die Art "pro" bleibt, weil ältere Zeilen in page_views sie tragen.
   if (rest === "/pro" || rest.startsWith("/pro/")) return "pro";
   if (INFO.test(rest)) return "info";
   return "other";

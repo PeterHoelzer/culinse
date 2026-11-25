@@ -11,10 +11,8 @@ NEXT_PUBLIC_AMAZON_AFFILIATE_TAG=
 # --- Nur zur Laufzeit (geheim) ---
 SUPABASE_SERVICE_ROLE_KEY=      # Server-Schlüssel zur obigen Supabase-Adresse (in Stufe 2 der neue)
 INTERNAL_API_URL=               # http://127.0.0.1:3000 – eigene API ohne Umweg über das Internet. NICHT als Bau-Variable setzen
-STRIPE_SECRET_KEY=
+STRIPE_SECRET_KEY=              # nur noch für früher abgeschlossene Abos (Webhook, Kundenportal); seit 25.11.2026 kein Kaufweg mehr
 STRIPE_WEBHOOK_SECRET=
-STRIPE_PRICE_ID=
-STRIPE_ANNUAL_PRICE_ID=
 DEEPL_API_KEY=
 MYMEMORY_EMAIL=
 MONEY_STATS_KEY=

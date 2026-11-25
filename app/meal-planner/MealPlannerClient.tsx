@@ -1,5 +1,4 @@
 "use client";
-import ProBadge from "@/components/ProBadge";
 
 import Image from "next/image";
 import { useState, useEffect, useCallback, useMemo } from "react";
@@ -10,7 +9,6 @@ import { Link } from "@/lib/navigation";
 import { Button, Chip, ChipRow, EmptyState, Icon, Input, Checkbox, Notice, SectionHeader, Select, Skeleton } from "@/components/ui";
 import PlanRecipePickerModal from "@/components/PlanRecipePickerModal";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
-import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 interface Plan {
   id: string;
@@ -42,15 +40,12 @@ interface PickerTarget {
   slot: "breakfast" | "lunch" | "dinner";
 }
 
-const FREE_PLAN_LIMIT = 1;
-
 const stripPlus = (label: string) => label.replace(/^\+\s*/, "");
 
 export default function MealPlannerPage() {
   const t = useTranslations("mealPlanner");
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
-  const [isPro, setIsPro] = useState(false);
   const [plans, setPlans] = useState<Plan[]>([]);
   const [activePlanId, setActivePlanId] = useState<string>("");
   const [entries, setEntries] = useState<Entry[]>([]);
@@ -63,7 +58,6 @@ export default function MealPlannerPage() {
   const [moveFrom, setMoveFrom] = useState<{ day: number; slot: string } | null>(null);
   const [copyingWeek, setCopyingWeek] = useState(false);
   const [currentWeekStart, setCurrentWeekStart] = useState<string>("");
-  const [showProModal, setShowProModal] = useState(false);
   const [pickerTarget, setPickerTarget] = useState<PickerTarget | null>(null);
   const [showShoppingList, setShowShoppingList] = useState(false);
   const [sharing, setSharing] = useState(false);
@@ -140,13 +134,8 @@ export default function MealPlannerPage() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { window.location.href = "/login"; return; }
 
-      const [{ data: plansData }, { data: profile }] = await Promise.all([
-        supabase.from("meal_plans").select("*").eq("user_id", user.id).order("created_at"),
-        supabase.from("profiles").select("is_pro").eq("id", user.id).single(),
-      ]);
-
-      const pro = FREE_FOR_ALL || (profile?.is_pro ?? false);
-      setIsPro(pro);
+      const { data: plansData } = await supabase
+        .from("meal_plans").select("*").eq("user_id", user.id).order("created_at");
 
       let list: Plan[] = plansData || [];
 
@@ -213,7 +202,6 @@ export default function MealPlannerPage() {
   };
 
   const handleCreatePlan = async () => {
-    if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
     if (!newPlanName.trim()) return;
 
     const res = await fetch("/api/meal-plans", {
@@ -222,7 +210,6 @@ export default function MealPlannerPage() {
       body: JSON.stringify({ name: newPlanName.trim(), is_active: false }),
     });
 
-    if (res.status === 403) { setShowProModal(true); setCreatingPlan(false); setNewPlanName(""); return; }
     if (!res.ok) return;
 
     const { plan } = await res.json();
@@ -312,7 +299,6 @@ export default function MealPlannerPage() {
   // to it — handy for reusing a week as a template or starting the next week.
   const handleCopyWeek = async () => {
     if (copyingWeek) return;
-    if (!isPro && plans.length >= FREE_PLAN_LIMIT) { setShowProModal(true); return; }
     if (entries.length === 0) return;
     setCopyingWeek(true);
     try {
@@ -324,7 +310,6 @@ export default function MealPlannerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: copyName, is_active: false }),
       });
-      if (res.status === 403) { setShowProModal(true); return; }
       if (!res.ok) return;
       const { plan } = await res.json();
       if (!plan) return;
@@ -553,7 +538,6 @@ export default function MealPlannerPage() {
   };
 
   const de = locale === "de";
-  const atPlanLimit = !isPro && plans.length >= FREE_PLAN_LIMIT;
   const isCurrentWeek = currentWeekStart === todayMonday();
 
   if (loading) {
@@ -663,11 +647,9 @@ export default function MealPlannerPage() {
                 <Button variant="icon" size="sm" icon="x" aria-label={t("cancel")} onClick={() => setCreatingPlan(false)} />
               </div>
             ) : (
-              !atPlanLimit && (
-                <Button variant="secondary" size="sm" icon="plus" className="shrink-0" onClick={() => setCreatingPlan(true)}>
-                  {stripPlus(t("newPlan"))}
-                </Button>
-              )
+              <Button variant="secondary" size="sm" icon="plus" className="shrink-0" onClick={() => setCreatingPlan(true)}>
+                {stripPlus(t("newPlan"))}
+              </Button>
             )}
 
             {totalEntries > 0 && !creatingPlan && (
@@ -677,18 +659,6 @@ export default function MealPlannerPage() {
             )}
           </ChipRow>
         </div>
-
-        {atPlanLimit && (
-          <Notice tone="info" className="mb-4">
-            <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <ProBadge feature="Multiple meal plans" />
-              <span>{t("proMorePlans")}</span>
-              <button type="button" onClick={() => setShowProModal(true)} className="font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]">
-                {t("proModalTitle")}
-              </button>
-            </span>
-          </Notice>
-        )}
 
         {/* Wochennavigation */}
         {weekInfo && (
@@ -884,18 +854,6 @@ export default function MealPlannerPage() {
         </PlannerDialog>
       )}
 
-      {/* Pro modal */}
-      {showProModal && (
-        <PlannerDialog titleId="pro-plan-title" onClose={() => setShowProModal(false)}>
-          <ProBadge className="mb-3" />
-          <h2 id="pro-plan-title" className="text-h2-sm">{t("proModalTitle")}</h2>
-          <p className="mt-1 mb-5 text-base text-ink-2">{t("proModalSub")}</p>
-          <div className="flex flex-wrap gap-3">
-            <Button href="/pro">{t("proModalButton")}</Button>
-            <Button variant="secondary" onClick={() => setShowProModal(false)}>{t("cancel")}</Button>
-          </div>
-        </PlannerDialog>
-      )}
     </div>
   );
 }

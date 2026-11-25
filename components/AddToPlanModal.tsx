@@ -45,7 +45,6 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
   const [selectedSlot, setSelectedSlot] = useState<string>("dinner");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [isPro, setIsPro] = useState(false);
   const [loading, setLoading] = useState(true);
   const [creatingPlan, setCreatingPlan] = useState(false);
   const [newPlanName, setNewPlanName] = useState("");
@@ -55,14 +54,11 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      const [{ data: plansData }, { data: profile }] = await Promise.all([
-        supabase.from("meal_plans").select("*").eq("user_id", user.id).order("created_at"),
-        supabase.from("profiles").select("is_pro").eq("id", user.id).single(),
-      ]);
+      const { data: plansData } = await supabase
+        .from("meal_plans").select("*").eq("user_id", user.id).order("created_at");
 
       const list = plansData || [];
       setPlans(list);
-      setIsPro(profile?.is_pro ?? false);
 
       // Select active plan or first
       const active = list.find((p: Plan) => p.is_active);
@@ -152,29 +148,23 @@ export default function AddToPlanModal({ recipe, onClose }: AddToPlanModalProps)
                   {p.name}
                 </Chip>
               ))}
-              {isPro ? (
-                creatingPlan ? (
-                  <div className="flex w-full items-end gap-2">
-                    <Input
-                      autoFocus
-                      label={text("planName", "Name des Plans", "Plan name")}
-                      value={newPlanName}
-                      onChange={e => setNewPlanName(e.target.value)}
-                      onKeyDown={e => e.key === "Enter" && handleCreatePlan()}
-                      placeholder={t("planNamePlaceholder")}
-                      className="min-w-0 flex-1"
-                    />
-                    <Button variant="icon" icon="check" aria-label={t("create")} onClick={handleCreatePlan} disabled={!newPlanName.trim()} />
-                    <Button variant="icon" icon="x" aria-label={t("cancel")} onClick={() => setCreatingPlan(false)} />
-                  </div>
-                ) : (
-                  <Chip icon="plus" onClick={() => setCreatingPlan(true)}>
-                    {text("newPlan", "Neuer Plan", "New plan")}
-                  </Chip>
-                )
-              ) : plans.length >= 1 && (
-                <Chip icon="lock" onClick={() => { window.location.assign("/pro"); }}>
-                  {t("proMorePlans")}
+              {creatingPlan ? (
+                <div className="flex w-full items-end gap-2">
+                  <Input
+                    autoFocus
+                    label={text("planName", "Name des Plans", "Plan name")}
+                    value={newPlanName}
+                    onChange={e => setNewPlanName(e.target.value)}
+                    onKeyDown={e => e.key === "Enter" && handleCreatePlan()}
+                    placeholder={t("planNamePlaceholder")}
+                    className="min-w-0 flex-1"
+                  />
+                  <Button variant="icon" icon="check" aria-label={t("create")} onClick={handleCreatePlan} disabled={!newPlanName.trim()} />
+                  <Button variant="icon" icon="x" aria-label={t("cancel")} onClick={() => setCreatingPlan(false)} />
+                </div>
+              ) : (
+                <Chip icon="plus" onClick={() => setCreatingPlan(true)}>
+                  {text("newPlan", "Neuer Plan", "New plan")}
                 </Chip>
               )}
             </div>

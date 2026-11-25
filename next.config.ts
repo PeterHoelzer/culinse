@@ -138,6 +138,7 @@ const nextConfig: NextConfig = {
   },
   // www.culinse.com zeigte die ganze Seite ein zweites Mal (200 statt
   // Weiterleitung). Eine Adresse je Seite: dauerhaft auf culinse.com.
+  // Darunter: die Adressen der früheren Pro-Seite.
   async redirects() {
     return [
       {
@@ -146,6 +147,16 @@ const nextConfig: NextConfig = {
         destination: "https://culinse.com/:path*",
         permanent: true,
       },
+      // Die Pro-Seite gibt es seit 25.11.2026 nicht mehr: Alle Funktionen sind
+      // kostenlos. Ihre Adresse steht bei Google im Index, deshalb kein 404,
+      // sondern dauerhaft weiter: auf Deutsch und Englisch zur Seite über den
+      // Wochenplaner (dasselbe Thema, nur in diesen beiden Sprachen übersetzt),
+      // in den übrigen Sprachen zur Startseite.
+      { source: "/:locale(de|en)/pro", destination: "/:locale/weekly-meal-planner", permanent: true },
+      { source: "/:locale([a-z]{2})/pro", destination: "/:locale", permanent: true },
+      { source: "/:locale([a-z]{2})/pro/:rest+", destination: "/:locale", permanent: true },
+      { source: "/pro", destination: "/", permanent: true },
+      { source: "/pro/:rest+", destination: "/", permanent: true },
     ];
   },
   async headers() {

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Wordmark from "@/components/ui/Wordmark";
 
-// Widerrufsbelehrung fuer das Culinse-Pro-Abo (Verbraucher, digitale Dienstleistung).
+// Widerrufsbelehrung fuer das fruehere Culinse-Pro-Abo (Verbraucher, digitale Dienstleistung).
+// Seit 25.11.2026 gibt es kein kostenpflichtiges Angebot mehr; die Belehrung bleibt fuer
+// frueher abgeschlossene Vertraege stehen, bis Peter ueber die Rechtstexte entschieden hat.
 
 export async function generateMetadata({
   params,
@@ -14,8 +16,8 @@ export async function generateMetadata({
   return {
     title: de ? "Widerrufsbelehrung" : "Cancellation Policy",
     description: de
-      ? "Widerrufsbelehrung und Muster-Widerrufsformular für Culinse Pro."
-      : "Right of withdrawal and model withdrawal form for Culinse Pro.",
+      ? "Widerrufsbelehrung und Muster-Widerrufsformular für früher abgeschlossene Abos bei Culinse."
+      : "Right of withdrawal and model withdrawal form for subscriptions taken out with Culinse in the past.",
     alternates: {
       canonical: `https://culinse.com/${locale}/widerruf`,
       languages: {
@@ -75,9 +77,14 @@ Date:
         </div>
       </nav>
       <main className="max-w-prose mx-auto px-4 py-12">
-        <h1 className="text-h1-sm sm:text-h1 mb-10">
+        <h1 className="text-h1-sm sm:text-h1 mb-6">
           {de ? "Widerrufsbelehrung" : "Cancellation Policy"}
         </h1>
+        <p className="text-base text-ink leading-relaxed mb-10">
+          {de
+            ? "Culinse ist für alle kostenlos; ein kostenpflichtiges Angebot gibt es nicht mehr. Diese Widerrufsbelehrung gilt nur noch für früher abgeschlossene Abos von Culinse Pro."
+            : "Culinse is free for everyone; there is no longer a paid offering. This cancellation policy only applies to Culinse Pro subscriptions taken out in the past."}
+        </p>
 
         <section>
           <h2 className="text-h2-sm mt-10 mb-3">
@@ -130,7 +137,7 @@ Date:
         </p>
 
         <p className="text-caption text-ink-3">
-          {de ? "Stand: August 2026" : "Last updated: August 2026"}
+          {de ? "Stand: November 2026" : "Last updated: November 2026"}
         </p>
       </main>
     </div>

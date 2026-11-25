@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { sanitizeRecipeInput } from "@/lib/userRecipeInput";
-import { FREE_FOR_ALL } from "@/lib/freeMode";
-
-const FREE_RECIPE_LIMIT = 5;
 
 export async function GET(req: NextRequest) {
   const supabase = await createClient();
@@ -28,23 +25,6 @@ export async function POST(req: NextRequest) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const { data: profile } = await supabase
-    .from("profiles").select("is_pro").eq("id", user.id).single();
-  const isPro = FREE_FOR_ALL || (profile?.is_pro ?? false);
-
-  if (!isPro) {
-    const { count } = await supabase
-      .from("user_recipes")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id);
-    if ((count ?? 0) >= FREE_RECIPE_LIMIT) {
-      return NextResponse.json(
-        { error: "limit_reached", limit: FREE_RECIPE_LIMIT },
-        { status: 403 }
-      );
-    }
-  }
 
   let body: Record<string, unknown>;
   try {

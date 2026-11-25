@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { FREE_FOR_ALL } from "@/lib/freeMode";
-
-const FREE_PLAN_LIMIT = 1;
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
@@ -11,30 +8,6 @@ export async function POST(req: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  // Check Pro status
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("is_pro")
-    .eq("id", user.id)
-    .single();
-
-  const isPro = FREE_FOR_ALL || (profile?.is_pro ?? false);
-
-  // Count existing plans
-  const { count } = await supabase
-    .from("meal_plans")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", user.id);
-
-  const planCount = count ?? 0;
-
-  if (!isPro && planCount >= FREE_PLAN_LIMIT) {
-    return NextResponse.json(
-      { error: "Free users can only have one meal plan. Upgrade to Pro for unlimited plans." },
-      { status: 403 }
-    );
   }
 
   // Parse body

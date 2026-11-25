@@ -42,7 +42,6 @@ export default function robots(): MetadataRoute.Robots {
           // die Themenseiten (/recipes/<slug>) bleiben frei.
           "/*/recipes?",
           "/*/collections$", // user's own collections index only — explore + /collections/<id> stay crawlable
-          "/*/pro/success",
           "/*/reset-password",
           "/*/update-password",
           "/update-password",

@@ -5,7 +5,6 @@ import { useLocale, useTranslations } from "next-intl";
 import type { User } from "@supabase/supabase-js";
 import dynamic from "next/dynamic";
 import LoginPromptModal from "@/components/LoginPromptModal";
-import UpgradeModal from "@/components/UpgradeModal";
 import { Link } from "@/lib/navigation";
 import { displayTitle } from "@/lib/recipeTitle";
 import { Button, Icon } from "@/components/ui";
@@ -30,7 +29,6 @@ export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: nu
   const [imgError, setImgError] = useState(false);
   const [showCollectionModal, setShowCollectionModal] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-  const [showUpgrade, setShowUpgrade] = useState(false);
 
   const handleSave = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -55,14 +53,6 @@ export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: nu
           time: recipe.time,
         }),
       });
-      if (res.status === 403) {
-        const data = await res.json();
-        if (data.error === "limit_reached") {
-          // Statt alert(): der vorhandene Upgrade-Dialog erklärt das Limit.
-          setShowUpgrade(true);
-          return;
-        }
-      }
       if (res.ok) setSaved(true);
     }
   };
@@ -182,7 +172,6 @@ export default function RecipeCard({ recipe, user }: { recipe: Recipe; index: nu
         <LoginPromptModal onClose={() => setShowLoginPrompt(false)} />
       )}
 
-      {showUpgrade && <UpgradeModal onClose={() => setShowUpgrade(false)} />}
     </Fragment>
   );
 }

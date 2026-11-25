@@ -107,9 +107,6 @@ export default function DatenschutzContent() {
             <a href="https://www.youronlinechoices.eu" target="_blank" rel="noopener noreferrer" className="text-brand underline underline-offset-[3px] hover:text-brand-hover">youronlinechoices.eu</a>{" "}
             abschalten.
           </p>
-          <p className="text-base text-ink leading-relaxed">
-            Mitgliedern mit Culinse Pro werden keine Anzeigen eingeblendet.
-          </p>
         </section>
 
         <section>

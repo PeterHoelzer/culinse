@@ -3,10 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { parseRecipeFromUrl } from "@/lib/parseRecipeFromUrl";
 import { isSafePublicUrl } from "@/lib/ssrfGuard";
-import { FREE_FOR_ALL } from "@/lib/freeMode";
-
-// Imports count against the same free quota as user-created recipes.
-const FREE_RECIPE_LIMIT = 5;
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
@@ -35,22 +31,6 @@ export async function POST(req: NextRequest) {
   // (also catches decimal/hex IP forms and DNS records pointing inward).
   if (!(await isSafePublicUrl(target))) {
     return NextResponse.json({ error: "invalid_url" }, { status: 400 });
-  }
-
-  // Free-tier limit (shared with created recipes)
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("is_pro")
-    .eq("id", user.id)
-    .single();
-  if (!FREE_FOR_ALL && !(profile?.is_pro ?? false)) {
-    const { count } = await supabase
-      .from("user_recipes")
-      .select("id", { count: "exact", head: true })
-      .eq("user_id", user.id);
-    if ((count ?? 0) >= FREE_RECIPE_LIMIT) {
-      return NextResponse.json({ error: "limit_reached", limit: FREE_RECIPE_LIMIT }, { status: 403 });
-    }
   }
 
   // Jeder Import ruft eine fremde Website ab: höchstens 30 je Stunde und Konto.

@@ -11,7 +11,6 @@
     "getStarted": "Mulai",
     "join": "Bergabung",
     "logout": "Keluar",
-    "upgrade": "Upgrade",
     "myRecipes": "Resep saya",
     "calculator": "Kalkulator",
     "myRecipesShort": "Resep",
@@ -275,21 +274,7 @@
     "progress1": "Awal yang bagus — tinggal 2 langkah lagi",
     "progress2": "Hampir selesai — tinggal 1 langkah lagi",
     "progress3": "Profil lengkap — fitur “Untukmu” sudah aktif!",
-    "planPro": "Culinse Pro",
-    "planFree": "Paket gratis",
-    "renews": "Diperpanjang otomatis pada {date}",
-    "active": "Aktif",
-    "free": "Gratis",
-    "proFeatures": [
-      "Koleksi tanpa batas",
-      "Rencana menu mingguan",
-      "Daftar belanja pintar",
-      "Simpan resep tanpa batas",
-      "Akses prioritas ke fitur baru"
-    ],
     "loading": "Memuat…",
-    "manageSubscription": "Kelola langganan",
-    "upgradeButton": "Upgrade ke Pro — €4,99 / bulan",
     "dietTitle": "Pola makan",
     "dietSub": "Tampilkan hanya resep yang sesuai dengan gaya hidupmu.",
     "activeLabel": "Aktif",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "Koleksi baru",
     "creating": "Membuat…",
     "create": "Buat koleksi",
-    "upgradeTitle": "Koleksi tanpa batas",
-    "upgradeSubtext": "Paket gratis mencakup 1 koleksi dengan maksimal 10 resep. Upgrade ke Pro untuk menikmati semuanya tanpa batas.",
-    "upgradeButton": "Upgrade ke Pro",
     "createFirst": "Buat koleksi pertama",
     "groupDesc": "Kelompokkan resep favoritmu ke dalam koleksi — ibarat playlist, tetapi untuk makanan.",
     "counter": "{count, plural, other {# koleksi}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "Contoh: Favorit ala Italia",
     "descPlaceholder": "Deskripsi singkat…",
     "iconLabel": "Ikon",
-    "upgradePro": "Upgrade ke Pro",
     "loading": "Memuat…",
     "recipeCount": "{count, plural, other {# resep}}",
     "detailBack": "Koleksi saya",
@@ -446,7 +427,6 @@
     "tapToAdd": "Ketuk salah satu kotak untuk menambahkan resep.",
     "mealsPlanned": "{n}/21 menu direncanakan",
     "namePlanPlaceholder": "Beri nama rencana…",
-    "proMorePlans": "Pro — lebih banyak rencana",
     "newPlan": "Rencana baru",
     "dragHint": "Tip: seret & lepas menu untuk memindahkan atau menukarnya.",
     "move": "Pindahkan",
@@ -462,9 +442,6 @@
     "emptySub": "Ketuk salah satu kotak untuk menambahkan resep dari resep tersimpanmu.",
     "myRecipes": "Resep saya",
     "collections": "Koleksi",
-    "proModalTitle": "Lebih banyak rencana dengan Pro",
-    "proModalSub": "Dengan Culinse Pro, kamu bisa membuat rencana menu tanpa batas.",
-    "proModalButton": "Upgrade ke Pro — €4,99 / bulan",
     "cancel": "Batal",
     "deletePlanConfirm": "Hapus rencana? Semua isinya akan hilang."
   },
@@ -556,98 +533,6 @@
       "error": "Gagal menyimpan. Coba lagi."
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Nikmati pengalaman Culinse secara utuh.",
-    "price": "€4,99 / bulan",
-    "features": [
-      "Perencana menu mingguan lengkap 7 hari",
-      "Daftar belanja otomatis dengan jumlah bahan yang sudah digabungkan",
-      "Koleksi resep tanpa batas",
-      "Dukungan prioritas"
-    ],
-    "upgradeButton": "Upgrade ke Pro",
-    "processing": "Memproses…",
-    "currentPlan": "Paketmu saat ini: Pro",
-    "manageButton": "Kelola langganan",
-    "heroTitle": "Dapurmu,\ntertata sepenuhnya.",
-    "heroSubtitle": "Rencanakan menu mingguanmu, buat daftar belanja, dan atur semua resep favoritmu — semuanya di satu tempat.",
-    "alreadyPro": "Kamu sudah berlangganan Pro!",
-    "freeForAllBadge": "Semua fitur Pro saat ini gratis",
-    "freeForAllNote": "Kami sedang mengembangkan Culinse — seluruh fitur Pro terbuka untuk semua pengguna. Cukup masuk dan mulai merencanakan, tanpa perlu berlangganan.",
-    "startButton": "Coba gratis 7 hari",
-    "cancelNote": "Gratis 7 hari · Tagihan baru dimulai setelahnya · Bisa dibatalkan kapan saja",
-    "legalNote": "Berlaku",
-    "legalAnd": "serta",
-    "agbLabel": "Syarat & Ketentuan",
-    "widerrufLabel": "Informasi Hak Pembatalan",
-    "activeNote": "Kamu sedang menggunakan Culinse Pro",
-    "freeLabel": "Gratis",
-    "proLabel": "Pro",
-    "everythingInFree": "Semua fitur paket Gratis, plus:",
-    "faqTitle": "Pertanyaan umum",
-    "faqItems": [
-      {
-        "q": "Apakah saya bisa membatalkan langganan kapan saja?",
-        "a": "Ya, kamu bisa membatalkannya kapan saja melalui profilmu. Akses Pro tetap berlaku hingga akhir periode penagihanmu."
-      },
-      {
-        "q": "Metode pembayaran apa saja yang diterima?",
-        "a": "Semua kartu kredit dan debit utama melalui Stripe. Aman, terenkripsi, dan sesuai standar PCI."
-      },
-      {
-        "q": "Apa yang terjadi pada koleksi saya jika saya berhenti berlangganan?",
-        "a": "Koleksimu tetap tersimpan. Hanya saja, kamu tidak bisa lagi membuat koleksi baru melebihi batas paket gratis."
-      },
-      {
-        "q": "Apakah ada masa uji coba gratis?",
-        "a": "Ya — kamu bisa mencoba Pro gratis selama 7 hari. Tagihan baru dikenakan setelah masa uji coba berakhir, dan kamu bisa membatalkannya kapan saja sebelum itu."
-      }
-    ],
-    "freeFeatures": [
-      "Semua resep: lebih dari 4.000 hidangan",
-      "Cari & saring berdasarkan pola makan, waktu, dan jenis masakan",
-      "Simpan resep",
-      "1 koleksi (maksimal 10 resep)"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "Koleksi tanpa batas",
-        "sub": "Atur resep favoritmu persis seperti yang kamu mau"
-      },
-      {
-        "icon": "",
-        "label": "Perencana menu mingguan",
-        "sub": "Rencanakan sarapan, makan siang & makan malam untuk seminggu penuh"
-      },
-      {
-        "icon": "",
-        "label": "Daftar belanja pintar",
-        "sub": "Dibuat otomatis dari rencanamu, diurutkan per kategori"
-      },
-      {
-        "icon": "",
-        "label": "Simpan resep tanpa batas",
-        "sub": "Tanpa batas 25 resep — simpan semua yang kamu suka"
-      },
-      {
-        "icon": "",
-        "label": "Prioritas untuk fitur baru",
-        "sub": "Akses pertama ke semua yang kami bangun selanjutnya"
-      }
-    ],
-    "questions": "Ada pertanyaan?",
-    "annualLabel": "Tahunan",
-    "monthlyLabel": "Bulanan",
-    "annualSave": "Hemat 35%",
-    "annualPrice": "€3,24 / bulan",
-    "annualTotal": "€38,88 / tahun",
-    "monthlyPrice": "€4,99 / bulan",
-    "annualStartButton": "Coba gratis 7 hari",
-    "billedAnnually": "Ditagih per tahun",
-    "billedMonthly": "Ditagih per bulan"
-  },
   "blog": {
     "title": "Blog Culinse",
     "subtitle": "Kiat, panduan, dan ide untuk memasak dengan lebih cerdas.",
@@ -676,31 +561,27 @@
     "emailLabel": "Alamat email"
   },
   "loginPrompt": {
-    "title": "Simpan resep",
-    "subtitle": "Buat akun gratis untuk menyimpan resep dan menemukannya lagi dengan mudah.",
+    "title": "Masuk gratis",
+    "subtitle": "Semua fitur di Culinse gratis. Masuk untuk menyimpan resep dan memakai koleksi, perencana menu, dan daftar belanja.",
     "login": "Masuk",
     "signup": "Daftar gratis",
     "cancel": "Batal"
+  },
+  "freeAccess": {
+    "text": "Semua fitur di Culinse gratis. Untuk menyimpan resep dan memakai koleksi, perencana menu, daftar belanja, dan resepmu sendiri, kamu hanya perlu akun gratis.",
+    "link": "Masuk gratis"
   },
   "modals": {
     "ad": "Iklan",
     "shop": "Toko",
     "kitchenTools": "Peralatan dapur",
     "affiliateLinks": "* Tautan afiliasi",
-    "upgradeTitle": "Upgrade ke Pro",
-    "upgradeMessage": "Kamu telah mencapai batas paket gratis, yaitu 25 resep tersimpan. Upgrade ke Pro untuk menyimpan tanpa batas, membuat koleksi, dan banyak lagi.",
-    "seePlans": "Lihat paket Pro",
-    "maybeLater": "Nanti saja",
-    "proFeature": "Fitur Pro",
-    "proUnlock": "Upgrade ke Pro untuk membuka fitur ini dan lainnya.",
-    "proFrom": "Mulai €4,99/bulan",
     "addToCollection": "Tambahkan ke koleksi",
     "noCollections": "Belum ada koleksi",
     "createOneBelow": "Buat koleksi di bawah ini",
     "collectionNamePlaceholder": "Nama koleksi…",
     "create": "Buat",
     "newCollection": "Koleksi baru",
-    "fullUpgrade": "Penuh — upgrade untuk lebih banyak",
     "cancel": "Batal",
     "loading": "Memuat…",
     "addToPlanHeader": "Tambahkan ke rencana menu mingguan",
@@ -708,7 +589,6 @@
     "day": "Hari",
     "meal": "Waktu makan",
     "planNamePlaceholder": "Beri nama rencanamu…",
-    "proMorePlans": "Pro — lebih banyak rencana",
     "saving": "Menyimpan…",
     "addToPlanButton": "Tambahkan ke rencana",
     "chooseRecipeFor": "Pilih resep untuk",
@@ -732,16 +612,7 @@
     "close": "Tutup",
     "collectionName": "Nama koleksi",
     "planName": "Nama rencana",
-    "newPlan": "Rencana baru",
-    "upgradeFeatureSave": "Simpan resep tanpa batas",
-    "upgradeFeatureCollections": "Koleksi tanpa batas",
-    "upgradeFeaturePlans": "Beberapa rencana mingguan"
-  },
-  "proSuccess": {
-    "title": "Selamat datang di Culinse Pro!",
-    "subtitle": "Langgananmu sudah aktif. Sekarang kamu bisa mengakses koleksi tanpa batas, perencana menu mingguan, dan daftar belanja pintar.",
-    "goCollections": "Ke koleksi saya",
-    "discover": "Jelajahi resep"
+    "newPlan": "Rencana baru"
   },
   "allStates": "Semua negara bagian",
   "browse": {

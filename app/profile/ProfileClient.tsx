@@ -6,8 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import Navbar from "@/components/Navbar";
 import { Link } from "@/lib/navigation";
-import { Button, Chip, ChipRow, Icon, Notice, SectionHeader, Skeleton, type IconName } from "@/components/ui";
-import { FREE_FOR_ALL } from "@/lib/freeMode";
+import { Button, Chip, ChipRow, Notice, SectionHeader, Skeleton } from "@/components/ui";
 
 const DIET_VALUES = ["", "vegetarian", "vegan", "ketogenic", "paleo", "gluten free", "whole30"];
 
@@ -15,14 +14,11 @@ const INTOLERANCE_VALUES = ["dairy", "egg", "gluten", "peanut", "tree nut", "soy
 
 const TIME_VALUES = [0, 15, 30, 60];
 
-const PRO_FEATURE_ICONS: IconName[] = ["book", "calendar", "cart", "globe", "star"];
-
 export default function ProfilePage() {
   const t = useTranslations("profile");
   const dietOptions = t.raw("dietOptions") as { label: string; desc: string }[];
   const intoleranceOptions = t.raw("intoleranceOptions") as string[];
   const timeOptions = t.raw("timeOptions") as { label: string }[];
-  const proFeatures = t.raw("proFeatures") as string[];
 
   const [isWelcome, setIsWelcome] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -32,9 +28,6 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [savedState, setSavedState] = useState(false);
-  const [isPro, setIsPro] = useState(false);
-  const [proExpiry, setProExpiry] = useState<string | null>(null);
-  const [billingLoading, setBillingLoading] = useState(false);
 
   const supabase = createClient();
 
@@ -50,40 +43,18 @@ export default function ProfilePage() {
       }
       setUser(data.user);
 
-      const [{ data: prefs }, { data: profile }] = await Promise.all([
-        supabase.from("user_preferences").select("*").eq("user_id", data.user.id).single(),
-        supabase.from("profiles").select("is_pro, pro_expires_at").eq("id", data.user.id).single(),
-      ]);
+      const { data: prefs } = await supabase
+        .from("user_preferences").select("*").eq("user_id", data.user.id).single();
 
       if (prefs) {
         setDiet(prefs.diet || "");
         setIntolerances(prefs.intolerances || []);
         setMaxTime(prefs.max_time || 0);
       }
-      if (profile) {
-        setIsPro(FREE_FOR_ALL || (profile.is_pro ?? false));
-        setProExpiry(profile.pro_expires_at ?? null);
-      }
       setLoading(false);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleUpgrade = async () => {
-    setBillingLoading(true);
-    const res = await fetch("/api/stripe/checkout", { method: "POST" });
-    const { url } = await res.json();
-    if (url) window.location.href = url;
-    else setBillingLoading(false);
-  };
-
-  const handleManageBilling = async () => {
-    setBillingLoading(true);
-    const res = await fetch("/api/stripe/portal", { method: "POST" });
-    const { url } = await res.json();
-    if (url) window.location.href = url;
-    else setBillingLoading(false);
-  };
 
   const toggleIntolerance = (value: string) => {
     setIntolerances(prev =>
@@ -155,39 +126,6 @@ export default function ProfilePage() {
         </div>
 
         <div className="max-w-prose">
-          {/* Abo */}
-          <section aria-labelledby="plan-title" className="border-t border-line py-8">
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 id="plan-title" className="text-h3">{isPro ? t("planPro") : t("planFree")}</h2>
-              <span className="text-sm font-semibold text-ink-2">{isPro ? t("active") : t("free")}</span>
-            </div>
-            {isPro && proExpiry && (
-              <p className="mt-1 text-sm text-ink-3">
-                {t("renews", { date: new Date(proExpiry).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }) })}
-              </p>
-            )}
-
-            <ul className="mt-4 mb-5 space-y-2">
-              {proFeatures.map((label, i) => (
-                <li key={i} className="flex items-center gap-3">
-                  <Icon name={PRO_FEATURE_ICONS[i] ?? "check"} size={20} className={isPro ? "text-green" : "text-ink-3"} />
-                  <span className={`text-base ${isPro ? "text-ink" : "text-ink-2"}`}>{label}</span>
-                  {!isPro && <Icon name="lock" size={16} className="ml-auto text-ink-3" label={t("free")} />}
-                </li>
-              ))}
-            </ul>
-
-            {isPro ? (
-              <Button variant="secondary" onClick={handleManageBilling} loading={billingLoading}>
-                {t("manageSubscription")}
-              </Button>
-            ) : (
-              <Button variant="secondary" onClick={handleUpgrade} loading={billingLoading}>
-                {t("upgradeButton")}
-              </Button>
-            )}
-          </section>
-
           {/* Ernährung */}
           <section aria-labelledby="diet-title" className="border-t border-line py-8">
             <h2 id="diet-title" className="text-h3">{t("dietTitle")}</h2>

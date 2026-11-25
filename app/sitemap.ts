@@ -48,7 +48,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "", changeFrequency: "daily" as const, priority: 1 },
     { path: "/recipes", changeFrequency: "daily" as const, priority: 0.9 },
     { path: "/about", changeFrequency: "monthly" as const, priority: 0.7 },
-    { path: "/pro", changeFrequency: "monthly" as const, priority: 0.8 },
     { path: "/collections/explore", changeFrequency: "daily" as const, priority: 0.6 },
   ];
   // Nur de/en (Inline-Texte bzw. Rechtstexte mit deutscher und englischer Fassung):

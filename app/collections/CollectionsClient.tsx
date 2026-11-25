@@ -1,5 +1,4 @@
 "use client";
-import ProBadge from "@/components/ProBadge";
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -8,7 +7,6 @@ import type { User } from "@supabase/supabase-js";
 import { Link } from "@/lib/navigation";
 import Navbar from "@/components/Navbar";
 import { Button, EmptyState, Icon, Input, Checkbox, SectionHeader, Skeleton } from "@/components/ui";
-import { FREE_FOR_ALL } from "@/lib/freeMode";
 
 interface Collection {
   id: string;
@@ -109,24 +107,6 @@ function Dialog({ titleId, onClose, children }: { titleId: string; onClose: () =
   );
 }
 
-// ─── Pro Upgrade Modal ────────────────────────────────────────────────────────
-
-function ProUpgradeModal({ onClose }: { onClose: () => void }) {
-  const t = useTranslations("collections");
-
-  return (
-    <Dialog titleId="upgrade-title" onClose={onClose}>
-      <ProBadge className="mb-3" />
-      <h2 id="upgrade-title" className="text-h2-sm">{t("upgradeTitle")}</h2>
-      <p className="mt-2 mb-6 text-base text-ink-2">{t("upgradeSubtext")}</p>
-      <div className="flex flex-wrap gap-3">
-        <Button href="/pro">{t("upgradeButton")}</Button>
-        <Button variant="secondary" onClick={onClose}>{t("cancel")}</Button>
-      </div>
-    </Dialog>
-  );
-}
-
 // ─── New Collection Modal ─────────────────────────────────────────────────────
 
 function NewCollectionModal({
@@ -223,16 +203,12 @@ function NewCollectionModal({
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
-const FREE_COLLECTION_LIMIT = 1;
-
 export default function CollectionsPage() {
   const t = useTranslations("collections");
   const [user, setUser] = useState<User | null>(null);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
-  const [isPro, setIsPro] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
@@ -242,14 +218,6 @@ export default function CollectionsPage() {
         return;
       }
       setUser(data.user);
-
-      // Check Pro status
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("is_pro")
-        .eq("id", data.user.id)
-        .single();
-      setIsPro(FREE_FOR_ALL || (profile?.is_pro ?? false));
 
       const { data: cols } = await supabase
         .from("collections")
@@ -301,15 +269,7 @@ export default function CollectionsPage() {
     ]);
   };
 
-  const handleNewCollectionClick = () => {
-    if (!isPro && collections.length >= FREE_COLLECTION_LIMIT) {
-      setShowUpgradeModal(true);
-    } else {
-      setShowModal(true);
-    }
-  };
-
-  const atLimit = !isPro && collections.length >= FREE_COLLECTION_LIMIT;
+  const handleNewCollectionClick = () => setShowModal(true);
 
   return (
     <div className="min-h-screen bg-surface">
@@ -354,16 +314,13 @@ export default function CollectionsPage() {
               <CollectionCard key={col.id} collection={col} />
             ))}
 
-            <div className="relative">
-              <button
-                onClick={handleNewCollectionClick}
-                className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-2 rounded-2 border border-dashed border-line-strong text-ink-2 transition-colors hover:bg-surface-soft"
-              >
-                <Icon name={atLimit ? "lock" : "plus"} size={24} />
-                <span className="text-base font-semibold">{atLimit ? t("upgradePro") : stripPlus(t("newCollection"))}</span>
-              </button>
-              {atLimit && <ProBadge feature="Unlimited collections" className="absolute left-3 top-3" />}
-            </div>
+            <button
+              onClick={handleNewCollectionClick}
+              className="flex aspect-[4/3] w-full flex-col items-center justify-center gap-2 rounded-2 border border-dashed border-line-strong text-ink-2 transition-colors hover:bg-surface-soft"
+            >
+              <Icon name="plus" size={24} />
+              <span className="text-base font-semibold">{stripPlus(t("newCollection"))}</span>
+            </button>
           </div>
         )}
       </main>
@@ -373,10 +330,6 @@ export default function CollectionsPage() {
           onClose={() => setShowModal(false)}
           onCreated={handleCreated}
         />
-      )}
-
-      {showUpgradeModal && (
-        <ProUpgradeModal onClose={() => setShowUpgradeModal(false)} />
       )}
 
       {user && null}

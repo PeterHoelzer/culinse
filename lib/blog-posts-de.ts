@@ -576,8 +576,8 @@ export const blogPostsDe: BlogPost[] = [
         content:
           "Culinse (culinse.com) verfolgt einen anderen Ansatz als die meisten Mahlzeitenplaner. Statt einer Rezeptdatenbank, die du verwenden musst, zieht es Rezepte aus mehreren Quellen (Spoonacular, MealDB, Edamam, Tasty), sodass du mit einer riesigen Vielfalt arbeitest. Du planst deine Woche in einem 7×3-Raster und die App erstellt automatisch eine kombinierte, kategorisierte Einkaufsliste.",
         list: [
-          "Gratisversion: Rezepte entdecken und speichern.",
-          "Pro (4,99 €/Monat): Vollständiger Wochenplaner, automatische Einkaufsliste, Sammlungen.",
+          "Kostenlos: Rezepte entdecken, Wochenplaner, automatische Einkaufsliste und Sammlungen.",
+          "Zum Speichern und Planen brauchst du nur ein kostenloses Konto.",
           "Am besten für: Personen, die eine übersichtliche Planungsoberfläche und eine richtige Einkaufsliste möchten.",
           "Funktioniert im Browser — kein App-Download nötig.",
         ],

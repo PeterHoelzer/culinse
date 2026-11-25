@@ -1,12 +1,17 @@
 import Stripe from "stripe";
 
+// Seit 25.11.2026 gibt es kein Pro-Angebot und keinen Kaufweg mehr. Stripe wird
+// nur noch gebraucht, damit ein früher abgeschlossenes Abo weiterläuft, verwaltet
+// und gekündigt werden kann (app/api/stripe/webhook, app/api/stripe/portal) und
+// damit lib/moneyStats.ts die Zahl laufender Abos zeigt.
+
 let _stripe: Stripe | null = null;
 
 export function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
     throw new Error(
-      "Missing env var: STRIPE_SECRET_KEY. Add it to .env.local and Vercel environment variables."
+      "Missing env var: STRIPE_SECRET_KEY. Add it to .env.local and to the server environment."
     );
   }
   if (!_stripe) {
@@ -16,26 +21,3 @@ export function getStripe(): Stripe {
   }
   return _stripe;
 }
-
-export function getStripePriceId(): string {
-  const priceId = process.env.STRIPE_PRICE_ID;
-  if (!priceId) {
-    throw new Error(
-      "Missing env var: STRIPE_PRICE_ID. Add it to .env.local and Vercel environment variables."
-    );
-  }
-  return priceId;
-}
-
-export function getStripeAnnualPriceId(): string {
-  const priceId = process.env.STRIPE_ANNUAL_PRICE_ID;
-  if (!priceId) {
-    throw new Error(
-      "Missing env var: STRIPE_ANNUAL_PRICE_ID. Add it to .env.local and Vercel environment variables."
-    );
-  }
-  return priceId;
-}
-
-/** @deprecated Use getStripePriceId() instead */
-export const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID!;

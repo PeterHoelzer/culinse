@@ -24,7 +24,7 @@ export default function ImportClient() {
 
   const [url, setUrl] = useState("");
   const [status, setStatus] = useState<Status>("idle");
-  const [errorKind, setErrorKind] = useState<"url" | "parse" | "limit" | "generic">("generic");
+  const [errorKind, setErrorKind] = useState<"url" | "parse" | "generic">("generic");
   const [result, setResult] = useState<ImportResult | null>(null);
 
   const tr = (en: string, deStr: string) => (de ? deStr : en);
@@ -41,11 +41,6 @@ export default function ImportClient() {
       });
       const data = await res.json().catch(() => ({}));
 
-      if (res.status === 403 && data.error === "limit_reached") {
-        setErrorKind("limit");
-        setStatus("error");
-        return;
-      }
       if (!res.ok) {
         setErrorKind(
           data.error === "parse_failed"
@@ -112,7 +107,7 @@ export default function ImportClient() {
               }}
               onKeyDown={(e) => e.key === "Enter" && handleImport()}
               placeholder="https://www.chefkoch.de/rezepte/..."
-              error={status === "error" && errorKind !== "limit" ? errorText : undefined}
+              error={status === "error" ? errorText : undefined}
             />
             <Button onClick={handleImport} disabled={!url.trim()} loading={status === "loading"}>
               {status === "loading" ? tr("Importing…", "Importiere…") : tr("Import", "Importieren")}
@@ -123,16 +118,6 @@ export default function ImportClient() {
             <p role="status" className="mt-3 text-sm text-ink-3">
               {tr("Reading the page and extracting the recipe…", "Seite wird gelesen und das Rezept extrahiert…")}
             </p>
-          )}
-
-          {status === "error" && errorKind === "limit" && (
-            <Notice tone="warn" className="mt-4">
-              <p className="font-semibold">{tr("You've reached your free limit", "Du hast dein kostenloses Limit erreicht")}</p>
-              <p className="mb-3">
-                {tr("Free accounts can keep up to 5 recipes. Go Pro for unlimited imports.", "Kostenlose Konten können bis zu 5 Rezepte behalten. Mit Pro: unbegrenzt importieren.")}
-              </p>
-              <Button href="/pro" size="sm">{tr("Upgrade to Pro", "Auf Pro upgraden")}</Button>
-            </Notice>
           )}
 
           {status === "done" && result && (

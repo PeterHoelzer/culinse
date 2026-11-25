@@ -120,7 +120,7 @@ export default function Home({
         <DiscoverSection search={activeSearch} category={category} setCategory={handleSetCategory} user={user} initialRecipes={initialRecipes} />
         <FamilySection />
         <VideoSection />
-        <HowItWorks />
+        <HowItWorks loggedIn={Boolean(user)} />
         <NewsletterBanner />
         {seoSection}
       </main>

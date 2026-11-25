@@ -11,7 +11,6 @@
     "getStarted": "Aan de slag",
     "join": "Doe mee",
     "logout": "Uitloggen",
-    "upgrade": "Upgrade",
     "myRecipes": "Mijn recepten",
     "calculator": "Calculator",
     "myRecipesShort": "Recepten",
@@ -275,21 +274,7 @@
     "progress1": "Goed begin — nog 2 stappen",
     "progress2": "Bijna klaar — nog 1 stap",
     "progress3": "Profiel compleet — Voor jou is actief!",
-    "planPro": "Culinse Pro",
-    "planFree": "Gratis plan",
-    "renews": "Wordt verlengd op {date}",
-    "active": "Actief",
-    "free": "Gratis",
-    "proFeatures": [
-      "Onbeperkte collecties",
-      "Wekelijks maaltijdplan",
-      "Slimme boodschappenlijst",
-      "Onbeperkt recepten opslaan",
-      "Voorrang bij nieuwe functies"
-    ],
     "loading": "Laden…",
-    "manageSubscription": "Abonnement beheren",
-    "upgradeButton": "Upgrade naar Pro — €4,99 / maand",
     "dietTitle": "Voedingswijze",
     "dietSub": "Toon alleen recepten die bij je levensstijl passen.",
     "activeLabel": "Actief",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "Nieuwe collectie",
     "creating": "Aanmaken…",
     "create": "Collectie aanmaken",
-    "upgradeTitle": "Onbeperkte collecties",
-    "upgradeSubtext": "Het gratis plan bevat 1 collectie met maximaal 10 recepten. Upgrade naar Pro en alles is onbeperkt.",
-    "upgradeButton": "Upgrade naar Pro",
     "createFirst": "Eerste collectie aanmaken",
     "groupDesc": "Bundel je favoriete recepten in collecties — zoals playlists, maar dan voor eten.",
     "counter": "{count, plural, one {# collectie} other {# collecties}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "bijv. Italiaanse favorieten",
     "descPlaceholder": "Een korte beschrijving…",
     "iconLabel": "Icoon",
-    "upgradePro": "Upgrade naar Pro",
     "loading": "Laden…",
     "recipeCount": "{count, plural, one {# recept} other {# recepten}}",
     "detailBack": "Mijn collecties",
@@ -446,7 +427,6 @@
     "tapToAdd": "Tik op een vak om een recept toe te voegen.",
     "mealsPlanned": "{n}/21 maaltijden gepland",
     "namePlanPlaceholder": "Plan een naam geven…",
-    "proMorePlans": "Pro — meer plannen",
     "newPlan": "Nieuw plan",
     "dragHint": "Tip: versleep maaltijden om ze te verplaatsen of te wisselen.",
     "move": "Verplaatsen",
@@ -462,9 +442,6 @@
     "emptySub": "Tik op een vak om een recept uit je opgeslagen recepten toe te voegen.",
     "myRecipes": "Mijn recepten",
     "collections": "Collecties",
-    "proModalTitle": "Meer plannen met Pro",
-    "proModalSub": "Met Culinse Pro maak je onbeperkt maaltijdplannen.",
-    "proModalButton": "Upgrade naar Pro — €4,99 / maand",
     "cancel": "Annuleren",
     "deletePlanConfirm": "Plan verwijderen? Alle items gaan verloren."
   },
@@ -556,98 +533,6 @@
       "error": "Opslaan is niet gelukt. Probeer het opnieuw."
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Ontgrendel de volledige Culinse-ervaring.",
-    "price": "€4,99 / maand",
-    "features": [
-      "Complete 7-daagse weekplanner",
-      "Automatische boodschappenlijst met samengevoegde hoeveelheden",
-      "Onbeperkte receptencollecties",
-      "Support met voorrang"
-    ],
-    "upgradeButton": "Upgrade naar Pro",
-    "processing": "Verwerken…",
-    "currentPlan": "Je huidige plan: Pro",
-    "manageButton": "Abonnement beheren",
-    "heroTitle": "Jouw keuken,\nhelemaal op orde.",
-    "heroSubtitle": "Plan je week, maak je boodschappenlijst en orden elk recept waar je van houdt — alles op één plek.",
-    "alreadyPro": "Je bent al Pro!",
-    "freeForAllBadge": "Alle Pro-functies nu gratis",
-    "freeForAllNote": "We bouwen Culinse op dit moment verder uit — alle Pro-functies zijn voor iedereen ontgrendeld. Log gewoon in en begin met plannen, helemaal zonder abonnement.",
-    "startButton": "7 dagen gratis proberen",
-    "cancelNote": "7 dagen gratis · Pas daarna wordt er afgeschreven · Altijd opzegbaar",
-    "legalNote": "Hierbij gelden onze",
-    "legalAnd": "en het",
-    "agbLabel": "algemene voorwaarden",
-    "widerrufLabel": "herroepingsrecht",
-    "activeNote": "Je gebruikt Culinse Pro",
-    "freeLabel": "Gratis",
-    "proLabel": "Pro",
-    "everythingInFree": "Alles uit Gratis, plus:",
-    "faqTitle": "Veelgestelde vragen",
-    "faqItems": [
-      {
-        "q": "Kan ik op elk moment opzeggen?",
-        "a": "Ja, je kunt altijd opzeggen via je profiel. Je houdt toegang tot Pro tot het einde van je factuurperiode."
-      },
-      {
-        "q": "Welke betaalmethoden worden geaccepteerd?",
-        "a": "Alle gangbare credit- en debitcards via Stripe. Veilig, versleuteld en PCI-conform."
-      },
-      {
-        "q": "Wat gebeurt er met mijn collecties als ik opzeg?",
-        "a": "Je collecties blijven bewaard. Je kunt alleen geen nieuwe meer aanmaken boven de gratis limiet."
-      },
-      {
-        "q": "Is er een gratis proefperiode?",
-        "a": "Ja — je probeert Pro 7 dagen gratis. Er wordt pas afgeschreven als de proefperiode voorbij is, en je kunt altijd al eerder opzeggen."
-      }
-    ],
-    "freeFeatures": [
-      "Alle recepten: meer dan 4.000 gerechten",
-      "Zoeken & filteren op voeding, tijd en keuken",
-      "Recepten opslaan",
-      "1 collectie (max. 10 recepten)"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "Onbeperkte collecties",
-        "sub": "Orden je favorieten precies zoals jij wilt"
-      },
-      {
-        "icon": "",
-        "label": "Wekelijkse maaltijdplanner",
-        "sub": "Plan ontbijt, lunch & diner voor de hele week"
-      },
-      {
-        "icon": "",
-        "label": "Slimme boodschappenlijst",
-        "sub": "Automatisch gemaakt op basis van je plan, gesorteerd op categorie"
-      },
-      {
-        "icon": "",
-        "label": "Onbeperkt recepten opslaan",
-        "sub": "Geen limiet van 25 recepten — bewaar alles wat je lekker vindt"
-      },
-      {
-        "icon": "",
-        "label": "Voorrang bij nieuwe functies",
-        "sub": "Als eerste toegang tot alles wat we hierna bouwen"
-      }
-    ],
-    "questions": "Vragen?",
-    "annualLabel": "Jaarlijks",
-    "monthlyLabel": "Maandelijks",
-    "annualSave": "Bespaar 35%",
-    "annualPrice": "€3,24 / maand",
-    "annualTotal": "€38,88 / jaar",
-    "monthlyPrice": "€4,99 / maand",
-    "annualStartButton": "7 dagen gratis proberen",
-    "billedAnnually": "Jaarlijks gefactureerd",
-    "billedMonthly": "Maandelijks gefactureerd"
-  },
   "blog": {
     "title": "Culinse Blog",
     "subtitle": "Tips, handleidingen en ideeën om slimmer te koken.",
@@ -676,31 +561,27 @@
     "emailLabel": "E-mailadres"
   },
   "loginPrompt": {
-    "title": "Recept opslaan",
-    "subtitle": "Maak een gratis account aan om recepten op te slaan en later terug te vinden.",
+    "title": "Gratis inloggen",
+    "subtitle": "Alles op Culinse is gratis. Log in om recepten op te slaan en collecties, de weekplanner en de boodschappenlijst te gebruiken.",
     "login": "Inloggen",
     "signup": "Gratis registreren",
     "cancel": "Annuleren"
+  },
+  "freeAccess": {
+    "text": "Alles op Culinse is gratis. Om recepten op te slaan en collecties, de weekplanner, de boodschappenlijst en je eigen recepten te gebruiken, heb je alleen een gratis account nodig.",
+    "link": "Gratis inloggen"
   },
   "modals": {
     "ad": "Advertentie",
     "shop": "Shop",
     "kitchenTools": "Keukengerei",
     "affiliateLinks": "* Affiliatelinks",
-    "upgradeTitle": "Upgrade naar Pro",
-    "upgradeMessage": "Je hebt de limiet van het gratis plan bereikt: 25 opgeslagen recepten. Upgrade naar Pro voor onbeperkt opslaan, collecties en meer.",
-    "seePlans": "Pro-abonnementen bekijken",
-    "maybeLater": "Misschien later",
-    "proFeature": "Pro-functie",
-    "proUnlock": "Upgrade naar Pro om dit en meer te ontgrendelen.",
-    "proFrom": "Vanaf €4,99/maand",
     "addToCollection": "Aan collectie toevoegen",
     "noCollections": "Nog geen collecties",
     "createOneBelow": "Maak er hieronder een aan",
     "collectionNamePlaceholder": "Naam van de collectie…",
     "create": "Aanmaken",
     "newCollection": "Nieuwe collectie",
-    "fullUpgrade": "Vol — upgrade voor meer",
     "cancel": "Annuleren",
     "loading": "Laden…",
     "addToPlanHeader": "Aan weekplan toevoegen",
@@ -708,7 +589,6 @@
     "day": "Dag",
     "meal": "Maaltijd",
     "planNamePlaceholder": "Geef je plan een naam…",
-    "proMorePlans": "Pro — meer plannen",
     "saving": "Opslaan…",
     "addToPlanButton": "Aan plan toevoegen",
     "chooseRecipeFor": "Kies een recept voor",
@@ -732,16 +612,7 @@
     "close": "Sluiten",
     "collectionName": "Naam van de collectie",
     "planName": "Naam van het plan",
-    "newPlan": "Nieuw plan",
-    "upgradeFeatureSave": "Onbeperkt recepten opslaan",
-    "upgradeFeatureCollections": "Collecties zonder limiet",
-    "upgradeFeaturePlans": "Meerdere weekplannen"
-  },
-  "proSuccess": {
-    "title": "Welkom bij Culinse Pro!",
-    "subtitle": "Je abonnement is actief. Je hebt nu toegang tot onbeperkte collecties, de weekplanner en slimme boodschappenlijsten.",
-    "goCollections": "Naar mijn collecties",
-    "discover": "Recepten ontdekken"
+    "newPlan": "Nieuw plan"
   },
   "allStates": "Alle regio's",
   "browse": {

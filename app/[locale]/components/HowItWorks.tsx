@@ -2,14 +2,17 @@
 
 import { useTranslations } from "next-intl";
 import { Icon, SectionHeader, type IconName } from "@/components/ui";
+import FreeAccountNote from "@/components/FreeAccountNote";
 
 /*
   So funktioniert Culinse (DESIGN.md §3): linksbündig, drei Spalten mit
   oberer Linie, Strich-Icon statt Emoji-Kachel, Titel in Serife.
+  Darunter für Gäste der Hinweis, dass alles kostenlos ist und ein Konto zum
+  Speichern und Nutzen genügt (FreeAccountNote).
 */
 const STEP_ICONS: IconName[] = ["search", "heart", "cart"];
 
-export default function HowItWorks() {
+export default function HowItWorks({ loggedIn = false }: { loggedIn?: boolean }) {
   const t = useTranslations();
   const steps = t.raw("howItWorks.steps") as Array<{ icon?: string; title: string; desc: string }>;
 
@@ -26,6 +29,7 @@ export default function HowItWorks() {
           </li>
         ))}
       </ol>
+      {!loggedIn && <FreeAccountNote className="mt-8 max-w-prose" />}
       </div>
     </section>
   );

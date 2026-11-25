@@ -11,7 +11,6 @@
     "getStarted": "はじめる",
     "join": "参加する",
     "logout": "ログアウト",
-    "upgrade": "アップグレード",
     "myRecipes": "マイレシピ",
     "calculator": "計算ツール",
     "myRecipesShort": "レシピ",
@@ -275,21 +274,7 @@
     "progress1": "いいスタートです！あと2ステップ",
     "progress2": "もう少しです！あと1ステップ",
     "progress3": "プロフィール完成！「あなたへのおすすめ」が有効になりました",
-    "planPro": "Culinse Pro",
-    "planFree": "無料プラン",
-    "renews": "{date}に自動更新",
-    "active": "有効",
-    "free": "無料",
-    "proFeatures": [
-      "コレクション無制限",
-      "週間プラン",
-      "スマート買い物リスト",
-      "レシピ保存が無制限",
-      "新機能への優先アクセス"
-    ],
     "loading": "読み込み中…",
-    "manageSubscription": "サブスクリプションを管理",
-    "upgradeButton": "Proにアップグレード（月額€4.99）",
     "dietTitle": "食事スタイル",
     "dietSub": "あなたのライフスタイルに合うレシピだけを表示します。",
     "activeLabel": "有効",
@@ -376,9 +361,6 @@
     "newCollectionTitle": "新しいコレクション",
     "creating": "作成中…",
     "create": "コレクションを作成",
-    "upgradeTitle": "コレクション無制限",
-    "upgradeSubtext": "無料プランでは、コレクション1件（レシピ10件まで）をご利用いただけます。Proにアップグレードすれば、すべて無制限です。",
-    "upgradeButton": "Proにアップグレード",
     "createFirst": "最初のコレクションを作成",
     "groupDesc": "お気に入りのレシピをコレクションにまとめましょう。料理版のプレイリストのようなものです。",
     "counter": "{count, plural, other {#件のコレクション}}",
@@ -391,7 +373,6 @@
     "namePlaceholder": "例：お気に入りのイタリアン",
     "descPlaceholder": "簡単な説明…",
     "iconLabel": "アイコン",
-    "upgradePro": "Proにアップグレード",
     "loading": "読み込み中…",
     "recipeCount": "{count, plural, other {#件のレシピ}}",
     "detailBack": "マイコレクション",
@@ -446,7 +427,6 @@
     "tapToAdd": "枠をタップしてレシピを追加しましょう。",
     "mealsPlanned": "{n}/21食を計画済み",
     "namePlanPlaceholder": "プラン名を入力…",
-    "proMorePlans": "Proでプランを追加",
     "newPlan": "新しいプラン",
     "dragHint": "ヒント：ドラッグ＆ドロップで食事を移動したり、入れ替えたりできます。",
     "move": "移動",
@@ -462,9 +442,6 @@
     "emptySub": "枠をタップして、保存したレシピから追加しましょう。",
     "myRecipes": "マイレシピ",
     "collections": "コレクション",
-    "proModalTitle": "Proでもっとプランを",
-    "proModalSub": "Culinse Proなら、週間プランを無制限に作成できます。",
-    "proModalButton": "Proにアップグレード（月額€4.99）",
     "cancel": "キャンセル",
     "deletePlanConfirm": "プランを削除しますか？登録した内容はすべて失われます。"
   },
@@ -556,98 +533,6 @@
       "error": "保存できませんでした。もう一度お試しください。"
     }
   },
-  "pro": {
-    "title": "Culinse Pro",
-    "subtitle": "Culinseのすべての機能を解放しましょう。",
-    "price": "€4.99 / 月",
-    "features": [
-      "7日間すべて使える週間プランナー",
-      "分量をまとめて集計する自動買い物リスト",
-      "レシピコレクション無制限",
-      "優先サポート"
-    ],
-    "upgradeButton": "Proにアップグレード",
-    "processing": "処理中…",
-    "currentPlan": "現在のプラン：Pro",
-    "manageButton": "サブスクリプションを管理",
-    "heroTitle": "あなたのキッチンを、\nまるごと整理。",
-    "heroSubtitle": "週間プランを立てて、買い物リストを作り、お気に入りのレシピをすべて整理。ぜんぶ、ひとつの場所でできます。",
-    "alreadyPro": "すでにProをご利用中です！",
-    "freeForAllBadge": "現在、Pro機能はすべて無料",
-    "freeForAllNote": "Culinseは現在、機能を拡充中です。そのため、すべてのPro機能を全ユーザーに開放しています。ログインするだけで、サブスク登録なしですぐにプランを作成できます。",
-    "startButton": "7日間無料で試す",
-    "cancelNote": "7日間無料 · 請求は無料期間の終了後 · いつでも解約可能",
-    "legalNote": "適用される規約：",
-    "legalAnd": "および",
-    "agbLabel": "利用規約",
-    "widerrufLabel": "撤回権に関するご案内",
-    "activeNote": "Culinse Proをご利用中です",
-    "freeLabel": "無料",
-    "proLabel": "Pro",
-    "everythingInFree": "無料プランのすべての機能に加えて：",
-    "faqTitle": "よくある質問",
-    "faqItems": [
-      {
-        "q": "いつでも解約できますか？",
-        "a": "はい、プロフィールからいつでも解約できます。解約後も、現在の請求期間が終わるまでPro機能をご利用いただけます。"
-      },
-      {
-        "q": "どの支払い方法に対応していますか？",
-        "a": "Stripeを通じて、主要なクレジットカードやデビットカードをご利用いただけます。決済は暗号化されて安全に処理され、PCIにも準拠しています。"
-      },
-      {
-        "q": "解約するとコレクションはどうなりますか？",
-        "a": "コレクションはそのまま保存されます。ただし、無料プランの上限を超えて新しいコレクションを作成することはできなくなります。"
-      },
-      {
-        "q": "無料トライアルはありますか？",
-        "a": "はい、Proを7日間無料でお試しいただけます。請求はトライアル期間の終了後に行われ、それまではいつでも解約できます。"
-      }
-    ],
-    "freeFeatures": [
-      "すべてのレシピ：4,000品以上",
-      "食事スタイル・調理時間・料理ジャンルで検索＆絞り込み",
-      "レシピを保存（）",
-      "コレクション1件（レシピ10件まで）"
-    ],
-    "proFeatures": [
-      {
-        "icon": "",
-        "label": "コレクション無制限",
-        "sub": "お気に入りを思いどおりに整理できます"
-      },
-      {
-        "icon": "",
-        "label": "週間プランナー",
-        "sub": "1週間分の朝食・昼食・夕食をまとめて計画"
-      },
-      {
-        "icon": "",
-        "label": "スマート買い物リスト",
-        "sub": "プランから自動で作成し、カテゴリ別に整理"
-      },
-      {
-        "icon": "",
-        "label": "レシピ保存が無制限",
-        "sub": "25件の上限なし。気に入ったレシピをすべて保存できます"
-      },
-      {
-        "icon": "",
-        "label": "新機能を優先的に利用",
-        "sub": "これから開発する新機能を、いち早くお試しいただけます"
-      }
-    ],
-    "questions": "ご質問はありますか？",
-    "annualLabel": "年払い",
-    "monthlyLabel": "月払い",
-    "annualSave": "35%お得",
-    "annualPrice": "€3.24 / 月",
-    "annualTotal": "€38.88 / 年",
-    "monthlyPrice": "€4.99 / 月",
-    "annualStartButton": "7日間無料で試す",
-    "billedAnnually": "年額で請求",
-    "billedMonthly": "月額で請求"
-  },
   "blog": {
     "title": "Culinseブログ",
     "subtitle": "もっと賢く料理するためのコツ、ガイド、アイデア。",
@@ -676,31 +561,27 @@
     "emailLabel": "メールアドレス"
   },
   "loginPrompt": {
-    "title": "レシピを保存",
-    "subtitle": "無料アカウントを作成すると、レシピを保存していつでも見返せます。",
+    "title": "無料でログイン",
+    "subtitle": "Culinseの機能はすべて無料です。ログインすると、レシピの保存や、コレクション・週間プランナー・買い物リストが使えます。",
     "login": "ログイン",
     "signup": "無料で登録",
     "cancel": "キャンセル"
+  },
+  "freeAccess": {
+    "text": "Culinseの機能はすべて無料です。レシピの保存や、コレクション・週間プランナー・買い物リスト・マイレシピの利用に必要なのは、無料アカウントだけです。",
+    "link": "無料でログイン"
   },
   "modals": {
     "ad": "広告",
     "shop": "ショップ",
     "kitchenTools": "キッチン用品",
     "affiliateLinks": "* アフィリエイトリンク",
-    "upgradeTitle": "Proにアップグレード",
-    "upgradeMessage": "無料プランで保存できるレシピの上限（25件）に達しました。Proにアップグレードすると、レシピを無制限に保存できるほか、コレクションなどの機能もご利用いただけます。",
-    "seePlans": "Proの料金プランを見る",
-    "maybeLater": "あとで",
-    "proFeature": "Pro機能",
-    "proUnlock": "Proにアップグレードすると、この機能をはじめ、さまざまな機能が使えるようになります。",
-    "proFrom": "月額€4.99から",
     "addToCollection": "コレクションに追加",
     "noCollections": "コレクションはまだありません",
     "createOneBelow": "下から新しく作成できます",
     "collectionNamePlaceholder": "コレクション名…",
     "create": "作成",
     "newCollection": "新しいコレクション",
-    "fullUpgrade": "上限に達しました（アップグレードで追加可能）",
     "cancel": "キャンセル",
     "loading": "読み込み中…",
     "addToPlanHeader": "週間プランに追加",
@@ -708,7 +589,6 @@
     "day": "曜日",
     "meal": "食事",
     "planNamePlaceholder": "プラン名を入力…",
-    "proMorePlans": "Proでプランを追加",
     "saving": "保存中…",
     "addToPlanButton": "プランに追加",
     "chooseRecipeFor": "レシピを選択：",
@@ -732,16 +612,7 @@
     "close": "閉じる",
     "collectionName": "コレクション名",
     "planName": "プラン名",
-    "newPlan": "新しいプラン",
-    "upgradeFeatureSave": "レシピを無制限に保存",
-    "upgradeFeatureCollections": "コレクションも無制限",
-    "upgradeFeaturePlans": "複数の週間プラン"
-  },
-  "proSuccess": {
-    "title": "Culinse Proへようこそ！",
-    "subtitle": "サブスクリプションが有効になりました。コレクション無制限、週間プランナー、スマート買い物リストをご利用いただけます。",
-    "goCollections": "マイコレクションへ",
-    "discover": "レシピを探す"
+    "newPlan": "新しいプラン"
   },
   "allStates": "すべての州",
   "browse": {
