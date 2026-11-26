@@ -13,6 +13,7 @@ import { estimateRecipeCost, formatEstPrice } from "@/lib/ingredient-prices";
 import { AddToCollectionModal } from "@/components/AddToCollectionModal";
 import AddToPlanModal from "@/components/AddToPlanModal";
 import LoginPromptModal from "@/components/LoginPromptModal";
+import GuestNote from "@/components/GuestNote";
 import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { Link as LocaleLink } from "@/lib/navigation";
 import type { DishColors } from "@/app/[locale]/components/home-types";
@@ -987,6 +988,8 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                 <span role="status" className="text-sm text-green">{copiedLabel}</span>
               )}
             </div>
+            {/* Gäste: Speichern, Planen und Sammeln brauchen nur ein kostenloses Konto */}
+            <GuestNote className="print-hide mt-4 max-w-prose" />
           </header>
 
           {/* Zutaten (links, sticky) + Zubereitung (rechts) */}

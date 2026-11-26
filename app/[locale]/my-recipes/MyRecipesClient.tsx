@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
 import { Button, EmptyState, Icon, Notice, SectionHeader, Skeleton } from "@/components/ui";
 
@@ -22,6 +23,8 @@ interface UserRecipe {
 }
 
 export default function MyRecipesClient() {
+  const t = useTranslations("myRecipes");
+  const te = useTranslations("recipeEditor");
   const [recipes, setRecipes] = useState<UserRecipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
@@ -49,7 +52,9 @@ export default function MyRecipesClient() {
     });
     const data = await res.json();
     if (res.status === 422) {
-      setPublishIssues(data.issues ?? []);
+      // Der Server nennt die Gründe als Kürzel (issueCodes); die Texte stehen in messages/*.json.
+      const codes: string[] = Array.isArray(data.issueCodes) ? data.issueCodes : [];
+      setPublishIssues(codes.length ? codes.map(c => (te.has(`issue_${c}`) ? te(`issue_${c}`) : c)) : [te("errQuality")]);
       return;
     }
     if (res.ok) setRecipes(prev => prev.map(r => r.id === recipe.id ? { ...r, is_public: !r.is_public } : r));
@@ -61,18 +66,18 @@ export default function MyRecipesClient() {
         <SectionHeader
           as="h1"
           className="mb-0!"
-          title="My Recipes"
-          subtitle={`${recipes.length} recipe${recipes.length !== 1 ? "s" : ""} created`}
+          title={t("title")}
+          subtitle={t("count", { count: recipes.length })}
         />
         <div className="flex flex-wrap items-center gap-3">
-          <Button href="/recipes/import" variant="secondary" icon="link">Import</Button>
-          <Button href="/recipes/create" icon="plus">New Recipe</Button>
+          <Button href="/recipes/import" variant="secondary" icon="link">{t("import")}</Button>
+          <Button href="/recipes/create" icon="plus">{t("newRecipe")}</Button>
         </div>
       </div>
 
       {publishIssues && (
         <Notice tone="error" className="mb-6">
-          <p className="font-semibold">Cannot publish:</p>
+          <p className="font-semibold">{te("cannotPublish")}</p>
           <ul className="list-disc pl-5">
             {publishIssues.map((issue, i) => <li key={i}>{issue}</li>)}
           </ul>
@@ -86,26 +91,26 @@ export default function MyRecipesClient() {
       ) : recipes.length === 0 ? (
         <EmptyState
           icon="utensils"
-          title="No recipes yet"
-          text="Create your first recipe, or import one from any recipe site."
+          title={t("empty")}
+          text={t("emptySub")}
           action={
             <div className="flex flex-wrap gap-3">
-              <Button href="/recipes/create" icon="plus">Create Recipe</Button>
-              <Button href="/recipes/import" variant="secondary" icon="link">Import from URL</Button>
+              <Button href="/recipes/create" icon="plus">{t("create")}</Button>
+              <Button href="/recipes/import" variant="secondary" icon="link">{t("importUrl")}</Button>
             </div>
           }
         />
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {recipes.map(recipe => {
-            const sourceLabel = recipe.source_name || "Imported";
+            const sourceLabel = recipe.source_name || t("imported");
             const meta = [
-              recipe.cook_time ? `${recipe.cook_time} min` : null,
-              `${recipe.likes} likes`,
+              recipe.cook_time ? t("minutes", { n: recipe.cook_time }) : null,
+              t("likes", { count: recipe.likes }),
             ].filter(Boolean).join(" · ");
             return (
               <div key={recipe.id}>
-                <Link href={`/recipe/user_${recipe.id}` as "/"} className="block" title="View recipe">
+                <Link href={`/recipe/user_${recipe.id}` as "/"} className="block" title={t("view")}>
                   <div className="aspect-[4/3] overflow-hidden rounded-2 bg-surface-soft">
                     {recipe.image_url ? (
                       <img src={recipe.image_url} alt="" style={{ objectPosition: recipe.image_position || "50% 50%" }} className="h-full w-full object-cover" />
@@ -125,11 +130,11 @@ export default function MyRecipesClient() {
                   <div className="mt-3 flex flex-wrap items-center gap-2">
                     {recipe.source_type === "imported" ? (
                       <span
-                        title={recipe.source_url || (recipe.source_name ? `Imported from ${recipe.source_name}` : "Imported recipe")}
+                        title={recipe.source_url || (recipe.source_name ? t("importedFrom", { source: recipe.source_name }) : t("importedRecipe"))}
                         className="inline-flex items-center gap-1.5 text-sm text-ink-2"
                       >
                         <Icon name="lock" size={16} />
-                        {sourceLabel}, private
+                        {t("importedPrivate", { source: sourceLabel })}
                       </span>
                     ) : (
                       <button
@@ -140,19 +145,19 @@ export default function MyRecipesClient() {
                         }`}
                       >
                         <Icon name={recipe.is_public ? "globe" : "lock"} size={16} />
-                        {recipe.is_public ? "Public" : "Private"}
+                        {recipe.is_public ? t("public") : t("private")}
                       </button>
                     )}
                     <span className="flex-1" />
-                    <Button variant="icon" size="sm" icon="pencil" href={`/recipes/${recipe.id}/edit`} aria-label={`Edit ${recipe.title}`} title="Edit" />
-                    <Button variant="icon" size="sm" icon="trash" aria-label={`Delete ${recipe.title}`} title="Delete" onClick={() => setConfirmDeleteId(recipe.id)} />
+                    <Button variant="icon" size="sm" icon="pencil" href={`/recipes/${recipe.id}/edit`} aria-label={t("editNamed", { title: recipe.title })} title={t("edit")} />
+                    <Button variant="icon" size="sm" icon="trash" aria-label={t("deleteNamed", { title: recipe.title })} title={t("delete")} onClick={() => setConfirmDeleteId(recipe.id)} />
                   </div>
 
                   {confirmDeleteId === recipe.id && (
                     <div role="alert" className="mt-3 flex flex-wrap items-center gap-3 rounded-2 bg-error-soft px-4 py-3">
-                      <p className="text-sm text-error">Delete this recipe?</p>
-                      <Button size="sm" variant="secondary" onClick={() => handleDelete(recipe.id)}>Delete</Button>
-                      <Button variant="quiet" onClick={() => setConfirmDeleteId(null)}>Cancel</Button>
+                      <p className="text-sm text-error">{t("deleteConfirm")}</p>
+                      <Button size="sm" variant="secondary" onClick={() => handleDelete(recipe.id)}>{t("delete")}</Button>
+                      <Button variant="quiet" onClick={() => setConfirmDeleteId(null)}>{t("cancel")}</Button>
                     </div>
                   )}
                 </div>

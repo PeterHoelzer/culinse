@@ -100,7 +100,7 @@ export default function MealPlannerPage() {
   };
 
   const fmtDate = (d: Date) =>
-    d.toLocaleDateString(locale === "de" ? "de-DE" : "en-US", { day: "numeric", month: "numeric" });
+    d.toLocaleDateString(locale, { day: "numeric", month: "numeric" });
 
   // The 7 dates of the displayed week + which column is "today" (only when the
   // displayed week actually is the current week).
@@ -304,7 +304,7 @@ export default function MealPlannerPage() {
     try {
       const current = plans.find(p => p.id === activePlanId);
       const baseName = current?.name ?? t("planName");
-      const copyName = locale === "de" ? `${baseName} (Kopie)` : `${baseName} (Copy)`;
+      const copyName = t("copySuffix", { name: baseName });
       const res = await fetch("/api/meal-plans", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -442,7 +442,7 @@ export default function MealPlannerPage() {
   // replace the active plan with it.
   const handleGeneratePlan = async () => {
     if (generating || !activePlanId) return;
-    if (entries.length > 0 && !confirm(locale === "de" ? "Das ersetzt den aktuellen Plan. Fortfahren?" : "This replaces your current plan. Continue?")) return;
+    if (entries.length > 0 && !confirm(t("replaceConfirm"))) return;
     setGenerating(true);
     setGenerateError(false);
     try {
@@ -537,7 +537,6 @@ export default function MealPlannerPage() {
     setPickerTarget({ dayIndex, slot });
   };
 
-  const de = locale === "de";
   const isCurrentWeek = currentWeekStart === todayMonday();
 
   if (loading) {
@@ -562,7 +561,7 @@ export default function MealPlannerPage() {
           <SectionHeader as="h1" className="mb-0!" title={t("title")} subtitle={t("tapToAdd")} />
           <div className="flex flex-wrap items-center gap-3">
             <Button variant="secondary" icon="sliders" onClick={() => setShowAutoPlan(true)}>
-              {de ? "Auto-Plan" : "Auto-plan"}
+              {t("autoPlan")}
             </Button>
             {totalEntries > 0 && (
               <Button variant="secondary" icon={shareCopied ? "check" : "share"} onClick={handleShareWeek} loading={sharing}>
@@ -580,12 +579,12 @@ export default function MealPlannerPage() {
           <p className="text-base text-ink-2 tabular" role="status">{t("mealsPlanned", { n: totalEntries })}</p>
           {weekTotal.daysWith > 0 && (
             <p className="text-base text-ink-2 tabular">
-              Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal · {Math.round(weekTotal.protein / weekTotal.daysWith)} g {de ? "Protein/Tag" : "protein/day"}
+              Ø {Math.round(weekTotal.calories / weekTotal.daysWith)} kcal · {Math.round(weekTotal.protein / weekTotal.daysWith)} g {t("proteinPerDay")}
             </p>
           )}
           <Input
             className="w-36"
-            label={de ? "Protein-Ziel (g/Tag)" : "Protein goal (g/day)"}
+            label={t("proteinGoal")}
             type="number"
             inputMode="numeric"
             min={0}
@@ -604,14 +603,14 @@ export default function MealPlannerPage() {
                 <div key={plan.id} className="flex shrink-0 items-center gap-2">
                   <Input
                     className="w-44"
-                    label={de ? "Planname" : "Plan name"}
+                    label={t("planNameLabel")}
                     hideLabel
                     autoFocus
                     value={renameValue}
                     onChange={e => setRenameValue(e.target.value)}
                     onKeyDown={e => { if (e.key === "Enter") handleRenamePlan(plan.id); if (e.key === "Escape") setRenamingPlan(null); }}
                   />
-                  <Button variant="icon" size="sm" icon="check" aria-label={de ? "Name speichern" : "Save name"} onClick={() => handleRenamePlan(plan.id)} />
+                  <Button variant="icon" size="sm" icon="check" aria-label={t("saveName")} onClick={() => handleRenamePlan(plan.id)} />
                   <Button variant="icon" size="sm" icon="x" aria-label={t("cancel")} onClick={() => setRenamingPlan(null)} />
                 </div>
               ) : (
@@ -619,10 +618,10 @@ export default function MealPlannerPage() {
                   <Chip active={activePlanId === plan.id} onClick={() => switchPlan(plan.id)}>{plan.name}</Chip>
                   {activePlanId === plan.id && (
                     <>
-                      <Button variant="icon" size="sm" icon="pencil" aria-label={de ? "Plan umbenennen" : "Rename plan"} title={de ? "Plan umbenennen" : "Rename plan"}
+                      <Button variant="icon" size="sm" icon="pencil" aria-label={t("renamePlan")} title={t("renamePlan")}
                         onClick={() => { setRenamingPlan(plan.id); setRenameValue(plan.name); }} />
                       {plans.length > 1 && (
-                        <Button variant="icon" size="sm" icon="trash" aria-label={de ? "Plan löschen" : "Delete plan"} title={de ? "Plan löschen" : "Delete plan"}
+                        <Button variant="icon" size="sm" icon="trash" aria-label={t("deletePlan")} title={t("deletePlan")}
                           onClick={() => handleDeletePlan(plan.id)} />
                       )}
                     </>
@@ -643,7 +642,7 @@ export default function MealPlannerPage() {
                   onKeyDown={e => { if (e.key === "Enter") handleCreatePlan(); if (e.key === "Escape") setCreatingPlan(false); }}
                   placeholder={t("namePlanPlaceholder")}
                 />
-                <Button variant="icon" size="sm" icon="check" aria-label={de ? "Plan anlegen" : "Create plan"} onClick={handleCreatePlan} />
+                <Button variant="icon" size="sm" icon="check" aria-label={t("createPlan")} onClick={handleCreatePlan} />
                 <Button variant="icon" size="sm" icon="x" aria-label={t("cancel")} onClick={() => setCreatingPlan(false)} />
               </div>
             ) : (
@@ -753,9 +752,9 @@ export default function MealPlannerPage() {
                   <p className="mt-3 border-t border-line pt-2 text-sm text-ink-2 tabular">
                     <span className="block">≈ {totals.calories} kcal</span>
                     <span className={`block ${proteinTarget && totals.protein >= proteinTarget ? "font-semibold text-green" : "text-ink-3"}`}>
-                      {Math.round(totals.protein)} g {de ? "Protein" : "protein"}{proteinTarget ? ` / ${proteinTarget} g` : ""}
+                      {Math.round(totals.protein)} g {t("protein")}{proteinTarget ? ` / ${proteinTarget} g` : ""}
                     </span>
-                    <span className="block text-ink-3">{totals.fat} g {de ? "Fett" : "fat"} · {totals.carbs} g {de ? "KH" : "carbs"}</span>
+                    <span className="block text-ink-3">{totals.fat} g {t("fat")} · {totals.carbs} g {t("carbs")}</span>
                   </p>
                 )}
               </section>
@@ -808,32 +807,32 @@ export default function MealPlannerPage() {
       {/* Auto-plan modal */}
       {showAutoPlan && (
         <PlannerDialog titleId="auto-plan-title" onClose={() => !generating && setShowAutoPlan(false)}>
-          <h2 id="auto-plan-title" className="text-h2-sm">{de ? "Auto-Wochenplan" : "Auto meal plan"}</h2>
-          <p className="mt-1 mb-5 text-base text-ink-2">{de ? "Wir füllen die Woche nach deinem Kalorienziel." : "We fill the week to your calorie goal."}</p>
+          <h2 id="auto-plan-title" className="text-h2-sm">{t("autoTitle")}</h2>
+          <p className="mt-1 mb-5 text-base text-ink-2">{t("autoSub")}</p>
 
           <div className="space-y-4">
             <Input
-              label={de ? "Kalorien pro Tag" : "Calories per day"}
+              label={t("caloriesPerDay")}
               type="number" inputMode="numeric" value={planCalories} min={800} max={5000} step={50}
               onChange={e => setPlanCalories(e.target.value)}
             />
-            <Select label={de ? "Ernährung (optional)" : "Diet (optional)"} value={planDiet} onChange={e => setPlanDiet(e.target.value)}>
-              <option value="">{de ? "Keine" : "None"}</option>
-              <option value="vegetarian">{de ? "Vegetarisch" : "Vegetarian"}</option>
-              <option value="vegan">Vegan</option>
-              <option value="gluten free">{de ? "Glutenfrei" : "Gluten free"}</option>
-              <option value="ketogenic">Keto</option>
-              <option value="paleo">Paleo</option>
-              <option value="pescetarian">{de ? "Pescetarisch" : "Pescetarian"}</option>
+            <Select label={t("dietLabel")} value={planDiet} onChange={e => setPlanDiet(e.target.value)}>
+              <option value="">{t("dietNone")}</option>
+              <option value="vegetarian">{t("dietVegetarian")}</option>
+              <option value="vegan">{t("dietVegan")}</option>
+              <option value="gluten free">{t("dietGlutenFree")}</option>
+              <option value="ketogenic">{t("dietKeto")}</option>
+              <option value="paleo">{t("dietPaleo")}</option>
+              <option value="pescetarian">{t("dietPescetarian")}</option>
             </Select>
           </div>
 
           <Button className="mt-5" fullWidth onClick={handleGeneratePlan} loading={generating}>
-            {generating ? (de ? "Generiere…" : "Generating…") : (de ? "Woche generieren" : "Generate week")}
+            {generating ? t("generating") : t("generateWeek")}
           </Button>
 
           {generateError && (
-            <Notice tone="error" className="mt-3">{de ? "Konnte keinen Plan erzeugen. Versuch andere Werte." : "Couldn't generate a plan. Try different values."}</Notice>
+            <Notice tone="error" className="mt-3">{t("generateError")}</Notice>
           )}
 
           <div className="mt-6 border-t border-line pt-5">
@@ -841,15 +840,15 @@ export default function MealPlannerPage() {
               className="mb-3 text-sm"
               checked={allowRepeats}
               onChange={e => setAllowRepeats(e.target.checked)}
-              label={de ? "Gerichte über mehrere Tage erlauben (Wiederholungen)" : "Allow a dish across multiple days (repeats)"}
+              label={t("allowRepeats")}
             />
             <Button variant="secondary" fullWidth disabled={generating} onClick={() => { setShowAutoPlan(false); handleAutoFill(allowRepeats); }}>
-              {de ? "Leere Slots aus meinen Rezepten füllen" : "Fill empty slots from my recipes"}
+              {t("fillFromMine")}
             </Button>
           </div>
 
           <div className="mt-3">
-            <Button variant="quiet" disabled={generating} onClick={() => setShowAutoPlan(false)}>{de ? "Abbrechen" : "Cancel"}</Button>
+            <Button variant="quiet" disabled={generating} onClick={() => setShowAutoPlan(false)}>{t("cancel")}</Button>
           </div>
         </PlannerDialog>
       )}
@@ -884,8 +883,7 @@ function PlannerDialog({ titleId, onClose, children }: { titleId: string; onClos
 
 // ── Servings stepper ───────────────────────────────────────────────────────────
 function ServingsControl({ value, onChange }: { value: number | null; onChange: (v: number | null) => void }) {
-  const locale = useLocale();
-  const de = locale === "de";
+  const t = useTranslations("mealPlanner");
   if (value == null) {
     return (
       <button
@@ -894,7 +892,7 @@ function ServingsControl({ value, onChange }: { value: number | null; onChange: 
         className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand hover:text-brand-hover hover:underline underline-offset-[3px]"
       >
         <Icon name="users" size={16} />
-        {de ? "Portionen" : "Servings"}
+        {t("servings")}
       </button>
     );
   }
@@ -903,13 +901,13 @@ function ServingsControl({ value, onChange }: { value: number | null; onChange: 
       <Icon name="users" size={16} />
       <Button
         variant="icon" size="sm" icon="minus" className="h-8! w-8!"
-        aria-label={de ? "Portionen verringern" : "Decrease servings"}
+        aria-label={t("servingsLess")}
         onClick={() => onChange(value <= 1 ? null : value - 1)}
       />
       <span className="w-6 font-semibold text-ink tabular">{value}</span>
       <Button
         variant="icon" size="sm" icon="plus" className="h-8! w-8!"
-        aria-label={de ? "Portionen erhöhen" : "Increase servings"}
+        aria-label={t("servingsMore")}
         onClick={() => onChange(Math.min(value + 1, 20))}
       />
     </div>
@@ -946,8 +944,7 @@ function PlanSlot({
   onDragEnd?: () => void;
   onDropHere?: () => void;
 }) {
-  const locale = useLocale();
-  const de = locale === "de";
+  const t = useTranslations("mealPlanner");
 
   if (!entry) {
     return (
@@ -990,9 +987,9 @@ function PlanSlot({
       {entry.recipe_time && <p className="text-sm text-ink-3 tabular">{entry.recipe_time} min</p>}
       <div className="mt-1"><ServingsControl value={entry.servings} onChange={(v) => onSetServings(entry, v)} /></div>
       <div className="mt-2 flex gap-1.5">
-        <Button variant="icon" size="sm" icon="pencil" className="h-9! w-9!" aria-label={`${de ? "Ersetzen" : "Replace"}: ${entry.recipe_title}`} title={de ? "Ersetzen" : "Replace"} onClick={onOpen} />
+        <Button variant="icon" size="sm" icon="pencil" className="h-9! w-9!" aria-label={`${t("replace")}: ${entry.recipe_title}`} title={t("replace")} onClick={onOpen} />
         <Button variant="icon" size="sm" icon="sliders" className="h-9! w-9!" aria-label={`${moveLabel}: ${entry.recipe_title}`} title={moveLabel} onClick={onMove} />
-        <Button variant="icon" size="sm" icon="trash" className="h-9! w-9!" aria-label={`${de ? "Entfernen" : "Remove"}: ${entry.recipe_title}`} title={de ? "Entfernen" : "Remove"} disabled={deleting === entry.id} onClick={() => onRemove(entry.id)} />
+        <Button variant="icon" size="sm" icon="trash" className="h-9! w-9!" aria-label={`${t("remove")}: ${entry.recipe_title}`} title={t("remove")} disabled={deleting === entry.id} onClick={() => onRemove(entry.id)} />
       </div>
     </div>
   );

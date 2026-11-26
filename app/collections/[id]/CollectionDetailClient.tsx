@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import { Link } from "@/lib/navigation";
 import Navbar from "@/components/Navbar";
+import GuestNote from "@/components/GuestNote";
 import { Button, EmptyState, Icon, Skeleton } from "@/components/ui";
 
 export interface CollectionRecipe {
@@ -209,6 +210,8 @@ export default function CollectionDetailPage({
           <Icon name="arrowLeft" size={18} />
           {t("detailBack")}
         </Link>
+        {/* Gäste: eigene Sammlungen brauchen nur ein kostenloses Konto */}
+        <GuestNote className="mb-6 max-w-prose" />
 
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div className="min-w-0">

@@ -266,6 +266,7 @@ export default async function Page({
   // Vorher führte von hier nur ein Link zur Stöberseite; die Themen lagen zwei
   // Klicks tief und bekamen von der stärksten Seite keinen Verweis.
   const tBrowse = await getTranslations({ locale, namespace: "browse" });
+  const tHome = await getTranslations({ locale, namespace: "home" });
   let topicLinks: { href: string; label: string }[] = [];
   try {
     // Die Trefferzahlen sind in jeder Sprache gleich; das deutsche Verzeichnis
@@ -283,12 +284,10 @@ export default async function Page({
     <section className="mx-auto max-w-content border-t border-line px-4 py-10 sm:px-6 sm:py-12">
       <div>
         <h2 className="text-h2-sm sm:text-h2 mb-2">
-          {isDE ? "Neu im Rezeptkatalog" : "New in the recipe catalog"}
+          {tHome("newTitle")}
         </h2>
         <p className="mb-6 max-w-prose text-base text-ink-2">
-          {isDE
-            ? "Frisch redaktionell geprüfte Rezepte – jedes mit Nährwerten, automatischer Einkaufsliste und Preisschätzung auf Discounter-Niveau."
-            : "Freshly reviewed recipes — each with nutrition facts, an automatic shopping list and a discount-store price estimate."}
+          {tHome("newText")}
         </p>
         {featured.length > 0 && (
           <ul className="mb-8 grid grid-cols-1 gap-x-8 gap-y-1.5 text-sm text-ink-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -320,19 +319,19 @@ export default async function Page({
         )}
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-base font-semibold">
           <Link href={`/${locale}/grocery-list-calculator`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
-            {isDE ? "Einkaufsrechner für Lebensmittel" : "Grocery cost calculator"}
+            {tHome("linkCalculator")}
           </Link>
           <Link href={`/${locale}/weekly-meal-planner`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
-            {isDE ? "Wochenplaner mit Einkaufsliste" : "Weekly meal planner with shopping list"}
+            {tHome("linkPlanner")}
           </Link>
           <Link href={`/${locale}/blog/${isDE ? "meal-prep-fuer-anfaenger" : "meal-prep-for-beginners"}`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
-            {isDE ? "Meal Prepping für Anfänger" : "Meal prep for beginners"}
+            {tHome("linkMealPrep")}
           </Link>
           <Link href={`/${locale}/blog`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
-            {isDE ? "Ratgeber: Planung, Budget & Meal Prep" : "Guides: planning, budget & meal prep"}
+            {tHome("linkGuides")}
           </Link>
           <Link href={`/${locale}/collections/explore`} className="text-brand transition-colors hover:text-brand-hover hover:underline underline-offset-[3px]">
-            {isDE ? "Rezept-Kollektionen" : "Recipe collections"}
+            {tHome("linkCollections")}
           </Link>
         </div>
       </div>

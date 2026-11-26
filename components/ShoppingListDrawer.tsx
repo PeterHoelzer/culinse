@@ -102,8 +102,7 @@ export default function ShoppingListDrawer({
 }: ShoppingListDrawerProps) {
   const t = useTranslations("modals");
   const locale = useLocale();
-  const de = locale === "de";
-  const tr = (en: string, deStr: string) => (de ? deStr : en);
+  const tr = useTranslations("shoppingList");
   const supabase = createClient();
 
   const [loading, setLoading] = useState(recipeIds.length > 0);
@@ -237,7 +236,7 @@ export default function ShoppingListDrawer({
       }
     }
     for (const m of manual) {
-      (g[m.category] ||= { emoji: m.categoryEmoji, label: de ? "Sonstiges" : m.category, items: [] }).items.push({
+      (g[m.category] ||= { emoji: m.categoryEmoji, label: tr("other"), items: [] }).items.push({
         name: m.name,
         amount: m.amount,
         unit: m.unit,
@@ -249,7 +248,7 @@ export default function ShoppingListDrawer({
       });
     }
     return g;
-  }, [autoGrouped, manual, de]);
+  }, [autoGrouped, manual, tr]);
 
   const buyKeys = useMemo(
     () => Object.values(displayGrouped).flatMap(g => g.items).filter(i => !pantrySet.has(i.name.toLowerCase().trim())).map(i => i.key),
@@ -281,7 +280,7 @@ export default function ShoppingListDrawer({
     return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
   });
 
-  const dateLabel = new Date(PRICES_UPDATED_AT).toLocaleDateString(de ? "de-DE" : "en-US", { month: "long", year: "numeric" });
+  const dateLabel = new Date(PRICES_UPDATED_AT).toLocaleDateString(locale, { month: "long", year: "numeric" });
   const iconLink = buttonClasses({ variant: "icon", size: "sm" });
 
   return (
@@ -334,17 +333,17 @@ export default function ShoppingListDrawer({
             onSubmit={e => { e.preventDefault(); addManual(); }}
           >
             <Input
-              label={tr("Own item", "Eigener Artikel")}
+              label={tr("ownItem")}
               value={newName}
               onChange={e => setNewName(e.target.value)}
-              placeholder={tr("Add your own item…", "Eigenen Artikel hinzufügen…")}
+              placeholder={tr("addYourOwnItem")}
               className="min-w-0 flex-1"
             />
             <Input
-              label={tr("Quantity", "Menge")}
+              label={tr("quantity")}
               value={newQty}
               onChange={e => setNewQty(e.target.value)}
-              placeholder={tr("Qty", "Menge")}
+              placeholder={tr("qty")}
               className="w-24 shrink-0"
             />
             <Button
@@ -352,7 +351,7 @@ export default function ShoppingListDrawer({
               variant="icon"
               icon="plus"
               disabled={!newName.trim()}
-              aria-label={tr("Add item", "Artikel hinzufügen")}
+              aria-label={tr("addItem")}
               className="shrink-0"
             />
           </form>
@@ -362,7 +361,7 @@ export default function ShoppingListDrawer({
               className="mt-6"
               icon="cart"
               title={recipeIds.length === 0 ? t("noRecipesInPlan") : t("noIngredients")}
-              text={recipeIds.length === 0 ? tr("…or just add your own items above.", "…oder füge oben einfach eigene Artikel hinzu.") : undefined}
+              text={recipeIds.length === 0 ? tr("orJustAddYour") : undefined}
             />
           ) : (
             <>
@@ -409,8 +408,8 @@ export default function ShoppingListDrawer({
                                 href={trackedUrl(shopUrl, "shopping_list")}
                                 target="_blank"
                                 rel="noopener noreferrer sponsored"
-                                aria-label={tr("Buy on Amazon (ad)", "Bei Amazon kaufen (Werbung)")}
-                                title={tr("Buy on Amazon (ad)", "Bei Amazon kaufen (Werbung)")}
+                                aria-label={tr("buyOnAmazonAd")}
+                                title={tr("buyOnAmazonAd")}
                                 className={iconLink}
                               >
                                 <Icon name="cart" size={20} />
@@ -421,8 +420,8 @@ export default function ShoppingListDrawer({
                               size="sm"
                               icon="eyeOff"
                               onClick={() => addToPantry(item.name)}
-                              aria-label={`${tr("I already have this", "Hab ich zuhause")}: ${item.name}`}
-                              title={tr("I already have this", "Hab ich zuhause")}
+                              aria-label={`${tr("iAlreadyHaveThis")}: ${item.name}`}
+                              title={tr("iAlreadyHaveThis")}
                             />
                             {item.manualId && (
                               <Button
@@ -430,8 +429,8 @@ export default function ShoppingListDrawer({
                                 size="sm"
                                 icon="trash"
                                 onClick={() => removeManual(item.manualId!)}
-                                aria-label={`${tr("Remove", "Entfernen")}: ${item.name}`}
-                                title={tr("Remove", "Entfernen")}
+                                aria-label={`${tr("remove")}: ${item.name}`}
+                                title={tr("remove")}
                               />
                             )}
                           </li>
@@ -445,7 +444,7 @@ export default function ShoppingListDrawer({
               {pantryItems.length > 0 && (
                 <section>
                   <h3 className="mt-6 text-h3">
-                    {tr("Already have", "Schon zuhause")} <span className="tabular font-normal text-ink-3">({pantryItems.length})</span>
+                    {tr("alreadyHave")} <span className="tabular font-normal text-ink-3">({pantryItems.length})</span>
                   </h3>
                   <ul className="mt-2 flex flex-col">
                     {pantryItems.map(item => (
@@ -459,8 +458,8 @@ export default function ShoppingListDrawer({
                           size="sm"
                           icon="eye"
                           onClick={() => removeFromPantry(item.name)}
-                          aria-label={`${tr("Need to buy after all", "Doch kaufen")}: ${item.name}`}
-                          title={tr("Need to buy after all", "Doch kaufen")}
+                          aria-label={`${tr("needToBuyAfter")}: ${item.name}`}
+                          title={tr("needToBuyAfter")}
                         />
                       </li>
                     ))}
@@ -471,12 +470,12 @@ export default function ShoppingListDrawer({
               {pricedCount > 0 && (
                 <div className="mt-6 border-t border-line pt-3">
                   <p className="tabular flex items-baseline justify-between gap-3 font-semibold">
-                    <span>{tr("Estimated cost", "Geschätzte Kosten")}</span>
+                    <span>{tr("estimatedCost")}</span>
                     <span>{formatEstPrice(estTotal, locale)}</span>
                   </p>
                   <p className="mt-1 text-caption text-ink-3">
-                    {tr("Discount-store estimate", "Discounter-Schätzung")}, {dateLabel}
-                    {unpricedCount > 0 && ` · ${tr(`+ ${unpricedCount} unpriced`, `+ ${unpricedCount} ohne Schätzung`)}`}
+                    {tr("discountStoreEstimate")}, {dateLabel}
+                    {unpricedCount > 0 && ` · ${tr("unpricedCount", { count: unpricedCount })}`}
                   </p>
                 </div>
               )}

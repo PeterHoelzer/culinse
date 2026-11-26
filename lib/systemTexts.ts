@@ -1,0 +1,22 @@
+// Erzeugt von scripts/generate-system-texts.mjs aus messages/*.json (Bereich "error").
+// Nicht von Hand ändern: Texte in messages/*.json pflegen und das Skript neu laufen lassen.
+export type SystemTexts = { notFound: string; notFoundSub: string; backHome: string; title: string; retry: string; text: string; id: string };
+
+export const SYSTEM_TEXTS: Record<string, SystemTexts> = {
+  bn: { notFound: "পাতাটি পাওয়া যায়নি", notFoundSub: "আপনি যে পাতাটি খুঁজছেন, সেটি নেই।", backHome: "হোমপেজে ফিরে যান", title: "কিছু একটা ভুল হয়েছে", retry: "আবার চেষ্টা করুন", text: "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।", id: "ত্রুটির নম্বর: {id}" },
+  cs: { notFound: "Stránka nenalezena", notFoundSub: "Stránka, kterou hledáš, neexistuje.", backHome: "Zpět na úvodní stránku", title: "Něco se pokazilo", retry: "Zkusit znovu", text: "Nastala neočekávaná chyba. Zkus to prosím znovu.", id: "Číslo chyby: {id}" },
+  de: { notFound: "Seite nicht gefunden", notFoundSub: "Die gesuchte Seite existiert nicht.", backHome: "Zurück zur Startseite", title: "Da ist etwas schiefgegangen", retry: "Erneut versuchen", text: "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es noch einmal.", id: "Fehlernummer: {id}" },
+  en: { notFound: "Page not found", notFoundSub: "The page you're looking for doesn't exist.", backHome: "Back to Home", title: "Something went wrong", retry: "Try again", text: "An unexpected error occurred. Please try again.", id: "Error number: {id}" },
+  es: { notFound: "Página no encontrada", notFoundSub: "La página que buscas no existe.", backHome: "Volver al inicio", title: "Algo ha salido mal", retry: "Intentar de nuevo", text: "Ha ocurrido un error inesperado. Inténtalo de nuevo.", id: "Número de error: {id}" },
+  fr: { notFound: "Page introuvable", notFoundSub: "La page que tu cherches n'existe pas.", backHome: "Retour à l'accueil", title: "Une erreur s'est produite", retry: "Réessayer", text: "Une erreur inattendue s'est produite. Réessaie.", id: "Numéro d'erreur : {id}" },
+  id: { notFound: "Halaman tidak ditemukan", notFoundSub: "Halaman yang kamu cari tidak ada.", backHome: "Kembali ke beranda", title: "Terjadi kesalahan", retry: "Coba lagi", text: "Terjadi kesalahan tak terduga. Silakan coba lagi.", id: "Nomor kesalahan: {id}" },
+  it: { notFound: "Pagina non trovata", notFoundSub: "La pagina che cerchi non esiste.", backHome: "Torna alla home", title: "Qualcosa è andato storto", retry: "Riprova", text: "Si è verificato un errore imprevisto. Riprova.", id: "Numero dell'errore: {id}" },
+  ja: { notFound: "ページが見つかりません", notFoundSub: "お探しのページは存在しません。", backHome: "ホームに戻る", title: "問題が発生しました", retry: "もう一度試す", text: "予期しないエラーが発生しました。もう一度お試しください。", id: "エラー番号：{id}" },
+  nl: { notFound: "Pagina niet gevonden", notFoundSub: "De pagina die je zoekt bestaat niet.", backHome: "Terug naar de startpagina", title: "Er is iets misgegaan", retry: "Opnieuw proberen", text: "Er is een onverwachte fout opgetreden. Probeer het opnieuw.", id: "Foutnummer: {id}" },
+  pl: { notFound: "Nie znaleziono strony", notFoundSub: "Szukana strona nie istnieje.", backHome: "Powrót na stronę główną", title: "Coś poszło nie tak", retry: "Spróbuj ponownie", text: "Wystąpił nieoczekiwany błąd. Spróbuj ponownie.", id: "Numer błędu: {id}" },
+  pt: { notFound: "Página não encontrada", notFoundSub: "A página que você procura não existe.", backHome: "Voltar à página inicial", title: "Algo deu errado", retry: "Tentar de novo", text: "Ocorreu um erro inesperado. Tente novamente.", id: "Número do erro: {id}" },
+  ru: { notFound: "Страница не найдена", notFoundSub: "Страницы, которую ты ищешь, не существует.", backHome: "Вернуться на главную", title: "Что-то пошло не так", retry: "Попробовать снова", text: "Произошла непредвиденная ошибка. Попробуй ещё раз.", id: "Номер ошибки: {id}" },
+  tr: { notFound: "Sayfa bulunamadı", notFoundSub: "Aradığın sayfa mevcut değil.", backHome: "Ana sayfaya dön", title: "Bir şeyler ters gitti", retry: "Tekrar dene", text: "Beklenmeyen bir hata oluştu. Lütfen tekrar dene.", id: "Hata numarası: {id}" },
+  vi: { notFound: "Không tìm thấy trang", notFoundSub: "Trang bạn tìm kiếm không tồn tại.", backHome: "Về trang chủ", title: "Đã có lỗi xảy ra", retry: "Thử lại", text: "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.", id: "Mã lỗi: {id}" },
+  zh: { notFound: "页面未找到", notFoundSub: "你要找的页面不存在。", backHome: "返回首页", title: "出了点问题", retry: "重试", text: "发生了意外错误，请重试。", id: "错误编号：{id}" },
+};

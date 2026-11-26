@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
 import { Button } from "@/components/ui";
 
@@ -20,7 +20,7 @@ interface CommunityRecipe {
  */
 export default function FamilySection() {
   const locale = useLocale();
-  const de = locale === "de";
+  const t = useTranslations("home");
   const [recipes, setRecipes] = useState<CommunityRecipe[]>([]);
 
   useEffect(() => {
@@ -45,15 +45,13 @@ export default function FamilySection() {
       <div className="mx-auto grid max-w-content gap-10 px-4 py-14 sm:px-6 sm:py-20 md:grid-cols-[7fr_5fr] md:items-center md:gap-16">
         <blockquote className="m-0 flex flex-col items-start gap-6">
           <p className="max-w-[30ch] font-serif text-h2 font-medium text-ink sm:text-display-sm" style={{ lineHeight: 1.08 }}>
-            {de
-              ? "„Die ersten Rezepte hier sind die meines Vaters. Senfsauce, Spitzkohl, Hühnersuppe. Seit vierzig Jahren gleich gekocht.“"
-              : "“The first recipes here are my father’s. Mustard sauce, pointed cabbage, chicken soup. Cooked the same way for forty years.”"}
+            {t("familyQuote")}
           </p>
           <footer className="text-base text-ink-2">
-            {de ? "Peter Hölzer, Fleischermeister und Küchenchef" : "Peter Hölzer, master butcher and head chef"}
+            {t("familyAuthor")}
           </footer>
           <Button variant="quiet" href="/my-recipes">
-            {de ? "Eigenes Rezept veröffentlichen" : "Publish your own recipe"}
+            {t("familyCta")}
           </Button>
         </blockquote>
 
@@ -72,7 +70,7 @@ export default function FamilySection() {
                 style={{ objectPosition: r.imagePosition ?? "50% 50%" }}
               />
               <p className="mt-2 line-clamp-1 text-sm text-ink group-hover:underline underline-offset-[3px]">{r.title}</p>
-              <p className="text-caption text-ink-3">Community</p>
+              <p className="text-caption text-ink-3">{t("community")}</p>
             </Link>
           ))}
         </div>

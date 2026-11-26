@@ -21,6 +21,7 @@ import { dishColorsWithin } from "@/lib/dishColor";
 import { clipDescription } from "@/lib/siteMeta";
 import { searchLanguages } from "@/lib/searchLocales";
 import HomeFooter from "../components/HomeFooter";
+import GuestNote from "@/components/GuestNote";
 import BrowseClient from "./BrowseClient";
 
 /*
@@ -290,6 +291,8 @@ export default async function BrowseView({ locale, state, landing }: { locale: s
             </div>
           </section>
         </BrowseClient>
+        {/* Gäste: Hinweis auf das kostenlose Konto */}
+        <GuestNote className="mx-auto max-w-content px-4 pb-12 sm:px-6" />
       </main>
       <HomeFooter />
     </div>

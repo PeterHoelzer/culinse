@@ -62,16 +62,21 @@ export async function PUT(req: NextRequest, { params }: Params) {
       return NextResponse.json({ error: "imported_cannot_publish" }, { status: 403 });
     }
 
+    // issueCodes: Kürzel für die Oberfläche, die den Text in der Sprache des
+    // Besuchers zeigt (messages/*.json, recipeEditor.issue_<Kürzel>). issues bleibt
+    // als englischer Klartext für ältere Fassungen der Seite.
     const issues: string[] = [];
-    if (!input.image_url) issues.push("A photo is required to publish publicly.");
+    const issueCodes: string[] = [];
+    const issue = (code: string, text: string) => { issueCodes.push(code); issues.push(text); };
+    if (!input.image_url) issue("photo", "A photo is required to publish publicly.");
     if (input.instructions.length < 2)
-      issues.push("At least 2 instruction steps are required.");
+      issue("steps", "At least 2 instruction steps are required.");
     const totalWords = input.instructions
       .map((s) => s.text).join(" ").split(/\s+/).length;
-    if (totalWords < 30) issues.push("Instructions need more detail (at least 30 words total).");
-    if (!input.title || input.title.length < 3) issues.push("A proper title is required.");
+    if (totalWords < 30) issue("detail", "Instructions need more detail (at least 30 words total).");
+    if (!input.title || input.title.length < 3) issue("title", "A proper title is required.");
     if (issues.length > 0)
-      return NextResponse.json({ error: "quality_check_failed", issues }, { status: 422 });
+      return NextResponse.json({ error: "quality_check_failed", issues, issueCodes }, { status: 422 });
   }
 
   const isPublic = body.is_public === true;

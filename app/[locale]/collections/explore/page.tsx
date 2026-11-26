@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { searchLanguages } from "@/lib/searchLocales";
 import Navbar from "@/components/Navbar";
 import ExploreClient from "./ExploreClient";
@@ -13,18 +14,8 @@ export async function generateMetadata({
     canonical: `https://culinse.com/${locale}/collections/explore`,
     languages: searchLanguages((l) => `https://culinse.com/${l}/collections/explore`),
   };
-  if (locale === "de") {
-    return {
-      title: "Sammlungen entdecken",
-      description: "Entdecke öffentliche Rezept-Sammlungen der Culinse-Community.",
-      alternates,
-    };
-  }
-  return {
-    title: "Explore Collections",
-    description: "Discover public recipe collections shared by the Culinse community.",
-    alternates,
-  };
+  const t = await getTranslations({ locale, namespace: "exploreCollections" });
+  return { title: t("title"), description: t("metaDescription"), alternates };
 }
 
 export default function ExplorePage() {

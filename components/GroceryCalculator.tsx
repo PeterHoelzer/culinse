@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button, Input, Select, Notice } from "@/components/ui";
+import GuestNote from "@/components/GuestNote";
 import {
   allIngredientNames,
   estimatePrice,
@@ -36,7 +38,7 @@ const EXAMPLE: { name: string; nameDe: string; amount: number; unit: string }[] 
 
 export default function GroceryCalculator({ locale }: { locale: string }) {
   const de = locale === "de";
-  const tr = (en: string, deStr: string) => (de ? deStr : en);
+  const tr = useTranslations("calculator");
 
   const [items, setItems] = useState<CalcItem[]>([]);
   const [name, setName] = useState("");
@@ -83,7 +85,7 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
   const total = priced.reduce((s, i) => s + (i.price as number), 0);
   const unpriced = items.length - priced.length;
 
-  const unitLabel = (u: string) => (u === "pc" ? tr("pc", "Stück") : u);
+  const unitLabel = (u: string) => (u === "pc" ? tr("pc") : u);
 
   return (
     <div className="rounded-2 border border-line p-5 sm:p-8">
@@ -100,10 +102,10 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
         <Input
           className="sm:col-span-full"
           list="grocery-calc-suggestions"
-          label={tr("Ingredient", "Zutat")}
+          label={tr("ingredient")}
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={tr("e.g. chicken breast", "z. B. Hähnchenbrust")}
+          placeholder={tr("eGChickenBreast")}
           autoComplete="off"
         />
         <datalist id="grocery-calc-suggestions">
@@ -112,26 +114,26 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
           ))}
         </datalist>
         <Input
-          label={tr("Amount", "Menge")}
+          label={tr("amount")}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           inputMode="decimal"
           autoComplete="off"
         />
-        <Select label={tr("Unit", "Einheit")} value={unit} onChange={(e) => setUnit(e.target.value)}>
+        <Select label={tr("unit")} value={unit} onChange={(e) => setUnit(e.target.value)}>
           {UNITS.map((u) => (
             <option key={u} value={u}>{unitLabel(u)}</option>
           ))}
         </Select>
         <Button type="submit" icon="plus" disabled={!name.trim() || !amount.trim()}>
-          {tr("Add", "Hinzufügen")}
+          {tr("add")}
         </Button>
       </form>
 
       {/* Beispiel laden */}
       {items.length === 0 && (
         <Button variant="quiet" onClick={loadExample} className="mt-4 text-base">
-          {tr("Try an example weekly shop", "Beispiel-Wocheneinkauf laden")}
+          {tr("tryAnExampleWeekly")}
         </Button>
       )}
 
@@ -139,13 +141,13 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
       {items.length > 0 && (
         <div className="mt-8">
           <table className="w-full text-base">
-            <caption className="sr-only">{tr("Your shopping list with estimated prices", "Deine Einkaufsliste mit geschätzten Preisen")}</caption>
+            <caption className="sr-only">{tr("yourShoppingListWith")}</caption>
             <thead>
               <tr className="border-b border-line text-left text-sm text-ink-3">
-                <th scope="col" className="py-2 pr-3 font-semibold">{tr("Ingredient", "Zutat")}</th>
-                <th scope="col" className="py-2 pr-3 font-semibold">{tr("Amount", "Menge")}</th>
-                <th scope="col" className="py-2 text-right font-semibold">{tr("Price", "Preis")}</th>
-                <th scope="col" className="w-12 py-2"><span className="sr-only">{tr("Remove", "Entfernen")}</span></th>
+                <th scope="col" className="py-2 pr-3 font-semibold">{tr("ingredient")}</th>
+                <th scope="col" className="py-2 pr-3 font-semibold">{tr("amount")}</th>
+                <th scope="col" className="py-2 text-right font-semibold">{tr("price")}</th>
+                <th scope="col" className="w-12 py-2"><span className="sr-only">{tr("remove")}</span></th>
               </tr>
             </thead>
             <tbody>
@@ -164,7 +166,7 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
                       size="sm"
                       icon="x"
                       onClick={() => remove(i.id)}
-                      aria-label={`${tr("Remove", "Entfernen")}: ${i.name}`}
+                      aria-label={`${tr("remove")}: ${i.name}`}
                     />
                   </td>
                 </tr>
@@ -173,7 +175,7 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
             <tfoot>
               <tr>
                 <th scope="row" colSpan={2} className="pt-4 text-left font-semibold text-ink">
-                  {tr("Estimated total", "Geschätzte Gesamtkosten")}
+                  {tr("estimatedTotal")}
                 </th>
                 <td colSpan={2} className="pt-4 text-right font-serif text-h2-sm text-ink tabular whitespace-nowrap">
                   {formatEstPrice(total, locale)}
@@ -185,15 +187,11 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
           <div className="mt-6 space-y-3">
             {unpriced > 0 && (
               <Notice tone="warn">
-                {de
-                  ? `${unpriced} Zutat${unpriced > 1 ? "en" : ""} ohne Preisschätzung (nicht in der Summe).`
-                  : `${unpriced} item${unpriced > 1 ? "s" : ""} without a price estimate (not included in the total).`}
+                {tr("unpriced", { count: unpriced })}
               </Notice>
             )}
             <Notice tone="info">
-              {de
-                ? "Schätzung auf Discounter-Niveau (Eigenmarken). Tatsächliche Preise variieren je nach Markt und Region."
-                : "Estimates at discount-store level (own brands). Actual prices vary by store and region."}
+              {tr("estimatesAtDiscountStore")}
             </Notice>
           </div>
 
@@ -201,18 +199,15 @@ export default function GroceryCalculator({ locale }: { locale: string }) {
               natürliche nächste Schritt in den Planer (Liste entsteht dort automatisch). */}
           <div className="mt-8 border-t border-line pt-6">
             <p className="font-serif text-h3 text-ink mb-1">
-              {de
-                ? "Schluss mit Tippen: Im Wochenplaner schreibt sich diese Liste von selbst."
-                : "Stop typing lists: in the weekly planner this list writes itself."}
+              {tr("stopTypingListsIn")}
             </p>
             <p className="text-base text-ink-2 mb-4">
-              {de
-                ? "Rezepte wählen, und die Einkaufsliste mit €-Summe kommt automatisch. Kostenlos."
-                : "Pick recipes and your shopping list with a € total is generated automatically. Free."}
+              {tr("pickRecipesAndYour")}
             </p>
             <Button href="/weekly-meal-planner">
-              {de ? "Wochenplaner kostenlos starten" : "Start the free meal planner"}
+              {tr("startTheFreeMeal")}
             </Button>
+            <GuestNote className="mt-4" />
           </div>
         </div>
       )}
