@@ -493,7 +493,6 @@
     "qty": "Mkt.",
     "addItem": "Ürün ekle",
     "orJustAddYour": "…ya da yukarıya kendi ürünlerini ekle.",
-    "buyOnAmazonAd": "Amazon'dan satın al (reklam)",
     "iAlreadyHaveThis": "Evde var",
     "remove": "Kaldır",
     "alreadyHave": "Zaten var",
@@ -625,10 +624,6 @@
     "link": "Ücretsiz giriş yap"
   },
   "modals": {
-    "ad": "Reklam",
-    "shop": "Shop",
-    "kitchenTools": "Mutfak gereçleri",
-    "affiliateLinks": "* Affiliate bağlantıları",
     "addToCollection": "Koleksiyona ekle",
     "noCollections": "Henüz koleksiyon yok",
     "createOneBelow": "Aşağıdan bir tane oluştur",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "Planda tarif yok",
     "addRecipesFirst": "Önce haftalık planına tarif ekle.",
     "noIngredients": "Malzeme bulunamadı — bazı kaynaklar malzeme listesi sunmuyor.",
-    "orderGroceries": "Amazon'dan market siparişi ver",
-    "affiliateNote": "Affiliate bağlantısı — sana ek maliyeti yok",
     "allDone": "Her şey tamam!",
     "boughtAll": "Tüm malzemeleri aldın.",
     "close": "Kapat",

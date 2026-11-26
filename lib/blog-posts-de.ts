@@ -11,14 +11,6 @@ export const blogPostsDe: BlogPost[] = [
     image: "https://culinse.com/blog/knife-skills-how-to-cut-like-a-chef.jpg",
     category: "Kochschule",
     video: "richtig-schneiden",
-    affiliateNames: [
-      "Zwilling Vier Sterne Kochmesser",
-      "Victorinox Officemesser",
-      "Victorinox Schälmesser",
-      "Continenta Stirnholz-Schneidebrett",
-      "OXO Kunststoff-Schneidebrett",
-      "Wüsthof Wetzstahl",
-    ],
     sections: [
       {
         content:
@@ -165,14 +157,6 @@ export const blogPostsDe: BlogPost[] = [
     image: "https://culinse.com/blog/steak-doneness-temperatures-guide.jpg",
     category: "Kochschule",
     video: "rindersteaks-auf-den-punkt",
-    affiliateNames: [
-      "Fleischthermometer",
-      "Gusseisenpfanne",
-      "Zwilling Vier Sterne Kochmesser",
-      "Continenta Stirnholz-Schneidebrett",
-      "OXO Kunststoff-Schneidebrett",
-      "Wüsthof Wetzstahl",
-    ],
     sections: [
       {
         content:
@@ -303,17 +287,6 @@ export const blogPostsDe: BlogPost[] = [
     image: "https://culinse.com/blog/kitchen-knives-sharpening-cutting-boards-guide.jpg",
     category: "Kochschule",
     video: "messer-schaerfen-schneidbretter",
-    affiliateNames: [
-      "Zwilling Vier Sterne Kochmesser",
-      "Victorinox Officemesser",
-      "Victorinox Schälmesser",
-      "Victorinox Brotmesser",
-      "Wüsthof Wetzstahl",
-      "Schleifstein-Set 1000/3000",
-      "HORL 3 Cruise Rollschleifer",
-      "Continenta Stirnholz-Schneidebrett",
-      "OXO Kunststoff-Schneidebrett",
-    ],
     sections: [
       {
         content:
@@ -383,7 +356,7 @@ export const blogPostsDe: BlogPost[] = [
       },
       {
         content:
-          "Unsere konkreten, geprüften Produkt-Empfehlungen für genau dieses Setup findest du in der Box direkt unter dem Artikel. Und wie du mit den scharfen Messern dann umgehst, zeigt dir [Schneiden lernen wie ein Profi](/de/blog/schneiden-lernen-messerhaltung-schnitttechniken).",
+          "Wie du mit den scharfen Messern dann umgehst, zeigt dir [Schneiden lernen wie ein Profi](/de/blog/schneiden-lernen-messerhaltung-schnitttechniken).",
       },
       {
         heading: "Häufige Fragen",

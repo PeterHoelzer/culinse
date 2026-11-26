@@ -6,7 +6,6 @@
 NEXT_PUBLIC_APP_URL=            # öffentliche Adresse, immer https://culinse.com (auch im Probebetrieb, damit Canonicals stimmen)
 NEXT_PUBLIC_SUPABASE_URL=       # Stufe 1: bisheriges Supabase-Projekt · Stufe 2: Adresse des eigenen Supabase, z. B. https://daten.culinse.com
 NEXT_PUBLIC_SUPABASE_ANON_KEY=  # öffentlicher Schlüssel zur obigen Adresse (in Stufe 2 der neue)
-NEXT_PUBLIC_AMAZON_AFFILIATE_TAG=
 NEXT_PUBLIC_APPLE_LOGIN=        # leer lassen: Der Knopf „Mit Apple anmelden“ richtet sich nach dem Anmeldedienst. on = immer zeigen (lokale Vorschau), off = nie (Notbremse). Siehe lib/authProviders.ts
 
 # --- Nur zur Laufzeit (geheim) ---

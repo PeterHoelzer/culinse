@@ -493,7 +493,6 @@
     "qty": "Qty",
     "addItem": "Add item",
     "orJustAddYour": "…or just add your own items above.",
-    "buyOnAmazonAd": "Buy on Amazon (ad)",
     "iAlreadyHaveThis": "I already have this",
     "remove": "Remove",
     "alreadyHave": "Already have",
@@ -625,10 +624,6 @@
     "link": "Sign in for free"
   },
   "modals": {
-    "ad": "Ad",
-    "shop": "Shop",
-    "kitchenTools": "Kitchen Tools",
-    "affiliateLinks": "* Affiliate links",
     "addToCollection": "Add to Collection",
     "noCollections": "No collections yet",
     "createOneBelow": "Create one below",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "No recipes in plan",
     "addRecipesFirst": "Add recipes to your meal plan first.",
     "noIngredients": "No ingredients found — some sources don't support ingredient lists.",
-    "orderGroceries": "Order groceries on Amazon",
-    "affiliateNote": "Affiliate link — no extra cost for you",
     "allDone": "All done!",
     "boughtAll": "You've bought all the ingredients.",
     "close": "Close",

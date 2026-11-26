@@ -493,7 +493,6 @@
     "qty": "Hvh.",
     "addItem": "Artikel toevoegen",
     "orJustAddYour": "…of voeg hierboven gewoon je eigen artikelen toe.",
-    "buyOnAmazonAd": "Kopen bij Amazon (advertentie)",
     "iAlreadyHaveThis": "Heb ik al in huis",
     "remove": "Verwijderen",
     "alreadyHave": "Al in huis",
@@ -625,10 +624,6 @@
     "link": "Gratis inloggen"
   },
   "modals": {
-    "ad": "Advertentie",
-    "shop": "Shop",
-    "kitchenTools": "Keukengerei",
-    "affiliateLinks": "* Affiliatelinks",
     "addToCollection": "Aan collectie toevoegen",
     "noCollections": "Nog geen collecties",
     "createOneBelow": "Maak er hieronder een aan",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "Geen recepten in het plan",
     "addRecipesFirst": "Voeg eerst recepten toe aan je weekplan.",
     "noIngredients": "Geen ingrediënten gevonden — sommige bronnen bieden geen ingrediëntenlijst.",
-    "orderGroceries": "Boodschappen bestellen bij Amazon",
-    "affiliateNote": "Affiliatelink — geen extra kosten voor jou",
     "allDone": "Alles afgevinkt!",
     "boughtAll": "Je hebt alle ingrediënten gehaald.",
     "close": "Sluiten",

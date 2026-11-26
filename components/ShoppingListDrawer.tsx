@@ -4,8 +4,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { formatEstPrice, PRICES_UPDATED_AT } from "@/lib/ingredient-prices";
-import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
-import { Button, buttonClasses, Checkbox, EmptyState, Icon, Input, Notice, Skeleton } from "@/components/ui";
+import { Button, Checkbox, EmptyState, Icon, Input, Notice, Skeleton } from "@/components/ui";
 import Dialog from "@/components/ui/Dialog";
 
 interface ShoppingItem {
@@ -281,7 +280,6 @@ export default function ShoppingListDrawer({
   });
 
   const dateLabel = new Date(PRICES_UPDATED_AT).toLocaleDateString(locale, { month: "long", year: "numeric" });
-  const iconLink = buttonClasses({ variant: "icon", size: "sm" });
 
   return (
     <Dialog open onClose={onClose} title={t("shoppingTitle")} side>
@@ -380,7 +378,6 @@ export default function ShoppingListDrawer({
                     <ul className="mt-2 flex flex-col">
                       {visible.map(item => {
                         const isDone = checked.has(item.key);
-                        const shopUrl = !isDone ? getIngredientAffiliateUrl(item.name) : null;
                         return (
                           <li key={item.key} className="flex items-center gap-1 py-1">
                             <Checkbox
@@ -403,18 +400,6 @@ export default function ShoppingListDrawer({
                                 </span>
                               }
                             />
-                            {shopUrl && (
-                              <a
-                                href={trackedUrl(shopUrl, "shopping_list")}
-                                target="_blank"
-                                rel="noopener noreferrer sponsored"
-                                aria-label={tr("buyOnAmazonAd")}
-                                title={tr("buyOnAmazonAd")}
-                                className={iconLink}
-                              >
-                                <Icon name="cart" size={20} />
-                              </a>
-                            )}
                             <Button
                               variant="icon"
                               size="sm"
@@ -485,21 +470,6 @@ export default function ShoppingListDrawer({
                   <p className="font-semibold">{t("allDone")}</p>
                   <p>{t("boughtAll")}</p>
                 </Notice>
-              )}
-
-              {totalItems > 0 && (
-                <div className="mt-6">
-                  <a
-                    href={trackedUrl(`https://www.amazon.de/s?k=lebensmittel+online&tag=${process.env.NEXT_PUBLIC_AMAZON_AFFILIATE_TAG || "culinse-21"}`, "shopping_list_all")}
-                    target="_blank"
-                    rel="noopener noreferrer sponsored"
-                    className={buttonClasses({ variant: "secondary", fullWidth: true })}
-                  >
-                    {t("orderGroceries")}
-                    <Icon name="externalLink" size={18} />
-                  </a>
-                  <p className="mt-2 text-caption text-ink-3">{t("affiliateNote")}</p>
-                </div>
               )}
             </>
           )}

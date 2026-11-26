@@ -493,7 +493,6 @@
     "qty": "Jml",
     "addItem": "Tambah item",
     "orJustAddYour": "…atau tambahkan item sendiri di atas.",
-    "buyOnAmazonAd": "Beli di Amazon (iklan)",
     "iAlreadyHaveThis": "Sudah punya",
     "remove": "Hapus",
     "alreadyHave": "Sudah punya",
@@ -625,10 +624,6 @@
     "link": "Masuk gratis"
   },
   "modals": {
-    "ad": "Iklan",
-    "shop": "Toko",
-    "kitchenTools": "Peralatan dapur",
-    "affiliateLinks": "* Tautan afiliasi",
     "addToCollection": "Tambahkan ke koleksi",
     "noCollections": "Belum ada koleksi",
     "createOneBelow": "Buat koleksi di bawah ini",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "Belum ada resep di rencana",
     "addRecipesFirst": "Tambahkan resep ke rencana menu mingguanmu terlebih dahulu.",
     "noIngredients": "Bahan tidak ditemukan — beberapa sumber tidak menyediakan daftar bahan.",
-    "orderGroceries": "Pesan bahan makanan di Amazon",
-    "affiliateNote": "Tautan afiliasi — tanpa biaya tambahan untukmu",
     "allDone": "Semua selesai!",
     "boughtAll": "Kamu sudah membeli semua bahan.",
     "close": "Tutup",

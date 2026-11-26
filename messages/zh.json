@@ -493,7 +493,6 @@
     "qty": "数量",
     "addItem": "添加商品",
     "orJustAddYour": "…或者直接在上方添加自定义商品。",
-    "buyOnAmazonAd": "在 Amazon 购买（广告）",
     "iAlreadyHaveThis": "家里已有",
     "remove": "移除",
     "alreadyHave": "家里已有",
@@ -625,10 +624,6 @@
     "link": "免费登录"
   },
   "modals": {
-    "ad": "广告",
-    "shop": "商店",
-    "kitchenTools": "厨房用具",
-    "affiliateLinks": "* 推广链接",
     "addToCollection": "添加到合集",
     "noCollections": "还没有合集",
     "createOneBelow": "在下方新建一个",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "计划中没有食谱",
     "addRecipesFirst": "请先将食谱添加到每周计划。",
     "noIngredients": "未找到食材——部分来源不提供食材清单。",
-    "orderGroceries": "在亚马逊订购食材",
-    "affiliateNote": "推广链接——不会让你多花一分钱",
     "allDone": "全部完成！",
     "boughtAll": "所有食材都已买齐。",
     "close": "关闭",

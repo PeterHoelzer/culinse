@@ -18,11 +18,9 @@ import ShoppingListDrawer from "@/components/ShoppingListDrawer";
 import { Link as LocaleLink } from "@/lib/navigation";
 import type { DishColors } from "@/app/[locale]/components/home-types";
 import { displayTitle, nameLangFromTags, stageTitleSize } from "@/lib/recipeTitle";
-import { AffiliateBox } from "@/components/AffiliateBox";
 import RecipeRating from "@/components/RecipeRating";
 import { germanIngredientRest } from "@/lib/germanUnits";
 import { scaleSpoonGrams } from "@/lib/spoonGrams";
-import { getIngredientAffiliateUrl, trackedUrl } from "@/lib/affiliateProducts";
 import { SIZED_WIDTHS, isSizedUrl, optimizedImageUrl, originalImageUrl, sizedImageUrl } from "@/lib/imageUrl";
 import { Button, buttonClasses, Checkbox, EmptyState, Icon, SectionHeader, Skeleton } from "@/components/ui";
 
@@ -113,8 +111,7 @@ async function translateBatch(texts: string[]): Promise<string[]> {
 /**
  * Produce a German version of a recipe: convert imperial units to metric
  * first, then translate the display text. `ingredient.name` and `dishTypes`
- * stay English on purpose — affiliate matching and related-video tags rely
- * on them.
+ * stay English on purpose — related-video tags rely on them.
  */
 async function translateRecipeToGerman(r: Recipe): Promise<Recipe> {
   const ingredientTexts = r.ingredients.map((i) => convertMeasurements(i.original));
@@ -1090,7 +1087,6 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                           : split.rest;
                       // „4 TL Zimt (10 g)“: Bei anderer Portionenzahl geht das Gewicht in der Klammer mit, siehe lib/spoonGrams.ts.
                       const rest = scaleSpoonGrams(ing.unit, restAsStored, servingsFactor, (n) => formatAmount(n, locale));
-                      const url = getIngredientAffiliateUrl(ing.name);
                       return (
                         <li key={i} className="ingredient-item flex items-start gap-2 py-2.5">
                           <Checkbox
@@ -1104,18 +1100,6 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                               </span>
                             }
                           />
-                          {url && (
-                            <a
-                              href={trackedUrl(url, "recipe_ingredient", recipe.id)}
-                              target="_blank"
-                              rel="noopener noreferrer sponsored"
-                              aria-label={tx("buyIngredient", `${ing.name} bei Amazon kaufen`, `Buy ${ing.name} on Amazon`)}
-                              title={tx("buyIngredient", `${ing.name} bei Amazon kaufen`, `Buy ${ing.name} on Amazon`)}
-                              className="ingredient-shop-link print-hide inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-1 text-ink-3 transition-colors hover:text-brand"
-                            >
-                              <Icon name="cart" size={18} />
-                            </a>
-                          )}
                         </li>
                       );
                     })}
@@ -1147,17 +1131,6 @@ export default function RecipePageClient({ serverTitle, initialRecipe, similarRe
                     </table>
                   </section>
                 )}
-
-                {/* Affiliate Box — kitchen tools only */}
-                <div className="print-hide">
-                  <AffiliateBox
-                    dishTypes={recipe.dishTypes}
-                    ingredientNames={recipe.ingredients.map(i => i.name)}
-                    recipeTitle={recipe.title}
-                    toolsOnly
-                    recipeId={recipe.id}
-                  />
-                </div>
               </div>
             </aside>
 

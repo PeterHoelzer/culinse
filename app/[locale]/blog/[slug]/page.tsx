@@ -8,7 +8,6 @@ import { blogPosts, getBlogPost } from "@/lib/blog-posts";
 import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
 import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
 import { renderRichText } from "@/lib/renderRichText";
-import BlogAffiliateBox from "@/components/BlogAffiliateBox";
 import { getVideoBySlug } from "@/lib/videos";
 
 interface Props {
@@ -347,17 +346,6 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           ))}
         </article>
-
-        {/* Affiliate: kontextuelle Produkt-Empfehlungen (source: "blog" in /api/out) */}
-        <div className="mt-12">
-          <BlogAffiliateBox
-            title={post.title}
-            category={post.category}
-            headings={post.sections.map((s) => s.heading ?? "").filter(Boolean)}
-            productNames={post.affiliateNames}
-            locale={locale}
-          />
-        </div>
 
         {/* Author (E-E-A-T) */}
         <AuthorBox locale={locale} />

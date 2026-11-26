@@ -4,7 +4,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
  * Zahlen fürs Besucher-Dashboard (/de/admin/besucher). SERVER-ONLY.
  * Die Auswertung der Seitenaufrufe rechnet die Datenbank selbst
  * (Funktion page_view_stats in supabase/page_views_migration.sql); dazu kommen
- * drei Zähler aus vorhandenen Tabellen: neue Konten, Newsletter, Partner-Klicks.
+ * zwei Zähler aus vorhandenen Tabellen: neue Konten, Newsletter.
  * Nur Summen, keine einzelnen Besucher.
  */
 
@@ -47,7 +47,7 @@ export interface VisitorDashboard {
   generatedAt: string;
   stats: VisitorStats;
   /** Was im selben Zeitraum daraus wurde; null, wenn die Abfrage scheitert. */
-  outcomes: { signups: number | null; newsletter: number | null; affiliateClicks: number | null };
+  outcomes: { signups: number | null; newsletter: number | null };
 }
 
 export const ALLOWED_DAYS = [1, 7, 30, 90, 365] as const;
@@ -101,15 +101,14 @@ export async function getVisitorDashboard(days: number): Promise<VisitorDashboar
     .find((p) => p.type === "timeZoneName")?.value.replace("GMT", "") || "+01:00";
   const since = new Date(`${firstDay}T00:00:00${offset}`).toISOString();
 
-  const [signups, newsletter, affiliateClicks] = await Promise.all([
+  const [signups, newsletter] = await Promise.all([
     countSince("profiles", since),
     countSince("newsletter_subscribers", since),
-    countSince("affiliate_clicks", since),
   ]);
 
   return {
     generatedAt: new Date().toISOString(),
     stats,
-    outcomes: { signups, newsletter, affiliateClicks },
+    outcomes: { signups, newsletter },
   };
 }

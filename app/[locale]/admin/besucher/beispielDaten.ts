@@ -69,7 +69,6 @@ export function sampleDashboard(days: number): VisitorDashboard {
     outcomes: {
       signups: Math.round(visitors * 0.012),
       newsletter: Math.round(visitors * 0.006),
-      affiliateClicks: Math.round(visitors * 0.021),
     },
     stats: {
       days,

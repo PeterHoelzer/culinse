@@ -493,7 +493,6 @@
     "qty": "Mn.",
     "addItem": "Přidat položku",
     "orJustAddYour": "…nebo prostě přidej nahoře vlastní položky.",
-    "buyOnAmazonAd": "Koupit na Amazonu (reklama)",
     "iAlreadyHaveThis": "Mám doma",
     "remove": "Odebrat",
     "alreadyHave": "Už doma",
@@ -625,10 +624,6 @@
     "link": "Přihlásit se zdarma"
   },
   "modals": {
-    "ad": "Reklama",
-    "shop": "Obchod",
-    "kitchenTools": "Kuchyňské potřeby",
-    "affiliateLinks": "* Affiliate odkazy",
     "addToCollection": "Přidat do sbírky",
     "noCollections": "Zatím žádné sbírky",
     "createOneBelow": "Níže si jednu vytvoř",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "V plánu nejsou žádné recepty",
     "addRecipesFirst": "Nejdřív přidej recepty do svého týdenního plánu.",
     "noIngredients": "Nenašli jsme žádné suroviny — některé zdroje seznamy surovin nepodporují.",
-    "orderGroceries": "Objednat potraviny na Amazonu",
-    "affiliateNote": "Affiliate odkaz — nic tě nestojí navíc",
     "allDone": "Vše hotovo!",
     "boughtAll": "Máš nakoupené všechny suroviny.",
     "close": "Zavřít",

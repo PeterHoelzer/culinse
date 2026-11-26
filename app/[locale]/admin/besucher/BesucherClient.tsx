@@ -607,11 +607,10 @@ export default function BesucherClient() {
           <section aria-labelledby="ergebnis" className="mt-14">
             <h2 id="ergebnis" className="text-h2-sm">Was daraus wurde</h2>
             <p className="mt-1 text-sm text-ink-2">Im selben Zeitraum, {range.phrase}.</p>
-            <div className="mt-6 grid grid-cols-1 gap-px overflow-hidden rounded-2 border border-line bg-line sm:grid-cols-3">
+            <div className="mt-6 grid grid-cols-1 gap-px overflow-hidden rounded-2 border border-line bg-line sm:grid-cols-2">
               {[
                 { label: "Neue Konten", value: data.outcomes.signups },
                 { label: "Newsletter-Anmeldungen", value: data.outcomes.newsletter },
-                { label: "Klicks auf Partner-Links", value: data.outcomes.affiliateClicks },
               ].map((o) => (
                 <Figure key={o.label} label={o.label} value={o.value === null ? "–" : num(o.value)}>
                   {o.value !== null && stats.totals.visitors > 0

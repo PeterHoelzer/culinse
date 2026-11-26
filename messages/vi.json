@@ -493,7 +493,6 @@
     "qty": "SL",
     "addItem": "Thêm mục",
     "orJustAddYour": "…hoặc cứ thêm mục riêng của bạn ở trên.",
-    "buyOnAmazonAd": "Mua trên Amazon (quảng cáo)",
     "iAlreadyHaveThis": "Nhà đã có",
     "remove": "Xóa",
     "alreadyHave": "Nhà đã có",
@@ -625,10 +624,6 @@
     "link": "Đăng nhập miễn phí"
   },
   "modals": {
-    "ad": "Quảng cáo",
-    "shop": "Cửa hàng",
-    "kitchenTools": "Dụng cụ nhà bếp",
-    "affiliateLinks": "* Liên kết affiliate",
     "addToCollection": "Thêm vào bộ sưu tập",
     "noCollections": "Chưa có bộ sưu tập nào",
     "createOneBelow": "Hãy tạo một bộ sưu tập bên dưới",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "Thực đơn chưa có công thức nào",
     "addRecipesFirst": "Trước tiên, hãy thêm công thức vào thực đơn tuần của bạn.",
     "noIngredients": "Không tìm thấy nguyên liệu — một số nguồn không hỗ trợ danh sách nguyên liệu.",
-    "orderGroceries": "Đặt mua thực phẩm trên Amazon",
-    "affiliateNote": "Liên kết affiliate — bạn không mất thêm chi phí",
     "allDone": "Xong hết rồi!",
     "boughtAll": "Bạn đã mua đủ tất cả nguyên liệu.",
     "close": "Đóng",

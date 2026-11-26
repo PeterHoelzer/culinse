@@ -493,7 +493,6 @@
     "qty": "Ilość",
     "addItem": "Dodaj pozycję",
     "orJustAddYour": "…albo po prostu dodaj powyżej własne pozycje.",
-    "buyOnAmazonAd": "Kup na Amazon (reklama)",
     "iAlreadyHaveThis": "Mam to w domu",
     "remove": "Usuń",
     "alreadyHave": "Już w domu",
@@ -625,10 +624,6 @@
     "link": "Zaloguj się za darmo"
   },
   "modals": {
-    "ad": "Reklama",
-    "shop": "Shop",
-    "kitchenTools": "Akcesoria kuchenne",
-    "affiliateLinks": "* Linki afiliacyjne",
     "addToCollection": "Dodaj do kolekcji",
     "noCollections": "Nie masz jeszcze kolekcji",
     "createOneBelow": "Utwórz jedną poniżej",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "Brak przepisów w planie",
     "addRecipesFirst": "Najpierw dodaj przepisy do swojego planu tygodnia.",
     "noIngredients": "Nie znaleziono składników — niektóre źródła nie udostępniają list składników.",
-    "orderGroceries": "Zamów zakupy w Amazon",
-    "affiliateNote": "Link afiliacyjny — bez dodatkowych kosztów dla ciebie",
     "allDone": "Wszystko gotowe!",
     "boughtAll": "Masz już wszystkie składniki.",
     "close": "Zamknij",

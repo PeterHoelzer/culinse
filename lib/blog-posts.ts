@@ -15,9 +15,6 @@ export interface BlogPost {
   // Slug eines eigenen Koch-Videos (lib/videos.ts): ersetzt das Hero-Bild
   // durch den Player und emittiert VideoObject-JSON-LD (12.10.2026).
   video?: string;
-  // Explizite Produktauswahl fuer die BlogAffiliateBox (Name-Match gegen
-  // AFFILIATE_PRODUCTS, Reihenfolge = Anzeige); ohne Angabe: Tag-Matching.
-  affiliateNames?: string[];
 }
 
 interface Section {
@@ -37,14 +34,6 @@ export const blogPosts: BlogPost[] = [
     image: "https://culinse.com/blog/knife-skills-how-to-cut-like-a-chef.jpg",
     category: "Kitchen Skills",
     video: "richtig-schneiden",
-    affiliateNames: [
-      "Zwilling Vier Sterne Kochmesser",
-      "Victorinox Officemesser",
-      "Victorinox Schälmesser",
-      "Continenta Stirnholz-Schneidebrett",
-      "OXO Kunststoff-Schneidebrett",
-      "Wüsthof Wetzstahl",
-    ],
     sections: [
       {
         content:
@@ -191,14 +180,6 @@ export const blogPosts: BlogPost[] = [
     image: "https://culinse.com/blog/steak-doneness-temperatures-guide.jpg",
     category: "Kitchen Skills",
     video: "rindersteaks-auf-den-punkt",
-    affiliateNames: [
-      "Fleischthermometer",
-      "Gusseisenpfanne",
-      "Zwilling Vier Sterne Kochmesser",
-      "Continenta Stirnholz-Schneidebrett",
-      "OXO Kunststoff-Schneidebrett",
-      "Wüsthof Wetzstahl",
-    ],
     sections: [
       {
         content:
@@ -329,17 +310,6 @@ export const blogPosts: BlogPost[] = [
     image: "https://culinse.com/blog/kitchen-knives-sharpening-cutting-boards-guide.jpg",
     category: "Kitchen Skills",
     video: "messer-schaerfen-schneidbretter",
-    affiliateNames: [
-      "Zwilling Vier Sterne Kochmesser",
-      "Victorinox Officemesser",
-      "Victorinox Schälmesser",
-      "Victorinox Brotmesser",
-      "Wüsthof Wetzstahl",
-      "Schleifstein-Set 1000/3000",
-      "HORL 3 Cruise Rollschleifer",
-      "Continenta Stirnholz-Schneidebrett",
-      "OXO Kunststoff-Schneidebrett",
-    ],
     sections: [
       {
         content:
@@ -409,7 +379,7 @@ export const blogPosts: BlogPost[] = [
       },
       {
         content:
-          "Our specific, verified product picks for exactly this setup are in the box right below the article. And once your knives are sharp, [learn to use them like a chef](/en/blog/knife-skills-how-to-cut-like-a-chef).",
+          "Once your knives are sharp, [learn to use them like a chef](/en/blog/knife-skills-how-to-cut-like-a-chef).",
       },
       {
         heading: "Frequently Asked Questions",

@@ -493,7 +493,6 @@
     "qty": "数量",
     "addItem": "商品を追加",
     "orJustAddYour": "…または、上から自分で商品を追加してください。",
-    "buyOnAmazonAd": "Amazonで購入（広告）",
     "iAlreadyHaveThis": "家にある",
     "remove": "削除",
     "alreadyHave": "家にある",
@@ -625,10 +624,6 @@
     "link": "無料でログイン"
   },
   "modals": {
-    "ad": "広告",
-    "shop": "ショップ",
-    "kitchenTools": "キッチン用品",
-    "affiliateLinks": "* アフィリエイトリンク",
     "addToCollection": "コレクションに追加",
     "noCollections": "コレクションはまだありません",
     "createOneBelow": "下から新しく作成できます",
@@ -658,8 +653,6 @@
     "noRecipesInPlan": "プランにレシピがありません",
     "addRecipesFirst": "まずは週間プランにレシピを追加してください。",
     "noIngredients": "材料が見つかりません。一部のサイトは材料リストに対応していません。",
-    "orderGroceries": "Amazonで食料品を注文",
-    "affiliateNote": "アフィリエイトリンク（追加料金はかかりません）",
     "allDone": "すべて完了！",
     "boughtAll": "材料をすべて買いそろえました。",
     "close": "閉じる",
