@@ -1,16 +1,37 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Button, EmptyState } from "@/components/ui";
 import { buttonClasses } from "@/components/ui/styles";
-import { SYSTEM_TEXTS } from "@/lib/systemTexts";
+import { SYSTEM_TEXTS, type SystemTexts } from "@/lib/systemTexts";
+
+// Fassung, die der Server ausliefert: Dort ist die Adresse nicht bekannt (Next.js
+// rendert diese Seiten vorab unter /_not-found), deshalb zweisprachig wie zuvor.
+const FALLBACK: SystemTexts = {
+  notFound: "Seite nicht gefunden · Page not found",
+  notFoundSub: "Diese Seite existiert nicht (mehr). This page does not exist (anymore).",
+  backHome: "Zur Startseite · Back home",
+  title: "Da ist etwas schiefgegangen · Something went wrong",
+  retry: "Erneut versuchen · Try again",
+  text: "Ein unerwarteter Fehler ist aufgetreten. An unexpected error occurred.",
+  id: "Fehlernummer · Error number: {id}",
+};
+
+const subscribe = () => () => {};
+const clientPath = () => window.location.pathname;
+const serverPath = () => null;
 
 /*
   Fehlerseite und „Seite nicht gefunden“ in der Sprache der Adresse (26.11.2026).
   Bewusst ohne next-intl: Diese Seiten erscheinen auch dann, wenn der
   Sprachkontext fehlt oder selbst der Fehler ist. Die Sprache kommt aus dem
   ersten Teil der Adresse (/de/…), die Texte aus lib/systemTexts.ts.
+
+  Die Adresse wird erst im Browser gelesen (useSyncExternalStore): Der Server
+  liefert die zweisprachige Fassung, der Browser tauscht sie nach dem Laden gegen
+  die Sprache der Adresse. Mit usePathname lieferte der Server Englisch und der
+  Browser Deutsch; React meldete dann einen Fehler beim Zusammenführen (#418).
 */
 export default function SystemPage({
   kind,
@@ -21,9 +42,10 @@ export default function SystemPage({
   digest?: string;
   onRetry?: () => void;
 }) {
-  const segment = (usePathname() ?? "").split("/")[1] ?? "";
+  const path = useSyncExternalStore(subscribe, clientPath, serverPath);
+  const segment = (path ?? "").split("/")[1] ?? "";
   const known = Object.prototype.hasOwnProperty.call(SYSTEM_TEXTS, segment);
-  const s = SYSTEM_TEXTS[known ? segment : "en"];
+  const s = path === null ? FALLBACK : SYSTEM_TEXTS[known ? segment : "en"];
   const home = known ? `/${segment}` : "/";
   const isError = kind === "error";
 
