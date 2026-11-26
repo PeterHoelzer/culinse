@@ -137,13 +137,6 @@ export default function DatenschutzContent() {
           </p>
         </section>
 
-        <section>
-          <h2 className="text-h2-sm mt-10 mb-3">Amazon Associates / Affiliate-Links</h2>
-          <p className="text-base text-ink leading-relaxed mb-3">
-            Diese Website nimmt am Amazon Services LLC Associates Program und am Ninja Kitchen Affiliate-Programm teil. Bei Klick auf Amazon-Links setzt Amazon.com, Inc. einen Cookie mit einer Laufzeit von 24 Stunden. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
-          </p>
-        </section>
-
         <div className="pt-6 border-t border-line flex gap-6">
           <Link href="/" className="text-brand underline underline-offset-[3px] hover:text-brand-hover text-sm">Zurück zur Startseite</Link>
           <Link href="/impressum" className="text-brand underline underline-offset-[3px] hover:text-brand-hover text-sm">Impressum</Link>

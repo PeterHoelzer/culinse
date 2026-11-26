@@ -94,13 +94,6 @@ export default function ImpressumContent() {
           </p>
         </section>
 
-        <section>
-          <h2 className="text-h2-sm mt-10 mb-3">Affiliate-Links / Werbung</h2>
-          <p className="text-base text-ink leading-relaxed">
-            Diese Website enthält Affiliate-Links, insbesondere zu Amazon.de (Amazon Associates Partnerprogramm) und Ninja Kitchen. Wenn Sie über einen solchen Link ein Produkt kaufen, erhalten wir eine kleine Provision – für Sie entstehen keine Mehrkosten. Alle Empfehlungen basieren auf redaktioneller Einschätzung und nicht auf Zahlungen der Hersteller. Affiliate-Links sind mit dem Hinweis „Affiliate link“ oder „Ad“ gekennzeichnet.
-          </p>
-        </section>
-
         <div className="pt-6 border-t border-line">
           <Link href="/" className="text-brand underline underline-offset-[3px] hover:text-brand-hover text-sm">
             Zurück zur Startseite
