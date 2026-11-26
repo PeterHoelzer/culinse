@@ -6,7 +6,7 @@ import { loadSupabase, loadSupabaseAfterPageLoad } from "@/lib/supabase/lazy";
 import type { User } from "@supabase/supabase-js";
 import { Link, usePathname, useRouter } from "@/lib/navigation";
 import { routing } from "@/i18n/routing";
-import { useLoginHref } from "@/lib/useLoginHref";
+import { useLoginLink } from "@/lib/useLoginHref";
 import { Button, Icon, Wordmark } from "@/components/ui";
 
 const navLink = "text-sm font-semibold text-ink hover:underline underline-offset-[3px]";
@@ -43,7 +43,7 @@ export default function Navbar() {
   const tBrowse = useTranslations("browse");
   const locale = useLocale();
   const router = useRouter();
-  const loginHref = useLoginHref();
+  const login = useLoginLink();
   const [user, setUser] = useState<User | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuId = useId();
@@ -124,7 +124,7 @@ export default function Navbar() {
                 </button>
               </>
             ) : (
-              <Button size="sm" href={loginHref}>{t("login")}</Button>
+              <Button size="sm" href={login.href} onClick={login.onClick}>{t("login")}</Button>
             )}
           </div>
 
@@ -165,7 +165,7 @@ export default function Navbar() {
                 {t("logout")}
               </button>
             ) : (
-              <Link href={loginHref} onClick={close} className={menuLink}>{t("login")}</Link>
+              <Link href={login.href as "/"} onClick={(event) => { close(); login.onClick(event); }} className={menuLink}>{t("login")}</Link>
             )}
           </div>
         </div>

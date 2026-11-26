@@ -5,7 +5,9 @@ import { routing } from "@/i18n/routing";
   anmeldet, landet danach wieder dort statt auf der Startseite.
 
   - Verweise auf die Anmeldung hängen die aktuelle Seite als ?redirectTo= an
-    (loginHref). Die Middleware tut das für geschützte Seiten schon selbst.
+    (loginHref), seit 26.11.2026 erst beim Klick: im Seitencode steht nur
+    "/login", siehe lib/useLoginHref.ts. Die Middleware tut das für geschützte
+    Seiten schon selbst.
   - Bei Google und bei der Bestätigungs-Mail verlässt der Besucher die Seite.
     Das Ziel wartet so lange in einem kurzlebigen Cookie (rememberLoginTarget);
     app/auth/callback/route.ts liest und löscht es. So muss beim Anmeldedienst

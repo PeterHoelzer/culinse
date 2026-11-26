@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from "react";
+import { forwardRef, type ButtonHTMLAttributes, type MouseEvent, type ReactNode } from "react";
 import { Link } from "@/lib/navigation";
 import Icon, { type IconName } from "./Icon";
 
@@ -17,7 +17,7 @@ import { buttonClasses, type ButtonBaseProps as BaseProps, type ButtonVariant as
 export { buttonClasses };
 
 type ButtonAsButton = BaseProps & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & { href?: undefined };
-type ButtonAsLink = BaseProps & { href: string; target?: string; rel?: string; onClick?: () => void; "aria-label"?: string; title?: string };
+type ButtonAsLink = BaseProps & { href: string; target?: string; rel?: string; onClick?: (event: MouseEvent<HTMLAnchorElement>) => void; "aria-label"?: string; title?: string };
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(props, ref) {

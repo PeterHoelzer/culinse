@@ -12,7 +12,25 @@ import { isLoginForUncounted } from "@/lib/uncountedPaths";
   Setzt kein Cookie und legt nichts im Browser ab. Gesendet werden nur die
   Adresse der Seite, beim ersten Aufruf die Herkunft (Rechnername der
   verweisenden Seite, ?utm_source=) und ob es die erste Seite des Besuchs ist.
+
+  Gezählt wird erst nach einem Lebenszeichen (26.11.2026): Maus, Rad, Taste
+  oder Finger, sonst nach zehn Sekunden auf der sichtbaren Seite. In den ersten
+  zwei Tagen waren 102 von 127 "Besuchern" Crawler, die sich als gewöhnlicher
+  Chrome ausgeben, JavaScript ausführen, eine Seite laden und wieder gehen.
+  An der Browserkennung sind sie nicht zu erkennen (lib/visits.ts), an ihrem
+  Verhalten schon. Was der Besucher tut, wird nicht gesendet und nicht
+  gespeichert; es entscheidet nur, ob die Meldung überhaupt abgeht.
 */
+
+// Lebenszeichen. Bewusst ohne "scroll": Das löst auch ein Skript aus, und der
+// Browser selbst, wenn er die alte Stelle der Seite wiederherstellt.
+const SIGNS = ["pointerdown", "pointermove", "wheel", "keydown", "touchstart"] as const;
+const LISTEN = { passive: true, capture: true } as const;
+// Wer so lange bleibt, ohne etwas zu tun, liest vermutlich.
+const WAIT_MS = 10_000;
+
+// In diesem Tab schon ein Lebenszeichen gesehen? Gilt über Seitenwechsel hinweg.
+let alive = false;
 
 // Über Seitenwechsel hinweg: Was wurde zuletzt gemeldet, und war schon etwas da?
 let lastPath = "";
@@ -57,16 +75,38 @@ export default function VisitBeacon() {
     if (!pathname || navigator.webdriver) return;
     // Anmeldeseite auf dem Weg in die Verwaltung: zählt so wenig wie die Verwaltung selbst.
     if (isLoginForUncounted(pathname, location.search)) return;
-    // Erst zählen, wenn die Seite wirklich zu sehen ist (kein Vorladen im Hintergrund).
-    if (document.visibilityState === "visible") {
-      report(pathname);
-      return;
+
+    let timer: number | undefined;
+    let counted = false;
+
+    function stop() {
+      window.clearTimeout(timer);
+      SIGNS.forEach((name) => window.removeEventListener(name, onSign, LISTEN));
+      document.removeEventListener("visibilitychange", onVisibility);
     }
-    const onVisible = () => {
-      if (document.visibilityState === "visible") report(pathname);
-    };
-    document.addEventListener("visibilitychange", onVisible, { once: true });
-    return () => document.removeEventListener("visibilitychange", onVisible);
+    function count() {
+      if (counted) return;
+      counted = true;
+      stop();
+      report(pathname);
+    }
+    function onSign() {
+      alive = true;
+      if (document.visibilityState === "visible") count();
+    }
+    // Nur zählen, wenn die Seite wirklich zu sehen ist (kein Vorladen im
+    // Hintergrund). Die zehn Sekunden laufen nur, solange sie zu sehen ist.
+    function onVisibility() {
+      window.clearTimeout(timer);
+      if (document.visibilityState !== "visible") return;
+      if (alive) count();
+      else timer = window.setTimeout(count, WAIT_MS);
+    }
+
+    SIGNS.forEach((name) => window.addEventListener(name, onSign, LISTEN));
+    document.addEventListener("visibilitychange", onVisibility);
+    onVisibility();
+    return stop;
   }, [pathname]);
 
   return null;

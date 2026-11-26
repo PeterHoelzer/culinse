@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/lib/navigation";
-import { useLoginHref } from "@/lib/useLoginHref";
+import { useLoginLink } from "@/lib/useLoginHref";
 
 /*
   Hinweis für Gäste (25.11.2026): Alles auf Culinse ist kostenlos, zum Speichern
@@ -12,13 +12,14 @@ import { useLoginHref } from "@/lib/useLoginHref";
 */
 export default function FreeAccountNote({ className = "" }: { className?: string }) {
   const t = useTranslations("freeAccess");
-  const loginHref = useLoginHref();
+  const login = useLoginLink();
 
   return (
     <p className={`text-base text-ink-2 ${className}`}>
       {t("text")}{" "}
       <Link
-        href={loginHref as "/"}
+        href={login.href as "/"}
+        onClick={login.onClick}
         className="font-semibold text-brand underline underline-offset-[3px] hover:text-brand-hover"
       >
         {t("link")}
