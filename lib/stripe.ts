@@ -2,8 +2,7 @@ import Stripe from "stripe";
 
 // Seit 25.11.2026 gibt es kein Pro-Angebot und keinen Kaufweg mehr. Stripe wird
 // nur noch gebraucht, damit ein früher abgeschlossenes Abo weiterläuft, verwaltet
-// und gekündigt werden kann (app/api/stripe/webhook, app/api/stripe/portal) und
-// damit lib/moneyStats.ts die Zahl laufender Abos zeigt.
+// und gekündigt werden kann (app/api/stripe/webhook, app/api/stripe/portal).
 
 let _stripe: Stripe | null = null;
 
