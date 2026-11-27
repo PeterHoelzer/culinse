@@ -103,7 +103,6 @@ const PERSONAL_API = [
   "/api/nutrition",
   "/api/generate-plan",
   "/api/import-recipe",
-  "/api/stripe/:path*",
   "/api/admin/:path*",
 ];
 

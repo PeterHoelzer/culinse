@@ -1,62 +1,22 @@
 -- ── Security Hardening ────────────────────────────────────────────────────────
--- Im Supabase SQL Editor ausführen. Schließt zwei Lücken, die sich NICHT im
--- App-Code schließen lassen, weil Clients mit dem Anon-Key direkt per
+-- Im Supabase SQL Editor ausführen. Schließt eine Lücke, die sich NICHT im
+-- App-Code schließen lässt, weil Clients mit dem Anon-Key direkt per
 -- supabase-js auf die Tabellen schreiben können (die API-Routen sind dann
 -- umgangen; nur RLS/Trigger greifen noch):
 --
---  1) profiles: Billing-Spalten (is_pro, pro_expires_at, stripe_customer_id,
---     stripe_subscription_id) dürfen nur noch vom Server (service_role /
---     Stripe-Webhook) geändert werden. Ohne diesen Schutz könnte sich jeder
---     Nutzer per Browser-Konsole `is_pro = true` setzen (Gratis-Pro) oder eine
---     fremde stripe_customer_id eintragen und darüber via /api/stripe/portal
---     das Billing-Portal eines fremden Kunden öffnen.
+--  1) profiles: Der Schutz der Billing-Spalten (is_pro, pro_expires_at,
+--     stripe_customer_id, stripe_subscription_id) stand bis 27.11.2026 hier.
+--     Seit es kein Pro und kein Stripe mehr gibt, löscht
+--     supabase/pro_spalten_entfernen.sql die Spalten samt Trigger und Funktion.
+--     Der Trigger darf nicht wieder angelegt werden: Ohne die Spalten bräche er
+--     jede Änderung an einem Profil mit einer Fehlermeldung ab.
 --
 --  2) user_recipes: importierte Rezepte (source_type = 'imported', fremde
 --     Fotos/Texte!) dürfen auf DB-Ebene nie öffentlich werden — die API prüft
 --     das bereits, aber ein direkter supabase-js-Write würde vorbeigehen.
 --
--- Beide Trigger lassen service_role/postgres durch (Webhook, Admin-Client,
--- Rezept-Agent), blockieren aber die Rollen authenticated/anon.
-
--- ── 1) profiles: Billing-Spalten sperren ─────────────────────────────────────
-
-create or replace function public.protect_profile_billing_columns()
-returns trigger
-language plpgsql
-security definer
-set search_path = public
-as $$
-begin
-  -- PostgREST führt Queries als 'authenticated'/'anon' aus; der Service-Key
-  -- läuft als 'service_role'. Serverseitige Writes passieren ungehindert.
-  if current_user in ('service_role', 'postgres', 'supabase_admin') then
-    return new;
-  end if;
-
-  if tg_op = 'INSERT' then
-    if coalesce(new.is_pro, false)
-       or new.pro_expires_at is not null
-       or new.stripe_customer_id is not null
-       or new.stripe_subscription_id is not null then
-      raise exception 'billing columns can only be set by the server';
-    end if;
-  elsif tg_op = 'UPDATE' then
-    if new.is_pro is distinct from old.is_pro
-       or new.pro_expires_at is distinct from old.pro_expires_at
-       or new.stripe_customer_id is distinct from old.stripe_customer_id
-       or new.stripe_subscription_id is distinct from old.stripe_subscription_id then
-      raise exception 'billing columns can only be changed by the server';
-    end if;
-  end if;
-
-  return new;
-end;
-$$;
-
-drop trigger if exists protect_profile_billing on public.profiles;
-create trigger protect_profile_billing
-  before insert or update on public.profiles
-  for each row execute function public.protect_profile_billing_columns();
+-- Der Trigger lässt service_role/postgres durch (Admin-Client, Rezept-Agent),
+-- blockiert aber die Rollen authenticated/anon.
 
 -- ── 2) user_recipes: importierte Rezepte nie öffentlich ──────────────────────
 

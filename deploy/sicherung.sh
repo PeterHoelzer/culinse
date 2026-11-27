@@ -92,7 +92,7 @@ echo "[$(date -Is)] Datenbank gesichert: $(basename "$DB_DATEI"), $((DB_GROESSE 
 
 # 2) Einstellungen des Servers (klein, aber ohne sie ist die Wiederherstellung mühsam)
 # Dazu gehört die Datenbank von Coolify: Nur dort stehen die Variablen der
-# Website (etwa die Stripe-Schlüssel) und alle Einstellungen der Anwendung. Die
+# Website (etwa die Schlüssel zur Datenbank) und alle Einstellungen der Anwendung. Die
 # Werte sind darin mit dem APP_KEY aus data/coolify/source/.env verschlüsselt,
 # der ebenfalls in diesem Paket liegt. Der Abzug liegt nur während des Packens
 # unverschlüsselt im Sicherungsordner.

@@ -11,8 +11,8 @@ Bestätigungs-Mail.
 Alle Mails an Besucher kommen vom Anmeldedienst (GoTrue `v2.197.0`, eigener
 Server, `/opt/supabase`). Versand über Resend, Absender „Culinse“
 `noreply@culinse.com`. Die Website selbst verschickt keine Mails: Der Newsletter
-speichert nur Adressen, Rechnungen kämen von Stripe, die Störungs-Mails der
-Überwachung gehen nur an Peter.
+speichert nur Adressen, Rechnungen gibt es nicht (alles ist kostenlos), die
+Störungs-Mails der Überwachung gehen nur an Peter.
 
 | Vorlage | Wann | Wird heute ausgelöst von |
 |---|---|---|

@@ -9,61 +9,30 @@
 --
 -- Rückweg:
 --   1) supabase/security_hardening.sql noch einmal einspielen (alte Fassung der
---      beiden Funktionen),
+--      Funktion für importierte Rezepte),
 --   2) grant select on public.affiliate_clicks_daily to anon, authenticated;
 --      (nur solange es die Ansicht noch gibt, siehe Abschnitt 2)
 --   3) update storage.buckets set allowed_mime_types = null where id = 'recipe-media';
 
--- ── 1) Die beiden Schutz-Trigger wirken lassen ───────────────────────────────
--- supabase/security_hardening.sql legt zwei Funktionen als "security definer"
--- an und lässt darin durch, wer als service_role, postgres oder supabase_admin
+-- ── 1) Den Schutz-Trigger für importierte Rezepte wirken lassen ──────────────
+-- supabase/security_hardening.sql legte die Funktion als "security definer" an
+-- und ließ darin durch, wer als service_role, postgres oder supabase_admin
 -- arbeitet. In einer "security definer"-Funktion ist current_user aber der
 -- Eigentümer der Funktion (postgres), nicht der Aufrufer. Die Bedingung war
--- deshalb immer wahr, beide Trigger haben nie etwas verhindert:
---   · Ein angemeldeter Nutzer konnte sich selbst is_pro setzen oder eine fremde
---     stripe_customer_id eintragen (und damit über /api/stripe/portal das
---     Abrechnungsportal eines fremden Kunden öffnen).
---   · Ein importiertes Rezept (fremde Texte und Fotos) ließ sich an der Website
---     vorbei öffentlich schalten.
+-- deshalb immer wahr, der Trigger hat nie etwas verhindert: Ein importiertes
+-- Rezept (fremde Texte und Fotos) ließ sich an der Website vorbei öffentlich
+-- schalten.
 -- Mit "security invoker" ist current_user die Rolle des Aufrufers:
 -- authenticated/anon über die öffentliche Schnittstelle, service_role für den
 -- Server, postgres/supabase_admin für Arbeiten direkt an der Datenbank.
-
-create or replace function public.protect_profile_billing_columns()
-returns trigger
-language plpgsql
-security invoker
-set search_path = public
-as $$
-begin
-  if current_user in ('service_role', 'postgres', 'supabase_admin') then
-    return new;
-  end if;
-
-  if tg_op = 'INSERT' then
-    if coalesce(new.is_pro, false)
-       or new.pro_expires_at is not null
-       or new.stripe_customer_id is not null
-       or new.stripe_subscription_id is not null then
-      raise exception 'billing columns can only be set by the server';
-    end if;
-  elsif tg_op = 'UPDATE' then
-    if new.is_pro is distinct from old.is_pro
-       or new.pro_expires_at is distinct from old.pro_expires_at
-       or new.stripe_customer_id is distinct from old.stripe_customer_id
-       or new.stripe_subscription_id is distinct from old.stripe_subscription_id then
-      raise exception 'billing columns can only be changed by the server';
-    end if;
-  end if;
-
-  return new;
-end;
-$$;
-
-drop trigger if exists protect_profile_billing on public.profiles;
-create trigger protect_profile_billing
-  before insert or update on public.profiles
-  for each row execute function public.protect_profile_billing_columns();
+--
+-- Bis 27.11.2026 stand hier auch der Schutz der Abrechnungsspalten im Profil
+-- (Funktion protect_profile_billing_columns, Trigger protect_profile_billing).
+-- Seit es kein Pro und kein Stripe mehr gibt, braucht die Website die Spalten
+-- is_pro, pro_expires_at, stripe_customer_id und stripe_subscription_id nicht
+-- mehr; supabase/pro_spalten_entfernen.sql löscht sie samt Trigger und
+-- Funktion. Der Trigger darf hier NICHT wieder angelegt werden: Ohne die
+-- Spalten bräche er jede Änderung an einem Profil mit einer Fehlermeldung ab.
 
 create or replace function public.block_public_imported_recipes()
 returns trigger
@@ -121,46 +90,6 @@ set allowed_mime_types = array[
 ]
 where id = 'recipe-media';
 
--- ── Probe: Greift der Schutz der Abrechnungsspalten jetzt? ───────────────────
--- Versucht als gewöhnlicher angemeldeter Nutzer, im eigenen Profil is_pro zu
--- ändern. Der Versuch wird in jedem Fall zurückgerollt; es ändert sich nichts.
-
-do $$
-declare
-  uid uuid;
-  n integer;
-  ergebnis text;
-begin
-  select id into uid from public.profiles limit 1;
-  if uid is null then
-    raise notice 'Probe Abrechnungsspalten: übersprungen (kein Profil vorhanden)';
-    return;
-  end if;
-  begin
-    perform set_config('request.jwt.claims', json_build_object('sub', uid, 'role', 'authenticated')::text, true);
-    perform set_config('request.jwt.claim.sub', uid::text, true);
-    set local role authenticated;
-    update public.profiles set is_pro = not coalesce(is_pro, false) where id = uid;
-    get diagnostics n = row_count;
-    if n = 0 then
-      raise exception 'PROBE_KEINE_ZEILE';
-    end if;
-    raise exception 'PROBE_NICHT_VERHINDERT';
-  exception when others then
-    if sqlerrm = 'PROBE_NICHT_VERHINDERT' then
-      ergebnis := 'FEHLER: Die Änderung ging durch. Bitte Bescheid sagen.';
-    elsif sqlerrm = 'PROBE_KEINE_ZEILE' then
-      ergebnis := 'in Ordnung: Nutzer dürfen ihr Profil auf diesem Weg gar nicht ändern.';
-    elsif sqlerrm like 'billing columns%' then
-      ergebnis := 'in Ordnung: Der Trigger hat die Änderung verhindert.';
-    else
-      ergebnis := 'unklar, Meldung der Datenbank: ' || sqlerrm;
-    end if;
-  end;
-  raise notice 'Probe Abrechnungsspalten: %', ergebnis;
-end;
-$$;
-
 -- ── Bericht ──────────────────────────────────────────────────────────────────
 -- Liest nur. Zeigt, was nicht im Projekt steht und nur hier zu sehen ist.
 
@@ -168,7 +97,7 @@ select 'Bericht 1: Schutz-Funktionen (definer muss f sein)' as abschnitt;
 select proname as funktion, prosecdef as definer, pg_get_userbyid(proowner) as eigentuemer
 from pg_proc
 where pronamespace = 'public'::regnamespace
-  and proname in ('protect_profile_billing_columns', 'block_public_imported_recipes', 'handle_new_user', 'page_view_stats')
+  and proname in ('block_public_imported_recipes', 'handle_new_user', 'page_view_stats')
 order by 1;
 
 select 'Bericht 2: Tabellen und Zugriffsschutz (rls muss t sein)' as abschnitt;

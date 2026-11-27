@@ -11,8 +11,6 @@ NEXT_PUBLIC_APPLE_LOGIN=        # leer lassen: Der Knopf „Mit Apple anmelden�
 # --- Nur zur Laufzeit (geheim) ---
 SUPABASE_SERVICE_ROLE_KEY=      # Server-Schlüssel zur obigen Supabase-Adresse (in Stufe 2 der neue)
 INTERNAL_API_URL=               # http://127.0.0.1:3000 – eigene API ohne Umweg über das Internet. NICHT als Bau-Variable setzen
-STRIPE_SECRET_KEY=              # nur noch für früher abgeschlossene Abos (Webhook, Kundenportal); seit 25.11.2026 kein Kaufweg mehr
-STRIPE_WEBHOOK_SECRET=
 DEEPL_API_KEY=
 MYMEMORY_EMAIL=
 CULINSE_OWNER_ID=
