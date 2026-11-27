@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Wordmark from "@/components/ui/Wordmark";
 
-// Widerrufsbelehrung fuer das fruehere Culinse-Pro-Abo (Verbraucher, digitale Dienstleistung).
-// Seit 25.11.2026 gibt es kein kostenpflichtiges Angebot mehr; die Belehrung bleibt fuer
-// frueher abgeschlossene Vertraege stehen, bis Peter ueber die Rechtstexte entschieden hat.
+// Widerrufsbelehrung fuer die Nutzung von Culinse mit einem kostenlosen Konto
+// (Verbraucher, digitale Dienstleistung). Seit 25.11.2026 gibt es kein Abo und
+// keine Zahlungen mehr; seit 27.11.2026 steht hier nichts mehr zu Culinse Pro.
+// Ob die Seite ohne Bezahlangebot ueberhaupt bleiben soll, entscheidet Peter;
+// der Abschnitt "Folgen des Widerrufs" weicht vom gesetzlichen Muster ab, weil
+// es nichts zurueckzuzahlen gibt (Pruefung durch Generator/Anwalt empfohlen).
 
 export async function generateMetadata({
   params,
@@ -16,8 +19,8 @@ export async function generateMetadata({
   return {
     title: de ? "Widerrufsbelehrung" : "Cancellation Policy",
     description: de
-      ? "Widerrufsbelehrung und Muster-Widerrufsformular für früher abgeschlossene Abos bei Culinse."
-      : "Right of withdrawal and model withdrawal form for subscriptions taken out with Culinse in the past.",
+      ? "Widerrufsbelehrung und Muster-Widerrufsformular für das kostenlose Konto bei Culinse."
+      : "Right of withdrawal and model withdrawal form for the free Culinse account.",
     alternates: {
       canonical: `https://culinse.com/${locale}/widerruf`,
       languages: {
@@ -44,7 +47,7 @@ export default async function Widerruf({
 
 An: Culinse — Betreiber siehe Impressum, E-Mail: peter@hoelzer.xyz
 
-Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung: Culinse Pro
+Hiermit widerrufe(n) ich/wir (*) den von mir/uns (*) abgeschlossenen Vertrag über die Erbringung der folgenden Dienstleistung: Nutzung von Culinse (kostenloses Konto)
 
 Bestellt am (*)/erhalten am (*):
 Name des/der Verbraucher(s):
@@ -59,7 +62,7 @@ Datum:
 
 To: Culinse — operator see legal notice, email: peter@hoelzer.xyz
 
-I/we (*) hereby withdraw from the contract concluded by me/us (*) for the provision of the following service: Culinse Pro
+I/we (*) hereby withdraw from the contract concluded by me/us (*) for the provision of the following service: use of Culinse (free account)
 
 Ordered on (*)/received on (*):
 Name of consumer(s):
@@ -82,8 +85,8 @@ Date:
         </h1>
         <p className="text-base text-ink leading-relaxed mb-10">
           {de
-            ? "Culinse ist für alle kostenlos; ein kostenpflichtiges Angebot gibt es nicht mehr. Diese Widerrufsbelehrung gilt nur noch für früher abgeschlossene Abos von Culinse Pro."
-            : "Culinse is free for everyone; there is no longer a paid offering. This cancellation policy only applies to Culinse Pro subscriptions taken out in the past."}
+            ? "Culinse ist für alle kostenlos; es gibt kein Abo, und es fallen keine Zahlungen an. Diese Widerrufsbelehrung gilt für die Nutzung von Culinse mit einem kostenlosen Konto."
+            : "Culinse is free for everyone; there is no subscription and no payments are due. This cancellation policy applies to using Culinse with a free account."}
         </p>
 
         <section>
@@ -103,19 +106,8 @@ Date:
           </h2>
           <p className="text-base text-ink leading-relaxed">
             {de
-              ? "Wenn du diesen Vertrag widerrufst, haben wir dir alle Zahlungen, die wir von dir erhalten haben, unverzüglich und spätestens binnen vierzehn Tagen ab dem Tag zurückzuzahlen, an dem die Mitteilung über deinen Widerruf dieses Vertrags bei uns eingegangen ist. Für diese Rückzahlung verwenden wir dasselbe Zahlungsmittel, das du bei der ursprünglichen Transaktion eingesetzt hast, es sei denn, mit dir wurde ausdrücklich etwas anderes vereinbart; in keinem Fall werden dir wegen dieser Rückzahlung Entgelte berechnet. Hast du verlangt, dass die Dienstleistung während der Widerrufsfrist beginnen soll, so hast du uns einen angemessenen Betrag zu zahlen, der dem Anteil der bis zur Mitteilung des Widerrufs bereits erbrachten Dienstleistung im Vergleich zum Gesamtumfang der vorgesehenen Dienstleistung entspricht."
-              : "If you withdraw from this contract, we shall reimburse all payments received from you without undue delay and at the latest within fourteen days from the day on which we received notice of your withdrawal. We will use the same means of payment as you used for the initial transaction, unless expressly agreed otherwise with you; in no event will you be charged any fees for this reimbursement. If you requested that the service begin during the withdrawal period, you shall pay us a reasonable amount corresponding to the proportion of the service already provided up to the time you notified us of the withdrawal, compared with the full scope of the contracted service."}
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-h2-sm mt-10 mb-3">
-            {de ? "Hinweis zur Testphase" : "Note on the free trial"}
-          </h2>
-          <p className="text-base text-ink leading-relaxed">
-            {de
-              ? "Culinse Pro beginnt mit einer 7-tägigen kostenlosen Testphase; abgebucht wird erst nach deren Ende. Kündigst du innerhalb der Testphase über dein Profil, entstehen keine Kosten — unabhängig vom Widerrufsrecht, das dir daneben zusteht."
-              : "Culinse Pro starts with a 7-day free trial; you are only charged after it ends. If you cancel during the trial via your profile, nothing is charged — independently of your statutory right of withdrawal, which exists alongside."}
+              ? "Wenn du diesen Vertrag widerrufst, endet deine Nutzung von Culinse mit einem Konto. Culinse ist kostenlos: Wir haben von dir keine Zahlungen erhalten, es ist deshalb nichts zurückzuzahlen, und du schuldest uns auch für die bis dahin genutzte Zeit nichts. Dein Konto und die darin gespeicherten Daten löschen wir nach deinem Widerruf."
+              : "If you withdraw from this contract, your use of Culinse with an account ends. Culinse is free: we have not received any payments from you, so there is nothing to reimburse, and you owe us nothing for the time you have already used the service. After your withdrawal we delete your account and the data stored in it."}
           </p>
         </section>
 

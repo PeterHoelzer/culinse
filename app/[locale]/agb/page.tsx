@@ -42,19 +42,19 @@ const DE_SECTIONS: Sec[] = [
   },
   {
     t: "2. Leistungsbeschreibung",
-    b: "Culinse ist ein Rezept- und Wochenplaner-Dienst. Alle Funktionen sind kostenlos: Rezepte entdecken, Suche, Rezepte speichern, Sammlungen, Wochenplaner, automatische Einkaufsliste, eigene Rezepte und Einkaufsrechner. Um Rezepte zu speichern und Sammlungen, Wochenplaner, Einkaufsliste und eigene Rezepte zu nutzen, ist ein kostenloses Konto nötig. Das kostenpflichtige Abo Culinse Pro wird nicht mehr angeboten; Abschnitt 4 gilt nur noch für früher abgeschlossene Abos.",
+    b: "Culinse ist ein Rezept- und Wochenplaner-Dienst. Alle Funktionen sind kostenlos: Rezepte entdecken, Suche, Rezepte speichern, Sammlungen, Wochenplaner, automatische Einkaufsliste, eigene Rezepte und Einkaufsrechner. Um Rezepte zu speichern und Sammlungen, Wochenplaner, Einkaufsliste und eigene Rezepte zu nutzen, ist ein kostenloses Konto nötig.",
   },
   {
     t: "3. Registrierung und Konto",
     b: "Für einige Funktionen ist ein kostenloses Konto erforderlich. Du musst bei der Registrierung wahrheitsgemäße Angaben machen, deine Zugangsdaten geheim halten und uns eine missbräuchliche Nutzung deines Kontos umgehend melden. Die Nutzung setzt ein Mindestalter von 16 Jahren voraus. Ein Anspruch auf Registrierung besteht nicht.",
   },
   {
-    t: "4. Culinse Pro: Preise, Laufzeit, Kündigung",
-    b: "Culinse Pro ist ein Abonnement mit monatlicher oder jährlicher Laufzeit; der jeweils gültige Preis wird vor dem Abschluss angezeigt. Neue Abos beginnen mit einer 7-tägigen kostenlosen Testphase; erst nach deren Ablauf wird der gewählte Preis über unseren Zahlungsdienstleister Stripe abgebucht. Wenn du in der Testphase kündigst, entstehen keine Kosten. Das Abo verlängert sich automatisch um die jeweilige Laufzeit, wenn es nicht vor Ablauf der laufenden Periode über dein Profil (Abo verwalten) gekündigt wird. Die Kündigung ist jederzeit zum Ende der laufenden Periode möglich; bereits gezahlte Entgelte für die laufende Periode werden nicht erstattet, dein Pro-Zugang bleibt bis zum Periodenende bestehen.",
+    t: "4. Kosten",
+    b: "Die Nutzung von Culinse ist kostenlos. Es gibt kein Abo und keine kostenpflichtigen Funktionen; Zahlungen fallen nicht an. Du kannst die Nutzung jederzeit beenden, eine Kündigungsfrist gibt es nicht.",
   },
   {
     t: "5. Widerrufsrecht",
-    b: "Verbrauchern steht ein gesetzliches Widerrufsrecht von 14 Tagen zu. Einzelheiten, Rechtsfolgen und das Muster-Widerrufsformular findest du in der Widerrufsbelehrung.",
+    b: "Culinse ist kostenlos; es gibt kein Abo, und es fallen keine Zahlungen an. Das gesetzliche Widerrufsrecht von 14 Tagen für Verbraucher bleibt davon unberührt. Einzelheiten und das Muster-Widerrufsformular findest du in der Widerrufsbelehrung.",
     link: { href: "/widerruf", label: "Zur Widerrufsbelehrung" },
   },
   {
@@ -68,7 +68,7 @@ const DE_SECTIONS: Sec[] = [
   },
   {
     t: "8. Verfügbarkeit und Weiterentwicklung",
-    b: "Wir bemühen uns um eine hohe Verfügbarkeit des Dienstes, schulden aber keine ununterbrochene Erreichbarkeit; Wartungsarbeiten und Störungen können zu vorübergehenden Einschränkungen führen. Wir dürfen den Dienst weiterentwickeln und Funktionen ändern, soweit dies für dich zumutbar ist und vertraglich zugesagte Kernfunktionen von Culinse Pro erhalten bleiben.",
+    b: "Wir bemühen uns um eine hohe Verfügbarkeit des Dienstes, schulden aber keine ununterbrochene Erreichbarkeit; Wartungsarbeiten und Störungen können zu vorübergehenden Einschränkungen führen. Wir dürfen den Dienst weiterentwickeln und Funktionen ändern, soweit dies für dich zumutbar ist.",
   },
   {
     t: "9. Haftung",
@@ -97,19 +97,19 @@ const EN_SECTIONS: Sec[] = [
   },
   {
     t: "2. Services",
-    b: "Culinse is a recipe and meal-planning service. All features are free: discovering recipes, search, saving recipes, collections, the weekly planner, the automatic shopping list, your own recipes and the grocery calculator. To save recipes and to use collections, the weekly planner, the shopping list and your own recipes, you need a free account. The paid Culinse Pro subscription is no longer offered; section 4 only applies to subscriptions taken out in the past.",
+    b: "Culinse is a recipe and meal-planning service. All features are free: discovering recipes, search, saving recipes, collections, the weekly planner, the automatic shopping list, your own recipes and the grocery calculator. To save recipes and to use collections, the weekly planner, the shopping list and your own recipes, you need a free account.",
   },
   {
     t: "3. Registration and account",
     b: "Some features require a free account. You must provide accurate information, keep your credentials confidential and notify us immediately of any misuse of your account. You must be at least 16 years old. There is no entitlement to registration.",
   },
   {
-    t: "4. Culinse Pro: prices, term, cancellation",
-    b: "Culinse Pro is a subscription with a monthly or annual term; the applicable price is shown before checkout. New subscriptions start with a 7-day free trial; only after the trial ends is the selected price charged via our payment provider Stripe. If you cancel during the trial, nothing is charged. The subscription renews automatically for the respective term unless cancelled before the end of the current period via your profile (manage subscription). You can cancel at any time effective at the end of the current period; fees already paid for the current period are not refunded, and your Pro access remains active until the period ends.",
+    t: "4. Costs",
+    b: "Using Culinse is free. There is no subscription and there are no paid features; no payments are due. You can stop using Culinse at any time; there is no notice period.",
   },
   {
     t: "5. Right of withdrawal",
-    b: "Consumers have a statutory 14-day right of withdrawal. Details, consequences and the model withdrawal form can be found in our cancellation policy.",
+    b: "Culinse is free; there is no subscription and no payments are due. The statutory 14-day right of withdrawal for consumers remains unaffected. Details and the model withdrawal form can be found in our cancellation policy.",
     link: { href: "/widerruf", label: "Cancellation policy" },
   },
   {
@@ -123,7 +123,7 @@ const EN_SECTIONS: Sec[] = [
   },
   {
     t: "8. Availability and changes to the service",
-    b: "We aim for high availability but do not owe uninterrupted access; maintenance and outages may lead to temporary restrictions. We may develop the service further and change features to the extent reasonable for you, provided the contractually promised core features of Culinse Pro are preserved.",
+    b: "We aim for high availability but do not owe uninterrupted access; maintenance and outages may lead to temporary restrictions. We may develop the service further and change features to the extent reasonable for you.",
   },
   {
     t: "9. Liability",
