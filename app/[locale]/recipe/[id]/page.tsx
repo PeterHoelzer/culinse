@@ -11,6 +11,7 @@ import { splitTitle } from "@/lib/recipeTitle";
 import { LANDINGS, keysForTags, type GroupId, type Landing } from "@/lib/browse/facets";
 import { landingPath } from "@/lib/browse/slugs";
 import { SEARCH_LOCALES } from "@/lib/searchLocales";
+import { isCoreRecipe } from "@/lib/coreRecipes";
 
 // CPU-Bremse (30.08.): Rezeptseiten sind Bot-Crawl-Ziel Nr. 1 (~1.300 Server-
 // Renders in 12 h) und standen fuer ~90 % der Vercel-Fluid-CPU (89 % des
@@ -210,6 +211,10 @@ export async function generateMetadata(
     title: seoTitle.absolute ? { absolute: title } : title,
     description,
     alternates: sharedAlternates,
+    // Nur Kernrezepte sollen in den Suchindex (lib/coreRecipes.ts). Die übrigen
+    // bleiben für Besucher da und für Crawler abrufbar, damit sie das "noindex"
+    // lesen und den Links der Seite weiter folgen.
+    ...(isCoreRecipe(id, recipe.family === true) ? {} : { robots: { index: false, follow: true } }),
     openGraph: {
       title,
       description,

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { SITEMAP_LOCALES } from "@/lib/sitemaps";
+import { isCoreRecipe } from "@/lib/coreRecipes";
+import { isFamilyRecipe } from "@/lib/culinse";
 
 /*
   Rezept-Sitemaps, eine je Sprache: /recipe-sitemap/sitemap/<sprache>.xml
@@ -18,6 +20,11 @@ import { SITEMAP_LOCALES } from "@/lib/sitemaps";
   ihre Sprachfassungen schon im <head>, seit 22.11.2026 nur noch die Sprachen
   dieser Sitemaps (lib/searchLocales.ts). Zwei Quellen dafür widersprachen
   sich vorher (Sitemap: nur de/en, Seite: alle 16).
+
+  Seit 27.11.2026 stehen nur noch die Kernrezepte in den Sitemaps
+  (lib/coreRecipes.ts, dort stehen Grund und Rückweg). Alle anderen Rezepte
+  tragen auf ihrer Seite "noindex"; eine Sitemap soll keine Adressen nennen,
+  die nicht in den Index sollen.
 */
 const baseUrl = "https://culinse.com";
 const LOCALES = SITEMAP_LOCALES;
@@ -29,7 +36,7 @@ export async function generateSitemaps() {
   return LOCALES.map((id) => ({ id }));
 }
 
-type Row = { id: string; created_at: string | null; updated_at: string | null };
+type Row = { id: string; user_id: string | null; created_at: string | null; updated_at: string | null };
 
 export default async function sitemap(props: { id: Promise<string> }): Promise<MetadataRoute.Sitemap> {
   const locale = await props.id;
@@ -41,7 +48,7 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
   for (let last = "00000000-0000-0000-0000-000000000000"; ; ) {
     const { data, error } = await admin
       .from("user_recipes")
-      .select("id, created_at, updated_at")
+      .select("id, user_id, created_at, updated_at")
       .eq("is_public", true)
       .eq("language", locale)
       .gt("id", last)
@@ -54,7 +61,9 @@ export default async function sitemap(props: { id: Promise<string> }): Promise<M
     last = data[data.length - 1].id;
   }
 
-  return rows.map((r) => ({
+  // Erst alle Zeilen holen, dann auf den Kern kürzen: Die Liste der Kern-IDs ist
+  // zu lang für die Adresse einer einzelnen Abfrage.
+  return rows.filter((r) => isCoreRecipe(r.id, isFamilyRecipe(r.user_id))).map((r) => ({
     url: `${baseUrl}/${locale}/recipe/user_${r.id}`,
     lastModified: new Date(r.updated_at ?? r.created_at ?? "2026-07-14"),
     changeFrequency: "monthly" as const,
