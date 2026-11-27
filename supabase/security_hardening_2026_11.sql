@@ -11,6 +11,7 @@
 --   1) supabase/security_hardening.sql noch einmal einspielen (alte Fassung der
 --      beiden Funktionen),
 --   2) grant select on public.affiliate_clicks_daily to anon, authenticated;
+--      (nur solange es die Ansicht noch gibt, siehe Abschnitt 2)
 --   3) update storage.buckets set allowed_mime_types = null where id = 'recipe-media';
 
 -- ── 1) Die beiden Schutz-Trigger wirken lassen ───────────────────────────────
@@ -94,7 +95,16 @@ create trigger block_public_imported
 -- Jeder Besucher konnte sie lesen (312 Zeilen). Der Server liest mit
 -- service_role und behält den Zugriff.
 
-revoke all on public.affiliate_clicks_daily from anon, authenticated;
+-- Seit 27.11.2026 kann die Ansicht fehlen (supabase/affiliate_clicks_entfernen.sql
+-- löscht sie samt Tabelle). Dann gibt es hier nichts zu tun, und der Lauf soll
+-- daran nicht scheitern.
+
+do $$
+begin
+  if to_regclass('public.affiliate_clicks_daily') is not null then
+    revoke all on public.affiliate_clicks_daily from anon, authenticated;
+  end if;
+end $$;
 
 -- ── 3) Öffentliche Ablage: nur bekannte Dateiarten ───────────────────────────
 -- In recipe-media liegen Rezeptbilder, Videos und die geteilten Wochenpläne
