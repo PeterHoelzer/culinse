@@ -254,7 +254,7 @@
     "loginSub": "Po přihlášení si můžeš ukládat recepty a získáš osobní přehled receptů.",
     "signupSub": "Navždy zdarma. Platební karta není potřeba.",
     "passwordLabel": "Heslo",
-    "passwordPlaceholder": "Min. 6 znaků",
+    "passwordPlaceholder": "Min. 8 znaků",
     "forgotPassword": "Zapomenuté heslo?",
     "loginButton": "Přihlásit se",
     "createButton": "Vytvořit účet",

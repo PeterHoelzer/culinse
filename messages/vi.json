@@ -254,7 +254,7 @@
     "loginSub": "Đăng nhập để lưu công thức và nhận bảng tin dành riêng cho bạn.",
     "signupSub": "Miễn phí trọn đời. Không cần thẻ tín dụng.",
     "passwordLabel": "Mật khẩu",
-    "passwordPlaceholder": "Tối thiểu 6 ký tự",
+    "passwordPlaceholder": "Tối thiểu 8 ký tự",
     "forgotPassword": "Quên mật khẩu?",
     "loginButton": "Đăng nhập",
     "createButton": "Tạo tài khoản",

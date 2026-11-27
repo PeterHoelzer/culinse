@@ -254,7 +254,7 @@
     "loginSub": "登录后即可收藏食谱，获取你的个性化推荐。",
     "signupSub": "永久免费，无需信用卡。",
     "passwordLabel": "密码",
-    "passwordPlaceholder": "至少 6 个字符",
+    "passwordPlaceholder": "至少 8 个字符",
     "forgotPassword": "忘记密码？",
     "loginButton": "登录",
     "createButton": "创建账户",

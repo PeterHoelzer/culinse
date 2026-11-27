@@ -254,7 +254,7 @@
     "loginSub": "Melde dich an, um Rezepte zu speichern und deinen persönlichen Feed zu erhalten.",
     "signupSub": "Für immer kostenlos. Keine Kreditkarte erforderlich.",
     "passwordLabel": "Passwort",
-    "passwordPlaceholder": "Min. 6 Zeichen",
+    "passwordPlaceholder": "Min. 8 Zeichen",
     "forgotPassword": "Passwort vergessen?",
     "loginButton": "Anmelden",
     "createButton": "Konto erstellen",

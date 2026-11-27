@@ -254,7 +254,7 @@
     "loginSub": "Zaloguj się, aby zapisywać przepisy i mieć swój osobisty feed.",
     "signupSub": "Za darmo na zawsze. Karta kredytowa nie jest wymagana.",
     "passwordLabel": "Hasło",
-    "passwordPlaceholder": "Min. 6 znaków",
+    "passwordPlaceholder": "Min. 8 znaków",
     "forgotPassword": "Nie pamiętasz hasła?",
     "loginButton": "Zaloguj się",
     "createButton": "Załóż konto",

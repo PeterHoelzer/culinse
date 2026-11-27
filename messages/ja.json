@@ -254,7 +254,7 @@
     "loginSub": "ログインすると、レシピを保存したり、あなた専用のフィードを受け取ったりできます。",
     "signupSub": "ずっと無料。クレジットカードは不要です。",
     "passwordLabel": "パスワード",
-    "passwordPlaceholder": "6文字以上",
+    "passwordPlaceholder": "8文字以上",
     "forgotPassword": "パスワードをお忘れですか？",
     "loginButton": "ログイン",
     "createButton": "アカウント作成",

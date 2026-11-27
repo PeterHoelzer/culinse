@@ -177,9 +177,11 @@ export default function LoginClient() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength={6}
+              // Die Mindestlänge gilt nur für neue Konten: Wer sich mit einem
+              // älteren, kürzeren Passwort anmeldet, darf nicht ausgesperrt werden.
+              minLength={mode === "signup" ? 8 : undefined}
               autoComplete={mode === "login" ? "current-password" : "new-password"}
-              placeholder={t("passwordPlaceholder")}
+              placeholder={mode === "signup" ? t("passwordPlaceholder") : undefined}
             />
 
             {error && <Notice tone="error">{error}</Notice>}

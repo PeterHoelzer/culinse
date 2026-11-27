@@ -254,7 +254,7 @@
     "loginSub": "Entre para salvar receitas e receber seu feed personalizado.",
     "signupSub": "Grátis para sempre. Sem necessidade de cartão de crédito.",
     "passwordLabel": "Senha",
-    "passwordPlaceholder": "Mín. 6 caracteres",
+    "passwordPlaceholder": "Mín. 8 caracteres",
     "forgotPassword": "Esqueceu a senha?",
     "loginButton": "Entrar",
     "createButton": "Criar conta",

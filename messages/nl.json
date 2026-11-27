@@ -254,7 +254,7 @@
     "loginSub": "Log in om recepten op te slaan en je persoonlijke feed te zien.",
     "signupSub": "Voor altijd gratis. Geen creditcard nodig.",
     "passwordLabel": "Wachtwoord",
-    "passwordPlaceholder": "Min. 6 tekens",
+    "passwordPlaceholder": "Min. 8 tekens",
     "forgotPassword": "Wachtwoord vergeten?",
     "loginButton": "Inloggen",
     "createButton": "Account aanmaken",

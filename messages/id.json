@@ -254,7 +254,7 @@
     "loginSub": "Masuk untuk menyimpan resep dan mendapatkan feed pribadimu.",
     "signupSub": "Gratis selamanya. Tidak perlu kartu kredit.",
     "passwordLabel": "Kata sandi",
-    "passwordPlaceholder": "Min. 6 karakter",
+    "passwordPlaceholder": "Min. 8 karakter",
     "forgotPassword": "Lupa kata sandi?",
     "loginButton": "Masuk",
     "createButton": "Buat akun",

@@ -50,9 +50,9 @@ export default function UpdatePasswordPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  minLength={6}
+                  minLength={8}
                   autoComplete="new-password"
-                  hint="At least 6 characters"
+                  hint="At least 8 characters"
                 />
                 <Input
                   label="Confirm password"
@@ -60,7 +60,7 @@ export default function UpdatePasswordPage() {
                   value={confirm}
                   onChange={(e) => setConfirm(e.target.value)}
                   required
-                  minLength={6}
+                  minLength={8}
                   autoComplete="new-password"
                   error={mismatch}
                 />

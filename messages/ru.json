@@ -254,7 +254,7 @@
     "loginSub": "Войди, чтобы сохранять рецепты и получать персональную ленту.",
     "signupSub": "Бесплатно навсегда. Банковская карта не нужна.",
     "passwordLabel": "Пароль",
-    "passwordPlaceholder": "Минимум 6 символов",
+    "passwordPlaceholder": "Минимум 8 символов",
     "forgotPassword": "Не помнишь пароль?",
     "loginButton": "Войти",
     "createButton": "Создать аккаунт",

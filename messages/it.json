@@ -254,7 +254,7 @@
     "loginSub": "Accedi per salvare le ricette e avere il tuo feed personale.",
     "signupSub": "Gratis per sempre. Nessuna carta di credito richiesta.",
     "passwordLabel": "Password",
-    "passwordPlaceholder": "Min. 6 caratteri",
+    "passwordPlaceholder": "Min. 8 caratteri",
     "forgotPassword": "Password dimenticata?",
     "loginButton": "Accedi",
     "createButton": "Crea account",

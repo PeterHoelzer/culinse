@@ -254,7 +254,7 @@
     "loginSub": "Connecte-toi pour enregistrer des recettes et retrouver ton fil personnalisé.",
     "signupSub": "Gratuit pour toujours. Aucune carte bancaire requise.",
     "passwordLabel": "Mot de passe",
-    "passwordPlaceholder": "6 caractères min.",
+    "passwordPlaceholder": "8 caractères min.",
     "forgotPassword": "Mot de passe oublié ?",
     "loginButton": "Se connecter",
     "createButton": "Créer un compte",

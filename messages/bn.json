@@ -254,7 +254,7 @@
     "loginSub": "রেসিপি সংরক্ষণ করতে এবং আপনার ব্যক্তিগত ফিড পেতে লগ ইন করুন।",
     "signupSub": "সবসময় বিনামূল্যে। কোনো ক্রেডিট কার্ড লাগবে না।",
     "passwordLabel": "পাসওয়ার্ড",
-    "passwordPlaceholder": "কমপক্ষে 6 অক্ষর",
+    "passwordPlaceholder": "কমপক্ষে 8 অক্ষর",
     "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?",
     "loginButton": "লগ ইন করুন",
     "createButton": "অ্যাকাউন্ট খুলুন",

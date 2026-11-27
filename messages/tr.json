@@ -254,7 +254,7 @@
     "loginSub": "Tarifleri kaydetmek ve kişisel akışına ulaşmak için giriş yap.",
     "signupSub": "Sonsuza dek ücretsiz. Kredi kartı gerekmez.",
     "passwordLabel": "Şifre",
-    "passwordPlaceholder": "En az 6 karakter",
+    "passwordPlaceholder": "En az 8 karakter",
     "forgotPassword": "Şifreni mi unuttun?",
     "loginButton": "Giriş yap",
     "createButton": "Hesap oluştur",
