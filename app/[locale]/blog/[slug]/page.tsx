@@ -9,6 +9,12 @@ import { blogPostsDe, getBlogPostDe } from "@/lib/blog-posts-de";
 import { blogSlugPair, crossLanguageBlogSlug } from "@/lib/blog-slug-map";
 import { renderRichText } from "@/lib/renderRichText";
 import { getVideoBySlug } from "@/lib/videos";
+import { loadBlogRecipes, recipeDuration } from "@/lib/blogRecipes";
+import { splitTitle } from "@/lib/recipeTitle";
+
+// Die Rezepte unter dem Artikel kommen aus der Datenbank (lib/blogRecipes.ts).
+// Einmal am Tag neu, damit geänderte Titel und Bilder ankommen.
+export const revalidate = 86400;
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -93,6 +99,9 @@ export default async function BlogPostPage({ params }: Props) {
 
   // Eigenes Koch-Video zum Artikel (12.10.2026) — ersetzt das Hero-Bild.
   const video = post.video ? getVideoBySlug(post.video) : undefined;
+
+  // Rezepte zum Thema des Artikels (27.11.2026): Die Ratgeber führen zu den Rezepten.
+  const recipes = await loadBlogRecipes(locale, post.slug);
 
   const allPosts = locale === "de" ? blogPostsDe : blogPosts;
   // Themen-Cluster: Artikel derselben Kategorie zuerst, dann der Rest — so
@@ -349,6 +358,63 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Author (E-E-A-T) */}
         <AuthorBox locale={locale} />
+
+        {/* Rezepte zum Thema: Karten wie auf der Stöberseite (DESIGN.md §5),
+            Foto 4:3, Metazeile, Serifen-Titel. Die ganze Karte ist der Link. */}
+        {recipes.length > 0 && (
+          <section className="mb-14">
+            <h2 className="mb-6 text-h2-sm text-ink">
+              {locale === "de" ? "Rezepte zum Nachkochen" : "Recipes to cook next"}
+            </h2>
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6">
+              {recipes.map((recipe) => {
+                const title = splitTitle(recipe.title);
+                const meta = [
+                  recipe.family ? (locale === "de" ? "Familienrezept" : "Family recipe") : null,
+                  recipe.minutes ? recipeDuration(recipe.minutes, locale) : null,
+                ].filter(Boolean);
+                return (
+                  <li key={recipe.id}>
+                    <Link href={`/${locale}/recipe/user_${recipe.id}`} className="group flex flex-col gap-3 rounded-2 no-underline">
+                      <div className="aspect-[4/3] w-full overflow-hidden rounded-2 bg-surface-soft">
+                        {recipe.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={recipe.image}
+                            alt={recipe.title}
+                            width={640}
+                            height={480}
+                            loading="lazy"
+                            style={recipe.imagePosition ? { objectPosition: recipe.imagePosition } : undefined}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center">
+                            <Icon name="utensils" size={32} className="text-line-strong" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        {meta.length > 0 && <p className="tabular text-sm text-ink-3">{meta.join(" · ")}</p>}
+                        <h3 className="text-h3 line-clamp-2 text-ink underline-offset-[3px] group-hover:underline">{title.main}</h3>
+                        {title.sub && <p className="line-clamp-1 text-sm text-ink-2">{title.sub}</p>}
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-8">
+              <Link
+                href={`/${locale}/recipes`}
+                className="inline-flex items-center gap-1.5 font-semibold text-ink underline underline-offset-[3px]"
+              >
+                {locale === "de" ? "Alle Rezepte durchstöbern" : "Browse all recipes"}
+                <Icon name="arrowRight" size={16} />
+              </Link>
+            </p>
+          </section>
+        )}
 
         {/* CTA */}
         <div className="mb-14 rounded-2 bg-surface-soft p-6">
